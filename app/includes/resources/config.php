@@ -1,5 +1,13 @@
 <?php
-session_name('__'.sha1(md5('secure'.$_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT'])));
+
+// Load environment variables from a .env file in the project root.
+require_once(__DIR__ . '/../Env.php');
+Env::load();
+
+// Session cookie name is built from the client IP and user agent.
+$session_ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+$session_ua = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
+session_name('__' . sha1(md5('secure' . $session_ip . $session_ua)));
 session_start();
 
 ob_start();
@@ -9,11 +17,11 @@ ini_set('default_charset', 'UTF-8');
 
 define('PATH', str_replace(PATH_SEPARATOR, '/', dirname(dirname(__FILE__))));
 
-# Informações para conexão ao MySQL
-$dbhost		= "localhost";
-$dblogin	= "u200265274_bkwl";
-$dbpassword	= "[2207023]";
-$dbdatabase	= "u200265274_pkwl";
+# Database connection settings (read from environment variables)
+$dbhost     = Env::get('DB_HOST', 'localhost');
+$dblogin    = Env::get('DB_USER', '');
+$dbpassword = Env::get('DB_PASSWORD', '');
+$dbdatabase = Env::get('DB_NAME', '');
 
 require_once(PATH.'/DB/DB.php');
 
@@ -21,17 +29,17 @@ foreach($_GET as $key=>$value) if (!is_array($value)) $_GET[$key] = DB::real_esc
 foreach($_POST as $key=> $value) if (!is_array($value)) $_POST[$key] = DB::real_escape_string($value);
 foreach($_COOKIE as $key=>$value) if (!is_array($value)) $_COOKIE[$key] = DB::real_escape_string($value);
 
-require_once(PATH.'/PHPMailer/class.phpmailer.php');
-require_once(PATH.'/PHPMailer/class.smtp.php');
+// Load PHPMailer 7 autoloader and alias for legacy `new PHPMailer()` calls.
+require_once(PATH.'/PHPMailer/autoload.php');
 
 require_once(PATH.'/resources/site_names.php');
 $static_url = 'public'; # sem "/" no final da pasta/url
 
 $smtp = [
-	'host'	=> 'smtp.hostinger.com.br',
-	'port'	=> '587',
-	'mail'	=> 'noreply@pokemonworldlegends.com',
-	'pass'	=> '[2207023]'
+	'host' => Env::get('SMTP_HOST', 'smtp.yourhost.com'),
+	'port' => Env::get('SMTP_PORT', '587'),
+	'mail' => Env::get('SMTP_MAIL', 'noreply@yourdomain.com'),
+	'pass' => Env::get('SMTP_PASS', '')
 ];
 
 #CONFIGURAÇÕES NEW YEAR SHOP
@@ -39,9 +47,8 @@ $shop_newyear = false;
 // NORMALMENTE INICIA DIA 31/12 E VAI ATE DIA 05/01 OU 10/01.
 
 #CONFIGURAÇÕES DE TRIPLE EXP NO FDS
-# EXP NOS FINAIS DE SEMANA? 
+# EXP NOS FINAIS DE SEMANA?
 # INICIA NA SEXTA 00:00 E FINALIZA NO DOMINGO 00:00
-################ CONFIGURAÇÕES DE TRIPLE EXP NO FDS
 $tripleexpfds = true;
 $doublesilverativo = true;
 $doublesilverdia = 6; //0=Dom,1=Seg,2=Ter,3=Qua,4=Qui,5=Sex,6=Sab

@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
   $ei     = $_POST['ei'];
 
   //Gegevens laden van speler
-  $aantal = mysqli_num_rows(DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$user_id."' AND `opzak`='ja'"));
+  $aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$user_id."' AND `opzak`='ja'")->num_rows;
 
   if ($user_id == '')
   	echo '<div class="red"> Digite um id de um treinador.</div>';
@@ -125,7 +125,7 @@ if (isset($_POST['submit'])) {
     //Als het ei een baby ei is
     else if ($ei == 3) {
       //Willekeurige pokemon laden, en daarvan de gegevens
-      $query = mysqli_fetch_array(DB::exQuery("SELECT pw.wild_id, pw.naam, pw.groei, pw.attack_base, pw.defence_base, pw.speed_base, `pw`.`spc.attack_base`, `pw`.`spc.defence_base`, pw.hp_base, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, pw.ability FROM pokemon_wild AS pw INNER JOIN pokemon_nieuw_baby AS pnb ON pw.wild_id = pnb.wild_id ORDER BY rand() LIMIT 1"));
+      $query = DB::exQuery("SELECT pw.wild_id, pw.naam, pw.groei, pw.attack_base, pw.defence_base, pw.speed_base, `pw`.`spc.attack_base`, `pw`.`spc.defence_base`, pw.hp_base, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, pw.ability FROM pokemon_wild AS pw INNER JOIN pokemon_nieuw_baby AS pnb ON pw.wild_id = pnb.wild_id ORDER BY rand() LIMIT 1")->fetch_array();
       //De willekeurige pokemon in de pokemon_speler tabel zetten
       DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`) SELECT `wild_id`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4` FROM `pokemon_wild` WHERE `wild_id`='".$query['wild_id']."'");
       //id opvragen van de insert hierboven
