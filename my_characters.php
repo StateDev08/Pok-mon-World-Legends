@@ -1,11 +1,11 @@
 <?php
 require_once('app/includes/resources/security-account.php');
 
-$sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`=" . $_SESSION['acc_id'] . " ORDER BY `rank` DESC,`user_id` ASC");
+$sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`=" . (int) $_SESSION['acc_id'] . " ORDER BY `rank` DESC,`user_id` ASC");
 if ($sql->num_rows < 1)	exit(header("LOCATION: ./new_character"));
 else {
-	if ($_POST['submit'] && is_numeric($_POST['user_id'])) {
-		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . $_POST['user_id'] . " LIMIT 1");
+	if (isset($_POST['submit']) && is_numeric($_POST['user_id'])) {
+		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . (int) $_POST['user_id'] . " LIMIT 1");
 		if ($geb_sql->num_rows != 1)	echo "<div class=\"red\">Personagem não encontrado!</div>";
 		else {
 			$geb_login = $geb_sql->fetch_assoc();
@@ -15,7 +15,7 @@ else {
 				# Ganha 3 dias premium
 				if ($geb_login['premiumaccount'] == 0) {
 					$endPremium = time() + (86400 * 3);
-					DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`=" . $endPremium . " WHERE `user_id`=" . $geb_login['user_id'] . " LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`=" . (int) $endPremium . " WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				}
 				$_SESSION['id'] = $geb_login['user_id'];
 				$_SESSION['naam'] = $geb_login['username'];
@@ -27,9 +27,9 @@ else {
 				$date_loh = date('H:i:s');
 
 				if (($date_lo) > ($geb_login['ultimo_login'])) {
-					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `antiguidade`=`antiguidade`+1, `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`={$geb_login['user_id']} LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `antiguidade`=`antiguidade`+1, `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				} else {
-					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`={$geb_login['user_id']} LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				}
 
 				exit(header("LOCATION: ./home"));

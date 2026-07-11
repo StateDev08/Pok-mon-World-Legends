@@ -7,7 +7,7 @@ if (isset($_POST['registreer'])) {
 	$wachtwoordmd5 = password($wachtwoord);
 	$email = $_POST['email'];
 	$others = $_POST['others'];
-	$ip = $_SERVER['REMOTE_ADDR'];
+	$ip = DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
 	$referer = $_POST['refferal'];
 	$black_list = array('yopmail.com');
 	$_yapMail = explode('@', $email);
