@@ -1,0 +1,7 @@
+.env
+.env.local
+.env.*.local
+*.log
+*.swp
+.DS_Store
+Thumbs.db

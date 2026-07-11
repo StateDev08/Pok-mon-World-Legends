@@ -21,7 +21,7 @@ if (isset($_GET['map'], $_GET['x'], $_GET['y'])) {
 	$time = time();
 	$x = (int) $_GET['x'];
 	$y = (int) $_GET['y'];
-	DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$x}',`map_y`='{$y}',`map_lastseen`='{$time}',`captcha_time`='{$time}' WHERE `user_id`='{$_SESSION['id']}'") or die(mysql_error());
+	DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$x}',`map_y`='{$y}',`map_lastseen`='{$time}',`captcha_time`='{$time}' WHERE `user_id`='{$_SESSION['id']}'");
 	header('Location: ./eventos&actual=safari&map=' . $map);
 }
 
@@ -38,7 +38,7 @@ if (empty($map)) {
 $time = time();
 
 $tenMinsAgo = $time - (60 * 10);
-$usersQuery = DB::exQuery("SELECT * FROM `gebruikers` WHERE `map_num`='{$map}' AND `map_lastseen`>='{$tenMinsAgo}'") or die(mysql_error());
+$usersQuery = DB::exQuery("SELECT * FROM `gebruikers` WHERE `map_num`='{$map}' AND `map_lastseen`>='{$tenMinsAgo}'");
 $numUsersOnMap = $usersQuery->num_rows;
 $usersArray = array();
 
@@ -60,7 +60,7 @@ while ($user = $usersQuery->fetch_assoc()) {
 	$usersArray[$i]['in_battle']  = $user['in_battle'];
 	$i++;
 }
-DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$startX}',`map_y`='{$startY}',`map_lastseen`='{$time}' WHERE `user_id`='{$_SESSION['id']}'") or die(mysql_error());
+DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$startX}',`map_y`='{$startY}',`map_lastseen`='{$time}' WHERE `user_id`='{$_SESSION['id']}'");
 
 if (!$onMap)
 	$numUsersOnMap++;

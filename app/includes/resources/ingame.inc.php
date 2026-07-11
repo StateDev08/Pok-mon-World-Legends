@@ -1248,7 +1248,7 @@ function createKey($size = 6) {
 	$letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	$key = "";
 	for($i=1;$i<=$size;++$i) {
-		$key .= $letters{rand(0, 61)};
+		$key .= $letters[rand(0, 61)];
 	}
 	return $key;
 }

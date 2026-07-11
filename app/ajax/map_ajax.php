@@ -27,7 +27,7 @@ $time = time();
 		
 // break;
 
-DB::exQuery("UPDATE `gebruikers` SET `map_num`='".$map."', `map_x`='".$x."', `map_y`='".$y."', `map_lastseen`='".$time."',`captcha_time`='{$time}' WHERE `user_id`='".$uid."'") or die(mysql_error());
+DB::exQuery("UPDATE `gebruikers` SET `map_num`='".$map."', `map_x`='".$x."', `map_y`='".$y."', `map_lastseen`='".$time."',`captcha_time`='{$time}' WHERE `user_id`='".$uid."'");
 
 $random = rand(1,10);
 // $random = 1;
@@ -77,12 +77,12 @@ if($random <= 8) {
 					VALUES ('".$_SESSION['acc_id']."','".$_SESSION['naam']."','".$event."')"); 
 			}
 					
-			$levelenquery = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='".$wild_id."' AND `level`<='".$randomLevel."' AND wat='evo' LIMIT 1") or die(mysql_error());
+			$levelenquery = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='".$wild_id."' AND `level`<='".$randomLevel."' AND wat='evo' LIMIT 1");
 			$groei = $levelenquery->fetch_array();
 			if($randomLevel >= $groei['level']){
 				if($groei['wat'] == "evo"){
 					$evo = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `wild_id`='".$groei['nieuw_id']."'")->fetch_array();
-					$levelenquery2 = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='".$evo['wild_id']."' AND `level`<='".$randomLevel."' AND wat='evo' LIMIT 1") or die(mysql_error());
+					$levelenquery2 = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='".$evo['wild_id']."' AND `level`<='".$randomLevel."' AND wat='evo' LIMIT 1");
 					$groei2 = $levelenquery2->fetch_array();
 					if($groei2['wat'] == "evo"){
 						$evo2 = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `wild_id`='".$groei2['nieuw_id']."'")->fetch_array();
@@ -101,7 +101,7 @@ if($random <= 8) {
 				}
 			}
 				
-			$query = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `wild_id`='".$wild_id."' LIMIT 1") or die(mysql_error());
+			$query = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `wild_id`='".$wild_id."' LIMIT 1");
 			if ($query->num_rows == 1) {
 				$json = array('name'=>$new_wild_name, 'id'=>$new_wild_id, 'level'=>$randomLevel);
 				echo json_encode($json);
@@ -153,9 +153,9 @@ if($random <= 8) {
 
 //SECURITY
 if($new_wild_id && $randomLevel > 0){
-	DB::exQuery("UPDATE `gebruikers` SET `map_wild`='".$new_wild_id."', `pokemon_level`='".$randomLevel."' WHERE `user_id`='".$uid."'") or die(mysql_error());
+	DB::exQuery("UPDATE `gebruikers` SET `map_wild`='".$new_wild_id."', `pokemon_level`='".$randomLevel."' WHERE `user_id`='".$uid."'");
 } else {
-	DB::exQuery("UPDATE `gebruikers` SET `map_wild`='0' WHERE `user_id`='".$uid."'") or die(mysql_error());
+	DB::exQuery("UPDATE `gebruikers` SET `map_wild`='0' WHERE `user_id`='".$uid."'");
 }
 
 

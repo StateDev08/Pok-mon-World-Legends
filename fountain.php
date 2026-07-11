@@ -85,9 +85,9 @@ if(isset($_POST['normal'])){
 		$add_sql = [];
 		foreach ($update as $key => $value)
 			$add_sql[] = "`{$key}`='{$value}'";
-		DB::exQuery("UPDATE `pokemon_speler` SET " . implode(', ', $add_sql) . " WHERE `id` = '{$poke['id']}'") or die(mysql_error());
+		DB::exQuery("UPDATE `pokemon_speler` SET " . implode(', ', $add_sql) . " WHERE `id` = '{$poke['id']}'");
 
-		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'") or die(mysql_error());
+		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'");
 
 		$success = 'Seu ' . $poke['naam'] . ' foi rejuvenescido!';
 	}
@@ -265,9 +265,9 @@ if(isset($_POST['premium'])){
 			$add_sql = [];
 			foreach ($update as $key => $value)
 				$add_sql[] = "`{$key}`='{$value}'";
-			DB::exQuery("UPDATE `pokemon_speler` SET " . implode(', ', $add_sql) . " WHERE `id` = '{$poke['id']}'") or die(mysql_error());
+			DB::exQuery("UPDATE `pokemon_speler` SET " . implode(', ', $add_sql) . " WHERE `id` = '{$poke['id']}'");
 
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'") or die(mysql_error());
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'");
 			
 			if(!empty($text_add)) $text_add = "Você recebeu ".$text_add." de volta.";
 			if(!empty($text_add)) echo '<div class="blue">Feito, seu pokémon voltou ao normal. '.$text_add.'</div>';

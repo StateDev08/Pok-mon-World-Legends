@@ -33,8 +33,8 @@ if ($tour_sql->num_rows > 0) {
         $inserts--;
         DB::exQuery("INSERT INTO toernooi_ronde (toernooi, ronde, user_id_1, gereed)
           VALUES ('".$tour['toernooi']."', '".$rondes."', '".$tickets['user_id']."', '2')");
-        array_push($ins_arr, mysqli_insert_id());
-        array_push($ver_arr, mysqli_insert_id());
+        array_push($ins_arr, DB::insertID());
+        array_push($ver_arr, DB::insertID());
       }
       else{
         shuffle($ins_arr);
@@ -50,7 +50,7 @@ if ($tour_sql->num_rows > 0) {
         shuffle($ver_arr);
         DB::exQuery("INSERT INTO toernooi_ronde (toernooi, ronde, user_id_1, user_id_2)
           VALUES ('".$tour['toernooi']."', '".$rondes."', '-".array_pop($ver_arr)."', '-".array_pop($ver_arr)."')");
-        array_push($new_ver_arr, mysqli_insert_id());
+        array_push($new_ver_arr, DB::insertID());
         $inserts--;
       }
       $ver_arr = $new_ver_arr;

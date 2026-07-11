@@ -1,5 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Do not expose .env files through the web server
+    RewriteRule \.env$ - [F,L]
+
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{SCRIPT_FILENAME} !-d
 
@@ -7,3 +11,14 @@
 </IfModule> 
 
 Options -Indexes
+
+# Additional protection for .env files
+<FilesMatch "\.env$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
