@@ -1262,10 +1262,14 @@ function password($password) {
 }
 
 function salvaLogAdmin($quem,$acao,$mensagem) {
-	$ip = $_SERVER['REMOTE_ADDR']; // Salva o IP do visitante
+	$ip = DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0'); // Salva o IP do visitante
 	$hora = date('Y-m-d H:i:s'); // Salva a data e hora atual (formato MySQL)
 
 	// Monta a query para inserir o log no sistema
+	$quem = DB::real_escape_string($quem);
+	$acao = DB::real_escape_string($acao);
+	$mensagem = DB::real_escape_string($mensagem);
+
 	$sql = "INSERT INTO `logs` VALUES (NULL, '".$quem."', '".$hora."', '".$ip."', '".$acao."', '".$mensagem."')";
 
 	DB::exQuery($sql);

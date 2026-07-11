@@ -1,16 +1,72 @@
 <?php
-		
+
+// Basic validation for the ?page= route. Prevents path traversal and blocks
+// arbitrary include files in app/includes/resources that are not real pages.
+function isAllowedPage($page) {
+    if ($page === '') {
+        return true;
+    }
+
+    // Only allow a known-safe character set.
+    $page = preg_replace('/[^a-zA-Z0-9\/\-_]/', '', $page);
+    $page = str_replace('..', '', $page);
+    $page = ltrim($page, '/');
+
+    if ($page === '') {
+        return true;
+    }
+
+    // The router entry point itself must not be included as a page.
+    if ($page === 'index') {
+        return false;
+    }
+
+    // Block directories that contain non-page code (classes, cron, ajax, WordPress, etc).
+    $blockedPrefixes = ['app/', 'language/', 'checkwp/', 'public/'];
+    // app/includes/resources is mostly include/config code; only a few entries
+    // are intended to be routed to as pages.
+    $allowedResources = ['poke-newattack', 'poke-evolve', 'wait'];
+    $allowedPrefixes = [
+        'app/includes/resources/pages/',
+        'app/includes/resources/events/pages/',
+    ];
+
+    foreach ($blockedPrefixes as $prefix) {
+        if (strpos($page, $prefix) === 0) {
+            foreach ($allowedPrefixes as $allowed) {
+                if (strpos($page, $allowed) === 0) {
+                    return true;
+                }
+            }
+            if ($prefix === 'app/' && strpos($page, 'app/includes/resources/') === 0) {
+                return in_array(substr($page, strlen('app/includes/resources/')), $allowedResources, true);
+            }
+            return false;
+        }
+    }
+
+    return true;
+}
+
 require_once('app/includes/resources/config.php');
 require_once('language/language-general.php');
 require_once('app/includes/resources/ingame.inc.php');
 
 #Load Page
-$page = $_GET['page'];
+$page = $_GET['page'] ?? '';
+$page = preg_replace('/[^a-zA-Z0-9\/\-_]/', '', $page);
+$page = str_replace('..', '', $page);
+$page = ltrim($page, '/');
+$page = preg_replace('#/{2,}#', '/', $page);
+
+if (!empty($page) && !isAllowedPage($page)) {
+    $page = 'notfound';
+}
 
 $mostraanuncios = false; //MOSTRA GOOGLE ADS ?
 $events_count = 0;
 
-$ip = $_SERVER['REMOTE_ADDR'];
+$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
 // if (!in_array($ip, array())) {
 // 	$page = 'app/includes/resources/pages/aguardem';
@@ -146,7 +202,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
               VALUES ('" . date('Y-m-d H:i:s') . "', '" . $_SESSION['id'] . "', 'Sua batalha no torneio irá começar em &plusmn;" . $time . " minutos. Certifique-se que seus pokémons estão prontos.');");
                     }
                     header("refresh: " . $tour_over . "; url=attack/tour_fight");
-                } else if (($tour_over > -90 AND $tour_over < 0) AND ( $_GET['page'] != "attack/tour_fight") AND ( $_GET['page'] != "attack/duel/duel-attack")) {
+                } else if (($tour_over > -90 AND $tour_over < 0) AND ( $page != "attack/tour_fight") AND ( $page != "attack/duel/duel-attack")) {
                     $_SESSION['toernooi_sent'] = FALSE;
                     $page = 'attack/tour_fight';
                 }
@@ -176,7 +232,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		$gebruiker_pokemon['procent'] = round((count($result) / $num_pokes) * 100);
 
 		if ($page != 'choose-pokemon' && $gebruiker['eigekregen'] == 0) {
-			if (!in_array($_GET['page'], $pagesAllowerGlobal))
+			if (!in_array($page, $pagesAllowerGlobal))
 				exit(header("LOCATION: ./choose-pokemon"));
 		}
 
@@ -249,8 +305,8 @@ $captcha_time = ($gebruiker['premiumaccount'] > time()) ? 1200 : 600;
 if (empty($page))	$page = 'home';
 else if (!file_exists($page . '.php')) $page = 'notfound';
 else if (empty($_SESSION['id']))	$page = $page;
-else if (in_array($page, $pagesAllowerGlobal)) $page = $_GET['page'];
-else if (($gebruiker['captcha_time'] + $captcha_time) < time() && in_array($_GET['page'], $captcha_page_check))	$page = 'captcha';
+else if (in_array($page, $pagesAllowerGlobal)) $page = $page;
+else if (($gebruiker['captcha_time'] + $captcha_time) < time() && in_array($page, $captcha_page_check))	$page = 'captcha';
 else if ($gebruiker['pagina'] == 'trainer-attack') $page = 'attack/trainer/trainer-attack';
 else if ($gebruiker['pagina'] == 'attack') $page = 'attack/wild/wild-attack';
 else if (DB::exQuery("SELECT * FROM `duel` WHERE `uitdager`='" . $gebruiker['username'] . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1")->num_rows == 1) $page = 'attack/duel/invite';
@@ -270,7 +326,7 @@ else {
 		$page = "attack/trainer/trainer-attack";
 		$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`={$gebruiker['user_id']} AND `trainer`!='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
 		$_SESSION['attack']['aanval_log_id'] = $res['id'];
-	} else if ($gebruiker['pagina'] == 'duel' && $duel_test->num_rows > 0)	$page = $_GET['page'];
+	} else if ($gebruiker['pagina'] == 'duel' && $duel_test->num_rows > 0)	$page = $page;
 	else if ($gebruiker['pagina'] == 'duel') {
 		$page = "attack/duel/duel-attack";
 		$res = DB::exQuery("SELECT `id` FROM `duel` WHERE (`tegenstander`='{$gebruiker['username']}' OR `uitdager`='{$gebruiker['username']}') AND `status`='accept' LIMIT 1")->fetch_assoc();

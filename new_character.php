@@ -1,13 +1,13 @@
 <?php
 require_once('app/includes/resources/security-account.php');
 
-$sql = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`=" . $_SESSION['acc_id']);
+$sql = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`=" . (int) $_SESSION['acc_id']);
 if ($sql->num_rows >= 7)	exit(header("LOCATION: ./my_characters"));
 else {
 	if (isset($_POST['submit'])) {
 		$inlognaam = $_POST['inlognaam'];
 		$wereld = $_POST['wereld'];
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
 		$character = $_POST['character'];
 
 		#Is er de afgelopen week al een account gemaakt?
@@ -16,7 +16,7 @@ else {
 	else if (strlen(trim($inlognaam)) > 12)	$alert = '<div class="red">O USUÁRIO NÃO DEVE CONTER MAIS DE 12 CARACTERES!</div>';
 		else if (!preg_match('/^([a-zA-Z0-9]+)$/is', $inlognaam))	$alert = '<div class="red">'.$txt['alert_username_incorrect_signs'].'</div>';
 		else if (DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `username`='" . $inlognaam . "' LIMIT 1")->num_rows != 0)	$alert = '<div class="red">'.$txt['alert_username_exists'].'</div>';
-		else if (DB::exQuery("SELECT `id` FROM `characters` WHERE `naam`='" . $character . "' LIMIT 1") != 1)	$alert = '<div class="red">'.$txt['alert_character_invalid'].'</div>';
+		else if (DB::exQuery("SELECT `id` FROM `characters` WHERE `naam`='" . $character . "' LIMIT 1")->num_rows != 1)	$alert = '<div class="red">'.$txt['alert_character_invalid'].'</div>';
 		else if (!isset($wereld))	$alert = '<div class="red">'.$txt['alert_no_beginworld'].'</div>';
 		else if ($wereld != 'Kanto' && $wereld != 'Johto' && $wereld != 'Hoenn' && $wereld != 'Sinnoh' && $wereld != 'Unova' && $wereld != 'Kalos' && $wereld != 'Alola')	$alert = '<div class="red">'.$txt['alert_world_invalid'].'</div>';
 		else if ($sql->num_rows >= 2 AND $rekening['gold'] < 10)	$alert = '<div class="red">Você não tem golds suficientes!</div>';
@@ -26,8 +26,8 @@ else {
 			$date_loh = date('H:i:s');
 			$unlock = $wereld.'_block';
 
-			DB::exQuery("INSERT INTO `gebruikers` (`ultimo_login`, `ultimo_login_hour`, `acc_id`,`character`,`username`,`datum`,`aanmeld_datum`,`ip_aangemeld`,`wereld`, `$unlock`) VALUES ('".$date_lo."', '".$date_loh."', " . $rekening['acc_id'] . ",'" . $character . "','" . $inlognaam . "', NOW(), NOW(),'" . $ip . "','" . $wereld . "', '1')");
-			if ($sql->num_rows >= 2) DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-10 WHERE `acc_id`={$rekening['acc_id']}");
+			DB::exQuery("INSERT INTO `gebruikers` (`ultimo_login`, `ultimo_login_hour`, `acc_id`,`character`,`username`,`datum`,`aanmeld_datum`,`ip_aangemeld`,`wereld`, `$unlock`) VALUES ('".$date_lo."', '".$date_loh."', " . (int) $rekening['acc_id'] . ",'" . $character . "','" . $inlognaam . "', NOW(), NOW(),'" . $ip . "','" . $wereld . "', '1')");
+			if ($sql->num_rows >= 2) DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-10 WHERE `acc_id`=" . (int) $rekening['acc_id']);
 			
 			#id opvragen van de gebruiker tabel van de gebruiker
 			$user_id = DB::insertID();

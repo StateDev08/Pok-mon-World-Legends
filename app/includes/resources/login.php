@@ -5,6 +5,8 @@ if (isset($_POST['login'])) {
     else if (empty($_POST['password']))
         $inlog_error = $txt['alert_no_password'];
     else {
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+        $ip_sql = DB::real_escape_string($ip);
         $sql = DB::exQuery("SELECT * FROM `rekeningen` WHERE `username`='" . $_POST['username'] . "' LIMIT 1");
         if ($sql->num_rows != 1)
             $inlog_error = $txt['alert_unknown_username'];
@@ -16,8 +18,8 @@ if (isset($_POST['login'])) {
 			$typppass = password($_POST['password']);
 			
 			if (!empty($rekening['shared']) && $rekening['shared'] != '') {
-				$shared = implode("','", explode(',', $rekening['shared']));
-				$sql2 = DB::exQuery ("SELECT * FROM `rekeningen` WHERE `wachtwoord`='$typppass' AND acc_id IN ('$shared')");
+				$shared = implode(',', array_map('intval', explode(',', $rekening['shared'])));
+				$sql2 = DB::exQuery ("SELECT * FROM `rekeningen` WHERE `wachtwoord`='$typppass' AND acc_id IN ($shared)");
 
 				if ($sql2->num_rows > 0) {
 					if ($rekening['locked'] < 1) {
@@ -31,7 +33,7 @@ if (isset($_POST['login'])) {
 			}
 
 			if ($continue) {
-				$inlog_foutx = DB::exQuery("SELECT `datum`, `ip`, `spelernaam` FROM `inlog_fout` WHERE `ip`='" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY `id` DESC");
+				$inlog_foutx = DB::exQuery("SELECT `datum`, `ip`, `spelernaam` FROM `inlog_fout` WHERE `ip`='" . $ip_sql . "' ORDER BY `id` DESC");
 				$inlog_fout  = $inlog_foutx->fetch_assoc();
 				$cntglogins  = $inlog_foutx->num_rows;
 				$aftellen    = 1200 - (time() - strtotime($inlog_fout['datum']));
@@ -45,17 +47,17 @@ if (isset($_POST['login'])) {
 					$desblo = $data;
 				}
 				
-				if (($cntglogins >= 3) AND ($inlog_fout['ip'] === $_SERVER['REMOTE_ADDR']) AND ($aftellen > 0)) {
+				if (($cntglogins >= 3) AND ($inlog_fout['ip'] === $ip) AND ($aftellen > 0)) {
 					$inlog_error = "" . $txt['alert_time_sentence'] . " " . (round($aftellen / 60)) . "min</script>";
-					$msgbuglogin = "USER_ID: " . $rekening['username'] . " = Contagem: " . $cntglogins . " - IP: " . $inlog_fout['ip'] . " === " . $_SERVER['REMOTE_ADDR'] . " - AFTELLEN: " . $aftellen . "";
+					$msgbuglogin = "USER_ID: " . $rekening['username'] . " = Contagem: " . $cntglogins . " - IP: " . $inlog_fout['ip'] . " === " . $ip . " - AFTELLEN: " . $aftellen . "";
 				} else {
 					
 					if ($aftellen < 1)
-						DB::exQuery("DELETE FROM `inlog_fout` WHERE `ip`='" . $_SERVER['REMOTE_ADDR'] . "'");
+						DB::exQuery("DELETE FROM `inlog_fout` WHERE `ip`='" . $ip_sql . "'");
 					
 					if ($rekening['wachtwoord'] != $typppass) {
 						$datum = date("Y-m-d H:i:s");
-						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $_SERVER['REMOTE_ADDR'] . "', '" . $rekening['username'] . "', '" . $_POST['password'] . "')");
+						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $rekening['username'] . "', '" . $_POST['password'] . "')");
 					}
 					
 					//if ($rekening['wachtwoord'] != $typppass) $inlog_error = 'Senha incorreta!';
@@ -76,28 +78,28 @@ if (isset($_POST['login'])) {
 					else {
 						
 						
-						DB::exQuery("DELETE FROM `inlog_fout` WHERE `ip`='" . $_SERVER['REMOTE_ADDR'] . "'");
+						DB::exQuery("DELETE FROM `inlog_fout` WHERE `ip`='" . $ip_sql . "'");
 						
-						$pa_lang = md5($_SERVER['REMOTE_ADDR']);
+						$pa_lang = md5($ip);
 						
 						$keylog = md5(microtime());
 						
-						setcookie('pa_lang', $pa_lang, (86400 * 7), '/');
-						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='{$_COOKIE['pa_lang']}',`locked`='1',`ip_ingelogd`='{$_SERVER['REMOTE_ADDR']}',`session`='{$_COOKIE['PHPSESSID']}',`last_login`=NOW(), `keylog`='" . $keylog . "' WHERE `acc_id`='{$rekening['acc_id']}' LIMIT 1");
+						setcookie('pa_lang', $pa_lang, time() + (86400 * 7), '/');
+						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='{$_COOKIE['pa_lang']}',`locked`='1',`ip_ingelogd`='" . $ip_sql . "',`session`='{$_COOKIE['PHPSESSID']}',`last_login`=NOW(), `keylog`='" . $keylog . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
 						
 						$_SESSION['share_acc'] = 0;
 
 						if ($share) {
-							DB::exQuery ("UPDATE `rekeningen` SET `locked`='0' WHERE `acc_id`='{$rekening['acc_id']}'");
+							DB::exQuery ("UPDATE `rekeningen` SET `locked`='0' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "'");
 							$_SESSION['share_acc'] = 1;
 						}
 						
-						$queryloginlogs = DB::exQuery("SELECT `id` FROM `inlog_logs` WHERE `ip`='" . $_SERVER['REMOTE_ADDR'] . "' AND `speler`='" . $rekening['username'] . "' LIMIT 1");
+						$queryloginlogs = DB::exQuery("SELECT `id` FROM `inlog_logs` WHERE `ip`='" . $ip_sql . "' AND `speler`='" . $rekening['username'] . "' LIMIT 1");
 						
 						if ($queryloginlogs->num_rows == 0)
-							DB::exQuery("INSERT INTO `inlog_logs` (`ip`, `datum`, `speler`) VALUES ('" . $_SERVER['REMOTE_ADDR'] . "', NOW(), '" . $rekening['username'] . "')");
+							DB::exQuery("INSERT INTO `inlog_logs` (`ip`, `datum`, `speler`) VALUES ('" . $ip_sql . "', NOW(), '" . $rekening['username'] . "')");
 						else
-							DB::exQuery("UPDATE `inlog_logs` SET `datum`=NOW() WHERE `speler`='" . $rekening['username'] . "' AND `ip`='" . $_SERVER['REMOTE_ADDR'] . "' LIMIT 1");
+							DB::exQuery("UPDATE `inlog_logs` SET `datum`=NOW() WHERE `speler`='" . $rekening['username'] . "' AND `ip`='" . $ip_sql . "' LIMIT 1");
 						
 						
 						$_SESSION['acc_id']   = $rekening['acc_id'];

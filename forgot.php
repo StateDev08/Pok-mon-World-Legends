@@ -63,8 +63,8 @@ if (isset($_POST['submit'])) {
 			$mail->ClearAllRecipients();
 			$mail->ClearAttachments();
 
-			DB::exQuery("INSERT INTO `wwvergeten` (`naam`,`ip`,`email`) VALUES ('" . $inlognaam . "','" . $_SERVER['REMOTE_ADDR'] . "','" . $email . "')");
-			DB::exQuery("UPDATE `rekeningen` SET `wachtwoord`='" . $nieuwwwmd5 . "' WHERE `acc_id`='" . $gegeven['acc_id'] . "' LIMIT 1");
+			DB::exQuery("INSERT INTO `wwvergeten` (`naam`,`ip`,`email`) VALUES ('" . $inlognaam . "','" . DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0') . "','" . $email . "')");
+			DB::exQuery("UPDATE `rekeningen` SET `wachtwoord`='" . $nieuwwwmd5 . "' WHERE `acc_id`='" . (int) $gegeven['acc_id'] . "' LIMIT 1");
 
 			$message = '<div class="green">' . $txt['success_forgot'] . '</div>';
 		} else	$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
