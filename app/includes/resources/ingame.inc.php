@@ -2,6 +2,10 @@
 $captcha_page_check = array('attack/attack_map', 'attack/gyms', 'trainer', 'attack/duel/invite', 'traders', 'race-invite', 'casino-store', 'who-is-it-quiz', 'wheel-of-fortune', 'lottery', 'fishing', 'friend-add', 'inbox', 'blocklist', 'box', 'market', 'transferlist', 'donate', 'calculator', 'juiz', 'account-options');
 
 function GetEventLanguage() {
+	$language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
+	if (isset($_COOKIE['pa_language']) && in_array($_COOKIE['pa_language'], $language_array, true)) {
+		return $_COOKIE['pa_language'];
+	}
 	return 'pt';
 }
 

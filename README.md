@@ -8,8 +8,21 @@ A fan-made Pokémon browser MMO game.
 - MySQL / MariaDB
 - Apache with `mod_rewrite` enabled
 - `mysqli` PHP extension
+- `gd` PHP extension
+- `mbstring` PHP extension (recommended)
 
 ## Installation
+
+Two ways to install the game.
+
+### Option 1: Web installer (recommended)
+
+1. Upload the repository to your web server and make sure the document root points to the repository root.
+2. Open `install.php` in your browser.
+3. Follow the assistant to create your `.env` file, connect to the database and import the included schema.
+4. After installation, delete `install.php` and `install.lock` for security.
+
+### Option 2: Manual
 
 1. Clone the repository:
    ```bash
@@ -22,7 +35,7 @@ A fan-made Pokémon browser MMO game.
    ```
    Edit `.env` and set the database and SMTP details.
 
-3. Import the database schema (not included in this repo; use your existing `*.sql` dump).
+3. Import the database schema from `app/includes/install/WorldLegends_Database.sql`.
 
 4. Make sure the document root points to the repository root.
 
@@ -30,11 +43,25 @@ A fan-made Pokémon browser MMO game.
    - Apache: `.htaccess` already blocks `.env` files.
    - Nginx: add a rule to deny `.env` files.
 
+## Languages
+
+The game now supports six interface languages:
+
+- Portuguese (`pt`) – default
+- German (`de`)
+- English (`en`)
+- Polish (`pl`)
+- Russian (`ru`)
+- Chinese (`zh`)
+
+Switch languages by adding `?language=XX` to the URL, or by setting the `pa_language` cookie.
+
 ## Security notes
 
 - Never commit `.env` to version control.
 - Keep your database password and SMTP credentials secret.
 - The `checkwp/` directory is a separate WordPress installation and should be updated independently.
+- After installing, delete `install.php` and `install.lock` from the document root.
 
 ## Support
 

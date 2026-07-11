@@ -1,14 +1,14 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Do not expose .env files through the web server
-    RewriteRule \.env$ - [F,L]
+    # Do not expose .env or install.lock files through the web server
+    RewriteRule \.(env|lock)$ - [F,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{SCRIPT_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-d
 
     RewriteRule ^([^\.]*)$ index.php?page=$1 [L]
-</IfModule> 
+</IfModule>
 
 Options -Indexes
 

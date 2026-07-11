@@ -17,7 +17,7 @@ function isAllowedPage($page) {
     }
 
     // The router entry point itself must not be included as a page.
-    if ($page === 'index') {
+    if ($page === 'index' || $page === 'install' || $page === 'tools') {
         return false;
     }
 
