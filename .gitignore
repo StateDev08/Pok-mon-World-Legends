@@ -5,3 +5,5 @@
 *.swp
 .DS_Store
 Thumbs.db
+install.lock
+tools/translation_input.json

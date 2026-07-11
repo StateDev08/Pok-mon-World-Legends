@@ -1,6 +1,7 @@
 <?php
-$language_array = array('pt');
-if (in_array($_COOKIE['pa_language'], $language_array))	$_COOKIE['pa_language'] = $_COOKIE['pa_language'];
-else	$_COOKIE['pa_language'] = 'pt';
+$language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
+if (in_array($_COOKIE['pa_language'], $language_array, true))
+	$_COOKIE['pa_language'] = $_COOKIE['pa_language'];
+else
+	$_COOKIE['pa_language'] = 'pt';
 require_once('box/language-box-' . $_COOKIE['pa_language'] . '.php');
-?>
