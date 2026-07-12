@@ -1,5 +1,24 @@
 <?php
 if (isset($_SESSION['id']))	exit(header('LOCATION: ./'));
+
+function createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer) {
+	DB::exQuery("INSERT INTO `rekeningen` (
+		`account_code`,`username`,`wachtwoord`,`email`,`land`,`datum`,`aanmeld_datum`,`ip_aangemeld`,`ip_ingelogd`,`gold`,`refferal`,`session`,`ban_cookie`,`last_login`,`bloqueado_tempo`,`razaobloqueado`,`keylog`
+	) VALUES (
+		".$activatiecode.",'".$inlognaam."','".$wachtwoordmd5."','".$email."','',NOW(),NOW(),'".$ip."','',0,0,'','',NOW(),'0000-00-00','',''
+	);");
+
+	$id = DB::insertID();
+
+	if (DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `username`='".$referer."'")->num_rows > 0) {
+		DB::exQuery("UPDATE gebruikers SET silver = silver +200, referidos = referidos +1 WHERE username = '".$referer."'");
+		$pegaid = DB::exQuery("select `user_id` from `gebruikers` where `username`='".$referer."'")->fetch_assoc();
+		DB::exQuery("UPDATE rekeningen SET refferal='".$pegaid['user_id']."' WHERE acc_id = '".$id."'");
+	}
+
+	$_SESSION['user'] = $inlognaam;
+}
+
 if (isset($_POST['registreer'])) {
 	$inlognaam = $_POST['username'];
 	$wachtwoord = $_POST['wachtwoord'];
@@ -61,28 +80,17 @@ if (isset($_POST['registreer'])) {
 			$mail->ClearAllRecipients();
 			$mail->ClearAttachments();
 
-			#Gebruiker in de database
-			DB::exQuery("INSERT INTO `rekeningen` (`account_code`,`username`,`datum`,`aanmeld_datum`,`wachtwoord`,`email`,`ip_aangemeld`) VALUES (".$activatiecode.",'".$inlognaam."',NOW(),NOW(),'".$wachtwoordmd5."','".$email."','".$ip."')");
-
-			$id = DB::insertID();
-
-			if (DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `username`='".$referer."'")->num_rows > 0) {
-				
-				DB::exQuery("UPDATE gebruikers SET silver = silver +200, referidos = referidos +1 WHERE username = '".$referer."'");
-				
-				$pegaid = DB::exQuery("select `user_id` from `gebruikers` where `username`='".$referer."'")->fetch_assoc();
-				
-				DB::exQuery("UPDATE rekeningen SET refferal='".$pegaid['user_id']."' WHERE acc_id = '".$id."'");
-				
-			}
-
-
-
-			#Bericht opstellen
-			$_SESSION['user'] = $inlognaam;
-            $_SESSION['act_msg'] = '<div class="green">Seu cadastro foi efetuado! <a href="./activate">Ative sua conta</a> com o código enviado em seu e-mail!</div>';
+			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
+			$_SESSION['act_msg'] = '<div class="green">Seu cadastro foi efetuado! <a href="./activate">Ative sua conta</a> com o código enviado em seu e-mail!</div>';
 			header('location: ./activate');
-		} else	$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
+		} else if (isSmtpPlaceholder($smtp['host'])) {
+			// No real SMTP configured; still create the account and show the activation code.
+			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
+			$_SESSION['act_msg'] = '<div class="green">Seu cadastro foi efetuado! Código de ativação: <b>' . $activatiecode . '</b>. <a href="./activate">Ative sua conta</a> com este código.</div>';
+			header('location: ./activate');
+		} else {
+			$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
+		}
 	}
 }
 echo addNPCBox(1, $txt['titlenpc'], $txt['textnpc']);

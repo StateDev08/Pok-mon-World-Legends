@@ -42,6 +42,11 @@ $smtp = [
 	'pass' => Env::get('SMTP_PASS', '')
 ];
 
+function isSmtpPlaceholder($host) {
+	$placeholders = ['smtp.example.com', 'smtp.yourhost.com', 'smtp.yourdomain.com', ''];
+	return in_array($host, $placeholders, true);
+}
+
 #CONFIGURAÇÕES NEW YEAR SHOP
 $shop_newyear = false;
 // NORMALMENTE INICIA DIA 31/12 E VAI ATE DIA 05/01 OU 10/01.

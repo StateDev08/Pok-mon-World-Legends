@@ -1,4 +1,8 @@
 <?php
+// PHP 8 enables mysqli exceptions by default; disable them so the code can
+// handle errors with its own exit() messages.
+mysqli_report(MYSQLI_REPORT_OFF);
+
 class DB {
 	private static $instance;
 
