@@ -434,9 +434,9 @@ if ($pokecen_tijd > 0) {
         
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="expires" content ="-1" />
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'"> 
 
-		<base href="https://<?=$_SERVER['SERVER_NAME']?>">
+		<base href="//<?=$_SERVER['SERVER_NAME']?>">
 
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/colorbox.css" />
