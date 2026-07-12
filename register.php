@@ -94,11 +94,11 @@ if (!empty($message))	echo $message
 		<table width="70%" cellspacing="0" celpadding="0" border="0">
 			<tr>
 				<td colspan="2">
-					<input type="text" name="username" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_SESSION['user'];?>" maxlength="10" minlength="3" required />
-					<input type="email" name="email" placeholder="Email:" value="<?=$_POST['email'];?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
-					<input type="password" placeholder="<?=$txt['login_password'];?>:" name="wachtwoord" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_POST['wachtwoord'];?>" required />
-					<input type="password" placeholder="Repita a Senha:" name="wachtwoord_nogmaals" value="<?=$_POST['wachtwoord_nogmaals'];?>" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
-					<input type="text" name="refferal" value="<?=$refferal;?>" style="padding-left: 10px;width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" placeholder="Quem convidou você ao Pokémon World Legends?">
+					<input type="text" name="username" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_SESSION['user'] ?? '';?>" maxlength="10" minlength="3" required />
+					<input type="email" name="email" placeholder="Email:" value="<?=$_POST['email'] ?? '';?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="password" placeholder="<?=$txt['login_password'];?>:" name="wachtwoord" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_POST['wachtwoord'] ?? '';?>" required />
+					<input type="password" placeholder="Repita a Senha:" name="wachtwoord_nogmaals" value="<?=$_POST['wachtwoord_nogmaals'] ?? '';?>" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="text" name="refferal" value="<?=$refferal ?? '';?>" style="padding-left: 10px;width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" placeholder="Quem convidou você ao Pokémon World Legends?">
 					<center><input type="checkbox" name="others" id="others" required /> Declaro que li e concordo com a <a href="ajax.php?act=privacy" class="colorbox-privacy">Política de Privacidade</a>, <a href="ajax.php?act=terms" class="colorbox-terms">Termos de Serviço</a> e  com as <a href="ajax.php?act=rules" class="colorbox-rules">Regras e Punições</a> </center>
 				</td>
 			</tr>
