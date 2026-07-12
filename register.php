@@ -13,7 +13,7 @@ if (isset($_POST['registreer'])) {
 	$_yapMail = explode('@', $email);
 
 	$check = DB::exQuery("SELECT `ip_aangemeld`,`aanmeld_datum` FROM `rekeningen` WHERE `ip_aangemeld`='".$ip."' ORDER BY `acc_id` DESC LIMIT 1")->fetch_assoc();
-	$registerdate = strtotime($check['aanmeld_datum']);
+	$registerdate = strtotime($check['aanmeld_datum'] ?? '');
 	$countdown_time = 43200 - (time() - $registerdate);
   
 	//if ($check['ip_aangemeld'] == $ip && $countdown_time > 0)	$message = '<div class="red">'.$txt['alert_already_this_ip'].'</div>';
