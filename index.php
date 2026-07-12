@@ -414,7 +414,7 @@ if ($pokecen_tijd > 0) {
 ?>
 <!DOCTYPE html>
 <noscript>
-    <meta http-equiv="refresh" runat="server" content="0;url=https://<?=$_SERVER['SERVER_NAME']?>/noscript.php" />
+    <meta http-equiv="refresh" runat="server" content="0;url=/noscript.php" />
 </noscript>
 <html lang="pt-br">
 	<head>
@@ -434,9 +434,9 @@ if ($pokecen_tijd > 0) {
         
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="expires" content ="-1" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'"> 
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https: http:; base-uri 'self'"> 
 
-		<base href="//<?=$_SERVER['SERVER_NAME']?>">
+		<base href="//<?=$_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME']?>">
 
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/colorbox.css" />
