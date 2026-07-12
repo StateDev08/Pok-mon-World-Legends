@@ -7,6 +7,9 @@
  * dump and writes an install.lock file.
  */
 
+// Avoid throwing mysqli_sql_exceptions on XAMPP/PHP 8 hosts; we handle errors manually.
+mysqli_report(MYSQLI_REPORT_OFF);
+
 if (is_file(__DIR__ . '/install.lock')) {
     echo '<p>World Legends is already installed. Remove <code>install.lock</code> to run the installer again.</p>';
     exit;
@@ -223,7 +226,6 @@ if ($step === 'install') {
     // Try to run the whole dump in one go. If the server packet limit is too
     // small, fall back to splitting by statements.
     set_time_limit(300);
-    @mysqli_query($conn, 'SET SESSION max_allowed_packet = 16777216');
     if (mysqli_multi_query($conn, $sql)) {
         do {
             if ($result = mysqli_store_result($conn)) {
