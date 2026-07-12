@@ -1260,6 +1260,8 @@ function createKey($size = 6) {
 $keyzitapass = "SENHAENCRYPTSIMBOLSPASSWORD2016";
 
 function password($password) {
+	global $keyzitapass;
+	$password = (string) $password;
 	$salt = md5(strrev($keyzitapass));
 
 	return hash('sha1', crypt($password, md5(strrev($keyzitapass))));
