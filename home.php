@@ -134,7 +134,7 @@
 	<?php if (!empty($inlog_error)) echo '<tr><td colspan="2"><div class="red">' . $inlog_error . '</div></td></tr>'; ?>
 		<tr>
 			<td colspan="2">
-				<input type="text" name="username" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 10px; font-size: 14px" value="<?=$_SESSION['user'];?>" required<?php if ($_GET['page']!='register') { ?> autofocus<?php } ?> />
+				<input type="text" name="username" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 10px; font-size: 14px" value="<?=$_SESSION['user'] ?? '';?>" required<?php if (($_GET['page'] ?? '') != 'register') { ?> autofocus<?php } ?> />
 				<input type="password" name="password" placeholder="<?=$txt['login_password'];?>:" style="width:99%; height: 37px; font-size: 14px" required />
 			</td>
 		</tr>
