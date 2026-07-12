@@ -223,28 +223,30 @@ if ($step === 'install') {
         exit;
     }
 
-    // Try to run the whole dump in one go. If the server packet limit is too
-    // small, fall back to splitting by statements.
+    // Run the dump statement by statement. This avoids the MySQL
+    // max_allowed_packet limit that can kill the connection with
+    // mysqli_multi_query on large dumps.
     set_time_limit(300);
-    if (mysqli_multi_query($conn, $sql)) {
-        do {
-            if ($result = mysqli_store_result($conn)) {
-                mysqli_free_result($result);
-            }
-        } while (mysqli_more_results($conn) && mysqli_next_result($conn));
-    } else {
-        // Fallback for packet limits.
-        $queries = array_filter(array_map('trim', preg_split('/;\s*\n/', $sql)));
-        foreach ($queries as $query) {
-            if ($query === '' || strpos($query, '--') === 0 || strpos($query, '/*') === 0 || strpos($query, '#') === 0) {
-                continue;
-            }
-            if (!mysqli_query($conn, $query . ';')) {
-                echo '<p class="fail">SQL error: ' . h(mysqli_error($conn)) . '</p>';
-                echo '<pre>' . h(substr($query, 0, 500)) . '</pre>';
-                render_footer();
-                exit;
-            }
+
+    // Strip SQL comment lines so CREATE TABLE statements are not merged
+    // into preceding comments and accidentally skipped.
+    $lines = preg_split('/\R/', $sql);
+    $lines = array_filter($lines, function ($line) {
+        $line = ltrim($line);
+        return !($line === '' || strpos($line, '--') === 0 || strpos($line, '#') === 0 || strpos($line, '/*') === 0 || strpos($line, '*/') === 0);
+    });
+    $cleanSql = implode("\n", $lines);
+
+    $queries = array_filter(array_map('trim', preg_split('/;\s*(?:\n|\r\n?|$)/', $cleanSql)));
+    foreach ($queries as $query) {
+        if ($query === '' || strpos($query, '--') === 0 || strpos($query, '/*') === 0 || strpos($query, '#') === 0) {
+            continue;
+        }
+        if (!mysqli_query($conn, $query . ';')) {
+            echo '<p class="fail">SQL error: ' . h(mysqli_error($conn)) . '</p>';
+            echo '<pre>' . h(substr($query, 0, 500)) . '</pre>';
+            render_footer();
+            exit;
         }
     }
 
