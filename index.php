@@ -80,6 +80,42 @@ if (($manutencao == 1 || $manutencao == 2)) {
 }
 
 $chat_block = false;
+$gebruiker_defaults = array(
+	'acc_id' => 0,
+	'admin' => 0,
+	'banned' => 'N',
+	'bloqueado' => '',
+	'captcha_time' => 0,
+	'character' => '',
+	'chat' => '0',
+	'clan' => '',
+	'daily_bonus' => 0,
+	'eigekregen' => 0,
+	'in_hand' => 0,
+	'itembox' => 'Bag',
+	'items' => 0,
+	'moedapromocional' => 0,
+	'online' => 0,
+	'pagina' => '',
+	'pok_bezit' => '',
+	'pokecentertijd' => 0,
+	'pokecentertijdbegin' => '',
+	'premiumaccount' => 0,
+	'quest_1' => 0,
+	'quest_2' => 0,
+	'rang' => '',
+	'rank' => 0,
+	'rankexp' => 0,
+	'rankexpnodig' => 0,
+	'session' => '',
+	'silver' => 0,
+	'traveltijd' => 0,
+	'traveltijdbegin' => '',
+	'user_id' => 0,
+	'username' => '',
+	'wereld' => '',
+);
+$gebruiker = $gebruiker_defaults;
 
 #Ingame dingen
 if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
@@ -93,7 +129,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
     if (!is_array($rekening) || $_SESSION['keylog'] != $rekening['keylog']) require_once('logout.php');
 
 	#Als account_code 0 is, verbannen!
-	if ($rekening['account_code'] == 0 OR $gebruiker['bloqueado'] == "sim") {
+	if ($rekening['account_code'] == 0 OR ($gebruiker['bloqueado'] ?? '') == "sim") {
 		session_unset();
 		session_destroy();
 		exit(header('Location: ./banned.php'));
@@ -116,7 +152,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 
 		#Load User Information
 		$result = DB::exQuery("SELECT g.*, gi.* FROM `gebruikers` AS `g` INNER JOIN `gebruikers_item` AS `gi` ON `g`.`user_id` = `gi`.`user_id` WHERE `g`.`user_id`='{$_SESSION['id']}' AND `g`.`acc_id`='{$_SESSION['acc_id']}' GROUP BY `g`.`user_id` LIMIT 1");
-		$gebruiker = $result->fetch_assoc();
+		$gebruiker = $result->fetch_assoc() ?: $gebruiker_defaults;
 
 		# ITEMS
 		$gebruiker['items'] = 0;
@@ -298,18 +334,18 @@ if (!in_array($page, array('my_characters', 'new_character', 'logout')) && empty
 }
 
 #Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
-$duel_sql = DB::exQuery("SELECT * FROM `duel` WHERE `tegenstander`='" . $gebruiker['username'] . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1");
+$duel_sql = DB::exQuery("SELECT * FROM `duel` WHERE `tegenstander`='" . ($gebruiker['username'] ?? '') . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1");
 
-$captcha_time = ($gebruiker['premiumaccount'] > time()) ? 1200 : 600;
+$captcha_time = (($gebruiker['premiumaccount'] ?? 0) > time()) ? 1200 : 600;
 
 if (empty($page))	$page = 'home';
 else if (!file_exists($page . '.php')) $page = 'notfound';
 else if (empty($_SESSION['id']))	$page = $page;
 else if (in_array($page, $pagesAllowerGlobal)) $page = $page;
-else if (($gebruiker['captcha_time'] + $captcha_time) < time() && in_array($page, $captcha_page_check))	$page = 'captcha';
-else if ($gebruiker['pagina'] == 'trainer-attack') $page = 'attack/trainer/trainer-attack';
-else if ($gebruiker['pagina'] == 'attack') $page = 'attack/wild/wild-attack';
-else if (DB::exQuery("SELECT * FROM `duel` WHERE `uitdager`='" . $gebruiker['username'] . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1")->num_rows == 1) $page = 'attack/duel/invite';
+else if ((($gebruiker['captcha_time'] ?? 0) + $captcha_time) < time() && in_array($page, $captcha_page_check))	$page = 'captcha';
+else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') $page = 'attack/trainer/trainer-attack';
+else if (($gebruiker['pagina'] ?? '') == 'attack') $page = 'attack/wild/wild-attack';
+else if (DB::exQuery("SELECT * FROM `duel` WHERE `uitdager`='" . ($gebruiker['username'] ?? '') . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1")->num_rows == 1) $page = 'attack/duel/invite';
 else {
 	$duel_test = DB::exQuery("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`='" . $_SESSION['naam'] . "'");
 	if (!empty($_SESSION['aanvalnieuw']) && $page != 'information') {
@@ -318,18 +354,18 @@ else {
 	} else if (!empty($_SESSION['evolueren']) && $page != 'information') {
 		list($evolueren['pokemonid'], $evolueren['nieuw_id']) = explode('/', base64_decode($_SESSION['evolueren']));
 		$page = "app/includes/resources/poke-evolve";
-	} else if ($gebruiker['pagina'] == 'attack') {
+	} else if (($gebruiker['pagina'] ?? '') == 'attack') {
 			$page = "attack/wild/wild-attack";
-			$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`={$gebruiker['user_id']} AND `trainer`='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
+			$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . ($gebruiker['user_id'] ?? 0) . " AND `trainer`='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
 			$_SESSION['attack']['aanval_log_id'] = $res['id'];
-	} else if ($gebruiker['pagina'] == 'trainer-attack') {
+	} else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') {
 		$page = "attack/trainer/trainer-attack";
-		$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`={$gebruiker['user_id']} AND `trainer`!='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
+		$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . ($gebruiker['user_id'] ?? 0) . " AND `trainer`!='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
 		$_SESSION['attack']['aanval_log_id'] = $res['id'];
-	} else if ($gebruiker['pagina'] == 'duel' && $duel_test->num_rows > 0)	$page = $page;
-	else if ($gebruiker['pagina'] == 'duel') {
+	} else if (($gebruiker['pagina'] ?? '') == 'duel' && $duel_test->num_rows > 0)	$page = $page;
+	else if (($gebruiker['pagina'] ?? '') == 'duel') {
 		$page = "attack/duel/duel-attack";
-		$res = DB::exQuery("SELECT `id` FROM `duel` WHERE (`tegenstander`='{$gebruiker['username']}' OR `uitdager`='{$gebruiker['username']}') AND `status`='accept' LIMIT 1")->fetch_assoc();
+		$res = DB::exQuery("SELECT `id` FROM `duel` WHERE (`tegenstander`='" . ($gebruiker['username'] ?? '') . "' OR `uitdager`='" . ($gebruiker['username'] ?? '') . "') AND `status`='accept' LIMIT 1")->fetch_assoc();
 		$_SESSION['duel']['duel_id'] = $res['id'];
 	} else if ($duel_sql->num_rows == 1) {
 		$page = "attack/duel/invited";
@@ -338,7 +374,7 @@ else {
 
 $compartilhamento = array('captcha','pokemoncenter', 'home', 'rankinglist', 'information', 'statistics', 'my_characters', 'box', 'badges', 'profile', 'pokemon-profile', 'pokedex', 'attack/attack_map', 'trainer', 'attack/gyms', 'town', 'logout', 'attack/wild/wild-attack', 'attack/trainer/trainer-attack', 'app/includes/pages/equip-check');
 
-if ($_SESSION['share_acc'] == 1) {
+if (($_SESSION['share_acc'] ?? 0) == 1) {
 	if (!in_array($page, $compartilhamento)) {
 		$page = 'notfound';
 	}
@@ -349,14 +385,14 @@ if (in_array($page, array('notfound', 'error', 'captcha', 'app/includes/pages/eq
 	$chat_block = true;
 }
 
-if ($gebruiker['admin'] >= 3 && (isset($_GET['sair']) && $_GET['sair'] == 'y')) {
+if (($gebruiker['admin'] ?? 0) >= 3 && (isset($_GET['sair']) && $_GET['sair'] == 'y')) {
 	DB::exQuery("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='" . $_SESSION['id'] . "'");
     DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='" . $_SESSION['id'] . "'");
     DB::exQuery("DELETE FROM `duel` WHERE `uitdager`='" . $_SESSION['naam'] . "' OR `tegenstander`='" . $_SESSION['naam'] . "'");
 }
 
-$pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin']) + $gebruiker['pokecentertijd']) - time();
-$travel_tijd = (strtotime($gebruiker['traveltijdbegin']) + $gebruiker['traveltijd']) - time();
+$pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin'] ?? '') + ($gebruiker['pokecentertijd'] ?? 0)) - time();
+$travel_tijd = (strtotime($gebruiker['traveltijdbegin'] ?? '') + ($gebruiker['traveltijd'] ?? 0)) - time();
 
 if ($pokecen_tijd > 0) {
 	#Tijd die overblijft
@@ -533,11 +569,11 @@ if ($pokecen_tijd > 0) {
 					<div class="menu tip_bottom-middle" title="<?php include 'app/includes/resources/menu/menu_hover.php'; ?>"><p>MENU</p></div>
 					<div class="content">
 						<center><ul>
-							<?php if ($_SESSION['share_acc'] == 0){ ?><li><a href="./gold-market" class="noanimate">Gold Market &bull;</a></li><?php } ?>
+							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./gold-market" class="noanimate">Gold Market &bull;</a></li><?php } ?>
 							<li><a href="./town" class="noanimate">Cidade &bull;</a></li>
 							<li><a href="./rankinglist" class="noanimate">Classificação &bull;</a></li>
 							<li><a href="./box" class="noanimate">Box Pokémon &bull;</a></li>
-							<?php if ($_SESSION['share_acc'] == 0){ ?><li><a href="./items" class="noanimate">Mochila &bull;</a></li><?php } ?>
+							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./items" class="noanimate">Mochila &bull;</a></li><?php } ?>
 							<li><a href="./attack/attack_map" class="noanimate">Mapa &bull;</a></li>
 							<li><a href="./trainer" class="noanimate">NPC's &bull;</a></li>
 						</ul></center>
@@ -554,7 +590,7 @@ if ($pokecen_tijd > 0) {
 									<center>
 										<?php
 											if (isset($_SESSION['id'])) {
-												if ($_SESSION['share_acc'] == 1) {
+												if (($_SESSION['share_acc'] ?? 0) == 1) {
 													echo '<div class="sharing_account">Você está na conta de '.$gebruiker['username'].' via compartilhamento. <i class="material-icons" style="color: #fff; display: inline-block; vertical-align:middle; font-size:15px">lock</i></div>';
 												}
 											}
