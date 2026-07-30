@@ -6,21 +6,21 @@ require_once("app/includes/resources/security.php");
 if ($gebruiker['in_hand'] == 0)	exit(header('LOCATION: ./'));
 
 #Als er op de heal knop gedrukt word
-if (isset($_POST['heal']) && is_array($_POST['pokemon']) && count($_POST['pokemon']) != 0) {
+if (isset($_POST['heal']) && is_array($_POST['pokemon'] ?? []) && count($_POST['pokemon'] ?? []) != 0) {
     $i = 0;
 	$count_time = 0;
 	foreach($_POST['pokemon'] as $key=>$value) {
 		if (!is_numeric($value)) {
-			$message = '<div class="red">Não foi possível executar está ação!</div>';
+			$message = '<div class="red">'.$txt['pokecenter_error_action'].'</div>';
 			break;
 		}
 		$pokeInfo = DB::exQuery("SELECT `user_id`,`leven`,`levenmax`,`effect` FROM `pokemon_speler` WHERE `id`=" . $value . " LIMIT 1")->fetch_assoc();
 		if (empty($message) && $pokeInfo['user_id'] != $gebruiker['user_id']) {
-			$message = '<div class="red">Os administradores foram comunicados sobre sua ação!</div>';
+			$message = '<div class="red">'.$txt['pokecenter_error_admin'].'</div>';
 			break;
 		}
 		if (empty($message) && empty($pokeInfo['effect']) && $pokeInfo['leven'] >= $pokeInfo['levenmax']) {
-			$message = '<div class="red">Você não pode curar um pokémon saudavel!</div>';
+			$message = '<div class="red">'.$txt['pokecenter_error_healthy'].'</div>';
 			break;
 		}
 		if (empty($message)) {
@@ -40,9 +40,9 @@ if (isset($_POST['heal']) && is_array($_POST['pokemon']) && count($_POST['pokemo
 	    header("LOCATION: ./pokemoncenter");
 	}
 }
-$title = 'Centro Pokémon';
-$text = 'Seja bem vindo ao Centro Pokémon, eu me chamo <b>Enfermeira Joy</b>. Estou aqui para ajudar na recuperação de pokémons que estejam feridos e doentes. Caso tenha algum pokémon necessitando de tratamento marque-o para que eu possa trata-lo.<br /><br /><br />&mdash; ';
-if ($gebruiker['premiumaccount'] < time())	$text .= $txt['title_text_premium'].'<br>&mdash; Seja VIP clicando <a href="./gold-market">AQUI</a> e diminua o tempo de espera para 1s.';
+$title = $txt['pokecenter_title'];
+$text = $txt['pokecenter_npc_text'];
+if ($gebruiker['premiumaccount'] < time())	$text .= $txt['title_text_premium'].'<br>&mdash; '.$txt['pokecenter_premium_hint'];
 else	$text .= $txt['title_text_normal']; 
 echo addNPCBox(33, $title, $text);
 ?>
@@ -89,7 +89,7 @@ echo addNPCBox(33, $title, $text);
         <button type="button" style="box-shadow:none;width: 85px;height: 33px;margin-left: 65px;border: none;background: transparent;margin-top: 122px;" onclick="heal()"></button>
     </div>
     <div class="box-content">
-        <h3 class="title">Meus Pokémons</h3>
+        <h3 class="title"><?=$txt['pokecenter_my_pokemons']?></h3>
         <center>
             <div id="hand">
                 <ul class="connectedSortable" id="ul_hand" style="background: url('<?=$static_url?>/images/layout/slots.png') no-repeat; width: 345px; background-size: 324px; height: 43px; margin: 7px; float: none; border-image: none; background-position: 11px;">
@@ -100,6 +100,7 @@ echo addNPCBox(33, $title, $text);
                 while($pokemon = $pokemon_sql->fetch_assoc()) {
                     $pokemon = pokemonei($pokemon, $txt);
                     $pokemon['naam'] = pokemon_naam($pokemon['naam'],$pokemon['roepnaam'],$pokemon['icon']);
+                    $shinnytxt = ($pokemon['shiny'] == 1) ? 'Shiny' : '';
 
                     if ($pokemon['ei'] != 1) {
                         if ($pokemon['shiny'] == 1) $typp = 'shiny';
@@ -109,7 +110,7 @@ echo addNPCBox(33, $title, $text);
                         $imgg = ''.$static_url.'/images/icons/egg';
                     }
                     
-                    if ($pokemonei['ei'] == 1) $disabled = " disabled-item";
+                    if ($pokemon['ei'] == 1) $disabled = " disabled-item";
                     if ($pokemon['leven'] == $pokemon['levenmax']) $disabled = " disabled-item";
                     if ($pokemon['leven'] < $pokemon['levenmax'] || !empty($pokemon['effect'])) $disabled = "";
 
@@ -121,7 +122,7 @@ echo addNPCBox(33, $title, $text);
                                 <img src="<?php echo $imgg; ?>.gif" width="32" height="32"/>
                             </a>
                             <div class="options" style="width: 20px; margin-top:10px;margin: 0 auto;">
-                                <div style="cursor: pointer!important; -webkit-filter: invert(100%);" class="ui-icon ui-icon-search" onclick="moreInfo(<?= $pokemon['id']; ?>);">Mais informações</div>
+                                <div style="cursor: pointer!important; -webkit-filter: invert(100%);" class="ui-icon ui-icon-search" onclick="moreInfo(<?= $pokemon['id']; ?>);"><?=$txt['pokecenter_more_info']?></div>
                             </div>
                         </li>
 

@@ -2,13 +2,13 @@
 
 include("app/includes/resources/security.php");
 
-echo addNPCBox(36, "Cassino Pokémon", "Aqui é o Cassino, você terá vários minigames que poderão ser jogados e no final (caso leve sorte) você conseguirá Tickets que podem ser trocados por Pokémons e outros prêmios. Tenha um pouco de perseverança que você irá conseguir muitos Prêmios no Cassino! <br>Obs: Para poder jogar compre <img src='$static_url/images/icons/ticket.png' title='Tickets' />, por isso ande com uma boa quantia de Silvers em mãos... <br>Boa Sorte, treinador, você vai precisar!");
+echo addNPCBox(36, $txt['casino_title'], $txt['casino_npc_text']);
 
-$casino_arr = array('Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon?', 'Roda da Fortuna', 'a Loja do Cassino');
+$casino_arr = array($txt['casino_slots'], $txt['casino_kluis'], $txt['casino_quiz'], $txt['casino_wheel'], $txt['casino_store']);
 
 ?>
 
-<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> Tickets no Inventário: <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
+<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> <?=$txt['casino_tickets_inv']?> <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
 
 <style>
     .carousel-cell {
@@ -29,7 +29,7 @@ $casino_arr = array('Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon
 <div class="box-content" style="display: inline-block; width: 100%;">
 	<form method="post"><table class="general bordered" width="100%">
 		<thead>
-			<tr><th colspan="6">Cassino</th></tr>
+			<tr><th colspan="6"><?=$txt['casino_header']?></th></tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -60,7 +60,7 @@ $casino_arr = array('Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon
 			<tr>
 				<td>
 				<?php $rand = rand(0, 4); ?>
-					<center><a href="#" id="visitar-link" class="noanimate"><button type="button" id="visitar" style="margin: 10px;">VISITAR <?=($casino_arr[$rand]);?></button></a></center>
+					<center><a href="#" id="visitar-link" class="noanimate"><button type="button" id="visitar" style="margin: 10px;"><?=sprintf($txt['casino_visit'], $casino_arr[$rand]);?></button></a></center>
 				</td>
 			</tr>
 		</tfoot>
@@ -70,7 +70,7 @@ $casino_arr = array('Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon
 <script>
 	var $carousel = $('.main-carousel');
 	var $links = ['slots', 'kluis', 'who-is-it-quiz', 'wheel-of-fortune', 'casino-store'];
-	var $names = ['Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon?', 'Roda da Fortuna', 'a Loja do Cassino'];
+	var $names = ['<?=$txt['casino_slots']?>', '<?=$txt['casino_kluis']?>', '<?=$txt['casino_quiz']?>', '<?=$txt['casino_wheel']?>', '<?=$txt['casino_store']?>'];
 
     $carousel.flickity({
         pageDots: false,
@@ -83,7 +83,7 @@ $casino_arr = array('Caça-Níqueis', 'Quebre o Segredo', 'Quem é esse Pokémon
 
     $carousel.on('select.flickity', function() {
 		$link.attr('href', './'+$links[flkty.selectedIndex]);
-		$input.text('VISITAR '+$names[flkty.selectedIndex]);
+		$input.text('<?=$txt['casino_visit']?>'.replace('%s', $names[flkty.selectedIndex]));
 	});
 
 	$link.attr('href', './'+$links[flkty.selectedIndex]);

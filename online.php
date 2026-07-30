@@ -1,6 +1,6 @@
 <?php
 include('app/includes/resources/security.php');
-$sql = "SELECT `username`,`premiumaccount`,`admin`,`rang`,`dv` FROM `gebruikers` WHERE (`online` + 900) >= UNIX_TIMESTAMP() AND `banned` = 'N' ORDER BY `admin` DESC, `points` DESC, `rang` ASC, `user_id` ASC";
+$sql = "SELECT `user_id`,`username`,`premiumaccount`,`admin`,`rang`,`dv` FROM `gebruikers` WHERE (`online` + 900) >= UNIX_TIMESTAMP() AND `banned` = 'N' ORDER BY `admin` DESC, `points` DESC, `rang` ASC, `user_id` ASC";
 $expire = 30;
 $records = query_cache("online",$sql,$expire);
 $total_online = count($records);

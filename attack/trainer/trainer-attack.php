@@ -4,8 +4,8 @@ include("app/includes/resources/security.php");
 //Include Attack Functions
 include("attack/attack.inc.php");
 
-$aanval_log = aanval_log($_SESSION['trainer']['aanval_log_id']);
-$trainer = DB::exQuery("SELECT * FROM `trainer` WHERE `naam`='".$aanval_log['trainer']."'")->fetch_assoc();
+$aanval_log = aanval_log($_SESSION['trainer']['aanval_log_id'] ?? 0) ?: [];
+$trainer = DB::exQuery("SELECT * FROM `trainer` WHERE `naam`='".($aanval_log['trainer'] ?? '')."'")->fetch_assoc();
 if (empty($trainer['badge'])) {
   $return_link = "trainer";
   $gym = 1;
@@ -21,11 +21,18 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   //Send back to home
   header("Location: ../../home");
   unset($_SESSION['trainer']['duel_id']);
+  exit;
 } else {
   //Load All Openent Info
   $computer_info = computer_data($aanval_log['tegenstanderid']);
+  if ($computer_info === null) {
+    remove_attack($aanval_log['id']);
+    unset($_SESSION['trainer']['duel_id']);
+    header("Location: ../../home");
+    exit;
+  }
   //Make all letters small
-  $computer_info['naam_klein'] = strtolower($computer_info['naam']);
+  $computer_info['naam_klein'] = strtolower($computer_info['naam'] ?? '');
   //Change name for male and female
   $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
   
@@ -44,7 +51,14 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   
   //Load All Pokemon Info
   $pokemon_info = pokemon_data($aanval_log['pokemonid']);
-  $pokemon_info['naam_klein'] = strtolower($pokemon_info['naam']);
+  $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.wild_id, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='" . $_SESSION['id'] . "' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
+  if ($pokemon_info === null) {
+    remove_attack($aanval_log['id']);
+    unset($_SESSION['trainer']['duel_id']);
+    header("Location: ../../home");
+    exit;
+  }
+  $pokemon_info['naam_klein'] = strtolower($pokemon_info['naam'] ?? '');
   $pokemon_info['naam_goed'] = addslashes(pokemon_naam($pokemon_info['naam'],$pokemon_info['roepnaam'],$pokemon_info['icon']));
   
   //Calculate Life in Procent for Pokemon         
@@ -79,7 +93,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
       $player_hand['wild_id'] = "??";
 	}
 	
-	if ($player_hand['ei'] != 1) $player_hand['naam'] = addslashes(pokemon_naam($player_hand['naam'], $player_hand['roepnaam'], $player_hand['icon']));
+  if ($player_hand['ei'] != 1) $player_hand['naam'] = addslashes(pokemon_naam($player_hand['naam'], $player_hand['roepnaam'], $player_hand['icon'] ?? ''));
 
     $battle_lifes = pokemon_data($player_hand['id']);
     ?>
@@ -132,7 +146,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   <script type="text/javascript" src="./attack/javascript/animation.js"></script>
 
   <script language="javascript">
-  var vol = (<?=$gebruiker['volume']?>-3)/100;
+  var vol = (<?=$gebruiker['volume'] ?? 0?>-3)/100;
   if (vol < 0) vol = 0;
   var sound_base = new Howl({
       src: ['public/sounds/trainer.mp3'],
@@ -144,7 +158,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     sound_base.play();
   
   var speler_attack = ''; var timer = ''; var next_turn_timer = ''; var attack_timer = 0; var speler_wissel = '';
-  var atk = ''; var trainer_zmove = <?=$aanval_log['zmove']?>;
+  var atk = ''; var trainer_zmove = <?=$aanval_log['zmove'] ?? 0?>;
 
   var weather = [
     'harsh_sunlight',
@@ -161,7 +175,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     //Show Starting Screen
     if ((("<?= $aanval_log['laatste_aanval']; ?>" == "spelereersteaanval") || ("<?= $aanval_log['laatste_aanval']; ?>" == "computereersteaanval")) && ("<?= $_SESSION['trainer']['begin_zien']; ?>" == 1)) {
       //Set Images
-      $("#img_pokemon").attr("src","<?=$static_url?>/images/characters/<?= $gebruiker['character']; ?>/Thumb.png")
+      $("#img_pokemon").attr("src","<?=$static_url?>/images/characters/<?= $gebruiker['character'] ?? ''; ?>/Thumb.png")
       $("#img_trainer").attr("src","<?=$static_url?>/images/trainers/<?= $aanval_log['trainer']; ?>.png")
       setTimeout("show_start_text();", 5000)
       $("#message").html("<?= $txt['start_0'].$aanval_log['trainer'].$txt['start_1']; ?>")
@@ -228,8 +242,8 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   function show_start_text() {
       $("#img_pokemon").attr("src", "<?=$static_url?>/images/<?= $pokemon_info['map']; ?>/back/<?= $pokemon_info['wild_id']; ?>.gif");
       $("#img_trainer").attr("src", "<?=$static_url?>/images/<?= $computer_info['map']; ?>/<?= $computer_info['wild_id']; ?>.gif");
-      wlSound('cries/<?=$pokemon_info['wild_id']?>', <?=$gebruiker['volume']?>, false);
-      setTimeout(function () { wlSound('cries/<?=$computer_info['wild_id']?>', <?=$gebruiker['volume']?>, false); }, 1500);
+      wlSound('cries/<?=$pokemon_info['wild_id']?>', <?=$gebruiker['volume'] ?? 0?>, false);
+      setTimeout(function () { wlSound('cries/<?=$computer_info['wild_id']?>', <?=$gebruiker['volume'] ?? 0?>, false); }, 1500);
 
       $("#pokemon_naam").html("<?= $pokemon_info['naam_goed']; ?>")
       $("#pokemon_level").html("<?= $pokemon_info['level']; ?> <div id='hpresta' style='margin-top: -4px;margin-left: 80px;position: absolute;'><?= "".$pokemon_info['leven']." / ".$pokemon_info['levenmax']."";?></div>")
@@ -248,7 +262,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   }
 
 function show_end_screen(id) {
-	$.get("attack/trainer/trainer-finish.php?aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(), function(data) {
+	$.get("attack/trainer/trainer-finish.php?aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(), function(data) {
 		request = data.split(" | ")
 		document.getElementById('hit').style.display = "none";
 		document.getElementById('hit2').style.display = "none";
@@ -259,12 +273,12 @@ function show_end_screen(id) {
 			
 			sound_base.stop();
 			
-			if ((<?= $gebruiker['Badge case']; ?> == 0) && (<?= $gym; ?> == 0)) $('#message').append("<?= $txt['no_badgecase']; ?>")
+			if ((<?= $gebruiker['Badge case'] ?? 0; ?> == 0) && (<?= $gym; ?> == 0)) $('#message').append("<?= $txt['no_badgecase']; ?>")
 			
 			if (<?= $gym ?> == 1) {
-			    wlSound('trainer-victory', <?=$gebruiker['volume']?>, false);
+			    wlSound('trainer-victory', <?=$gebruiker['volume'] ?? 0?>, false);
 			} else {
-			    wlSound('gyms-victory', <?=$gebruiker['volume']?>, false);
+			    wlSound('gyms-victory', <?=$gebruiker['volume'] ?? 0?>, false);
 			    if (!request[0].includes('Elite')) {
 			        $('#zmove').hide().attr('src', 'public/images/badges/pixel/' + request[0] + '.png').fadeIn(1000).css('margin-left', '81%');
 			    }
@@ -280,7 +294,7 @@ function show_end_screen(id) {
 		$("#pokemon_text").hide()
 		$("#trainer_naam").html("<?= $aanval_log['trainer']; ?>.")
 		//Set Images
-		$("#img_pokemon").attr("src", "<?=$static_url?>/images/characters/<?= $gebruiker['character']; ?>/Thumb.png")
+		$("#img_pokemon").attr("src", "<?=$static_url?>/images/characters/<?= $gebruiker['character'] ?? ''; ?>/Thumb.png")
 		$("#img_trainer").attr("src", "<?=$static_url?>/images/trainers/<?= $aanval_log['trainer']; ?>.png")
 
 		setTimeout("location.href='./<?= $return_link; ?>'", 7500)
@@ -565,7 +579,7 @@ function change_pokemon_status(msg) {
 			$("#pokemon_star").hide()
 		}
 		$("#img_pokemon").attr("src", "<?=$static_url?>/images/" + map + "/back/" + request[15] + ".gif");
-		wlSound('cries/'+request[15], <?=$gebruiker['volume']?>, false);
+		wlSound('cries/'+request[15], <?=$gebruiker['volume'] ?? 0?>, false);
 		//Show all pokemon in your hand
 		for (let i = 1; i < 7; i++) {
 			let change = "div[id*='change_pokemon'][name*='"+ i +"']";
@@ -666,7 +680,7 @@ function trainer_change_pokemon(msg) {
 	$("#message").html(request[0])
 	$("#trainer_naam").html(request[1])
 	$("#img_trainer").attr("src", "<?=$static_url?>/images/pokemon/" + request[6] + ".gif");
-	wlSound('cries/'+request[6], <?=$gebruiker['volume']?>, false);
+	wlSound('cries/'+request[6], <?=$gebruiker['volume'] ?? 0?>, false);
 
 	if (!request[7] || request[7] == '') {
 		$("#computer_effect").css('display', 'none');
@@ -710,7 +724,7 @@ $(document).ready(function() {
   			document.getElementById('hit').style.display = "";
         $.ajax({
 					type: "GET",
-					url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+					url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: attack_status
 				});
 			}
@@ -729,7 +743,7 @@ $(document).ready(function() {
   					document.getElementById('hit').style.display = "";
   					$.ajax({
   						type: "GET",
-  						url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  						url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   						success: attack_status
   					}).done(function() {
   						atk = atk.split(' ').join('_');
@@ -753,7 +767,7 @@ $(document).ready(function() {
 				document.getElementById('hit2').style.display = "none";
 				$.ajax({
 					type: "GET",
-					url: "attack/attack_change_pokemon.php?opzak_nummer=" + $(this).attr("name") + "&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+					url: "attack/attack_change_pokemon.php?opzak_nummer=" + $(this).attr("name") + "&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: change_pokemon_status
 				});
 			}
@@ -779,7 +793,7 @@ $(document).ready(function() {
   			$("#potion_screen").hide()
   			$.ajax({
   				type: "GET",
-					url: "attack/trainer/trainer-attack_run.php?computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=<?= $aanval_log['id']; ?>&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+					url: "attack/trainer/trainer-attack_run.php?computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=<?= $aanval_log['id'] ?? 0; ?>&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: attack_run_status
   			});
   		}
@@ -792,7 +806,7 @@ $(document).ready(function() {
 			else {
 				$.ajax({
 					type: "GET",
-					url: "attack/attack_use_potion.php?item=" + $("#item_name").html() + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=1&potion_pokemon_id=" + $(this).attr('name') + "&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+					url: "attack/attack_use_potion.php?item=" + $("#item_name").html() + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=1&potion_pokemon_id=" + $(this).attr('name') + "&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: use_item_status
 				});
 				$("#potion_screen").hide()
@@ -811,7 +825,7 @@ $(document).ready(function() {
 			document.getElementById('hit2').style.display = "";
 			$.ajax({
 				type: "GET",
-				url: "attack/trainer/trainer-do_attack.php?attack_name=undifined&wie=computer&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+				url: "attack/trainer/trainer-do_attack.php?attack_name=undifined&wie=computer&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 				success: attack_status
 			});
 		}
@@ -827,7 +841,7 @@ $(document).ready(function() {
 			document.getElementById('hit2').style.display = "none";
 			$.ajax({
 				type: "GET",
-				url: "attack/trainer/trainer-change-pokemon.php?pokemon_info_name=<?= $pokemon_info['naam']; ?>&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+				url: "attack/trainer/trainer-change-pokemon.php?pokemon_info_name=<?= $pokemon_info['naam']; ?>&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 				success: trainer_change_pokemon
 			});
 		}
@@ -849,7 +863,7 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
 			<div style="padding:0px 0 100px 0px;"><div class="new_bar2">
 			<div style='padding: 15px 0 0 120px;'><strong><font size='3' style='text-shadow:1px 1px 1px #fff;'><i><img src='<?=$static_url?>/images/lvl.png' style='padding:0 0 0 30px;'> ?? </i></strong></font></div>			<div style="padding:0px 0 0 43px;"><div class="hp_red">
 			<div class="progress" id="computer_life" title="<?= $computer_info['leven']."/".$computer_info['levenmax']; ?>" style="width: <?= $computer_life_procent; ?>%"></div>
-			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px;  display: <?= $computer_effect['effect'] ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= $computer_effect['effect'] ? $computer_effect['effect'] : 'none' ?>.png" alt="<?= $computer_effect['effect'] ?>" title="<?= $computer_effect['effect'] ?>"/> </div></div>
+			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px;  display: <?= ($computer_info['effect'] ?? '') ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= ($computer_info['effect'] ?? '') ? $computer_info['effect'] : 'none' ?>.png" alt="<?= $computer_info['effect'] ?? '' ?>" title="<?= $computer_info['effect'] ?? '' ?>"/> </div></div>
 			<div align="left" style="padding: 5px 0px 0px 10px;"><font style="text-shadow:1px 1px 1px #fff;" size="3">
 		Batalhando contra <strong><span id="trainer_naam"><?= $computer_info['naam_goed']; ?></span></strong><span id='computer_star' style='display: <?= $computer_info['star'];?> ;'></span><br> <?php
 			  $trainer_pok = DB::exQuery("SELECT `id`, `leven` FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`='".$aanval_log['id']."' ORDER BY `id`");
@@ -940,7 +954,7 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
 
                       for($i=0; $items = $sql2->fetch_assoc(); $i++) {
                         $naamm = $items['naam'];
-                        $qtd = $gebruiker[$naamm];
+                        $qtd = $gebruiker[$naamm] ?? 0;
 
                         if ($qtd > 0) { 
                   ?>

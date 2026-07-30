@@ -3,9 +3,9 @@
     
 	$result = DB::exQuery("SELECT `user_id`,`character`, `username`, `rang`, `points` FROM `gebruikers` WHERE `rang` != 0 ORDER BY `rang` ASC LIMIT 0, 3");
 ?>
-<div class="blue">As posições do ranking são atualizadas à cada 30 minutos.</div>
+<div class="blue"><?=$txt['ranking_updated']?></div>
 <div class="box-content">
-	<h3 class="title" style="font-size: 21px; width: 36%">Ranking</h3>
+	<h3 class="title" style="font-size: 21px; width: 36%"><?=$txt['ranking_title']?></h3>
 <?php	
 	if ($result->num_rows > 0) {
 		$pos = array('primeiro', 'segundo', 'terceiro');
@@ -23,11 +23,8 @@
 	}
 
 	$max_per_page = 20;
-	$subpage = $_GET['subpage'];
-	if (!isset($subpage) && $player['rang_temp'] != 0) {
-		$subpage = ceil($subpage / $max_per_page);
-	} else	$subpage = round($subpage);
-	$subpage = !is_numeric($subpage) ? 1 : $subpage;
+	$subpage = $_GET['subpage'] ?? 1;
+	$subpage = !is_numeric($subpage) ? 1 : (int)$subpage;
 	if ($subpage <= 0)	$subpage = 1;
 	$start_records = ($subpage * $max_per_page) - $max_per_page;
 
@@ -36,13 +33,13 @@
 <table class="general" width="100%">
 	<thead><tr>
 		<th width="50" style="text-align:center;">#</th>
-		<th width="190" colspan="2">Treinador</th>
-		<th width="190" colspan="2">Rank</th>
-		<th width="190">Pontuação</th>
-		<th width="110" style="text-align:center;">Status</th>
+		<th width="190" colspan="2"><?=$txt['ranking_trainer']?></th>
+		<th width="190" colspan="2"><?=$txt['ranking_rank']?></th>
+		<th width="190"><?=$txt['ranking_score']?></th>
+		<th width="110" style="text-align:center;"><?=$txt['ranking_status']?></th>
 	</tr></thead>
 	<tbody><?php
-		if ($result->num_rows <= 0)	echo "<tr><td colspan=\"9\"><div class=\"red\">Nenhum resultado.</div></td></tr>";
+		if ($result->num_rows <= 0)	echo "<tr><td colspan=\"9\"><div class=\"red\">".$txt['ranking_no_result']."</div></td></tr>";
 		else {
 			while ($row = $result->fetch_assoc()) {
 				//Default offline

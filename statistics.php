@@ -5,7 +5,7 @@
 $expire = 3600; ## TEMPO PARA ATUALIZAR EM SEGS.
 ?>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Pokémons mais fortes</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_strongest_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT `pokemon_speler`.*,`pokemon_wild`.`wild_id`,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2`,`gebruikers`.`username`,SUM(`attack` + `defence` + `speed` + `spc.attack` + `spc.defence`) AS `strongestpokemon` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` INNER JOIN `gebruikers` ON `pokemon_speler`.`user_id`=`gebruikers`.`user_id` WHERE `gebruikers`.`banned`='N' AND `gebruikers`.`admin`=0 GROUP BY `pokemon_speler`.`id` ORDER BY `strongestpokemon` DESC LIMIT 5";
@@ -18,14 +18,14 @@ foreach ($records as $id=>$pokemon_profile ) {
 	echo '<td align="center" style="padding: 0"><table width="100%" class="general">';
 	echo '<tr><td align="center"><a href="./profile&amp;player=' . $pokemon_profile['username'] . '">'.GetColorName($pokemon_profile['user_id']).'</a></th></tr>';
 	echo '<tr><td class="tip_top-left" title="' . $popup . '" style="background: url(\'' . $static_url . '/'.$pokemon_profile['link'].'\') center center no-repeat; width: 149px; height: 115px;"></td></tr>';
-	echo '<tr><td align="center"><b>Poder Total: '.highamount($pokemon_profile['powertotal']).'</b></th></tr></table></td>';
+	echo '<tr><td align="center"><b>'.$txt['stats_total_power'].' '.highamount($pokemon_profile['powertotal']).'</b></th></tr></table></td>';
 }
 ?>
 	</tr></tbody>
 </table></div>
 <div class="separator"></div>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Pokémons mais experientes</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_most_experienced_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2`,`gebruikers`.`username` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` INNER JOIN `gebruikers` ON `pokemon_speler`.`user_id`=`gebruikers`.`user_id` WHERE `gebruikers`.`banned`='N' AND `gebruikers`.`admin`=0 ORDER BY `totalexp` DESC LIMIT 5";
@@ -51,7 +51,7 @@ foreach ($records as $id=>$pokemon_profile ) {
 	});
 </script>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Milionários</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_millionaires_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT  `user_id` ,  `username` ,  `character` , `silver` AS  `totaal` FROM  `gebruikers` WHERE  `banned` =  'N' AND  `admin` =  '0' GROUP BY user_id ORDER BY totaal DESC LIMIT 5";
@@ -85,7 +85,7 @@ foreach ($records as $id=>$gebruikers ) {
 </table></div> */?>
 <div class="separator"></div>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Colecionadores de pokémons no TOP 3</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_top3_collectors_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT user_id, COUNT( id ) AS total FROM `pokemon_speler` WHERE `top3` != '' GROUP BY user_id ORDER BY `total` DESC LIMIT 5";
@@ -103,7 +103,7 @@ $gebruikers = DB::exQuery("SELECT `user_id`, `username`, `character`, `premiumac
 </table></div>
 <div class="separator"></div>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Colecionadores de pokémons Nv.100</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_lv100_collectors_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT user_id, COUNT( id ) AS total FROM `pokemon_speler` WHERE `level` = '100' GROUP BY user_id ORDER BY `total` DESC LIMIT 5";
@@ -121,7 +121,7 @@ $gebruikers = DB::exQuery("SELECT `user_id`, `username`, `character`, `premiumac
 </table></div>
 <div class="separator"></div>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Duelistas</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_duelists_title']; ?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT `user_id`, `username`, `character`, `premiumaccount`, SUM(`gewonnen` - `verloren`) AS `gevechten` FROM `gebruikers` WHERE `admin` = '0' AND `banned`='N' GROUP BY `user_id` ORDER BY `gevechten` DESC LIMIT 5";
@@ -152,7 +152,7 @@ $total['matchestotal'] = number_format(round($total['matchestotal']),0,",",".");
 ?>
 <div class="separator"></div>
 <div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Informações</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?php echo $txt['stats_info_title']; ?></th></tr></thead>
 	<tbody><tr>
 
 

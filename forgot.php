@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 	//else if (strlen(trim($inlognaam)) < 3)	$message = '<div class="red">'.$txt['alert_username_too_short'].'</div>';
 	//else if (strlen(trim($inlognaam)) > 10)	$message = '<div class="red">'.$txt['alert_username_too_long'].'.</div>';
 	if (empty($email))	$message = '<div class="red">'.$txt['alert_no_email'].'</div>';
-    else if (!is_numeric($gegeven['acc_id']))	$message = '<div class="red">Não existe nenhum usuário com este e-email.</div>';
+    else if (!is_numeric($gegeven['acc_id']))	$message = '<div class="red">'.$txt['forgot_no_user'].'</div>';
 	//else if (strtolower($gegeven['username']) != strtolower($inlognaam))	$message = '<div class="red">O usuário não pertence a esse e-mail.</div>';
 	//else if (strtolower($gegeven['email']) != strtolower($email))	$message = '<div class="red">O e-mail não pertence a esse usuário.</div>';
 	else {
@@ -78,25 +78,25 @@ if (!empty($message))	echo $message;
 		<table width="70%" cellspacing="0" celpadding="0" border="0">
 			<tr>
 				<td colspan="2">
-					<input type="email" name="email" placeholder="Email:" value="<?=$_POST['email'];?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="email" name="email" placeholder="<?=$txt['forgot_email']?>" value="<?=$_POST['email'] ?? '';?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
 				</td>
 			</tr>
 			<tr style="font-style: italic;">
 				<td style="padding-left: 5px; padding-top: 5px; width: 50%">
-					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;">Ative sua Conta</a>
+					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;"><?=$txt['forgot_activate']?></a>
 				</td>
 				<td style="width: 50%; text-align: right; padding-top: 5px; padding-right: 10px">
-					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px">Recuperar Conta</a>
+					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px"><?=$txt['forgot_recover']?></a>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="padding-top: 10px">
-					<button class="button-rounded ripple" name="submit" type="submit" value="forgot">RECUPERAR SUA CONTA!</button>
+					<button class="button-rounded ripple" name="submit" type="submit" value="forgot"><?=$txt['forgot_recover_btn']?></button>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="font-style: italic; text-align: center; padding-top: 5px">
-					Já tem uma conta? <a href="./" style="color: #6ac7ee; font-weight: bold">LOGUE-SE</a> agora mesmo!
+					<?=$txt['forgot_have_account']?>
 				</td>
 			</tr>
 		</table>

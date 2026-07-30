@@ -14,10 +14,10 @@ if (isset($_POST['activate'])) {
 		else if (empty($activatie)) $message = '<div class="red">'.$txt['alert_no_activatecode'].'</div>';
 		else if (strlen(trim($activatie)) < 1)  $message = '<div class="red">'.$txt['alert_activatecode_too_short'].'</div>';
 		else if (strlen(trim($activatie)) > 6)  $message = '<div class="red">'.$txt['alert_activatecode_too_long'].'</div>';
-		else if ($rekening['username'] != $inlognaam)  $message = '<div class="red">Esta conta não existe!</div>';
+		else if ($rekening['username'] != $inlognaam)  $message = '<div class="red">'.$txt['activate_account_not_exist'].'</div>';
 		else if ($rekening['account_code'] != $activatie)  $message = '<div class="red">'.$txt['alert_activatecode_dont_exist'].'</div>';
-		else if ($rekening['account_code'] == 1) $message = '<div class="red">Esta conta já está ativa!</div>';
-		else if ($rekening['account_code'] == 0) $message = '<div class="red">Esta conta já está ativa!</div>';
+		else if ($rekening['account_code'] == 1) $message = '<div class="red">'.$txt['activate_already_active'].'</div>';
+		else if ($rekening['account_code'] == 0) $message = '<div class="red">'.$txt['activate_already_active'].'</div>';
 		else {
 			$page = 'activate';
 			require_once('language/language-mail.php');
@@ -52,11 +52,11 @@ if (isset($_POST['activate'])) {
 				if (!empty($_SESSION['act_msg'])) {
 				    $_SESSION['act_msg'] = '';
 				}
-				$message = '<div class="green">Sua conta foi ativada com sucesso!</div>';
+				$message = '<div class="green">'.$txt['activate_success'].'</div>';
 			} else	$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
 		}
 	} else {
-	    $message = '<div class="red">Usuário ou Código de Ativação Incorreto(s)!</div>';
+	    $message = '<div class="red">'.$txt['activate_wrong'].'</div>';
 	}
 }
 if (isset($_POST['resend'])) {
@@ -70,7 +70,7 @@ if (isset($_POST['resend'])) {
 	else if (!preg_match("/^[A-Z0-9._%-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z]{2,6}$/i", $email))	$alert = '<div class="red">'.$txt['alert_email_incorrect_signs'].'</div>';
 	else {
 		$getRekening = DB::exQuery("SELECT `acc_id`,`username`,`account_code`,`email` FROM `rekeningen` WHERE `username`='" . $inlognaam . "' AND `email`='" . $email . "' LIMIT 1");
-		if ($getRekening->num_rows != 1)	$message = '<div class="red">Não encontramos nenhuma conta vinculado à este e-mail!</div>';
+		if ($getRekening->num_rows != 1)	$message = '<div class="red">'.$txt['activate_no_email'].'</div>';
 		else {
 			$rekening = $getRekening->fetch_assoc();
 			if ($rekening['account_code'] == 1)	$message = '<div class="red">'.$txt['alert_already_activated'].'</div>';   
@@ -119,13 +119,13 @@ if (!empty($message))	echo $message;
 			<?php if (isset($_GET['method']) && $_GET['method'] == 'resend') { ?>
 			<tr>
 				<td colspan="2">
-					<input type="text" name="username" value="<?=$_POST['inlognaam'];?>"  placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
-					<input name="email" type="email" value="<?=$_POST['email'];?>" placeholder="Email:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="text" name="username" value="<?=$inlognaam;?>"  placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input name="email" type="email" value="<?=$_POST['email'] ?? '';?>" placeholder="Email:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
 				</td>
 			</tr>
 			<tr style="font-style: italic;">
 				<td style="padding-left: 5px; padding-top: 5px; width: 50%">
-					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;">Ativar Conta</a>
+					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;"><?=$txt['activate_title']?></a>
 				</td>
 				<td style="width: 50%; text-align: right; padding-top: 5px; padding-right: 10px">
 					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px">Recuperar Conta</a>
@@ -133,7 +133,7 @@ if (!empty($message))	echo $message;
 			</tr>
 			<tr>
 				<td colspan="2" style="padding-top: 10px">
-					<button class="button-rounded ripple" name="resend" type="submit" value="resend">REENVIAR CÓDIGO DE ATIVAÇÃO!</button>
+					<button class="button-rounded ripple" name="resend" type="submit" value="resend"><?=$txt['activate_resend_code']?></button>
 				</td>
 			</tr>
 			<tr>
@@ -149,12 +149,12 @@ if (!empty($message))	echo $message;
 			<tr>
 				<td colspan="2">
 					<input type="text" name="username" value="<?=$inlognaam;?>" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
-					<input type="text" name="activatie" value="<?=$activatie;?>" placeholder="Código de Ativação:" style="width:99%; padding-left: 10px;height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="text" name="activatie" value="<?=$activatie;?>" placeholder="<?=$txt['activate_code_placeholder']?>" style="width:99%; padding-left: 10px;height: 40px; margin-bottom: 5px; font-size: 14px" required />
 				</td>
 			</tr>
 			<tr style="font-style: italic;">
 				<td style="padding-left: 5px; padding-top: 5px; width: 50%">
-					<a href="./activate&method=resend"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;">Esqueceu o código?</a>
+					<a href="./activate&method=resend"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;"><?=$txt['activate_forgot_code']?></a>
 				</td>
 				<td style="width: 50%; text-align: right; padding-top: 5px; padding-right: 10px">
 					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px">Recuperar Conta</a>
@@ -162,7 +162,7 @@ if (!empty($message))	echo $message;
 			</tr>
 			<tr>
 				<td colspan="2" style="padding-top: 10px">
-					<button class="button-rounded ripple" name="activate" type="submit" value="activate">ATIVAR CONTA!</button>
+					<button class="button-rounded ripple" name="activate" type="submit" value="activate"><?=$txt['activate_activate_btn']?></button>
 				</td>
 			</tr>
 			<tr>

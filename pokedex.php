@@ -16,7 +16,7 @@ $pokedexverify = DB::exQuery("SELECT `pokedex` FROM `gebruikers_item` WHERE `use
 $pokedexhave = $pokedexverify['pokedex'];
 		
 if ($pokedexhave == 0) {
-echo '<div class="red">Compre uma Pokédex!</div>';
+echo '<div class="red">'.$txt['pokedex_buy'].'</div>';
 } else {
 ?>
 <script type="text/javascript">
@@ -37,11 +37,11 @@ echo '<div class="red">Compre uma Pokédex!</div>';
 	});
 </script>
 
-<div class="blue">Você já viu <b><?php echo $array; ?></b> Pokémons de <b><?php echo $totaal; ?></b> conhecidos sendo que <b><?php echo $array2; ?></b> já foram capturados por você.</div>
+<div class="blue"><?=sprintf($txt['pokedex_seen_captured'], $array, $totaal, $array2)?></div>
 
 <div class="box-content" style="margin-bottom: 7px">
 	<table class="general" style="width: 100%">
-		<thead><tr><th colspan="4">Raridades</th></tr></thead>
+		<thead><tr><th colspan="4"><?=$txt['pokedex_rarities']?></th></tr></thead>
 		<tbody>
 			<?php 
 				$zh = DB::exQuery("SELECT * FROM `zeldzaamheid`");
@@ -76,16 +76,16 @@ echo '<div class="red">Compre uma Pokédex!</div>';
 <div class="box-content">
 <table class="general" style="width: 100%">
 	<thead>
-		<?php if (isset($_SESSION['id'])) { ?><tr><th colspan="2" style="text-align: center;">Você já encontrou <?=$array;?> Pokémons de um total de <?=$totaal;?> pokémons!</th></tr><?php } ?>
+		<?php if (isset($_SESSION['id'])) { ?><tr><th colspan="2" style="text-align: center;"><?=sprintf($txt['pokedex_found'], $array, $totaal)?></th></tr><?php } ?>
 		<tr>
-			<th width="23%">Pokémons</th>
-			<th width="70%">Informações</th>
+			<th width="23%"><?=$txt['pokedex_pokemons']?></th>
+			<th width="70%"><?=$txt['pokedex_info']?></th>
 		</tr>
 	</thead>
 	<tr>
 		<td style="padding: 0;">
 			<div style="overflow: auto; height: 640px;">
-				<center><input type="text" id="kwd_search" style="width: 170px; margin: 5px;" class="input-blue" placeholder="Pesquisar Pokémon"/></center>
+				<center><input type="text" id="kwd_search" style="width: 170px; margin: 5px;" class="input-blue" placeholder="<?=$txt['pokedex_search']?>"/></center>
 				<table class="general blue" id="my-table" style="width: 100%">
 				<?php
 				$allpokemonsql = DB::exQuery("SELECT wild_id, naam, real_id FROM pokemon_wild where aparece='sim' ORDER BY real_id, wild_id ASC");
@@ -120,7 +120,7 @@ echo '<div class="red">Compre uma Pokédex!</div>';
 				<script type="text/javascript">
 					function show_info(pokemon) {
 						$('.red').remove();
-						if (pokemon == "none")	$("#pokemon_info").html("<div class=\"red\">Escolha um Pokémon</div>");
+						if (pokemon == "none")	$("#pokemon_info").html("<div class=\"red\"><?=$txt['pokedex_choose']?></div>");
 						else if (pokemon == "undefined") $("#pokemon_info").html();
 						else if (pokemon != '') {
 							$("#pokemon_info").load("./ajax.php?act=pokemon_info&pokemon=" + pokemon);
@@ -131,7 +131,7 @@ echo '<div class="red">Compre uma Pokédex!</div>';
 					});<?php } ?>
 				</script>
 				<div id="pokemon_info">
-					<div class="red" style="width: 99%; float: right">Escolha um Pokémon!</div>
+					<div class="red" style="width: 99%; float: right"><?=$txt['pokedex_choose']?>!</div>
 				</div>
 			</div>
 		</td>

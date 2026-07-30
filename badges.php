@@ -1,11 +1,11 @@
 <?php
 include('app/includes/resources/security.php');
-$title = 'Insígnias';
-$text = 'Essas são suas insígnias. Elas são frutos do seu trabalho duro como <b>treinador Pokémon</b>. <br>Você pode obtê-las batalhando contra os <a href="./attack/gyms"> Líderes de Ginásio </a> em cada região.';
+$title = $txt['badges_title'];
+$text = $txt['badges_text'];
 echo addNPCBox(19, $title, $text);
 
 if ($gebruiker['Badge case'] == 0) {
-	echo '<div class="red">Compre uma Badge Case para armazenar suas Insígnias!</div>';
+	echo '<div class="red">'.$txt['badges_no_case'].'</div>';
 }
 	  
 if ($gebruiker['rank'] >= 3) {
@@ -153,5 +153,5 @@ echo '</table></div>';
 </script>
 
 <?php } } else { ?>
-<div class="red">RANK MÍNIMO PARA VER SUAS INSÍGNIAS: 3 - COACH. CONTINUE UPANDO PARA LIBERAR!</div>
+<div class="red"><?=$txt['badges_min_rank']?></div>
 <?php } ?>

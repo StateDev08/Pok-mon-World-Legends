@@ -2,31 +2,31 @@
 include("app/includes/resources/security.php");
 include('app/classes/Messages.php');
 
-echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens de outros treinadores utilizando as Mensagens Privadas, Bloquear Treinadores e ver as Mensagens Oficiais do jogo. <br>Não é permitido utilizá-lo para fins de propaganda!');
+echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
 ?>
 
-<div class="red">NUNCA dê sua senha ou e-mail a ninguém através de mensagem privada. Em nenhum momento, alguém da equipe do jogo irá pedir sua senha.</div>
+<div class="red"><?=$txt['inbox_warning']?></div>
 
 <div style="width: 100%; display: flex" class="box-content">
     <table style="flex: 0 0 17%;" class="msg-table">
         <tr>
             <td onclick="window.location = './official-messages'">
-                <i class="material-icons" style="font-size: 30px">email</i> <br>Mensagens Oficiais <span class="badges" id="official-badges">0</span>
+                <i class="material-icons" style="font-size: 30px">email</i> <br><?=$txt['inbox_official']?> <span class="badges" id="official-badges">0</span>
             </td>
         </tr>
         <tr>
             <td class="selected" onclick="window.location = './inbox'">
-                <i class="material-icons" style="font-size: 30px">people</i> <br>Conversas <span class="badges" id="mail-badges">0</span>
+                <i class="material-icons" style="font-size: 30px">people</i> <br><?=$txt['inbox_conversations']?> <span class="badges" id="mail-badges">0</span>
             </td>
         </tr>
         <tr>
             <td onclick="window.location = './inbox&action=send'" id="new_msg">
-                <i class="material-icons" style="font-size: 30px">message</i> <br>Nova Conversa
+                <i class="material-icons" style="font-size: 30px">message</i> <br><?=$txt['inbox_new_conv']?>
             </td>
         </tr>
         <tr>
             <td onclick="window.location = './blocklist'">
-                <i class="material-icons" style="font-size: 30px">block</i> <br>Bloqueados (<span id="block-badges">0</span>)
+                <i class="material-icons" style="font-size: 30px">block</i> <br><?=$txt['inbox_blocked']?> (<span id="block-badges">0</span>)
             </td>
         </tr>
     </table>
@@ -49,7 +49,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
         <div id="div-container" style="max-height: 450px; overflow-y: auto;">
             <ul class="ul" style="margin: 0">
                 <?php
-                    $var = new Messages ( $_GET['id'] );
+                    $var = new Messages ( $_GET['id'] ?? 0 );
                     $is = false;
 					if ( empty ($_GET['action']) ) {
                         if (empty($_GET['id'])) {
@@ -85,11 +85,11 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                             $mensagem = strval(strip_tags($_POST['mensagem']));
 
                             if (empty($destinatario)) {
-                                echo '<div class="red">O destinatário não pode estar vazio!</div>';
+                                echo '<div class="red">'.$txt['inbox_error_empty_to'].'</div>';
                             } else if (empty($assunto)) {
-                                echo '<div class="red">O assunto não pode estar vazio!</div>';
+                                echo '<div class="red">'.$txt['inbox_error_empty_subject'].'</div>';
                             } else if (empty($mensagem)) {
-                                echo '<div class="red">A mensagem não pode estar vazia!</div>';
+                                echo '<div class="red">'.$txt['inbox_error_empty_msg'].'</div>';
                             } else if ($var->blocked ($destinatario)[0]) { 
                                 echo $var->blocked_msg ();
                             } else {
@@ -101,23 +101,23 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                         <div style='width: 100%;'>
                             <div style='background: #34465f;padding: 10px;border-bottom: 2px solid #27374e;'>
                                 <div>
-                                    <input type="text" name='destinatario' placeholder="Para" <?=$player?> style='width: 100%; height:30px; padding: 5px 0 5px 10px;' required>
-                                    <small style="color: #fff">Apenas um destinatário por mensagem.</small>
+                                    <input type="text" name='destinatario' placeholder="<?=$txt['inbox_to_placeholder']?>" <?=$player?> style='width: 100%; height:30px; padding: 5px 0 5px 10px;' required>
+                                    <small style="color: #fff"><?=$txt['inbox_single_recipient']?></small>
                                 </div>
                             </div>
                         </div>
                         <div style='width: 100%; margin-top: 10px;'>
                             <div style='background: #34465f;padding: 10px;border-bottom: 2px solid #27374e;'>
                                 <div>
-                                    <input type="text" name='assunto' placeholder="Assunto" <?=$assunto?> style='width: 100%; height:30px; padding: 5px 0 5px 10px;' max="50" required>
+                                    <input type="text" name='assunto' placeholder="<?=$txt['inbox_subject_placeholder']?>" <?=$assunto?> style='width: 100%; height:30px; padding: 5px 0 5px 10px;' max="50" required>
                                 </div>
                             </div>
                         </div>
                         <div style='width: 100%; margin-top: 10px;'>
                             <div style='background: #34465f;padding: 10px;'>
                                 <div>
-                                    <textarea name='mensagem' id='mensagem' placeholder="Mensagem" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 190px; width: 100%' required></textarea>
-                                    <input type="submit" value="Enviar Mensagem" class="button">
+                                    <textarea name='mensagem' id='mensagem' placeholder="<?=$txt['inbox_msg_placeholder']?>" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 190px; width: 100%' required></textarea>
+                                    <input type="submit" value="<?=$txt['inbox_send_btn']?>" class="button">
                                 </div>
                             </div>
                         </div>
@@ -137,13 +137,13 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                                 <table style="width: 100%">
                                     <tr>
                                         <td style="width: 60%; padding-right: 10px">
-                                            <textarea name='mensagem' id='mensagem' class="mensagem_<?=$_SESSION['id']?>" placeholder="Responder" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 155px; width: 100%' required></textarea>
+                                            <textarea name='mensagem' id='mensagem' class="mensagem_<?=$_SESSION['id']?>" placeholder="<?=$txt['inbox_reply_placeholder']?>" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 155px; width: 100%' required></textarea>
                                             <input type="hidden" id="conversa" name="conversa" value="<?=$_GET['id']?>"><input type="hidden" id="sender" name="sender" value="<?=$_SESSION['id']?>">
                                         </td>
                                         <td style="width: 40%">
                                             <table style="width: 100%">
                                                 <tr>
-                                                    <td colspan="6"><b style="color: #fff">EMOJIS</b></td>
+                                                    <td colspan="6"><b style="color: #fff"><?=$txt['inbox_emojis']?></b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><img src="<?=$static_url?>/images/emoticons/001.png" style="cursor: pointer;" onclick="emote_chat(':)')"></td>
@@ -182,7 +182,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="submit" value="Enviar Mensagem" class="button">
+                                            <input type="submit" value="<?=$txt['inbox_send_btn']?>" class="button">
                                         </td>
                                     </tr>
                                 </table>
@@ -223,7 +223,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                     </script>
         <?php
             } else {
-                if ($block[0]) {
+                if (!empty($block) && $block[0]) {
                     echo $var->blocked_msg();
                 }
             }

@@ -12,7 +12,7 @@ $aprox = false;
 $success = false;
 if (isset($_GET['name'])) {
     if (isset($_GET['like']) && $_GET['like'] == 'true') $aprox = true;
-    if (!is_numeric($_GET['subpage'])) $subpage = 1; 
+    if (!is_numeric($_GET['subpage'] ?? 0)) $subpage = 1; 
     else $subpage = $_GET['subpage']; 
 
     if (!$aprox) {

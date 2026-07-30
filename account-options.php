@@ -12,12 +12,12 @@ $shared = $share->getShared();
 $count = sizeof($shared);
 
 $persoonlijkerror 	= '&nbsp;';     
-$teamzien     		= $_POST['teamzien'] == ''   ? $gebruiker['teamzien']   : $_POST['teamzien'];
-$chat     		= $_POST['chat'] == ''   ? $gebruiker['chat']   : $_POST['chat'];
-$badgeszien     	= $_POST['badgeszien'] == ''   ? $gebruiker['badgeszien']   : $_POST['badgeszien'];
-$dueluitnodiging 	= $_POST['dueluitnodiging'] == '' ? $gebruiker['dueluitnodiging'] : $_POST['dueluitnodiging'];
-$exibepokes 	= $_POST['exibepokes'] == '' ? $gebruiker['exibepokes'] : $_POST['exibepokes'];
-$volume	= $_POST['volume'] == '' ? $gebruiker['volume'] : $_POST['volume'];
+$teamzien     		= ($_POST['teamzien'] ?? '') == ''   ? $gebruiker['teamzien']   : $_POST['teamzien'];
+$chat     		= ($_POST['chat'] ?? '') == ''   ? $gebruiker['chat']   : $_POST['chat'];
+$badgeszien     	= ($_POST['badgeszien'] ?? '') == ''   ? $gebruiker['badgeszien']   : $_POST['badgeszien'];
+$dueluitnodiging 	= ($_POST['dueluitnodiging'] ?? '') == '' ? $gebruiker['dueluitnodiging'] : $_POST['dueluitnodiging'];
+$exibepokes 	= ($_POST['exibepokes'] ?? '') == '' ? $gebruiker['exibepokes'] : $_POST['exibepokes'];
+$volume	= ($_POST['volume'] ?? '') == '' ? $gebruiker['volume'] : $_POST['volume'];
 
 if (isset($_POST['persoonlijk'])) {  
 	if ($teamzien != '1' && $teamzien != '0') {

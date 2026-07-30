@@ -324,17 +324,17 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_no_username']            = 'You must fill in all the fields!';
 	$txt['alert_username_too_short']     = 'The username is too short!';
 	$txt['alert_username_too_long']      = 'The username is too long!';
-	$txt['alert_username_dont_exist']    = $_POST['inlognaam'] . 'does not exist.';
+	$txt['alert_username_dont_exist']    = ($_POST['username'] ?? '') . 'does not exist.';
 	$txt['alert_no_activatecode']        = 'You must fill in all the fields!';
 	$txt['alert_activatecode_too_short'] = 'The activation code is too short!';
 	$txt['alert_activatecode_too_long']  = 'The activation code is too long!';
 	$txt['alert_guardcore_invalid']      = 'Captcha code is incorrect!';
-	$txt['alert_already_activated']      = $_POST['inlognaam'] . 'is already activated!';
+	$txt['alert_already_activated']      = ($_POST['username'] ?? '') . 'is already activated!';
 	$txt['alert_activatecode_wrong']     = 'You have entered an invalid activation code!';
 	$txt['alert_username_wrong']         = 'The user entered was not found!';
 	$txt['alert_no_email']               = 'You must fill in all the fields!';
 	$txt['alert_email_incorrect_signs']  = 'You must enter a valid email!';
-	$txt['success_activate']             = $_POST['inlognaam'] . 'has been activated successfully!';
+	$txt['success_activate']             = ($_POST['username'] ?? '') . 'has been activated successfully!';
 	$txt['success_resend']               = 'In a few moments you will receive an email with your activation code. Don\'t forget to check your SPAM folder!';
 
 	$txt['titlenpc']			= 'Activate your account now!';

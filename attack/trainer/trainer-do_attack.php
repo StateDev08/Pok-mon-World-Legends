@@ -33,6 +33,15 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
     $computer_info['table']['fight'] = "pokemon_wild_gevecht";
     $win_lose                        = 0;
     $transform                       = 0;
+    $return                          = ['exp' => 0, 'bericht' => ''];
+    $message_burn                    = '';
+    $recoil_d                        = 0;
+    $rec_left                        = 0;
+    $aanval_log_sql                  = '';
+    $life_decrease                   = 0;
+    $life_off                        = 0;
+    $new_exp                         = 0;
+    $attack_info                     = ['soort' => ''];
     //Is the new pokemon alive
     if ($pokemon_info['leven'] < 1) {
         $next_turn                  = 0;
@@ -92,6 +101,8 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
     } else if ($aanval_log['laatste_aanval'] == "klaar") {
         $message = $txt['fight_finished'];
     } else {
+        //WEATHER (WL >:D)
+        $weather = new Weather($aanval_log);
         switch ($_GET['wie']) {
             case "pokemon":
                 //Turn Check
@@ -119,6 +130,8 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                 //Turn Check
                 if (($aanval_log['laatste_aanval'] == "computer") OR ($aanval_log['laatste_aanval'] == "spelereersteaanval")) {
                     $message = $pokemon_info['naam'] . " " . $txt['must_attack'];
+                    echo $message . " | 0 | " . ($pokemon_info['leven'] ?? 0) . " | " . ($pokemon_info['levenmax'] ?? 1) . " | pokemon | 0 | 0 | 0 | " . ($pokemon_info['id'] ?? 0) . " | " . ($pokemon_info['opzak_nummer'] ?? 0) . " |  | 0 | " . ($pokemon_info['expnodig'] ?? 1) . " | 0 | 0 | " . ($computer_info['levenmax'] ?? 1) . " | computer |  | " . ($computer_info['leven'] ?? 0) . " |  | " . ($pokemon_info['effect'] ?? '') . " | " . ($computer_info['effect'] ?? '') . " | 0 | " . ($weather->clima ?? '');
+                    exit;
                 } else {
                     //Check Wich Attack Computer have.
                     $computer_attack = 0;
@@ -188,7 +201,6 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
         }
         
         //WEATHER (WL >:D)
-        $weather = new Weather($aanval_log);
         if ($weather->controller) {
             echo $weather->weather_turns($attacker_info, $opponent_info);
             echo $weather->weather_text('', '<br>');

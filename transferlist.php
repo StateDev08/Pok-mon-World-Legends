@@ -30,17 +30,17 @@ if (isset($_POST['buy']) && $mine == 'false') {
 		$buy = $action->fetch_assoc();
 		
 		if ($buy['user_id'] == $_SESSION['id']) {
-			echo '<div class="red">Você não pode comprar seu Pokémon!</div>';
+			echo '<div class="red">'.$txt['transfer_cant_buy_own'].'</div>';
 		} else if ($gebruiker['rank'] < 4) {
-			echo '<div class="red">Você não tem RANK suficiente para comprar Pokémon!</div>';
+			echo '<div class="red">'.$txt['transfer_no_rank'].'</div>';
 		} else if ($buy['type'] == 'private' && $buy['to_user'] != $_SESSION['id']) {
-			echo '<div class="red">Você não pode comprar este Pokémon!</div>';
+			echo '<div class="red">'.$txt['transfer_cant_buy_this'].'</div>';
 		} else if ($buy['silver'] > $gebruiker['silver'] || $buy['gold'] > $rekening['gold']) {
-			echo '<div class="red">Você não tem Silvers ou Gold suficientes para comprar este Pokémon!</div>';
+			echo '<div class="red">'.$txt['transfer_no_money'].'</div>';
 		} else if ($buy['type'] == 'auction') {
-			echo '<div class="red">ERROR 202</div>';
+			echo '<div class="red">'.$txt['transfer_error'].'</div>';
 		} else if ($action->num_rows != 1) {
-			echo '<div class="red">Este Pokémon já foi vendido!</div>';
+			echo '<div class="red">'.$txt['transfer_sold'].'</div>';
 		} else {
 			$tl = DB::exQuery("SELECT `s`.`wild_id`, `s`.`user_id`,`s`.`icon`, `s`.`level`, `s`.`item`, `s`.`roepnaam`, `w`.`naam` FROM `pokemon_speler` s INNER JOIN `pokemon_wild` w ON `s`.`wild_id` = `w`.`wild_id` WHERE id='$buy[pokemon_id]'")->fetch_assoc();
 			$tl['naam'] = pokemon_naam($tl['naam'], $tl['roepnaam'], $tl['icon']);
@@ -68,7 +68,7 @@ if (isset($_POST['buy']) && $mine == 'false') {
 
 		}
 	} else {
-		echo '<div class="red">Você está com sua casa cheia! Compre uma casa maior clicando <a href="house-seller">AQUI</a>.</div>';
+		echo '<div class="red">'.$txt['transfer_house_full'].'</div>';
 	}
 }
 
@@ -128,9 +128,7 @@ if (!empty($_GET['equip'])) {
 	$filter_arr[9] = str_replace('_', ' ', $_GET['equip']);
 }
 
-$npctitle	= 'Mercado de pokémons';
-$npctext	= 'Compre e venda Pokémons pelo melhor preço com nossos métodos de venda: <div class="badge-wip">Leilões</div> <div class="badge-wip">Diretas</div> <div class="badge-wip">Privadas</div>';
-echo addNPCBox(36, $npctitle, $npctext);
+echo addNPCBox(36, $txt['transfer_title'], $txt['transfer_npc_text']);
 if (!empty($message))	echo $message;
 
 ?>
@@ -162,14 +160,14 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 <div class="box-content filtro" style="background: #1C3248; overflow: unset; color: #fff">
 	<form method="get">
 		<div class="triangle">
-			<h3 class="title" style="width: 60%;font-size: 19px;margin-bottom: -5px;margin-top: 6px;">Filtrar Vendas</h3>
+			<h3 class="title" style="width: 60%;font-size: 19px;margin-bottom: -5px;margin-top: 6px;"><?=$txt['transfer_filter']?></h3>
 			<div style="text-align: left; padding-top: 17px;">
-				<b>Espécie: </b><select class="select-transferlist" id="specie"><option value="">Qualquer</option>
+				<b><?=$txt['transfer_species']?> </b><select class="select-transferlist" id="specie"><option value=""><?=$txt['transfer_any']?></option>
 					<?php
 						$wild = DB::exQuery("SELECT `wild_id`, `naam`, `real_id` FROM `pokemon_wild` ORDER BY `real_id`");
 						while ($w = $wild->fetch_assoc()) {
 							$selected = '';
-							if ($w['wild_id'] == $filter_arr[0]) {
+							if ($w['wild_id'] == ($filter_arr[0]??'')) {
 								$selected = 'selected';
 							}
 
@@ -178,17 +176,17 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 					?>
 				</select>
 
-				<b>Poder total <span title="Maior ou igual" style="cursor: pointer">[?]</span>: </b><input type="number" min="0" placeholder="0" value="<?=$filter_arr[1]?>" class="select-transferlist" id="total">
-				<b>Apenas Shiny <span title="Marcado para SIM, desmarcado para Shiny e Normal" style="cursor: pointer">[?]</span></b><input type="checkbox" class="select-transferlist" id="shiny" style="vertical-align: sub;" <?=($filter_arr[2])? 'checked' : '';?>></select>
+				<b><?=$txt['transfer_total_power']?> <span title="<?=$txt['transfer_total_power_hint']?>" style="cursor: pointer">[?]</span>: </b><input type="number" min="0" placeholder="0" value="<?=$filter_arr[1]??''?>" class="select-transferlist" id="total">
+				<b><?=$txt['transfer_only_shiny']?> <span title="<?=$txt['transfer_shiny_hint']?>" style="cursor: pointer">[?]</span></b><input type="checkbox" class="select-transferlist" id="shiny" style="vertical-align: sub;" <?=(!empty($filter_arr[2]))? 'checked' : '';?>></select>
 			</div>
 		</div>
 		<div style="padding-top: 7px;text-align: left;padding-left: 7px;">
-			<b>Região: </b><select class="select-transferlist" id="region">
+			<b><?=$txt['transfer_region']?> </b><select class="select-transferlist" id="region">
 				<?php
 					$array = array('Todas', 'Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola');
 					foreach($array as $w) {
 						$selected = '';
-						if ($w == $filter_arr[3]) {
+						if ($w == ($filter_arr[3]??'')) {
 							$selected = 'selected';
 						}
 
@@ -196,15 +194,15 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 					}
 				?>
 			</select>
-			<b>Preço: </b><input type="number" min="0" class="select-transferlist" id="price" placeholder="0" style="width: 70px" value="<?=$filter_arr[4]?>"><select class="select-transferlist" id="price-type"><option value="silver" <?=($filter_arr[5] == 'silver')? 'selected' : ''?>>Silvers</option><option value="golds" <?=($filter_arr[5] == 'golds')? 'selected' : ''?>>Golds</option></select>
-			<b>Treinador: </b><input type="text" class="select-transferlist" id="trainer" placeholder="Qualquer" value="<?=$filter_arr[6]?>">
-			<b>Level: </b><input type="number" min="0" max="100" class="select-transferlist" id="level" placeholder="0" style="width: 70px" value="<?=$filter_arr[7]?>"><select class="select-transferlist" id="level-type"><option value="maior" <?=($filter_arr[8] == 'maior')? 'selected' : ''?>>Maior</option><option value="menor" <?=($filter_arr[8] == 'menor')? 'selected' : ''?>>Menor</option></select>
-			<b>Equipado: </b><select class="select-transferlist" id="equip" style="width: 100px"><option value="">Qualquer</option><option value="none" <?=($filter_arr[9] == 'none')? 'selected' : ''?>>Nenhum</option>
+			<b><?=$txt['transfer_price']?> </b><input type="number" min="0" class="select-transferlist" id="price" placeholder="0" style="width: 70px" value="<?=$filter_arr[4]??''?>"><select class="select-transferlist" id="price-type"><option value="silver" <?=(($filter_arr[5]??'') == 'silver')? 'selected' : ''?>>Silvers</option><option value="golds" <?=(($filter_arr[5]??'') == 'golds')? 'selected' : ''?>>Golds</option></select>
+			<b><?=$txt['transfer_trainer']?> </b><input type="text" class="select-transferlist" id="trainer" placeholder="<?=$txt['transfer_any']?>" value="<?=$filter_arr[6]??''?>">
+			<b><?=$txt['transfer_level']?> </b><input type="number" min="0" max="100" class="select-transferlist" id="level" placeholder="0" style="width: 70px" value="<?=$filter_arr[7]??''?>"><select class="select-transferlist" id="level-type"><option value="maior" <?=(($filter_arr[8]??'') == 'maior')? 'selected' : ''?>><?=$txt['transfer_greater']?></option><option value="menor" <?=(($filter_arr[8]??'') == 'menor')? 'selected' : ''?>><?=$txt['transfer_less']?></option></select>
+			<b><?=$txt['transfer_equipped']?> </b><select class="select-transferlist" id="equip" style="width: 100px"><option value=""><?=$txt['transfer_any']?></option><option value="none" <?=(($filter_arr[9]??'') == 'none')? 'selected' : ''?>><?=$txt['transfer_none']?></option>
 				<?php
 					$itens = DB::exQuery("SELECT `naam` FROM `markt` WHERE `equip`='1'");
 					while ($i = $itens->fetch_assoc()) {
 						$selected = '';
-						if ($i['naam'] == $filter_arr[9]) {
+						if ($i['naam'] == ($filter_arr[9]??'')) {
 							$selected = 'selected';
 						}
 
@@ -214,7 +212,7 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 			</select>
 		</div>
 		<div style="margin-top: 11px;border-top: 1px solid #577599">
-			<button type="button" style="margin: 6px" onclick="filtro()">BUSCAR</button>
+			<button type="button" style="margin: 6px" onclick="filtro()"><?=$txt['transfer_search']?></button>
 		</div>
 	</form>
 </div>
@@ -248,27 +246,27 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 </script>
 
 <div class="orientation-bar" id="transferlist" style="margin-top: 7px">
-	<a href="<?=$base_url?>&type=auction" data-orientation="auction"><button type="button">Leilões</button></a>
-	<a href="<?=$base_url?>&type=direct" data-orientation="direct"><button type="button">Diretas</button></a>
-	<a href="<?=$base_url?>&type=private" data-orientation="private"><button type="button">Privadas</button></a>
-	<input type="checkbox" name="mine" style="vertical-align: middle" <?=($mine == 'true')? 'checked' : '';?>> Mostrar apenas meus Pokémons
+	<a href="<?=$base_url?>&type=auction" data-orientation="auction"><button type="button"><?=$txt['transfer_auctions']?></button></a>
+	<a href="<?=$base_url?>&type=direct" data-orientation="direct"><button type="button"><?=$txt['transfer_direct']?></button></a>
+	<a href="<?=$base_url?>&type=private" data-orientation="private"><button type="button"><?=$txt['transfer_private']?></button></a>
+	<input type="checkbox" name="mine" style="vertical-align: middle" <?=($mine == 'true')? 'checked' : '';?>> <?=$txt['transfer_show_mine']?>
 </div>
 <div class="box-content" style="margin-top: -1px; text-align: center">
 <table class="general" id="example">
 	<thead>
 		<tr>
             <td><strong><?php echo $txt['pokemon']; ?></strong></td>
-			<td class="no-sort"><strong>Características</strong></td>
-            <td><strong>Poder Total</strong></td>
-			<td><strong>Item</strong></td>
-			<td><strong>Data</strong></td>
-			<td width="130"><strong>Preço</strong></td>
+			<td class="no-sort"><strong><?=$txt['transfer_th_characteristics']?></strong></td>
+            <td><strong><?=$txt['transfer_th_total']?></strong></td>
+			<td><strong><?=$txt['transfer_th_item']?></strong></td>
+			<td><strong><?=$txt['transfer_th_date']?></strong></td>
+			<td width="130"><strong><?=$txt['transfer_th_price']?></strong></td>
 			<td class="no-sort" width="30"></td>
 		</tr>
 	</thead>
 	<tbody><?php
 	if ($over > 0) {
-	if (!is_numeric($_GET['subpage']))	$subpage = 1; 
+	if (!is_numeric($_GET['subpage']??''))	$subpage = 1; 
 	else	$subpage = $_GET['subpage']; 
 
 	if ($type == 'private') {
@@ -349,29 +347,29 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 
 			$price_gd = ($tl['gold'] > 0)? highamount(round($tl['gold'])).' <img src="'.$static_url.'/images/icons/gold.png">' : '';
 			$price_sl = ($tl['silver'] > 0)? highamount(round($tl['silver'])).' <img src="'.$static_url.'/images/icons/silver.png">' : '';
-			$ngc = ($ngc)? '<p style="margin: 0; color: #d25757; font-size: 12px">NEGOCIÁVEL</p>' : '';
-			$suffix = (!empty($price_gd) && !empty($price_sl))? ' e ' : '';
+			$ngc = ($ngc)? '<p style="margin: 0; color: #d25757; font-size: 12px">'.$txt['transfer_negotiable'].'</p>' : '';
+			$suffix = (!empty($price_gd) && !empty($price_sl))? $txt['transfer_and'] : '';
 			
 			if ($type == 'auction') {
-				$ngc = '<p style="margin: 0; color: #d25757; font-size: 12px">'.$lances.' LANCES</p>';
+				$ngc = '<p style="margin: 0; color: #d25757; font-size: 12px">'.sprintf($txt['transfer_bids'], $lances).'</p>';
 			}
 
 			$price = $price_sl.$suffix.$price_gd.$ngc;
 
-			$item = (isset($tl['item']))? '<img src=\'' . $static_url . '/images/items/' . $tl['item'] . '.png\' title=\'' . $tl['item'] . '\' />' : 'Nenhum';
+			$item = (isset($tl['item']))? '<img src=\'' . $static_url . '/images/items/' . $tl['item'] . '.png\' title=\'' . $tl['item'] . '\' />' : $txt['transfer_none'];
 
 			$tl['powertotal'] = $tl['attack'] + $tl['defence'] + $tl['speed'] + $tl['spc.attack'] + $tl['spc.defence'];
 
 			if ($ptotal != false && $tl['powertotal'] <= $ptotal) continue;
 
-			$remove = '<button type="button" onclick="delete_from(\'' . $tl['id'] . '\',\'' . $tid . '\');">REMOVER</button>';
+			$remove = '<button type="button" onclick="delete_from(\'' . $tl['id'] . '\',\'' . $tid . '\');">'.$txt['transfer_remove'].'</button>';
 			if ($type == 'auction') {
 				if ($lances > 0) {
-					$remove = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">VISUALIZAR</button>';
+					$remove = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_view'].'</button>';
 				}
-				$btn = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">DAR LANCE</button>';
+				$btn = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_bid'].'</button>';
 			} else {
-				$btn = '<button type="button" class="buy-pokemon" data-buy="'.base64_encode($tid).'">Comprar</button>';
+				$btn = '<button type="button" class="buy-pokemon" data-buy="'.base64_encode($tid).'">'.$txt['transfer_buy'].'</button>';
 			}
 			
 			$buy = (($_SESSION['id'] == $tl['user_id']) ? $remove : '<div class="alternate" style="font-weight: 600;"><span>'.$price.'</span>'.$btn.'</div>');
@@ -386,7 +384,7 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 				<td><a href="./pokemon-profile&id='.$tl['id'].'"><div class="lupa"></div></a></td></tr>';
 		}
 	} else {
-		echo '<tr><td colspan="7"><div class="red" style="margin-top: 5px">RANK MÍNIMO PARA COMPRAR OU VENDER POKÉMONS: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div></td></tr>';
+		echo '<tr><td colspan="7"><div class="red" style="margin-top: 5px">'.$txt['transfer_min_rank'].'</div></td></tr>';
 	}
 	?></tbody>
 	<?php
@@ -489,4 +487,4 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 	});
 </script>
 
-<?php } else { echo '<tr><td colspan="7"><div class="red">Você está com sua casa cheia! Compre uma casa maior clicando <a href="house-seller">AQUI</a>.</div></tr></td></tbody></table></div>';} ?>
+<?php } else { echo '<tr><td colspan="7"><div class="red">'.$txt['transfer_house_full2'].'</div></tr></td></tbody></table></div>';} ?>

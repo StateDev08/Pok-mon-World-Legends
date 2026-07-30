@@ -1,5 +1,5 @@
 <?php
-echo addNPCBox(30, 'Bem vindo a fonte da Juventude', 'Aqui você poderá rejuvenescer seu Pokémon e após utilizar a fonte da juventude:<br>- Seu Pokémon voltará para o Level 5;<br>- Todas suas vitaminas, golpes aprendidos e EVs serão zeradas.<br><br>Será mantido apenas o humor do seu Pokémon e seus atributos de IVs, ou seja, tanto o JUIZ quanto a CALCULADORA não sofrerão alterações! <br>Se você tiver PREMIUM o custo será reduzido em 20%!');
+echo addNPCBox(30, $txt['fountain_npc_title'], $txt['fountain_npc_text']);
 
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include('app/includes/resources/security.php');
@@ -32,13 +32,13 @@ if(isset($_POST['normal'])){
 	
 	if ($poke['poke_reset'] == 3 || $poke['ei'] == 1) $price = '--';
 
-	if (!$poke)											$error = 'Você não escolheu um pokémon válido!';
-	elseif ($poke['user_id'] != $_SESSION['id'])		$error = 'Este pokémon não pertence a você!';
-	elseif ($poke['ei'] == 1)							$error = 'Este pokémon ainda é um ovo.';
-	elseif ($poke['poke_reset'] >= 3)					$error = 'Esse pokémon já foi rejuvenescido muitas vezes.';
-	elseif ($poke['opzak'] != 'ja')						$error = 'Esse pokémon não está no seu time.';
-	elseif ($poke['level'] == 5)						$error = 'Este pokémon não pode ser rejuvenescido.';
-	elseif ($gebruiker['silver'] < $price)				$error = 'Você não tem silvers suficientes.';
+	if (!$poke)											$error = $txt['fountain_error_no_pokemon'];
+	elseif ($poke['user_id'] != $_SESSION['id'])		$error = $txt['fountain_error_not_yours'];
+	elseif ($poke['ei'] == 1)							$error = $txt['fountain_error_egg'];
+	elseif ($poke['poke_reset'] >= 3)					$error = $txt['fountain_error_reset_max'];
+	elseif ($poke['opzak'] != 'ja')						$error = $txt['fountain_error_not_in_team'];
+	elseif ($poke['level'] == 5)						$error = $txt['fountain_error_cannot_reset'];
+	elseif ($gebruiker['silver'] < $price)				$error = $txt['fountain_error_no_silver'];
 	else {
 		$update				= [];
 		$update['level']	= 5;
@@ -89,7 +89,7 @@ if(isset($_POST['normal'])){
 
 		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'");
 
-		$success = 'Seu ' . $poke['naam'] . ' foi rejuvenescido!';
+		$success = sprintf($txt['fountain_success'], $poke['naam']);
 	}
 }
 
@@ -114,12 +114,12 @@ if(isset($_POST['premium'])){
 	
 	$price = $price * 3;
 
-	if (!$poke)											$error = 'Você não escolheu um pokémon válido!';
-	elseif ($poke['user_id'] != $_SESSION['id'])		$error = 'Este pokémon não pertence a você!';
-	elseif ($poke['ei'] == 1)							$error = 'Este pokémon ainda é um ovo.';
-	elseif ($poke['opzak'] != 'ja')						$error = 'Esse pokémon não está no seu time.';
-	elseif ($poke['level'] == 5)						$error = 'Este pokémon não pode ser rejuvenescido.';
-	elseif ($gebruiker['silver'] < $price)				$error = 'Você não tem silvers suficientes.';
+	if (!$poke)											$error = $txt['fountain_error_no_pokemon'];
+	elseif ($poke['user_id'] != $_SESSION['id'])		$error = $txt['fountain_error_not_yours'];
+	elseif ($poke['ei'] == 1)							$error = $txt['fountain_error_egg'];
+	elseif ($poke['opzak'] != 'ja')						$error = $txt['fountain_error_not_in_team'];
+	elseif ($poke['level'] == 5)						$error = $txt['fountain_error_cannot_reset'];
+	elseif ($gebruiker['silver'] < $price)				$error = $txt['fountain_error_no_silver'];
 	else {
 		$update				= [];
 		$update['level']	= 5;
@@ -269,20 +269,20 @@ if(isset($_POST['premium'])){
 
 			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'{$price}' WHERE `user_id` = '{$_SESSION['id']}'");
 			
-			if(!empty($text_add)) $text_add = "Você recebeu ".$text_add." de volta.";
-			if(!empty($text_add)) echo '<div class="blue">Feito, seu pokémon voltou ao normal. '.$text_add.'</div>';
+			if(!empty($text_add)) $text_add = sprintf($txt['fountain_received'], $text_add);
+			if(!empty($text_add)) echo '<div class="blue">'.$txt['fountain_done'].' '.$text_add.'</div>';
 			$event = 'O jogador '.$gebruiker['username'].' rejuvelheceu seu Pokémon ID: '.$poke['id'].' e recebeu um '.$item;
 							DB::exQuery("INSERT INTO `fountain_logs` (`acc_id`,`user_id`,`msg`,`pkmid`) 
 								VALUES ('".$rekening['acc_id']."','".$gebruiker['user_id']."','".$event."','".$poke['id']."')"); 
 			
-			$success = 'Seu ' . $poke['naam'] . ' foi rejuvenescido por '.$price.' Silvers!';
+			$success = sprintf($txt['fountain_premium_success'], $poke['naam'], $price);
 		} else {
-			$error = 'Você não têm espaço suficiente em sua Mochila! (Necessário: '.$total_bag.'x).';
+			$error = sprintf($txt['fountain_bag_full'], $total_bag);
 		}
 	}
 }
 } else {
-        echo '<div class="red">RANK MÍNIMO PARA VER AS IVs DOS POKÉMONS: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div>';
+        echo '<div class="red">'.$txt['fountain_rank_gate'].'</div>';
     }
 if(isset($error)) echo '<div class="red">'.$error.'</div>';
 if(isset($success)) echo '<div class="green">'.$success.'</div>';
@@ -311,7 +311,7 @@ if(isset($success)) echo '<div class="green">'.$success.'</div>';
         </style>
         <div class="box-content" style="width: 100%">
             <table width="100%" class="general">
-                <thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+                <thead><tr><th colspan="6"><?=$txt['fountain_my_team']?></th></tr></thead>
                 <tbody><tr>
                         <script>
                             var $poke_array_id = [];
@@ -375,29 +375,29 @@ if(isset($success)) echo '<div class="green">'.$success.'</div>';
                             	
                     <td class="row">
                         <div class="col alternate" style="border-right: 1px solid #577599;">
-                            <h3 class="title" style="font-size: 15px">FONTE BÁSICA</h3>
+                            <h3 class="title" style="font-size: 15px"><?=$txt['fountain_basic_title']?></h3>
 
                             <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                 <ul>
-                                    <li>Com a Fonte Básica, você pode restaurar seu Pokémon para o <b>Level 5</b> e <b>Zerar</b> suas EV's e Vitaminas.</li>
-                                    <li>Cada Pokémon pode passar pela Fonte Básica <b>3 vezes</b>.</li>
-                                    <li style="margin-top: 42px"><b>Preço: </b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <span id="price-basic">0</span></li>
+                                    <li><?=$txt['fountain_basic_desc1']?></li>
+                                    <li><?=$txt['fountain_basic_desc2']?></li>
+                                    <li style="margin-top: 42px"><b><?=$txt['fountain_basic_price']?> </b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <span id="price-basic">0</span></li>
                                 </ul>
                             </div>
-							<input type="submit" class="button" name="normal" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? '' : 'disabled'?> value="PASSAR PELA FONTE BÁSICA">
+							<input type="submit" class="button" name="normal" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? '' : 'disabled'?> value="<?=$txt['fountain_basic_btn']?>">
                         </div>
                 
                         <div class="col alternate" style="width: 65%">
-                            <h3 class="title" style="font-size: 15px">FONTE PREMIUM</h3>
+                            <h3 class="title" style="font-size: 15px"><?=$txt['fountain_premium_title']?></h3>
 
                             <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                 <ul>
-                                    <li>Com a Fonte Premium você terá a mesma bonificação da Básica, contudo, as <b>Vitaminas</b> e <b>Mega Stones</b> voltam para seu Inventário, além do Pokémon voltar para sua <b>Primeira Forma</b>!</li>
-                                    <li>O preço é <b>3x</b> à mais que a Básica, mas pode ser usada quantas vezes quiser!</li>
-                                    <li style="margin-top: 10px"><b>Preço: </b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <span id="price-advanced">0</span></li>
+                                    <li><?=$txt['fountain_premium_desc1']?></li>
+                                    <li><?=$txt['fountain_premium_desc2']?></li>
+                                    <li style="margin-top: 10px"><b><?=$txt['fountain_premium_price']?> </b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <span id="price-advanced">0</span></li>
                                 </ul>
                             </div>
-                            <input type="submit" class="button" name="premium" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? '' : 'disabled'?> value="PASSAR PELA FONTE PREMIUM">
+                            <input type="submit" class="button" name="premium" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? '' : 'disabled'?> value="<?=$txt['fountain_premium_btn']?>">
                         </div>
                     </td>
 

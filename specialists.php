@@ -68,7 +68,7 @@ if (isset($_POST['mood']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 			$message = '<div class="red">' . $txt['alert_not_your_team'] . '</div>';
 			break;
 		} else if ($pokemoninfo['humor_change'] > 2) {
-			$message = '<div class="red">Esse pokémon já fez mudou de humor o máximo de vezes.</div>';
+			$message = '<div class="red">'.$txt['spec_mood_max'].'</div>';
 			break;
 		} else {
 			# Save pokémon data
@@ -126,7 +126,7 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 			$message = '<div class="red">' . $txt['alert_not_your_team'] . '</div>';
 			break;
 		} else if ($pokemoninfo['humor_change'] > 2) {
-			$message = '<div class="red">Esse pokémon mudou de humor o máximo de vezes.</div>';
+			$message = '<div class="red">'.$txt['spec_mood_max2'].'</div>';
 			break;
 		} else {
 			# Save pokémon data
@@ -264,7 +264,7 @@ if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 			$message = '<div class="red">' . $txt['alert_not_your_team'] . '</div>';
 			break;
 		} else if ($pokemoninfo['humor_change'] > 0) {
-			$message = '<div class="red">Esse pokémon já fez alguma troca de humor.</div>';
+			$message = '<div class="red">'.$txt['spec_mood_already'].'</div>';
 			break;
 		} else {
 			# Save pokémon data
@@ -279,7 +279,7 @@ if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 	if (empty($message)) {
 		$karakter = DB::exQuery("SELECT * FROM `karakters` WHERE `karakter_naam`='$_POST[atribute]' LIMIT 1")->fetch_assoc();
 		if ($rekening['gold'] < $goldneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
-		else if (empty($karakter)) { $message = '<div class="red">Este humor não existe!</div>';
+		else if (empty($karakter)) { $message = '<div class="red">'.$txt['spec_mood_invalid'].'</div>';
 		} else {
 			foreach($_POST['pokes'] as $key=>$value) {
 				$attackstat		= round((((($pokeinfo[$value]['attack_iv'] + 2 * $pokeinfo[$value]['attack_base'] + floor($pokeinfo[$value]['attack_ev'] / 4)) * $pokeinfo[$value]['level'] / 100) + 5) + $pokeinfo[$value]['attack_up']) * $karakter['attack_add']);
@@ -314,7 +314,7 @@ if (isset($_POST['naam']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 			$message = '<div class="red">' . $txt['alert_name_equal'] . '</div>';
 			break;
 		} else if (!preg_match("/^([a-zA-Z0-9]+)$/", $_POST['name'][$value]) AND $_POST['remove']  != "remove") {
-		$message = '<div class="red">O nome não pode conter caracters especiais!</div>';
+		$message = '<div class="red">'.$txt['spec_name_special'].'</div>';
 		break;
 		/*} else if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `roepnaam`='{$_POST['name'][$value]}' LIMIT 1")->num_rows != 0) {
 			$message = '<div class="red">' . $txt['alert_name_exists'] . '</div>';
@@ -430,7 +430,7 @@ if (!empty($message))	echo $message;
 			else	$silveroutput = 600;
 			if ($pokemon['naam_changes'] != 0)	$silveroutput *= $pokemon['naam_changes'];
 
-			$silver = (!$premium)? highamount($silveroutput) : 'Grátis';
+			$silver = (!$premium)? highamount($silveroutput) : $txt['spec_free'];
 
 			echo '<tr>
 				<td align="center"><input type="checkbox" name="pokes[]" value="' . $pokemon['id'] . '"' . ($pokemon['ei'] == 1 ? ' disabled' : '') . ' /></td>
@@ -444,7 +444,7 @@ if (!empty($message))	echo $message;
 		}
 		$pokemon_sql->data_seek(0);
 		?></tbody>
-		<tfoot><tr><td colspan="6" align="right"><input type="checkbox" name="remove" id="remove" value="remove"> Voltar nome padrão <input type="submit" name="naam" value="<?=$txt['buttom'];?>" class="button" /></td></tr></tfoot>
+		<tfoot><tr><td colspan="6" align="right"><input type="checkbox" name="remove" id="remove" value="remove"> <?=$txt['spec_default_name']?> <input type="submit" name="naam" value="<?=$txt['buttom'];?>" class="button" /></td></tr></tfoot>
 	</table></form>
 </div>
 </div>
@@ -490,7 +490,7 @@ if (!empty($message))	echo $message;
 <div class="box-content col" style="width: 50%; margin-left: 3px">
 	<form action="./specialists" method="post"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="5"><?=$txt['mood_specialist'];?> Premium</th></tr>
+			<tr><th colspan="5"><?=$txt['mood_specialist'];?> <?=$txt['spec_premium']?></th></tr>
 			<tr>
 				<th width="10"><?=$txt['#'];?></th>
 				<th colspan="2"><?=$txt['pokemon'];?></th>
@@ -521,9 +521,9 @@ if (!empty($message))	echo $message;
 		$pokemon_sql->data_seek(0);
 		?></tbody>
 		<tfoot><tr><td colspan="5" align="right"> 
-		<select name="change">
-                        <option value="up">Aumentar</option>
-                        <option value="down">Diminuir</option>
+			<select name="change">
+                        <option value="up"><?=$txt['spec_mood_change_up']?></option>
+                        <option value="down"><?=$txt['spec_mood_change_down']?></option>
                     </select>
                     &nbsp;&nbsp;
                     <select name="atribute">
@@ -534,8 +534,7 @@ if (!empty($message))	echo $message;
                         <option value="speed">Speed</option>
                     </select>
 					<input type="submit" name="mood2" value="<?=$txt['buttom'];?>" class="button" /></td></tr>
-					<tr><td colspan="5">Mudança mais delicada, porém mais eficaz, podemos definir se um certo atributo irá aumentar ou diminuir, o que aumenta as chances de obter o humor desejado. <br>
-					<b>Lembrando que os humores neutros são válidos, pelo fato deles serem justamente neutros por aumentarem e diminuírem o mesmo atributo.</b></td></tr></tfoot>
+					<tr><td colspan="5"><?=$txt['spec_mood_refined_desc']?></td></tr></tfoot>
 	</table></form>
 </div>
 	</div>
@@ -544,7 +543,7 @@ if (!empty($message))	echo $message;
 <div class="box-content col" style="width: 50%; margin-right:3px">
 	<form action="./specialists" method="post"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="5"><?=$txt['mood_specialist'];?> Profissional</th></tr>
+			<tr><th colspan="5"><?=$txt['mood_specialist'];?> <?=$txt['spec_pro']?></th></tr>
 			<tr>
 				<th width="10"><?=$txt['#'];?></th>
 				<th colspan="2"><?=$txt['pokemon'];?></th>
@@ -582,12 +581,11 @@ if (!empty($message))	echo $message;
 						?>
                     </select>
 					<input type="submit" name="mood3" value="<?=$txt['buttom'];?>" class="button" /></td></tr>
-					<tr><td colspan="5">Mudança mais cara, porém mais adaptativa, você pode escolher qual humor seu Pokémon terá. <br>
-					<b>Lembrando que o Pokémon não pode ter sofrido alguma alteração de humor anteriormente, além de não ser mais possível trocar de humor após a escolha.</b></td></tr></tfoot>
+					<tr><td colspan="5"><?=$txt['spec_mood_pro_desc']?></td></tr></tfoot>
 	</table></form>
 </div>
 </div>
 
 <?php } else { 
-	echo '<div class="red">RANK MÍNIMO PARA UTILIZAR DAS FUNCIONALIDADES DOS ESPECIALISTAS: 5 - First Coach. CONTINUE UPANDO PARA LIBERAR!</div>';
+	echo '<div class="red">'.$txt['spec_min_rank'].'</div>';
 } ?>

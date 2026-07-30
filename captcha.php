@@ -17,10 +17,10 @@ if($_POST) {
 	} else {		
 		$tempook = time();
 		DB::exQuery("UPDATE `gebruikers` SET `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='".$_SESSION['id']."'");
-		if (strpos($_GET['page'], '/') !== false) {
-		 	header("Location: ../".$_GET['page']);
+		if (strpos(($_GET['page'] ?? ''), '/') !== false) {
+		 	header("Location: ../" . ($_GET['page'] ?? ''));
 		} else {
-			header("Location: ./".$_GET['page']);
+			header("Location: ./" . ($_GET['page'] ?? ''));
 		}
 		$_SESSION['captchaincorreto'] = 0;
 		echo '<div class="green">Código correto, você pode continuar!</div>';
@@ -28,8 +28,8 @@ if($_POST) {
    
 }    
 		 
-	if($_SESSION['captchaincorreto'] > 3){
-		if (strpos($_GET['page'], '/') !== false) {
+	if(($_SESSION['captchaincorreto'] ?? 0) > 3){
+		if (strpos(($_GET['page'] ?? ''), '/') !== false) {
 		 	header("Location: ../logout");
 		} else {
 			header("Location: ./logout");

@@ -324,17 +324,17 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_no_username']            = 'Musisz wypełnić wszystkie pola!';
 	$txt['alert_username_too_short']     = 'Nazwa użytkownika jest za krótka!';
 	$txt['alert_username_too_long']      = 'Nazwa użytkownika jest za długa!';
-	$txt['alert_username_dont_exist']    = $_POST['inlognaam'] . 'nie istnieje.';
+	$txt['alert_username_dont_exist']    = ($_POST['username'] ?? '') . 'nie istnieje.';
 	$txt['alert_no_activatecode']        = 'Musisz wypełnić wszystkie pola!';
 	$txt['alert_activatecode_too_short'] = 'Kod aktywacyjny jest za krótki!';
 	$txt['alert_activatecode_too_long']  = 'Kod aktywacyjny jest za długi!';
 	$txt['alert_guardcore_invalid']      = 'Kod Captcha jest nieprawidłowy!';
-	$txt['alert_already_activated']      = $_POST['inlognaam'] . 'jest już aktywowany!';
+	$txt['alert_already_activated']      = ($_POST['username'] ?? '') . 'jest już aktywowany!';
 	$txt['alert_activatecode_wrong']     = 'Wpisałeś nieprawidłowy kod aktywacyjny!';
 	$txt['alert_username_wrong']         = 'Wprowadzony użytkownik nie został znaleziony!';
 	$txt['alert_no_email']               = 'Musisz wypełnić wszystkie pola!';
 	$txt['alert_email_incorrect_signs']  = 'Musisz podać poprawny adres e-mail!';
-	$txt['success_activate']             = $_POST['inlognaam'] . 'został pomyślnie aktywowany!';
+	$txt['success_activate']             = ($_POST['username'] ?? '') . 'został pomyślnie aktywowany!';
 	$txt['success_resend']               = 'Za kilka chwil otrzymasz e-mail z kodem aktywacyjnym. Nie zapomnij sprawdzić folderu SPAM!';
 
 	$txt['titlenpc']			= 'Aktywuj swoje konto już teraz!';

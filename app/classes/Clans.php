@@ -34,7 +34,8 @@ class Clans extends Gebruikers {
     }
 
     public function getUserClan ($user_id) {
-        return DB::exQuery("SELECT `cla` FROM `clans_member` WHERE `user_id`='$user_id'")->fetch_assoc()['cla'];
+        $result = DB::exQuery("SELECT `cla` FROM `clans_member` WHERE `user_id`='$user_id'")->fetch_assoc();
+        return $result ? $result['cla'] : 0;
     }
 
 }

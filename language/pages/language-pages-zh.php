@@ -324,17 +324,17 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_no_username']            = '您必须填写所有字段！';
 	$txt['alert_username_too_short']     = '用户名太短！';
 	$txt['alert_username_too_long']      = '用户名太长！';
-	$txt['alert_username_dont_exist']    = $_POST['inlognaam'] . '不存在。';
+	$txt['alert_username_dont_exist']    = ($_POST['username'] ?? '') . '不存在。';
 	$txt['alert_no_activatecode']        = '您必须填写所有字段！';
 	$txt['alert_activatecode_too_short'] = '激活码太短了！';
 	$txt['alert_activatecode_too_long']  = '激活码太长了！';
 	$txt['alert_guardcore_invalid']      = '验证码不正确！';
-	$txt['alert_already_activated']      = $_POST['inlognaam'] . '已经激活了！';
+	$txt['alert_already_activated']      = ($_POST['username'] ?? '') . '已经激活了！';
 	$txt['alert_activatecode_wrong']     = '您输入的激活码无效！';
 	$txt['alert_username_wrong']         = '未找到您输入的用户！';
 	$txt['alert_no_email']               = '您必须填写所有字段！';
 	$txt['alert_email_incorrect_signs']  = '您必须输入有效的电子邮件！';
-	$txt['success_activate']             = $_POST['inlognaam'] . '已激活成功！';
+	$txt['success_activate']             = ($_POST['username'] ?? '') . '已激活成功！';
 	$txt['success_resend']               = '稍后您将收到一封包含激活码的电子邮件。不要忘记检查您的垃圾邮件文件夹！';
 
 	$txt['titlenpc']			= '立即激活您的帐户！';

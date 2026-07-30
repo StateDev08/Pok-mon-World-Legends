@@ -72,7 +72,7 @@ else {
 			<tr>
 				<td width="50px"><?=str_replace(':', '', $txt['username']);?>:</td>
 				<td width="18px" align="center"><img src="<?=$static_url;?>/images/icons/user.png" width="16" height="16" class="imglower" /></td>
-				<td><input name="inlognaam" type="text" value="<?=$_POST['inlognaam'];?>" style="width: 130px;" required maxlength="12" minlength="4" /></td>
+				<td><input name="inlognaam" type="text" value="<?=$_POST['inlognaam'] ?? '';?>" style="width: 130px;" required maxlength="12" minlength="4" /></td>
 				<td width="50px"><?=$txt['beginworld'];?>:</td>
 				<td width="18px" align="center"><img src="<?=$static_url;?>/images/icons/map.png" width="16" height="16" class="imglower" /></td>
 				<td><select name="wereld" style="width: 137px;" required>

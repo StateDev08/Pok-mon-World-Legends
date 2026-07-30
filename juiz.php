@@ -14,11 +14,11 @@ if ($gebruiker['rank'] >= 4) {
             $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
             $img = pokemonei($pokemoninfo, $txt);
             #Is er geen pokemon gekozen?
-            if (empty($_POST['pokemonid'])) echo '<div class="red">Escolha um pokémon.</div>';
-            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">Este pokémon ainda é um ovo.</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">Esse pokémon não é seu</div>';
-            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">Esse pokémon não está no seu time.</div>';
-            else if ($gebruiker['silver']  < $custo2) echo '<div class="red">Você não tem silvers suficientes.</div>';
+            if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['juiz_error_no_pokemon'].'</div>';
+            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['juiz_error_egg'].'</div>';
+            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['juiz_error_not_yours'].'</div>';
+            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['juiz_error_not_in_team'].'</div>';
+            else if ($gebruiker['silver']  < $custo2) echo '<div class="red">'.$txt['juiz_error_no_silver'].'</div>';
             else{
             $analise = "";
      	    $sucesso = true;
@@ -26,107 +26,104 @@ if ($gebruiker['rank'] >= 4) {
      
      $somatoria = $pokemoninfo['attack_iv'] + $pokemoninfo['defence_iv'] + $pokemoninfo['speed_iv'] + $pokemoninfo['spc.attack_iv'] + $pokemoninfo['spc.defence_iv'] + $pokemoninfo['hp_iv'];
 
-     if ($somatoria >= 0 and $somatoria <= 90) { $potencial = "<font color='red'>Decente..."; }
-     else if ($somatoria >= 91 and $somatoria <= 120) { $potencial = "<font color='black'>Acima da Média."; }
-     else if ($somatoria >= 121 and $somatoria <= 150) { $potencial = "<font color='green'>Relativamente Superior."; }
-     else if ($somatoria >= 151 and $somatoria <= 186) { $potencial = "<font color='green'>Excelente!"; }
+     if ($somatoria >= 0 and $somatoria <= 90) { $potencial = "<font color='red'>".$txt['juiz_potential_decent']."</font>"; }
+     else if ($somatoria >= 91 and $somatoria <= 120) { $potencial = "<font color='black'>".$txt['juiz_potential_above_avg']."</font>"; }
+     else if ($somatoria >= 121 and $somatoria <= 150) { $potencial = "<font color='green'>".$txt['juiz_potential_superior']."</font>"; }
+     else if ($somatoria >= 151 and $somatoria <= 186) { $potencial = "<font color='green'>".$txt['juiz_potential_excellent']."</font>"; }
      
-     $analise .= "Eu vejo... Eu vejo...<br>";
-     $analise .= "Esse <b>".$pokemoninfo['naam']."</b> (". ucfirst($pokemoninfo['karakter']).") tem um potencial <b>".$potencial."</b></font><br>";
+     $analise .= $txt['juiz_i_see']."<br>";
+     $analise .= sprintf($txt['juiz_analysis_line'], $pokemoninfo['naam'], ucfirst($pokemoninfo['karakter']), $potencial);
      
    
            
            
-            if ($pokemoninfo['attack_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['hp_iv']) {
-             $maiorstats = "Ataque";
-             $mr = $pokemoninfo['attack_iv'];
-             $aa = 1;
-             }
-            else if ($pokemoninfo['defence_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['hp_iv']) {
-             $maiorstats = "Defesa";
-             $mr = $pokemoninfo['defence_iv'];
-             $bb = 1;
-             }
-              else if ($pokemoninfo['speed_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['hp_iv']) {
-               $maiorstats = "Speed";
-               $mr = $pokemoninfo['speed_iv'];
-               $cc = 1;
-               }
-               else if ($pokemoninfo['spc.attack_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['hp_iv']) {
-                $maiorstats = "Spc. Ataque";
-                $mr = $pokemoninfo['spc.attack_iv'];
-                $dd = 1;
+             if ($pokemoninfo['attack_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['attack_iv'] >= $pokemoninfo['hp_iv']) {
+              $maiorstats = $txt['juiz_stat_attack'];
+              $mr = $pokemoninfo['attack_iv'];
+              $aa = 1;
+              }
+             else if ($pokemoninfo['defence_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['defence_iv'] >= $pokemoninfo['hp_iv']) {
+              $maiorstats = $txt['juiz_stat_defense'];
+              $mr = $pokemoninfo['defence_iv'];
+              $bb = 1;
+              }
+               else if ($pokemoninfo['speed_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['speed_iv'] >= $pokemoninfo['hp_iv']) {
+                $maiorstats = $txt['juiz_stat_speed'];
+                $mr = $pokemoninfo['speed_iv'];
+                $cc = 1;
                 }
-                else if ($pokemoninfo['spc.defence_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['hp_iv']) {
-                $maiorstats = "Spc. Defesa";
-                $mr = $pokemoninfo['spc.defence_iv'];
-                $ee = 1;
-                            }
-                else if ($pokemoninfo['hp_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['spc.defence_iv']) {
-                $maiorstats = "HP";
-                $mr = $pokemoninfo['hp_iv'];
-                $ff = 1;
-                }
+                else if ($pokemoninfo['spc.attack_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['spc.defence_iv'] AND $pokemoninfo['spc.attack_iv'] >= $pokemoninfo['hp_iv']) {
+                 $maiorstats = $txt['juiz_stat_sp_atk'];
+                 $mr = $pokemoninfo['spc.attack_iv'];
+                 $dd = 1;
+                 }
+                 else if ($pokemoninfo['spc.defence_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['spc.defence_iv'] >= $pokemoninfo['hp_iv']) {
+                 $maiorstats = $txt['juiz_stat_sp_def'];
+                 $mr = $pokemoninfo['spc.defence_iv'];
+                 $ee = 1;
+                             }
+                 else if ($pokemoninfo['hp_iv'] >= $pokemoninfo['attack_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['defence_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['speed_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['spc.attack_iv'] AND $pokemoninfo['hp_iv'] >= $pokemoninfo['spc.defence_iv']) {
+                 $maiorstats = $txt['juiz_stat_hp'];
+                 $mr = $pokemoninfo['hp_iv'];
+                 $ff = 1;
+                 }
             
-                $analise .= "<br>Aliás, eu diria que seu maior potencial está em seu <font color='green'><b>".$maiorstats."</b></font>.<br>";
+                $analise .= sprintf($txt['juiz_best_stat_line'], $maiorstats);
                 
-                if ($mr >= 1 AND $mr <= 15) $analise .= "> Esse Pokémon tem status <font color='red'><b>decentes</b></font>.";
-                else if ($mr >= 16 AND $mr <= 25) $analise .= "> Esse Pokémon definitivamente tem <b>bons status</b>.";
-                else if ($mr >= 26 AND $mr <= 30) $analise .= "> Esse Pokémon tem status <font color='green'><b>fantásticos</b></font>.";
-                else if ($mr >= 31) $analise .= "> Status como esses... Simplesmente<font color='green'><b> não podem ser batidos</b></font>!";
+                if ($mr >= 1 AND $mr <= 15) $analise .= $txt['juiz_tier_decent'];
+                else if ($mr >= 16 AND $mr <= 25) $analise .= $txt['juiz_tier_good'];
+                else if ($mr >= 26 AND $mr <= 30) $analise .= $txt['juiz_tier_fantastic'];
+                else if ($mr >= 31) $analise .= $txt['juiz_tier_unbeatable'];
                 $analise .= '<br>';
        
                 if ($aa != 1 AND $pokemoninfo['attack_iv'] >= $mr) {
-                    $analise .= "<br>- Mas o Status de <b>Ataque</b> é bom também.<br>";
+                    $analise .= $txt['juiz_secondary_attack'];
                 }
                 if ($bb != 1 AND $pokemoninfo['defence_iv'] >= $mr) {
-                    $analise .= "<br>- Hmm. E o Status de <b>Defesa</b> é bom também.<br>";
+                    $analise .= $txt['juiz_secondary_defense'];
                 }
                 if ($dd != 1 AND $pokemoninfo['spc.attack_iv'] >= $mr) {
-                    $analise .= "<br>- Embora seu Status de <b>Sp. Ataque</b> sejam igualmente bons.<br>";
+                    $analise .= $txt['juiz_secondary_sp_atk'];
                 }
                 if ($ee != 1 AND $pokemoninfo['spc.defence_iv'] >= $mr) {
-                    $analise .= "<br>- No entanto, seu Status de <b>Sp. Defesa</b> parecem ser tão bons.<br>";
+                    $analise .= $txt['juiz_secondary_sp_def'];
                 }
                 if ($cc != 1 AND $pokemoninfo['speed_iv'] >= $mr) {
-                    $analise .= "<br>- E, bem, o seu Status de <b>Speed</b> é bom também.<br>";
+                    $analise .= $txt['juiz_secondary_speed'];
                 }
                 if ($ff != 1 AND $pokemoninfo['hp_iv'] >= $mr) {
-                    $analise .= "<br>- Sim! O Status de <b>HP</b> é igualmente bom.<br>";
+                    $analise .= $txt['juiz_secondary_hp'];
                 }
-           
+            
                 if ($pokemoninfo['hp_iv'] == 0) {
-                    $analise .= "<br>Mas seu Status de <font color='red'>HP</font>... é bem triste, sabe?";
+                    $analise .= $txt['juiz_zero_hp'];
                     $a = 1;
                 }else if ($pokemoninfo['attack_iv'] == 0) {
-                    $analise .= "<br>Mas esse Status de <font color='red'>Ataque</font>... é terrível...";
+                    $analise .= $txt['juiz_zero_atk'];
                     $b = 1;
                 }else if ($pokemoninfo['defence_iv'] == 0) {
-                    $analise .= "<br>Mas como você pode vencer a batalha com esse tipo de Status de <font color='red'>Defesa</font>?";
+                    $analise .= $txt['juiz_zero_def'];
                     $c = 1;
                 }else if ($pokemoninfo['spc.attack_iv'] == 0) {
-                    $analise .= "<br>Mas esse Status de <font color='red'>Sp. Ataque</font> nem vai deixar um arranhão em um adversário...";
+                    $analise .= $txt['juiz_zero_sp_atk'];
                     $d = 1;
                 }else if ($pokemoninfo['spc.defence_iv'] == 0) {
-                    $analise .= "<br>Mas esse baixo Status de <font color='red'>Sp. Defesa</font> pode te deixar na mão...";
+                    $analise .= $txt['juiz_zero_sp_def'];
                     $e = 1;
                 }else if ($pokemoninfo['speed_iv'] == 0) {
-                    $analise .= "<br>Mas você chegará em nenhum lugar rapidamente com esse baixo Status de <font color='red'>Speed</font>...";
+                    $analise .= $txt['juiz_zero_speed'];
                     $f = 1;
                 }
 
-                $analise .= "<br><br>De qualquer maneira, é assim que eu o julgo.";
+                $analise .= $txt['juiz_final_phrase'];
         
-                $analise .= "<br><a href='./juiz'>Ajude-me com outro Pokémon.</a>";
+                $analise .= $txt['juiz_another_link'];
           
             }
         }
     }
 
-    echo addNPCBox(30, 'Juiz Pokémon', 'Olá, treinador, tudo bem? <br><br>Com o uso de minhas pesquisas posso te ajudar a julgar as habilidades de seus Pokémon.
-    <br>Você teria algum ai? Caso sim, vai será um prazer te ajudar!
-    <br><br>
-    Com esta ferramenta você podera saber em que seu pokémon é forte ou fraco e por apenas: <b>'.highamount($custo2).'</b> silvers!');
+    echo addNPCBox(30, $txt['juiz_npc_title'], sprintf($txt['juiz_npc_text'], highamount($custo2)));
     if ($gebruiker['rank'] >= 4) {
     // if (!$sucesso AND $gebruiker['premiumaccount'] < time()) { echo '<div class="blue">Necessário ser premium.</div>'; }
     ?>
@@ -162,7 +159,7 @@ if ($gebruiker['rank'] >= 4) {
         </style>
         <div class="box-content" style="width: 100%">
             <table width="100%" style="height: 170px;" class="general">
-                <thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+                <thead><tr><th colspan="6"><?php echo $txt['juiz_my_team']; ?></th></tr></thead>
                 <tbody><tr>
                         <script>
                             var $poke_array_id = [];
@@ -212,7 +209,7 @@ if ($gebruiker['rank'] >= 4) {
                         <td>
                              <form method="post" action="./juiz">
                                 <input type="hidden" name="pokemonid" id="poke_id" value=""/>
-                                <center><input type="submit" name="juiz" id="poke_submit" value="Ver JUIZ de " class="button"  style="margin: 3px"/></center>
+                                <center><input type="submit" name="juiz" id="poke_submit" value="<?php echo $txt['juiz_judge_btn']; ?>" class="button"  style="margin: 3px"/></center>
                             </form>
                         </td>
                     </tr>
@@ -243,7 +240,7 @@ if ($gebruiker['rank'] >= 4) {
                 $poke_name.html($poke_array_spe[flkty.selectedIndex]);
 
                 $poke_id.val ($poke_array_iid[flkty.selectedIndex]);
-                $poke_submit.val ('Ver JUIZ');
+                $poke_submit.val ('<?php echo $txt['juiz_judge_btn']; ?>');
             });
 
             $poke_link.attr('href', '/pokedex&poke='+$poke_array_id[0]);
@@ -251,12 +248,12 @@ if ($gebruiker['rank'] >= 4) {
             $poke_name.html($poke_array_spe[0]);
 
             $poke_id.val ($poke_array_iid[0]);
-            $poke_submit.val ('Ver JUIZ');
+            $poke_submit.val ('<?php echo $txt['juiz_judge_btn']; ?>');
 
             $car.resize();
         </script>
 <?php } 
         
     } else {
-    echo '<div class="red">RANK MÍNIMO PARA VER AS IVs DOS POKÉMONS NO JUIZ: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div>';
+    echo '<div class="red">'.$txt['juiz_min_rank'].'</div>';
 } ?>

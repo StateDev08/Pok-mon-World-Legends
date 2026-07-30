@@ -4,7 +4,7 @@ require_once("app/includes/resources/security.php");
 
 // if ($gebruiker['rank'] < 5 && $_GET['shopitem'] == 'attacks')  exit(header('LOCATION: ./market'));
 
-if ($gebruiker['pagina'] == 'attack' && $_COOKIE['market_battle_used'] == '1') exit(header("LOCATION: ./attack/wild/wild-attack"));
+if ($gebruiker['pagina'] == 'attack' && ($_COOKIE['market_battle_used'] ?? '') == '1') exit(header("LOCATION: ./attack/wild/wild-attack"));
 
 #Kijken of je nog wel een itemplek overhebt
 if ($gebruiker['item_over'] < 1) echo '<div class="blue">'.$txt['alert_itemplace'].'</div>';
@@ -21,25 +21,24 @@ else if ($gebruiker['itembox'] == 'Bag') $ruimte['max'] = 20;
 $title = explode(' - ', $txt['pagetitle'])[1];
 $att_time = 0;
 
-echo addNPCBox(5, 'PokéMart', 'Olá, treinador! Posso lhe ajudar em algo? Bemm.. Vou adivinhar.. Está sem Poke ball?<br>
-Se for, está no lugar certo! Veja nosso lindo estoque de Poké Balls... <br>Caso contrario temos vários outros <b>Itens e Pokémons</b> que irão te auxiliar em sua jornada!');
+echo addNPCBox(5, $txt['market_title'], $txt['market_npc_text']);
 ?>
 <div class="orientation-bar" id="itens" style="margin-bottom: -1px">
-	<a href="./market&shopitem=balls" data-orientation="balls" class="noanimate"><button type="button">Poké Balls</button></a>
-	<a href="./market&shopitem=items" data-orientation="items" class="noanimate"><button type="button">Itens Chave</button></a>
-	<a href="./market&shopitem=specialitems" data-orientation="specialitems" class="noanimate"><button type="button">Itens Especiais</button></a>
-	<a href="./market&shopitem=potions" data-orientation="potions" class="noanimate"><button type="button">Poções</button></a>
-	<a href="./market&shopitem=stones" data-orientation="stones" class="noanimate"><button type="button">Pedras</button></a>
-	<a href="./market&shopitem=pokemon" data-orientation="pokemon" class="noanimate"><button type="button">Pokémons</button></a>
-	<a href="./market&shopitem=attacks" data-orientation="attacks" class="noanimate"><button type="button">Ataques</button></a>
+	<a href="./market&shopitem=balls" data-orientation="balls" class="noanimate"><button type="button"><?=$txt['market_balls']?></button></a>
+	<a href="./market&shopitem=items" data-orientation="items" class="noanimate"><button type="button"><?=$txt['market_key_items']?></button></a>
+	<a href="./market&shopitem=specialitems" data-orientation="specialitems" class="noanimate"><button type="button"><?=$txt['market_special_items']?></button></a>
+	<a href="./market&shopitem=potions" data-orientation="potions" class="noanimate"><button type="button"><?=$txt['market_potions']?></button></a>
+	<a href="./market&shopitem=stones" data-orientation="stones" class="noanimate"><button type="button"><?=$txt['market_stones']?></button></a>
+	<a href="./market&shopitem=pokemon" data-orientation="pokemon" class="noanimate"><button type="button"><?=$txt['market_pokemons']?></button></a>
+	<a href="./market&shopitem=attacks" data-orientation="attacks" class="noanimate"><button type="button"><?=$txt['market_attacks']?></button></a>
 </div>
 <?php
 #Pagina's opbouwen
-switch($_GET['shopitem']) {
+switch($_GET['shopitem'] ?? '') {
 	#Als er op balls geklikt word. Het volgende laten zien
 	case "balls":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='balls' AND `beschikbaar`='1' ORDER BY silver, gold";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? 'pt') . "` FROM `markt` WHERE `soort`='balls' AND `beschikbaar`='1' ORDER BY silver, gold";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 		#Als er op de knop gedrukt word
 		if (isset($_POST['balls'])) {
 			$gebruiker_silver = $gebruiker['silver'];
@@ -136,7 +135,7 @@ switch($_GET['shopitem']) {
 						</td></tr>
 						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=nl2br($select['omschrijving_'.$_COOKIE['pa_language']]);?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
-						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="Ex: 0" /></td></tr>
+						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
 				</div>
 <?php
@@ -244,7 +243,7 @@ switch($_GET['shopitem']) {
 						</td></tr>
 						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
-						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="Ex: 0" /></td></tr>
+						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
 				</div>
 <?php
@@ -280,7 +279,7 @@ switch($_GET['shopitem']) {
 				echo '<div class="red">'.$txt['alert_not_enough_money'].'</div>';
 			} else if ($gebruiker[$itemgegevens['naam']] >= 1) {
 				$welingevoerd = false;
-				echo '<div class="red">Você já comprou este ITEM CHAVE!</div>';
+				echo '<div class="red">'.$txt['market_key_item_bought'].'</div>';
 			} else {	#Alles is goed
 				$welingevoerd = true;
 				$type = explode(" ", $itemgegevens['naam']);
@@ -291,7 +290,7 @@ switch($_GET['shopitem']) {
 						echo '<script>window.location = window.location.href</script>';
 					} else {
 						$welingevoerd = false;
-						echo '<div class="red">Você não pode comprar outra mochila a não ser a '.$bag_allowed.'!</div>';
+						echo '<div class="red">'.sprintf($txt['market_bag_limit'], $bag_allowed).'</div>';
 					}
 				}
 				else {	#Het is geen box
@@ -353,7 +352,7 @@ switch($_GET['shopitem']) {
 <?php
 			++$j;
 		}
-if ($j == 1) echo '<div class="red">Você já comprou todos os ITENS CHAVE!</div>';
+if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 ?>
 			</td>
 		</tr></tbody>
@@ -451,7 +450,7 @@ if ($j == 1) echo '<div class="red">Você já comprou todos os ITENS CHAVE!</div
 						</td></tr>
 						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
-						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="Ex: 0" /></td></tr>
+						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
 				</div>
 <?php
@@ -556,7 +555,7 @@ if ($j == 1) echo '<div class="red">Você já comprou todos os ITENS CHAVE!</div
 						</td></tr>
 						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span> <br><font color='red'><?=$select['desconto'];?></font></td></tr>
-						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="Ex: 0" /></td></tr>
+						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
 				</div>
 <?php
@@ -685,7 +684,7 @@ if ($j == 1) echo '<div class="red">Você já comprou todos os ITENS CHAVE!</div
 						</td></tr>
 						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span></td></tr>
-						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="Ex: 0" /></td></tr>
+						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
 				</div>
 <?php

@@ -1,25 +1,24 @@
 <?php
 include("app/includes/resources/security.php");
 
-echo addNPCBox(11, 'Cidade', 'Bem, aqui é a <b>Cidade</b>... Você poderá fazer várias atividades na cidade, seja como Viajar, comprar Poké balls, Enfrentar Ginásios e muitas
-outras coisas... <br>Se cuida, treinador!');
+echo addNPCBox(11, $txt['town_title'], $txt['town_npc_text']);
 ?>
 
-<div class="blue">Coloque o cursor do mouse sobre os edifícios para saber sobre o lugar.</div>
+<div class="blue"><?=$txt['town_hover_hint']?></div>
 <div class="box-content container-tag" style="padding: 10px">
   <div class="tag">
-    <a href="./attack/gyms" title="Enfrente os Líderes de Ginásios para conseguir as Insígnias e desbloquear novas Regiões!" id="a" class="noanimate"></a>
-    <a href="./specialists" title="Mude o nome, humor de seus Pokémons, além de poder transformá-los em Shiny com nossos Especialistas Pokémon!" id="b" class="noanimate"></a>
-    <a href="./travel" title="Que tal fazer as mochilas e ir conhecer novos Treinadores e Pokémons em outras Regiões?" id="c" class="noanimate"></a>
-    <a href="./bank" title="Faça transferências de Silvers ou Golds com outros Treinadores." id="d" class="noanimate"></a>
-    <a href="./daycare" title="Coloque seu Pokémon aqui no Jardim de Infância para subir de níveis e ter a possibilidade de ganhar um EGG!" id="e" class="noanimate"></a>
-    <a href="./transferlist" title="Compre e venda Pokémons pelo melhor preço com nossos métodos de venda aqui no Mercado de Pokémons" id="f" class="noanimate"></a>
-    <a href="./market" title="Poké Bolls, Itens, Pedras, Pokémons e outros itens você encontra aqui no PokéMart!" id="g" class="noanimate"></a>
-    <a href="./casino" title="Aposte Tickets, jogue Minijogos e ganhe recompensas!" id="h" class="noanimate"></a>
-    <a href="./pokemoncenter" title="Seus pokémons estão cansados? Você está no lugar certo, a Enfermeira Joy vai te ajudar aqui no Centro Pokémon." id="i" class="noanimate"></a>
-    <a href="./traders" title="Troque seu Pokémon por outro com aqui nos Comerciantes!" id="j" class="noanimate"></a>
-    <a href="./moves" title="Ensine ou Relembre os Ataques de seus Pokémons aqui!" id="k" class="noanimate"></a>
-    <a href="./fountain" title="Faça seus Pokémon passarem pela Fonte da Juventude para os Rejuvenescer!" id="l" class="noanimate"></a>
+    <a href="./attack/gyms" title="<?=$txt['town_gyms']?>" id="a" class="noanimate"></a>
+    <a href="./specialists" title="<?=$txt['town_specialists']?>" id="b" class="noanimate"></a>
+    <a href="./travel" title="<?=$txt['town_travel']?>" id="c" class="noanimate"></a>
+    <a href="./bank" title="<?=$txt['town_bank']?>" id="d" class="noanimate"></a>
+    <a href="./daycare" title="<?=$txt['town_daycare']?>" id="e" class="noanimate"></a>
+    <a href="./transferlist" title="<?=$txt['town_transferlist']?>" id="f" class="noanimate"></a>
+    <a href="./market" title="<?=$txt['town_market']?>" id="g" class="noanimate"></a>
+    <a href="./casino" title="<?=$txt['town_casino']?>" id="h" class="noanimate"></a>
+    <a href="./pokemoncenter" title="<?=$txt['town_pokemoncenter']?>" id="i" class="noanimate"></a>
+    <a href="./traders" title="<?=$txt['town_traders']?>" id="j" class="noanimate"></a>
+    <a href="./moves" title="<?=$txt['town_moves']?>" id="k" class="noanimate"></a>
+    <a href="./fountain" title="<?=$txt['town_fountain']?>" id="l" class="noanimate"></a>
   </div>
 
   <img src="<?=$static_url?>/images/town/town.png" width="610" height="610"/>

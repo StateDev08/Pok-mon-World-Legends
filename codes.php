@@ -56,7 +56,7 @@ require_once('language/language-box.php');
 			<td width="200"><?=$txt['no_example'];?></td>
 		</tr>
 <?php
-if ($_GET['category'] == 'forum') {
+if (($_GET['category'] ?? '') == 'forum') {
 	echo '<tr>
 		<td width="150"><b>&raquo; ' . $txt['quote'] . '</b>:</td>
 		<td width="450">[quote]' . $txt['example_text'] . '[/quote]</td>
@@ -65,7 +65,7 @@ if ($_GET['category'] == 'forum') {
 }
 ?>
 <?php
-if ($_GET['category'] == 'profile') {
+if (($_GET['category'] ?? '') == 'profile') {
 	echo '<tr>
 		<td width="150"><b>&raquo; ' . $txt['hr'] . '</b>:</td>
 		<td width="450">[HR]</td>
@@ -74,7 +74,7 @@ if ($_GET['category'] == 'profile') {
 }
 ?>
 <?php
-if ($_GET['category'] == 'profile' || $_GET['category'] == 'forum') {
+if (($_GET['category'] ?? '') == 'profile' || ($_GET['category'] ?? '') == 'forum') {
 	$num_pokes = DB::exQuery("SELECT `wild_id` FROM `pokemon_wild`")->num_rows;
 	$rand1 = mt_rand(1, $num_pokes);
 	$rand2 = mt_rand(1, $num_pokes);

@@ -36,7 +36,7 @@
 	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal1.png\' title=\'Tops 1 Pokémons\' /> ' . $top11 . ' ';
 
     if ($gebruiker['in_hand'] == 0) {
-        echo '<div class="red">É perigoso ficar andando por aí sem nenhum pokémon com você, pegue pelo menos um pokémon e continue sua aventura.</div>';
+        echo '<div class="red">'.$txt['box_no_pokemon'].'</div>';
     }
 
 
@@ -57,12 +57,11 @@ for($i=1;$positupdt=$upgradeposition->fetch_assoc();++$i) {
     }
 }
 
-echo addNPCBox(21, 'Box Pokémon', 'Seja bem vindo a sua BOX, Treinador!<br>
-Aqui você poderá guardar seus Pokémons, organizá-los, vendê-los e utilizar de muitas outras funções... Seja um Treinador organizado, pois tenho a certeza que será melhor para você!');
+echo addNPCBox(21, $txt['box_title'], $txt['box_npc_text']);
 
 if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
 ?>
-<div class="blue"><a href="./house-seller">Caso sua BOX fique cheia, compre AQUI uma CASA maior!</a></div>
+<div class="blue"><a href="./house-seller"><?=$txt['box_house_hint']?></a></div>
 <?php
 }
 ?>
@@ -96,7 +95,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
       <div style="width: 65%">
          <div id="containmentSortable" style="display: none;">
             <div id="hand">
-               <h3 class="title" style="margin-bottom: 7px">Time atual: </h3>
+               <h3 class="title" style="margin-bottom: 7px"><?=$txt['box_current_team']?> </h3>
                <ul style="margin: 0 auto" class="connectedSortable" id="ul_hand">
                   <?php
                      while($pokemon = $pokemon_sql->fetch_assoc()) {
@@ -121,26 +120,26 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                      </a>
                      <div class="options">
                         <a href="#" class="ui-icon ui-icon-search" onclick="moreInfo(<?php echo $pokemon['id']; ?>);
-                           return false;" style="float: left;">Mais informações</a>
+                           return false;" style="float: left;"><?=$txt['box_more_info']?></a>
                         <?php if ($_SESSION['share_acc'] == 0) { ?>
-                        <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>"  class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;">Equipar</a>
+                        <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>"  class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;"><?=$txt['box_equip']?></a>
                         <div class="box-menu">
-                           <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;">Mais opções</a>
+                           <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;"><?=$txt['box_more_options']?></a>
                            <ul class="slot-options">
                               <li>
                                  <a href="./pokemon-profile&id=<?php echo $pokemon['id']; ?>" class="noanimate" target="_blank">
                                     <span class="ui-icon ui-icon-info"></span>
-                                    <div style="margin-right: 5px;">Perfil</div>
+                                    <div style="margin-right: 5px;"><?=$txt['box_profile']?></div>
                                  </a>
                               </li>
                               <li>
                                  <a href="ajax.php?act=sell-box&id=<?php echo $pokemon['id']; ?>&pokebox" class="colorbox-sell noanimate">
                                     <span class="ui-icon ui-icon-cart"></span>
-                                    <div style="margin-right: 5px;">Vender</div>
+                                    <div style="margin-right: 5px;"><?=$txt['box_sell']?></div>
                                  </a>
                               </li>
-                              <li><a href="ajax.php?act=release-box&id=<?php echo $pokemon['id']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-trash"></span>Soltar</a></li>
-                              <li><a href="#" onclick="return false;" class="noanimate disabled"><span class="ui-icon ui-icon-refresh"></span>Transferir</a></li>
+                              <li><a href="ajax.php?act=release-box&id=<?php echo $pokemon['id']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-trash"></span><?=$txt['box_release']?></a></li>
+                              <li><a href="#" onclick="return false;" class="noanimate disabled"><span class="ui-icon ui-icon-refresh"></span><?=$txt['box_transfer']?></a></li>
                            </ul>
                         </div>
                         <?php } ?>
@@ -185,7 +184,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                      
                      ?>
                   <a href="./box&box=<?= $prox?>" class="noanimate"><img src="<?= $static_url?>/images/icons/arrow_right_25.png" style="vertical-align: unset;"/></a>
-                  <button class="b-button b-white b-small" type="button" onclick="configBox(<?=$_GET['box']?>)"><img src="<?= $static_url?>/images/icons/config.gif"/> <span style="bottom: 0px;">Configurações da box</span></button>
+                  <button class="b-button b-white b-small" type="button" onclick="configBox(<?=$_GET['box']?>)"><img src="<?= $static_url?>/images/icons/config.gif"/> <span style="bottom: 0px;"><?=$txt['box_settings']?></span></button>
                </form>
             </div>
             <?php
@@ -237,26 +236,26 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                   </a>
                   <div class="options">
                      <a href="#" class="ui-icon ui-icon-search" onclick="moreInfo(<?php echo $pokemon['id']; ?>);
-                        return false;" style="float: left;">Mais informações</a>
+                        return false;" style="float: left;"><?=$txt['box_more_info']?></a>
                      <?php if ($_SESSION['share_acc'] == 0) { ?>
-                     <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;">Equipar</a>
+                     <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;"><?=$txt['box_equip']?></a>
                      <div class="box-menu">
-                        <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;">Mais opções</a>
+                        <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;"><?=$txt['box_more_options']?></a>
                         <ul class="slot-options">
                            <li>
                               <a href="./pokemon-profile&id=<?php echo $pokemon['id']; ?>" target="_blank" class="noanimate">
                                  <span class="ui-icon ui-icon-info"></span>
-                                 <div style="margin-right: 5px;">Perfil</div>
+                                 <div style="margin-right: 5px;"><?=$txt['box_profile']?></div>
                               </a>
                            </li>
                            <li>
                               <a href="ajax.php?act=sell-box&id=<?php echo $pokemon['id']; ?>&pokebox" class="colorbox-sell noanimate">
                                  <span class="ui-icon ui-icon-cart"></span>
-                                 <div style="margin-right: 5px;">Vender</div>
+                                 <div style="margin-right: 5px;"><?=$txt['box_sell']?></div>
                               </a>
                            </li>
-                           <li><a href="ajax.php?act=release-box&id=<?php echo $pokemon['id']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-trash"></span>Soltar</a></li>
-                           <li><a href="ajax.php?act=transfer-box&id=<?php echo $pokemon['id']; ?>&box=<?php echo $_GET['box']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-refresh"></span>Transferir</a></li>
+                           <li><a href="ajax.php?act=release-box&id=<?php echo $pokemon['id']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-trash"></span><?=$txt['box_release']?></a></li>
+                           <li><a href="ajax.php?act=transfer-box&id=<?php echo $pokemon['id']; ?>&box=<?php echo $_GET['box']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-refresh"></span><?=$txt['box_transfer']?></a></li>
                         </ul>
                      </div>
                      <?php } ?>
@@ -277,7 +276,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                   }
                   
                   } else {
-                  echo "ERROR 412 - INFORME OS ADMINISTRADORES.";
+                  echo $txt['box_error'];
                   }
                   
                   

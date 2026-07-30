@@ -8,8 +8,8 @@
 			<td style="width: 50%">
 				<div id="npc-section" data-npc="home" style="padding: 5px; width: 95%;">
 					<div id="npc-content" style="width: 285px;">
-						<h3 style="font-size: 19px; text-transform: none; background-position: left bottom">Bem-vindo(a), <a href="./profile&player=<?=$user['username']?>" style="color: #d25757;"><?=$user['username']?></a>!</h3>
-						<p>Hoje é seu <?=$user['antiguidade']?>º dia de conexão!</p>
+						<h3 style="font-size: 19px; text-transform: none; background-position: left bottom"><?=sprintf($txt['home_welcome'], '<a href="./profile&player='.$user['username'].'" style="color: #d25757;">'.$user['username'].'</a>')?></h3>
+						<p><?=sprintf($txt['home_days_connected'], $user['antiguidade'])?></p>
 					</div>
 					<div id="npc-image" style="background: url('<?=$static_url?>/images/characters/<?=DB::exQuery('SELECT naam FROM characters ORDER BY RAND() LIMIT 1')->fetch_assoc()['naam'].'/Thumb'?>.png') center center no-repeat;background-size: 100% 100%;width: 93px;height: 96px;margin-left: -5px;position: absolute;"></div>
 				</div>
@@ -17,8 +17,8 @@
 			<td style="width: 50%">	
 				<div id="npc-section" data-npc="home" style="padding: 5px;width: 97.7%;text-align: center;height: 73px;">
 					<div id="npc-content" style="width: 100%">
-						<h3 style="font-size: 19px;text-transform: none;">Eventos</h3>
-						<p>NENHUM EVENTO DISPONÍVEL!</p>
+						<h3 style="font-size: 19px;text-transform: none;"><?=$txt['home_events']?></h3>
+						<p><?=$txt['home_no_events']?></p>
 					</div>
 						
 				</div>
@@ -35,7 +35,7 @@
 			<div style="width: 73%" class="col">
 				<div class="box-content" style="width: 100%; height: 185px;border-top-left-radius: 0;border-bottom-left-radius: 0;">
 					<table width="100%" class="general">
-						<thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+						<thead><tr><th colspan="6"><?=$txt['home_my_team']?></th></tr></thead>
 						<tbody><tr>
 								<script>
 									var $poke_array_id = [];
@@ -74,7 +74,7 @@
 											<a href="./pokedex&poke=1" id="poke_link" style="color: #eee; font-size: 13px"></a>
 										</div>
 										<div style="float: right; width: 20%; height: 75%; margin-top: 13px; font-size: 13px">
-											<a href="./box" style="color: #fff">Ver BOX Pokémon</a>
+											<a href="./box" style="color: #fff"><?=$txt['home_view_box']?></a>
 										</div>
 									</div>
 								</td>
@@ -114,7 +114,7 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<h3 class="title">NOVIDADES</h3>
+			<h3 class="title"><?=$txt['home_news']?></h3>
 			<p>[16/07/2019] - <b>VERSÃO 1.4</b> LANÇADA! CONFIRA AS <b>NOTAS DE ATUALIZAÇÃO</b> NAS <a href="./official-messages">MENSAGENS OFICIAIS</a>!</p>
 		</div>
 </div>
@@ -140,20 +140,20 @@
 		</tr>
 		<tr style="font-style: italic;">
 			<td style="padding-left: 5px; padding-top: 5px; width: 50%">
-				<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;">Ative sua Conta</a>
+				<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;"><?=$txt['login_activation']?></a>
 			</td>
 			<td style="width: 50%; text-align: right; padding-top: 5px; padding-right: 10px">
-				<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px">Recuperar Conta</a>
+				<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px"><?=$txt['login_forgot']?></a>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" style="padding-top: 10px">
-				<button class="button-rounded ripple" name="login" type="submit" value="login">Começar Aventura!</button>
+				<button class="button-rounded ripple" name="login" type="submit" value="login"><?=$txt['login_button']?></button>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-style: italic; text-align: center; padding-top: 5px">
-				Não tem uma conta? <a href="./register" style="color: #6ac7ee; font-weight: bold">CADASTRE-SE</a> agora mesmo!
+				<?=sprintf($txt['login_no_account'], '<a href="./register" style="color: #6ac7ee; font-weight: bold">'.$txt['login_register_now'].'</a>')?>
 			</td>
 		</tr>
 	</table>

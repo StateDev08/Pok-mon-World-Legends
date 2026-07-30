@@ -5,10 +5,7 @@
     #Als je geen pokemon bij je hebt, terug naar index.
     if ($gebruiker['in_hand'] == 0) header('Location: index.php');
 
-    echo addNPCBox(30, 'Calculadora Pokémon', 'Com a Calculadora Pokémon você terá a certeza ou não se o seu 
-    Pokémon é forte o suficiente para se dar bem no mundo de <b>Pokémon World Legends</b>!<br><br>
-    Existem dois tipos de Calculadora a <b>SIMPLES</b> e a <b>PREMIUM</b>!<br><br>
-    Aproveite esta função o máximo e com isso, torne-se o melhor Mestre Pokémon!');
+    echo addNPCBox(30, $txt['calc_npc_title'], $txt['calc_npc_text']);
 
     function calcIV() {
         $p = func_get_args();
@@ -49,16 +46,16 @@
         }
             $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
             #Is er geen pokemon gekozen?
-            if (empty($_POST['pokemonid'])) echo '<div class="red">Escolha um pokémon.</div>';
-            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">Este pokémon ainda é um ovo.</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">Esse pokémon não é seu</div>';
-            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">Esse pokémon não está no seu time.</div>';
+            if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['calc_error_no_pokemon'].'</div>';
+            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['calc_error_egg'].'</div>';
+            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['calc_error_not_yours'].'</div>';
+            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['calc_error_not_in_team'].'</div>';
             else{
                 $succ = true;
                 $pokemon_name = pokemon_naam($pokemoninfo['naam'], $pokemoninfo['roepnaam'], $pokemoninfo['icon']);
                 if ($_POST['pokemonview'] == 1) {
                     if ($gebruiker['silver'] < $custo) {
-                        echo '<div class="red">Você não tem silvers suficientes.</div>';
+                        echo '<div class="red">'.$txt['calc_error_no_silver'].'</div>';
                         $succ = false;
                     } else {
                         if (!is_premium($gebruiker['premiumaccount'])) {
@@ -81,7 +78,7 @@
                 } else  {
                     $custo_g = (!is_premium($gebruiker['premiumaccount']))? 10 : 5;
                     if ($rekening['gold'] < $custog) {
-                        echo '<div class="red">Você não tem golds suficientes.</div>';
+                        echo '<div class="red">'.$txt['calc_error_no_gold'].'</div>';
                         $succ = false;
                     } else {
                         if ($pokemoninfo['has_calc'] == 0) {
@@ -102,13 +99,13 @@
             }
         }
     } else {
-        echo '<div class="red">RANK MÍNIMO PARA VER AS IVs DOS POKÉMONS: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div>';
+        echo '<div class="red">'.$txt['calc_min_rank'].'</div>';
     }
   
     ?>
      
     <?php 
-    if (!$sucesso) {
+    if (empty($sucesso)) {
     ?>
         <style>
             .alternate:hover {
@@ -129,7 +126,7 @@
         </style>
         <div class="box-content" style="width: 100%">
             <table width="100%" class="general">
-                <thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+                <thead><tr><th colspan="6"><?php echo $txt['calc_my_team']; ?></th></tr></thead>
                 <tbody><tr>
                         <script>
                             var $poke_array_id = [];
@@ -177,32 +174,32 @@
                 <tr style="text-align: center; font-size: 13px">
                     <td class="row">
                         <div class="col alternate" style="border-right: 1px solid #577599;">
-                            <h3 class="title" style="font-size: 15px">CALCULADORA SIMPLES</h3>
+                            <h3 class="title" style="font-size: 15px"><?php echo $txt['calc_simple_title']; ?></h3>
 
                             <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                 <ul>
-                                    <li>Com a calculadora simples, você poderá ver os valores das IV's <b>APROXIMADAS</b> de seu Pokémon.</li>
-                                    <li>Por dia você terá 5 (ou <span title="Infinitos">∞</span> se for <b>CONTA PREMIUM</b>) usos <b>GRATUITOS</b>.</li>
-                                    <li>Após os usos gratuitos, será cobrada uma taxa conforme o número de usos até o <b>20º uso</b>.</li>
-                                    <li style="margin-top: 10px"><b>Preço: </b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <?=($custo > 0)? highamount($custo) : 'Grátis'?></li>
-                                    <li>Usos<b> GRÁTIS </b>restantes: <?= (!is_premium($gebruiker['premiumaccount']))? $gebruiker['calc_limit'] : '<span title="Infinitos">∞</span>' ?></li>
+                                    <li><?php echo $txt['calc_simple_desc_1']; ?></li>
+                                    <li><?php echo $txt['calc_simple_desc_2']; ?></li>
+                                    <li><?php echo $txt['calc_simple_desc_3']; ?></li>
+                                    <li style="margin-top: 10px"><b><?php echo $txt['calc_price_label']; ?></b><img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: bottom"> <?=($custo > 0)? highamount($custo) : $txt['calc_simple_free']?></li>
+                                    <li><?php echo $txt['calc_simple_uses_left']; ?> <?= (!is_premium($gebruiker['premiumaccount']))? $gebruiker['calc_limit'] : $txt['calc_simple_unlimited'] ?></li>
                                 </ul>
                             </div>
-                            <button class="button" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? 'onclick="view_ivs(1)"' : 'disabled'?>>VER IV's SIMPLES</button>
+                            <button class="button" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? 'onclick="view_ivs(1)"' : 'disabled'?>><?php echo $txt['calc_simple_btn']; ?></button>
                         </div>
                 
                         <div class="col alternate">
-                            <h3 class="title" style="font-size: 15px">CALCULADORA PREMIUM</h3>
+                            <h3 class="title" style="font-size: 15px"><?php echo $txt['calc_premium_title']; ?></h3>
 
                             <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                 <ul>
-                                    <li>Com a calculadora premium, você poderá ver os valores das IV's <b>EXATAS</b> de seu Pokémon.</li>
-                                    <li>O preço é <b>FIXO</b>, portanto, não há um <b>limite diário</b> para o aumento da taxa.</li>
-                                    <li>Após a visualização, o gráfico ficará <b>SALVO</b> no <b>PERFIL</b> de seu <b>Pokémon</b>.</li>
-                                    <li style="margin-top: 10px"><b>Preço: </b><img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: bottom"> <?= (!is_premium($gebruiker['premiumaccount']))? '10' : '5' ?></li>
+                                    <li><?php echo $txt['calc_premium_desc_1']; ?></li>
+                                    <li><?php echo $txt['calc_premium_desc_2']; ?></li>
+                                    <li><?php echo $txt['calc_premium_desc_3']; ?></li>
+                                    <li style="margin-top: 10px"><b><?php echo $txt['calc_price_label']; ?></b><img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: bottom"> <?= (!is_premium($gebruiker['premiumaccount']))? '10' : '5' ?></li>
                                 </ul>
                             </div>
-                            <button class="button" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? 'onclick="view_ivs(2)"' : 'disabled'?>>VER IV's PREMIUM</button>
+                            <button class="button" style="margin: 6px" <?=($gebruiker['rank'] >= 4)? 'onclick="view_ivs(2)"' : 'disabled'?>><?php echo $txt['calc_premium_btn']; ?></button>
                         </div>
                     </td>
                 </tr>
@@ -259,25 +256,25 @@
         <div class="box-content" style="width: 100%">
             <table class="general" style="width: 100%; font-size: 14px">
                 <thead>
-                    <th colspan="2">Calculadora de IV's <?=($_POST['pokemonview'] == 1)? 'Simples' : 'Premium'?></th>
+                    <th colspan="2"><?php printf($txt['calc_result_title'], ($_POST['pokemonview'] == 1) ? $txt['calc_simple_short'] : $txt['calc_premium_short']); ?></th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first"><b>HP:</b> <?=$iv_hp?> IV's</td>
-                        <td class="last last-right"><b>Sp. Ataque:</b> <?=$iv_spatk?> IV's</td>
+                        <td class="first"><b><?php echo $txt['calc_result_hp']; ?></b> <?=$iv_hp?> IV's</td>
+                        <td class="last last-right"><b><?php echo $txt['calc_result_sp_atk']; ?></b> <?=$iv_spatk?> IV's</td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Ataque:</b> <?=$iv_atk?> IV's</td>
-                        <td class="last last-right"><b>Sp. Defesa:</b> <?=$iv_spdef?> IV's</td>
+                        <td class="first"><b><?php echo $txt['calc_result_atk']; ?></b> <?=$iv_atk?> IV's</td>
+                        <td class="last last-right"><b><?php echo $txt['calc_result_sp_def']; ?></b> <?=$iv_spdef?> IV's</td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Defesa:</b> <?=$iv_def?> IV's</td>
-                        <td class="last last-right"><b>Speed:</b> <?=$iv_speed?> IV's</td>
+                        <td class="first"><b><?php echo $txt['calc_result_def']; ?></b> <?=$iv_def?> IV's</td>
+                        <td class="last last-right"><b><?php echo $txt['calc_result_speed']; ?></b> <?=$iv_speed?> IV's</td>
                     </tr>
                 </tbody>
                 <tfooter>
                     <tr>
-                        <td style="text-align: center" colspan="2">IV's de <b><a href="./pokemon-profile&id=<?=$pokemoninfo['id']?>" title="Clique para ver o Perfil do Pokémon"><?=$pokemon_name?></a></b></td>
+                        <td style="text-align: center" colspan="2"><?php echo $txt['calc_result_of']; ?> <b><a href="./pokemon-profile&id=<?=$pokemoninfo['id']?>" title="<?php echo $txt['calc_result_click_profile']; ?>"><?=$pokemon_name?></a></b></td>
                     </tr>
                 </tfooter>
             </table>
@@ -298,7 +295,7 @@
             ?>
             <script>
                 var radarData = {
-                    labels : ["HP", "Defesa", "Sp. Ataque", "Speed", "Sp. Defesa", "Ataque"],
+                    labels : [<?php echo "'".$txt['calc_chart_hp']."','".$txt['calc_chart_defense']."','".$txt['calc_chart_sp_atk']."','".$txt['calc_chart_speed']."','".$txt['calc_chart_sp_def']."','".$txt['calc_chart_atk']."'"; ?>],
                     datasets : [
                         <?php if ($_POST['pokemonview'] == 1) { ?>
                         {
@@ -332,6 +329,6 @@
             </script>
         </div>
             
-        <center><button class="btn" style="margin-top: 7px" onclick="window.location = './calculator'">Ver mais IV's dos meus Pokémon</button></center>
+        <center><button class="btn" style="margin-top: 7px" onclick="window.location = './calculator'"><?php echo $txt['calc_more_ivs_btn']; ?></button></center>
 
         <?php } ?>

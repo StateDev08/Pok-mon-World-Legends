@@ -7,7 +7,7 @@ include("app/includes/resources/security.php");
 #Include Attack Functions
 include("attack/attack.inc.php");
 
-$aanval_log = aanval_log($_SESSION['attack']['aanval_log_id']);
+$aanval_log = aanval_log($_SESSION['attack']['aanval_log_id'] ?? 0) ?: [];
 
 #Player in log is diffirent then loggedin
 if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
@@ -16,6 +16,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   #Send back to home
   header("Location: ../../home");
   unset($_SESSION['attack']['duel_id']);
+  exit;
 } else {
   #Load All Openent Info
   $computer_info = computer_data($aanval_log['tegenstanderid']);
@@ -24,7 +25,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   #Change name for male and female
   $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
   #Check if Player Has a Pokedex Chip
-  if (($gebruiker['Pokedex chip'] == 1) AND ($gebruiker['Pokedex'] == 1)) $computer_info['level'] = $computer_info['level'];
+  if ((($gebruiker['Pokedex chip'] ?? 0) == 1) AND (($gebruiker['Pokedex'] ?? 0) == 1)) $computer_info['level'] = $computer_info['level'];
   else $computer_info['level'] = "??";
   #Shiny
   if ($computer_info['shiny'] == 1) {
@@ -70,7 +71,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     if ($player_hand['ei'] == 1) $player_hand['naam'] = "??";
 	if ($player_hand['ei'] == 1) $player_hand['wild_id'] = "??";
 	
-	if ($player_hand['ei'] != 1) $player_hand['naam'] = addslashes(pokemon_naam($player_hand['naam'], $player_hand['roepnaam'], $player_hand['icon']));
+	if ($player_hand['ei'] != 1) $player_hand['naam'] = addslashes(pokemon_naam($player_hand['naam'], $player_hand['roepnaam'], $player_hand['icon'] ?? ''));
 
     $battle_lifes = pokemon_data($player_hand['id']);
     ?>
@@ -119,7 +120,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   <script type="text/javascript" src="./attack/javascript/attack.js"></script>
   <script type="text/javascript" src="./attack/javascript/animation.js"></script>
   <script>
-  var vol = (<?=$gebruiker['volume']?>-3)/100;
+  var vol = (<?=$gebruiker['volume'] ?? 0?>-3)/100;
   if (vol < 0) vol = 0;
   var sound_base = new Howl({
       src: ['public/sounds/wild.mp3'],
@@ -132,12 +133,12 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     sound_base.play();
     
   var speler_attack; var timer; var next_turn_timer; var attack_timer = 0; var speler_wissel;
-  var atk = ''; var trainer_zmove = <?=$aanval_log['zmove']?>; var pokeball_lock = true;
+  var atk = ''; var trainer_zmove = <?=$aanval_log['zmove'] ?? 0?>; var pokeball_lock = true;
   
   <?php
         if (empty($_SESSION['map_live'])) {
       ?>
-        var redirect = "location.href='./attack/<?= $gebruiker['voltaredirect']; ?>&map=<?= $gebruiker['map']; ?>'";
+        var redirect = "location.href='./attack/<?= $gebruiker['voltaredirect'] ?? ''; ?>&map=<?= $gebruiker['map'] ?? ''; ?>'";
       <?php
         } else {
             $m = $_SESSION['map_live'];
@@ -149,7 +150,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
       ?>
 
   function show_end_screen(text) {
-    $.get("attack/wild/wild-finish.php?aanval_log_id="+<?= $aanval_log['id']; ?>+"&_h=" + <?=$gebruiker['sec_key'];?> + "&sid="+Math.random(), function(data) {
+    $.get("attack/wild/wild-finish.php?aanval_log_id="+<?= $aanval_log['id'] ?? 0; ?>+"&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid="+Math.random(), function(data) {
       request = data.split(" | ");
       document.getElementById('hit').style.display = "none";
 	    document.getElementById('hit2').style.display = "none";
@@ -185,8 +186,8 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     });
   }
   
-  wlSound('cries/<?=$pokemon_info['wild_id']?>', <?=$gebruiker['volume']?>, false);
-  setTimeout(function () { wlSound('cries/<?=$computer_info['wild_id']?>', <?=$gebruiker['volume']?>, false); }, 1500);
+  wlSound('cries/<?=$pokemon_info['wild_id']?>', <?=$gebruiker['volume'] ?? 0?>, false);
+  setTimeout(function () { wlSound('cries/<?=$computer_info['wild_id']?>', <?=$gebruiker['volume'] ?? 0?>, false); }, 1500);
 
   var weather = [
     'harsh_sunlight',
@@ -528,7 +529,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   		}
 			
   		$("#img_pokemon").attr("src", "<?=$static_url?>/images/" + map + "/back/" + request[15] + ".gif");
-  		wlSound('cries/'+request[15], <?=$gebruiker['volume']?>, false);
+  		wlSound('cries/'+request[15], <?=$gebruiker['volume'] ?? 0?>, false);
   		//Show all pokemon in your hand
 			for (let i = 1; i < 7; i++) {
 				let change = "div[id*='change_pokemon'][name*='"+ i +"']";
@@ -640,7 +641,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
 				}	
 			?>
   			$('#img_pokemon_en').wlAnimate('catch', '<?=$static_url?>/images/items/' + request[4] + '.png');
-  			wlSound('caught', <?=$gebruiker['volume']?>, false);
+  			wlSound('caught', <?=$gebruiker['volume'] ?? 0?>, false);
   			sound_base.stop();
   			setTimeout(redirect, 4000);
   		}
@@ -682,7 +683,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   				document.getElementById('hit').style.display = "";
   				$.ajax({
   					type: "GET",
-  					url: "attack/wild/wild-do_attack.php?attack_name=" + $(this).html() + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  					url: "attack/wild/wild-do_attack.php?attack_name=" + $(this).html() + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   					success: attack_status
   				});
   			}
@@ -701,7 +702,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   					document.getElementById('hit').style.display = "";
   					$.ajax({
   						type: "GET",
-  						url: "attack/wild/wild-do_attack.php?attack_name=" + $(this).html() + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  						url: "attack/wild/wild-do_attack.php?attack_name=" + $(this).html() + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   						success: attack_status
   					}).done(function() {
   						atk = atk.split(' ').join('_');
@@ -725,7 +726,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   				$("#potion_screen").hide()
   				$.ajax({
   					type: "GET",
-  					url: "attack/attack_change_pokemon.php?opzak_nummer=" + $(this).attr("name") + "&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  					url: "attack/attack_change_pokemon.php?opzak_nummer=" + $(this).attr("name") + "&computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   					success: change_pokemon_status
   				});
   			}
@@ -746,7 +747,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   				$("#potion_screen").hide();
   				$.ajax({
   					type: "GET",
-  					url: "attack/wild/wild-attack_use_pokeball.php?item=" + item + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=" + type + "&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  					url: "attack/wild/wild-attack_use_pokeball.php?item=" + item + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=" + type + "&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   					success: use_item_status
   				});
   			}
@@ -758,7 +759,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   			$("#potion_screen").hide()
   			$.ajax({
   				type: "GET",
-  				url: "attack/wild/wild-attack_run.php?computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=<?= $aanval_log['id']; ?>&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  				url: "attack/wild/wild-attack_run.php?computer_info_name=<?= $computer_info['naam']; ?>&aanval_log_id=<?= $aanval_log['id'] ?? 0; ?>&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   				success: attack_run_status
   			});
   		}
@@ -771,7 +772,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
 			else {
 				$.ajax({
 					type: "GET",
-					url: "attack/attack_use_potion.php?item=" + $("#item_name").html() + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=1&potion_pokemon_id=" + $(this).attr('name') + "&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+					url: "attack/attack_use_potion.php?item=" + $("#item_name").html() + "&computer_info_name=<?= $computer_info['naam']; ?>&option_id=1&potion_pokemon_id=" + $(this).attr('name') + "&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: use_item_status
 				});
 				$("#potion_screen").hide()
@@ -791,7 +792,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
 
   			$.ajax({
   				type: "GET",
-  				url: "attack/wild/wild-do_attack.php?attack_name=undifined&wie=computer&aanval_log_id=" + <?= $aanval_log['id']; ?> + "&_h=" + <?=$gebruiker['sec_key'];?> + "&sid=" + Math.random(),
+  				url: "attack/wild/wild-do_attack.php?attack_name=undifined&wie=computer&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   				success: attack_status
   			});
   		}
@@ -832,21 +833,20 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     if ($computer_info['local'] != "Gras" AND $computer_info['local'] != "Water") {
    echo "<div class='box-content'><h3 class='title'>BATALHA!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='battlearea".$narena."'>";
    } else {
-    echo "<div class='box-content'><h3 class='title'>BATALHA!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='".$gebruiker['background']."'>";
+    echo "<div class='box-content'><h3 class='title'>BATALHA!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='".($gebruiker['background'] ?? '')."'>";
    }
   
    ?>
-
 			<tr><td>
 			<div style="padding:0px 0 100px 0px;"><div class="new_bar2">
 			<div style='padding: 15px 0 0 120px;'><strong><font size='3' style='text-shadow:1px 1px 1px #fff;'><i><img src='<?=$static_url?>/images/lvl.png' style='padding:0 0 0 30px;'> <?= $computer_info['level']; ?> </i></strong></font></div>			<div style="padding:0px 0 0 43px;"><div class="hp_red"><div class="progress" id="computer_life" style="width: <?= $computer_life_procent; ?>%"></div>
-			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px; display: <?= $computer_effect['effect'] ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= $computer_effect['effect'] ? $computer_effect['effect'] : 'none' ?>.png" alt="<?= $computer_effect['effect'] ?>" title="<?= $computer_effect['effect'] ?>"/>   </div></div>
+			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px; display: <?= ($computer_info['effect'] ?? '') ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= ($computer_info['effect'] ?? '') ? $computer_info['effect'] : 'none' ?>.png" alt="<?= $computer_info['effect'] ?? '' ?>" title="<?= $computer_info['effect'] ?? '' ?>"/>   </div></div>
 			<div align="left" style="padding: 5px 0px 0px 10px;"><font style="text-shadow:1px 1px 1px #fff;" size="3">
-			Um selvagem <strong><?= $computer_info['naam_goed']; ?></strong><?php if ($computer_info['star'] == "block") { ?><img src='<?=$static_url?>/images/icons/lidbetaald.png' title='Shiny'><?php } ?> <?php if (($gebruiker['Pokedex chip'] == 1) AND ($gebruiker['Pokedex'] == 1)) { ?>
+			Um selvagem <strong><?= $computer_info['naam_goed']; ?></strong><?php if ($computer_info['star'] == "block") { ?><img src='<?=$static_url?>/images/icons/lidbetaald.png' title='Shiny'><?php } ?> <?php if ((($gebruiker['Pokedex chip'] ?? 0) == 1) AND (($gebruiker['Pokedex'] ?? 0) == 1)) { ?>
 			<img src="<?=$static_url;?>/images/icons/th_pokedex.png" class="tip_right-middle" title="<?=pokedex_popup($computer_info, $txt);?>" style="vertical-align: -1px;" /><?php } ?></font>
 			</div>		
 				<?php
-					$have = explode(",", $gebruiker['pok_bezit']);
+					$have = explode(",", $gebruiker['pok_bezit'] ?? '');
 					if (in_array($computer_info['wild_id'], $have))
 					echo "<div align='left' style='padding:5px 0 0 10px;'><img width='14' height='14' title='".$txt['have_already']." ".$computer_info['naam_goed']."' alt='Capturado' src='".$static_url."/images/icons/pokeball.gif'></img></div>";
 				?>
@@ -932,7 +932,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
 
                       for($i=0; $items = $sql2->fetch_assoc(); $i++) {
                         $naamm = $items['naam'];
-                        $qtd = $gebruiker[$naamm];
+                        $qtd = $gebruiker[$naamm] ?? 0;
 
                         if ($qtd > 0) { 
                   ?>

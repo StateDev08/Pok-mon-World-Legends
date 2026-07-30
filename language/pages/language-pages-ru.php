@@ -324,17 +324,17 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_no_username']            = 'Вы должны заполнить все поля!';
 	$txt['alert_username_too_short']     = 'Имя пользователя слишком короткое!';
 	$txt['alert_username_too_long']      = 'Имя пользователя слишком длинное!';
-	$txt['alert_username_dont_exist']    = $_POST['inlognaam'] . 'не существует.';
+	$txt['alert_username_dont_exist']    = ($_POST['username'] ?? '') . 'не существует.';
 	$txt['alert_no_activatecode']        = 'Вы должны заполнить все поля!';
 	$txt['alert_activatecode_too_short'] = 'Код активации слишком короткий!';
 	$txt['alert_activatecode_too_long']  = 'Код активации слишком длинный!';
 	$txt['alert_guardcore_invalid']      = 'Код капчи неправильный!';
-	$txt['alert_already_activated']      = $_POST['inlognaam'] . 'уже активирован!';
+	$txt['alert_already_activated']      = ($_POST['username'] ?? '') . 'уже активирован!';
 	$txt['alert_activatecode_wrong']     = 'Вы ввели неверный код активации!';
 	$txt['alert_username_wrong']         = 'Введенный пользователь не найден!';
 	$txt['alert_no_email']               = 'Вы должны заполнить все поля!';
 	$txt['alert_email_incorrect_signs']  = 'Вы должны ввести действительный адрес электронной почты!';
-	$txt['success_activate']             = $_POST['inlognaam'] . 'активирован успешно!';
+	$txt['success_activate']             = ($_POST['username'] ?? '') . 'активирован успешно!';
 	$txt['success_resend']               = 'Через несколько минут вы получите электронное письмо с кодом активации. Не забудьте проверить папку СПАМ!';
 
 	$txt['titlenpc']			= 'Активируйте свою учетную запись сейчас!';

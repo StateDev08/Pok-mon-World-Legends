@@ -5,19 +5,17 @@
     #Als je geen pokemon bij je hebt, terug naar index.
     if ($gebruiker['in_hand'] == 0) header('Location: index.php');
 
-    echo addNPCBox(30, 'Especialista em Ataques', 'Olá <b>Jovem Treinador</b>, como vai?<br><br>
-    Que <b>belos Pokémons</b> você possui! <br>Gostaria que eu mostrasse os <b>Ataques</b> Especiais que posso lhes <b>ensinar</b>? <br>Ou até mesmo <b>relembrá-lo</b> de algum <b>Ataque</b>?<br><br>
-    Escolha um <b>Pokémon</b> e te mostrarei.');
+    echo addNPCBox(30, $txt['moves_npc_title'], $txt['moves_npc_text']);
 
     if (isset($_POST['pokemonview']) && isset($_POST['pokemonid'])) {
         if ($_POST['pokemonview'] != 1 && $_POST['pokemonview'] != 2) {
             $_POST['pokemonview'] = 1;
         }
             $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
-            if (empty($_POST['pokemonid'])) echo '<div class="red">Escolha um pokémon.</div>';
-            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">Este pokémon ainda é um ovo.</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">Esse pokémon não é seu</div>';
-            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">Esse pokémon não está no seu time.</div>';
+            if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['moves_error_no_pokemon'].'</div>';
+            else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['moves_error_egg'].'</div>';
+            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['moves_error_not_yours'].'</div>';
+            else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['moves_error_not_in_team'].'</div>';
             else{
                 $succ = true;
                 $pokemonid = $_POST['pokemonid'];
@@ -62,13 +60,13 @@
                         if ($sql > 0) {
                             $succ = true;
                         } else {
-                            echo '<div class="red">Seu Pokémon já tem esse golpe!</div>';
+                            echo '<div class="red">'.$txt['moves_error_already_has_move'].'</div>';
                         }
                     } else {
-                        echo '<div class="red">Você não tem Golds suficientes!</div>';
+                        echo '<div class="red">'.$txt['moves_error_no_gold'].'</div>';
                     }
                 } else {
-                    echo '<div class="red">Você não tem Silvers suficientes!</div>';
+                    echo '<div class="red">'.$txt['moves_error_no_silver'].'</div>';
                 }
 
             } else {
@@ -112,13 +110,13 @@
                             $money = $ataque['silver'].','.$ataque['gold'];
                             $succ = true;
                         } else {
-                            echo '<div class="red">Seu Pokémon já tem esse golpe!</div>';
+                            echo '<div class="red">'.$txt['moves_error_already_has_move'].'</div>';
                         }
                     } else {
-                        echo '<div class="red">Você não tem Golds suficientes!</div>';
+                        echo '<div class="red">'.$txt['moves_error_no_gold'].'</div>';
                     }
                 } else {
-                    echo '<div class="red">Você não tem Silvers suficientes!</div>';
+                    echo '<div class="red">'.$txt['moves_error_no_silver'].'</div>';
                 }
 
             } else {
@@ -201,7 +199,7 @@
         </style>
         <div class="box-content" style="width: 100%;">
             <table width="100%" class="general">
-                <thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+                <thead><tr><th colspan="6"><?=$txt['moves_my_team']?></th></tr></thead>
                 <tbody><tr>
                         <script>
                             var $poke_array_id = [];
@@ -251,25 +249,25 @@
                     <tr style="text-align: center; font-size: 13px">
                         <td class="row">
                             <div class="col alternate" style="border-right: 1px solid #577599;">
-                                <h3 class="title" style="font-size: 15px">MOVE TUTOR</h3>
+                                <h3 class="title" style="font-size: 15px"><?=$txt['moves_tutor_title']?></h3>
 
                                 <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                     <ul>
-                                        <li>Aqui você pode <b>ensinar</b> golpes ao seu Pokémon por uma quantia de <b>Silvers</b> ou <b>Gold</b>.</li>
+                                        <li><?=$txt['moves_tutor_desc']?></li>
                                     </ul>
                                 </div>
-                                <button class="button" style="margin: 6px" onclick="view_ivs(1)">ENSINAR GOLPES</button>
+                                <button class="button" style="margin: 6px" onclick="view_ivs(1)"><?=$txt['moves_tutor_btn']?></button>
                             </div>
                     
                             <div class="col alternate">
-                                <h3 class="title" style="font-size: 15px">MOVE REMINDER</h3>
+                                <h3 class="title" style="font-size: 15px"><?=$txt['moves_reminder_title']?></h3>
 
                                 <div style="padding: 10px; padding-bottom: 0; text-align: left; border-bottom: 1px solid #577599;">
                                     <ul>
-                                        <li>Aqui você pode <b>lembrar</b> golpes de seu Pokémon por uma quantia de <b>Silvers</b> ou <b>Gold</b>.</li>
+                                        <li><?=$txt['moves_reminder_desc']?></li>
                                     </ul>
                                 </div>
-                                <button class="button" style="margin: 6px" onclick="view_ivs(2)">LEMBRAR GOLPES</button>
+                                <button class="button" style="margin: 6px" onclick="view_ivs(2)"><?=$txt['moves_reminder_btn']?></button>
                             </div>
                         </td>
                     </tr>
@@ -330,7 +328,7 @@
                     $pokemon['naam'] = $pokemon_name;
         ?>
         <div id="pokemon-amie" style="background-image: url('<?=$static_url?>/images/amie/<?=strtolower($pokemon['type1'])?>.png'); min-height: 215px; margin-bottom: 6px">
-            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='Ver Perfil do Pokémon'></a> ".$pokemon['naam']?></div>
+            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='".$txt['moves_view_profile']."'></a> ".$pokemon['naam']?></div>
 
             <div style="text-align: center">
                 <img src="<?=$static_url.'/'.$pokemon['link']?>" alt="<?=$pokemon['naam']?>" id="pokemon-profile" style="position: relative; margin-top: 4%;">
@@ -400,19 +398,19 @@
                                 $('.btn-type-selected').removeClass('btn-type-selected');
                                 $(obj).addClass('btn-type-selected');
                                 let move = $($id).attr('value');
-                                $('#subm').val('Ensinar o golpe ' + move + '?');
+                                $('#subm').val('<?=$txt['moves_teach_confirm_js']?>' + move + '?');
                             }
                         </script>
                         <input type="hidden" value="<?=$_POST['pokemonid']?>" name="pokemonid">
                         <input type="hidden" value="1" name="method">
 
-                        <div style="border-top: 1px solid #577599;"><input type="submit" value="Ensinar golpe" id="subm" class="button" style="margin: 6px">
-                            &nbsp;&nbsp;<button type="button" class="button" style="background-color: #d25757" onclick="window.location = window.location.href">Voltar</button>
+                        <div style="border-top: 1px solid #577599;"><input type="submit" value="<?=$txt['moves_teach_btn']?>" id="subm" class="button" style="margin: 6px">
+                            &nbsp;&nbsp;<button type="button" class="button" style="background-color: #d25757" onclick="window.location = window.location.href"><?=$txt['moves_back_btn']?></button>
                         </div>
                         </form>
                         <?php
                             } else {
-                                echo '<div class="red">Infelizmente seu pokémon não pode aprender nenhum ataque comigo.</div>';
+                                echo '<div class="red">'.$txt['moves_cannot_learn'].'</div>';
                             }
                         ?>
                         </center>
@@ -425,7 +423,7 @@
                     ?>
 
                     <div id="pokemon-amie" style="background-image: url('<?=$static_url?>/images/amie/<?=$pokemon['type1']?>.png'); min-height: 215px; margin-bottom: 6px">
-                        <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='Ver Perfil do Pokémon'></a> ".$pokemon['naam']?></div>
+                        <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='".$txt['moves_view_profile']."'></a> ".$pokemon['naam']?></div>
 
                         <div style="text-align: center">
                             <img src="<?=$static_url.'/'.$pokemon['link']?>" alt="<?=$pokemon['naam']?>" id="pokemon-profile" style="position: relative; margin-top: 4%;">
@@ -433,7 +431,7 @@
                     </div>
                     <center>
 
-                    <div class="blue">Qual golpe você deseja substituir para que <?=$pokemon['naam']?> aprenda o ataque: <?=$ataqueinfo['naam']?>?</div>
+                    <div class="blue"><?=sprintf($txt['moves_replace_prompt'], $pokemon['naam'], $ataqueinfo['naam'])?></div>
                     <div class="box-content" style="width:100%">
                     <table>
                     <tr>
@@ -476,7 +474,7 @@
                     </tr>
                     </table>
                     <div style="border-top: 1px solid #577599;">
-                    <button type="button" class="button" style="background-color: #d25757; margin: 6px" onclick="window.location = window.location.href">Voltar</button>
+                    <button type="button" class="button" style="background-color: #d25757; margin: 6px" onclick="window.location = window.location.href"><?=$txt['moves_back_btn']?></button>
                     </div>
                     </div>
                     </center>
@@ -486,7 +484,7 @@
                     $pokemon['naam'] = $pokemon_name;
         ?>
         <div id="pokemon-amie" style="background-image: url('<?=$static_url?>/images/amie/<?=$pokemon['type1']?>.png'); min-height: 215px; margin-bottom: 6px">
-            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='Ver Perfil do Pokémon'></a> ".$pokemon['naam']?></div>
+            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='".$txt['moves_view_profile']."'></a> ".$pokemon['naam']?></div>
 
             <div style="text-align: center">
                 <img src="<?=$static_url.'/'.$pokemon['link']?>" alt="<?=$pokemon['naam']?>" id="pokemon-profile" style="position: relative; margin-top: 4%;">
@@ -573,17 +571,17 @@
                                 $('.btn-type-selected').removeClass('btn-type-selected');
                                 $(obj).addClass('btn-type-selected');
                                 let move = $($id).attr('value');
-                                $('#subm').val('Relembrar o golpe ' + move + '?');
+                                $('#subm').val('<?=$txt['moves_remind_confirm_js']?>' + move + '?');
                             }
                         </script>
                         <input type="hidden" value="<?=$_POST['pokemonid']?>" name="pokemonid">
                         <input type="hidden" value="2" name="method">
                         <div style="border-top: 1px solid #577599;">
-                        <input type="submit" value="Relembrar golpe" id="subm" class="button">
-                        &nbsp;&nbsp;<button type="button" class="button" style="background-color: #d25757; margin: 6px" onclick="window.location = window.location.href">Voltar</button></div>
+                        <input type="submit" value="<?=$txt['moves_remind_btn']?>" id="subm" class="button">
+                        &nbsp;&nbsp;<button type="button" class="button" style="background-color: #d25757; margin: 6px" onclick="window.location = window.location.href"><?=$txt['moves_back_btn']?></button></div>
                         </form>
                         <?php } else {
-                            echo '<div class="red">Infelizmente seu pokémon não pode relembrar nenhum ataque comigo.</div>';
+                            echo '<div class="red">'.$txt['moves_cannot_remind'].'</div>';
                         } ?>
                         </center>
                         </div>
@@ -593,20 +591,20 @@
                     $pokemon['naam'] = $pokemon_name;
 
                     if ($_POST['method'] == 1) {
-                        echo '<div class="green">Seu '.$pokemon['naam'].' aprendeu o ataque '.$ataqueinfo['naam'].' com sucesso!</div>';
+                        echo '<div class="green">'.sprintf($txt['moves_learned_move'], $pokemon['naam'], $ataqueinfo['naam']).'</div>';
                     } else if ($_POST['method'] == 2) {
-                        echo '<div class="green">Seu '.$pokemon['naam'].' relembrou o ataque '.$ataqueinfo['naam'].' com sucesso!</div>';
+                        echo '<div class="green">'.sprintf($txt['moves_reminded_move'], $pokemon['naam'], $ataqueinfo['naam']).'</div>';
                     }
                 ?>
 <div id="pokemon-amie" style="background-image: url('<?=$static_url?>/images/amie/<?=$pokemon['type1']?>.png'); min-height: 215px; margin-bottom: 6px">
-            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='Ver Perfil do Pokémon'></a> ".$pokemon['naam']?></div>
+            <div class="pokemon-title"><?="<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle' class='noanimate' target='_blank'><img src='".$static_url." /images/icons/info.png' title='".$txt['moves_view_profile']."'></a> ".$pokemon['naam']?></div>
 
             <div style="text-align: center">
                 <img src="<?=$static_url.'/'.$pokemon['link']?>" alt="<?=$pokemon['naam']?>" id="pokemon-profile" style="position: relative; margin-top: 4%;">
             </div>  
         </div>
                 <?php
-                    echo '<center><button type="button" class="button" style="background-color: #d25757" onclick="window.location = window.location.href">Voltar para a seleção</button></center>';
+                    echo '<center><button type="button" class="button" style="background-color: #d25757" onclick="window.location = window.location.href">'.$txt['moves_back_selection'].'</button></center>';
                 } else {
                     header ('Location: ./moves');
                 }

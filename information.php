@@ -130,8 +130,9 @@ switch($_GET['category']) {
 	</tr></thead>
 	<tbody>
 <?php
-if (!is_numeric($_GET['subpage']))	$subpage = 1;
-else	$subpage = (int)$_GET['subpage'];
+$subpage = $_GET['subpage'] ?? 1;
+if (!is_numeric($subpage)) $subpage = 1;
+else $subpage = (int)$subpage;
 
 #Max aantal leden per pagina
 $max = 20;
@@ -181,7 +182,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '7');?>"><form action="./information&category=attack-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? $_POST['attack'] : $_GET['attack']);?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : $_GET['attack']);?>" placeholder="Buscar:" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -250,8 +251,9 @@ if ($aantal_paginas > 1) {
 		</thead>
 		<tbody class="ability-table">
 		<?php
-if (!is_numeric($_GET['subpage']))	$subpage = 1;
-else	$subpage = (int)$_GET['subpage'];
+$subpage = $_GET['subpage'] ?? 1;
+if (!is_numeric($subpage)) $subpage = 1;
+else $subpage = (int)$subpage;
 
 #Max aantal leden per pagina
 $max = 20;
@@ -354,8 +356,9 @@ if ($aantal_paginas > 1) {
 		</thead>
 		<tbody class="item-table">
 		<?php
-if (!is_numeric($_GET['subpage']))	$subpage = 1;
-else	$subpage = (int)$_GET['subpage'];
+$subpage = $_GET['subpage'] ?? 1;
+if (!is_numeric($subpage)) $subpage = 1;
+else $subpage = (int)$subpage;
 
 #Max aantal leden per pagina
 $max = 20;

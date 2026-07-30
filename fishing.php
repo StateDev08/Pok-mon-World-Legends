@@ -2,35 +2,32 @@
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 
-echo addNPCBox(13, 'Pescaria', 'Bem-vindo ao torneio de pesca.<br><br>
-		Aqueles treinadores que acumularem a maior quantidade de pontos ganham o prêmio ao final do dia.<br><br>
-		<b>1. Lugar:</b> 20.000 <img src="'.$static_url.'/images/icons/silver.png"><br>
-		<b>2. Lugar:</b> 10.000 <img src="'.$static_url.'/images/icons/silver.png"><br>
-		<b>3. Lugar:</b> 5.000 <img src="'.$static_url.'/images/icons/silver.png"><br><br>')
+$silver_icon = $static_url.'/images/icons/silver.png';
+echo addNPCBox(13, $txt['fishing_title'], sprintf($txt['fishing_npc_text'], $silver_icon, $silver_icon, $silver_icon))
 ?>
-<div class="red">SEUS PONTOS SERÃO RESETADOS AO FINAL DO DIA!</div>
+<div class="red"><?=$txt['fishing_reset_notice']?></div>
 
 <?php
 // if ($gebruiker['admin'] == 3) $gebruiker['last_fishing'] = 0;
 
-if ($_POST['fish'] != "") {
+if (($_POST['fish'] ?? '') != "") {
 	if ($gebruiker['last_fishing'] + (60 * 10) > time()) {
 		$wait = ceil((($gebruiker['last_fishing'] + (60 * 10)) - time()) / 60);
-		echo '<div class="red">Ainda não liberado. Aguarde ' . $wait . ' minuto(s)</div>';
+		echo '<div class="red">'.sprintf($txt['fishing_wait'], $wait).'</div>';
 		$error = 1;
 	}
-	if ($_POST['rod'] == "1") {
+	if (($_POST['rod'] ?? '') == "1") {
 		$item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."' AND `Fishing rod`='1'")->fetch_assoc();
 		$type = "Fishing Rod";
 	}
 
-	if ($_POST['rod'] == "" || $item['Fishing rod'] == 0) {
-		echo '<div class="red">Você não tem uma vara de pescar.</div>';
+	if (($_POST['rod'] ?? '') == "" || $item['Fishing rod'] == 0) {
+		echo '<div class="red">'.$txt['fishing_no_rod'].'</div>';
 		$error = 1;
 	}
 
 	if ($item['Fishing rod'] == 0) {
-		echo "<div class='red'>Você não pode pescar com uma ".$type." se você não tem ela!</div>";
+		echo "<div class='red'>".sprintf($txt['fishing_no_type'], $type)."</div>";
 		$error = 1;
 	}
 
@@ -46,8 +43,8 @@ if ($_POST['fish'] != "") {
 		$quests->setStatus('fishing', $_SESSION['id']);
 		DB::exQuery("UPDATE `gebruikers` SET `fishing` = `fishing` + '{$points}', `last_fishing` = UNIX_TIMESTAMP() WHERE `user_id` = '{$_SESSION['id']}'");
 
-		echo "<table class='general box-content' width='100%' style='margin-bottom: 7px' align='center'><thead><tr><th>".$type." pegou <b>".$swappah->naam."</b></th></tr></thead><tr>";
-			echo "<td><center><img src='{$static_url}/images/pokemon/".$swappah->wild_id.".gif'></center><br><br><center>O Pokémon foi avaliado pelos juizes e rendeu <b>".number_format($points, 0, ',', '.')." pontos</b>.</center></td>";
+		echo "<table class='general box-content' width='100%' style='margin-bottom: 7px' align='center'><thead><tr><th>".sprintf($txt['fishing_caught'], $type, $swappah->naam)."</th></tr></thead><tr>";
+			echo "<td><center><img src='{$static_url}/images/pokemon/".$swappah->wild_id.".gif'></center><br><br><center>".sprintf($txt['fishing_points'], number_format($points, 0, ',', '.'))."</center></td>";
 		echo "</tr></table>";
 
 	}
@@ -56,7 +53,7 @@ if ($_POST['fish'] != "") {
 
 <form method="post">
 <div class="box-content" style="position: relative; margin-bottom: 7px"><table class="general" width="100%">
-	<thead><tr><th>PESCARIA</th></tr></thead>
+	<thead><tr><th><?=$txt['fishing_title2']?></th></tr></thead>
 	<tbody><tr>
 		<td align="center">
 			<?php if ($gebruiker['Fishing rod'] == 1) { ?>
@@ -65,61 +62,52 @@ if ($_POST['fish'] != "") {
 					<tbody><tr><td align="center">
 						<img src="<?= $static_url;?>/images/items/Fishing rod.png">
 					</td></tr>
-					<tr><td align="center"><span class="smalltext">Vara de Pesca</span></td></tr>
+					<tr><td align="center"><span class="smalltext"><?=$txt['fishing_rod']?></span></td></tr>
 					<tr><td align="center"><input type="radio" name="rod" value="1" <?php if ($gebruiker['Fishing rod'] == 1) { ?>checked<?php } else { ?> disabled <?php } ?>></td></tr>
 				</tbody></table>
 			</div>
 			<?php } else {  ?>
-				<div class="red">Você não tem nenhuma Vara de Pesca.</div>
+				<div class="red"><?=$txt['fishing_no_rod2']?></div>
 			<?php } ?>
 		</td>
 	</tr></tbody>
 	<?php if ($gebruiker['Fishing rod'] == 1) { 
 		if (($gebruiker['last_fishing'] + (60 * 10)) >= time()) { 
 		$wait = ceil((($gebruiker['last_fishing'] + (60 * 10)) - time()) / 60); ?>
-		<tfoot><tr><td align="center"><b><p style="margin: 6px">Aguarde <?= $wait;?> minutos para pescar novamente!</p></b></td></tr></tfoot>
+		<tfoot><tr><td align="center"><b><p style="margin: 6px"><?=sprintf($txt['fishing_wait2'], $wait)?></p></b></td></tr></tfoot>
 	<?php } else { ?>
-		<tfoot><tr><td align="center"><input type="submit" name="fish" value="Pescar" class="button" style="margin: 6px"></td></tr></tfoot>
+		<tfoot><tr><td align="center"><input type="submit" name="fish" value="<?=$txt['fishing_fish_btn']?>" class="button" style="margin: 6px"></td></tr></tfoot>
 	<?php }} ?>
 </table></div>
 </form>
 
 <div>
 	<div class="box-content" style="display: inline-block; width: 50%;"><table class="general" width="100%">
-			<thead><tr><th colspan="3">Melhores pescadores do dia</th></tr>
+			<thead><tr><th colspan="3"><?=$txt['fishing_best_day']?></th></tr>
 			<tr>
 				<th width="20"><b>#</b></th>
-				<th><b>Treinador</b></th>
-				<th><b>Pontos</b></th>
+				<th><b><?=$txt['fishing_trainer']?></b></th>
+				<th><b><?=$txt['fishing_points_label']?></b></th>
 			</tr></thead>
 			<?php
-			$profiles1=DB::exQuery("SELECT username,user_id,fishing FROM `gebruikers` WHERE `banned` != 'Y' ORDER BY `fishing` DESC LIMIT 3");
+            $profiles1=DB::exQuery("SELECT username,user_id,fishing FROM `gebruikers` WHERE `banned` != 'Y' ORDER BY `fishing` DESC LIMIT 3");
+			$i = 0;
 			while($profiles=$profiles1->fetch_object()) {
 
 				$i++;
-
-				if ($i == 1) {
-					$r = "1.";
-				}
-				if ($i == 2) {
-					$r = "2.";
-				}
-				if ($i == 3) {
-					$r = "3.";
-				}
-
+				$r = $i . '.';
 				?>
-				<tr><td><?= $r?></td><td><a href="./profile&player=<?= $profiles->username?>"><?= GetColorName($profiles->user_id)?></a></td><td><?= number_format($profiles->fishing)?> Pontos</td></tr>
+				<tr><td><?= $r?></td><td><a href="./profile&player=<?= $profiles->username?>"><?= GetColorName($profiles->user_id)?></a></td><td><?= number_format($profiles->fishing)?> <?=$txt['fishing_points_label']?></td></tr>
 				<?php
 			}
 			?>
 
 		</table></div>
 	<div class="box-content" style="display: inline-block; width: 49.5%;"><table class="general" width="100%">
-			<thead><tr><th colspan="2">Melhores pescadores de ontem</th></tr>
+			<thead><tr><th colspan="2"><?=$txt['fishing_best_yesterday']?></th></tr>
 			<tr>
 				<th width="20"><b>#</b></th>
-				<th><b>Treinador</b></th>
+				<th><b><?=$txt['fishing_trainer']?></b></th>
 			</tr></thead>
 
 			<?php
@@ -134,11 +122,11 @@ if ($_POST['fish'] != "") {
 			$lastwin13 = DB::exQuery("SELECT username,user_id FROM `gebruikers` WHERE `user_id`='$checknumber->fish3'");
 			$lastwin3 = $lastwin13->fetch_object();
 
-			echo "<tr><td>1.</td><td><a href='./profile&player=".$lastwin1->username."'>".GetColorName($lastwin1->user_id)."</a></td></tr>";
+			if ($lastwin1) echo "<tr><td>1.</td><td><a href='./profile&player=".$lastwin1->username."'>".GetColorName($lastwin1->user_id)."</a></td></tr>";
 
-			echo "<tr><td>2.</td><td><a href='./profile&player=".$lastwin2->username."'>".GetColorName($lastwin2->user_id)."</a></td></tr>";
+			if ($lastwin2) echo "<tr><td>2.</td><td><a href='./profile&player=".$lastwin2->username."'>".GetColorName($lastwin2->user_id)."</a></td></tr>";
 
-			echo "<tr><td>3.</td><td><a href='./profile&player=".$lastwin3->username."'>".GetColorName($lastwin3->user_id)."</a></td></tr>";
+			if ($lastwin3) echo "<tr><td>3.</td><td><a href='./profile&player=".$lastwin3->username."'>".GetColorName($lastwin3->user_id)."</a></td></tr>";
 
 			?>
 

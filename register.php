@@ -81,12 +81,12 @@ if (isset($_POST['registreer'])) {
 			$mail->ClearAttachments();
 
 			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
-			$_SESSION['act_msg'] = '<div class="green">Seu cadastro foi efetuado! <a href="./activate">Ative sua conta</a> com o código enviado em seu e-mail!</div>';
+			$_SESSION['act_msg'] = '<div class="green">'.$txt['register_success'].'</div>';
 			header('location: ./activate');
 		} else if (isSmtpPlaceholder($smtp['host'])) {
 			// No real SMTP configured; still create the account and show the activation code.
 			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
-			$_SESSION['act_msg'] = '<div class="green">Seu cadastro foi efetuado! Código de ativação: <b>' . $activatiecode . '</b>. <a href="./activate">Ative sua conta</a> com este código.</div>';
+			$_SESSION['act_msg'] = '<div class="green">'.sprintf($txt['register_success_code'], $activatiecode).'</div>';
 			header('location: ./activate');
 		} else {
 			$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
@@ -103,29 +103,29 @@ if (!empty($message))	echo $message
 			<tr>
 				<td colspan="2">
 					<input type="text" name="username" placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_SESSION['user'] ?? '';?>" maxlength="10" minlength="3" required />
-					<input type="email" name="email" placeholder="Email:" value="<?=$_POST['email'] ?? '';?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="email" name="email" placeholder="<?=$txt['register_email']?>" value="<?=$_POST['email'] ?? '';?>" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
 					<input type="password" placeholder="<?=$txt['login_password'];?>:" name="wachtwoord" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" value="<?=$_POST['wachtwoord'] ?? '';?>" required />
-					<input type="password" placeholder="Repita a Senha:" name="wachtwoord_nogmaals" value="<?=$_POST['wachtwoord_nogmaals'] ?? '';?>" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
-					<input type="text" name="refferal" value="<?=$refferal ?? '';?>" style="padding-left: 10px;width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" placeholder="Quem convidou você ao Pokémon World Legends?">
-					<center><input type="checkbox" name="others" id="others" required /> Declaro que li e concordo com a <a href="ajax.php?act=privacy" class="colorbox-privacy">Política de Privacidade</a>, <a href="ajax.php?act=terms" class="colorbox-terms">Termos de Serviço</a> e  com as <a href="ajax.php?act=rules" class="colorbox-rules">Regras e Punições</a> </center>
+					<input type="password" placeholder="<?=$txt['register_repeat_password']?>" name="wachtwoord_nogmaals" value="<?=$_POST['wachtwoord_nogmaals'] ?? '';?>" style="width:49%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
+					<input type="text" name="refferal" value="<?=$refferal ?? '';?>" style="padding-left: 10px;width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" placeholder="<?=$txt['register_referral']?>">
+					<center><input type="checkbox" name="others" id="others" required /> <?=$txt['register_agree']?> </center>
 				</td>
 			</tr>
 			<tr style="font-style: italic;">
 				<td style="padding-left: 5px; padding-top: 5px; width: 50%">
-					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;">Ative sua Conta</a>
+					<a href="./activate"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px;"><?=$txt['register_activate_account']?></a>
 				</td>
 				<td style="width: 50%; text-align: right; padding-top: 5px; padding-right: 10px">
-					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px">Recuperar Conta</a>
+					<a href="./forgot"><img src="<?=$static_url?>/images/layout/seta1.png" style="margin-right: 3px; vertical-align: 1px"><?=$txt['register_recover_account']?></a>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="padding-top: 10px">
-					<button class="button-rounded ripple" name="registreer" type="submit" value="register">PARTICIPAR DA AVENTURA!</button>
+					<button class="button-rounded ripple" name="registreer" type="submit" value="register"><?=$txt['register_join']?></button>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="font-style: italic; text-align: center; padding-top: 5px">
-					Já tem uma conta? <a href="./" style="color: #6ac7ee; font-weight: bold">LOGUE-SE</a> agora mesmo!
+					<?=$txt['register_have_account']?>
 				</td>
 			</tr>
 		</table>

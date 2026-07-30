@@ -141,10 +141,10 @@ if (isset($_POST['refresh'])) {
 	echo '<div class="green">'.$txt['success_traders_refresh'].'</div>';
 }
 
-echo addNpcBox(14, 'Comerciantes', $txt['title_text']);
+echo addNpcBox(14, $txt['traders_npc_title'], $txt['title_text']);
 
 if ($gebruiker['rank'] < 5) {
-	echo '<div class="red">RANK MÍNIMO PARA TROCAR POKÉMONS COM OS COMERCIANTES: 5 - First Coach. CONTINUE UPANDO PARA LIBERAR!</div>';
+	echo '<div class="red">'.$txt['traders_min_rank'].'</div>';
 }
 ?>
 

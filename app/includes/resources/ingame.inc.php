@@ -34,13 +34,14 @@ function GetColorName($user_id) {
 	global $static_url;
 
 	$gebruiker = DB::exQuery("SELECT `dv`,`banned`,`premiumaccount`,`admin`,`username`,`posicaorank` FROM `gebruikers` WHERE `user_id`='" . (int)$user_id . "' LIMIT 1")->fetch_assoc();
+	if (!$gebruiker) return '<span style="color: #888">Desconhecido</span>';
 	if ($gebruiker['admin'] == 1)					return "<span style='color: #A1FF77; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user.png\" style=\"vertical-align:-3px;\" title=\"Moderador\" />";
 	else if ($gebruiker['admin'] == 2)				return "<span style='color: #FF3030; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user_suit.png\" style=\"vertical-align:-3px;\" title=\"Supervisor\" />";
 	else if ($gebruiker['admin'] == 3)				return "<span style='color: yellow; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user_admin.png\" style=\"vertical-align:-3px;\" title=\"Administrador\" />";
 	else if ($gebruiker['dv'] == 1)					return "<span style='color: orange; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>[DV]" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/dv.png\" style=\"vertical-align:-3px;\" title=\"Divulgador\" />";
 	else if ($gebruiker['banned'] == 'Y')			return "<s>" . $gebruiker['username'] . "</s> <img src=\"" . $static_url . "/images/icons/lock.png\" style=\"vertical-align:-3px;\" />";
-	else if ($gebruiker['premiumaccount'] > time())	return $gebruiker['username'] . " <img src=\"" . $static_url . "/images/icons/vip.gif\" style=\"vertical-align:-3px;\" />";
-	else if ($gebruiker['posicaorank'] > 0 AND $gebruiker['posicaorank'] <= 4 AND $gebruiker['admin'] == 0)
+	else if (($gebruiker['premiumaccount'] ?? 0) > time())	return $gebruiker['username'] . " <img src=\"" . $static_url . "/images/icons/vip.gif\" style=\"vertical-align:-3px;\" />";
+	else if (($gebruiker['posicaorank'] ?? 0) > 0 AND ($gebruiker['posicaorank'] ?? 0) <= 4 AND ($gebruiker['admin'] ?? 0) == 0)
 													return '<span style="color: #fff">'.$gebruiker['username'] . "</span> <img src=\"" . $static_url . "/images/icons/elite.gif\" style=\"vertical-align:-3px;\" title=\"Elite dos 4\" />";
 	else											return $gebruiker['username'];
 }
@@ -112,9 +113,11 @@ function ubbcode($tekst) {
 function query_cache($page, $query, $expire) {
     ini_set('memory_limit', '-1');
 	$file = 'app/cache/' . $page . '.txt';
+	$records = [];
 	
     if (file_exists($file) && filemtime($file) > (time() - $expire)) {
 		$records = unserialize(file_get_contents($file));
+		if (!is_array($records)) $records = [];
 	} else {
         $result = DB::exQuery($query);
         while ($record = $result->fetch_assoc()) $records[] = $record;
@@ -437,7 +440,7 @@ function pokemon_equip ($id, $item) {
 		if (!in_array($id, array('381', '842', '841', '380'))) {
 			return false;
 		}
-	} else if (strpos($item, ' Z') !== false) {
+	} else if ($item !== null && strpos($item, ' Z') !== false) {
 		$sql = DB::exQuery ("SELECT `pokemons` FROM `zaanval_relacionados` WHERE item='$item'");
 		if ($sql->num_rows == 1) {
 			$sql = $sql->fetch_assoc();
@@ -1155,6 +1158,8 @@ function pokemonei($geg, $txt) {
 		} else if (in_array($new['wild_id'], array('585', '586'))) {
 			$season = isSeason()[1];
 			$suffix = '-'.$season;
+		} else {
+			$suffix = '';
 		}
     
 		##**##

@@ -62,7 +62,7 @@ if (isset($_POST['travel'])) {
 	else if ($gebruiker['wereld'] == $wereld)	$message = '<div class="red">'.$txt['alert_already_in_world'].'</div>';
 	#Bestaat de wereld wel?
 	else if ($wereld != 'Kanto' && $wereld != 'Johto' && $wereld != 'Hoenn' && $wereld != 'Sinnoh' && $wereld != 'Unova' && $wereld != 'Kalos' && $wereld != 'Alola')	$message = '<div class="red">'.$txt['alert_world_invalid'].'</div>';
-	else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">Você ainda não desbloqueou esta região!</div>';
+	else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">'.$txt['travel_not_unlocked'].'</div>';
 	else {
 		#Heeft de speler wel genoeg silver?
 		if ($gebruiker['silver'] <= $prijss)	$message = '<div class="red">'.$txt['alert_not_enough_money'].'</div>';
@@ -91,7 +91,7 @@ if (isset($_POST['surf'])) {
 		else if ($gebruiker['wereld'] == $wereld)	$message = '<div class="red">'.$txt['alert_already_in_world'].'</div>';
 		#KIjken of pokemon de aanval wel heeft
 		else if ($pkmninfo['aanval_1'] != 'Surf' && $pkmninfo['aanval_2'] != 'Surf' && $pkmninfo['aanval_3'] != 'Surf' && $pkmninfo['aanval_4'] != 'Surf')	$message = '<div class="red">'.$txt['alert_no_surf'].'</div>';
-		else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">Você ainda não desbloqueou esta região!</div>';
+		else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">'.$txt['travel_not_unlocked'].'</div>';
 		#Kijken of de pokemon level 80 is
 		else if ($pkmninfo['level'] < 80)	$message = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
 		#Alles goed:	
@@ -119,7 +119,7 @@ if (isset($_POST['fly'])) {
 		else if ($gebruiker['wereld'] == $wereld)	$message = '<div class="red">'.$txt['alert_already_in_world'].'</div>';
 		#KIjken of pokemon de aanval wel heeft
 		else if ($pkmninfo['aanval_1'] != 'Fly' && $pkmninfo['aanval_2'] != 'Fly' && $pkmninfo['aanval_3'] != 'Fly' && $pkmninfo['aanval_4'] != 'Fly')	$message = '<div class="red">'.$txt['alert_no_fly'].'</div>';
-		else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">Você ainda não desbloqueou esta região!</div>';
+		else if ($gebruiker[ucfirst($wereld).'_block'] == 0) echo '<div class="red">'.$txt['travel_not_unlocked'].'</div>';
 		#Kijken of de pokemon level 80 is
 		else if ($pkmninfo['level'] < 80)	$message = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
 		#Alles goed:	
@@ -167,11 +167,11 @@ if (!empty($message))	echo $message;
 							?>
 							<div class="carousel-cell" style="text-align: center; width: 300px;">
 								<div>
-									<?= (strtolower($gebruiker['wereld']) == $reg_arr[$i])? '<div style="border-radius: 4px;width: 100%;background: rgba(255, 255, 255, .4);height: 197px;position: absolute;z-index: 1000; line-height: 170px;" title="Você já está nesta região!"><img src="'.$static_url.'/images/icons/avatar/lock.png" style="width: 27%"></div>' : ''; ?>
-									<?= (($lock) == 0)? '<div style="border-radius: 4px;width: 100%;background: rgba(255, 255, 255, .4);height: 197px;position: absolute;z-index: 1000; line-height: 170px;" title="Você ainda não conseguiu todas as Insígnias da Região anterior!"><img src="'.$static_url.'/images/icons/avatar/lock.png" style="width: 27%"></div>' : ''; ?>
+<?= (strtolower($gebruiker['wereld']) == $reg_arr[$i])? '<div style="border-radius: 4px;width: 100%;background: rgba(255, 255, 255, .4);height: 197px;position: absolute;z-index: 1000; line-height: 170px;" title="'.$txt['travel_already_here'].'"><img src="'.$static_url.'/images/icons/avatar/lock.png" style="width: 27%"></div>' : ''; ?>
+								<?= (($lock) == 0)? '<div style="border-radius: 4px;width: 100%;background: rgba(255, 255, 255, .4);height: 197px;position: absolute;z-index: 1000; line-height: 170px;" title="'.$txt['travel_locked_previous'].'"><img src="'.$static_url.'/images/icons/avatar/lock.png" style="width: 27%"></div>' : ''; ?>
 
 									<h1 style="position: absolute; text-align: center; width: 100%; color: #fff; font-weight: bold; margin-top: 50px"><?=strtoupper($reg_arr[$i])?></h1>
-									<p style="position: absolute; text-align: center; width: 100%; color: #fff; font-weight: 700; margin-top: 90px; font-size: 21px">Custo: <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers"><?=$prijs[$reg_arr[$i].'totaal']?></p>
+									<p style="position: absolute; text-align: center; width: 100%; color: #fff; font-weight: 700; margin-top: 90px; font-size: 21px"><?=$txt['travel_cost']?> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers"><?=$prijs[$reg_arr[$i].'totaal']?></p>
 									<img src="<?=$static_url?>/images/Regioes/<?=$reg_arr[$i]?>.png" style="width: 100%; border-radius: 6px; height: 195px;">
 								</div>
 							</div>
@@ -192,11 +192,11 @@ if (!empty($message))	echo $message;
 				<td>
 				<?php $rand = rand(0, 6); while ($rand == $time) { $rand = rand(0, 6); } ?>
 				<div style="width: 97%; padding: 12px; margin-top: 10px; text-align: justify; height: 130px; font-size: 13px; border-bottom: 1px solid #577599;">
-					<h5 style="margin: 0;"><b>Duração: </b></h5> <span id="duration_travel"><?=formatTime($prijs[$reg_arr[$rand].'_time_total']);?></span></p>
-					<h5 style="margin: 0;"><b>Descrição:</b></h5><p id="text_travel"></p>
+<h5 style="margin: 0;"><b><?=$txt['travel_duration']?> </b></h5> <span id="duration_travel"><?=formatTime($prijs[$reg_arr[$rand].'_time_total']);?></span></p>
+				<h5 style="margin: 0;"><b><?=$txt['travel_description']?></b></h5><p id="text_travel"></p>
 				</div>
 					<input type="radio" name="wereld" value="<?=strtolower($reg_arr[$rand]);?>" checked="checked" style="display: none">
-					<center><input type="submit" name="travel" value="Viajar para <?=($reg_arr[$rand]);?>" class="button" style="margin: 10px;"/></center>
+					<center><input type="submit" name="travel" value="<?=sprintf($txt['travel_btn'], $reg_arr[$rand]);?>" class="button" style="margin: 10px;"/></center>
 				</td>
 			</tr>
 		</tfoot>
@@ -235,19 +235,19 @@ if (!empty($message))	echo $message;
         $('#duration_travel').text($time[flkty.selectedIndex]);
 		if ($lock[flkty.selectedIndex] == 1) {
 			if (regiao[flkty.selectedIndex] !== "<?=$gebruiker['wereld']?>") {
-				$input.val('Viajar para '+regiao[flkty.selectedIndex]);
+				$input.val('<?=sprintf($txt['travel_btn'], "'+regiao[flkty.selectedIndex]+'")?>');
 			} else {
-				$input.val('Você já está em '+regiao[flkty.selectedIndex]+'!');
+				$input.val('<?=sprintf($txt['travel_here'], "'+regiao[flkty.selectedIndex]+'")?>');
 				$input.attr('disabled', 'true');
 			}
 		} else {
-			$input.val('Você ainda não desbloqueou '+regiao[flkty.selectedIndex]+'!');
+			$input.val('<?=sprintf($txt['travel_locked'], "'+regiao[flkty.selectedIndex]+'")?>');
         	$input.attr('disabled', 'true');
 		}
 	});
 	
 	if ($lock[<?=$rand?>] == 0) {
-		$input.val('Você ainda não desbloqueou '+regiao[flkty.selectedIndex]+'!');
+		$input.val('<?=sprintf($txt['travel_locked'], "'+regiao[flkty.selectedIndex]+'")?>');
         $input.attr('disabled', 'true');
 	}
 </script>
@@ -255,8 +255,8 @@ if (!empty($message))	echo $message;
 <div class="box-content" style="float: right; margin-top: 7px;width: 49%;display: inline-block;">
 	<form method="post"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="4">Surfar <span style="cursor: pointer" title="Você só pode usar Pokémon acima do Level 80!">[?]</span></th></tr>
-			<tr><th colspan="4" style="font-size: 12px;">Seu pokémon possui o golpe SURF? Você pode viajar de graça!</th></tr>
+			<tr><th colspan="4"><?=$txt['travel_surf_title']?> <span style="cursor: pointer" title="<?=$txt['travel_surf_hint']?>">[?]</span></th></tr>
+			<tr><th colspan="4" style="font-size: 12px;"><?=$txt['travel_surf_desc']?></th></tr>
 			<tr><th colspan="4"><img src="<?=$static_url?>/images/surf.gif"></th></tr>
 		</thead>
 		<tbody>
@@ -296,8 +296,8 @@ if (!empty($message))	echo $message;
 <div class="box-content" style="float: left; margin-top: 7px;width: 49%;display: inline-block;">
 	<form method="post"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="4">Voar <span style="cursor: pointer" title="Você só pode usar Pokémon acima do Level 80!">[?]</span></th></tr>
-			<tr><th colspan="4"  style="font-size: 12px;">Seu pokémon possui o golpe FLY? Você pode viajar de graça!</th></tr>
+			<tr><th colspan="4"><?=$txt['travel_fly_title']?> <span style="cursor: pointer" title="<?=$txt['travel_fly_hint']?>">[?]</span></th></tr>
+			<tr><th colspan="4"  style="font-size: 12px;"><?=$txt['travel_fly_desc']?></th></tr>
 			<tr><th colspan="4"><img src="<?=$static_url?>/images/fly.gif"></th></tr>
 		</thead>
 		<tbody>

@@ -19,6 +19,7 @@ else {
     $voortgangplaats = $voortgang."º";
     }
     
+	$medaille = '';
 	if ($voortgang == '1') {
 	    $medaille = "<img src='".$static_url."/images/icons/plaatsnummereen.png'>";
 	    $voortgangplaats = $voortgang."º";
@@ -34,7 +35,7 @@ else {
 	  else if ($voortgang > '30' && $voortgang <= '50')
 	    $medaille = "<img src='".$static_url."/images/icons/bronze_medaille.png'>";
 	  else if ($profiel['admin'] >= 1) 
-	    $voortgangplaats = "<b><font color='red'>Administrador</font></b>";
+	    $voortgangplaats = "<b><font color='red'>".$txt['profile_admin']."</font></b>";
 
 		$voortgang2 = $profiel['rang_temp'];
 	
@@ -44,6 +45,7 @@ else {
 			$voortgangplaats2 = $voortgang2."º";
 		}
     
+		$medaille2 = '';
 		if ($voortgang2 == '1') {
 			$medaille2 = "<img src='".$static_url."/images/icons/plaatsnummereen.png'>";
 			$voortgangplaats2 = $voortgang2."º";
@@ -59,7 +61,7 @@ else {
 		else if ($voortgang2 > '30' && $voortgang2 <= '50')
 			$medaille2 = "<img src='".$static_url."/images/icons/bronze_medaille.png'>";
 		else if ($profiel['admin'] >= 1) 
-			$voortgangplaats2 = "<b><font color='red'>Administrador</font></b>";
+			$voortgangplaats2 = "<b><font color='red'>".$txt['profile_admin']."</font></b>";
 	    
 
 		//Tijd voor plaatje
@@ -120,7 +122,7 @@ else {
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="box-content" style="padding: 10px; box-shadow: 0 0 15px #0e0d0d66; border-radius: 4px; margin: 10px 0;">
 	<tr>
 		<td class="box-content" width="200" valign="top" align="center">
-			<h3 class="title" style="font-size: 17px; margin-top: -37px; margin-bottom: 18px">Perfil - <?=$profiel['username']?> <?=$profile_clan?></h3>
+			<h3 class="title" style="font-size: 17px; margin-top: -37px; margin-bottom: 18px"><?=sprintf($txt['profile_title'], $profiel['username'])?> <?=$profile_clan?></h3>
 			<div style="background: url('<?=$static_url?>/images/layout/starProfile.png') no-repeat #34465f; background-position: center;height: 185px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: 1px solid #577599;">
 				<div style="background: url('<?=$static_url?>/images/characters/<?=$profiel['character']?>/npc.png') center center no-repeat; background-size: 100% 100%; height: 180px;width: 160px;margin-top: 5px;"></div>
 			</div>
@@ -152,15 +154,15 @@ else {
 	</tr>
 	<tr>
 		<td height="20"><b><?=$txt['rank_number'];?></b> <?=$medaille;?> <?=$voortgangplaats;?></td>
-		<td><b>Antiguidade:</b> <?=$profiel['antiguidade'];?></td>
+		<td><b><?=$txt['profile_antiquity']?></b> <?=$profiel['antiguidade'];?></td>
 	</tr>
 	<tr>
 		<td height="20"><b><?=$txt['badges_number'];?></b> <?=$profiel['badges'];?></td>
 		<td><b><?=$txt['pokemon'];?></b> <?=$inhuis;?></td>
 	</tr>
 	<tr>
-		<td height="20"><b>Pokémons Level 100:</b> <?=$pokes100;?></td>
-		<td><b>Pokémons TOP 3:</b> <?=$top3;?></td>
+		<td height="20"><b><?=$txt['profile_level100']?></b> <?=$pokes100;?></td>
+		<td><b><?=$txt['profile_top3']?></b> <?=$top3;?></td>
 	</tr>
 	<tr>
 		<td height="20"><b><?=$txt['win'];?></b> <?=$profiel['gewonnen'];?></td>
@@ -168,7 +170,7 @@ else {
 	</tr>
 	<tr>
 		<td height="20"><b><?=$txt['status'];?></b> <img src="<?=$plaatje;?>" style="vertical-align:-4px;" /><?=$online;?></td>
-		<td><b>Última Visita:</b> <?=$profiel['ultimo_login']?></td>
+		<td><b><?=$txt['profile_last_visit']?></b> <?=$profiel['ultimo_login']?></td>
 	</tr>
 	<tr>
 	</tr>
@@ -180,7 +182,7 @@ else {
 			<a href="./inbox&action=send&player=<?=$profiel['username'];?>" class="noanimate"><img src="<?=$static_url;?>/images/icons/berichtsturen.png" title="<?=$txt['send_message'];?>" class="icon-img"/></a>
 			<a href="./blocklist&player=<?=$profiel['username'];?>" class="noanimate"><img src="<?=$static_url;?>/images/icons/blokkeer.png" title="<?=$txt['block'];?>" class="icon-img"/></a>
 			<?php if (($gebruiker['rank'] >= 4) && ($gebruiker['in_hand'] != 0) && ($profiel['rank'] >= 4)) echo '<a href="./attack/duel/invite&player='.$profiel['username'].'" class="noanimate"><img src="' . $static_url . '/images/icons/duel.png" title="'.$txt['duel'].'" class="icon-img"/></a>'; ?>
-			<a href="./bank&player=<?=$profiel['username'];?>" class="noanimate"><img src="<?=$static_url;?>/images/icons/bank.png" title="Transferir Valores" class="icon-img"/></a>
+			<a href="./bank&player=<?=$profiel['username'];?>" class="noanimate"><img src="<?=$static_url;?>/images/icons/bank.png" title="<?=$txt['profile_transfer']?>" class="icon-img"/></a>
 		</td>
 	</tr>
 	<?php if ($gebruiker['admin'] >= 2) { ?>
@@ -188,7 +190,7 @@ else {
 		<td height="20"><b>ADM <?=$txt['action'];?></b></td>
 		<td>
 			<?php echo '<a href="./admin/change-profile&player='.$profiel['username'].'">
-  	        <img src="'.$static_url.'/images/icons/user_edit.png" width="16" height="16" alt="'.$txt['edit_profile'].'" title="'.$txt['edit_profile'].'" /></a> - <a href="./admin/admins&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_admin.png" width="16" height="16" alt="'.$txt['make_admin'].'" title="'.$txt['make_admin'].'" /></a> - <a href="./admin/give-egg&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/egg2.gif" width="16" height="16" alt="'.$txt['give_egg'].'" title="'.$txt['give_egg'].'"></a> - <a href="./admin/give-pokemon&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/pokeball.gif" width="14" height="14" alt="'.$txt['give_pokemon'].'" title="'.$txt['give_pokemon'].'"></a> - <a href="./admin/give-pack&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/basket_put.png" alt="'.$txt['give_pack'].'" title="'.$txt['give_pack'].'"></a> - <a href="./admin/ban-char&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="Bloquear Treinador" title="Bloquear Treinador"></a>  - <a href="./admin/ban-conta&player='.$profiel['email'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="Bloquear Conta" title="Bloquear Conta"></a>'; ?>
+  	        <img src="'.$static_url.'/images/icons/user_edit.png" width="16" height="16" alt="'.$txt['edit_profile'].'" title="'.$txt['edit_profile'].'" /></a> - <a href="./admin/admins&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_admin.png" width="16" height="16" alt="'.$txt['make_admin'].'" title="'.$txt['make_admin'].'" /></a> - <a href="./admin/give-egg&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/egg2.gif" width="16" height="16" alt="'.$txt['give_egg'].'" title="'.$txt['give_egg'].'"></a> - <a href="./admin/give-pokemon&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/pokeball.gif" width="14" height="14" alt="'.$txt['give_pokemon'].'" title="'.$txt['give_pokemon'].'"></a> - <a href="./admin/give-pack&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/basket_put.png" alt="'.$txt['give_pack'].'" title="'.$txt['give_pack'].'"></a> - <a href="./admin/ban-char&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="'.$txt['profile_block'].'" title="'.$txt['profile_block'].'"></a>  - <a href="./admin/ban-conta&player='.$profiel['email'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="'.$txt['profile_block_account'].'" title="'.$txt['profile_block_account'].'"></a>'; ?>
   	        
 		</td>
 	</tr>
@@ -204,18 +206,18 @@ else {
 	
 	<?php
 
-	$p_title = 'Apresentação';
+	$p_title = $txt['profile_presentation'];
 	if ($_SESSION['id'] == $profiel['user_id']) {
-		$p_title .= ' <img src="'.$static_url.'/images/icons/edit.png" title=\'Editar apresentação\' style="vertical-align: bottom; cursor: pointer" onclick="editApresentacao()" id="apresentacao-button">';
+		$p_title .= ' <img src="'.$static_url.'/images/icons/edit.png" title=\''.$txt['profile_edit_presentation'].'\' style="vertical-align: bottom; cursor: pointer" onclick="editApresentacao()" id="apresentacao-button">';
 	?>
 		<script>
 			var edit = false;
 			function editApresentacao () {
 				if (edit) {
-					$('#apresentacao-button').attr('src', 'public/images/icons/edit.png').attr('data-original-title', 'Editar apresentação');
+					$('#apresentacao-button').attr('src', 'public/images/icons/edit.png').attr('data-original-title', '<?=$txt['profile_edit_presentation']?>');
 					edit = false;
 				} else {
-					$('#apresentacao-button').attr('src', 'public/images/icons/cancel.png').attr('data-original-title', 'Cancelar edição');
+					$('#apresentacao-button').attr('src', 'public/images/icons/cancel.png').attr('data-original-title', '<?=$txt['profile_cancel_edit']?>');
 					edit = true;
 				}
 
@@ -238,7 +240,7 @@ else {
 				echo '<script>window.location = window.location.href</script>';
 			}
 			
-			echo '<form method="post" id="edit" style="display: none"><script type="text/javascript">$(document).ready(function() { $(".colorbox").colorbox({width:"850", height:"1050", iframe:true}); $("#click").click(function() { $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here."); return false; }); }); </script><u><a href="codes.php?category=profile" class="colorbox cboxElement" title="Efeitos para o perfil"><b>Aqui</b></a></u> você pode ver algumas dicas para personalizar seu perfil!<br><textarea name="apresentacao" style="width: 100%; height: 101px">'.htmlspecialchars_decode($profiel['profiel']).'</textarea><input type="submit" name="editAprensetacao" value="Salvar Alterações"></form>';
+			echo '<form method="post" id="edit" style="display: none"><script type="text/javascript">$(document).ready(function() { $(".colorbox").colorbox({width:"850", height:"1050", iframe:true}); $("#click").click(function() { $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here."); return false; }); }); </script><u><a href="codes.php?category=profile" class="colorbox cboxElement" title="' . $txt['profile_effects'] . '"><b>' . $txt['profile_here'] . '</b></a></u> ' . $txt['profile_customize_hint'] . '<br><textarea name="apresentacao" style="width: 100%; height: 101px">'.htmlspecialchars_decode($profiel['profiel']).'</textarea><input type="submit" name="editAprensetacao" value="' . $txt['profile_save_changes'] . '"></form>';
 		}
 		
 		echo '</td></tr></table></div>';
@@ -247,7 +249,7 @@ else {
 
 	<div class="box-content col" style="width: 45%; border-top-left-radius: 0;border-bottom-left-radius: 0; height: 150px">
 		<table width="100%" class="general" align="center">	
-			<thead><tr><th colspan="2">Amigos</th></tr></thead>
+			<thead><tr><th colspan="2"><?=$txt['profile_friends']?></th></tr></thead>
 			<tbody>
 				<?php
 					include ('app/classes/Friends.php');
@@ -257,8 +259,8 @@ else {
 
 					$number = $query->num_rows;
 
-					if (!is_numeric($_GET['friends'])) $subpage = 1; 
-					else $subpage = $_GET['friends']; 
+					$subpage = $_GET['friends'] ?? 1;
+					if (!is_numeric($subpage)) $subpage = 1; 
 					
 					$max = 4;
 					$aantal_paginas = ceil($number / $max); 
@@ -282,6 +284,7 @@ else {
 						}
 						
 						$infos = $friends->getInfos($id);
+						if ($infos === null) continue;
 						$q['username'] = $infos['username'];
 						$quando = '<div style="display: inline-block; float: right;"><script id="remove">document.write(jQuery.timeago("'.$q['date'].' UTC")); document.getElementById("remove").outerHTML = "";</script></div>';
 						echo '<td style="border-right: 1px solid #577599">- <a href="./profile&player='.$q['username'].'">'.$q['username'].'</a>'.$quando.'</td>';
@@ -294,9 +297,9 @@ else {
 
 					if ($number == 0) {
 						if ($profiel['user_id'] == $_SESSION['id']) {
-							echo '<tr><td style="text-align: center">Faça novos <b>amigos</b>! Clique <a href="./friends-add">AQUI</a> para procurar novos treinadores!</tr>';
+							echo '<tr><td style="text-align: center">'.$txt['profile_no_friends_self'].'</tr>';
 						} else {
-							echo '<tr><td style="text-align: center"><b>'.$profiel['username'].'</b> não tem amigos. Seja o <b>primeiro</b> a adicioná-lo!</td></tr>';
+							echo '<tr><td style="text-align: center">'.sprintf($txt['profile_no_friends_other'], $profiel['username']).'</td></tr>';
 						}
 					}
 				?>
@@ -355,14 +358,14 @@ else {
 
 <div class="box-content col" style="width: 30%; height: 200px; overflow-y: auto; border-top-right-radius: 0; border-bottom-right-radius: 0;">
 	<table width="100%" class="general">
-		<thead><tr><th colspan="2">Honras</th></tr></thead>
+		<thead><tr><th colspan="2"><?=$txt['profile_honors']?></th></tr></thead>
 		<tbody>
 			<?php
 				$query = DB::exQuery("SELECT * FROM `honra` WHERE u_id='$profiel[user_id]' ORDER BY `id` DESC LIMIT 5");
 				$query2 = DB::exQuery("SELECT * FROM `honra` WHERE u_id='$profiel[user_id]'");
 			?>
 			<tr>
-				<td colspan="2" style="text-align: center"><b><?=$profiel['username']?></b> possui <b><?=$query2->num_rows?></b> honras, incluindo:</td>
+				<td colspan="2" style="text-align: center"><?=sprintf($txt['profile_has_honors'], $profiel['username'], $query2->num_rows)?></td>
 			</tr>
 				<?php
 				$i = 0;
@@ -380,7 +383,7 @@ else {
 					$i++;
 				}
 				if ($profiel['user_id'] != $_SESSION['id'] && isset($_SESSION['id'])) {
-					if ($i == 0) echo '<tr><td colspan="2" style="text-align: center; padding: 3px">Seja o primeiro a honrar <b>'.$profiel['username'].'</b> por seu jogo.</td></tr>';
+					if ($i == 0) echo '<tr><td colspan="2" style="text-align: center; padding: 3px">'.sprintf($txt['profile_be_first_honor'], $profiel['username']).'</td></tr>';
 				}
 				?>
 		</tbody>
@@ -393,7 +396,7 @@ else {
 				$time = DB::exQuery("SELECT * FROM `honra` WHERE `u_id`='".$profiel['user_id']."' AND `u_honor`='".$_SESSION['id']."' AND `date_ctrl`='".$date."'")->num_rows;
 				if ($time == 0) {
 		?>		
-				<div style="text-align: center; padding: 3px; border-top:1px solid #577599"><button type="button" style="background: url('<?=$static_url?>/images/layout/honrar.png'); width: 103px; height: 30px; border: none; border-radius: 0" title="Honrar <?=$profiel['username']?> por seu jogo." onclick="wlHonor()"></button></div>
+				<div style="text-align: center; padding: 3px; border-top:1px solid #577599"><button type="button" style="background: url('<?=$static_url?>/images/layout/honrar.png'); width: 103px; height: 30px; border: none; border-radius: 0" title="<?=sprintf($txt['profile_honor_button'], $profiel['username'])?>" onclick="wlHonor()"></button></div>
 				<script>
 					function wlHonor () {
 						$.ajax({
@@ -410,7 +413,7 @@ else {
 				} else {
 					echo '<div style="text-align: center; padding: 3px; border-top: 1px solid #577599">'; 
 		?>
-					<button type="button" style="background: url('<?=$static_url?>/images/layout/honrar.png'); width: 103px; height: 30px; border: none; border-radius: 0; cursor: not-allowed; filter: grayscale(50%);" title="Você não pode honrar mais esse treinador por hoje."></button>
+					<button type="button" style="background: url('<?=$static_url?>/images/layout/honrar.png'); width: 103px; height: 30px; border: none; border-radius: 0; cursor: not-allowed; filter: grayscale(50%);" title="<?=$txt['profile_already_honored']?>"></button>
 		<?php
 					echo '</div>';
 				}
@@ -420,7 +423,7 @@ else {
 
 <div class="box-content col" style="width: 70%; height: 200px; border-top-left-radius: 0;border-bottom-left-radius: 0;background:#2e3d53">
 	<table width="100%" style="height: 170px;" class="general">
-		<thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+		<thead><tr><th colspan="6"><?=$txt['profile_my_team']?></th></tr></thead>
 		<tbody><tr>
 
 <?php
@@ -498,7 +501,7 @@ else {
 				</script>
 <?php 
 } else {
-	echo '<td><h3 style="text-align: center">O treinador optou por esconder sua EQUIPE!</h3></td>';
+	echo '<td><h3 style="text-align: center">'.$txt['profile_team_hidden'].'</h3></td>';
 }
 ?>
 </tr>
@@ -512,7 +515,7 @@ else {
 if ($profiel['badgeszien'] == 1 && $profiel['Badge case'] == 1) {
 	$badge = DB::exQuery("SELECT * FROM gebruikers_badges WHERE user_id = '".$profiel['user_id']."'")->fetch_assoc();
 
-echo '<div class="box-content" style="margin-top: 7px"><table class="general" width="100%"><thead><tr><th>Insígnias</th></tr></thead>
+echo '<div class="box-content" style="margin-top: 7px"><table class="general" width="100%"><thead><tr><th>'.$txt['profile_badges'].'</th></tr></thead>
 <tr>
 <td colspan="3" onclick="wlBadges(\'#kanto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Kanto:</center></b></h3></td>
 </tr>

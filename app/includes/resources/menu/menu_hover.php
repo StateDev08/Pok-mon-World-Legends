@@ -2,37 +2,37 @@
 <table class='in_menu'>
     <tr>
         <td>
-            <div class='menu_title'>Social</div>
+            <div class='menu_title'><?=$txt['hmenu_social']?></div>
              <ul>
-                <li><a href='./friends-add'>Buscar Treinadores</a></li>
-                <li><a href='./attack/duel/invite'>Desafiar Treinadores</a></li>
-                <li><a href='./friends'>Meus Amigos</a></li>
+                <li><a href='./friends-add'><?=$txt['hmenu_find_trainers']?></a></li>
+                <li><a href='./attack/duel/invite'><?=$txt['hmenu_challenge_trainers']?></a></li>
+                <li><a href='./friends'><?=$txt['hmenu_my_friends']?></a></li>
             </ul>
         </td>
         <td>
-            <div class='menu_title'>Extras</div>
+            <div class='menu_title'><?=$txt['hmenu_extras']?></div>
              <ul>
-                <li><a href='./badges'>Insígnias</a></li>
-                <li><a href='./fishing'>Pescaria</a></li>
-                <li><a href='./pokedex'>PokéDex</a></li>
+                <li><a href='./badges'><?=$txt['hmenu_badges']?></a></li>
+                <li><a href='./fishing'><?=$txt['hmenu_fishing']?></a></li>
+                <li><a href='./pokedex'><?=$txt['hmenu_pokedex']?></a></li>
             </ul>
         </td>
     </tr>
     <tr>
         <td>
-            <div class='menu_title'>Assistência</div>
+            <div class='menu_title'><?=$txt['hmenu_assistance']?></div>
              <ul>
-                <li><a href='./calculator'>Calculadora</a></li>
-                <li><a href='./information'>Guia Pokémon</a></li>
-                <li><a href='./juiz'>Juiz Pokémon</a></li>
+                <li><a href='./calculator'><?=$txt['hmenu_calculator']?></a></li>
+                <li><a href='./information'><?=$txt['hmenu_pokemon_guide']?></a></li>
+                <li><a href='./juiz'><?=$txt['hmenu_pokemon_judge']?></a></li>
             </ul>
         </td>
         <td>
-            <div class='menu_title'>Outros</div>
+            <div class='menu_title'><?=$txt['hmenu_others']?></div>
              <ul>
-                <li><a href='./house-seller'>Comprar Casa</a></li>
-                <li><a href='./specialists'>Especialistas Pokémon</a></li>
-                <li><a href='./statistics'>Estatísticas Gerais</a></li>
+                <li><a href='./house-seller'><?=$txt['hmenu_buy_house']?></a></li>
+                <li><a href='./specialists'><?=$txt['hmenu_pokemon_specialists']?></a></li>
+                <li><a href='./statistics'><?=$txt['hmenu_general_stats']?></a></li>
             </ul>
         </td>
     </tr>
@@ -42,12 +42,12 @@
 <table class='in_menu'>
     <tr>
         <td>
-            <div class='menu_title'>Acessível</div>
+            <div class='menu_title'><?=$txt['hmenu_accessible']?></div>
              <ul>
-                <li><a href='./statistics'>Estatísticas Gerais</a></li>
-                <li><a href='./information'>Guia Pokémon</a></li>
-                <li><a href='./badges'>Insígnias</a></li>
-                <li><a href='./pokedex'>PokéDex</a></li>
+                <li><a href='./statistics'><?=$txt['hmenu_general_stats']?></a></li>
+                <li><a href='./information'><?=$txt['hmenu_pokemon_guide']?></a></li>
+                <li><a href='./badges'><?=$txt['hmenu_badges']?></a></li>
+                <li><a href='./pokedex'><?=$txt['hmenu_pokedex']?></a></li>
             </ul>
         </td>
     </tr>

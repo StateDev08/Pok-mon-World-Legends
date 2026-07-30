@@ -47,7 +47,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
             <ul class="ul">
                 <?php
                     
-                    $var = new Official ( $_GET['id'] );
+                    $var = new Official ( $_GET['id'] ?? '' );
 
                     if ( empty ( $_GET['id'] ) ) {
                         $var->include_list ();

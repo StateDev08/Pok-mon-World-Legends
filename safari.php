@@ -65,7 +65,7 @@ DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$startX}',`map
 if (!$onMap)
 	$numUsersOnMap++;
 
-$mySprite = $gebruiker['map_sprite'];
+$mySprite = $gebruiker['map_sprite'] ?? '';
 
 if($map == 1) $gebied = 'Gras';
 elseif($map == 2) $gebied = 'Water';
@@ -88,9 +88,9 @@ if($_POST['goid'] != "" && $_POST['level'] != "") {
 		elseif($map == 5) $gebied = 'Lavagrot';
 		elseif($map == 6) $gebied = 'Strand';
 		elseif($map == 7) $gebied = 'Vechtschool';
-		if ($wid !== $gebruiker['map_wild']) {
+		if ($wid !== ($gebruiker['map_wild'] ?? '')) {
 			echo "<div class='red'>Você não achou este Pokémon, ou então você já batalhou com ele!</div>";
-		} elseif ($leveltegenstander !== $gebruiker['pokemon_level']) {
+		} elseif ($leveltegenstander !== ($gebruiker['pokemon_level'] ?? '')) {
 			echo "<div class='red'>Não é este o level do pokemon que você encontrou!</div>";
 		} else {
 			include("attack/wild/wild-start.php");
@@ -153,6 +153,7 @@ if(isset($_POST['trainer'])){
 	<?php echo str_replace(['\r', '\n'], '', $tileArray); ?>
 
     <?php
+        $li = '';
         if ($gebruiker['admin'] >= 3) {
             if (isset($_GET['li']) && ctype_digit($_GET['li'])) {
                 $li = 'li='.$_GET['li'].'&';

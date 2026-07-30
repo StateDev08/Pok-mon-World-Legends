@@ -12,6 +12,20 @@
 
 Options -Indexes
 
+# SVG MIME type
+AddType image/svg+xml .svg
+
+# Ensure SVG files are not blocked
+<FilesMatch "\.svg$">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Allow from all
+    </IfModule>
+</FilesMatch>
+
 # Additional protection for .env files
 <FilesMatch "\.env$">
     <IfModule mod_authz_core.c>

@@ -4,7 +4,7 @@ include("app/includes/resources/security.php");
 	
 #ALs er al een speler naam binnenkomt met een GET, deze laden
 if (isset($_GET['player'])) $spelernaam = $_GET['player'];
-else $spelernaam = $_POST['gebruiker'];
+else $spelernaam = $_POST['gebruiker'] ?? '';
 
 #Als er silver of gold naar een ander gestuurd word
 if (isset($_POST['naargebruiker'])) {
@@ -91,47 +91,47 @@ if (isset($_POST['naargebruiker'])) {
   }
 }
 
-echo addNPCBox(5, 'Banco Pokémon', 'Aqui você pode fazer transferências de <b>Silvers</b> ou <b>Golds</b> para outros <b>Treinadores</b>! <br>No mínimo <img src="'.$static_url.'/images/icons/silver.png" title="Silver" /> 10 e <b>RANK MÍNIMO</b> para realizar transferências de Gold é <b>8 - New Duelist</b>!');
+echo addNPCBox(5, $txt['bank_title'], sprintf($txt['bank_npc_text'], $static_url.'/images/icons/silver.png'));
 ?>
 
 <?php if ($bericht_send) echo $bericht_send; ?>
 
-<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> Silvers no Inventário: <img src="<?=$static_url?>/images/icons/silver.png" title="Silver" />  <?= $silver; ?></h3> </div>
+<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> <?=$txt['bank_silver_inventory']?> <img src="<?=$static_url?>/images/icons/silver.png" title="Silver" />  <?= $silver; ?></h3> </div>
 <div class="box-content">
-  <h3 class="title">TRANSFERÊNCIAS</h3>
-  <form method="post" onsubmit="return confirm('Deseja realmente realizar esta transferência?');">
+  <h3 class="title"><?=$txt['bank_transfers']?></h3>
+  <form method="post" onsubmit="return confirm('<?=$txt['bank_confirm']?>');">
     <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
       <tr>
-        <td><b style="color: #9eadcd; font-size: 12px">Treinador:</b><br><input type="text" name="gebruiker" value="<?php if ($_GET['player'] != '') echo $_GET['player']; else echo $spelernaam; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
-        <td><b style="color: #9eadcd; font-size: 12px">Valor:</b><br><input type="number" name="send_amount" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount" class="input-blue" min="10" required style="margin-top: 5px"/></td>
+        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_trainer']?></b><br><input type="text" name="gebruiker" value="<?php if (($_GET['player'] ?? '') != '') echo $_GET['player']; else echo $spelernaam; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
+        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount" class="input-blue" min="10" required style="margin-top: 5px"/></td>
       </tr>
       <tr>
-        <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what" value="silver" id="silver"  <?php if ($_POST['what'] != 'gold') echo 'checked'; ?> /> <label for="silver"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>
-        <td style="text-align: left; padding: 4px 30px;"><label for="gold"><img src="<?=$static_url?>/images/icons/gold.png" id="gold" alt="Gold" title="Gold" width="16" height="16" style="vertical-align: unset; margin-right: 3px"/></label> <input type="radio" name="what" id="gold" value="gold"  <?php if ($_POST['what'] == 'gold') echo 'checked'; ?> />
+        <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what" value="silver" id="silver"  <?php if (($_POST['what'] ?? '') != 'gold') echo 'checked'; ?> /> <label for="silver"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>
+        <td style="text-align: left; padding: 4px 30px;"><label for="gold"><img src="<?=$static_url?>/images/icons/gold.png" id="gold" alt="Gold" title="Gold" width="16" height="16" style="vertical-align: unset; margin-right: 3px"/></label> <input type="radio" name="what" id="gold" value="gold"  <?php if (($_POST['what'] ?? '') == 'gold') echo 'checked'; ?> />
       </tr>
     </table>
-    <div style="border-top: 1px solid #577599;"><input type="submit" name="naargebruiker" value="Transferir" class="button" style="margin: 6px"/></div>
+    <div style="border-top: 1px solid #577599;"><input type="submit" name="naargebruiker" value="<?=$txt['bank_transfer_btn']?>" class="button" style="margin: 6px"/></div>
   </form>
 </div>
 <?php 
 if (!empty($gebruiker['clan'])) {
     $infos = $clan->get($gebruiker['clan']);
 ?>
-<div class="box-content" style="display: inline-block;margin-top: 7px;margin-bottom: 7px; width: 50%"><h3 class="title" style="background: none"> Silvers do Clã: <img src="<?=$static_url?>/images/icons/silver.png" title="Silver" />  <?= highamount($infos['silvers']); ?></h3></div>
-<div class="box-content" style="display: inline-block;width: 49%;"><h3 class="title" style="background: none"> Golds do Clã: <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" />  <?= highamount($infos['golds']); ?></h3></div>
+<div class="box-content" style="display: inline-block;margin-top: 7px;margin-bottom: 7px; width: 50%"><h3 class="title" style="background: none"> <?=$txt['bank_clan_silver']?> <img src="<?=$static_url?>/images/icons/silver.png" title="Silver" />  <?= highamount($infos['silvers']); ?></h3></div>
+<div class="box-content" style="display: inline-block;width: 49%;"><h3 class="title" style="background: none"> <?=$txt['bank_clan_gold']?> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" />  <?= highamount($infos['golds']); ?></h3></div>
 <div class="box-content">
-  <h3 class="title">TRANSFERÊNCIA PARA O CLÃ</h3>
-  <form method="post" onsubmit="return confirm('Deseja realmente realizar esta transferência para seu Clã?');">
+  <h3 class="title"><?=$txt['bank_clan_transfer']?></h3>
+  <form method="post" onsubmit="return confirm('<?=$txt['bank_clan_confirm']?>');">
     <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
       <tr>
-        <td colspan="2"><b style="color: #9eadcd; font-size: 12px">Valor:</b><br><input type="number" name="send_amount_clan" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount_clan" class="input-blue" min="10" required style="margin-top: 5px"/></td>
+        <td colspan="2"><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount_clan" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount_clan" class="input-blue" min="10" required style="margin-top: 5px"/></td>
       </tr>
       <tr>
-        <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what_clan" value="silver" id="silver_clan"  <?php if ($_POST['what'] != 'gold') echo 'checked'; ?> /> <label for="silver_clan"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>
-        <td style="text-align: left; padding: 4px 30px;"><label for="gold_clan"><img src="<?=$static_url?>/images/icons/gold.png" id="gold" alt="Gold" title="Gold" width="16" height="16" style="vertical-align: unset; margin-right: 3px"/></label> <input type="radio" name="what_clan" id="gold_clan" value="gold"  <?php if ($_POST['what'] == 'gold') echo 'checked'; ?> />
+        <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what_clan" value="silver" id="silver_clan"  <?php if (($_POST['what'] ?? '') != 'gold') echo 'checked'; ?> /> <label for="silver_clan"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>
+        <td style="text-align: left; padding: 4px 30px;"><label for="gold_clan"><img src="<?=$static_url?>/images/icons/gold.png" id="gold" alt="Gold" title="Gold" width="16" height="16" style="vertical-align: unset; margin-right: 3px"/></label> <input type="radio" name="what_clan" id="gold_clan" value="gold"  <?php if (($_POST['what'] ?? '') == 'gold') echo 'checked'; ?> />
       </tr>
     </table>
-    <div style="border-top: 1px solid #577599;"><input type="submit" name="naargebruiker_clan" value="Transferir" class="button" style="margin: 6px"/></div>
+    <div style="border-top: 1px solid #577599;"><input type="submit" name="naargebruiker_clan" value="<?=$txt['bank_transfer_btn']?>" class="button" style="margin: 6px"/></div>
   </form>
 </div>
 <?php

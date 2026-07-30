@@ -3,7 +3,7 @@
 require_once("app/includes/resources/security.php");
 
 if (!isset($_GET['category'])) exit(header("LOCATION: ./items&category=balls"));
-echo addNPCBox(10, 'Mochila', 'Bom, aqui é a sua <b>Mochila</b>... Nela você poderá guardar vários itens e outros objetos. <br>Caso ela fique cheia você terá que comprar uma maior ou vender alguns de seus itens...<br>Lembre-se sempre de checar os espaços disponíveis em sua Mochila!');
+echo addNPCBox(10, $txt['items_title'], $txt['items_npc_text']);
 ?>
 <div class="blue"><div align="center">
 	<img src="<?=$static_url;?>/images/items/<?=$gebruiker['itembox'];?>.png" style="vertical-align: middle; width:24px" /> <?=$txt['title_text_1'];?> 
@@ -12,7 +12,7 @@ echo addNPCBox(10, 'Mochila', 'Bom, aqui é a sua <b>Mochila</b>... Nela você p
 </div></div>
 <?php
 	if ($gebruiker['item_over'] <= 0 && $gebruiker['itembox'] != 'Black box') {
-		echo '<div class="red"><a href="./market&shopitem=items">Compre uma mochila maior AQUI.</a></div>';
+		echo '<div class="red"><a href="./market&shopitem=items">'.$txt['items_buy_bag'].'</a></div>';
 	}
 ?>
 <script type="text/javascript">
@@ -48,10 +48,10 @@ if (isset($_POST['verkoop'])) {
 	
 	
 	if ($select['soort'] != "items") {
-	if (empty($_POST['amount']))  $error = '<div class="red">A compra não pode ser vazia!</div>';
-	else if (!is_numeric($_POST['amount']))  $error = '<div class="red">Houve um erro!</div>';
-	else if ($_POST['amount'] <= 0)  $error = '<div class="red">Você não possui esta quantidade!</div>';
-	else if ($_POST['amount'] > $itemData[$select['naam']])  $error = '<div class="red">Você não possui esta quantidade!</div>';
+	if (empty($_POST['amount']))  $error = '<div class="red">'.$txt['items_error_empty_buy'].'</div>';
+	else if (!is_numeric($_POST['amount']))  $error = '<div class="red">'.$txt['items_error_generic'].'</div>';
+	else if ($_POST['amount'] <= 0)  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
+	else if ($_POST['amount'] > ($itemData[$select['naam']] ?? 0))  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
 	else {
 		//if (!empty($event_type) && $select['tickets'] != 0) {
 			//$currency = 'tickets';
@@ -91,13 +91,13 @@ echo $error;
 
 ?>
 <div class="orientation-bar" id="itens" style="margin-top: 7px; margin-bottom: -1px">
-	<a href="./items&category=balls" data-orientation="balls" class="noanimate"><button type="button">Poké Balls</button></a>
-	<a href="./items&category=items" data-orientation="items" class="noanimate"><button type="button">Itens Chave</button></a>
-	<a href="./items&category=spc_items" data-orientation="special items" class="noanimate"><button type="button">Itens Especiais</button></a>
-	<a href="./items&category=potions" data-orientation="potions" class="noanimate"><button type="button">Poções</button></a>
-	<a href="./items&category=stones" data-orientation="stones" class="noanimate"><button type="button">Pedras</button></a>
-	<a href="./items&category=hm" data-orientation="hm" class="noanimate"><button type="button">HM's</button></a>
-	<a href="./items&category=tm" data-orientation="tm" class="noanimate"><button type="button">TM's</button></a>
+	<a href="./items&category=balls" data-orientation="balls" class="noanimate"><button type="button"><?=$txt['items_balls']?></button></a>
+	<a href="./items&category=items" data-orientation="items" class="noanimate"><button type="button"><?=$txt['items_key_items']?></button></a>
+	<a href="./items&category=spc_items" data-orientation="special items" class="noanimate"><button type="button"><?=$txt['items_special_items']?></button></a>
+	<a href="./items&category=potions" data-orientation="potions" class="noanimate"><button type="button"><?=$txt['items_potions']?></button></a>
+	<a href="./items&category=stones" data-orientation="stones" class="noanimate"><button type="button"><?=$txt['items_stones']?></button></a>
+	<a href="./items&category=hm" data-orientation="hm" class="noanimate"><button type="button"><?=$txt['items_hms']?></button></a>
+	<a href="./items&category=tm" data-orientation="tm" class="noanimate"><button type="button"><?=$txt['items_tms']?></button></a>
 </div>
 <?php
 
@@ -106,7 +106,7 @@ $_GET['category'] = $_GET['category'] == 'spc_items' ? 'special items' : $_GET['
 $arrayItems = array();
 $getItems = DB::exQuery("SELECT * FROM `markt` WHERE `soort`='" . $_GET['category'] . "' ORDER BY `soort` ASC, `id` ASC");
 while($item = $getItems->fetch_assoc()) {
-	if ($itemData[$item['naam']] > 0)
+	if (($itemData[$item['naam']] ?? 0) > 0)
 		$arrayItems[$item['soort']][] = $item;
 }
 if (count($arrayItems) > 0) {
@@ -168,27 +168,27 @@ if (count($arrayItems) > 0) {
 		
 				if ($key == 'balls') {
 					echo '<tr><form method="post">
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . $_COOKIE['pa_language']]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
-						<td align="center"><b>'.$itemData[$value2['naam']].'x</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td align="center"><b>'.($itemData[$value2['naam']] ?? 0).'x</b></td>
 						<td><img src="' . $static_url . '/images/icons/'.$munt.'.png" style="margin-bottom:-3px;" /> '.$price.'</td>
 						<input type="hidden" name="name" value="'.$value2['naam'].'" />
-						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.$itemData[$value2['naam']].'" class="input-blue"/> <input type="submit" name="verkoop" value="OK!" class="button" /></td>
+						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.($itemData[$value2['naam']] ?? 0).'" class="input-blue"/> <input type="submit" name="verkoop" value="OK!" class="button" /></td>
 					</form></tr>';
 				} else if ($key == 'items') {
 					echo '<tr>
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . $_COOKIE['pa_language']]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
 						<td align="center"><b>1x</b></td>
 						<td align="center"><b>--</b></td>
 						<td align="center"><b>--</b></td>
 					</tr>';
 				} else if (in_array($key, array('stones','special items','potions'))) {
 					echo '<tr><form method="post">
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . $_COOKIE['pa_language']]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
-						<td align="center" id="num_' . str_replace(' ', '_', $value2['naam']) . '"><b>'.$itemData[$value2['naam']].'x</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td align="center" id="num_' . str_replace(' ', '_', $value2['naam']) . '"><b>'.($itemData[$value2['naam']] ?? 0).'x</b></td>
 						<td><img src="' . $static_url . '/images/icons/' . $munt . '.png" style="margin-bottom:-3px;" /> '.$price.'</b></td>
 						<input type="hidden" name="wat" value="use_potion" />
 						<input type="hidden" name="name" value="'.$value2['naam'].'">
-						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.$itemData[$value2['naam']].'" class="input-blue" /> <input type="submit" name="verkoop" value="OK!" class="button" /></td>';
+						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.($itemData[$value2['naam']] ?? 0).'" class="input-blue" /> <input type="submit" name="verkoop" value="OK!" class="button" /></td>';
 						
 						$use_item = "use_item('".$value2['soort']."', '".$value2['naam']."')";
 						if ($value2['equip'] == 1) {
@@ -218,10 +218,10 @@ if (count($arrayItems) > 0) {
 					}
 					echo '<tr><form method="post">
 						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/Attack_'.$type.'.png" title="'.$inaam.' ('.$pegadadox['omschrijving'].')" class="elipse"/><b>'.$inaam.' ('.$pegadadox['omschrijving'].')</b></td>
-						<td align="center"><b id="num_' . str_replace(' ', '_', $value2['naam']) . '">'.$itemData[$value2['naam']].'x</b></td>
+						<td align="center"><b id="num_' . str_replace(' ', '_', $value2['naam']) . '">'.($itemData[$value2['naam']] ?? 0).'x</b></td>
 						<td><img src="' . $static_url . '/images/icons/' . $munt . '.png" style="margin-bottom:-3px;" /> '.$price.'</td>
 						<input type="hidden" name="name" value="'.$inaam.'" />
-						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.$itemData[$value2['naam']].'" class="input-blue" /> <input type="submit" name="verkoop" value="OK!" class="button" /></td>
+						<td align="center"><input type="number" name="amount" style="width:60px;" min="1" max="'.($itemData[$value2['naam']] ?? 0).'" class="input-blue" /> <input type="submit" name="verkoop" value="OK!" class="button" /></td>
 						<td align="center"><button type="button" onclick="use_item(\'' . $value2['soort'] . '\', \'' . $value2['naam'] . '\');" class="button">'.$txt['button_use'].'</button></td>
 					</form></tr>';
 				}

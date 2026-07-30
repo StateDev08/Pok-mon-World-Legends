@@ -101,8 +101,8 @@ if ($gebruiker['premiumaccount'] < time()) {
 if (isset($_POST['brengweg'])) {
 	$update = DB::exQuery("SELECT `pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_speler`.`id`,`pokemon_speler`.`user_id`,`pokemon_speler`.`opzak`,`pokemon_speler`.`level` FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_wild`.`wild_id`=`pokemon_speler`.`wild_id` WHERE `id`=" . $_POST['pokemonid'] . " LIMIT 1")->fetch_assoc();
 	if ($update['user_id'] != $_SESSION['id'])	echo '<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
-	else if ($gebruiker['in_hand'] <= 1) echo'<div class="red">Você não pode ficar sem nenhum pokémon em seu time.</div>';
-    	else if ($update['type1'] == 'Shadow') echo' <div class="red">Pokémons do tipo Shadow não podem ficar no Jardim de infância.</div>';
+	else if ($gebruiker['in_hand'] <= 1) echo'<div class="red">'.$txt['daycare_no_empty_team'].'</div>';
+    	else if ($update['type1'] == 'Shadow') echo' <div class="red">'.$txt['daycare_no_shadow'].'</div>';
 	else if ($update['opzak'] == 'day')			echo '<div class="red">'.$txt['alert_already_in_daycare'].'</div>';
 	else if ($update['level'] >= 100)				echo '<div class="red">'.$txt['alert_already_lvl_100'].'</div>';
 	else if ($aantal >= $toegestaan)				echo '<div class="red">'.$txt['alert_daycare_full'].'</div>';
@@ -164,7 +164,7 @@ if (isset($_POST['haalop'])) {
         $pokemonnaam = htmlspecialchars($update['naam'], ENT_QUOTES);
 
         DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)
-	        VALUES (NOW(), '".$_SESSION['id']."', '".$pokemonnaam." subiu de nível!', '0')");
+	        VALUES (NOW(), '".$_SESSION['id']."', '".sprintf($txt['daycare_level_up'], $pokemonnaam)."', '0')");
       } 
     }
 	  echo' <div class="green">'.$txt['success_take'].'</div>';
@@ -192,7 +192,7 @@ if (isset($_POST['haalop'])) {
         </style>
         <div class="box-content" style="width: 100%;">
             <table width="100%" class="general">
-                <thead><tr><th colspan="6">Minha equipe</th></tr></thead>
+                <thead><tr><th colspan="6"><?=$txt['daycare_my_team']?></th></tr></thead>
                 <tbody><tr>
                         <script>
                             var $poke_array_id = [];
@@ -240,7 +240,7 @@ if (isset($_POST['haalop'])) {
 
                 <tr style="text-align: center; font-size: 13px">
                     <td>
-                        <button class="button" style="margin: 6px" onclick="daycare()">DEIXAR POKÉMON</button>
+                        <button class="button" style="margin: 6px" onclick="daycare()"><?=$txt['daycare_leave_pokemon']?></button>
                     </td>
                 </tr>
                 </tfoot>

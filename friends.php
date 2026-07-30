@@ -4,8 +4,8 @@ include("app/classes/Friends.php");
 
 $friends = new Friends();
 
-$msg = 'Logo abaixo estão listados todos os seus amigos Treinadores, caso queira adicionar mais algum clique <a href="./friends-add">AQUI</a>. <br>Há, e não esqueça de sempre honrar os novos treinadores, quando possível.';
-echo addNPCBox(11, 'Meus Amigos', $msg);
+$msg = $txt['friends_npc_msg'];
+echo addNPCBox(11, $txt['friends_title'], $msg);
 
 $query = $friends->query($_SESSION['id']);
 
@@ -14,11 +14,12 @@ $number = $query->num_rows;
 $max = 20;
 $aantal_paginas = ceil($number / $max);
 
-if (!is_numeric($_GET['subpage'])) $subpage = 1; 
-else $subpage = $_GET['subpage']; 
+$subpage = $_GET['subpage'] ?? 1;
+if (!is_numeric($subpage)) $subpage = 1;
+$subpage = max(1, (int)$subpage);
 
 if ($aantal_paginas == 0) $aantal_paginas = 1;   
-$pagina = $subpage * $max - $max;
+$pagina = max(0, $subpage * $max - $max);
 
 $query = $friends->query($_SESSION['id'], '', $pagina, $max);
 
@@ -59,7 +60,7 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
     $list = $_POST['id'];
     
     DB::exQuery("DELETE FROM `friends` WHERE `id`='$list' AND (`uid`='$_SESSION[id]' OR `uid_2`='$_SESSION[id]') AND `accept`='0'");
-    echo '<div class="green">Solicitação recusada.</div>';
+    echo '<div class="green">'.$txt['friends_declined'].'</div>';
 }
 ?>
 
@@ -69,11 +70,11 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
     <table class="general blue" id="example">
         <thead>
             <tr>
-                <td><strong>Treinador</strong></td>
-                <td><strong>Última Visita</strong></td>
-                <td><strong>Amigos desde</strong></td>
-                <td class="no-sort" style="width: 50px"><strong>Status</strong></td>
-                <td class="no-sort" style="width: 230px"><strong>Ações</strong></td>
+                <td><strong><?=$txt['friends_th_trainer']?></strong></td>
+                <td><strong><?=$txt['friends_th_last_visit']?></strong></td>
+                <td><strong><?=$txt['friends_th_since']?></strong></td>
+                <td class="no-sort" style="width: 50px"><strong><?=$txt['friends_th_status']?></strong></td>
+                <td class="no-sort" style="width: 230px"><strong><?=$txt['friends_th_actions']?></strong></td>
             </tr>
         </thead>
         <tbody>
@@ -99,19 +100,19 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
                     }
 
                     if ($q['accept'] == 0) {
-                        $quando = 'AGUARDANDO...';
+                        $quando = $txt['friends_pending'];
                         if ($q['uid'] != $_SESSION['id']) {
-                            $btn = '<form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="accept" value="Aceitar"></form><form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="decline" value="Recusar"></form>';
+                            $btn = '<form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="accept" value="'.$txt['friends_accept_btn'].'"></form><form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="decline" value="'.$txt['friends_decline_btn'].'"></form>';
                         } else {
-                            $btn = 'AGUARDANDO...';
+                            $btn = $txt['friends_pending'];
                         }
                     } else {
                         $quando = '<span><script id="remove">document.write(jQuery.timeago("'.$q['date'].' UTC")); document.getElementById("remove").outerHTML = "";</script></span>';
-                        $btn = '<a href="./inbox&action=send&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/berichtsturen.png" title="Enviar Mensagem" class="icon-img"/></a>
-                                    <a href="./blocklist&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/blokkeer.png" title="Bloquear Treinador" class="icon-img"/></a>
-                                    <a href="./bank&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/bank.png" title="Transferir Valores" class="icon-img"/></a>';
-                        $btn .= (($gebruiker['rank'] >= 4) && ($gebruiker['in_hand'] != 0) && ($q['rank'] >= 4))? '<a href="./attack/duel/invite&player='.$q['username'].'" class="noanimate"><img src="' . $static_url . '/images/icons/duel.png" title="Desafiar Treinador para Duelo" class="icon-img"/></a>' : '';
-                        $btn .= '<form method="post" id="remove-form-'.$q['id'].'" onsubmit="return confirm(\'Realmente deseja excluir '.$q['username'].' da sua lista de amigos?\');" style="display: inline-block;"><input type="hidden" name="id" value="'.$q['id'].'"><input type="hidden" name="remove" value="1"><img src="'.$static_url.'/images/icons/delete.png" title="Remover da Lista de Amigos" onclick="$(\'#remove-form-'.$q['id'].'\').submit()" class="icon-img" style="cursor:pointer;margin-left:3px"/></form>';
+                        $btn = '<a href="./inbox&action=send&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/berichtsturen.png" title="'.$txt['friends_send_msg'].'" class="icon-img"/></a>
+                                    <a href="./blocklist&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/blokkeer.png" title="'.$txt['friends_block'].'" class="icon-img"/></a>
+                                    <a href="./bank&player='.$q['username'].'" class="noanimate"><img src="'.$static_url.'/images/icons/bank.png" title="'.$txt['friends_transfer'].'" class="icon-img"/></a>';
+                        $btn .= (($gebruiker['rank'] >= 4) && ($gebruiker['in_hand'] != 0) && ($q['rank'] >= 4))? '<a href="./attack/duel/invite&player='.$q['username'].'" class="noanimate"><img src="' . $static_url . '/images/icons/duel.png" title="'.$txt['friends_duel'].'" class="icon-img"/></a>' : '';
+                        $btn .= '<form method="post" id="remove-form-'.$q['id'].'" onsubmit="return confirm(\''.sprintf($txt['friends_confirm_remove'], $q['username']).'\');" style="display: inline-block;"><input type="hidden" name="id" value="'.$q['id'].'"><input type="hidden" name="remove" value="1"><img src="'.$static_url.'/images/icons/delete.png" title="'.$txt['friends_remove'].'" onclick="$(\'#remove-form-'.$q['id'].'\').submit()" class="icon-img" style="cursor:pointer;margin-left:3px"/></form>';
                     }
 
                     echo '<tr><td><a href="./profile&player='.$q['username'].'">'.$q['username'].'</a></td><td>'.$q['ultimo_login'].'</td><td>'.$quando.'</td><td>'.$plaatje.'</td><td>'.$btn.'</td></tr>';

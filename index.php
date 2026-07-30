@@ -116,6 +116,12 @@ $gebruiker_defaults = array(
 	'wereld' => '',
 );
 $gebruiker = $gebruiker_defaults;
+$div_ballon = '';
+$general_count = 0;
+$mails_count = 0;
+$events_count = 0;
+$gebruiker_rank = array('ranknaam' => '', 'procent' => 0);
+$gebruiker_pokemon = array('procent' => 0);
 
 #Ingame dingen
 if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
@@ -158,7 +164,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		$gebruiker['items'] = 0;
 		$gebruiker['items'] += freeSlots ();
 
-		if (!is_array($gebruiker) || $gebruiker['acc_id'] != $rekening['acc_id'] || $gebruiker['session'] != $_COOKIE['PHPSESSID'] || $gebruiker['banned'] == 'Y') {
+		if (!is_array($gebruiker) || $gebruiker['acc_id'] != $rekening['acc_id'] || $gebruiker['session'] != ($_COOKIE['PHPSESSID'] ?? '') || $gebruiker['banned'] == 'Y') {
 			unset($_SESSION['hash'], $_SESSION['id'], $_SESSION['naam']);
 			exit(header("Location: ./my_characters"));
 		}
@@ -434,7 +440,7 @@ if ($pokecen_tijd > 0) {
         
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="expires" content ="-1" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'"> 
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.datatables.net; font-src 'self' fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.datatables.net pagead2.googlesyndication.com"> 
 
 		<base href="//<?=$_SERVER['SERVER_NAME']?>">
 
@@ -484,6 +490,25 @@ if ($pokecen_tijd > 0) {
 					<div class="hub" style="z-index: 10">
 						<ul class="hub-hud">
 							<li class="hub-hud-line" style="width: 600px">
+								<div style="float:left;margin:5px 0 0 5px;">
+									<?php
+									$flag_codes = ['pt','de','en','pl','ru','zh'];
+									$flag_names = ['pt'=>'Português','de'=>'Deutsch','en'=>'English','pl'=>'Polski','ru'=>'Русский','zh'=>'中文'];
+									$flag_current = $_SESSION['pa_language'] ?? $_COOKIE['pa_language'] ?? 'pt';
+									$flag_svgs = [
+										'pt' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#006600"/><polygon points="12,2 16,8 12,14 8,8" fill="#FFCC00"/><circle cx="12" cy="8" r="3" fill="#006600"/></svg>',
+										'de' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#000"/><rect y="5.33" width="24" height="5.33" fill="#DD0000"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/></svg>',
+										'en' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#012169"/><g transform="translate(12 8)"><rect x="-24" y="-16" width="48" height="32" fill="none"/><path d="M-24-16L24 16M24-16L-24 16" stroke="#FFF" stroke-width="3"/><path d="M-24-16L24 16M24-16L-24 16" stroke="#C8102E" stroke-width="1.5"/></g></svg>',
+										'pl' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="8" fill="#FFF"/><rect y="8" width="24" height="8" fill="#DC143C"/></svg>',
+										'ru' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#FFF"/><rect y="5.33" width="24" height="5.33" fill="#0039A6"/><rect y="10.66" width="24" height="5.34" fill="#D52B1E"/></svg>',
+										'zh' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#DE2910"/><polygon points="4,2 4.8,4.3 7.2,4.3 5.2,5.7 6,8 4,6.5 2,8 2.8,5.7 0.8,4.3 3.2,4.3" fill="#FFDE00"/></svg>',
+									];
+									foreach ($flag_codes as $fcode) {
+										$fsel = $fcode === $flag_current ? 'border:2px solid #FFD700;border-radius:3px;' : '';
+										echo '<a href="?language=' . $fcode . ($page ? '&page=' . urlencode($page) : '') . '" class="noanimate" title="' . $flag_names[$fcode] . '" style="display:inline-block;margin:0 2px;vertical-align:middle;' . $fsel . '">' . $flag_svgs[$fcode] . '</a>';
+									}
+									?>
+								</div>
 								<a href="./" class="noanimate" style="padding-top: 150px;">
 									<div id="logo" class="logo_<?=rand(1, 5)?>"></div>
 								</a>
@@ -566,16 +591,16 @@ if ($pokecen_tijd > 0) {
 					</div>
 				</div>
 				<div id="navbar">
-					<div class="menu tip_bottom-middle" title="<?php include 'app/includes/resources/menu/menu_hover.php'; ?>"><p>MENU</p></div>
+					<div class="menu tip_bottom-middle" title="<?php include 'app/includes/resources/menu/menu_hover.php'; ?>"><p><?=$txt['navbar_menu']?></p></div>
 					<div class="content">
 						<center><ul>
-							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./gold-market" class="noanimate">Gold Market &bull;</a></li><?php } ?>
-							<li><a href="./town" class="noanimate">Cidade &bull;</a></li>
-							<li><a href="./rankinglist" class="noanimate">Classificação &bull;</a></li>
-							<li><a href="./box" class="noanimate">Box Pokémon &bull;</a></li>
-							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./items" class="noanimate">Mochila &bull;</a></li><?php } ?>
-							<li><a href="./attack/attack_map" class="noanimate">Mapa &bull;</a></li>
-							<li><a href="./trainer" class="noanimate">NPC's &bull;</a></li>
+							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./gold-market" class="noanimate"><?=$txt['navbar_gold_market']?> &bull;</a></li><?php } ?>
+							<li><a href="./town" class="noanimate"><?=$txt['navbar_city']?> &bull;</a></li>
+							<li><a href="./rankinglist" class="noanimate"><?=$txt['navbar_ranking']?> &bull;</a></li>
+							<li><a href="./box" class="noanimate"><?=$txt['navbar_box']?> &bull;</a></li>
+							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./items" class="noanimate"><?=$txt['navbar_items']?> &bull;</a></li><?php } ?>
+							<li><a href="./attack/attack_map" class="noanimate"><?=$txt['navbar_map']?> &bull;</a></li>
+							<li><a href="./trainer" class="noanimate"><?=$txt['navbar_npcs']?> &bull;</a></li>
 						</ul></center>
 					</div>
 				</div>
@@ -605,7 +630,7 @@ if ($pokecen_tijd > 0) {
 										</div>
 										<?php } ?>
 										<div class="box-content" style="float: left; width: 100%; margin-top: 7px;margin-bottom: 10px">
-										    <h3 class="title">PUBLICIDADE:</h3>
+										    <h3 class="title"><?=$txt['ad_title']?></h3>
 										    <a href="https://www.pokeshop.com.br/" class="noanimate"><img src="<?=$static_url?>/images/layout/banner/pokeshop.png" style="padding: 5px"></a>
 										</div>
 									</center>
@@ -623,6 +648,25 @@ if ($pokecen_tijd > 0) {
 		<?php require_once('language/language-pages.php'); ?>
 		
 		<div id="wrap">
+			<div style="text-align:right;padding:3px 10px;">
+				<?php
+				$flag_codes = ['pt','de','en','pl','ru','zh'];
+				$flag_names = ['pt'=>'Português','de'=>'Deutsch','en'=>'English','pl'=>'Polski','ru'=>'Русский','zh'=>'中文'];
+				$flag_current = $_SESSION['pa_language'] ?? $_COOKIE['pa_language'] ?? 'pt';
+				$flag_svgs = [
+					'pt' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#006600"/><polygon points="12,2 16,8 12,14 8,8" fill="#FFCC00"/><circle cx="12" cy="8" r="3" fill="#006600"/></svg>',
+					'de' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#000"/><rect y="5.33" width="24" height="5.33" fill="#DD0000"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/></svg>',
+					'en' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#012169"/><g transform="translate(12 8)"><rect x="-24" y="-16" width="48" height="32" fill="none"/><path d="M-24-16L24 16M24-16L-24 16" stroke="#FFF" stroke-width="3"/><path d="M-24-16L24 16M24-16L-24 16" stroke="#C8102E" stroke-width="1.5"/></g></svg>',
+					'pl' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="8" fill="#FFF"/><rect y="8" width="24" height="8" fill="#DC143C"/></svg>',
+					'ru' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#FFF"/><rect y="5.33" width="24" height="5.33" fill="#0039A6"/><rect y="10.66" width="24" height="5.34" fill="#D52B1E"/></svg>',
+					'zh' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#DE2910"/><polygon points="4,2 4.8,4.3 7.2,4.3 5.2,5.7 6,8 4,6.5 2,8 2.8,5.7 0.8,4.3 3.2,4.3" fill="#FFDE00"/></svg>',
+				];
+				foreach ($flag_codes as $fcode) {
+					$fsel = $fcode === $flag_current ? 'border:2px solid #FFD700;border-radius:3px;' : '';
+					echo '<a href="?language=' . $fcode . ($page ? '&page=' . urlencode($page) : '') . '" class="noanimate" title="' . $flag_names[$fcode] . '" style="display:inline-block;margin:0 2px;vertical-align:middle;' . $fsel . '">' . $flag_svgs[$fcode] . '</a>';
+				}
+				?>
+			</div>
 			<div id="container_wrap">
 				<div id="container_login" <?= ($page != 'register')? 'style="height: 600px"': '';?>>
 					<a href="./" class="noanimate">
