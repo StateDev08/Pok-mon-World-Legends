@@ -85,7 +85,8 @@ if (isset($_POST['zeker'])) {
 		parent.$.colorbox.close();
 	}
 </script>
-  <script src="<?=$static_url?>/javascripts/jquery-2.1.3.min.js"></script>
+  <script src="<?=$static_url?>/javascripts/jquery-3.7.1.min.js"></script>
+  <script src="<?=$static_url?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
   <script src="<?=$static_url;?>/javascripts/poke.evolve.js"></script>
   <?php
       $sprite_1 = $pokemon['shiny'] == 1 ? 'shiny' : 'pokemon'.'/'.$pokemon['wild_id'].'.gif';

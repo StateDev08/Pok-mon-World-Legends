@@ -9,7 +9,8 @@
 	<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style.css" />
 	<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style_override.css" />
 
-	<script src="<?=$static_url?>/javascripts/jquery-2.1.3.min.js"></script>
+	<script src="<?=$static_url?>/javascripts/jquery-3.7.1.min.js"></script>
+	<script src="<?=$static_url?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
 </head>
 <body style="background: #1d2b3e">
 <?php

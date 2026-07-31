@@ -454,7 +454,8 @@ if ($pokecen_tijd > 0) {
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style_override.css" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url?>/javascripts/flickity/flickity.min.css">
 
-		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery-3.7.1.min.js"></script>
+		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery.ui.touch-punch-improved.min.js"></script>
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery.cookie.min.js"></script>

@@ -86,6 +86,7 @@ require_once 'app/includes/resources/ingame.inc.php';
             }
     ?>
 
-    <script src="<?=$static_url;?>/javascripts/jquery-2.1.3.min.js"></script>
+    <script src="<?=$static_url;?>/javascripts/jquery-3.7.1.min.js"></script>
+    <script src="<?=$static_url;?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
 </body>
 </html>
