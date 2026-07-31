@@ -15,6 +15,9 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   include_once("attack.inc.php");
 
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0');
+
   //Include Attack Lang
 
   $page = 'attack/trainer/trainer-attack';

@@ -8,6 +8,10 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     include_once("duel.inc.php");
     //Include Attack Functions
     include_once("../../attack/attack.inc.php");
+
+    error_reporting(E_ERROR | E_PARSE);
+    ini_set('display_errors', '0');
+
     //Load duel info
     $duel_info = duel_info($_GET['duel_id']);
     //Check if attack was correct, and screen has to refresh

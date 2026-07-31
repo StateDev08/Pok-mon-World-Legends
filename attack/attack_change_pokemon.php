@@ -7,6 +7,9 @@ if ((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (i
   include_once('../app/includes/resources/ingame.inc.php');
   //Include Attack Functions
   include("attack.inc.php");
+
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0');
   //Include Attack lang
   $page = 'attack/wild/wild-attack';
   //Goeie taal erbij laden voor de page

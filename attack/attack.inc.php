@@ -240,15 +240,15 @@ function damage_controller($attacker_info, $opponent_info, $attack_info, $weathe
   }
 
   //Dano
-  if ($atk == 'Eruption' || $atk == 'Water Spout') {
+  if ($atk_name == 'Eruption' || $atk_name == 'Water Spout') {
     $power = 150 * ($attacker_info['leven'] / $attacker_info['levenmax']);
-  } else if ($atk == 'Crush Grip' || $atk == 'Wring Out') {
+  } else if ($atk_name == 'Crush Grip' || $atk_name == 'Wring Out') {
     $power = 120 * ($opponent_info['leven'] / $opponent_info['levenmax']);
-  } else if ($atk == 'Brine' && ($opponent_info['leven'] / $opponent_info['levenmax']) <= 0.5) {
+  } else if ($atk_name == 'Brine' && ($opponent_info['leven'] / $opponent_info['levenmax']) <= 0.5) {
     $power = 130;
-  } else if ($atk == 'Venoshock' && $opponent_info['effect'] == 'Poison') {
+  } else if ($atk_name == 'Venoshock' && $opponent_info['effect'] == 'Poison') {
     $power = 130;
-  } else if ($atk == 'Flail' || $atk == 'Reversal') { 
+  } else if ($atk_name == 'Flail' || $atk_name == 'Reversal') { 
     $hp = ($opponent_info['leven'] / $opponent_info['levenmax']) * 100;
     if ($hp >= 69) {
       $power = 20;
@@ -596,7 +596,7 @@ class Weather {
 
   public function __construct ( $aanval_log ) {
       $this->w = $aanval_log;
-      $this->clima = $this->w['weather'];
+      $this->clima = $this->w['weather'] ?? '';
 
       $this->weather_controller ();
   }

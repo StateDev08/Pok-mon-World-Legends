@@ -204,7 +204,7 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
             <div style="text-align: center;height: 155px;vertical-align: middle;display: table-cell;">
                 <?php
                     if (real_owner($pokemon['user_id'], $gebruiker['admin'])) {
-                        $prev = (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE id<$id AND `user_id`='$_SESSION[id]' ORDER BY id DESC LIMIT 1"))->fetch_assoc()['id'];
+                        $prev = (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE id<$id AND `user_id`='{$_SESSION['id']}' ORDER BY id DESC LIMIT 1"))->fetch_assoc()['id'] ?? null;
 
                         if (isset($prev)) {
                             echo '<a href="./pokemon-profile&id='.$prev.'"><button class="flickity-prev-next-button previous" type="button"></button></a>';
@@ -219,7 +219,7 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
 
                 <?php
                     if (real_owner($pokemon['user_id'], $gebruiker['admin'])) {
-                        $next = (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE id>$id AND `user_id`='$_SESSION[id]' ORDER BY id LIMIT 1"))->fetch_assoc()['id'];
+                        $next = (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE id>$id AND `user_id`='{$_SESSION['id']}' ORDER BY id LIMIT 1"))->fetch_assoc()['id'] ?? null;
 
                         if (isset($next)) {
                             echo '<a href="./pokemon-profile&id='.$next.'"><button class="flickity-prev-next-button next" type="button"><svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg></button></a>';

@@ -7,6 +7,9 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
   include("../attack.inc.php");
   //Include Default Functions
   include_once("../../app/includes/resources/ingame.inc.php");
+
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0');
   $page = 'attack/wild/wild-attack';
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-pages.php');

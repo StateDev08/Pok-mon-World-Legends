@@ -368,7 +368,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   	}
 
   	if (request[5] == 1) leven_verandering(request[2], request[4], request[3])
-  	attack_timer = setTimeout("attack_status_2('" + msg + "');", time)
+  	attack_timer = setTimeout(function () { attack_status_2(msg); }, time)
   }
 
 
@@ -459,8 +459,8 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   	//Computer make next turn
   	if (request[1] == 1) next_turn()
   	else if (request[6] == 1) {
-  		setTimeout("exp_change(" + request[11] + "," + request[12] + ");", 4000)
-  		setTimeout("show_end_screen('" + request[10] + "');", 4000)
+  		setTimeout(function () { exp_change(request[11], request[12]); }, 4000)
+  		setTimeout(function () { show_end_screen(request[10]); }, 4000)
   		speler_attack = 0
   		speler_wissel = 0
   	}

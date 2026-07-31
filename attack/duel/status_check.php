@@ -4,6 +4,10 @@ if (isset($_GET['duel_id'])) {
     include_once("../../app/includes/resources/config.php");
     //include duel functions
     include_once("duel.inc.php");
+
+    error_reporting(E_ERROR | E_PARSE);
+    ini_set('display_errors', '0');
+
     //Load Duel Data
     $duel_sql = DB::exQuery("SElECT `id`, `datum`, `uitdager`, `tegenstander`, `t_pokemonid`, `status` FROM `duel` WHERE `id`='" . $_GET['duel_id'] . "'");
     if ($duel_sql->num_rows == 1) {

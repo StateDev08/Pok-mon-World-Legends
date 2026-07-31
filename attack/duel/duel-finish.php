@@ -8,6 +8,10 @@ if ((isset($_GET['duel_id'])) && (isset($_GET['sid']))) {
   include("../attack.inc.php");
   //Include Duel Functions
   include_once("duel.inc.php"); 
+
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0');
+
   //Load language
   include_once('../../language/language-general.php');
   //Load duel info

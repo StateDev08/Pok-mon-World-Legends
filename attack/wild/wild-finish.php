@@ -6,7 +6,10 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   //Include Default Functions
   include_once("../../app/includes/resources/ingame.inc.php");
   //Include Attack Functions
-  include("../attack.inc.php"); 
+  include("../attack.inc.php");
+
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0'); 
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-general.php');
   //Load Data

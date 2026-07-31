@@ -1149,7 +1149,7 @@ function pokemonei($geg, $txt) {
 			if (!is_numeric($key))  $new[$key] = $value;
 
 		$new['ei']        = 0;
-		$new['naamklein'] = strtolower($geg['naam']);
+		$new['naamklein'] = strtolower($geg['naam'] ?? '');
 
 		if ($new['wild_id'] == '649') {
 			if (in_array($geg['item'], array('Burn Drive', 'Chill Drive', 'Douse Drive', 'Shock Drive'))) {
@@ -1174,9 +1174,9 @@ function pokemonei($geg, $txt) {
 		#Andere naam voor de pokemon en de level
 		#Alles andere naam toewijzen   
 		$new['karakter'] = ucfirst($geg['karakter']);
-		$new['def_naam'] = $geg['naam'];
+		$new['def_naam'] = $geg['naam'] ?? '';
 
-		if (empty($geg['roepnaam']))	$new['roepnaam'] = $geg['naam'];
+		if (empty($geg['roepnaam'] ?? null))	$new['roepnaam'] = $geg['naam'] ?? '';
 		else {
 			$new['roepnaam'] = $geg['roepnaam'];
 			$new['naam']     = $geg['naam'];
@@ -1188,8 +1188,8 @@ function pokemonei($geg, $txt) {
 		else	$new['expprocent'] = 0;
 
 		$new['levenmin100'] = 100 - $new['levenprocent'];
-		$new['type1'] = strtolower($geg['type1']);
-		$new['type2'] = strtolower($geg['type2']);
+		$new['type1'] = strtolower($geg['type1'] ?? '');
+		$new['type2'] = strtolower($geg['type2'] ?? '');
 
 		//Heeft de pokemon twee types?
 		if (empty($new['type2']))	$new['type'] = '<table><tr><td><div class=\'type-icon type-' . $new['type1'] . '\'>' . $new['type1'] . '</div></td></tr></table>';

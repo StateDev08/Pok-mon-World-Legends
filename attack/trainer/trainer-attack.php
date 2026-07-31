@@ -419,7 +419,7 @@ function attack_status(msg) {
 	}
 
 	if (request[5] == 1) leven_verandering(request[2], request[4], request[3])
-	attack_timer = setTimeout("attack_status_2('" + msg + "');", time)
+	attack_timer = setTimeout(function () { attack_status_2(msg); }, time)
 }
 
 

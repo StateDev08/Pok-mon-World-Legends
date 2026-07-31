@@ -6,7 +6,11 @@ if ((isset($_GET['pokemon_info_name'])) && (isset($_GET['computer_info_name'])) 
   //Include Default Functions
   include_once("../../app/includes/resources/ingame.inc.php");
   //Include Attack Functions
-  include("../attack.inc.php"); 
+  include("../attack.inc.php");
+
+  error_reporting(E_ERROR | E_PARSE);
+  ini_set('display_errors', '0');
+
   $page = 'attack/trainer/trainer-attack';
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-pages.php');

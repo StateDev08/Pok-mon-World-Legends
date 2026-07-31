@@ -11,7 +11,7 @@ echo addNPCBox(19, 'Zona do Safari', 'Procure e capture por Pokémons exóticos 
 if(!empty($Saffari) || $gebruiker['admin'] >= 3) {
 
 
-$map = (int)$_GET['map'];
+$map = (int)($_GET['map'] ?? 0);
 if (!is_numeric($map) || ($map <= 0 || $map > 7))
 	$map = 1;
 
@@ -75,7 +75,7 @@ elseif($map == 5) $gebied = 'Lavagrot';
 elseif($map == 6) $gebied = 'Strand';
 elseif($map == 7) $gebied = 'Vechtschool';
 
-if($_POST['goid'] != "" && $_POST['level'] != "") {
+if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 	if(DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='{$_SESSION['id']}' AND opzak='ja'")->num_rows == 0)
 		echo '<div class="red">Todos seus Pokémon estão desmaiados.</div>';
 	else {
