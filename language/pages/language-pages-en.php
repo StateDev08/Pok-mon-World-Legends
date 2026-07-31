@@ -2127,4 +2127,83 @@ $txt['alert_no_amount']               = 'Enter a quantity!';
 } else if ($page == 'pokemon-profile') {
 	$txt['pagetitle'] = 'Pokemon profile';
 }
+
+/* === externalized strings (generated) === */
+
+# common
+$txt['common_yes'] = 'Yes';
+$txt['common_no'] = 'No';
+$txt['common_edit'] = 'Edit';
+$txt['common_add'] = 'Add';
+$txt['common_remove'] = 'Remove';
+$txt['common_buy'] = 'BUY';
+$txt['common_confirm_purchase'] = 'Do you really want to make this purchase?';
+$txt['common_not_enough_silver'] = 'You do not have enough SILVERS!';
+$txt['common_not_enough_gold'] = 'You do not have enough Golds!';
+$txt['common_not_enough_tickets'] = 'You do not have enough TICKETS!';
+$txt['common_no_bag_space'] = 'YOU HAVE NO FREE SPACE IN YOUR BAG!';
+$txt['common_six_pokemon_in_hand'] = 'YOU ALREADY HAVE 6 POKÉMON WITH YOU!';
+$txt['common_bought_one_item'] = 'You bought 1x %s!';
+
+# account-options
+$txt['acc_npc_title'] = 'Account Settings';
+$txt['acc_npc_text'] = 'Hello, trainer! Welcome to the account settings. Here you will find several options to configure your account: personal data, change your password, update your e-mail or share your account.';
+$txt['acc_share_info'] = 'Account sharing lets trainers on your friends list access your account. They get access to some of your account\'s features, so only use it with people you trust!';
+$txt['acc_success_personal'] = 'Personal data successfully changed!';
+$txt['acc_alert_volume_invalid'] = 'Invalid volume!';
+$txt['acc_alert_email_empty'] = 'Please enter an e-mail address.';
+$txt['acc_alert_email_invalid'] = 'Please enter a valid e-mail address.';
+$txt['acc_alert_email_taken'] = 'This e-mail address is already in use.';
+$txt['acc_alert_email_mismatch'] = 'The e-mail addresses do not match.';
+$txt['acc_success_email'] = 'E-mail successfully changed. <br>Your new e-mail address is: %s';
+$txt['acc_success_share_removed'] = 'You removed %s from your sharing list!';
+$txt['acc_alert_share_remove_invalid'] = 'You can only remove someone from your own list!';
+$txt['acc_alert_share_self'] = 'This trainer cannot be yourself!';
+$txt['acc_alert_share_limit'] = 'Limit reached! You have already shared your account 2 times!';
+$txt['acc_success_share_added'] = 'You just shared your account with %s!';
+$txt['acc_alert_share_duplicate'] = 'You have already shared your account with this trainer!';
+$txt['acc_alert_share_not_friends'] = 'You need to be friends!';
+$txt['acc_success_levels'] = 'YOU WILL NOW ENCOUNTER POKÉMON BETWEEN LEVELS %s';
+$txt['acc_personal_data'] = 'Personal data';
+$txt['acc_show_team'] = 'Show team on profile:';
+$txt['acc_show_badges'] = 'Show badges on profile';
+$txt['acc_chat'] = 'Chat';
+$txt['acc_accept_duels'] = 'Accept duels:';
+$txt['acc_show_pokemon_status'] = 'Show Pokémon stats on profile:';
+$txt['acc_volume'] = 'Volume:';
+$txt['acc_sharing_title'] = 'Account Sharing';
+$txt['acc_shared_with'] = 'SHARED WITH (%s / 2):';
+$txt['acc_confirm_remove_share'] = 'Do you want to remove %s from your sharing list?';
+$txt['acc_share_with'] = 'SHARE WITH:';
+$txt['acc_confirm_add_share'] = 'Do you want to trust this trainer with access to your account?';
+$txt['acc_nobody'] = 'NOBODY';
+$txt['acc_confirm_change_password'] = 'Do you want to change your password?';
+$txt['acc_change_password'] = 'Change Password';
+$txt['acc_current_password'] = 'Current password:';
+$txt['acc_new_password'] = 'New password:';
+$txt['acc_confirm_new_password'] = 'Confirm the new password:';
+$txt['acc_confirm_change_email'] = 'Do you want to change your e-mail?';
+$txt['acc_update_email'] = 'Update E-mail';
+$txt['acc_current_email'] = 'Current e-mail:';
+$txt['acc_new_email'] = 'New e-mail:';
+$txt['acc_repeat_new_email'] = 'Repeat the new e-mail:';
+$txt['acc_change_email_button'] = 'Change e-mail';
+$txt['acc_confirm_change_level'] = 'Do you want to change the level of the Pokémon that appear on the map?';
+$txt['acc_choose_level'] = 'Choose Level';
+$txt['acc_choose_level_hint'] = 'Changes the level of the Pokémon found on the MAP';
+$txt['acc_change_level_button'] = 'Change Level';
+
+# casino-store
+$txt['casino_store_npc_title'] = 'Casino Shop';
+$txt['casino_store_npc_text'] = 'This is the Casino Shop, where you can buy Tickets or exchange your Tickets for rewards!<br> Click <a href="./casino">HERE</a> to <b>go back</b> to the Casino.';
+$txt['casino_store_bought_tickets'] = 'You bought %sx TICKETS!';
+$txt['casino_store_bought_silvers'] = 'You bought %sx SILVERS!';
+$txt['casino_store_inventory_tickets'] = 'Tickets in inventory:';
+$txt['casino_store_buy_or_exchange'] = 'Buy tickets or exchange them for Silvers!';
+$txt['casino_store_silver_to_tickets'] = 'Exchange your Silvers for Tickets!';
+$txt['casino_store_tickets_to_silver'] = 'Exchange your Tickets for Silvers!';
+$txt['casino_store_rewards_title'] = 'EXCHANGE YOUR TICKETS FOR THESE REWARDS!';
+$txt['casino_store_desc_pokemon'] = 'Exchange your Tickets for this beautiful %s!';
+$txt['casino_store_desc_item'] = 'Exchange your Tickets for this fabulous %s: %s';
+/* === end externalized strings === */
 ?>

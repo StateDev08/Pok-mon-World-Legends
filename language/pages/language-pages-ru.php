@@ -2127,4 +2127,83 @@ $txt['alert_no_amount']               = 'Введите количество!';
 } else if ($page == 'pokemon-profile') {
 	$txt['pagetitle'] = 'Профиль покемона';
 }
+
+/* === externalized strings (generated) === */
+
+# common
+$txt['common_yes'] = 'Да';
+$txt['common_no'] = 'Нет';
+$txt['common_edit'] = 'Изменить';
+$txt['common_add'] = 'Добавить';
+$txt['common_remove'] = 'Удалить';
+$txt['common_buy'] = 'КУПИТЬ';
+$txt['common_confirm_purchase'] = 'Вы действительно хотите совершить эту покупку?';
+$txt['common_not_enough_silver'] = 'У вас недостаточно СЕРЕБРА!';
+$txt['common_not_enough_gold'] = 'У вас недостаточно золота!';
+$txt['common_not_enough_tickets'] = 'У вас недостаточно БИЛЕТОВ!';
+$txt['common_no_bag_space'] = 'В ВАШЕЙ СУМКЕ НЕТ СВОБОДНОГО МЕСТА!';
+$txt['common_six_pokemon_in_hand'] = 'У ВАС УЖЕ ЕСТЬ 6 ПОКЕМОНОВ!';
+$txt['common_bought_one_item'] = 'Вы купили 1x %s!';
+
+# account-options
+$txt['acc_npc_title'] = 'Настройки аккаунта';
+$txt['acc_npc_text'] = 'Привет, тренер! Добро пожаловать в настройки аккаунта. Здесь вы найдёте различные функции для настройки: личные данные, смена пароля, обновление e-mail или предоставление доступа к аккаунту.';
+$txt['acc_share_info'] = 'Совместный доступ позволяет тренерам из списка друзей пользоваться вашим аккаунтом. Они получают доступ к некоторым функциям, поэтому используйте это только с теми, кому доверяете!';
+$txt['acc_success_personal'] = 'Личные данные успешно изменены!';
+$txt['acc_alert_volume_invalid'] = 'Неверная громкость!';
+$txt['acc_alert_email_empty'] = 'Введите адрес электронной почты.';
+$txt['acc_alert_email_invalid'] = 'Введите действительный адрес электронной почты.';
+$txt['acc_alert_email_taken'] = 'Этот адрес электронной почты уже используется.';
+$txt['acc_alert_email_mismatch'] = 'Адреса электронной почты не совпадают.';
+$txt['acc_success_email'] = 'Адрес электронной почты успешно изменён. <br>Ваш новый адрес: %s';
+$txt['acc_success_share_removed'] = 'Вы удалили %s из списка совместного доступа!';
+$txt['acc_alert_share_remove_invalid'] = 'Вы можете удалить кого-то только из своего списка!';
+$txt['acc_alert_share_self'] = 'Этим тренером не можете быть вы сами!';
+$txt['acc_alert_share_limit'] = 'Достигнут лимит! Вы уже предоставили доступ к аккаунту 2 раза!';
+$txt['acc_success_share_added'] = 'Вы только что предоставили доступ к аккаунту игроку %s!';
+$txt['acc_alert_share_duplicate'] = 'Вы уже предоставили доступ этому тренеру!';
+$txt['acc_alert_share_not_friends'] = 'Вы должны быть друзьями!';
+$txt['acc_success_levels'] = 'ТЕПЕРЬ ВЫ БУДЕТЕ ВСТРЕЧАТЬ ПОКЕМОНОВ УРОВНЕЙ %s';
+$txt['acc_personal_data'] = 'Личные данные';
+$txt['acc_show_team'] = 'Показывать команду в профиле:';
+$txt['acc_show_badges'] = 'Показывать значки в профиле';
+$txt['acc_chat'] = 'Чат';
+$txt['acc_accept_duels'] = 'Принимать дуэли:';
+$txt['acc_show_pokemon_status'] = 'Показывать характеристики покемонов в профиле:';
+$txt['acc_volume'] = 'Громкость:';
+$txt['acc_sharing_title'] = 'Совместный доступ к аккаунту';
+$txt['acc_shared_with'] = 'ДОСТУП ПРЕДОСТАВЛЕН (%s / 2):';
+$txt['acc_confirm_remove_share'] = 'Удалить %s из списка совместного доступа?';
+$txt['acc_share_with'] = 'ПОДЕЛИТЬСЯ С:';
+$txt['acc_confirm_add_share'] = 'Доверить этому тренеру доступ к вашему аккаунту?';
+$txt['acc_nobody'] = 'НИКОГО';
+$txt['acc_confirm_change_password'] = 'Изменить пароль?';
+$txt['acc_change_password'] = 'Изменить пароль';
+$txt['acc_current_password'] = 'Текущий пароль:';
+$txt['acc_new_password'] = 'Новый пароль:';
+$txt['acc_confirm_new_password'] = 'Подтвердите новый пароль:';
+$txt['acc_confirm_change_email'] = 'Изменить адрес электронной почты?';
+$txt['acc_update_email'] = 'Обновить e-mail';
+$txt['acc_current_email'] = 'Текущий e-mail:';
+$txt['acc_new_email'] = 'Новый e-mail:';
+$txt['acc_repeat_new_email'] = 'Повторите новый e-mail:';
+$txt['acc_change_email_button'] = 'Изменить e-mail';
+$txt['acc_confirm_change_level'] = 'Изменить уровень покемонов, появляющихся на карте?';
+$txt['acc_choose_level'] = 'Выбрать уровень';
+$txt['acc_choose_level_hint'] = 'Изменяет уровень покемонов, встречающихся на КАРТЕ';
+$txt['acc_change_level_button'] = 'Изменить уровень';
+
+# casino-store
+$txt['casino_store_npc_title'] = 'Магазин казино';
+$txt['casino_store_npc_text'] = 'Это магазин казино, где вы можете купить билеты или обменять их на награды!<br> Нажмите <a href="./casino">ЗДЕСЬ</a>, чтобы <b>вернуться</b> в казино.';
+$txt['casino_store_bought_tickets'] = 'Вы купили %sx БИЛЕТОВ!';
+$txt['casino_store_bought_silvers'] = 'Вы купили %sx СЕРЕБРА!';
+$txt['casino_store_inventory_tickets'] = 'Билеты в инвентаре:';
+$txt['casino_store_buy_or_exchange'] = 'Покупайте билеты или обменивайте их на серебро!';
+$txt['casino_store_silver_to_tickets'] = 'Обменяйте серебро на билеты!';
+$txt['casino_store_tickets_to_silver'] = 'Обменяйте билеты на серебро!';
+$txt['casino_store_rewards_title'] = 'ОБМЕНЯЙТЕ БИЛЕТЫ НА ЭТИ НАГРАДЫ!';
+$txt['casino_store_desc_pokemon'] = 'Обменяйте билеты на этого прекрасного %s!';
+$txt['casino_store_desc_item'] = 'Обменяйте билеты на этот замечательный %s: %s';
+/* === end externalized strings === */
 ?>

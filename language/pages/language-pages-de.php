@@ -2127,4 +2127,83 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 } else if ($page == 'pokemon-profile') {
 	$txt['pagetitle'] = 'Pokemon-Profil';
 }
+
+/* === externalized strings (generated) === */
+
+# common
+$txt['common_yes'] = 'Ja';
+$txt['common_no'] = 'Nein';
+$txt['common_edit'] = 'Bearbeiten';
+$txt['common_add'] = 'Hinzufügen';
+$txt['common_remove'] = 'Entfernen';
+$txt['common_buy'] = 'KAUFEN';
+$txt['common_confirm_purchase'] = 'Möchtest du diesen Kauf wirklich durchführen?';
+$txt['common_not_enough_silver'] = 'Du hast nicht genug SILVER!';
+$txt['common_not_enough_gold'] = 'Du hast nicht genug Gold!';
+$txt['common_not_enough_tickets'] = 'Du hast nicht genug TICKETS!';
+$txt['common_no_bag_space'] = 'DU HAST KEINEN FREIEN PLATZ IN DEINEM RUCKSACK!';
+$txt['common_six_pokemon_in_hand'] = 'DU HAST BEREITS 6 POKÉMON BEI DIR!';
+$txt['common_bought_one_item'] = 'Du hast 1x %s gekauft!';
+
+# account-options
+$txt['acc_npc_title'] = 'Kontoeinstellungen';
+$txt['acc_npc_text'] = 'Hallo Trainer! Willkommen in den Kontoeinstellungen. Hier findest du verschiedene Funktionen, um dein Konto einzurichten: persönliche Daten, Passwort ändern, E-Mail aktualisieren oder Kontofreigabe.';
+$txt['acc_share_info'] = 'Die Kontofreigabe erlaubt befreundeten Trainern den Zugriff auf dein Konto. Sie erhalten Zugriff auf einige Funktionen deines Kontos – nutze sie deshalb nur bei Personen, denen du vertraust!';
+$txt['acc_success_personal'] = 'Persönliche Daten erfolgreich geändert!';
+$txt['acc_alert_volume_invalid'] = 'Ungültige Lautstärke!';
+$txt['acc_alert_email_empty'] = 'Bitte gib eine E-Mail-Adresse ein.';
+$txt['acc_alert_email_invalid'] = 'Bitte gib eine gültige E-Mail-Adresse ein.';
+$txt['acc_alert_email_taken'] = 'Diese E-Mail-Adresse wird bereits verwendet.';
+$txt['acc_alert_email_mismatch'] = 'Die E-Mail-Adressen stimmen nicht überein.';
+$txt['acc_success_email'] = 'E-Mail-Adresse erfolgreich geändert. <br>Deine neue E-Mail-Adresse lautet: %s';
+$txt['acc_success_share_removed'] = 'Du hast %s aus deiner Freigabeliste entfernt!';
+$txt['acc_alert_share_remove_invalid'] = 'Du kannst nur Trainer aus deiner eigenen Liste entfernen!';
+$txt['acc_alert_share_self'] = 'Dieser Trainer kannst nicht du selbst sein!';
+$txt['acc_alert_share_limit'] = 'Limit erreicht! Du hast dein Konto bereits 2-mal freigegeben!';
+$txt['acc_success_share_added'] = 'Du hast dein Konto soeben mit %s geteilt!';
+$txt['acc_alert_share_duplicate'] = 'Du hast dein Konto bereits mit diesem Trainer geteilt!';
+$txt['acc_alert_share_not_friends'] = 'Ihr müsst befreundet sein!';
+$txt['acc_success_levels'] = 'DU TRIFFST JETZT AUF POKÉMON ZWISCHEN DEN LEVELN %s';
+$txt['acc_personal_data'] = 'Persönliche Daten';
+$txt['acc_show_team'] = 'Team im Profil anzeigen:';
+$txt['acc_show_badges'] = 'Orden im Profil anzeigen';
+$txt['acc_chat'] = 'Chat';
+$txt['acc_accept_duels'] = 'Duelle annehmen:';
+$txt['acc_show_pokemon_status'] = 'Pokémon-Werte im Profil anzeigen:';
+$txt['acc_volume'] = 'Lautstärke:';
+$txt['acc_sharing_title'] = 'Kontofreigabe';
+$txt['acc_shared_with'] = 'GETEILT MIT (%s / 2):';
+$txt['acc_confirm_remove_share'] = 'Möchtest du %s aus deiner Freigabeliste entfernen?';
+$txt['acc_share_with'] = 'TEILEN MIT:';
+$txt['acc_confirm_add_share'] = 'Möchtest du diesem Trainer den Zugriff auf dein Konto anvertrauen?';
+$txt['acc_nobody'] = 'NIEMAND';
+$txt['acc_confirm_change_password'] = 'Möchtest du dein Passwort ändern?';
+$txt['acc_change_password'] = 'Passwort ändern';
+$txt['acc_current_password'] = 'Aktuelles Passwort:';
+$txt['acc_new_password'] = 'Neues Passwort:';
+$txt['acc_confirm_new_password'] = 'Neues Passwort bestätigen:';
+$txt['acc_confirm_change_email'] = 'Möchtest du deine E-Mail-Adresse ändern?';
+$txt['acc_update_email'] = 'E-Mail aktualisieren';
+$txt['acc_current_email'] = 'Aktuelle E-Mail:';
+$txt['acc_new_email'] = 'Neue E-Mail:';
+$txt['acc_repeat_new_email'] = 'Neue E-Mail wiederholen:';
+$txt['acc_change_email_button'] = 'E-Mail ändern';
+$txt['acc_confirm_change_level'] = 'Möchtest du das Level ändern, in dem Pokémon auf der Karte erscheinen?';
+$txt['acc_choose_level'] = 'Level wählen';
+$txt['acc_choose_level_hint'] = 'Ändert das Level der Pokémon, die auf der KARTE gefunden werden';
+$txt['acc_change_level_button'] = 'Level ändern';
+
+# casino-store
+$txt['casino_store_npc_title'] = 'Casino-Shop';
+$txt['casino_store_npc_text'] = 'Das hier ist der Casino-Shop, in dem du Tickets kaufen oder deine Tickets gegen Belohnungen eintauschen kannst!<br> Klicke <a href="./casino">HIER</a>, um zum Casino <b>zurückzukehren</b>.';
+$txt['casino_store_bought_tickets'] = 'Du hast %sx TICKETS gekauft!';
+$txt['casino_store_bought_silvers'] = 'Du hast %sx SILVER gekauft!';
+$txt['casino_store_inventory_tickets'] = 'Tickets im Inventar:';
+$txt['casino_store_buy_or_exchange'] = 'Kaufe Tickets oder tausche sie gegen Silver!';
+$txt['casino_store_silver_to_tickets'] = 'Tausche deine Silver gegen Tickets!';
+$txt['casino_store_tickets_to_silver'] = 'Tausche deine Tickets gegen Silver!';
+$txt['casino_store_rewards_title'] = 'TAUSCHE DEINE TICKETS GEGEN DIESE BELOHNUNGEN!';
+$txt['casino_store_desc_pokemon'] = 'Tausche deine Tickets gegen dieses wunderschöne %s!';
+$txt['casino_store_desc_item'] = 'Tausche deine Tickets gegen dieses fabelhafte %s: %s';
+/* === end externalized strings === */
 ?>

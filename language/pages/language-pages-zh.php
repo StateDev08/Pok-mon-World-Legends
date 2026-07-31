@@ -2127,4 +2127,83 @@ $txt['alert_no_amount']               = '输入数量！';
 } else if ($page == 'pokemon-profile') {
 	$txt['pagetitle'] = '口袋妖怪简介';
 }
+
+/* === externalized strings (generated) === */
+
+# common
+$txt['common_yes'] = '是';
+$txt['common_no'] = '否';
+$txt['common_edit'] = '编辑';
+$txt['common_add'] = '添加';
+$txt['common_remove'] = '移除';
+$txt['common_buy'] = '购买';
+$txt['common_confirm_purchase'] = '确定要进行这次购买吗？';
+$txt['common_not_enough_silver'] = '你的银币不足！';
+$txt['common_not_enough_gold'] = '你的金币不足！';
+$txt['common_not_enough_tickets'] = '你的门票不足！';
+$txt['common_no_bag_space'] = '你的背包已满！';
+$txt['common_six_pokemon_in_hand'] = '你身上已经有 6 只宝可梦了！';
+$txt['common_bought_one_item'] = '你购买了 1x %s！';
+
+# account-options
+$txt['acc_npc_title'] = '帐户设置';
+$txt['acc_npc_text'] = '训练师你好！欢迎来到帐户设置。在这里你可以配置帐户：个人资料、修改密码、更新电子邮件或帐户共享。';
+$txt['acc_share_info'] = '帐户共享允许好友列表中的训练师访问你的帐户，他们将获得部分帐户功能的权限，请只对信任的人使用！';
+$txt['acc_success_personal'] = '个人资料修改成功！';
+$txt['acc_alert_volume_invalid'] = '音量无效！';
+$txt['acc_alert_email_empty'] = '请输入电子邮件地址。';
+$txt['acc_alert_email_invalid'] = '请输入有效的电子邮件地址。';
+$txt['acc_alert_email_taken'] = '该电子邮件地址已被使用。';
+$txt['acc_alert_email_mismatch'] = '两个电子邮件地址不一致。';
+$txt['acc_success_email'] = '电子邮件修改成功。<br>你的新电子邮件是：%s';
+$txt['acc_success_share_removed'] = '你已将 %s 从共享列表中移除！';
+$txt['acc_alert_share_remove_invalid'] = '你只能从自己的列表中移除他人！';
+$txt['acc_alert_share_self'] = '这名训练师不能是你自己！';
+$txt['acc_alert_share_limit'] = '已达上限！你已经共享帐户 2 次了！';
+$txt['acc_success_share_added'] = '你刚刚与 %s 共享了帐户！';
+$txt['acc_alert_share_duplicate'] = '你已经与该训练师共享过帐户了！';
+$txt['acc_alert_share_not_friends'] = '你们必须是好友！';
+$txt['acc_success_levels'] = '你现在将遇到等级 %s 之间的宝可梦';
+$txt['acc_personal_data'] = '个人资料';
+$txt['acc_show_team'] = '在个人资料中显示队伍：';
+$txt['acc_show_badges'] = '在个人资料中显示徽章';
+$txt['acc_chat'] = '聊天';
+$txt['acc_accept_duels'] = '接受对战：';
+$txt['acc_show_pokemon_status'] = '在个人资料中显示宝可梦属性：';
+$txt['acc_volume'] = '音量：';
+$txt['acc_sharing_title'] = '帐户共享';
+$txt['acc_shared_with'] = '已共享给（%s / 2）：';
+$txt['acc_confirm_remove_share'] = '要将 %s 从共享列表中移除吗？';
+$txt['acc_share_with'] = '共享给：';
+$txt['acc_confirm_add_share'] = '确定要信任该训练师并允许其访问你的帐户吗？';
+$txt['acc_nobody'] = '无';
+$txt['acc_confirm_change_password'] = '要修改密码吗？';
+$txt['acc_change_password'] = '修改密码';
+$txt['acc_current_password'] = '当前密码：';
+$txt['acc_new_password'] = '新密码：';
+$txt['acc_confirm_new_password'] = '确认新密码：';
+$txt['acc_confirm_change_email'] = '要修改电子邮件吗？';
+$txt['acc_update_email'] = '更新电子邮件';
+$txt['acc_current_email'] = '当前电子邮件：';
+$txt['acc_new_email'] = '新电子邮件：';
+$txt['acc_repeat_new_email'] = '重复新电子邮件：';
+$txt['acc_change_email_button'] = '修改电子邮件';
+$txt['acc_confirm_change_level'] = '要修改地图上出现的宝可梦等级吗？';
+$txt['acc_choose_level'] = '选择等级';
+$txt['acc_choose_level_hint'] = '更改在地图上遇到的宝可梦等级';
+$txt['acc_change_level_button'] = '修改等级';
+
+# casino-store
+$txt['casino_store_npc_title'] = '赌场商店';
+$txt['casino_store_npc_text'] = '这里是赌场商店，你可以购买门票或用门票兑换奖励！<br>点击<a href="./casino">这里</a><b>返回</b>赌场。';
+$txt['casino_store_bought_tickets'] = '你购买了 %sx 门票！';
+$txt['casino_store_bought_silvers'] = '你购买了 %sx 银币！';
+$txt['casino_store_inventory_tickets'] = '背包中的门票：';
+$txt['casino_store_buy_or_exchange'] = '购买门票或将其兑换为银币！';
+$txt['casino_store_silver_to_tickets'] = '用银币兑换门票！';
+$txt['casino_store_tickets_to_silver'] = '用门票兑换银币！';
+$txt['casino_store_rewards_title'] = '用你的门票兑换这些奖励！';
+$txt['casino_store_desc_pokemon'] = '用你的门票兑换这只漂亮的 %s！';
+$txt['casino_store_desc_item'] = '用你的门票兑换这个超棒的 %s：%s';
+/* === end externalized strings === */
 ?>
