@@ -55,4 +55,46 @@ if ($page == 'use_spcitem') {
 	$txt['box1']		= 'Aktuelle Box';
 	$txt['box2']		= 'Neue Box';
 }
+
+/* === externalized strings (generated) === */
+
+# daily-bonus
+$txt['bonus_won_silvers'] = 'Glückwunsch, du hast %s <b>%s</b> gewonnen!';
+$txt['bonus_already_claimed'] = 'Du hast deinen Tagesbonus heute bereits erhalten!';
+$txt['bonus_won_vip_days'] = 'Glückwunsch, du hast %s <b>%s</b> Tag(e) gewonnen!';
+$txt['bonus_won_item'] = 'Glückwunsch, du hast %s <b>%s</b> gewonnen!';
+$txt['bonus_won_exp'] = 'Glückwunsch, du hast <b>%s</b> Erfahrungspunkte gewonnen!';
+
+# poke-loot
+$txt['loot_invalid_access'] = 'Ungültiger Zugriff!';
+$txt['loot_won_silvers'] = 'Glückwunsch, du hast %s <b>%s</b> im <b>Poké-Loot</b> gewonnen!';
+$txt['loot_won_item'] = 'Glückwunsch, du hast <b>x%s</b> %s im <b>Poké-Loot</b> gewonnen!';
+$txt['loot_no_bag_space'] = 'Du hast nicht genug Platz in deinem Rucksack!';
+$txt['loot_won_vip_day'] = 'Glückwunsch, du hast <b>1 Tag</b> %s im <b>Poké-Loot</b> gewonnen!';
+
+# sell-box
+$txt['sellbox_cannot_trade'] = 'Dieses Pokémon kann nicht gehandelt werden!';
+$txt['sellbox_method_missing'] = 'Diese Verkaufsmethode existiert nicht!';
+$txt['sellbox_in_daycare'] = 'Dieses Pokémon ist in der Pokémon-Pension.';
+$txt['sellbox_trainer_invalid'] = 'Dieser Trainer existiert nicht oder bist du selbst!';
+$txt['sellbox_limit'] = 'Du kannst nicht mehr als %s Pokémon in diesen Verkauf stellen!';
+$txt['sellbox_confirm_title'] = 'MÖCHTEST DU DIESES <b>%s</b> WIRKLICH VERKAUFEN?';
+$txt['sellbox_select_method'] = 'WÄHLE DIE VERKAUFSMETHODE';
+$txt['sellbox_auction'] = 'Auktion';
+$txt['sellbox_auction_upper'] = 'AUKTION';
+$txt['sellbox_direct'] = 'Direktverkauf';
+$txt['sellbox_direct_upper'] = 'DIREKTVERKAUF';
+$txt['sellbox_private'] = 'Privatverkauf';
+$txt['sellbox_private_upper'] = 'PRIVATVERKAUF';
+$txt['sellbox_start_price'] = 'Startpreis:';
+$txt['sellbox_between'] = 'zwischen';
+$txt['sellbox_until'] = 'und';
+$txt['sellbox_auction_info'] = 'Dieser Betrag kann durch Gebote steigen. <br>Dieses Pokémon wird nach höchstens <b>48</b> Stunden verkauft; ohne Gebot kehrt es zu dir nach Hause zurück!';
+$txt['sellbox_negotiable'] = 'Verhandelbarer Preis:';
+$txt['sellbox_negotiable_hint'] = '(Ankreuzen, um Preisverhandlungsangebote zu erhalten)';
+$txt['sellbox_direct_info'] = 'Wird dieses Pokémon nicht innerhalb von <b>2</b> Tagen verkauft, kehrt es zu dir nach Hause zurück!';
+$txt['sellbox_trainer'] = 'Trainer:';
+$txt['sellbox_trainer_hint'] = '(Der Name des Trainers, an den du verkaufen möchtest)';
+$txt['sellbox_submit'] = 'POKÉMON VERKAUFEN!';
+/* === end externalized strings === */
 ?>

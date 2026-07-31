@@ -3,13 +3,13 @@ if (isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
     $gebruiker = DB::exQuery("SELECT `pokeloot_token`,`premiumaccount`,`rank`,`rankexp`,`rankexpnodig` FROM `gebruikers` WHERE `user_id`={$_SESSION['id']} LIMIT 1")->fetch_assoc();
 
     if (($_SESSION['ploot'] ?? '') != $gebruiker['pokeloot_token']) {
-        echo 'error | Acesso inválido!';
+        echo 'error | ' . $txt['loot_invalid_access'];
     } else {
         function addSilvers($min = 500, $max = 4999) {
-            global $static_url;
+            global $static_url, $txt;
             $silvers = rand($min, $max);
             DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+{$silvers},`pokeloot_token`='NULL' WHERE `user_id`={$_SESSION['id']} LIMIT 1");
-            return 'success | Parabéns, você ganhou <img src="' . $static_url . '/images/icons/silver.png" /> <b>' . highamount($silvers) .'</b> no <b>Poké-Loot</b>!';
+            return 'success | ' . sprintf($txt['loot_won_silvers'], '<img src="' . $static_url . '/images/icons/silver.png" />', highamount($silvers));
         }
     
         function getSlot () {
@@ -25,24 +25,24 @@ if (isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
         }
 
         function addItems ($item, $quant) {
-            global $static_url;
+            global $static_url, $txt;
             $slots = getSlot ();
             if ($slots > $quant) {
                 DB::exQuery("UPDATE `gebruikers_item` SET `$item`=`$item`+$quant WHERE user_id='$_SESSION[id]'");
-                return 'success | Parabéns, você ganhou <b>x'.$quant.'</b> <img src="' . $static_url . '/images/items/' . $item . '.png" style="vertical-align: middle"/> no <b>Poké-Loot</b>!';
+                return 'success | ' . sprintf($txt['loot_won_item'], $quant, '<img src="' . $static_url . '/images/items/' . $item . '.png" style="vertical-align: middle"/>');
             } else {
-                return 'error | Você não tem espaço suficiente em sua mochila!';
+                return 'error | ' . $txt['loot_no_bag_space'];
             }
         }
 
         function addTM ($item, $quant) {
-            global $static_url;
+            global $static_url, $txt;
             $slots = getSlot ();
             if ($slots > $quant) {
                 DB::exQuery("UPDATE `gebruikers_tmhm` SET `$item`=`$item`+$quant WHERE user_id='$_SESSION[id]'");
-                return 'success | Parabéns, você ganhou <b>x'.$quant.'</b> '.$item.' no <b>Poké-Loot</b>!';
+                return 'success | ' . sprintf($txt['loot_won_item'], $quant, $item);
             } else {
-                return 'error | Você não tem espaço suficiente em sua mochila!';
+                return 'error | ' . $txt['loot_no_bag_space'];
             }
         }
 
@@ -93,7 +93,7 @@ if (isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
                     else $premium += $gebruiker['premiumaccount'];
 
                     DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$premium} WHERE `user_id`={$_SESSION['id']} LIMIT 1");
-                    echo 'success | Parabéns, você ganhou <b>1 dia</b> de <img src="' . $static_url . '/images/icons/vip.gif" style="vertical-align: middle"/> no <b>Poké-Loot</b>!';
+                    echo 'success | ' . sprintf($txt['loot_won_vip_day'], '<img src="' . $static_url . '/images/icons/vip.gif" style="vertical-align: middle"/>');
                 }
                 break;
             default:

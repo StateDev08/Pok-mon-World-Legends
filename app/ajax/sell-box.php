@@ -23,7 +23,7 @@ if ($select['admin'] >= 3)	$allowed = 1000000000;
 
 if ($select['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 else if ($select['gehecht'] == 1)	echo '<div class="red">'.$txt['alert_beginpokemon'].'</div>';
-else if ($select['can_trade'] != 1)	echo '<div class="red">Este pokémon não pode ser negociado!</div>';
+else if ($select['can_trade'] != 1)	echo '<div class="red">'.$txt['sellbox_cannot_trade'].'</div>';
 else {
 	$count = DB::exQuery("SELECT `id` FROM `transferlijst` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->num_rows;
 	if ($count < $allowed) {
@@ -34,11 +34,11 @@ else {
 		if (isset($_POST['sell']) && isset($_POST['method'])) {
 			$method = ($_POST['method'] ?? '');
 
-			if (!in_array($method, array('auction', 'direct', 'private'))) echo '<div class="red">Este método de venda não existe!</div>';
+			if (!in_array($method, array('auction', 'direct', 'private'))) echo '<div class="red">'.$txt['sellbox_method_missing'].'</div>';
 			else if ($select['rank'] <= 3)	echo '<div class="red">'.$txt['alert_too_low_rank'].'</div>';
 			else if ($select['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
 			else if ($select['opzak'] == 'tra')	echo '<div class="red">'.$txt['alert_pokemon_already_for_sale'].'</div>';
-			else if ($select['opzak'] == 'day') echo '<div class="red">Este pokémon está no jardim de infância.</div>';
+			else if ($select['opzak'] == 'day') echo '<div class="red">'.$txt['sellbox_in_daycare'].'</div>';
 			else {
 				if ($method == 'auction') {
 					if (isset($_POST['silvers']) && ctype_digit(($_POST['silvers'] ?? ''))) {
@@ -91,7 +91,7 @@ else {
 						$trainer = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='$_POST[trainer]' AND `user_id` != '$_SESSION[id]'");
 						
 						if ($trainer->num_rows == 0) {
-							echo '<div class="red">Este treinador não existe ou ele é você!</div>';
+							echo '<div class="red">'.$txt['sellbox_trainer_invalid'].'</div>';
 						} else {
 							$trainer = $trainer->fetch_assoc()['user_id'];
 
@@ -121,64 +121,64 @@ else {
 
 <div class="box-content" style="background: #1d2b3e;">
 	<div class="msg-container">
-		<div class="title"><p>TEM CERTEZA QUE DESEJA VENDER ESTE <b><?=$pokemonnaam . $shiny;?> (<?=sprintf($txt['level'], $select['level']);?>)</b>?</p></div>
+		<div class="title"><p><?=sprintf($txt['sellbox_confirm_title'], $pokemonnaam . $shiny . ' (' . sprintf($txt['level'], $select['level']) . ')');?></p></div>
 		<div style="background: #34465f;padding: 10px;border-bottom: 2px solid #27374e;">
 			<div align="center" style="padding: 0; width: 150px; height: 120px; background: url('<?=$static_url;?>/images/<?=($select['shiny'] == 1 ? 'shiny' : 'pokemon');?>/<?=$select['wild_id'];?>.gif') center no-repeat; margin: 0 auto"></div>
 		</div>
 	</div>
 	<div class="msg-container" style="margin-top: 10px;">                   
-		<div class="title" style="border-top: 1px solid #577599;"><p>SELECIONE O MÉTODO DE VENDA</p></div>
+		<div class="title" style="border-top: 1px solid #577599;"><p><?=$txt['sellbox_select_method']?></p></div>
 		<div style="background: #34465f;padding: 10px;border-bottom: 2px solid #27374e;">
-			<input type="radio" name="selector" id="s1" value="auction"> <label for="s1"><p style="display: inline-block; margin-bottom: 2px">Leilão</p></label> <br>
-			<input type="radio" name="selector" id="s2" value="direct"> <label for="s2"><p style="display: inline-block; margin-bottom: 2px">Venda Direta</p></label> <br>
-			<input type="radio" name="selector" id="s3" value="private"> <label for="s3"><p style="display: inline-block; margin-bottom: 2px">Venda Privada</p></label> 
+			<input type="radio" name="selector" id="s1" value="auction"> <label for="s1"><p style="display: inline-block; margin-bottom: 2px"><?=$txt['sellbox_auction']?></p></label> <br>
+			<input type="radio" name="selector" id="s2" value="direct"> <label for="s2"><p style="display: inline-block; margin-bottom: 2px"><?=$txt['sellbox_direct']?></p></label> <br>
+			<input type="radio" name="selector" id="s3" value="private"> <label for="s3"><p style="display: inline-block; margin-bottom: 2px"><?=$txt['sellbox_private']?></p></label> 
 		</div>
 	</div>
 	
 	<div class="msg-container select" id="auction" style="margin-top: 10px;">                   
-		<div class="title" style="border-top: 1px solid #577599;"><p>LEILÃO</p></div>
+		<div class="title" style="border-top: 1px solid #577599;"><p><?=$txt['sellbox_auction_upper']?></p></div>
 		<form method="post">
 			<div style="background: #34465f; padding: 10px;">
-				<p>Preço inicial: <input type="number" name="silvers" min="500" max="1000000" required> (entre <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> até <b>1.000.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
-				<p>Esse valor poderá aumentar devido aos lançes. <br>Este Pokémon será vendido depois de até <b>48</b> horas e caso não haja algum lance, ele retornará para sua casa!</p>
+				<p><?=$txt['sellbox_start_price']?> <input type="number" name="silvers" min="500" max="1000000" required> (<?=$txt['sellbox_between']?> <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> <?=$txt['sellbox_until']?> <b>1.000.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
+				<p><?=$txt['sellbox_auction_info']?></p>
 				<input type="hidden" name="method" value="auction">
 			</div>
 			
 			<div style="border-bottom: 2px solid #27374e; border-top: 1px solid #577599; background: #1d2b3e; padding: 5px; text-align: center">
-				<input type="submit" name="sell" value="VENDER POKÉMON!">
+				<input type="submit" name="sell" value="<?=$txt['sellbox_submit']?>">
 			</div>
 		</form>
 	</div>
 
 	<div class="msg-container select" id="direct" style="margin-top: 10px;">                   
-		<div class="title" style="border-top: 1px solid #577599;"><p>VENDA DIRETA</p></div>
+		<div class="title" style="border-top: 1px solid #577599;"><p><?=$txt['sellbox_direct_upper']?></p></div>
 		<form method="post">
 			<div style="background: #34465f; padding: 10px;">
-				<p>Silvers: <input type="number" name="silvers" min="500" max="1500000" required> (entre <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> até <b>1.500.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
-				<p>Golds: <input type="number" name="golds" min="0" max="1000"> (entre <b>0</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub"> até <b>1000</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub">)</p>
-				<p>Preço Negociável: <input type="checkbox" name="negociavel"> (Marque para receber ofertas de negociação de preço)</p>
-				<p>Se este Pokémon não for vendido em até <b>2</b> dias, ele retornará para sua casa!</p>
+				<p>Silvers: <input type="number" name="silvers" min="500" max="1500000" required> (<?=$txt['sellbox_between']?> <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> <?=$txt['sellbox_until']?> <b>1.500.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
+				<p>Golds: <input type="number" name="golds" min="0" max="1000"> (<?=$txt['sellbox_between']?> <b>0</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub"> <?=$txt['sellbox_until']?> <b>1000</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub">)</p>
+				<p><?=$txt['sellbox_negotiable']?> <input type="checkbox" name="negociavel"> <?=$txt['sellbox_negotiable_hint']?></p>
+				<p><?=$txt['sellbox_direct_info']?></p>
 				<input type="hidden" name="method" value="direct">
 			</div>
 			
 			<div style="border-bottom: 2px solid #27374e; border-top: 1px solid #577599; background: #1d2b3e; padding: 5px; text-align: center">
-				<input type="submit" name="sell" value="VENDER POKÉMON!">
+				<input type="submit" name="sell" value="<?=$txt['sellbox_submit']?>">
 			</div>
 		</form>
 	</div>
 
 	<div class="msg-container select" id="private" style="margin-top: 10px;">                   
-		<div class="title" style="border-top: 1px solid #577599;"><p>VENDA PRIVADA</p></div>
+		<div class="title" style="border-top: 1px solid #577599;"><p><?=$txt['sellbox_private_upper']?></p></div>
 		<form method="post">
 			<div style="background: #34465f; padding: 10px;">
-				<p>Silvers: <input type="number" name="silvers" min="500" max="2000000"> (entre <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> até <b>2.000.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
-				<p>Golds: <input type="number" name="golds" min="0" max="1000"> (entre <b>0</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub"> até <b>1000</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub">)</p>
-				<p>Treinador: <input type="text" name="trainer" required> (O nome do treinador que você quer vender)</p>
+				<p>Silvers: <input type="number" name="silvers" min="500" max="2000000"> (<?=$txt['sellbox_between']?> <b>500</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub"> <?=$txt['sellbox_until']?> <b>2.000.000</b> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers" style="vertical-align: sub">)</p>
+				<p>Golds: <input type="number" name="golds" min="0" max="1000"> (<?=$txt['sellbox_between']?> <b>0</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub"> <?=$txt['sellbox_until']?> <b>1000</b> <img src="<?=$static_url?>/images/icons/gold.png" title="Golds" style="vertical-align: sub">)</p>
+				<p><?=$txt['sellbox_trainer']?> <input type="text" name="trainer" required> <?=$txt['sellbox_trainer_hint']?></p>
 				<input type="hidden" name="method" value="private">
 			</div>
 			
 			<div style="border-bottom: 2px solid #27374e; border-top: 1px solid #577599; background: #1d2b3e; padding: 5px; text-align: center">
-				<input type="submit" name="sell" value="VENDER POKÉMON!">
+				<input type="submit" name="sell" value="<?=$txt['sellbox_submit']?>">
 			</div>
 		</form>
 	</div>
@@ -195,7 +195,7 @@ else {
 	});
 </script>
 <?php
-	} else	echo '<div class="red">Você não pode colocar mais de ' . $allowed . ' Pokémons nessa venda!</div>';
+	} else	echo '<div class="red">'.sprintf($txt['sellbox_limit'], $allowed).'</div>';
 }
 ?>
 </body>
