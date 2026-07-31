@@ -74,7 +74,7 @@ function oplopend(green_old,green_new,wie,life,life_new,life_max){
 
     //Do it agian
 
-    timer = setTimeout('leven_verandering( '+ life_new + ', "'+ wie+ '", ' + life_max + ');', 5);
+    timer = setTimeout(function () { leven_verandering(life_new, wie, life_max); }, 5);
 
   }
 
@@ -110,7 +110,7 @@ function aflopend(green_old,green_new,wie,life,life_new,life_max){
 
     //Do it agian
 
-    timer = setTimeout('leven_verandering( '+ life_new + ', "'+ wie+ '", ' + life_max + ');', 5);
+    timer = setTimeout(function () { leven_verandering(life_new, wie, life_max); }, 5);
 
   }
 
@@ -198,7 +198,7 @@ function oplopend_exp(blue_old,blue_new,exp_old,exp_new,exp_max){
 
     //Do it agian
 
-    timer = setTimeout('exp_change( '+ exp_new + ', ' + exp_max + ');', 5);
+    timer = setTimeout(function () { exp_change(exp_new, exp_max); }, 5);
 
   }
 

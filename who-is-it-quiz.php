@@ -125,7 +125,7 @@ function aftellen3() {
 	}  
 }
 	aftellen3();  
-	interval3 = setInterval('aftellen3();', 1000);
+	interval3 = setInterval(function () { aftellen3(); }, 1000);
 </script> 
 
 <?php } ?>

@@ -59,7 +59,7 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 				var request = data.split(" | ");
 				$("#league_counter").html(request[1]);
 				if (request[0] === '0')
-					setTimeout("batalhar()", 2000);
+					setTimeout(function () { batalhar(); }, 2000);
 				else if (request[0] === '1')
 					location.reload();
 				else if (request[0] === '2')

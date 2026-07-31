@@ -54,11 +54,11 @@ if (isset($_POST['here'])) {
           $.get("attack/tour_ready.php?duel_id="+<?php echo $duel_id; ?>+"&sid="+Math.random(), function(data) {
             if (data == 0) {
               $("#status").append(".")
-              t = setTimeout('status_check()', 2000)
+              t = setTimeout(function () { status_check(); }, 2000)
             } 
             else if (data == 1) {
               clearTimeout(t) 
-              setTimeout("location.href='./attack/duel/duel-attack'", 0)
+              setTimeout(function () { location.href = './attack/duel/duel-attack' }, 0)
             }
             else if (data == 2) {
               clearTimeout(t) 
@@ -66,7 +66,7 @@ if (isset($_POST['here'])) {
             }
             else{
               $("#status").append("...")
-              t = setTimeout('status_check()', 2000)
+              t = setTimeout(function () { status_check(); }, 2000)
             }
           });
         }

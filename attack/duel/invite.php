@@ -132,7 +132,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                             $.get("attack/duel/status_check.php?duel_id=" +<?php echo $duel2['id']; ?> + "&sid=" + Math.random(), function(data) {
                                 if (data == 0) {
                                     $("#status").html("Esperando<span class='dots'></span>")
-                                    t = setTimeout('status_check()', 5000);
+                                    t = setTimeout(function () { status_check(); }, 5000);
                                 }
                                 else if (data == 1) {
                                     $("#status").html("Expirado.")
@@ -145,7 +145,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                                 else if (data == 3) {
                                     $("#status").html("Aceito.")
                                     clearTimeout(t)
-                                    setTimeout("location.href='./attack/duel/duel-attack'", 0)
+                                    setTimeout(function () { location.href = './attack/duel/duel-attack' }, 0)
                                 }
                                 else if (data == 4) {
                                     $("#status").html("<?php echo $txt['alert_opponent_no_silver']; ?>")

@@ -210,21 +210,21 @@ var trainer_zmove = <?=$duel_info['zmove_'.str_replace('_klaar', '', $duel_info[
 function your_to_late() {
   clearTimeout(you_to_late)
   $("#message").html("<?= $txt['too_late_lost']; ?>")
-  setTimeout("show_end_screen()", 5000)
+  setTimeout(function () { show_end_screen(); }, 5000)
 }
 
 function you_check_to_late() {
   you_time_used++
   $("#time_left").html(max_time-you_time_used)
   if (you_time_used >= max_time) your_to_late()
-  else you_to_late = setTimeout('you_check_to_late()', 1000)
+  else you_to_late = setTimeout(function () { you_check_to_late(); }, 1000)
 }
 
 function opponent_check_to_late() {
   opp_time_used++
   $("#time_left").html(max_time-opp_time_used)
   if (opp_time_used >= max_time) last_move_check()
-  else opp_to_late = setTimeout('opponent_check_to_late()', 1000)
+  else opp_to_late = setTimeout(function () { opponent_check_to_late(); }, 1000)
 }
 
 function do_wissel(request) {
@@ -273,7 +273,7 @@ $("#message").ready(function() {
     $("#pokemon_life").width('100%')
     $("#pokemon_exp").width('0%')
     
-    ready_check = setTimeout("check_ready()", 1000)
+    ready_check = setTimeout(function () { check_ready(); }, 1000)
   } else if ("<?= $duel_info['laatste_beurt']; ?>" == you+"_begin") {
     $("#message").html("<?= $txt['you_first_attack']; ?>")
     attack = 1
@@ -342,7 +342,7 @@ function last_move_check() {
 
     //No reaction
     if (request[0] == 0) {
-      setTimeout('last_move_check()', 1500)
+      setTimeout(function () { last_move_check(); }, 1500)
       attack = 0
       wissel = 0
     }
@@ -459,7 +459,7 @@ function last_move_check() {
       wissel = 0
       opp_time_used = request[9]
       opponent_check_to_late()
-      setTimeout('last_move_check()', 1500)
+      setTimeout(function () { last_move_check(); }, 1500)
     }
     //Player Has To Change
     else if (request[0] == 4) {
@@ -493,7 +493,7 @@ function last_move_check() {
     else if (request[0] == 2) {
       clearTimeout(opp_to_late)
       $("#message").html(request[1])
-      end = setTimeout("show_end_screen();", 5000)
+      end = setTimeout(function () { show_end_screen(); }, 5000)
       $("#time_left").html("0")
       attack = 0
       wissel = 0
@@ -504,7 +504,7 @@ function last_move_check() {
       $("#message").html(request[1])
       $("#time_left").html("0")
       leven_verandering(request[3],'pokemon',request[4])
-      end = setTimeout("show_end_screen();", 5000)
+      end = setTimeout(function () { show_end_screen(); }, 5000)
       attack = 0
       wissel = 0
     }
@@ -548,13 +548,16 @@ function check_ready() {
     request = data.split(" | ")
     if (request[0] == 0) {
       if (request[1] != "") $("#message").html(request[1])
-      else ready_check = setTimeout("check_ready()", 1000)
+      else ready_check = setTimeout(function () { check_ready(); }, 1000)
     }
     else if (request[0] == 1) {
       clearTimeout(ready_check)
-      start_text = setTimeout("show_start_text(\'"+request[1]+"\',\'"+request[2]+"\',\'"+request[3]+"\',\'"+request[4]+"\',\'"+request[5]+"\',\'"+request[6]+"\',\'"+request[7]+"\',\'"+request[8]+"\');", 5000)
+      var start_args = request.slice(1, 9)
+      start_text = setTimeout(function () {
+        show_start_text(start_args[0], start_args[1], start_args[2], start_args[3], start_args[4], start_args[5], start_args[6], start_args[7])
+      }, 5000)
     }
-    else ready_check = setTimeout("check_ready()", 1000)
+    else ready_check = setTimeout(function () { check_ready(); }, 1000)
   });
 }
 
@@ -583,7 +586,7 @@ function show_end_screen() {
     //Set Images
     $("#img_you").attr("src","<?= $static_url?>/images/characters/<?= $gebruiker['character']; ?>/Thumb.png")
     $("#img_opponent").attr("src","<?= $static_url?>/images/characters/<?= $duel_info['opponent_sex']; ?>/Thumb.png")
-    setTimeout("location.href='./home'", 7500)
+    setTimeout(function () { location.href = './home' }, 7500)
   });
 }
 
@@ -595,7 +598,7 @@ function attack_status_2(msg) {
   document.getElementById('dame').style.display = "none";
   $("#message").html(request[0])
   if (request[1] == 1) {
-    setTimeout('last_move_check()', 1500)
+    setTimeout(function () { last_move_check(); }, 1500)
     opp_time_used = 0
     opponent_check_to_late() 
     attack = 0
@@ -607,7 +610,7 @@ function attack_status_2(msg) {
   }
   else if (request[1] == 2) {
     exp_change(request[6],request[7])
-    setTimeout("show_end_screen();", 5000)
+    setTimeout(function () { show_end_screen(); }, 5000)
   }
 }
 
@@ -712,7 +715,7 @@ function attack_status(msg) {
         leven_verandering(request[24],'pokemon',request[15]);
         document.getElementById('dame').style.display = "";
         $("#dame").html(request[7]);
-        attack_timer = setTimeout("attack_status_2('"+msg+"');", time)
+        attack_timer = setTimeout(function () { attack_status_2(msg) }, time)
 }
 
 //Change Pokemon Function
@@ -799,7 +802,7 @@ function change_pokemon_status(msg) {
     }
     else{
       attack = 0
-      setTimeout('last_move_check()', 1500)
+      setTimeout(function () { last_move_check(); }, 1500)
       opp_time_used = 0
       opponent_check_to_late()
     }
