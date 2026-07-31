@@ -73,10 +73,10 @@ if (isset($_POST['blocknaam'])) {
   $gebruiker['blocklist'] = $new_block['blocklist'];
 }
 
-echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens de outros treinadores utilizando as Mensagens Privadas, Bloquear Treinadores e ver as Mensagens Oficiais do jogo. <br>Não é permitido utilizá-lo para fins de propaganda!');
+echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
 ?>
 
-<div class="red">NUNCA dê sua senha ou e-mail a ninguém através de mensagem privada. Em nenhum momento, alguém da equipe do jogo irá pedir sua senha.</div>
+<div class="red"><?=$txt['blocklist_warning']?></div>
 
 <?php if ($error) echo $error; ?>
 <div style="width: 100%; display: flex" class="box-content">
@@ -118,7 +118,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
         <div class="title">
             <p style="padding: 10px; margin: 0; font-weight: bold" id="title">Bloquear Treinador<br><span style="font-size: 12px"></span></p>
         </div>
-        <div class="blue">Caso bloqueie algum treinador, você não poderá mandar ou receber mensagens dele e irá exluí-lo de sua lista de amigos.</div>
+        <div class="blue"><?=$txt['blocklist_block_info']?></div>
         <div style="max-height: 500px; overflow-y: auto;">
             <ul class="ul">
                 <li>

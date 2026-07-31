@@ -2144,6 +2144,10 @@ $txt['common_not_enough_tickets'] = 'У вас недостаточно БИЛЕ
 $txt['common_no_bag_space'] = 'В ВАШЕЙ СУМКЕ НЕТ СВОБОДНОГО МЕСТА!';
 $txt['common_six_pokemon_in_hand'] = 'У ВАС УЖЕ ЕСТЬ 6 ПОКЕМОНОВ!';
 $txt['common_bought_one_item'] = 'Вы купили 1x %s!';
+$txt['common_cannot_afford'] = 'У вас недостаточно средств!';
+$txt['common_buy_button'] = 'Купить';
+$txt['common_change_button'] = 'Изменить';
+$txt['common_confirm_purchase_2'] = 'Вы действительно хотите совершить эту покупку?';
 
 # account-options
 $txt['acc_npc_title'] = 'Настройки аккаунта';
@@ -2205,5 +2209,52 @@ $txt['casino_store_tickets_to_silver'] = 'Обменяйте билеты на �
 $txt['casino_store_rewards_title'] = 'ОБМЕНЯЙТЕ БИЛЕТЫ НА ЭТИ НАГРАДЫ!';
 $txt['casino_store_desc_pokemon'] = 'Обменяйте билеты на этого прекрасного %s!';
 $txt['casino_store_desc_item'] = 'Обменяйте билеты на этот замечательный %s: %s';
+
+# blocklist
+$txt['blocklist_npc_title'] = 'Почтовый ящик';
+$txt['blocklist_npc_text'] = 'Вы можете отправлять и получать сообщения от других тренеров через личные сообщения, блокировать тренеров и читать официальные сообщения игры. <br>Использовать это для рекламы запрещено!';
+$txt['blocklist_warning'] = 'НИКОГДА не сообщайте свой пароль или e-mail в личных сообщениях. Никто из команды игры никогда не попросит ваш пароль.';
+$txt['blocklist_block_info'] = 'Если вы заблокируете тренера, вы не сможете отправлять и получать от него сообщения, и он будет удалён из списка друзей.';
+
+# daily_quests
+$txt['quests_no_bag_space'] = 'В вашей сумке нет места!';
+$txt['quests_seven_days_reward'] = 'Вы выполнили миссии 7 дней подряд и получили Мастер-болл %s!';
+
+# bank
+$txt['bank_rank_too_low'] = 'Ваш ранг слишком низкий.';
+
+# badges
+$txt['badges_title'] = 'Значки';
+$txt['badges_not_obtained'] = 'Значок %s не получен!';
+
+# choose-pokemon
+$txt['choose_confirm_journey'] = '%s Вы действительно хотите начать путешествие с %s?';
+$txt['choose_phrase_1'] = 'Похоже, ты ему понравился.';
+$txt['choose_phrase_2'] = 'Какой прекрасный выбор!';
+$txt['choose_phrase_3'] = 'Интересный выбор.';
+$txt['choose_phrase_4'] = 'Мне нравится связь между вами.';
+$txt['choose_phrase_5'] = 'Он немного застенчив, но, кажется, ты ему нравишься!';
+$txt['choose_button'] = 'Выбрать %s';
+
+# gold-market
+$txt['gold_npc_title'] = 'Потратьте своё золото';
+$txt['gold_npc_text'] = 'Это эксклюзивный рынок для покупок за золото. Здесь вы можете приобрести VIP, изменить имя тренера, сменить тренера/персонажа и многое другое, что появится позже!';
+$txt['gold_buy_golds_link'] = 'Нажмите здесь, чтобы купить ЗОЛОТО.';
+$txt['gold_col_item'] = 'Предмет';
+$txt['gold_col_value'] = 'Цена';
+$txt['gold_col_action'] = 'Действие';
+$txt['gold_vip_days'] = 'VIP - %s дней';
+$txt['gold_vip_desc'] = 'С VIP вы получаете бонусы к опыту/серебру, VIP-панель, сокращённое время в покемон-центре и в путешествиях и многое другое ...';
+$txt['gold_name_change_title'] = 'Смена имени';
+$txt['gold_name_change_desc'] = 'Здесь вы можете изменить имя тренера за небольшую плату.';
+$txt['gold_char_change_title'] = 'Смена персонажа';
+$txt['gold_char_change_desc'] = 'Здесь вы можете сменить персонажа тренера за небольшую плату.';
+$txt['gold_alert_name_empty'] = 'Введите новое имя!';
+$txt['gold_alert_name_short'] = 'ИМЯ ПОЛЬЗОВАТЕЛЯ ДОЛЖНО СОДЕРЖАТЬ НЕ МЕНЕЕ 4 СИМВОЛОВ!';
+$txt['gold_alert_name_long'] = 'ИМЯ ПОЛЬЗОВАТЕЛЯ НЕ ДОЛЖНО ПРЕВЫШАТЬ 12 СИМВОЛОВ!';
+$txt['gold_alert_name_invalid'] = 'В имени тренера разрешены только буквы и цифры!';
+$txt['gold_alert_name_taken'] = 'Это имя уже занято другим тренером!';
+$txt['gold_alert_choose_char'] = 'Выберите персонажа!';
+$txt['gold_alert_char_missing'] = 'Такого персонажа не существует!';
 /* === end externalized strings === */
 ?>

@@ -132,12 +132,18 @@ if ($gebruiker['eigekregen'] == 0) {
 	var $submit = $('#choose');
 	var $form = $('#form');
 	var frases = [
-		'Parece que ele gostou de você.',
-		'Que bela escolha!',
-		'Uma escolha interessante.',
-		'Gostei do vínculo entre vocês.',
-		'Ele está meio tímido, mas parece que gostou de você!'
+		<?=json_encode($txt['choose_phrase_1'])?>,
+		<?=json_encode($txt['choose_phrase_2'])?>,
+		<?=json_encode($txt['choose_phrase_3'])?>,
+		<?=json_encode($txt['choose_phrase_4'])?>,
+		<?=json_encode($txt['choose_phrase_5'])?>
 	];
+	var choose_button_text = <?=json_encode($txt['choose_button'])?>;
+	var choose_confirm_text = <?=json_encode($txt['choose_confirm_journey'])?>;
+
+	function chooseText(template, value) {
+		return template.replace('%s', value);
+	}
 	let f1 = frases[Math.floor(Math.random() * frases.length)];
 	let f2 = frases[Math.floor(Math.random() * frases.length)];
 	let f3 = frases[Math.floor(Math.random() * frases.length)];
@@ -158,15 +164,15 @@ if ($gebruiker['eigekregen'] == 0) {
 		$poke_name.text($poke_array_name[flkty.selectedIndex]);
 		$poke_link.html($poke_array_type[flkty.selectedIndex]);
 		$poke_id.val ($poke_array_id[flkty.selectedIndex]);
-		$submit.val('Escolher '+$poke_array_name[flkty.selectedIndex]);
-		$form.attr('onsubmit', "return confirm('"+frase[flkty.selectedIndex]+" Você deseja realmente iniciar sua jornada com "+$poke_array_name[flkty.selectedIndex]+"?')");
+		$submit.val(chooseText(choose_button_text, $poke_array_name[flkty.selectedIndex]));
+		$form.attr('onsubmit', "return confirm('"+choose_confirm_text.replace('%s', frase[flkty.selectedIndex]).replace('%s', $poke_array_name[flkty.selectedIndex])+"')");
 	});
 
 	$poke_name.text($poke_array_name[0]);
 	$poke_link.html($poke_array_type[0]);
 	$poke_id.val ($poke_array_id[0]);
-	$submit.val('Escolher '+$poke_array_name[0]);
-	$form.attr('onsubmit', "return confirm('"+frase[0]+" Você deseja realmente iniciar sua jornada com "+$poke_array_name[0]+"?')");
+	$submit.val(chooseText(choose_button_text, $poke_array_name[0]));
+	$form.attr('onsubmit', "return confirm('"+choose_confirm_text.replace('%s', frase[0]).replace('%s', $poke_array_name[0])+"')");
 
 	$car.resize();
 	

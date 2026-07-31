@@ -2144,6 +2144,10 @@ $txt['common_not_enough_tickets'] = 'Du hast nicht genug TICKETS!';
 $txt['common_no_bag_space'] = 'DU HAST KEINEN FREIEN PLATZ IN DEINEM RUCKSACK!';
 $txt['common_six_pokemon_in_hand'] = 'DU HAST BEREITS 6 POKÉMON BEI DIR!';
 $txt['common_bought_one_item'] = 'Du hast 1x %s gekauft!';
+$txt['common_cannot_afford'] = 'Das kannst du dir nicht leisten!';
+$txt['common_buy_button'] = 'Kaufen';
+$txt['common_change_button'] = 'Ändern';
+$txt['common_confirm_purchase_2'] = 'Möchtest du diesen Kauf wirklich tätigen?';
 
 # account-options
 $txt['acc_npc_title'] = 'Kontoeinstellungen';
@@ -2205,5 +2209,52 @@ $txt['casino_store_tickets_to_silver'] = 'Tausche deine Tickets gegen Silver!';
 $txt['casino_store_rewards_title'] = 'TAUSCHE DEINE TICKETS GEGEN DIESE BELOHNUNGEN!';
 $txt['casino_store_desc_pokemon'] = 'Tausche deine Tickets gegen dieses wunderschöne %s!';
 $txt['casino_store_desc_item'] = 'Tausche deine Tickets gegen dieses fabelhafte %s: %s';
+
+# blocklist
+$txt['blocklist_npc_title'] = 'Postfach';
+$txt['blocklist_npc_text'] = 'Über die privaten Nachrichten kannst du Nachrichten von anderen Trainern senden und empfangen, Trainer blockieren und die offiziellen Nachrichten des Spiels lesen. <br>Werbung ist nicht erlaubt!';
+$txt['blocklist_warning'] = 'Gib NIEMALS dein Passwort oder deine E-Mail-Adresse per privater Nachricht weiter. Das Team des Spiels wird dich niemals nach deinem Passwort fragen.';
+$txt['blocklist_block_info'] = 'Wenn du einen Trainer blockierst, kannst du ihm keine Nachrichten mehr senden oder von ihm empfangen und er wird aus deiner Freundesliste entfernt.';
+
+# daily_quests
+$txt['quests_no_bag_space'] = 'In deinem Rucksack ist kein Platz!';
+$txt['quests_seven_days_reward'] = 'Du hast 7 Tage AUFEINANDERFOLGENDE MISSIONEN abgeschlossen und einen Meisterball %s erhalten!';
+
+# bank
+$txt['bank_rank_too_low'] = 'Dein Rang ist zu niedrig.';
+
+# badges
+$txt['badges_title'] = 'Orden';
+$txt['badges_not_obtained'] = '%s-Orden noch nicht erhalten!';
+
+# choose-pokemon
+$txt['choose_confirm_journey'] = '%s Möchtest du deine Reise wirklich mit %s beginnen?';
+$txt['choose_phrase_1'] = 'Es sieht so aus, als hätte es dich gern.';
+$txt['choose_phrase_2'] = 'Was für eine schöne Wahl!';
+$txt['choose_phrase_3'] = 'Eine interessante Wahl.';
+$txt['choose_phrase_4'] = 'Mir gefällt die Verbindung zwischen euch.';
+$txt['choose_phrase_5'] = 'Es ist etwas schüchtern, scheint dich aber zu mögen!';
+$txt['choose_button'] = '%s wählen';
+
+# gold-market
+$txt['gold_npc_title'] = 'Gib dein Gold aus';
+$txt['gold_npc_text'] = 'Dies ist ein exklusiver Markt für Käufe mit Gold. Hier kannst du VIP erwerben, den Namen deines Trainers ändern, den Trainer/Charakter wechseln und weitere Dinge, die bald hinzukommen!';
+$txt['gold_buy_golds_link'] = 'Klicke hier, um GOLD zu kaufen.';
+$txt['gold_col_item'] = 'Artikel';
+$txt['gold_col_value'] = 'Preis';
+$txt['gold_col_action'] = 'Aktion';
+$txt['gold_vip_days'] = 'VIP - %s Tage';
+$txt['gold_vip_desc'] = 'Mit VIP erhältst du Vorteile wie Erfahrungs-/Silver-Bonus, die VIP-Leiste, kürzere Wartezeiten im Pokémon-Center und bei Reisen und mehr ...';
+$txt['gold_name_change_title'] = 'Namensänderung';
+$txt['gold_name_change_desc'] = 'Hier kannst du den Namen deines Trainers gegen eine kleine Gebühr ändern.';
+$txt['gold_char_change_title'] = 'Charakterwechsel';
+$txt['gold_char_change_desc'] = 'Hier kannst du den Charakter deines Trainers gegen eine kleine Gebühr wechseln.';
+$txt['gold_alert_name_empty'] = 'Bitte gib einen neuen Namen ein!';
+$txt['gold_alert_name_short'] = 'DER BENUTZERNAME MUSS MINDESTENS 4 ZEICHEN HABEN!';
+$txt['gold_alert_name_long'] = 'DER BENUTZERNAME DARF HÖCHSTENS 12 ZEICHEN HABEN!';
+$txt['gold_alert_name_invalid'] = 'Im Trainernamen sind nur Buchstaben und Zahlen erlaubt!';
+$txt['gold_alert_name_taken'] = 'Dieser Name wird bereits von einem anderen Trainer verwendet!';
+$txt['gold_alert_choose_char'] = 'Wähle einen Charakter!';
+$txt['gold_alert_char_missing'] = 'Dieser Charakter existiert nicht!';
 /* === end externalized strings === */
 ?>

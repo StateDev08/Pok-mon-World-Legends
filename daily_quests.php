@@ -99,12 +99,12 @@ if ($gebruiker['rank'] >= 4) {
                     if ($gebruiker['streak'] == 6 && $gebruiker['quest_2'] == '1') {
                         if ($rekening['quest_r_master'] == '0') {
                             if ($gebruiker['item_over'] < 1) {
-                                echo '<div class="red">Não há espaço na sua mochila!</div>';
+                                echo '<div class="red">'.$txt['quests_no_bag_space'].'</div>';
                             } else {
                                 $item = 'Master ball';
                                 DB::exQuery("UPDATE `rekeningen` SET `quest_r_master`='1' WHERE `acc_id`='$_SESSION[acc_id]'");
                                 DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
-                                echo '<div class="green">Você completou 7 dias de MISSÕES CONSECULTIVAS e ganhou uma Master Ball <img src="public/images/items/Master ball.png" style="vertical-align: middle">!</div>';
+                                echo '<div class="green">'.sprintf($txt['quests_seven_days_reward'], '<img src="public/images/items/Master ball.png" style="vertical-align: middle">').'</div>';
                             }
                         } else {
                             echo '<div class="green">'.$txt['dquest_master_taken'].'</div>';

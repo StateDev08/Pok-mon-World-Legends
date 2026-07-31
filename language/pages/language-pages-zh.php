@@ -2144,6 +2144,10 @@ $txt['common_not_enough_tickets'] = '你的门票不足！';
 $txt['common_no_bag_space'] = '你的背包已满！';
 $txt['common_six_pokemon_in_hand'] = '你身上已经有 6 只宝可梦了！';
 $txt['common_bought_one_item'] = '你购买了 1x %s！';
+$txt['common_cannot_afford'] = '你买不起这个！';
+$txt['common_buy_button'] = '购买';
+$txt['common_change_button'] = '更改';
+$txt['common_confirm_purchase_2'] = '确定要进行这次购买吗？';
 
 # account-options
 $txt['acc_npc_title'] = '帐户设置';
@@ -2205,5 +2209,52 @@ $txt['casino_store_tickets_to_silver'] = '用门票兑换银币！';
 $txt['casino_store_rewards_title'] = '用你的门票兑换这些奖励！';
 $txt['casino_store_desc_pokemon'] = '用你的门票兑换这只漂亮的 %s！';
 $txt['casino_store_desc_item'] = '用你的门票兑换这个超棒的 %s：%s';
+
+# blocklist
+$txt['blocklist_npc_title'] = '消息箱';
+$txt['blocklist_npc_text'] = '你可以通过私信与其他训练师收发消息、屏蔽训练师并查看游戏的官方消息。<br>禁止用于广告用途！';
+$txt['blocklist_warning'] = '绝对不要通过私信把密码或电子邮件告诉任何人。游戏团队绝不会向你索要密码。';
+$txt['blocklist_block_info'] = '如果你屏蔽某位训练师，你将无法与其收发消息，并且会将其从好友列表中移除。';
+
+# daily_quests
+$txt['quests_no_bag_space'] = '你的背包没有空间了！';
+$txt['quests_seven_days_reward'] = '你连续 7 天完成了任务，并获得了一个大师球 %s！';
+
+# bank
+$txt['bank_rank_too_low'] = '你的等级不足。';
+
+# badges
+$txt['badges_title'] = '徽章';
+$txt['badges_not_obtained'] = '尚未获得 %s 徽章！';
+
+# choose-pokemon
+$txt['choose_confirm_journey'] = '%s 你确定要与 %s 一起开始旅程吗？';
+$txt['choose_phrase_1'] = '看起来它很喜欢你。';
+$txt['choose_phrase_2'] = '真是个好选择！';
+$txt['choose_phrase_3'] = '有趣的选择。';
+$txt['choose_phrase_4'] = '我喜欢你们之间的羁绊。';
+$txt['choose_phrase_5'] = '它有点害羞，但似乎很喜欢你！';
+$txt['choose_button'] = '选择 %s';
+
+# gold-market
+$txt['gold_npc_title'] = '花费你的金币';
+$txt['gold_npc_text'] = '这是使用金币购买的专属市场，你可以在这里购买 VIP、修改训练师名称、更换训练师／角色，以及更多即将加入的内容！';
+$txt['gold_buy_golds_link'] = '点击这里购买金币。';
+$txt['gold_col_item'] = '物品';
+$txt['gold_col_value'] = '价格';
+$txt['gold_col_action'] = '操作';
+$txt['gold_vip_days'] = 'VIP - %s 天';
+$txt['gold_vip_desc'] = '购买 VIP 后可获得经验／银币加成、VIP 栏、缩短宝可梦中心与旅行等待时间等多种优势……';
+$txt['gold_name_change_title'] = '更改名称';
+$txt['gold_name_change_desc'] = '你可以在这里花费少量费用更改训练师名称。';
+$txt['gold_char_change_title'] = '更换角色';
+$txt['gold_char_change_desc'] = '你可以在这里花费少量费用更换训练师角色。';
+$txt['gold_alert_name_empty'] = '请填写新名称！';
+$txt['gold_alert_name_short'] = '用户名至少需要 4 个字符！';
+$txt['gold_alert_name_long'] = '用户名不能超过 12 个字符！';
+$txt['gold_alert_name_invalid'] = '训练师名称只能包含字母和数字！';
+$txt['gold_alert_name_taken'] = '该名称已被其他训练师使用！';
+$txt['gold_alert_choose_char'] = '请选择角色！';
+$txt['gold_alert_char_missing'] = '该角色不存在！';
 /* === end externalized strings === */
 ?>

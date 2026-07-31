@@ -24,7 +24,7 @@ if (isset($_POST['naargebruiker'])) {
   	$bericht_send = '<div class="red">'.$txt['alert_no_silver_or_gold'].'</div>'; 
   #Sem ranking suficiente
   else if (($gebruiker['rank'] < 8) && ($what == 'gold'))
-  	$bericht_send = '<div class="red">Você não tem rank suficiente.</div>'; 
+  	$bericht_send = '<div class="red">'.$txt['bank_rank_too_low'].'</div>'; 
   #Tentando enviar pra si proprio	
   else if (strtolower(($_POST['gebruiker'] ?? '')) == strtolower($gebruiker['username']))
     $bericht_send = '<div class="red">'.$txt['alert_send_to_yourself'].'</div>';  
