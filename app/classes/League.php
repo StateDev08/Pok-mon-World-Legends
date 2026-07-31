@@ -242,18 +242,19 @@ class League {
     }
 
     public function inscrever($user_id) {
+        global $txt;
 
         //NOW() - INTERVAL 4 HOUR - INTERVAL 2 MINUTE - INTERVAL 17 SECOND
         $time = time() + League::$ajuste_tempo_int;
 
         if ($time < strtotime($this->inicio_inscricoes)) {
-            $this->erros[] = "As inscrições ainda não começaram!";
+            $this->erros[] = $txt['liga_err_not_started'];
         }
         if ($time > strtotime($this->fim_inscricoes)) {
-            $this->erros[] = "As inscrições já foram encerradas!";
+            $this->erros[] = $txt['liga_err_closed'];
         }
         if ($this->participantes >= $this->total_participantes) {
-            $this->erros[] = "Todas as vagas já foram preenchidas!";
+            $this->erros[] = $txt['liga_err_full'];
         }
 
         if (count($this->erros) > 0) {
@@ -269,21 +270,21 @@ class League {
         $user2 = $result2->fetch_assoc();
 
         if ($user['silver'] < $this->preco_silvers) {
-            $this->erros[] = "Você não tem silvers suficientes!";
+            $this->erros[] = $txt['liga_err_no_silver'];
         }
         if ($user2['gold'] < $this->preco_golds) {
-            $this->erros[] = "Você não tem golds suficientes!";
+            $this->erros[] = $txt['liga_err_no_gold'];
         }
         if ($this->vip && $user['premiumaccount'] < time()) {
-            $this->erros[] = "Você precisa ser vip para participar!";
+            $this->erros[] = $txt['liga_err_need_vip'];
         }
 
         if (!$this->mods && $user['admin'] == 1) {
-            $this->erros[] = "Os moderadores não podem participar!";
+            $this->erros[] = $txt['liga_err_no_mods'];
         } else if (!$this->admins && $user['admin'] == 2) {
-            $this->erros[] = "Os administradores não podem participar!";
+            $this->erros[] = $txt['liga_err_no_admins'];
         } else if (!$this->donos && $user['admin'] == 3) {
-            $this->erros[] = "Os donos do jogo não podem participar!";
+            $this->erros[] = $txt['liga_err_no_owners'];
         }
 
         // if (count(explode(',', $user['pok_bezit'])) < 7) {
@@ -301,7 +302,7 @@ class League {
 
             foreach ($this->insignias[$this->regiao] as $insignia) {
                 if (!$badges[$insignia]) {
-                    $this->erros[] = "Você precisa ter 5 insígnias da região de " . $this->regiao . "! <a href=\"./attack/gyms\">Ir para os ginásios -></a>";
+                    $this->erros[] = sprintf($txt['liga_err_need_badges'], $this->regiao);
                     break;
                 }
             }
@@ -312,7 +313,7 @@ class League {
         }
 
         if (DB::exQuery("SELECT * FROM `league_participant` WHERE user_id='$user_id' AND league_id='$this->id'")->num_rows > 0) {
-            $this->erros[] = "Você já esta participando!";
+            $this->erros[] = $txt['liga_err_already_in'];
         }
         
         if (count($this->erros) > 0) {
@@ -322,7 +323,7 @@ class League {
         $participantes = DB::exQuery("SELECT COUNT(*) FROM `league_participant` WHERE `league_id`='$this->id'")->fetch_array['0'];
         
         if ($participantes >= $this->total_participantes) {
-            $this->erros[] = "Todas as vagas já foram preenchidas!";
+            $this->erros[] = $txt['liga_err_full'];
             return false;
         }
 
@@ -335,7 +336,7 @@ class League {
             DB::exQuery($sql_desconta_insignias);
 
             if (count($this->erros) > 0) {
-                $this->erros[] = "Não foi possivel realizar a sua inscrição! #1";
+                $this->erros[] = sprintf($txt['liga_err_register_failed'], 1);
                 return false;
             }
         }
@@ -353,7 +354,7 @@ class League {
                 DB::exQuery($sql_desconta_insignias);
             }
 
-            $this->erros[] = "Não foi possivel realizar a sua inscrição! #2";
+            $this->erros[] = sprintf($txt['liga_err_register_failed'], 2);
             return false;
         }
 
@@ -372,7 +373,7 @@ class League {
             DB::exQuery("UPDATE gebruikers SET silver = silver + $this->preco_silvers WHERE user_id = $user_id");
 	    DB::exQuery("UPDATE rekeningen SET gold = gold + $this->preco_golds WHERE acc_id = $user[acc_id]");
 
-            $this->erros[] = "Não foi possivel realizar a sua inscrição! #3";
+            $this->erros[] = sprintf($txt['liga_err_register_failed'], 3);
             return false;
         }
 
@@ -385,10 +386,11 @@ class League {
     }
 
     public function desfazer_inscricao($user_id) {
+        global $txt;
         DB::exQuery("DELETE FROM league_participant WHERE user_id = '$user_id' AND league_id = $this->id");
 
        if (count($this->erros) > 0) {
-            $this->erros[] = "Não foi possivel desfazer a sua inscrição!";
+            $this->erros[] = $txt['liga_err_unregister_failed'];
             return false;
         }
 
