@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = 'Du brauchst 5 Orden aus der Region %s! <a href="
 $txt['liga_err_already_in'] = 'Du nimmst bereits teil!';
 $txt['liga_err_register_failed'] = 'Deine Anmeldung konnte nicht durchgeführt werden! #%s';
 $txt['liga_err_unregister_failed'] = 'Deine Anmeldung konnte nicht zurückgezogen werden!';
+
+# league-duel
+$txt['liga_duel_ready'] = 'Alles bereit für den Kampf!';
+$txt['liga_duel_offline'] = 'Du bist nicht online!';
+$txt['liga_duel_offline_op'] = 'Dein Gegner war nicht online!';
+$txt['liga_duel_region'] = 'Du musst dich in der Region %s befinden!';
+$txt['liga_duel_region_op'] = 'Dein Gegner war nicht in der Region %s!';
+$txt['liga_duel_six'] = 'Du hast keine 6 Pokémon im Team!';
+$txt['liga_duel_six_op'] = 'Dein Gegner hatte keine 6 Pokémon im Team!';
+$txt['liga_duel_fainted'] = 'Alle deine Pokémon sind kampfunfähig!';
+$txt['liga_duel_fainted_op'] = 'Alle Pokémon deines Gegners waren kampfunfähig!';
+$txt['liga_duel_level'] = 'Eines deiner Pokémon im Team hat ein höheres Level als %s!';
+$txt['liga_duel_level_op'] = 'Dein Gegner hatte ein Pokémon über Level %s im Team!';
+$txt['liga_duel_shiny'] = 'Du hast mehr als %s Shiny-Pokémon im Team!';
+$txt['liga_duel_shiny_op'] = 'Dein Gegner hatte mehr als %s Shiny-Pokémon im Team!';
+$txt['liga_duel_legendary'] = 'Du hast mehr als %s legendäre Pokémon im Team!';
+$txt['liga_duel_legendary_op'] = 'Dein Gegner hatte mehr als %s legendäre Pokémon im Team!';
+$txt['liga_duel_mega'] = 'Du hast mehr als %s mega-entwickelte Pokémon im Team!';
+$txt['liga_duel_mega_op'] = 'Dein Gegner hatte mehr als %s mega-entwickelte Pokémon im Team!';
+$txt['liga_ad_minimize'] = 'MINIMIEREN';
+$txt['liga_ad_close'] = 'SCHLIESSEN';
+$txt['liga_ad_slots'] = 'Plätze';
+$txt['liga_prep_title'] = 'Vorbereitungsphase für den Kampf %s.';
+$txt['liga_prep_in_league'] = 'in der Liga';
+$txt['liga_prep_in_tour'] = 'im Turnier';
+$txt['liga_prep_text'] = 'Bearbeite in der Vorbereitungsphase dein Team und begib dich in die Region, in der %s stattfindet. In dieser Zeit kannst du weder kämpfen noch arbeiten.';
+$txt['liga_prep_the_league'] = 'die Liga';
+$txt['liga_prep_the_tour'] = 'das Turnier';
+$txt['liga_countdown_left'] = 'Verbleibend:';
+$txt['liga_creating_battle'] = 'Kampf wird erstellt...';
 /* === end externalized strings === */
 ?>

@@ -1,5 +1,6 @@
 <?php
 require_once('../app/includes/resources/config.php');
+require_once(__DIR__ . '/../language/language-user.php');
 
 if (isset($_POST['notificationCode'])) {
     $notificationCode = preg_replace('/[^[:alnum:]-]/','',($_POST['notificationCode'] ?? ''));
@@ -45,9 +46,13 @@ if (isset($_POST['notificationCode'])) {
                           $new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * $get_pack['premium'])) : (time() + (86400 * $get_pack['premium']));
                           DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$exist['user_id']}");
 
-                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <b>Parabéns!</b> O <b> Pacote '.$get_pack['naam'].' ('.$get_pack['golds'].' Golds e +'.$get_pack['premium'].' dias de PREMIUM)</b> que você comprou acabou de chegar!';
+                          $pack_txt = user_txt($exist['user_id']);
+                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                              . sprintf($pack_txt['event_pack_arrived'], $get_pack['naam'], $get_pack['golds'] . ' Golds, ' . sprintf($pack_txt['event_pack_days_premium'], $get_pack['premium']));
                         } else {
-                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <b>Parabéns!</b> O <b> Pacote '.$get_pack['naam'].' ('.$get_pack['golds'].' Golds)</b> que você comprou acabou de chegar!';
+                          $pack_txt = user_txt($exist['user_id']);
+                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                              . sprintf($pack_txt['event_pack_arrived'], $get_pack['naam'], $get_pack['golds'] . ' Golds');
                         }
                     } else {
                         if ($get_pack['premium'] > 0) {
@@ -55,9 +60,13 @@ if (isset($_POST['notificationCode'])) {
                           $new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * $get_pack['premium'])) : (time() + (86400 * $get_pack['premium']));
                           DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$exist['user_id']}");
 
-                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <b>Parabéns!</b> O <b> Pacote '.$get_pack['naam'].' ('.$get_pack['golds'].' Golds, '.$get_pack['silvers'].' Silvers e +'.$get_pack['premium'].' dias de PREMIUM)</b> que você comprou acabou de chegar!';
+                          $pack_txt = user_txt($exist['user_id']);
+                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                              . sprintf($pack_txt['event_pack_arrived'], $get_pack['naam'], $get_pack['golds'] . ' Golds, ' . $get_pack['silvers'] . ' Silvers, ' . sprintf($pack_txt['event_pack_days_premium'], $get_pack['premium']));
                         } else {
-                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <b>Parabéns!</b> O <b> Pacote '.$get_pack['naam'].' ('.$get_pack['golds'].' Golds e '.$get_pack['silvers'].' Silvers)</b> que você comprou acabou de chegar!';
+                          $pack_txt = user_txt($exist['user_id']);
+                          $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                              . sprintf($pack_txt['event_pack_arrived'], $get_pack['naam'], $get_pack['golds'] . ' Golds, ' . $get_pack['silvers'] . ' Silvers');
                         }
 
                         DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$get_pack['silvers']."' WHERE `user_id`='".$exist['user_id']."'");
@@ -174,8 +183,10 @@ if (isset($_POST['notificationCode'])) {
                       DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `level`, `levenmax`, `leven`, `totalexp`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `attack_ev`, `defence_ev`, `speed_ev`, `spc.attack_ev`, `spc.defence_ev`, `hp_ev`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `ei`, `ei_tijd`, `ability`, `capture_date`) 
                       VALUES ('".$new_computer['id']."', '".$exist['user_id']."', 'nee', '', '".$karakter['karakter_naam']."', '".'5'."', '".$new_computer['hpstat'] ."', '".$new_computer['hpstat'] ."', '".$experience['punten']."', '".$experience['punten']."', '".$new_computer['attackstat']."', '".$new_computer['defencestat']."', '".$new_computer['speedstat']."', '".$new_computer['spcattackstat']."', '".$new_computer['spcdefencestat']."', '".$attack_iv."', '".$defence_iv."', '".$speed_iv."', '".$spcattack_iv."', '".$spcdefence_iv."', '".$hp_iv."', '".$new_computer_sql['effort_attack']."', '".$new_computer_sql['effort_defence']."', '".$new_computer_sql['effort_spc.attack']."', '".$new_computer_sql['effort_spc.defence']."', '".$new_computer_sql['effort_speed']."', '".$new_computer_sql['effort_hp']."', '".$new_computer['aanval1']."', '".$new_computer['aanval2']."', '".$new_computer['aanval3']."', '".$new_computer['aanval4']."', '".$new_computer_sql['effect']."', '".$egg."', '".$tijd."', '".$ability."', '".$date."')");
                       
-                      $event2 = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> O <b> Pacote '.$get_pack['naam'].' que você comprou, veio de presente um: '.$new_computer_sql['naam'].'!';
-                      DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $exist['user_id'] . "', '" . $event2 . "', '0')");
+                      $pack_txt = user_txt($exist['user_id']);
+                      $event2 = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                          . sprintf($pack_txt['event_pack_gift'], $get_pack['naam'], $new_computer_sql['naam']);
+                      DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $exist['user_id'] . "', '" . DB::real_escape_string($event2) . "', '0')");
                     }
                 } else {
                     DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$get_pack['silvers']."' WHERE `user_id`='".$exist['user_id']."'");
@@ -184,10 +195,12 @@ if (isset($_POST['notificationCode'])) {
                     $new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * 7)) : (time() + (86400 * 7));
 		                DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$exist['user_id']}");
                     
-                    $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <b>Parabéns!</b> O <b> '.$get_pack['naam'].' ('.$get_pack['golds'].' Golds, '.$get_pack['silvers'].' Silvers, +1 Semana de PREMIUM)</b> que você comprou acabou de chegar!';
+                    $pack_txt = user_txt($exist['user_id']);
+                    $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                        . sprintf($pack_txt['event_pack_arrived'], $get_pack['naam'], $get_pack['golds'] . ' Golds, ' . $get_pack['silvers'] . ' Silvers, ' . $pack_txt['event_pack_week_premium']);
                 }
 
-                DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $exist['user_id'] . "', '" . $event . "', '0')");
+                DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $exist['user_id'] . "', '" . DB::real_escape_string($event) . "', '0')");
                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$get_pack['golds']."' WHERE `acc_id`='".$exist['id_user']."'");
             }
         }

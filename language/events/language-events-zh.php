@@ -127,4 +127,26 @@
 	else if ($page == 'register') {
 		$txt['refferal_register'] = '%s 注册成功！因此您将获得 5 枚金牌！';
 	}
+
+/* === externalized strings (generated) === */
+
+# cron
+$txt['event_egg_desc_common'] = '普通宝可梦的蛋。这是一只 %s 属性的宝可梦。';
+$txt['event_egg_desc_uncommon'] = '罕见宝可梦的蛋。看起来是一只 %s 属性的宝可梦。';
+$txt['event_egg_desc_rare'] = '稀有宝可梦的蛋。很可能是一只 %s 属性的宝可梦。';
+$txt['event_egg_desc_legendary'] = '传说宝可梦的蛋，还是御三家的蛋？科学家认为这是一枚 %s 属性的蛋。';
+$txt['event_fishing_prize'] = '你在钓鱼大赛中获得第 %1$s 名，赢得了 %2$s%3$s。';
+$txt['event_auction_bought'] = '你以 %2$s 购买了 %1$s，它已经在你的盒子里了！';
+$txt['event_auction_no_bids'] = '没有人对你的 %s 出价，所以你的宝可梦回家了！';
+$txt['event_daycare_egg_lost'] = '你不是高级会员！你的蛋在寄养屋中遗失了。';
+$txt['event_pokemon_sold'] = '%1$s 以 %3$s 购买了你的 %2$s！';
+$txt['event_pack_arrived'] = '<b>恭喜！</b>你购买的<b>礼包 %1$s（%2$s）</b>已送达！';
+$txt['event_pack_gift'] = '你购买的<b>礼包 %1$s</b> 附赠了一份礼物：%2$s！';
+$txt['event_pack_days_premium'] = '+%s 天 PREMIUM';
+$txt['event_pack_week_premium'] = '+1 周 PREMIUM';
+$txt['event_friend_accepted'] = '%s 接受了你的好友请求。';
+$txt['event_friend_request'] = '%1$s 想成为你的好友。请访问%2$s了解<b>更多详情</b>。';
+$txt['event_friend_page'] = '好友页面';
+$txt['event_tour_battle_soon'] = '你的锦标赛战斗将在 &plusmn;%s 分钟后开始，请确保你的宝可梦已准备好。';
+/* === end externalized strings === */
 ?>

@@ -144,7 +144,12 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
 
                                 DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$pokemon['wild_id']."', '".$pokemon['id']."', '".$pokemon['level']."', '".$transferlist['user_id']."', '".($_SESSION['id'] ?? '')."', '".$transferlist['silver']."', '".$transferlist['gold']."', '".$pokemon['item']."')");
 
-                                $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> comprou seu <a href="./pokemon-profile&id='.$pokemon['id'].'">'.$pokemon['naam'].'</a> por: '.highamount($transferlist['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($transferlist['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
+                                $seller_txt = user_txt($transferlist['user_id']);
+                                $event = DB::real_escape_string('<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+                                    . sprintf($seller_txt['event_pokemon_sold'],
+                                        '<a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a>',
+                                        '<a href="./pokemon-profile&id='.$pokemon['id'].'">'.$pokemon['naam'].'</a>',
+                                        highamount($transferlist['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> '.highamount($transferlist['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />'));
 
                                 DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $transferlist['user_id'] . "', '" . $event . "', '0')");
                                 echo '<script>window.location = window.location.href</script>';

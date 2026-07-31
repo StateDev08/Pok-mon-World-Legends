@@ -168,7 +168,7 @@ if (count($arrayItems) > 0) {
 		
 				if ($key == 'balls') {
 					echo '<tr><form method="post">
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2[description_column()]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
 						<td align="center"><b>'.($itemData[$value2['naam']] ?? 0).'x</b></td>
 						<td><img src="' . $static_url . '/images/icons/'.$munt.'.png" style="margin-bottom:-3px;" /> '.$price.'</td>
 						<input type="hidden" name="name" value="'.$value2['naam'].'" />
@@ -176,14 +176,14 @@ if (count($arrayItems) > 0) {
 					</form></tr>';
 				} else if ($key == 'items') {
 					echo '<tr>
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2[description_column()]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
 						<td align="center"><b>1x</b></td>
 						<td align="center"><b>--</b></td>
 						<td align="center"><b>--</b></td>
 					</tr>';
 				} else if (in_array($key, array('stones','special items','potions'))) {
 					echo '<tr><form method="post">
-						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
+						<td style="text-align: left; padding-left: 27px;"><img src="' . $static_url . '/images/items/'.$value2['naam'].'.png" title="'.nl2br($value2[description_column()]).'" class="elipse"/><b>'.$value2['naam'].'</b></td>
 						<td align="center" id="num_' . str_replace(' ', '_', $value2['naam']) . '"><b>'.($itemData[$value2['naam']] ?? 0).'x</b></td>
 						<td><img src="' . $static_url . '/images/icons/' . $munt . '.png" style="margin-bottom:-3px;" /> '.$price.'</b></td>
 						<input type="hidden" name="wat" value="use_potion" />

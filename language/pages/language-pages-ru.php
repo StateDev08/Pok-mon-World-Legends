@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = 'Вам нужно 5 значков регион�
 $txt['liga_err_already_in'] = 'Вы уже участвуете!';
 $txt['liga_err_register_failed'] = 'Не удалось выполнить регистрацию! #%s';
 $txt['liga_err_unregister_failed'] = 'Не удалось отменить регистрацию!';
+
+# league-duel
+$txt['liga_duel_ready'] = 'Всё готово к битве!';
+$txt['liga_duel_offline'] = 'Вы не в сети!';
+$txt['liga_duel_offline_op'] = 'Ваш соперник был не в сети!';
+$txt['liga_duel_region'] = 'Вы должны находиться в регионе %s!';
+$txt['liga_duel_region_op'] = 'Ваш соперник не находился в регионе %s!';
+$txt['liga_duel_six'] = 'У вас нет 6 покемонов в команде!';
+$txt['liga_duel_six_op'] = 'У вашего соперника не было 6 покемонов в команде!';
+$txt['liga_duel_fainted'] = 'Все ваши покемоны без сознания!';
+$txt['liga_duel_fainted_op'] = 'Все покемоны вашего соперника были без сознания!';
+$txt['liga_duel_level'] = 'У одного из ваших покемонов уровень выше %s!';
+$txt['liga_duel_level_op'] = 'У вашего соперника был покемон выше уровня %s!';
+$txt['liga_duel_shiny'] = 'У вас больше %s шайни-покемонов в команде!';
+$txt['liga_duel_shiny_op'] = 'У вашего соперника было больше %s шайни-покемонов!';
+$txt['liga_duel_legendary'] = 'У вас больше %s легендарных покемонов в команде!';
+$txt['liga_duel_legendary_op'] = 'У вашего соперника было больше %s легендарных покемонов!';
+$txt['liga_duel_mega'] = 'У вас больше %s мега-эволюционировавших покемонов в команде!';
+$txt['liga_duel_mega_op'] = 'У вашего соперника было больше %s мега-эволюционировавших покемонов!';
+$txt['liga_ad_minimize'] = 'СВЕРНУТЬ';
+$txt['liga_ad_close'] = 'ЗАКРЫТЬ';
+$txt['liga_ad_slots'] = 'Мест';
+$txt['liga_prep_title'] = 'Фаза подготовки к битве %s.';
+$txt['liga_prep_in_league'] = 'в лиге';
+$txt['liga_prep_in_tour'] = 'на турнире';
+$txt['liga_prep_text'] = 'Во время фазы подготовки измените свою команду и отправляйтесь в регион, где проходит %s. В это время вы не можете сражаться или работать.';
+$txt['liga_prep_the_league'] = 'лига';
+$txt['liga_prep_the_tour'] = 'турнир';
+$txt['liga_countdown_left'] = 'Осталось:';
+$txt['liga_creating_battle'] = 'Создание битвы...';
 /* === end externalized strings === */
 ?>

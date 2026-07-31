@@ -127,4 +127,26 @@
 	else if ($page == 'register') {
 		$txt['refferal_register'] = '%s cadastrou-se com sucesso! Por este motivo você receberá 5 golds!';
 	}
+
+/* === externalized strings (generated) === */
+
+# cron
+$txt['event_egg_desc_common'] = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo %s.';
+$txt['event_egg_desc_uncommon'] = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo %s.';
+$txt['event_egg_desc_rare'] = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo %s.';
+$txt['event_egg_desc_legendary'] = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo %s.';
+$txt['event_fishing_prize'] = 'Você ficou em %1$s lugar no torneio de pesca. Ganhou %2$s%3$s.';
+$txt['event_auction_bought'] = 'Você comprou %1$s por: %2$s, e ele já está em sua BOX!';
+$txt['event_auction_no_bids'] = 'Ninguém deu lance em seu %s, portanto, seu Pokémon voltou para sua casa!';
+$txt['event_daycare_egg_lost'] = 'Você não é Premium! Seu ovo foi perdido no jardim de infância.';
+$txt['event_pokemon_sold'] = '%1$s comprou seu %2$s por: %3$s!';
+$txt['event_pack_arrived'] = '<b>Parabéns!</b> O <b>Pacote %1$s (%2$s)</b> que você comprou acabou de chegar!';
+$txt['event_pack_gift'] = 'O <b>Pacote %1$s</b> que você comprou, veio de presente um: %2$s!';
+$txt['event_pack_days_premium'] = '+%s dias de PREMIUM';
+$txt['event_pack_week_premium'] = '+1 Semana de PREMIUM';
+$txt['event_friend_accepted'] = '%s aceitou sua solicitação de amizade.';
+$txt['event_friend_request'] = '%1$s deseja ser seu amigo. Visite a %2$s para <b>mais detalhes</b>.';
+$txt['event_friend_page'] = 'Página de Amigos';
+$txt['event_tour_battle_soon'] = 'Sua batalha no torneio irá começar em &plusmn;%s minutos. Certifique-se que seus pokémons estão prontos.';
+/* === end externalized strings === */
 ?>

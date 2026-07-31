@@ -50,6 +50,7 @@ function isAllowedPage($page) {
 
 require_once('app/includes/resources/config.php');
 require_once('language/language-general.php');
+require_once('language/language-user.php');
 require_once('app/includes/resources/ingame.inc.php');
 
 #Load Page
@@ -240,8 +241,9 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
                     if (!($_SESSION['toernooi_sent'] ?? '')) {
                         $_SESSION['toernooi_sent'] = TRUE;
                         $time = floor($tour_over / 60);
+                        $tour_txt = user_txt(($_SESSION['id'] ?? 0));
                         DB::exQuery("INSERT INTO `gebeurtenis` (`datum` ,`ontvanger_id` ,`bericht`)
-              VALUES ('" . date('Y-m-d H:i:s') . "', '" . ($_SESSION['id'] ?? '') . "', 'Sua batalha no torneio irá começar em &plusmn;" . $time . " minutos. Certifique-se que seus pokémons estão prontos.');");
+              VALUES ('" . date('Y-m-d H:i:s') . "', '" . ($_SESSION['id'] ?? '') . "', '" . DB::real_escape_string(sprintf($tour_txt['event_tour_battle_soon'], $time)) . "');");
                     }
                     header("refresh: " . $tour_over . "; url=attack/tour_fight");
                 } else if (($tour_over > -90 AND $tour_over < 0) AND ( $page != "attack/tour_fight") AND ( $page != "attack/duel/duel-attack")) {

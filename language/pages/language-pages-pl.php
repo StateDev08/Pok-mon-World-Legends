@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = 'Potrzebujesz 5 odznak z regionu %s! <a href="./a
 $txt['liga_err_already_in'] = 'Już bierzesz udział!';
 $txt['liga_err_register_failed'] = 'Nie udało się dokonać zapisu! #%s';
 $txt['liga_err_unregister_failed'] = 'Nie udało się wycofać zapisu!';
+
+# league-duel
+$txt['liga_duel_ready'] = 'Wszystko gotowe do walki!';
+$txt['liga_duel_offline'] = 'Nie jesteś online!';
+$txt['liga_duel_offline_op'] = 'Twój przeciwnik nie był online!';
+$txt['liga_duel_region'] = 'Musisz być w regionie %s!';
+$txt['liga_duel_region_op'] = 'Twój przeciwnik nie był w regionie %s!';
+$txt['liga_duel_six'] = 'Nie masz 6 Pokémonów w drużynie!';
+$txt['liga_duel_six_op'] = 'Twój przeciwnik nie miał 6 Pokémonów w drużynie!';
+$txt['liga_duel_fainted'] = 'Wszystkie twoje Pokémony są nieprzytomne!';
+$txt['liga_duel_fainted_op'] = 'Wszystkie Pokémony przeciwnika były nieprzytomne!';
+$txt['liga_duel_level'] = 'Któryś z twoich Pokémonów ma poziom wyższy niż %s!';
+$txt['liga_duel_level_op'] = 'Twój przeciwnik miał Pokémona powyżej poziomu %s!';
+$txt['liga_duel_shiny'] = 'Masz więcej niż %s shiny Pokémonów w drużynie!';
+$txt['liga_duel_shiny_op'] = 'Twój przeciwnik miał więcej niż %s shiny Pokémonów!';
+$txt['liga_duel_legendary'] = 'Masz więcej niż %s legendarnych Pokémonów w drużynie!';
+$txt['liga_duel_legendary_op'] = 'Twój przeciwnik miał więcej niż %s legendarnych Pokémonów!';
+$txt['liga_duel_mega'] = 'Masz więcej niż %s mega ewoluowanych Pokémonów w drużynie!';
+$txt['liga_duel_mega_op'] = 'Twój przeciwnik miał więcej niż %s mega ewoluowanych Pokémonów!';
+$txt['liga_ad_minimize'] = 'MINIMALIZUJ';
+$txt['liga_ad_close'] = 'ZAMKNIJ';
+$txt['liga_ad_slots'] = 'Miejsca';
+$txt['liga_prep_title'] = 'Faza przygotowań do walki %s.';
+$txt['liga_prep_in_league'] = 'w Lidze';
+$txt['liga_prep_in_tour'] = 'w Turnieju';
+$txt['liga_prep_text'] = 'W fazie przygotowań edytuj swoją drużynę i udaj się do regionu, w którym odbywa się %s. W tym czasie nie możesz walczyć ani pracować.';
+$txt['liga_prep_the_league'] = 'liga';
+$txt['liga_prep_the_tour'] = 'turniej';
+$txt['liga_countdown_left'] = 'Pozostało:';
+$txt['liga_creating_battle'] = 'Tworzenie walki...';
 /* === end externalized strings === */
 ?>
