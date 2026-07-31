@@ -81,9 +81,9 @@ if ($gebruiker['rank'] >= 4) {
                         if ($quest_1['recomp_type'] == 'item') {
                             $item = $quests->getItem($quest_1['recomp_id'])->fetch_assoc()['naam'];
                             if (strpos($item, 'TM') !== false) {
-                                DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$item."`=`".$item."`+'".$quest_1['recomp_quant']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$item."`=`".$item."`+'".$quest_1['recomp_quant']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                             } else {
-                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'".$quest_1['recomp_quant']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'".$quest_1['recomp_quant']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                             }
                         } else if ($quest_1['recomp_type'] == 'gold') {
                             DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$quest_1['recomp_quant']."' WHERE `acc_id`='$_SESSION[acc_id]'");
@@ -103,7 +103,7 @@ if ($gebruiker['rank'] >= 4) {
                             } else {
                                 $item = 'Master ball';
                                 DB::exQuery("UPDATE `rekeningen` SET `quest_r_master`='1' WHERE `acc_id`='$_SESSION[acc_id]'");
-                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                                 echo '<div class="green">Você completou 7 dias de MISSÕES CONSECULTIVAS e ganhou uma Master Ball <img src="public/images/items/Master ball.png" style="vertical-align: middle">!</div>';
                             }
                         } else {
@@ -137,9 +137,9 @@ if ($gebruiker['rank'] >= 4) {
                         if ($quest_2['recomp_type'] == 'item') {
                             $item = $quests->getItem($quest_2['recomp_id'])->fetch_assoc()['naam'];
                             if (strpos($item, 'TM') !== false) {
-                                DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$item."`=`".$item."`+'".$quest_2['recomp_quant']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$item."`=`".$item."`+'".$quest_2['recomp_quant']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                             } else {
-                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'".$quest_2['recomp_quant']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'".$quest_2['recomp_quant']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                             }
                         } else if ($quest_2['recomp_type'] == 'gold') {
                             DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$quest_2['recomp_quant']."' WHERE `acc_id`='$_SESSION[acc_id]'");
@@ -159,7 +159,7 @@ if ($gebruiker['rank'] >= 4) {
                             } else {
                                 $item = 'Master ball';
                                 DB::exQuery("UPDATE `rekeningen` SET `quest_r_master`='1' WHERE `acc_id`='$_SESSION[acc_id]'");
-                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+                                DB::exQuery("UPDATE `gebruikers_item` SET `".$item."`=`".$item."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
                                 echo '<div class="green">'.$txt['dquest_master_earned'].'</div>';
                             }
                         } else {

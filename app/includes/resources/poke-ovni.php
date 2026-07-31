@@ -9,7 +9,7 @@ if (!isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
         if (strpos($page, '/') !== false) {
             //não aparece ovni
         } else {
-            $id = $_SESSION['id'];
+            $id = ($_SESSION['id'] ?? '');
             $token = substr(rtrim(strtr(base64_encode(hash('sha256', uniqid(mt_rand(), true), true)), '+/', '-_'), '='), 0, 13);
             
             $_SESSION['ploot'] = $token;

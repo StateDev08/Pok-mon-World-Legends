@@ -6,8 +6,8 @@ $action = '';
 $valid = false;
 $actions = array('central', 'profile', 'create');
 
-if (isset($_GET['action']) && in_array($_GET['action'], $actions)) {
-	$action = $_GET['action'];
+if (isset($_GET['action']) && in_array(($_GET['action'] ?? ''), $actions)) {
+	$action = ($_GET['action'] ?? '');
 	if ($gebruiker['rank'] >= 5) $valid = true;
 	else if ($action == 'profile') $valid = true;
 

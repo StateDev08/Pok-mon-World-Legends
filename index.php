@@ -127,12 +127,12 @@ $gebruiker_pokemon = array('procent' => 0);
 if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 	require_once("app/includes/resources/login.php");
 } else if (isset($_SESSION['acc_id'])) {
-	$md5hash_acc  = md5($_SESSION['acc_id'] . "," . $_SESSION['acc_naam']);
-	if ($_SESSION['acc_hash'] != $md5hash_acc) { require_once('logout.php'); exit(); }
+	$md5hash_acc  = md5(($_SESSION['acc_id'] ?? '') . "," . ($_SESSION['acc_naam'] ?? ''));
+	if (($_SESSION['acc_hash'] ?? '') != $md5hash_acc) { require_once('logout.php'); exit(); }
 
-	$result = DB::exQuery("SELECT * FROM `rekeningen` WHERE `acc_id`='" . $_SESSION['acc_id'] . "' GROUP BY `acc_id` LIMIT 1");
+	$result = DB::exQuery("SELECT * FROM `rekeningen` WHERE `acc_id`='" . ($_SESSION['acc_id'] ?? '') . "' GROUP BY `acc_id` LIMIT 1");
 	$rekening = $result->fetch_assoc();
-    if (!is_array($rekening) || $_SESSION['keylog'] != $rekening['keylog']) require_once('logout.php');
+    if (!is_array($rekening) || ($_SESSION['keylog'] ?? '') != $rekening['keylog']) require_once('logout.php');
 
 	#Als account_code 0 is, verbannen!
 	if ($rekening['account_code'] == 0 OR ($gebruiker['bloqueado'] ?? '') == "sim") {
@@ -147,11 +147,11 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 	if (isset($_SESSION['id'])) {
 		#Hash maken
 		//$md5hash  = md5($_SERVER['REMOTE_ADDR'] . "," . $_SESSION['naam']);
-		$md5hash  = md5($_SESSION['id'] . "," . $_SESSION['naam']);
+		$md5hash  = md5(($_SESSION['id'] ?? '') . "," . ($_SESSION['naam'] ?? ''));
 
 		#Controleren van de hash.
 		#Is de has niet goed dan uitloggen en inloggen opnieuw laden
-		if ($_SESSION['hash'] != $md5hash) {
+		if (($_SESSION['hash'] ?? '') != $md5hash) {
 			unset($_SESSION['hash'], $_SESSION['id'], $_SESSION['naam']);
 			exit(header("Location: ./my_characters"));
 		}
@@ -177,7 +177,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         require('app/classes/Clans.php');
         
         $clan = new Clans();
-        $gebruiker['clan'] = $clan->getUserClan($_SESSION['id']);
+        $gebruiker['clan'] = $clan->getUserClan(($_SESSION['id'] ?? ''));
 
 		if (($gebruiker['online'] + 300) < time())
 			DB::exQuery("UPDATE `gebruikers` SET `online`=UNIX_TIMESTAMP() WHERE `user_id`='" . $gebruiker['user_id'] . "' LIMIT 1");
@@ -196,7 +196,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
     include_once 'app/classes/League.php';
 
     $result_league = DB::exQuery("SELECT duel_id FROM league_battle WHERE termino = '0000-00-00 00:00:00' AND "
-            . "(user_id1 = '" . $_SESSION['id'] . "' OR user_id2 = '" . $_SESSION['id'] . "')");
+            . "(user_id1 = '" . ($_SESSION['id'] ?? '') . "' OR user_id2 = '" . ($_SESSION['id'] ?? '') . "')");
 
     if ($result_league->num_rows == 1 && $page != 'attack/duel/duel-attack') {
 
@@ -209,13 +209,13 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         header("Location: ./attack/duel/duel-attack");
         exit();
     } else if (DB::exQuery("SELECT * FROM league_battle WHERE "
-                    . "(user_id1 = '" . $_SESSION['id'] . "' OR user_id2 = '" . $_SESSION['id'] . "') AND "
+                    . "(user_id1 = '" . ($_SESSION['id'] ?? '') . "' OR user_id2 = '" . ($_SESSION['id'] ?? '') . "') AND "
                     . "((NOW()" . League::$ajuste_tempo_string . ") BETWEEN "
                     . "(inicio - INTERVAL 5 MINUTE - INTERVAL 5 SECOND) AND "
                     . "(inicio + INTERVAL 1 MINUTE + INTERVAL 10 SECOND))")->num_rows > 0) {
 
 		$result_leaguex = DB::exQuery("SELECT * FROM league_battle WHERE "
-                    . "(user_id1 = '" . $_SESSION['id'] . "' OR user_id2 = '" . $_SESSION['id'] . "') AND "
+                    . "(user_id1 = '" . ($_SESSION['id'] ?? '') . "' OR user_id2 = '" . ($_SESSION['id'] ?? '') . "') AND "
                     . "((NOW()" . League::$ajuste_tempo_string . ") BETWEEN "
                     . "(inicio - INTERVAL 5 MINUTE - INTERVAL 5 SECOND) AND "
                     . "(inicio + INTERVAL 1 MINUTE + INTERVAL 10 SECOND))")->fetch_assoc();
@@ -232,16 +232,16 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         $tour_sql = DB::exQuery("SELECT * FROM toernooi WHERE deelnemers!='' AND no_1='0' ORDER BY toernooi DESC LIMIT 1");
         if ($tour_sql->num_rows > 0) {
             $tour_info = $tour_sql->fetch_assoc();
-            $round_sql = DB::exQuery("SELECT * FROM `toernooi_ronde` WHERE toernooi='" . $tour_info['toernooi'] . "' AND winnaar_id = '0' AND (user_id_1 = '" . $_SESSION['id'] . "' OR user_id_2 = '" . $_SESSION['id'] . "')");
+            $round_sql = DB::exQuery("SELECT * FROM `toernooi_ronde` WHERE toernooi='" . $tour_info['toernooi'] . "' AND winnaar_id = '0' AND (user_id_1 = '" . ($_SESSION['id'] ?? '') . "' OR user_id_2 = '" . ($_SESSION['id'] ?? '') . "')");
             if ($round_sql->num_rows > 0) {
                 $round_info = $round_sql->fetch_assoc();
                 $tour_over = strtotime($tour_info['tijd']) - strtotime(date("H:i:s"));
                 if ($tour_over < 300 AND $tour_over > 0) {
-                    if (!$_SESSION['toernooi_sent']) {
+                    if (!($_SESSION['toernooi_sent'] ?? '')) {
                         $_SESSION['toernooi_sent'] = TRUE;
                         $time = floor($tour_over / 60);
                         DB::exQuery("INSERT INTO `gebeurtenis` (`datum` ,`ontvanger_id` ,`bericht`)
-              VALUES ('" . date('Y-m-d H:i:s') . "', '" . $_SESSION['id'] . "', 'Sua batalha no torneio irá começar em &plusmn;" . $time . " minutos. Certifique-se que seus pokémons estão prontos.');");
+              VALUES ('" . date('Y-m-d H:i:s') . "', '" . ($_SESSION['id'] ?? '') . "', 'Sua batalha no torneio irá começar em &plusmn;" . $time . " minutos. Certifique-se que seus pokémons estão prontos.');");
                     }
                     header("refresh: " . $tour_over . "; url=attack/tour_fight");
                 } else if (($tour_over > -90 AND $tour_over < 0) AND ( $page != "attack/tour_fight") AND ( $page != "attack/duel/duel-attack")) {
@@ -253,7 +253,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         }
     }
 
-		if ($gebruiker['admin'] > 0 AND $_SESSION['equipe'] != 1)
+		if ($gebruiker['admin'] > 0 AND ($_SESSION['equipe'] ?? '') != 1)
 			$page = 'app/includes/resources/pages/equipe-check';
 
 		$gebruiker_rank = rank($gebruiker['rank']);
@@ -279,7 +279,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		}
 
 		#Load User Pokemon
-		$user_id = $_SESSION['id'];
+		$user_id = ($_SESSION['id'] ?? '');
 		$pokemon_sql = DB::exQuery("SELECT `pw`.`naam`,`pw`.`type1`,`pw`.`type2`,`pw`.`zeldzaamheid`,`pw`.`groei`,`pw`.`aanval_1`,`ps`.`humor_change`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`ps`.* FROM `pokemon_wild` AS `pw` INNER JOIN `pokemon_speler` AS `ps` ON `ps`.`wild_id`=`pw`.`wild_id` WHERE `ps`.`user_id`='" . $user_id . "' AND `ps`.`opzak`='ja' ORDER BY `ps`.`opzak_nummer` ASC");
 		$gebruiker['in_hand'] = $pokemon_sql->num_rows;
 		if ($gebruiker['in_hand'] == 0 AND $page != "beginning" AND $page != "choose-pokemon"  AND $page != "box")
@@ -288,14 +288,14 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		# Check new Mails
 		
 		#CORRAÇÃO DE BUG NOTIFICAÇÕES (SEXTA)
-	    $mails_count	= DB::exQuery("SELECT * FROM `conversas` WHERE `trainer_2_hidden`='0' AND `id` = ANY (SELECT DISTINCT (`conversa`) FROM `conversas_messages` WHERE `reciever`='".$_SESSION['id']."' AND `seen`='0')")->num_rows;
+	    $mails_count	= DB::exQuery("SELECT * FROM `conversas` WHERE `trainer_2_hidden`='0' AND `id` = ANY (SELECT DISTINCT (`conversa`) FROM `conversas_messages` WHERE `reciever`='".($_SESSION['id'] ?? '')."' AND `seen`='0')")->num_rows;
 		$official_count	= DB::exQuery("SELECT `id` FROM `official_message` WHERE `hidden`='0' AND `id` NOT IN (SELECT `id_msg` FROM `official_message_read` WHERE `id_user`='$user_id') ")->num_rows;
 		$mails_txt		= ($mails_count > 1) ? 'Você tem ' . $mails_count . ' novas mensagens!' : 'Você tem ' . $mails_count . ' nova mensagem!';
 		$general_count  = $mails_count + $official_count;
 
         $_SESSION['region'] = $gebruiker['wereld'];
 		#Load User Events
-		$events_count = DB::exQuery("SELECT `id` FROM `gebeurtenis` WHERE `ontvanger_id`='" . $_SESSION['id'] . "' AND `gelezen`='0'")->num_rows;
+		$events_count = DB::exQuery("SELECT `id` FROM `gebeurtenis` WHERE `ontvanger_id`='" . ($_SESSION['id'] ?? '') . "' AND `gelezen`='0'")->num_rows;
 		$events_txt = ($events_count > 1) ? 'Você tem ' . $events_count . ' novas notificações!' : 'Você tem ' . $events_count . ' nova notificação!';
 		
 		if (!empty($evento_atual)) {
@@ -353,12 +353,12 @@ else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') $page = 'attack/train
 else if (($gebruiker['pagina'] ?? '') == 'attack') $page = 'attack/wild/wild-attack';
 else if (DB::exQuery("SELECT * FROM `duel` WHERE `uitdager`='" . ($gebruiker['username'] ?? '') . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1")->num_rows == 1) $page = 'attack/duel/invite';
 else {
-	$duel_test = DB::exQuery("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`='" . $_SESSION['naam'] . "'");
+	$duel_test = DB::exQuery("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`='" . ($_SESSION['naam'] ?? '') . "'");
 	if (!empty($_SESSION['aanvalnieuw']) && $page != 'information') {
-		list($nieuweaanval['pokemonid'], $nieuweaanval['aanvalnaam']) = explode('/', base64_decode($_SESSION['aanvalnieuw']));
+		list($nieuweaanval['pokemonid'], $nieuweaanval['aanvalnaam']) = explode('/', base64_decode(($_SESSION['aanvalnieuw'] ?? '')));
 		$page = "app/includes/resources/poke-newattack";
 	} else if (!empty($_SESSION['evolueren']) && $page != 'information') {
-		list($evolueren['pokemonid'], $evolueren['nieuw_id']) = explode('/', base64_decode($_SESSION['evolueren']));
+		list($evolueren['pokemonid'], $evolueren['nieuw_id']) = explode('/', base64_decode(($_SESSION['evolueren'] ?? '')));
 		$page = "app/includes/resources/poke-evolve";
 	} else if (($gebruiker['pagina'] ?? '') == 'attack') {
 			$page = "attack/wild/wild-attack";
@@ -391,10 +391,10 @@ if (in_array($page, array('notfound', 'error', 'captcha', 'app/includes/pages/eq
 	$chat_block = true;
 }
 
-if (($gebruiker['admin'] ?? 0) >= 3 && (isset($_GET['sair']) && $_GET['sair'] == 'y')) {
-	DB::exQuery("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='" . $_SESSION['id'] . "'");
-    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='" . $_SESSION['id'] . "'");
-    DB::exQuery("DELETE FROM `duel` WHERE `uitdager`='" . $_SESSION['naam'] . "' OR `tegenstander`='" . $_SESSION['naam'] . "'");
+if (($gebruiker['admin'] ?? 0) >= 3 && (isset($_GET['sair']) && ($_GET['sair'] ?? '') == 'y')) {
+	DB::exQuery("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
+    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
+    DB::exQuery("DELETE FROM `duel` WHERE `uitdager`='" . ($_SESSION['naam'] ?? '') . "' OR `tegenstander`='" . ($_SESSION['naam'] ?? '') . "'");
 }
 
 $pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin'] ?? '') + ($gebruiker['pokecentertijd'] ?? 0)) - time();
@@ -420,7 +420,7 @@ if ($pokecen_tijd > 0) {
 ?>
 <!DOCTYPE html>
 <noscript>
-    <meta http-equiv="refresh" runat="server" content="0;url=https://<?=$_SERVER['SERVER_NAME']?>/noscript.php" />
+    <meta http-equiv="refresh" runat="server" content="0;url=https://<?=($_SERVER['SERVER_NAME'] ?? '')?>/noscript.php" />
 </noscript>
 <html lang="pt-br">
 	<head>
@@ -442,7 +442,7 @@ if ($pokecen_tijd > 0) {
         <meta http-equiv="expires" content ="-1" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.datatables.net; font-src 'self' fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.datatables.net pagead2.googlesyndication.com"> 
 
-		<base href="//<?=$_SERVER['SERVER_NAME']?>">
+		<base href="//<?=($_SERVER['SERVER_NAME'] ?? '')?>">
 
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/colorbox.css" />
@@ -568,7 +568,7 @@ if ($pokecen_tijd > 0) {
 												update_pokedex($pokemon['wild_id'], '', 'ei');
 												DB::exQuery("UPDATE `pokemon_speler` SET `ei`='0' WHERE `id`=" . $pokemon['id'] . " LIMIT 1");
 												$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> Seu Ovo Pokémon chocou! É um <a href="./pokemon-profile&id='.$pokemon['id'].'" title="Clique aqui para ver o Perfil deste Pokémon!">'.$pokemon['naam'].'</a>!';
-												DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '".$_SESSION['id']."', '".$event."', '0')");
+												DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
 											}
 
 											$pokemon = pokemonei($pokemon, $txt);

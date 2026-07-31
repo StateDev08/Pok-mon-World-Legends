@@ -18,7 +18,7 @@ class Messages {
             }
         }
 
-        $this->user = $_SESSION['id'];
+        $this->user = ($_SESSION['id'] ?? '');
 		$this->conversas = $this->conversa();
     }
 

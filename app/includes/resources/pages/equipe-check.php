@@ -7,7 +7,7 @@ include("app/includes/resources/security.php");
 
 $senha = "egvwl2018";
 
-$captcha = $_POST['captcha'];
+$captcha = ($_POST['captcha'] ?? '');
 if ($captcha != "")
 {
 

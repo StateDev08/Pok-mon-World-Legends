@@ -12,15 +12,15 @@ $homepage = DB::exQuery("SELECT text_en, text_de, text_es, text_nl, text_pl FROM
 
 if (isset($_POST['change'])) {
 	
-	DB::exQuery("UPDATE home SET text_en = '".$_POST['en']."', text_de = '".$_POST['de']."', text_es = '".$_POST['es']."', text_nl = '".$_POST['nl']."', text_pl = '".$_POST['pl']."'");
+	DB::exQuery("UPDATE home SET text_en = '".($_POST['en'] ?? '')."', text_de = '".($_POST['de'] ?? '')."', text_es = '".($_POST['es'] ?? '')."', text_nl = '".($_POST['nl'] ?? '')."', text_pl = '".($_POST['pl'] ?? '')."'");
 	
 	echo '<div class="green">Atualizado com sucesso!</div>';
 	
-	$homepage['text_en'] = $_POST['en'];
-	$homepage['text_de'] = $_POST['de'];
-	$homepage['text_es'] = $_POST['es'];
-	$homepage['text_nl'] = $_POST['nl'];
-	$homepage['text_pl'] = $_POST['pl'];
+	$homepage['text_en'] = ($_POST['en'] ?? '');
+	$homepage['text_de'] = ($_POST['de'] ?? '');
+	$homepage['text_es'] = ($_POST['es'] ?? '');
+	$homepage['text_nl'] = ($_POST['nl'] ?? '');
+	$homepage['text_pl'] = ($_POST['pl'] ?? '');
 }
 
 ?>

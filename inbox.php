@@ -54,7 +54,7 @@ echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
 					if ( empty ($_GET['action']) ) {
                         if (empty($_GET['id'])) {
                             if (isset($_POST['messages'])) {
-                                echo $var->delete_conversa(implode("','", $_POST['messages']));
+                                echo $var->delete_conversa(implode("','", ($_POST['messages'] ?? [])));
                             }
 
                             $var->include_list();
@@ -65,24 +65,24 @@ echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
                                 $is = true;
                             }
                         }
-                    } else if ( !empty ($_GET['action']) && $_GET['action'] == 'send' ) {
+                    } else if ( !empty ($_GET['action']) && ($_GET['action'] ?? '') == 'send' ) {
 						$var->selected_modify('#new_msg');
                         $var->text_modify ('#title', 'Nova Conversa');
                         
                         $player = '';
                         if (!empty($_GET['player'])) {
-                            $player = 'value="'.$_GET['player'].'"';
+                            $player = 'value="'.($_GET['player'] ?? '').'"';
                         }
 
                         $assunto = '';
                         if (!empty($_GET['assunto'])) {
-                            $assunto = 'value="'.base64_decode($_GET['assunto']).'"';
+                            $assunto = 'value="'.base64_decode(($_GET['assunto'] ?? '')).'"';
                         }
                         
                         if (isset($_POST['destinatario']) && isset($_POST['assunto']) && isset($_POST['mensagem'])) {
-                            $destinatario = strval(strip_tags($_POST['destinatario']));
-                            $assunto = strval(strip_tags($_POST['assunto']));
-                            $mensagem = strval(strip_tags($_POST['mensagem']));
+                            $destinatario = strval(strip_tags(($_POST['destinatario'] ?? '')));
+                            $assunto = strval(strip_tags(($_POST['assunto'] ?? '')));
+                            $mensagem = strval(strip_tags(($_POST['mensagem'] ?? '')));
 
                             if (empty($destinatario)) {
                                 echo '<div class="red">'.$txt['inbox_error_empty_to'].'</div>';
@@ -137,8 +137,8 @@ echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
                                 <table style="width: 100%">
                                     <tr>
                                         <td style="width: 60%; padding-right: 10px">
-                                            <textarea name='mensagem' id='mensagem' class="mensagem_<?=$_SESSION['id']?>" placeholder="<?=$txt['inbox_reply_placeholder']?>" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 155px; width: 100%' required></textarea>
-                                            <input type="hidden" id="conversa" name="conversa" value="<?=$_GET['id']?>"><input type="hidden" id="sender" name="sender" value="<?=$_SESSION['id']?>">
+                                            <textarea name='mensagem' id='mensagem' class="mensagem_<?=($_SESSION['id'] ?? '')?>" placeholder="<?=$txt['inbox_reply_placeholder']?>" maxlength="1000" style='padding: 5px 30px 5px 10px; border-radius: 5px; resize: none; height: 155px; width: 100%' required></textarea>
+                                            <input type="hidden" id="conversa" name="conversa" value="<?=($_GET['id'] ?? '')?>"><input type="hidden" id="sender" name="sender" value="<?=($_SESSION['id'] ?? '')?>">
                                         </td>
                                         <td style="width: 40%">
                                             <table style="width: 100%">

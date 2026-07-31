@@ -41,19 +41,19 @@
 
     if ($gebruiker['rank'] >= 4) {
     if (isset($_POST['pokemonview']) && isset($_POST['pokemonid'])) {
-        if ($_POST['pokemonview'] != 1 && $_POST['pokemonview'] != 2) {
+        if (($_POST['pokemonview'] ?? '') != 1 && ($_POST['pokemonview'] ?? '') != 2) {
             $_POST['pokemonview'] = 1;
         }
-            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
             #Is er geen pokemon gekozen?
             if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['calc_error_no_pokemon'].'</div>';
             else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['calc_error_egg'].'</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['calc_error_not_yours'].'</div>';
+            else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) echo '<div class="red">'.$txt['calc_error_not_yours'].'</div>';
             else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['calc_error_not_in_team'].'</div>';
             else{
                 $succ = true;
                 $pokemon_name = pokemon_naam($pokemoninfo['naam'], $pokemoninfo['roepnaam'], $pokemoninfo['icon']);
-                if ($_POST['pokemonview'] == 1) {
+                if (($_POST['pokemonview'] ?? '') == 1) {
                     if ($gebruiker['silver'] < $custo) {
                         echo '<div class="red">'.$txt['calc_error_no_silver'].'</div>';
                         $succ = false;
@@ -256,7 +256,7 @@
         <div class="box-content" style="width: 100%">
             <table class="general" style="width: 100%; font-size: 14px">
                 <thead>
-                    <th colspan="2"><?php printf($txt['calc_result_title'], ($_POST['pokemonview'] == 1) ? $txt['calc_simple_short'] : $txt['calc_premium_short']); ?></th>
+                    <th colspan="2"><?php printf($txt['calc_result_title'], (($_POST['pokemonview'] ?? '') == 1) ? $txt['calc_simple_short'] : $txt['calc_premium_short']); ?></th>
                 </thead>
                 <tbody>
                     <tr>
@@ -284,7 +284,7 @@
             <script src="<?=$static_url?>/javascripts/chartjs/Chart.js"></script>
             <center><canvas id="radarChart" width="230" height="200"></canvas></center>
             <?php
-                if ($_POST['pokemonview'] == 1) {
+                if (($_POST['pokemonview'] ?? '') == 1) {
                     $iv_hp = explode (' - ', $iv_hp);    
                     $iv_atk = explode (' - ', $iv_atk);
                     $iv_def = explode (' - ', $iv_def);
@@ -297,7 +297,7 @@
                 var radarData = {
                     labels : [<?php echo "'".$txt['calc_chart_hp']."','".$txt['calc_chart_defense']."','".$txt['calc_chart_sp_atk']."','".$txt['calc_chart_speed']."','".$txt['calc_chart_sp_def']."','".$txt['calc_chart_atk']."'"; ?>],
                     datasets : [
-                        <?php if ($_POST['pokemonview'] == 1) { ?>
+                        <?php if (($_POST['pokemonview'] ?? '') == 1) { ?>
                         {
                             fillColor: "rgba(63,169,245,.1)",
                             strokeColor: "red",

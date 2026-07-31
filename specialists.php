@@ -11,9 +11,9 @@ if ($gebruiker['rank'] >= 5) {
 	 
 $premium = ($gebruiker['premiumaccount'] > time())? true : false;
 
-if (isset($_POST['shiny']) && count($_POST['pokes']) != 0 && is_array($_POST['pokes'])) {
+if (isset($_POST['shiny']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_POST['pokes'] ?? ''))) {
 	$goldneed = 0;
-	foreach($_POST['pokes'] as $key=>$value) {
+	foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 		$pokemoninfo = DB::exQuery("SELECT `pokemon_speler`.`user_id`,`pokemon_speler`.`opzak`,`pokemon_speler`.`shiny`,`pokemon_speler`.`ei`,`pokemon_wild`.`zeldzaamheid` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$value} LIMIT 1")->fetch_assoc();
 		if (empty($value)) {
 			$message = '<div class="red">' . $txt['alert_nothing_selected'] . '</div>';
@@ -21,7 +21,7 @@ if (isset($_POST['shiny']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		} else if ($pokemoninfo['ei'] == 1) {
 			$message = '<div class="red">' . $txt['alert_pokemon_egg'] . '</div>';
 			break;
-		} else if ($pokemoninfo['user_id'] != $_SESSION['id']) {
+		} else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
 			$message = '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 			break;
 		} else if ($pokemoninfo['shiny'] == 1) {
@@ -41,7 +41,7 @@ if (isset($_POST['shiny']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 	if (empty($message)) {
 		if ($rekening['gold'] < $goldneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
 		else {
-			foreach($_POST['pokes'] as $key=>$value) {
+			foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 				DB::exQuery("UPDATE `pokemon_speler` SET `shiny`='1' WHERE `id`={$value} AND `user_id`={$_SESSION['id']} LIMIT 1");
 			}
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$goldneed} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
@@ -49,10 +49,10 @@ if (isset($_POST['shiny']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		}
 	}
 }
-if (isset($_POST['mood']) && count($_POST['pokes']) != 0 && is_array($_POST['pokes'])) {
+if (isset($_POST['mood']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_POST['pokes'] ?? ''))) {
 	$pokeinfo = array();
 	$goldneed = 0;
-	foreach($_POST['pokes'] as $key=>$value) {
+	foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 		$pokemoninfo = DB::exQuery("SELECT `pokemon_wild`.*,`pokemon_speler`.* FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$value} LIMIT 1")->fetch_assoc();
 
 		if (empty($value)) {
@@ -61,7 +61,7 @@ if (isset($_POST['mood']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 		} else if ($pokemoninfo['ei'] == 1) {
 			$message = '<div class="red">' . $txt['alert_pokemon_egg'] . '</div>';
 			break;
-		} else if ($pokemoninfo['user_id'] != $_SESSION['id']) {
+		} else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
 			$message = '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 			break;
 		} else if ($pokemoninfo['opzak'] != 'ja') {
@@ -84,7 +84,7 @@ if (isset($_POST['mood']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 	if (empty($message)) {
 		if ($rekening['gold'] < $goldneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
 		else {
-			foreach($_POST['pokes'] as $key=>$value) {
+			foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 				$karakter = DB::exQuery("SELECT * FROM `karakters` WHERE `karakter_naam`!='{$pokeinfo[$value]['karakter']}' ORDER BY RAND() LIMIT 1")->fetch_assoc();
 
 				/* Nieuwe stats en hp berekenen
@@ -107,10 +107,10 @@ if (isset($_POST['mood']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 		}
 	}
 }
-if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['pokes'])) {
+if (isset($_POST['mood2']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_POST['pokes'] ?? ''))) {
 	$pokeinfo = array();
 	$goldneed = 0;
-	foreach($_POST['pokes'] as $key=>$value) {
+	foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 		$pokemoninfo = DB::exQuery("SELECT `pokemon_wild`.*,`pokemon_speler`.* FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$value} LIMIT 1")->fetch_assoc();
 
 		if (empty($value)) {
@@ -119,7 +119,7 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		} else if ($pokemoninfo['ei'] == 1) {
 			$message = '<div class="red">' . $txt['alert_pokemon_egg'] . '</div>';
 			break;
-		} else if ($pokemoninfo['user_id'] != $_SESSION['id']) {
+		} else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
 			$message = '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 			break;
 		} else if ($pokemoninfo['opzak'] != 'ja') {
@@ -144,7 +144,7 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 	if (empty($message)) {
 		if ($rekening['gold'] < $goldneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
 		else {
-			foreach($_POST['pokes'] as $key=>$value) {
+			foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 				
 				
 				
@@ -152,7 +152,7 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 				// attack / defense / spatk / spdef / speed
 
 				
-				if ($_POST['change'] == 'up') {
+				if (($_POST['change'] ?? '') == 'up') {
 				//UP
 				// ATTACK = hardy / lonely / brave / adamant / naughty
 				// DEFENSE = bold / docile / relaxed / impish / lax
@@ -161,19 +161,19 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 				// SPEED = timid / hasty / serious / jolly / naive
 				//UP
 				
-			    if ($_POST['atribute'] == 'attack') {
+			    if (($_POST['atribute'] ?? '') == 'attack') {
 					
 				$input = array("hardy","lonely","brave","adamant","naughty");
 				
-			    } else if ($_POST['atribute'] == 'defense') {
+			    } else if (($_POST['atribute'] ?? '') == 'defense') {
 				
 				$input = array("bold","docile","relaxed","impish","lax");
 				
-				} else if ($_POST['atribute'] == 'spatk') {
+				} else if (($_POST['atribute'] ?? '') == 'spatk') {
 				
 				$input = array("modest","mild","quiet","bashful","rash");
 				
-				} else if ($_POST['atribute'] == 'spdef') {
+				} else if (($_POST['atribute'] ?? '') == 'spdef') {
 				
 				$input = array("calm","gentle","sassy","careful","quirky");
 				
@@ -192,19 +192,19 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 				// SPEED = brave / relaxed / serious / quiet / sassy
 				//DOWN
 				
-			    if ($_POST['atribute'] == 'attack') {
+			    if (($_POST['atribute'] ?? '') == 'attack') {
 					
 				$input = array("hardy","bold","timid","modest","calm");
 				
-			    } else if ($_POST['atribute'] == 'defense') {
+			    } else if (($_POST['atribute'] ?? '') == 'defense') {
 				
 				$input = array("lonely","docile","hasty","mild","gentle");
 				
-				} else if ($_POST['atribute'] == 'spatk') {
+				} else if (($_POST['atribute'] ?? '') == 'spatk') {
 				
 				$input = array("adamant","impish","jolly","bashful","careful");
 				
-				} else if ($_POST['atribute'] == 'spdef') {
+				} else if (($_POST['atribute'] ?? '') == 'spdef') {
 				
 				$input = array("naughty","lax","naive","rash","quirky");
 				
@@ -245,10 +245,10 @@ if (isset($_POST['mood2']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		}
 	}
 }
-if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['pokes']) && isset($_POST['atribute'])) {
+if (isset($_POST['mood3']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_POST['pokes'] ?? '')) && isset($_POST['atribute'])) {
 	$pokeinfo = array();
 	$goldneed = 0;
-	foreach($_POST['pokes'] as $key=>$value) {
+	foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 		$pokemoninfo = DB::exQuery("SELECT `pokemon_wild`.*,`pokemon_speler`.* FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$value} LIMIT 1")->fetch_assoc();
 
 		if (empty($value)) {
@@ -257,7 +257,7 @@ if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		} else if ($pokemoninfo['ei'] == 1) {
 			$message = '<div class="red">' . $txt['alert_pokemon_egg'] . '</div>';
 			break;
-		} else if ($pokemoninfo['user_id'] != $_SESSION['id']) {
+		} else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
 			$message = '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 			break;
 		} else if ($pokemoninfo['opzak'] != 'ja') {
@@ -281,7 +281,7 @@ if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		if ($rekening['gold'] < $goldneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
 		else if (empty($karakter)) { $message = '<div class="red">'.$txt['spec_mood_invalid'].'</div>';
 		} else {
-			foreach($_POST['pokes'] as $key=>$value) {
+			foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 				$attackstat		= round((((($pokeinfo[$value]['attack_iv'] + 2 * $pokeinfo[$value]['attack_base'] + floor($pokeinfo[$value]['attack_ev'] / 4)) * $pokeinfo[$value]['level'] / 100) + 5) + $pokeinfo[$value]['attack_up']) * $karakter['attack_add']);
 				$defencestat	= round((((($pokeinfo[$value]['defence_iv'] + 2 * $pokeinfo[$value]['defence_base'] + floor($pokeinfo[$value]['defence_ev'] / 4)) * $pokeinfo[$value]['level'] / 100) + 5) + $pokeinfo[$value]['defence_up']) * $karakter['defence_add']) ;
 				$speedstat		= round((((($pokeinfo[$value]['speed_iv'] + 2 * $pokeinfo[$value]['speed_base'] + floor($pokeinfo[$value]['speed_ev'] / 4)) * $pokeinfo[$value]['level'] / 100) + 5) + $pokeinfo[$value]['speed_up']) * $karakter['speed_add']);
@@ -297,9 +297,9 @@ if (isset($_POST['mood3']) && count($_POST['pokes']) != 0 && is_array($_POST['po
 		}
 	}
 }
-if (isset($_POST['naam']) && count($_POST['pokes']) != 0 && is_array($_POST['pokes'])) {
+if (isset($_POST['naam']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_POST['pokes'] ?? ''))) {
 	$silverneed = 0;
-	foreach($_POST['pokes'] as $key=>$value) {
+	foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 		$pokemoninfo = DB::exQuery("SELECT `pokemon_wild`.*,`pokemon_speler`.* FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$value} LIMIT 1")->fetch_assoc();
 		$pokemoninfo = pokemonei($pokemoninfo, $txt);
 		$pokemoninfo['naam'] = pokemon_naam($pokemoninfo['naam'], $pokemoninfo['roepnaam']);
@@ -307,13 +307,13 @@ if (isset($_POST['naam']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 		if (empty($value)) {
 			$message = '<div class="red">' . $txt['alert_nothing_selected'] . '</div>';
 			break;
-		} else if (strlen(trim($_POST['name'][$value])) < 4 || strlen(trim($_POST['name'][$value])) > 12 AND $_POST['remove']  != "remove") {
+		} else if (strlen(trim($_POST['name'][$value])) < 4 || strlen(trim($_POST['name'][$value])) > 12 AND ($_POST['remove'] ?? '')  != "remove") {
 			$message = '<div class="red">' . $txt['alert_name_too_long'] . '</div>';
 			break;
-		} else if ($pokemoninfo['naam'] == $_POST['name'][$value] AND $_POST['remove']  != "remove") {
+		} else if ($pokemoninfo['naam'] == $_POST['name'][$value] AND ($_POST['remove'] ?? '')  != "remove") {
 			$message = '<div class="red">' . $txt['alert_name_equal'] . '</div>';
 			break;
-		} else if (!preg_match("/^([a-zA-Z0-9]+)$/", $_POST['name'][$value]) AND $_POST['remove']  != "remove") {
+		} else if (!preg_match("/^([a-zA-Z0-9]+)$/", $_POST['name'][$value]) AND ($_POST['remove'] ?? '')  != "remove") {
 		$message = '<div class="red">'.$txt['spec_name_special'].'</div>';
 		break;
 		/*} else if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `roepnaam`='{$_POST['name'][$value]}' LIMIT 1")->num_rows != 0) {
@@ -322,7 +322,7 @@ if (isset($_POST['naam']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 		} else if ($pokemoninfo['ei'] == 1) {
 			$message = '<div class="red">' . $txt['alert_pokemon_egg'] . '</div>';
 			break;
-		} else if ($pokemoninfo['user_id'] != $_SESSION['id']) {
+		} else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
 			$message = '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 			break;
 		} else if ($pokemoninfo['opzak'] != 'ja') {
@@ -348,9 +348,9 @@ if (isset($_POST['naam']) && count($_POST['pokes']) != 0 && is_array($_POST['pok
 	if (empty($message)) {
 		if ($gebruiker['silver'] < $silverneed)	$message = '<div class="red">' . $txt['alert_not_enough_money'] . '</div>';
 		else {
-			foreach($_POST['pokes'] as $key=>$value) {
+			foreach(($_POST['pokes'] ?? []) as $key=>$value) {
 			
-			if ($_POST['remove'] == "remove") {
+			if (($_POST['remove'] ?? '') == "remove") {
         	DB::exQuery("UPDATE `pokemon_speler` SET `naam_changes`=`naam_changes`+1,`roepnaam`='' WHERE `id`={$value} LIMIT 1");
 		} else {
         	DB::exQuery("UPDATE `pokemon_speler` SET `naam_changes`=`naam_changes`+1,`roepnaam`='{$_POST['name'][$value]}' WHERE `id`={$value} LIMIT 1");

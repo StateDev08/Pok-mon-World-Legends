@@ -9,7 +9,7 @@ if ($gebruiker['in_hand'] == 0)	exit(header('LOCATION: ./'));
 if (isset($_POST['heal']) && is_array($_POST['pokemon'] ?? []) && count($_POST['pokemon'] ?? []) != 0) {
     $i = 0;
 	$count_time = 0;
-	foreach($_POST['pokemon'] as $key=>$value) {
+	foreach(($_POST['pokemon'] ?? []) as $key=>$value) {
 		if (!is_numeric($value)) {
 			$message = '<div class="red">'.$txt['pokecenter_error_action'].'</div>';
 			break;
@@ -33,7 +33,7 @@ if (isset($_POST['heal']) && is_array($_POST['pokemon'] ?? []) && count($_POST['
 		
     }
 
-    $quests->setStatus('heal', $_SESSION['id'], $i);
+    $quests->setStatus('heal', ($_SESSION['id'] ?? ''), $i);
     
 	if (empty($message)) {
 		DB::exQuery("UPDATE `gebruikers` SET `pokecentertijdbegin`= NOW(), `pokecentertijd`='".$count_time."' WHERE `user_id`='" . $gebruiker['user_id'] . "'");

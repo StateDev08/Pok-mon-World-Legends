@@ -1,11 +1,11 @@
 <?php
-$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_tmhm` WHERE `user_id`=" . $_SESSION['id'] . " LIMIT 1")->fetch_assoc();
-if ($gebruiker_item[$_GET['name']] <= 0)	echo '<script>parent.$.colorbox.close();</script>';
+$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_tmhm` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " LIMIT 1")->fetch_assoc();
+if ($gebruiker_item[($_GET['name'] ?? '')] <= 0)	echo '<script>parent.$.colorbox.close();</script>';
 
 #Als er een result is kan pokemon evolueren.
-if (isset($_POST['kies']) && is_numeric($_POST['pokemonid'])) {
+if (isset($_POST['kies']) && is_numeric(($_POST['pokemonid'] ?? ''))) {
 	if (empty($_POST['pokemonid']))	$message =  '<div class="red">Você deve escolher um pokémon!</div>';
-	else	exit(header('Location: ./ajax.php?act=use_attack_finish&name=' . $_GET['name'] . '&pokemonid=' . $_POST['pokemonid']));
+	else	exit(header('Location: ./ajax.php?act=use_attack_finish&name=' . ($_GET['name'] ?? '') . '&pokemonid=' . ($_POST['pokemonid'] ?? '')));
 }
 ?>
 <!DOCTYPE html>
@@ -21,13 +21,13 @@ if (isset($_POST['kies']) && is_numeric($_POST['pokemonid'])) {
 <?php	
 if (!empty($message))	echo $message;
 
-$check = DB::exQuery("SELECT `type1`,`type2` FROM `tmhm` WHERE `naam`='" . $_GET['name'] . "' LIMIT 1")->fetch_assoc();
-$poke = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2`,`pokemon_wild`.`naam`,`pokemon_speler`.`id`,`pokemon_speler`.`level`,`pokemon_speler`.`shiny`,`pokemon_speler`.`user_id`,`pokemon_speler`.`ei` FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`=" . $_SESSION['id'] . " AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+$check = DB::exQuery("SELECT `type1`,`type2` FROM `tmhm` WHERE `naam`='" . ($_GET['name'] ?? '') . "' LIMIT 1")->fetch_assoc();
+$poke = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2`,`pokemon_wild`.`naam`,`pokemon_speler`.`id`,`pokemon_speler`.`level`,`pokemon_speler`.`shiny`,`pokemon_speler`.`user_id`,`pokemon_speler`.`ei` FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
 ?>
 <form method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="10">Escolha o pokémon para qual você vai usar <?=$_GET['name'];?>.</th></tr>
+			<tr><th colspan="10">Escolha o pokémon para qual você vai usar <?=($_GET['name'] ?? '');?>.</th></tr>
 			<tr>
 				<th width="20">#</th>
 				<th width="200" colspan="2">Pokemon</th>
@@ -38,7 +38,7 @@ $poke = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`type1`,`pok
 		<tbody><?php
 		
 
-	$check2 = DB::exQuery("SELECT * FROM tmhm_relacionados WHERE `naam`='".$_GET['name']."'")->fetch_assoc();
+	$check2 = DB::exQuery("SELECT * FROM tmhm_relacionados WHERE `naam`='".($_GET['name'] ?? '')."'")->fetch_assoc();
 
 	
 	

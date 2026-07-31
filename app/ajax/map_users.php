@@ -2,8 +2,8 @@
 require_once 'app/includes/resources/config.php';
 require_once 'app/includes/resources/ingame.inc.php';
 
-$map = (int) $_GET['map'];
-$uid = $_SESSION['id'];
+$map = (int) ($_GET['map'] ?? '');
+$uid = ($_SESSION['id'] ?? '');
 																  
 $time = time();
 $tenMinsAgo = $time - (60*30);

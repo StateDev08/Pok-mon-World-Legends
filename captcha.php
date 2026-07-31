@@ -6,17 +6,17 @@ echo addNPCBox(11, 'TESTE DE SEGURANÇA', ' Para evitar problemas de BOTS E MACR
 if($_POST) {
 
 	if(empty($_SESSION['captchaincorreto'])){ $_SESSION['captchaincorreto'] = 0; }
-	$chances = 3 - $_SESSION['captchaincorreto'];
+	$chances = 3 - ($_SESSION['captchaincorreto'] ?? '');
 
-	if($_POST['wild_id'] != $_SESSION['pkmon']){
-		$_SESSION['captchaincorreto'] = $_SESSION['captchaincorreto']+1;
+	if(($_POST['wild_id'] ?? '') != ($_SESSION['pkmon'] ?? '')){
+		$_SESSION['captchaincorreto'] = ($_SESSION['captchaincorreto'] ?? '')+1;
 		echo '<div class="red">Incorreto, você tem mais '.$chances.' chance(s)!</div>';
-	} else if(($_POST['emqual']) != $_SESSION['emqual']){
-		$_SESSION['captchaincorreto'] = $_SESSION['captchaincorreto']+1;
+	} else if((($_POST['emqual'] ?? '')) != ($_SESSION['emqual'] ?? '')){
+		$_SESSION['captchaincorreto'] = ($_SESSION['captchaincorreto'] ?? '')+1;
 		echo '<div class="red">Incorreto, você tem mais '.$chances.' chance(s)!</div>';
 	} else {		
 		$tempook = time();
-		DB::exQuery("UPDATE `gebruikers` SET `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='".$_SESSION['id']."'");
+		DB::exQuery("UPDATE `gebruikers` SET `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 		if (strpos(($_GET['page'] ?? ''), '/') !== false) {
 		 	header("Location: ../" . ($_GET['page'] ?? ''));
 		} else {

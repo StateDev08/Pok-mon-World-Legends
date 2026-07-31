@@ -3,8 +3,8 @@ $captcha_page_check = array('attack/attack_map', 'attack/gyms', 'trainer', 'atta
 
 function GetEventLanguage() {
 	$language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
-	if (isset($_COOKIE['pa_language']) && in_array($_COOKIE['pa_language'], $language_array, true)) {
-		return $_COOKIE['pa_language'];
+	if (isset($_COOKIE['pa_language']) && in_array(($_COOKIE['pa_language'] ?? ''), $language_array, true)) {
+		return ($_COOKIE['pa_language'] ?? '');
 	}
 	return 'pt';
 }
@@ -130,7 +130,7 @@ function query_cache($page, $query, $expire) {
 }
 
 function update_pokedex($wild_id, $old_id, $wat) {
-	$load = DB::exQuery("SELECT `pok_gezien`,`pok_bezit` FROM `gebruikers` WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1")->fetch_assoc();
+	$load = DB::exQuery("SELECT `pok_gezien`,`pok_bezit` FROM `gebruikers` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1")->fetch_assoc();
 	$pokedex_bezit		= explode(",", $load['pok_bezit']);
 	$pokedex_gezien		= explode(",", $load['pok_gezien']);
 
@@ -150,7 +150,7 @@ function update_pokedex($wild_id, $old_id, $wat) {
 		if (!in_array($wild_id, $pokedex_bezit))		$query[] = "`pok_bezit`='" . $load['pok_bezit'] . ',' . $wild_id . "'";
 	}
 
-	if (!empty($query))	DB::exQuery("UPDATE `gebruikers` SET " . implode(',', $query) . " WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+	if (!empty($query))	DB::exQuery("UPDATE `gebruikers` SET " . implode(',', $query) . " WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 }
 
 function max_min_price($pokemon, $currency = 'silver') {
@@ -182,7 +182,7 @@ function max_min_price($pokemon, $currency = 'silver') {
 }
 
 function getUrl () {
-	$base = str_replace('', '.', $_SERVER['REQUEST_URI']);
+	$base = str_replace('', '.', ($_SERVER['REQUEST_URI'] ?? ''));
 	$p = func_get_args();
 
 	for($i = 0; $i < sizeof($p); $i++) {
@@ -202,7 +202,7 @@ function page_timer($page, $timer) {
 function rankerbij($soort, $txt) {
 	global $static_url;
 
-	$spelerrank = DB::exQuery("SELECT `g`.`username`,`g`.`user_id`,`g`.`rankexp`,`g`.`rankexpnodig`,`g`.`rank`,`g`.`premiumaccount` FROM `gebruikers` AS `g` INNER JOIN `rekeningen` AS `r` ON `g`.`acc_id`=`r`.`acc_id` WHERE `g`.`user_id`='" . $_SESSION['id'] . "' LIMIT 1")->fetch_assoc();
+	$spelerrank = DB::exQuery("SELECT `g`.`username`,`g`.`user_id`,`g`.`rankexp`,`g`.`rankexpnodig`,`g`.`rank`,`g`.`premiumaccount` FROM `gebruikers` AS `g` INNER JOIN `rekeningen` AS `r` ON `g`.`acc_id`=`r`.`acc_id` WHERE `g`.`user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1")->fetch_assoc();
 
 	$premiumFlag = 1; 
 	if ($spelerrank['premiumaccount'] > time())	$premiumFlag += 0.5; // 50% extra voor premium
@@ -220,7 +220,7 @@ function rankerbij($soort, $txt) {
 	//Kijken als speler niet boven de max zit.
 	$rank = rank($spelerrank['rank']);
 	$uitkomst = round(((($rank['ranknummer'] / 0.15) * $soort) / 3) * $premiumFlag);
-	DB::exQuery("UPDATE `gebruikers` SET `rankexp`=`rankexp`+'" . $uitkomst . "' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+	DB::exQuery("UPDATE `gebruikers` SET `rankexp`=`rankexp`+'" . $uitkomst . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 
 	//Heeft speler genoeg punten om rank omhoog te gaan?
 	$spelerrank['rankexp'] = $spelerrank['rankexp'] + $uitkomst;
@@ -235,9 +235,9 @@ function rankerbij($soort, $txt) {
 
 		//Nieuwe gegevens opslaan bij de gebruiker
 		if ($ranknieuw >= 33)
-			DB::exQuery("UPDATE `gebruikers` SET `rank`='33', `rankexp`='1', `rankexpnodig`='170000000' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `rank`='33', `rankexp`='1', `rankexpnodig`='170000000' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 		else
-			DB::exQuery("UPDATE `gebruikers` SET `rank`='" . $ranknieuw . "',`rankexp`='" . $rankexpover . "',`rankexpnodig`='" . $query['punten'] . "' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `rank`='" . $ranknieuw . "',`rankexp`='" . $rankexpover . "',`rankexpnodig`='" . $query['punten'] . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 
 		$rank_up = DB::exQuery("SELECT * FROM `rank_up` WHERE `rank`='".$ranknieuw."' LIMIT 1")->fetch_assoc();
 
@@ -285,12 +285,12 @@ function rankerbij($soort, $txt) {
 				$hpstat			= round((($hp_iv + 2 * $query['hp_base']) * 5 / 100) + 10 + 5);
 
 				#Alle gegevens van de pokemon opslaan
-				DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='nee',`opzak_nummer`='".$opzak_nummer."',`ei`='1',`ei_tijd`='".$tijd."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
-				DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='nee',`opzak_nummer`='".$opzak_nummer."',`ei`='1',`ei_tijd`='".$tijd."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 		}
 
-		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'" . $rank_up['silvers'] . "', `points`=`points`+'" . $rank_up['extra_points'] . "' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
-		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'" . $rank_up['golds'] . "' WHERE `acc_id`='" . $_SESSION['acc_id'] . "' LIMIT 1");
+		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'" . $rank_up['silvers'] . "', `points`=`points`+'" . $rank_up['extra_points'] . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
+		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'" . $rank_up['golds'] . "' WHERE `acc_id`='" . ($_SESSION['acc_id'] ?? '') . "' LIMIT 1");
 		
 		$msg = ' E de <b>Recompensa</b> ganhou: <b>'.highamount($rank_up['silvers']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="" width="16" height="16" title="Silver">';
 		if ($rank_up['golds'] > 0) {
@@ -310,7 +310,7 @@ function rankerbij($soort, $txt) {
 		$eventlanguage = GetEventLanguage();
 		require_once('../../language/events/language-events-' . $eventlanguage . '.php');
 		$event = '<img src="' . $static_url . '/images/icons/blue.png" class="imglower" /> ' . sprintf($txt['event_rank_up'], $query['naam']) . $msg;
-		DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(),'" . $_SESSION['id'] . "','" . $event . "',0)");
+		DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(),'" . ($_SESSION['id'] ?? '') . "','" . $event . "',0)");
 		}
 	}
 }
@@ -474,7 +474,7 @@ function levelgroei($levelnieuw, $pokemon) {
 							if (!empty($pokemon['aanval_2'])) {	//Is de derde plek niet leeg
 								if (!empty($pokemon['aanval_3'])) {	//Is de vierde plek niet leeg, dan moet er gekozen worden, code maken die word mee gegeven
                   					if (!empty($pokemon['aanval_4'])) {
-										if (!$_SESSION['aanvalnieuw'])	$_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
+										if (!($_SESSION['aanvalnieuw'] ?? ''))	$_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
 									} else //Als de vierde plek wel leeg is dan aanval daar opslaan
 										DB::exQuery("UPDATE `pokemon_speler` SET `aanval_4`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
 								} else  //Als de derde plek wel leeg is dan aanval daar opslaan
@@ -484,7 +484,7 @@ function levelgroei($levelnieuw, $pokemon) {
 						} else  //Als de eerste plek wel leeg is dan aanval daar opslaan
 							DB::exQuery("UPDATE `pokemon_speler` SET `aanval_1`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
 					} else  //Is alles vol, dan moet er gekozen worden
-						if (!$_SESSION['aanvalnieuw'])	$_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
+						if (!($_SESSION['aanvalnieuw'] ?? ''))	$_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
 				}
 			}
 		} else if ($levelen['wat'] == "evo") {  //Gaat de pokemon evolueren
@@ -494,27 +494,27 @@ function levelgroei($levelnieuw, $pokemon) {
 					if (!empty($levelen['time'])) {
 						if ($levelen['time'] == isDay()) {
 							$code = base64_encode($pokemon['id'] . "/" . $levelen['nieuw_id']);
-							if (!$_SESSION['evolueren'])	$_SESSION['evolueren'] = $code;
-							else if (!$_SESSION['evolueren2'] && $_SESSION['evolueren'] != $code)	$_SESSION['evolueren2'] = $code;
-							else if (!$_SESSION['evolueren3'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code)	$_SESSION['evolueren3'] = $code;
-							else if (!$_SESSION['evolueren4'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code)	$_SESSION['evolueren4'] = $code;
-							else if (!$_SESSION['evolueren5'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code)	$_SESSION['evolueren5'] = $code;
-							else if (!$_SESSION['evolueren6'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code && $_SESSION['evolueren5'] != $code)	$_SESSION['evolueren6'] = $code;
+							if (!($_SESSION['evolueren'] ?? ''))	$_SESSION['evolueren'] = $code;
+							else if (!($_SESSION['evolueren2'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code)	$_SESSION['evolueren2'] = $code;
+							else if (!($_SESSION['evolueren3'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code)	$_SESSION['evolueren3'] = $code;
+							else if (!($_SESSION['evolueren4'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code)	$_SESSION['evolueren4'] = $code;
+							else if (!($_SESSION['evolueren5'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code)	$_SESSION['evolueren5'] = $code;
+							else if (!($_SESSION['evolueren6'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code && ($_SESSION['evolueren5'] ?? '') != $code)	$_SESSION['evolueren6'] = $code;
 						}
 					} else if (($levelen['trade'] == 1 && $pokemon['trade'] == "1.5")) {
 						if ( $pokemon['item'] == $levelen['item'] ) {
 								$code = base64_encode($pokemon['id'] . "/" . $levelen['nieuw_id']);
-								if (!$_SESSION['evolueren']) {
+								if (!($_SESSION['evolueren'] ?? '')) {
 										$_SESSION['evolueren'] = $code;
-								} else if (!$_SESSION['evolueren2'] && $_SESSION['evolueren'] != $code) {
+								} else if (!($_SESSION['evolueren2'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code) {
 										$_SESSION['evolueren2'] = $code;
-								} else if (!$_SESSION['evolueren3'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code) {
+								} else if (!($_SESSION['evolueren3'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code) {
 										$_SESSION['evolueren3'] = $code;
-								} else if (!$_SESSION['evolueren4'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code) {
+								} else if (!($_SESSION['evolueren4'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code) {
 										$_SESSION['evolueren4'] = $code;
-								} else if (!$_SESSION['evolueren5'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code) {
+								} else if (!($_SESSION['evolueren5'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code) {
 										$_SESSION['evolueren5'] = $code;
-								} else if (!$_SESSION['evolueren6'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code && $_SESSION['evolueren5'] != $code) {
+								} else if (!($_SESSION['evolueren6'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code && ($_SESSION['evolueren5'] ?? '') != $code) {
 										$_SESSION['evolueren6'] = $code;
 								}
 						}
@@ -534,19 +534,19 @@ function levelgroei($levelnieuw, $pokemon) {
 							$array = array('266', '268');
 							$levelen['nieuw_id'] = $array[$rand-1];
 						} else if ($levelen['wild_id'] == '104') {
-						    if ('Alola' == $_SESSION['region']) {
+						    if ('Alola' == ($_SESSION['region'] ?? '')) {
 						        $levelen['nieuw_id'] = '105001';
 						    } else {
 						        $levelen['nieuw_id'] = '105';
 						    }
 						}
 						$code = base64_encode($pokemon['id'] . "/" . $levelen['nieuw_id']);
-						if (!$_SESSION['evolueren'])	$_SESSION['evolueren'] = $code;
-						else if (!$_SESSION['evolueren2'] && $_SESSION['evolueren'] != $code)	$_SESSION['evolueren2'] = $code;
-						else if (!$_SESSION['evolueren3'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code)	$_SESSION['evolueren3'] = $code;
-						else if (!$_SESSION['evolueren4'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code)	$_SESSION['evolueren4'] = $code;
-						else if (!$_SESSION['evolueren5'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code)	$_SESSION['evolueren5'] = $code;
-						else if (!$_SESSION['evolueren6'] && $_SESSION['evolueren'] != $code && $_SESSION['evolueren2'] != $code && $_SESSION['evolueren3'] != $code && $_SESSION['evolueren4'] != $code && $_SESSION['evolueren5'] != $code)	$_SESSION['evolueren6'] = $code;
+						if (!($_SESSION['evolueren'] ?? ''))	$_SESSION['evolueren'] = $code;
+						else if (!($_SESSION['evolueren2'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code)	$_SESSION['evolueren2'] = $code;
+						else if (!($_SESSION['evolueren3'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code)	$_SESSION['evolueren3'] = $code;
+						else if (!($_SESSION['evolueren4'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code)	$_SESSION['evolueren4'] = $code;
+						else if (!($_SESSION['evolueren5'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code)	$_SESSION['evolueren5'] = $code;
+						else if (!($_SESSION['evolueren6'] ?? '') && ($_SESSION['evolueren'] ?? '') != $code && ($_SESSION['evolueren2'] ?? '') != $code && ($_SESSION['evolueren3'] ?? '') != $code && ($_SESSION['evolueren4'] ?? '') != $code && ($_SESSION['evolueren5'] ?? '') != $code)	$_SESSION['evolueren6'] = $code;
 					}
 				}
 			} else {
@@ -824,7 +824,7 @@ function pokedex_popup($pokemon, $txt) {
 }
 
 function isOwner ($id, $admin, $opzak, $method = 'direct') {
-	if (($opzak == 'tra' && $method != 'private') || $id == $_SESSION['id'] || $admin >= 3) {
+	if (($opzak == 'tra' && $method != 'private') || $id == ($_SESSION['id'] ?? '') || $admin >= 3) {
 		return true;
 	}
 

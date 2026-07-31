@@ -2,7 +2,7 @@
 #include dit script als je de pagina alleen kunt zien als je ingelogd bent.
 require_once('app/includes/resources/security.php');
 
-$inhuis = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND (opzak = 'nee' OR opzak = 'tra')")->num_rows;
+$inhuis = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND (opzak = 'nee' OR opzak = 'tra')")->num_rows;
 
 if ($gebruiker['huis'] == "doos") $over  = 2-$inhuis;
 else if ($gebruiker['huis'] == "shuis") $over  = 20-$inhuis;
@@ -11,29 +11,29 @@ else if ($gebruiker['huis'] == "villa") $over  = 2500-$inhuis;
 
 $type = '';
 $types = array ('private', 'auction', 'direct');
-if (isset($_GET['type']) && in_array($_GET['type'], $types)) {
-	$type = $_GET['type'];
+if (isset($_GET['type']) && in_array(($_GET['type'] ?? ''), $types)) {
+	$type = ($_GET['type'] ?? '');
 } else {
 	$type = 'direct';
 }
 
 $mine = 'false';
 
-if (isset($_GET['mine']) && in_array($_GET['mine'], array('true', 'false'))) {
-	$mine = $_GET['mine'];
+if (isset($_GET['mine']) && in_array(($_GET['mine'] ?? ''), array('true', 'false'))) {
+	$mine = ($_GET['mine'] ?? '');
 }
 
 if (isset($_POST['buy']) && $mine == 'false') {
 	if ($over > 0) {
-		$tid = base64_decode($_POST['buy']);
+		$tid = base64_decode(($_POST['buy'] ?? ''));
 		$action = DB::exQuery("SELECT `t`.*, `g`.`acc_id` FROM `transferlijst` t INNER JOIN `gebruikers` g ON `g`.`user_id` = `t`.`user_id` WHERE id='$tid'");
 		$buy = $action->fetch_assoc();
 		
-		if ($buy['user_id'] == $_SESSION['id']) {
+		if ($buy['user_id'] == ($_SESSION['id'] ?? '')) {
 			echo '<div class="red">'.$txt['transfer_cant_buy_own'].'</div>';
 		} else if ($gebruiker['rank'] < 4) {
 			echo '<div class="red">'.$txt['transfer_no_rank'].'</div>';
-		} else if ($buy['type'] == 'private' && $buy['to_user'] != $_SESSION['id']) {
+		} else if ($buy['type'] == 'private' && $buy['to_user'] != ($_SESSION['id'] ?? '')) {
 			echo '<div class="red">'.$txt['transfer_cant_buy_this'].'</div>';
 		} else if ($buy['silver'] > $gebruiker['silver'] || $buy['gold'] > $rekening['gold']) {
 			echo '<div class="red">'.$txt['transfer_no_money'].'</div>';
@@ -45,20 +45,20 @@ if (isset($_POST['buy']) && $mine == 'false') {
 			$tl = DB::exQuery("SELECT `s`.`wild_id`, `s`.`user_id`,`s`.`icon`, `s`.`level`, `s`.`item`, `s`.`roepnaam`, `w`.`naam` FROM `pokemon_speler` s INNER JOIN `pokemon_wild` w ON `s`.`wild_id` = `w`.`wild_id` WHERE id='$buy[pokemon_id]'")->fetch_assoc();
 			$tl['naam'] = pokemon_naam($tl['naam'], $tl['roepnaam'], $tl['icon']);
 
-			DB::exQuery("UPDATE `pokemon_speler` SET `user_id`='".$_SESSION['id']."',`trade`='1.5',`opzak`='nee',`opzak_nummer`='' WHERE `id`='".$buy['pokemon_id']."'");
+			DB::exQuery("UPDATE `pokemon_speler` SET `user_id`='".($_SESSION['id'] ?? '')."',`trade`='1.5',`opzak`='nee',`opzak_nummer`='' WHERE `id`='".$buy['pokemon_id']."'");
 			
-			if ($buy['type'] == 'direct') $quests->setStatus('buy_direct', $_SESSION['id']);
-			if ($buy['type'] == 'private') $quests->setStatus('buy_private', $_SESSION['id']);
+			if ($buy['type'] == 'direct') $quests->setStatus('buy_direct', ($_SESSION['id'] ?? ''));
+			if ($buy['type'] == 'private') $quests->setStatus('buy_private', ($_SESSION['id'] ?? ''));
 
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$buy['silver']."', `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$buy['silver']."', `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$buy['silver']."', `aantalpokemon`=`aantalpokemon`-'1' WHERE `user_id`='".$buy['user_id']."'");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$buy['gold']."' WHERE `acc_id`='".$_SESSION['acc_id']."'");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$buy['gold']."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$buy['gold']."' WHERE `acc_id`='".$buy['acc_id']."'");
 
 			DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$tid."'");
 			update_pokedex($tl['wild_id'], '', 'buy');
 
-			DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".$_SESSION['id']."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
+			DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".($_SESSION['id'] ?? '')."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
 
 			$event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> comprou seu <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a> por: '.highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
 
@@ -73,59 +73,59 @@ if (isset($_POST['buy']) && $mine == 'false') {
 }
 
 $filter = ''; $ptotal = false; $filter_arr = array();
-if (!empty($_GET['specie']) && ctype_digit($_GET['specie'])) {
+if (!empty($_GET['specie']) && ctype_digit(($_GET['specie'] ?? ''))) {
 	$filter = "`ps`.`wild_id`='$_GET[specie]'";
-	$filter_arr[0] = $_GET['specie'];
+	$filter_arr[0] = ($_GET['specie'] ?? '');
 }
 
-if (!empty($_GET['total']) && ctype_digit($_GET['total'])) { 
-	$ptotal = $_GET['total'];
-	$filter_arr[1] = $_GET['total'];
+if (!empty($_GET['total']) && ctype_digit(($_GET['total'] ?? ''))) { 
+	$ptotal = ($_GET['total'] ?? '');
+	$filter_arr[1] = ($_GET['total'] ?? '');
 }
 
-if (!empty($_GET['shiny']) && $_GET['shiny'] == true) { 
+if (!empty($_GET['shiny']) && ($_GET['shiny'] ?? '') == true) { 
 	$filter = "`ps`.`shiny`='1'";
 	$filter_arr[2] = true;
 }
 
 if (!empty($_GET['region']) && $region != 'Todas') { 
 	$filter = "`pw`.`wereld`='$_GET[region]'";
-	$filter_arr[3] = $_GET['region'];
+	$filter_arr[3] = ($_GET['region'] ?? '');
 }
 
-if (!empty($_GET['price']) && ctype_digit($_GET['price']) && in_array(@$_GET['price_type'], array('silver', 'golds'))) {
-	if ($_GET['price_type'] == 'silver') {
+if (!empty($_GET['price']) && ctype_digit(($_GET['price'] ?? '')) && in_array(@($_GET['price_type'] ?? ''), array('silver', 'golds'))) {
+	if (($_GET['price_type'] ?? '') == 'silver') {
 		$filter = "`t`.`silver`<='$_GET[price]'";
 	} else {
 		$filter = "`t`.`gold`<='$_GET[price]'";
 	}
 
-	$filter_arr[4] = $_GET['price'];
-	$filter_arr[5] = $_GET['price_type'];
+	$filter_arr[4] = ($_GET['price'] ?? '');
+	$filter_arr[5] = ($_GET['price_type'] ?? '');
 }
 
 if (!empty($_GET['trainer'])) { 
 	$filter = "`g`.`username`='$_GET[trainer]'";
-	$filter_arr[6] = $_GET['trainer'];
+	$filter_arr[6] = ($_GET['trainer'] ?? '');
 }
 
-if (!empty($_GET['level']) && ctype_digit($_GET['level']) && $_GET['level'] > 0 && $_GET['level'] <= 100 && in_array(@$_GET['level_type'], array('maior', 'menor'))) {
-	if ($_GET['level_type'] == 'maior') {
+if (!empty($_GET['level']) && ctype_digit(($_GET['level'] ?? '')) && ($_GET['level'] ?? '') > 0 && ($_GET['level'] ?? '') <= 100 && in_array(@($_GET['level_type'] ?? ''), array('maior', 'menor'))) {
+	if (($_GET['level_type'] ?? '') == 'maior') {
 		$filter = "`ps`.`level`>='$_GET[level]'";
 	} else {
 		$filter = "`ps`.`level`<='$_GET[level]'";
 	}
-	$filter_arr[7] = $_GET['level'];
-	$filter_arr[8] = $_GET['level_type'];
+	$filter_arr[7] = ($_GET['level'] ?? '');
+	$filter_arr[8] = ($_GET['level_type'] ?? '');
 }
 
 if (!empty($_GET['equip'])) {
-	if ($_GET['equip'] == 'none') {
+	if (($_GET['equip'] ?? '') == 'none') {
 		$filter = "(`ps`.`item`='' OR `ps`.`item` IS NULL)";
 	} else {
 		$filter = "`ps`.`item`='$_GET[equip]'";
 	}
-	$filter_arr[9] = str_replace('_', ' ', $_GET['equip']);
+	$filter_arr[9] = str_replace('_', ' ', ($_GET['equip'] ?? ''));
 }
 
 echo addNPCBox(36, $txt['transfer_title'], $txt['transfer_npc_text']);
@@ -267,7 +267,7 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 	<tbody><?php
 	if ($over > 0) {
 	if (!is_numeric($_GET['subpage']??''))	$subpage = 1; 
-	else	$subpage = $_GET['subpage']; 
+	else	$subpage = ($_GET['subpage'] ?? ''); 
 
 	if ($type == 'private') {
 		if ($mine == 'true') {
@@ -294,17 +294,17 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 	if ($gebruiker['rank'] >= 4) {
 		if ($type == $types[0]) {
 			if ($mine == 'true') {
-				$mine = "`t`.`user_id`='".$_SESSION['id']."'";
+				$mine = "`t`.`user_id`='".($_SESSION['id'] ?? '')."'";
 			} else {
-				$mine = "`t`.`to_user`='".$_SESSION['id']."'";
+				$mine = "`t`.`to_user`='".($_SESSION['id'] ?? '')."'";
 			}
 
 			$tl_sql = DB::exQuery("SELECT `pw`.`naam`,`pw`.`type1`,`pw`.`type2`,`pw`.`wereld`,`ps`.*,`t`.`id` AS `tid`,`t`.`silver`,`t`.`gold`, `t`.`datum`, `t`.`negociavel`, `g`.`username` AS `owner` FROM `pokemon_wild` AS `pw` INNER JOIN `pokemon_speler` AS `ps` ON `pw`.`wild_id`=`ps`.`wild_id` INNER JOIN `transferlijst` AS `t` ON `t`.`pokemon_id`=`ps`.`id` INNER JOIN `gebruikers` AS `g` ON `ps`.`user_id`=`g`.`user_id` WHERE (`t`.`type`='private' AND ".$mine.") $filter ORDER BY `t`.`id` DESC LIMIT " . $pagina . "," . $max);
 		} else {
 			if ($mine == 'true') {
-				$mine = "AND `t`.`user_id`='".$_SESSION['id']."'";
+				$mine = "AND `t`.`user_id`='".($_SESSION['id'] ?? '')."'";
 			} else {
-				$mine = "AND `t`.`user_id`!='".$_SESSION['id']."'";
+				$mine = "AND `t`.`user_id`!='".($_SESSION['id'] ?? '')."'";
 			}
 
 			if ($type == 'auction') {
@@ -372,7 +372,7 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 				$btn = '<button type="button" class="buy-pokemon" data-buy="'.base64_encode($tid).'">'.$txt['transfer_buy'].'</button>';
 			}
 			
-			$buy = (($_SESSION['id'] == $tl['user_id']) ? $remove : '<div class="alternate" style="font-weight: 600;"><span>'.$price.'</span>'.$btn.'</div>');
+			$buy = ((($_SESSION['id'] ?? '') == $tl['user_id']) ? $remove : '<div class="alternate" style="font-weight: 600;"><span>'.$price.'</span>'.$btn.'</div>');
 
 			echo '<tr id="' . $tl['id'] . '">
 				<td data-sort="'.$tl['naam'].'" style="text-align: left; padding-left: 27px;"><img src="'.$static_url.'/'.$tl['animatie'].'" class="tip_top-middle elipse" title="' . $popup . '" width="32" height="32"/><b>'. $tl['naam'] . $shinystar . '</b></td>

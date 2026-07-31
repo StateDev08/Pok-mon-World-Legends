@@ -24,7 +24,7 @@ while ($buy = $req->fetch_assoc()) {
         DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$tid."'");
         update_pokedex($tl['wild_id'], '', 'buy');
 
-        DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".$_SESSION['id']."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
+        DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".($_SESSION['id'] ?? '')."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
 
         $buyer = DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `user_id`='$buyer'")->fetch_assoc()['username'];
         

@@ -45,7 +45,7 @@ if ($page == 'use_spcitem') {
 	$txt['alert_not_your_pokemon']			= '小心，这只神奇宝贝不属于你！';
 	$txt['alert_pokeequiped']			= '你不能从你的队伍中转移神奇宝贝！';
 	$txt['alert_success']				= '宝可梦转移成功！';
-	$txt['alert_fail']				= '盒子'.$_POST['newbox'].'已经满了！';
+	$txt['alert_fail']				= '盒子'.($_POST['newbox'] ?? '').'已经满了！';
 
 	$txt['pagetitle']	= '您想要传送箱%s吗？';
 	$txt['information']	= '信息';

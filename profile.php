@@ -4,7 +4,7 @@ include('app/includes/resources/security.php');
 
 if (isset($_GET['player'])) {
 
-$profiel = DB::exQuery("SELECT `r`.`karma`,`g`.`ultimo_login`,`g`.`antiguidade`,`g`.`user_id`,`g`.`username`,`r`.`datum`,`g`.`clan`,`g`.`rang`,`g`.`rang_temp`,`r`.`email`,`r`.`ip_aangemeld`,`r`.`ip_ingelogd`,`g`.`silver`,`r`.`gold`,`g`.`premiumaccount`,`g`.`admin`,`g`.`wereld`,`g`.`online`,`g`.`character`,`g`.`character_num`,`g`.`profiel`,`g`.`teamzien`,`g`.`badgeszien`,`g`.`rank`,`g`.`wereld`,`g`.`aantalpokemon`,`g`.`badges`,`g`.`gewonnen`,`g`.`verloren`,COUNT(DISTINCT `g`.`user_id`) AS `check`,`gi`.`Badge case` FROM `gebruikers` AS `g` INNER JOIN `rekeningen` AS `r` ON `g`.`acc_id`=`r`.`acc_id` INNER JOIN `gebruikers_item` AS `gi` ON `g`.`user_id`=`gi`.`user_id` WHERE `g`.`username`='" .$_GET['player']."' AND `g`.`banned`!='Y' GROUP BY `g`.`user_id` LIMIT 1")->fetch_assoc();
+$profiel = DB::exQuery("SELECT `r`.`karma`,`g`.`ultimo_login`,`g`.`antiguidade`,`g`.`user_id`,`g`.`username`,`r`.`datum`,`g`.`clan`,`g`.`rang`,`g`.`rang_temp`,`r`.`email`,`r`.`ip_aangemeld`,`r`.`ip_ingelogd`,`g`.`silver`,`r`.`gold`,`g`.`premiumaccount`,`g`.`admin`,`g`.`wereld`,`g`.`online`,`g`.`character`,`g`.`character_num`,`g`.`profiel`,`g`.`teamzien`,`g`.`badgeszien`,`g`.`rank`,`g`.`wereld`,`g`.`aantalpokemon`,`g`.`badges`,`g`.`gewonnen`,`g`.`verloren`,COUNT(DISTINCT `g`.`user_id`) AS `check`,`gi`.`Badge case` FROM `gebruikers` AS `g` INNER JOIN `rekeningen` AS `r` ON `g`.`acc_id`=`r`.`acc_id` INNER JOIN `gebruikers_item` AS `gi` ON `g`.`user_id`=`gi`.`user_id` WHERE `g`.`username`='" .($_GET['player'] ?? '')."' AND `g`.`banned`!='Y' GROUP BY `g`.`user_id` LIMIT 1")->fetch_assoc();
 
 if ($profiel['check'] != 1)	exit(header("LOCATION: ./"));
 else {
@@ -174,7 +174,7 @@ else {
 	</tr>
 	<tr>
 	</tr>
-	<?php if ($_SESSION['id'] != $profiel['user_id'] && !in_array($profiel['user_id'], explode(',', $gebruiker['blocklist']))) { ?>
+	<?php if (($_SESSION['id'] ?? '') != $profiel['user_id'] && !in_array($profiel['user_id'], explode(',', $gebruiker['blocklist']))) { ?>
 	<tr>
 		<td height="20"><b><?=$txt['action'];?></b></td>
 		<td>
@@ -207,7 +207,7 @@ else {
 	<?php
 
 	$p_title = $txt['profile_presentation'];
-	if ($_SESSION['id'] == $profiel['user_id']) {
+	if (($_SESSION['id'] ?? '') == $profiel['user_id']) {
 		$p_title .= ' <img src="'.$static_url.'/images/icons/edit.png" title=\''.$txt['profile_edit_presentation'].'\' style="vertical-align: bottom; cursor: pointer" onclick="editApresentacao()" id="apresentacao-button">';
 	?>
 		<script>
@@ -233,10 +233,10 @@ else {
 		if (!empty($profiel['profiel']))	echo '<div id="apresentacao">'.ubbcode($profiel['profiel']).'</div>';
 		else	echo '<div id="apresentacao">'.$txt['no_profile_insert'].'</div>';
 
-		if ($_SESSION['id'] == $profiel['user_id']) {
+		if (($_SESSION['id'] ?? '') == $profiel['user_id']) {
 			if (isset($_POST['apresentacao'])) {
-				$tekst = htmlspecialchars($_POST['apresentacao']);
-				DB::exQuery("UPDATE `gebruikers` SET `profiel`='".$tekst."' WHERE `user_id`='".$_SESSION['id']."'");
+				$tekst = htmlspecialchars(($_POST['apresentacao'] ?? ''));
+				DB::exQuery("UPDATE `gebruikers` SET `profiel`='".$tekst."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 				echo '<script>window.location = window.location.href</script>';
 			}
 			
@@ -296,7 +296,7 @@ else {
 					}
 
 					if ($number == 0) {
-						if ($profiel['user_id'] == $_SESSION['id']) {
+						if ($profiel['user_id'] == ($_SESSION['id'] ?? '')) {
 							echo '<tr><td style="text-align: center">'.$txt['profile_no_friends_self'].'</tr>';
 						} else {
 							echo '<tr><td style="text-align: center">'.sprintf($txt['profile_no_friends_other'], $profiel['username']).'</td></tr>';
@@ -382,7 +382,7 @@ else {
 			<?php
 					$i++;
 				}
-				if ($profiel['user_id'] != $_SESSION['id'] && isset($_SESSION['id'])) {
+				if ($profiel['user_id'] != ($_SESSION['id'] ?? '') && isset($_SESSION['id'])) {
 					if ($i == 0) echo '<tr><td colspan="2" style="text-align: center; padding: 3px">'.sprintf($txt['profile_be_first_honor'], $profiel['username']).'</td></tr>';
 				}
 				?>
@@ -391,9 +391,9 @@ else {
 	</table>
 
 		<?php 
-				if ($profiel['user_id'] != $_SESSION['id'] && isset($_SESSION['id'])) {
+				if ($profiel['user_id'] != ($_SESSION['id'] ?? '') && isset($_SESSION['id'])) {
 				$date = date('Y-m-d');
-				$time = DB::exQuery("SELECT * FROM `honra` WHERE `u_id`='".$profiel['user_id']."' AND `u_honor`='".$_SESSION['id']."' AND `date_ctrl`='".$date."'")->num_rows;
+				$time = DB::exQuery("SELECT * FROM `honra` WHERE `u_id`='".$profiel['user_id']."' AND `u_honor`='".($_SESSION['id'] ?? '')."' AND `date_ctrl`='".$date."'")->num_rows;
 				if ($time == 0) {
 		?>		
 				<div style="text-align: center; padding: 3px; border-top:1px solid #577599"><button type="button" style="background: url('<?=$static_url?>/images/layout/honrar.png'); width: 103px; height: 30px; border: none; border-radius: 0" title="<?=sprintf($txt['profile_honor_button'], $profiel['username'])?>" onclick="wlHonor()"></button></div>

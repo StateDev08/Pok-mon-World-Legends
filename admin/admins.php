@@ -17,25 +17,25 @@ if ($gebruiker['admin'] < 3) {
 		if (empty($_POST['make-admin'])) {
 			echo '<div class="red"> Digite o nome de algum treinador.</div>';
 		}
-		else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username='".$_POST['make-admin']."'")->num_rows == 0) {
-			echo '<div class="red"> '.$_POST['make-admin'].' não existe.</div>';
+		else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username='".($_POST['make-admin'] ?? '')."'")->num_rows == 0) {
+			echo '<div class="red"> '.($_POST['make-admin'] ?? '').' não existe.</div>';
 		}
-		else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username='".$_POST['make-admin']."' and admin>='1'")->num_rows >= 1) {
-			echo '<div class="blue"> '.$_POST['make-admin'].' já é membro da equipe.</div>';
+		else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username='".($_POST['make-admin'] ?? '')."' and admin>='1'")->num_rows >= 1) {
+			echo '<div class="blue"> '.($_POST['make-admin'] ?? '').' já é membro da equipe.</div>';
 		}
 			
 		else{
-			DB::exQuery("UPDATE gebruikers SET admin = '1' WHERE username = '".$_POST['make-admin']."'");
+			DB::exQuery("UPDATE gebruikers SET admin = '1' WHERE username = '".($_POST['make-admin'] ?? '')."'");
 			
-			echo '<div class="green"> '.$_POST['make-admin'].' agora faz parte da equipe.</div>';
+			echo '<div class="green"> '.($_POST['make-admin'] ?? '').' agora faz parte da equipe.</div>';
 		}
 	}
 	
 	if (isset($_POST['take'])) {
 		
-		DB::exQuery("UPDATE gebruikers SET admin = '0' WHERE username = '".$_POST['who']."'");
+		DB::exQuery("UPDATE gebruikers SET admin = '0' WHERE username = '".($_POST['who'] ?? '')."'");
 		
-		echo '<div class="green">Os poderes de administrador de '.$_POST['who'].' foram removidos.</div>';
+		echo '<div class="green">Os poderes de administrador de '.($_POST['who'] ?? '').' foram removidos.</div>';
 	}
 
 ?>
@@ -47,7 +47,7 @@ if ($gebruiker['admin'] < 3) {
         </tr>
         <tr>
         	<td width="80"><strong>Treinador:</strong></td>
-            <td width="160"><input type="text" name="make-admin" class="text_long" value="<?php echo $_GET['player']; ?>" /></td>
+            <td width="160"><input type="text" name="make-admin" class="text_long" value="<?php echo ($_GET['player'] ?? ''); ?>" /></td>
         </tr>
         <tr>
         	<td>&nbsp;</td>

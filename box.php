@@ -3,7 +3,7 @@
 	#Script laden zodat je nooit pagina buiten de index om kan laden
 	include("app/includes/resources/security.php");
 
-    $inhuissql = DB::exQuery("SELECT COUNT(`id`) AS `aantal` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND (opzak = 'nee' OR opzak = 'tra')")->fetch_assoc();
+    $inhuissql = DB::exQuery("SELECT COUNT(`id`) AS `aantal` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND (opzak = 'nee' OR opzak = 'tra')")->fetch_assoc();
 	$inhuis = $inhuissql['aantal'];
 
     if ($gebruiker['huis'] == "doos") {
@@ -26,10 +26,10 @@
 
     $huis = DB::exQuery("SELECT `ruimte` FROM `huizen` WHERE `afkorting`='".$gebruiker['huis']."'")->fetch_assoc();
 
-    $pokes100 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$_SESSION['id']."' AND level='100'")->num_rows;
-	$top33 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$_SESSION['id']."' AND top3='3'")->num_rows;
-	$top22 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$_SESSION['id']."' AND top3='2'")->num_rows;
-	$top11 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$_SESSION['id']."' AND top3='1'")->num_rows;
+    $pokes100 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND level='100'")->num_rows;
+	$top33 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND top3='3'")->num_rows;
+	$top22 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND top3='2'")->num_rows;
+	$top11 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND top3='1'")->num_rows;
 
 	$top3 = '<img src=\'' . $static_url . '/images/icons/medal3.png\' title=\'Tops 3 Pokémons\' /> ' . $top33 . ' | ';
 	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal2.png\' title=\'Tops 2 Pokémons\' /> ' . $top22 . ' | ';
@@ -41,17 +41,17 @@
 
 
  if (empty($_GET['box'])) $_GET['box'] = 1;
- if ($_GET['box'] <= 0) $_GET['box'] = 1;
+ if (($_GET['box'] ?? '') <= 0) $_GET['box'] = 1;
 
 
-$upgradeposition = DB::exQuery("SELECT id FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='nee' AND `opzak_nummer`='' ORDER BY `id` ASC");
+$upgradeposition = DB::exQuery("SELECT id FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee' AND `opzak_nummer`='' ORDER BY `id` ASC");
 
 for($i=1;$positupdt=$upgradeposition->fetch_assoc();++$i) {
     for ($x = 1; $x <= $huis['ruimte']; $x++) {
-        $verifyy = DB::exQuery("SELECT id from `pokemon_speler` WHERE `opzak_nummer`='".$x."' AND `user_id`='".$_SESSION['id']."' AND `opzak`='nee'")->num_rows;
+        $verifyy = DB::exQuery("SELECT id from `pokemon_speler` WHERE `opzak_nummer`='".$x."' AND `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee'")->num_rows;
 
         if ($verifyy == 0) {
-            DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$x."' WHERE `id`='".$positupdt['id']."' AND `user_id`='".$_SESSION['id']."' AND `opzak`='nee'");
+            DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$x."' WHERE `id`='".$positupdt['id']."' AND `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee'");
             break;
         }
     }
@@ -121,7 +121,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                      <div class="options">
                         <a href="#" class="ui-icon ui-icon-search" onclick="moreInfo(<?php echo $pokemon['id']; ?>);
                            return false;" style="float: left;"><?=$txt['box_more_info']?></a>
-                        <?php if ($_SESSION['share_acc'] == 0) { ?>
+                        <?php if (($_SESSION['share_acc'] ?? '') == 0) { ?>
                         <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>"  class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;"><?=$txt['box_equip']?></a>
                         <div class="box-menu">
                            <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;"><?=$txt['box_more_options']?></a>
@@ -149,8 +149,8 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                </ul>
             </div>
             <?php
-               if ($_GET['box'] == 1) $anter = 1;
-               else $anter = $_GET['box'] - 1;
+               if (($_GET['box'] ?? '') == 1) $anter = 1;
+               else $anter = ($_GET['box'] ?? '') - 1;
                
                ?>
             <div>
@@ -162,9 +162,9 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                      $calc1 = $huis['ruimte'] / 50;
                      if ($calc1 < 1) $calc1 = 1;
                      for ($i = 1; $i <= $calc1; $i++) {
-                     if ($_GET['box'] == $i) $selected = 'selected';
+                     if (($_GET['box'] ?? '') == $i) $selected = 'selected';
                      else $selected = '';
-                     $verifybox = DB::exQuery("SELECT nome FROM `boxes` WHERE `user_id`='".$_SESSION['id']."' AND `box_id`='".$i."' limit 1");
+                     $verifybox = DB::exQuery("SELECT nome FROM `boxes` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `box_id`='".$i."' limit 1");
                      $nomebox = '';
                            	if ($verifybox->num_rows > 0) {
                            	$verifyboxx = $verifybox->fetch_assoc();
@@ -177,18 +177,18 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                   </select>
                   <?php
                      $calcbox = $i - 1;
-                     if ($calcbox > $_GET['box']) $prox = $_GET['box'] + 1;
-                     else $prox = $_GET['box'];
+                     if ($calcbox > ($_GET['box'] ?? '')) $prox = ($_GET['box'] ?? '') + 1;
+                     else $prox = ($_GET['box'] ?? '');
                      
-                     if ($_GET['box'] > $calcbox) exit(header("Location: ./box&box=1"));
+                     if (($_GET['box'] ?? '') > $calcbox) exit(header("Location: ./box&box=1"));
                      
                      ?>
                   <a href="./box&box=<?= $prox?>" class="noanimate"><img src="<?= $static_url?>/images/icons/arrow_right_25.png" style="vertical-align: unset;"/></a>
-                  <button class="b-button b-white b-small" type="button" onclick="configBox(<?=$_GET['box']?>)"><img src="<?= $static_url?>/images/icons/config.gif"/> <span style="bottom: 0px;"><?=$txt['box_settings']?></span></button>
+                  <button class="b-button b-white b-small" type="button" onclick="configBox(<?=($_GET['box'] ?? '')?>)"><img src="<?= $static_url?>/images/icons/config.gif"/> <span style="bottom: 0px;"><?=$txt['box_settings']?></span></button>
                </form>
             </div>
             <?php
-               $verifybox = DB::exQuery("SELECT fundo FROM `boxes` WHERE `user_id`='".$_SESSION['id']."' AND `box_id`='".$_GET['box']."' limit 1");
+               $verifybox = DB::exQuery("SELECT fundo FROM `boxes` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `box_id`='".($_GET['box'] ?? '')."' limit 1");
                if ($verifybox->num_rows > 0) {
                $verifyboxx = $verifybox->fetch_assoc();
                $classbox = $verifyboxx['fundo'];
@@ -197,12 +197,12 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
             <div id="pokemon_box" class="<?php echo $classbox; ?>">
                <?php
                   $max = 50;
-                  $pagina = (($_GET['box'] * $max) - $max) + 1;
+                  $pagina = ((($_GET['box'] ?? '') * $max) - $max) + 1;
                   if ($pagina == 0) $pagina = 1;
                   $max2 = ($pagina+$max);
                   for ($x = $pagina; $x < $max2; $x++) {
                   
-                  $search2 = "SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`user_id`='" . $_SESSION['id'] . "' AND `pokemon_speler`.`opzak`='nee' AND `pokemon_speler`.`opzak_nummer`=".$x."";
+                  $search2 = "SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`user_id`='" . ($_SESSION['id'] ?? '') . "' AND `pokemon_speler`.`opzak`='nee' AND `pokemon_speler`.`opzak_nummer`=".$x."";
                       $poke = DB::exQuery($search2);
                   $cpoke = $poke->num_rows;
                   
@@ -237,7 +237,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                   <div class="options">
                      <a href="#" class="ui-icon ui-icon-search" onclick="moreInfo(<?php echo $pokemon['id']; ?>);
                         return false;" style="float: left;"><?=$txt['box_more_info']?></a>
-                     <?php if ($_SESSION['share_acc'] == 0) { ?>
+                     <?php if (($_SESSION['share_acc'] ?? '') == 0) { ?>
                      <a href="ajax.php?act=box&option=equip&id=<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-circlesmall-plus colorbox-equip"  style="float: left;"><?=$txt['box_equip']?></a>
                      <div class="box-menu">
                         <a href="<?php echo $pokemon['id']; ?>" class="ui-icon ui-icon-triangle-1-se" onclick="return false;" style="float: left;"><?=$txt['box_more_options']?></a>
@@ -255,7 +255,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                               </a>
                            </li>
                            <li><a href="ajax.php?act=release-box&id=<?php echo $pokemon['id']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-trash"></span><?=$txt['box_release']?></a></li>
-                           <li><a href="ajax.php?act=transfer-box&id=<?php echo $pokemon['id']; ?>&box=<?php echo $_GET['box']; ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-refresh"></span><?=$txt['box_transfer']?></a></li>
+                           <li><a href="ajax.php?act=transfer-box&id=<?php echo $pokemon['id']; ?>&box=<?php echo ($_GET['box'] ?? ''); ?>" class="colorbox-release noanimate"><span class="ui-icon ui-icon-refresh"></span><?=$txt['box_transfer']?></a></li>
                         </ul>
                      </div>
                      <?php } ?>
@@ -269,8 +269,8 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                   } else if ($cpoke > 1) {
                   $pokemon = $poke->fetch_assoc();
                   for ($continha = $pagina; $continha <= $huis['ruimte']; $continha++) {
-                  $contg =  DB::exQuery("SELECT id FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='nee' AND `opzak_nummer` = ".$continha."")->num_rows;
-                  if ($contg == 0) { DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$continha."' WHERE `id`='".$pokemon['id']."' AND `user_id`='".$_SESSION['id']."' AND `opzak`='nee'");
+                  $contg =  DB::exQuery("SELECT id FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee' AND `opzak_nummer` = ".$continha."")->num_rows;
+                  if ($contg == 0) { DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$continha."' WHERE `id`='".$pokemon['id']."' AND `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee'");
                   break; }
                   
                   }

@@ -12,12 +12,12 @@ $shared = $share->getShared();
 $count = sizeof($shared);
 
 $persoonlijkerror 	= '&nbsp;';     
-$teamzien     		= ($_POST['teamzien'] ?? '') == ''   ? $gebruiker['teamzien']   : $_POST['teamzien'];
-$chat     		= ($_POST['chat'] ?? '') == ''   ? $gebruiker['chat']   : $_POST['chat'];
-$badgeszien     	= ($_POST['badgeszien'] ?? '') == ''   ? $gebruiker['badgeszien']   : $_POST['badgeszien'];
-$dueluitnodiging 	= ($_POST['dueluitnodiging'] ?? '') == '' ? $gebruiker['dueluitnodiging'] : $_POST['dueluitnodiging'];
-$exibepokes 	= ($_POST['exibepokes'] ?? '') == '' ? $gebruiker['exibepokes'] : $_POST['exibepokes'];
-$volume	= ($_POST['volume'] ?? '') == '' ? $gebruiker['volume'] : $_POST['volume'];
+$teamzien     		= ($_POST['teamzien'] ?? '') == ''   ? $gebruiker['teamzien']   : ($_POST['teamzien'] ?? '');
+$chat     		= ($_POST['chat'] ?? '') == ''   ? $gebruiker['chat']   : ($_POST['chat'] ?? '');
+$badgeszien     	= ($_POST['badgeszien'] ?? '') == ''   ? $gebruiker['badgeszien']   : ($_POST['badgeszien'] ?? '');
+$dueluitnodiging 	= ($_POST['dueluitnodiging'] ?? '') == '' ? $gebruiker['dueluitnodiging'] : ($_POST['dueluitnodiging'] ?? '');
+$exibepokes 	= ($_POST['exibepokes'] ?? '') == '' ? $gebruiker['exibepokes'] : ($_POST['exibepokes'] ?? '');
+$volume	= ($_POST['volume'] ?? '') == '' ? $gebruiker['volume'] : ($_POST['volume'] ?? '');
 
 if (isset($_POST['persoonlijk'])) {  
 	if ($teamzien != '1' && $teamzien != '0') {
@@ -32,7 +32,7 @@ if (isset($_POST['persoonlijk'])) {
 	else {
 		if ($volume >= 0 && $volume <= 100) {
 			if ($volume % 5 == 0) {
-				DB::exQuery("UPDATE `gebruikers` SET `exibepokes`='".$exibepokes."', `teamzien`='".$teamzien."', `badgeszien`='".$badgeszien."', `dueluitnodiging`='".$dueluitnodiging."', `volume`='".$volume."', `chat`='".$chat."' WHERE `user_id`='".$_SESSION['id']."'");
+				DB::exQuery("UPDATE `gebruikers` SET `exibepokes`='".$exibepokes."', `teamzien`='".$teamzien."', `badgeszien`='".$badgeszien."', `dueluitnodiging`='".$dueluitnodiging."', `volume`='".$volume."', `chat`='".$chat."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 
 				$persoonlijkerror = '<div class="green">Dados pessoais modificados com sucesso!</div>';
 			} else {
@@ -48,24 +48,24 @@ if (isset($_POST['veranderww'])) {
 	if (empty($_POST['wachtwoordwachtwoordaanmeld']) && empty($_POST['huidig']) && empty($_POST['wachtwoordcontrole'])) 
 		$wachtwoordtekst = '<div class="red">'.$txt['alert_all_fields_required'].'</div>';
 
-	else if ($_POST['huidig'] == $_POST['wachtwoordwachtwoordaanmeld'])
+	else if (($_POST['huidig'] ?? '') == ($_POST['wachtwoordwachtwoordaanmeld'] ?? ''))
 		$wachtwoordtekst = '<div class="red">'.$txt['alert_old_new_password_thesame'].'</div>';
 
-	else if (password($_POST['huidig']) <> $rekening['wachtwoord'])
+	else if (password(($_POST['huidig'] ?? '')) <> $rekening['wachtwoord'])
 		$wachtwoordtekst = '<div class="red">'.$txt['alert_old_password_wrong'].'</div>';
 
-	else if (strlen($_POST['wachtwoordwachtwoordaanmeld']) < 5)
+	else if (strlen(($_POST['wachtwoordwachtwoordaanmeld'] ?? '')) < 5)
 		$wachtwoordtekst = '<div class="red">'.$txt['alert_password_too_short'].'</div>';
 
-	else if ($_POST['wachtwoordwachtwoordaanmeld'] <> $_POST['wachtwoordcontrole'])
+	else if (($_POST['wachtwoordwachtwoordaanmeld'] ?? '') <> ($_POST['wachtwoordcontrole'] ?? ''))
 		$wachtwoordtekst = '<div class="red">'.$txt['alert_new_controle_password_wrong'].'</div>';
 	else {
-		$wachtwoordmd5 = password($_POST['wachtwoordcontrole']);
-		$senha1 = password($_POST['huidig']);
-		$senha2 = password($_POST['wachtwoordwachtwoordaanmeld']);
+		$wachtwoordmd5 = password(($_POST['wachtwoordcontrole'] ?? ''));
+		$senha1 = password(($_POST['huidig'] ?? ''));
+		$senha2 = password(($_POST['wachtwoordwachtwoordaanmeld'] ?? ''));
 
-		DB::exQuery("UPDATE `rekeningen` SET `wachtwoord`='".$wachtwoordmd5."' WHERE `acc_id`='".$_SESSION['acc_id']."'");
-		DB::exQuery("INSERT INTO `log_troca_senha` (`id_user`,`nick_user`,`senha_antiga`, `senha_nova`) VALUES('".$_SESSION['acc_id']."','".$rekening['username']."','".$senha1."','".$senha2."')");
+		DB::exQuery("UPDATE `rekeningen` SET `wachtwoord`='".$wachtwoordmd5."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
+		DB::exQuery("INSERT INTO `log_troca_senha` (`id_user`,`nick_user`,`senha_antiga`, `senha_nova`) VALUES('".($_SESSION['acc_id'] ?? '')."','".$rekening['username']."','".$senha1."','".$senha2."')");
 
 		$wachtwoordtekst = '<div class="green">'.$txt['success_password'].'</div>';
 	}
@@ -77,23 +77,23 @@ if (isset($_POST['emailok'])) {
 
 	if (empty($_POST['email']))
 		$emailtekst= '<div class="red">Digite um e-mail.</div>';
-	else if (!preg_match("/^[A-Z0-9._%-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z]{2,6}$/i", $_POST['email']))
+	else if (!preg_match("/^[A-Z0-9._%-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z]{2,6}$/i", ($_POST['email'] ?? '')))
 		$emailtekst= '<div class="red">Digite um e-mail válido.</div>';
-	else if (DB::exQuery("SELECT `email` FROM `rekeningen` WHERE `email`='".$_POST['email']."'")->num_rows >= 1)
+	else if (DB::exQuery("SELECT `email` FROM `rekeningen` WHERE `email`='".($_POST['email'] ?? '')."'")->num_rows >= 1)
 		$emailtekst= '<div class="red">Este e-mail já está sendo usado.</div>';
-	else if ($_POST['email'] <> $_POST['email2'])
+	else if (($_POST['email'] ?? '') <> ($_POST['email2'] ?? ''))
 		$emailtekst= '<div class="red">Os e-mails não estão iguais.</div>';	
 	else {
-		$emailtekst= '<div class="green">E-mail alterado com sucesso. <br>Seu novo e-mail é: '.$_POST['email'].'</div>';	
+		$emailtekst= '<div class="green">E-mail alterado com sucesso. <br>Seu novo e-mail é: '.($_POST['email'] ?? '').'</div>';	
 
-		DB::exQuery("INSERT INTO `log_troca_email` (`id_user`,`nick_user`,`de_email`, `para_email`) VALUES('".$_SESSION['acc_id']."','".$rekening['username']."','".$gebruiker['email']."','".$_POST['email']."')");
+		DB::exQuery("INSERT INTO `log_troca_email` (`id_user`,`nick_user`,`de_email`, `para_email`) VALUES('".($_SESSION['acc_id'] ?? '')."','".$rekening['username']."','".$gebruiker['email']."','".($_POST['email'] ?? '')."')");
 	}
 
 	echo $emailtekst;
 }
 
-if (isset($_POST['id']) && isset($_POST['remove']) && ctype_digit($_POST['id'])) {
-	$id = $_POST['id'];
+if (isset($_POST['id']) && isset($_POST['remove']) && ctype_digit(($_POST['id'] ?? ''))) {
+	$id = ($_POST['id'] ?? '');
 
 	if ($share->remove($id)) {
 		$user = $share->username($id);
@@ -108,15 +108,15 @@ if (isset($_POST['id']) && isset($_POST['remove']) && ctype_digit($_POST['id']))
 	}
 }
 
-if (isset($_POST['addCompart']) && ctype_digit($_POST['addCompart'])) {
-	$id = $_POST['addCompart'];
+if (isset($_POST['addCompart']) && ctype_digit(($_POST['addCompart'] ?? ''))) {
+	$id = ($_POST['addCompart'] ?? '');
 
-	if ($id == $_SESSION['id']) {
+	if ($id == ($_SESSION['id'] ?? '')) {
 		echo '<div class="red">Este treinador não pode ser você!</div>';
 	} else if ($count > 2) {
 		echo '<div class="red">Limite atingido! Você já compartilhou sua conta 2 vezes!</div>';
 	} else {
-		if ($friends->isAccept($_SESSION['id'], $id)) {
+		if ($friends->isAccept(($_SESSION['id'] ?? ''), $id)) {
 			if ($share->add($id)) {
 				$user = $share->username($id);
 				$shared2 = $shared;
@@ -144,12 +144,12 @@ if ($gebruiker['rank'] >= 16) {
 	
 	if((isset($_POST['level_submit'])) && (isset($_POST['lvl']))){
     	$allowedCategorys = array('5-20','20-40','40-60','60-80');
-    	if(!in_array($_POST['lvl'], $allowedCategorys)) exit;
+    	if(!in_array(($_POST['lvl'] ?? ''), $allowedCategorys)) exit;
     	
     	
-        DB::exQuery("UPDATE `gebruikers` SET `lvl_choose`='".$_POST['lvl']."' WHERE `user_id`='".$_SESSION['id']."'");
-        echo '<div class="green">AGORA VOCÊ IRA ENCONTRAR POKÉMONS ENTRE OS LEVELS '.$_POST['lvl'].'</div>';		
-        $lvl_choose = $_POST['lvl'];
+        DB::exQuery("UPDATE `gebruikers` SET `lvl_choose`='".($_POST['lvl'] ?? '')."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
+        echo '<div class="green">AGORA VOCÊ IRA ENCONTRAR POKÉMONS ENTRE OS LEVELS '.($_POST['lvl'] ?? '').'</div>';		
+        $lvl_choose = ($_POST['lvl'] ?? '');
 	}
 
 	if($lvl_choose === '5-20') $check_1 = "checked";
@@ -319,12 +319,12 @@ echo addNPCBox(14, 'Configuração de Conta', 'Olá, treinador! Seja bem vindo a
 			<select name="addCompart" required>
 			
 			<?php
-				$f = $friends->query($_SESSION['id'], 'AND `accept`=1');
+				$f = $friends->query(($_SESSION['id'] ?? ''), 'AND `accept`=1');
 				$i = 0;
 				
 				foreach ($f as $fr) {
 					$user = '';
-					if ($fr['uid'] == $_SESSION['id']) {
+					if ($fr['uid'] == ($_SESSION['id'] ?? '')) {
 						$user = $fr['uid_2'];
 					} else {
 						$user = $fr['uid'];

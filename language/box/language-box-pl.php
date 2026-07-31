@@ -78,13 +78,13 @@ if ($page == 'codes') {
 	$txt['wallie_button'] = 'Wallie, teraz';
 }else if ($page == 'area-box-ideal') {
 	//Screen
-	$txt['title_text'] = 'Chcesz kupić np'.$_SESSION['packnaam'].'paczka dla &euro;'.$info['kosten'].'z wpłatą bankową. Zobacz jak:<br /><br />
+	$txt['title_text'] = 'Chcesz kupić np'.($_SESSION['packnaam'] ?? '').'paczka dla &euro;'.$info['kosten'].'z wpłatą bankową. Zobacz jak:<br /><br />
 		1. Przejdź do strony swojego banku.<br />
 		2. Przejdź do „przelewu pieniężnego”.<br />
 		3. Wpisz przy opisie:<br />
 			<div style="padding-left:25px; float:left;">* Strona: (<strong>MMO z przeglądarką Pokemon</strong>).</div><br />
-			<div style="padding-left:25px; float:left;">* Nazwa użytkownika: (<strong>'.$_SESSION['naam'].'</strong>).</div><br />
-			<div style="padding-left:25px;">* Nazwa pakietu: (<strong>'.$_SESSION['packnaam'].'</strong>).</div><br />
+			<div style="padding-left:25px; float:left;">* Nazwa użytkownika: (<strong>'.($_SESSION['naam'] ?? '').'</strong>).</div><br />
+			<div style="padding-left:25px;">* Nazwa pakietu: (<strong>'.($_SESSION['packnaam'] ?? '').'</strong>).</div><br />
 		4. Przelew<strong>&euro;'.$info['kosten'].'</strong> do <strong>56.09.35.803</strong>.<br />
 		5. Poproś administratora (<strong>SV2011</strong>), aby sprawdził, czy płatność została zrealizowana.<br />
 		Jeśli płatność przebiegnie pomyślnie, administrator przekaże Ci Twoje rzeczy premium.<br /><br />

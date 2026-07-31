@@ -15,12 +15,12 @@ if (isset($_POST['give'])) {
 	if (empty($_POST['silver'])) {
 		echo '<div class="red"> Escolha um valor de silver.</div>';
 	}
-	else if ($_POST['silver'] != 1 AND $_POST['silver'] != 2 AND $_POST['silver'] != 3) {
+	else if (($_POST['silver'] ?? '') != 1 AND ($_POST['silver'] ?? '') != 2 AND ($_POST['silver'] ?? '') != 3) {
 		echo '<div class="red"> Escolha um valor de silver.</div>';
 	}
 	else{
 		
-  	          DB::exQuery("UPDATE `configs` SET `valor`='".$_POST['silver']."' WHERE `config`='silver'");
+  	          DB::exQuery("UPDATE `configs` SET `valor`='".($_POST['silver'] ?? '')."' WHERE `config`='silver'");
 		  #Error tonen
 		  echo '<div class="green"> Silver modificado com sucesso.</div>';
 

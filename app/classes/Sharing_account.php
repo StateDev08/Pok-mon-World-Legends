@@ -4,7 +4,7 @@ class Sharing_account {
     public $id;
 
     function __construct () {
-        $this->id = $_SESSION['id'];
+        $this->id = ($_SESSION['id'] ?? '');
     }
 
     public function add ($add) {

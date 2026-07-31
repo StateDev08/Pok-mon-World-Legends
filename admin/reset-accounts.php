@@ -27,11 +27,11 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 //Als er op de verstuur knop gedrukt word
 if (isset($_POST['verstuur'])) {
   //Kijken aan wie het gericht is.
-  if ($_POST['ontvanger'] == "persoon") {
+  if (($_POST['ontvanger'] ?? '') == "persoon") {
     //Makkelijk naam toewijzen
-    $bericht   = $_POST['tekst'];
-    $ontvanger = $_POST['speler'];
-    $onderwerp = $_POST['onderwerp'];
+    $bericht   = ($_POST['tekst'] ?? '');
+    $ontvanger = ($_POST['speler'] ?? '');
+    $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
       echo '<div class="red"> Digite um texto.</div>';
@@ -64,8 +64,8 @@ if (isset($_POST['verstuur'])) {
   }
   else{
     //Makkelijk naam toewijzen
-    $bericht   = $_POST['tekst'];
-    $onderwerp = $_POST['onderwerp'];
+    $bericht   = ($_POST['tekst'] ?? '');
+    $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
       echo '<div class="red"> Digite algum texto.</div>';
@@ -100,10 +100,10 @@ if (isset($_POST['verstuur'])) {
 if (isset($_POST['ontvanger'])) {
   echo '<form method="post">
   			<table width="600" border="0">';
-    if ($_POST['ontvanger'] == "persoon") {
+    if (($_POST['ontvanger'] ?? '') == "persoon") {
       echo '<tr>
 	  			<td>Treinador:</td>
-				<td><input type="text" name="speler" class="text_long" value="'.$_POST['speler'].'"></td>
+				<td><input type="text" name="speler" class="text_long" value="'.($_POST['speler'] ?? '').'"></td>
 			</tr>';
     }
       echo '<tr>
@@ -111,10 +111,10 @@ if (isset($_POST['ontvanger'])) {
 				<td width="490"><input type="text" name="onderwerp" class="text_long" value="Reset diario"></td>
 			</tr>
     		<tr>
-				<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst">'.$_POST['tekst'].'</textarea></td>
+				<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst">'.($_POST['tekst'] ?? '').'</textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="hidden" value="'.$_POST['ontvanger'].'" name="ontvanger">
+				<td colspan="2"><input type="hidden" value="'.($_POST['ontvanger'] ?? '').'" name="ontvanger">
 					<input type="submit" value="Resetar!" name="verstuur" class="button"></td>
 			</tr>
 		</table>

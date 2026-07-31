@@ -13,7 +13,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     ini_set('display_errors', '0');
 
     //Load duel info
-    $duel_info = duel_info($_GET['duel_id']);
+    $duel_info = duel_info(($_GET['duel_id'] ?? ''));
     //Check if attack was correct, and screen has to refresh
     $good = 0;
     //Default Values        
@@ -26,28 +26,28 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
         $message = "Este duelo não existe.";
     if (($duel_info['u_klaar'] != 1) OR ($duel_info['t_klaar'] != 1))
         $message = $txt['opponent_not_ready'];
-    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 180) AND (($duel_info['volgende_beurt'] == $_SESSION['naam']) OR (!strpos($duel_info['laaste_beurt'], $_SESSION['naam']))))
+    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 180) AND (($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) OR (!strpos($duel_info['laaste_beurt'], ($_SESSION['naam'] ?? '')))))
         $message = $txt['too_late_lost'];
-    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 180) AND (($duel_info['volgende_beurt'] != $_SESSION['naam']) OR (!strpos($duel_info['laaste_beurt'], $_SESSION['naam']))))
+    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 180) AND (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) OR (!strpos($duel_info['laaste_beurt'], ($_SESSION['naam'] ?? '')))))
         $message = $txt['opponent_too_late'];
     else if ($duel_info['volgende_beurt'] == "end_screen")
         $message = $txt['fight_over'];
-    else if (($duel_info['volgende_beurt'] != $_SESSION['naam']) AND ($duel_info['volgende_zet'] == "wisselen"))
+    else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND ($duel_info['volgende_zet'] == "wisselen"))
         $message = "O oponente precisa trocar de Pokémon!";
-    else if (($duel_info['volgende_beurt'] != $_SESSION['naam']) AND (!empty($duel_info['volgende_beurt'])))
+    else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND (!empty($duel_info['volgende_beurt'])))
         $message = "O oponente deve atacar!";
     else {
         //Load New Pokemon Data
-        $change_pokemon = DB::exQuery("SELECT pokemon_wild.*, pokemon_speler.*, pokemon_speler_gevecht.*, pokemon_speler.wild_id AS wildid FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id  WHERE pokemon_speler.user_id='" . $_SESSION['id'] . "' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='" . $_GET['opzak_nummer'] . "'")->fetch_assoc();
+        $change_pokemon = DB::exQuery("SELECT pokemon_wild.*, pokemon_speler.*, pokemon_speler_gevecht.*, pokemon_speler.wild_id AS wildid FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id  WHERE pokemon_speler.user_id='" . ($_SESSION['id'] ?? '') . "' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='" . ($_GET['opzak_nummer'] ?? '') . "'")->fetch_assoc();
 
         //Does The Pokemon excist
         if (!empty($change_pokemon['id'])) {
             include_once '../../app/classes/League_battle.php';
             $league_battle = League_battle::select_duel($duel_info['id']);
             $pokemon_used = array();
-            if ($league_battle && $duel_info['uitdager'] == $_SESSION['naam']) {
+            if ($league_battle && $duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                 $pokemon_used = explode(',', $league_battle->getUser_pokemon1());
-            } else if ($league_battle && $duel_info['tegenstander'] == $_SESSION['naam']) {
+            } else if ($league_battle && $duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                 $pokemon_used = explode(',', $league_battle->getUser_pokemon2());
             }
 
@@ -56,7 +56,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
             } else if ($league_battle && count($pokemon_used) >= $league_battle->getN_pokemons() && !in_array($change_pokemon['id'], $pokemon_used)) {
                 $message = "Você não pode mais adicionar pokémon nesta batalha!";
             } else {
-                if ($duel_info['uitdager'] == $_SESSION['naam']) {
+                if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                     $duel_info['you'] = "u";
                     //Load All Opoonent Info
                     $opponent_info = pokemon_data($duel_info['t_pokemonid']);
@@ -77,7 +77,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
                         $vol_be = $duel_info['tegenstander'];
                     }
                 }
-                else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+                else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                     $duel_info['you'] = "t";
                     //Load All Opoonent Info
                     $opponent_info = pokemon_data($duel_info['u_pokemonid']);
@@ -102,15 +102,15 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
                 $time = strtotime(date("Y-m-d H:i:s"));
 
                 if ($league_battle && !in_array($change_pokemon['id'], $pokemon_used)) {
-                    if ($duel_info['uitdager'] == $_SESSION['naam']) {
+                    if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                         $league_battle->setUser_pokemon1($league_battle->getUser_pokemon1() . "," . $change_pokemon['id']);
-                    } else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+                    } else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                         $league_battle->setUser_pokemon2($league_battle->getUser_pokemon2() . "," . $change_pokemon['id']);
                     }
                     $league_battle->update();
                 }
 
-                DB::exQuery("UPDATE `duel` SET `" . $duel_info['you'] . "_pokemonid`='" . $change_pokemon['id'] . "', `" . $duel_info['you'] . "_used_id`='" . $used_id . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . $_GET['wie'] . "', `laatste_aanval`='wissel', `volgende_beurt`='" . $vol_be . "', `volgende_zet`='', `last_pokemon_id`='" . $pokemon_old_id . "' WHERE `id`='" . $_GET['duel_id'] . "'");
+                DB::exQuery("UPDATE `duel` SET `" . $duel_info['you'] . "_pokemonid`='" . $change_pokemon['id'] . "', `" . $duel_info['you'] . "_used_id`='" . $used_id . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . ($_GET['wie'] ?? '') . "', `laatste_aanval`='wissel', `volgende_beurt`='" . $vol_be . "', `volgende_zet`='', `last_pokemon_id`='" . $pokemon_old_id . "' WHERE `id`='" . ($_GET['duel_id'] ?? '') . "'");
 
                 $t1 = atk($change_pokemon['aanval_1'], $change_pokemon)['soort'];
                 $t2 = atk($change_pokemon['aanval_2'], $change_pokemon)['soort'];
@@ -124,7 +124,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
                     $tz = atk($zmove, $change_pokemon)['soort'];
                 }
 
-                if ($vol_be == $_SESSION['naam'])
+                if ($vol_be == ($_SESSION['naam'] ?? ''))
                     $message = "Você traz " . $change_pokemon['naam'] . "<br />" . $txt['your_turn'];
                 else
                     $message = "Você traz " . $change_pokemon['naam'] . "<br />" . $vol_be . " " . $txt['opponents_turn'];
@@ -132,7 +132,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
                 $good = 1;
             }
         } else {
-            $message = "Error: 1001<br />Info: " . $change_pokemon['id'] . " - " . $_GET['opzak_nummer'] . " - " . $_SESSION['id'];
+            $message = "Error: 1001<br />Info: " . $change_pokemon['id'] . " - " . ($_GET['opzak_nummer'] ?? '') . " - " . ($_SESSION['id'] ?? '');
         }
     }
     echo $message . " | " . // 0
@@ -148,7 +148,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     $change_pokemon['aanval_2'] . " | " . // 10
     $change_pokemon['aanval_3'] . " | " . // 11
     $change_pokemon['aanval_4'] . " | " . // 12
-    $_GET['opzak_nummer'] . " | " . // 13
+    ($_GET['opzak_nummer'] ?? '') . " | " . // 13
     $vol_be . " | " . // 14
     $change_pokemon['wildid'] . " | " . // 15
     $change_pokemon['effect']." | ". // 16

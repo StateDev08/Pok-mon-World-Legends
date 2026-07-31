@@ -17,13 +17,13 @@ if (isset($_POST['attack'])) {
 	//echo "<div class='green'>" . sprintf($txt['attack'], $nieuweaanval['aanvalnaam'], $_POST['attack']) . "</div>";
 
 	#Nieuwe aanval opslaan
-	DB::exQuery("UPDATE `pokemon_speler` SET `".$_POST['welke']."`='".$nieuweaanval['aanvalnaam']."' WHERE `id`='".$nieuweaanval['pokemonid']."'");
-	$pokemoninfo[$_POST['welke']] = $nieuweaanval['aanvalnaam'];
+	DB::exQuery("UPDATE `pokemon_speler` SET `".($_POST['welke'] ?? '')."`='".$nieuweaanval['aanvalnaam']."' WHERE `id`='".$nieuweaanval['pokemonid']."'");
+	$pokemoninfo[($_POST['welke'] ?? '')] = $nieuweaanval['aanvalnaam'];
 	$finish = true;
 }
 
 if ($finish) {
-	$current = array_pop($_SESSION['used']);      
+	$current = array_pop(($_SESSION['used'] ?? ''));      
 
 	$count = 0;
 	$sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.wild_id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.trade, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE pokemon_speler.id='".$current."'");
@@ -32,7 +32,7 @@ if ($finish) {
 		$select['naam_goed'] = pokemon_naam($select['naam'],$select['roepnaam']);
 		if ($select['level'] < 100) {
 			#Gegevens laden van pokemon die leven groeit uit levelen tabel
-			$levelensql = DB::exQuery("SELECT `id`, `level`, `trade`, `wild_id`, `wat`, `nieuw_id`, `aanval` FROM `levelen` WHERE `wild_id`='".$select['wild_id']."' AND `level`>'".$_SESSION['lvl_old']."' AND `level`<='".$select['level']."' AND aanval!='".$nieuweaanval['aanvalnaam']."' ORDER BY id ASC");
+			$levelensql = DB::exQuery("SELECT `id`, `level`, `trade`, `wild_id`, `wat`, `nieuw_id`, `aanval` FROM `levelen` WHERE `wild_id`='".$select['wild_id']."' AND `level`>'".($_SESSION['lvl_old'] ?? '')."' AND `level`<='".$select['level']."' AND aanval!='".$nieuweaanval['aanvalnaam']."' ORDER BY id ASC");
 			#Voor elke actie kijken als het klopt.
 			while($levelen = $levelensql->fetch_assoc()) {
 				#als de actie een aanval leren is
@@ -44,7 +44,7 @@ if ($finish) {
 						$_SESSION['aanvalnieuw'] = base64_encode($select['id']."/".$levelen['aanval']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push($_SESSION['used'], $select['id']);
+						array_push(($_SESSION['used'] ?? ''), $select['id']);
 						break;
 					}
 				} else if ($levelen['wat'] == "evo") {	#Gaat de pokemon evolueren
@@ -55,7 +55,7 @@ if ($finish) {
 						$_SESSION['evolueren'] = base64_encode($select['id']."/".$levelen['nieuw_id']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push($_SESSION['used'], $select['id']);
+						array_push(($_SESSION['used'] ?? ''), $select['id']);
 						break;
 					}
 				}

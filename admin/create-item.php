@@ -6,14 +6,14 @@ include("app/includes/resources/security.php");
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 
 if (isset($_POST['create'])) {
-    $naam = $_POST['naam'];
-    $soort = str_replace('_', ' ', $_POST['soort']);
+    $naam = ($_POST['naam'] ?? '');
+    $soort = str_replace('_', ' ', ($_POST['soort'] ?? ''));
     $beschikbaar = empty($_POST['beschikbaar'])? 0 : 1;
-    $silver = $_POST['silver'];
-    $gold = $_POST['gold'];
+    $silver = ($_POST['silver'] ?? '');
+    $gold = ($_POST['gold'] ?? '');
     $roleta = empty($_POST['roleta'])? 'nao' : 'sim';
     $equip = empty($_POST['equip'])? 0 : 1;
-    $descr = $_POST['descr'];
+    $descr = ($_POST['descr'] ?? '');
     $foto = $_FILES['sprite'];
 
     // if (!empty($foto['name'])) {

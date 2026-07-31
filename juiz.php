@@ -11,12 +11,12 @@
 if ($gebruiker['rank'] >= 4) {
     if (isset($_POST['juiz']) && isset($_POST['pokemonid'])) {
      
-            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
             $img = pokemonei($pokemoninfo, $txt);
             #Is er geen pokemon gekozen?
             if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['juiz_error_no_pokemon'].'</div>';
             else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['juiz_error_egg'].'</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['juiz_error_not_yours'].'</div>';
+            else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) echo '<div class="red">'.$txt['juiz_error_not_yours'].'</div>';
             else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['juiz_error_not_in_team'].'</div>';
             else if ($gebruiker['silver']  < $custo2) echo '<div class="red">'.$txt['juiz_error_no_silver'].'</div>';
             else{
@@ -171,7 +171,7 @@ if ($gebruiker['rank'] >= 4) {
                         <td style="padding: 0">
                             <div class="main-carousel" style="height: 97px; position: relative">
                                 <?php
-                                    $pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . $_SESSION['id'] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+                                    $pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
                                     //Pokemons opzak weergeven op het scherm
                                     while($pokemon_profile = $pokemon_profiel_sql->fetch_assoc()) {
                                         $pokemon_profile = pokemonei($pokemon_profile, $txt);

@@ -73,12 +73,12 @@ if (isset($_POST['buy_silver500'])) {
 if (isset($_POST['change_name'])) {
 	if ($rekening['gold'] < 20)		$message = '<div class="red">Você não pode pagar por isso!</div>';
 	else if (empty($_POST['geb_name']))	$message = '<div class="red">Preencha o campo com novo nome!</div>';
-	else if (strlen(trim($_POST['geb_name'])) < 4)	$message = '<div class="red">O USUÁRIO DEVE CONTER AO MENOS 4 CARACTERES!</div>';
-	else if (strlen(trim($_POST['geb_name'])) > 12)	$message = '<div class="red">O USUÁRIO NÃO DEVE CONTER MAIS DE 12 CARACTERES!</div>';
-	else if (!preg_match('/^([a-zA-Z0-9]+)$/is', $_POST['geb_name']))	$alert = '<div class="red">Só é permitido letras e numeros no nome do treinador!</div>';
+	else if (strlen(trim(($_POST['geb_name'] ?? ''))) < 4)	$message = '<div class="red">O USUÁRIO DEVE CONTER AO MENOS 4 CARACTERES!</div>';
+	else if (strlen(trim(($_POST['geb_name'] ?? ''))) > 12)	$message = '<div class="red">O USUÁRIO NÃO DEVE CONTER MAIS DE 12 CARACTERES!</div>';
+	else if (!preg_match('/^([a-zA-Z0-9]+)$/is', ($_POST['geb_name'] ?? '')))	$alert = '<div class="red">Só é permitido letras e numeros no nome do treinador!</div>';
 	else if (DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='{$_POST['geb_name']}'")->num_rows != 0)	$message = '<div class="red">Este nome já está em uso por outro treinador!</div>';
 	else {	   
-		DB::exQuery("INSERT INTO `log_troca_nick` (`id_user`,`nick_antigo`,`nick_novo`) VALUES ('".$_SESSION['id']."','".$gebruiker['username']."','".$_POST['geb_name']."')"); 
+		DB::exQuery("INSERT INTO `log_troca_nick` (`id_user`,`nick_antigo`,`nick_novo`) VALUES ('".($_SESSION['id'] ?? '')."','".$gebruiker['username']."','".($_POST['geb_name'] ?? '')."')"); 
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-20 WHERE `acc_id`={$rekening['acc_id']}");
 		DB::exQuery("UPDATE `gebruikers` SET `username`='{$_POST['geb_name']}' WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Trocou de nome.')");	

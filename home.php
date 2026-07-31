@@ -1,6 +1,6 @@
 <?php
 	if (!empty($_SESSION['id'])) {
-		$user = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`='".$_SESSION["id"]."'")->fetch_assoc();
+		$user = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`='".($_SESSION["id"] ?? '')."'")->fetch_assoc();
 ?>
 <div>
 	<table style="width: 100%">

@@ -7,7 +7,7 @@ if (isset($_POST['accept'])) {
     echo '<div class="red"> '.$txt['alert_not_enough_silver'].'</div>';
     DB::exQuery("UPDATE duel SET status='no_money' WHERE id='".$duel['id']."'");
   }
-  else if (DB::exQuery("SELECT id FROM pokemon_speler WHERE leven>'0' AND user_id='".$_SESSION['id']."' AND opzak='ja'")->num_rows <= 0) {
+  else if (DB::exQuery("SELECT id FROM pokemon_speler WHERE leven>'0' AND user_id='".($_SESSION['id'] ?? '')."' AND opzak='ja'")->num_rows <= 0) {
     echo '<div class="red"> '.$txt['alert_all_pokemon_ko'].'</div>';
     DB::exQuery("UPDATE duel SET status='all_dead' WHERE id='".$duel['id']."'");
   }
@@ -21,7 +21,7 @@ if (isset($_POST['accept'])) {
     $chance = rand(1,2);
     $background = "duelo-".$chance."";    
     $_SESSION['background'] = $background;   
-    DB::exQuery("UPDATE `gebruikers` SET `background`='$background' WHERE `user_id`='".$_SESSION['id']."'");   
+    DB::exQuery("UPDATE `gebruikers` SET `background`='$background' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");   
     start_duel($duel['id'],'tegenstander');
     $_SESSION['duel']['duel_id'] = $duel['id'];
     $_SESSION['duel']['begin_zien'] = true;

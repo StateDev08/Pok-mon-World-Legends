@@ -34,7 +34,7 @@
 
 					$lock = true;
 
-					$pokesvivos = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='ja' AND `leven`>'0'")->num_rows;
+					$pokesvivos = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND `leven`>'0'")->num_rows;
 
 					$query['naam'] = $selected[1];
 
@@ -54,7 +54,7 @@
 						$_SESSION['_hkey'] = createKey(4);
 						$_SESSION['hkey'] = mt_rand(1000, 9999);
 						$info = create_new_trainer_attack($query['naam'],$trainer_ave_level,$gebied);
-						DB::exQuery("UPDATE `gebruikers` SET `pagina`='trainer-attack',`sec_key`='{$_SESSION['sec_key']}',`hkey`='{$_SESSION['hkey']}' WHERE `user_id`='".$_SESSION['id']."'");      
+						DB::exQuery("UPDATE `gebruikers` SET `pagina`='trainer-attack',`sec_key`='{$_SESSION['sec_key']}',`hkey`='{$_SESSION['hkey']}' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");      
 					} else {
 						echo "<div class='red'>".$txt['alert_no_pokemon']."</div>";
 						$lock = false;

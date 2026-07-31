@@ -1,14 +1,14 @@
 <?php
 require_once('app/includes/resources/security-account.php');
 
-$sql = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`=" . (int) $_SESSION['acc_id']);
+$sql = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`=" . (int) ($_SESSION['acc_id'] ?? ''));
 if ($sql->num_rows >= 7)	exit(header("LOCATION: ./my_characters"));
 else {
 	if (isset($_POST['submit'])) {
-		$inlognaam = $_POST['inlognaam'];
-		$wereld = $_POST['wereld'];
+		$inlognaam = ($_POST['inlognaam'] ?? '');
+		$wereld = ($_POST['wereld'] ?? '');
 		$ip = DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-		$character = $_POST['character'];
+		$character = ($_POST['character'] ?? '');
 
 		#Is er de afgelopen week al een account gemaakt?
 		if (empty($inlognaam))	$alert = '<div class="red">'.$txt['alert_no_username'].'</div>';
@@ -76,13 +76,13 @@ else {
 				<td width="50px"><?=$txt['beginworld'];?>:</td>
 				<td width="18px" align="center"><img src="<?=$static_url;?>/images/icons/map.png" width="16" height="16" class="imglower" /></td>
 				<td><select name="wereld" style="width: 137px;" required>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") { echo 'selected'; } ?>>Kanto</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Johto") { echo 'selected'; } ?>>Johto</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Hoenn") { echo 'selected'; } ?>>Hoenn</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Sinnoh") { echo 'selected'; } ?>>Sinnoh</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Unova") { echo 'selected'; } ?>>Unova</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kalos") { echo 'selected'; } ?>>Kalos</option>
-					<option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Alola") { echo 'selected'; } ?>>Alola</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Kanto") { echo 'selected'; } ?>>Kanto</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Johto") { echo 'selected'; } ?>>Johto</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Hoenn") { echo 'selected'; } ?>>Hoenn</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Sinnoh") { echo 'selected'; } ?>>Sinnoh</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Unova") { echo 'selected'; } ?>>Unova</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Kalos") { echo 'selected'; } ?>>Kalos</option>
+					<option <?php if (isset($_POST['wereld']) && ($_POST['wereld'] ?? '') == "Alola") { echo 'selected'; } ?>>Alola</option>
 				</select></td>
 			</tr>
 			<tr>

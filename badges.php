@@ -19,7 +19,7 @@ $unova_arr = ['Trio', 'Basic', 'Insect', 'Bolt', 'Quake', 'Jet', 'Freeze', 'Lege
 $kalos_arr = ['Bug', 'Cliff', 'Rumble', 'Plant', 'Voltage', 'Fairy', 'Psychic', 'Iceberg'];
 $alola_arr = ['Melemele Normal', 'Akala Water', 'Akala Fire', 'Akala Grass', 'Ulaula Electric', 'Ulaula Ghost', 'Poni Fairy', 'Poni Ground'];
 
-$badge = DB::exQuery("SELECT * FROM gebruikers_badges WHERE user_id = '".$_SESSION['id']."'")->fetch_assoc();
+$badge = DB::exQuery("SELECT * FROM gebruikers_badges WHERE user_id = '".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 ?>
 
 <?php

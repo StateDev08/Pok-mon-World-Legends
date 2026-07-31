@@ -4,10 +4,10 @@ $static_url = '';
 
 if (isset($_SESSION['id']) && isset($_POST['message']) && isset($_POST['id']) && isset($_POST['sender'])) {
     if (!empty($_POST['message']) && !empty($_POST['id'])) {
-        $conversa = strval(strip_tags($_POST['id']));
-        $message = mb_strimwidth(strval(strip_tags($_POST['message'])), 0, 1000, '');
+        $conversa = strval(strip_tags(($_POST['id'] ?? '')));
+        $message = mb_strimwidth(strval(strip_tags(($_POST['message'] ?? ''))), 0, 1000, '');
 
-        if ($_SESSION['id'] == $_POST['sender']) {
+        if (($_SESSION['id'] ?? '') == ($_POST['sender'] ?? '')) {
             $sql = DB::exQuery ("SELECT * FROM `conversas` WHERE id='$conversa' AND (trainer_1='$_SESSION[id]' OR trainer_2='$_SESSION[id]') AND trainer_1_hidden='0' AND trainer_2_hidden='0'");
             $var = new Messages ( $conversa );
 
@@ -15,7 +15,7 @@ if (isset($_SESSION['id']) && isset($_POST['message']) && isset($_POST['id']) &&
                 if (!empty ($message)) {
                     $sql = $sql->fetch_assoc();
                     $reciever = $sql['trainer_1'];
-                    if ($_POST['sender'] == $sql['trainer_1']) {
+                    if (($_POST['sender'] ?? '') == $sql['trainer_1']) {
                         $reciever = $sql['trainer_2'];
                     }
                     

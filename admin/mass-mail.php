@@ -11,8 +11,8 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 if (isset($_POST['verstuur'])) {
 
     //Makkelijk naam toewijzen
-    $bericht   = $_POST['tekst'];
-    $onderwerp = $_POST['onderwerp'];
+    $bericht   = ($_POST['tekst'] ?? '');
+    $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
       echo '<div class="red">Digite algum texto.</div>';
@@ -65,7 +65,7 @@ if (isset($_POST['verstuur'])) {
     </tr>
     <tr>
       <td align="left" valign="top" bgcolor="#D3E9F5">Olá '.$spelers['username'].'!<br /><br />
-        '.nl2br($_POST['tekst']).'
+        '.nl2br(($_POST['tekst'] ?? '')).'
       </td>
     </tr>
     <tr>
@@ -92,10 +92,10 @@ if (isset($_POST['verstuur'])) {
 <table width="660" cellpadding="0" cellspacing="0">
 	<tr>
         <td width="110">Assunto:</td>
-        <td width="550"><input type="text" name="onderwerp" class="text_long" value="<?php if ($_POST['onderwerp'] != '') echo $_POST['onderwerp']; ?>"></td>
+        <td width="550"><input type="text" name="onderwerp" class="text_long" value="<?php if (($_POST['onderwerp'] ?? '') != '') echo ($_POST['onderwerp'] ?? ''); ?>"></td>
     </tr>
     <tr>
-    	<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst"><?php if ($_POST['tekst'] != '') echo $_POST['tekst']; ?></textarea></td>
+    	<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst"><?php if (($_POST['tekst'] ?? '') != '') echo ($_POST['tekst'] ?? ''); ?></textarea></td>
     </tr>
     <tr>
         <td colspan="2"><input type="submit" value="Enviar!" name="verstuur" class="button"></td>

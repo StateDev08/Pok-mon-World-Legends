@@ -6,7 +6,7 @@
 	<a href="./information&category=items-info" data-orientation="items-info" class="noanimate"><button type="button">Info. Itens</button></a>
 </div>
 <?php
-switch($_GET['category']) {
+switch(($_GET['category'] ?? '')) {
 	case "game-info":
 		echo $txt['informationpage'];
 	break;
@@ -137,14 +137,14 @@ else $subpage = (int)$subpage;
 #Max aantal leden per pagina
 $max = 20;
 #Aantal attacks
-if ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search = "SELECT `id` FROM `aanval` WHERE `naam` REGEXP '" . (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "'";
+if ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search = "SELECT `id` FROM `aanval` WHERE `naam` REGEXP '" . (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "'";
 else	$search = "SELECT `id` FROM `aanval`";
 $aantal_attacks = DB::exQuery($search)->num_rows;
 
 $aantal_paginas = ceil($aantal_attacks/$max);
 $pagina = $subpage * $max - $max; 
 
-if ((isset($_POST['search_att']) && !is_array($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search2 = "SELECT * FROM aanval WHERE `naam` REGEXP '" . (isset($_GET['attack']) && !is_array($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "' ORDER BY naam ASC LIMIT ".$pagina.", ".$max;
+if ((isset($_POST['search_att']) && !is_array(($_POST['search_att'] ?? '')) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search2 = "SELECT * FROM aanval WHERE `naam` REGEXP '" . (isset($_GET['attack']) && !is_array(($_GET['attack'] ?? '')) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "' ORDER BY naam ASC LIMIT ".$pagina.", ".$max;
 else	$search2 = "SELECT * FROM aanval ORDER BY naam ASC LIMIT " . $pagina . "," . $max;
 $attackquery = DB::exQuery($search2);
 for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
@@ -182,7 +182,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '7');?>"><form action="./information&category=attack-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : $_GET['attack']);?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -194,18 +194,18 @@ if ($aantal_paginas > 1) {
 	if ($subpage == 1)	echo '<span class="disabled">&laquo;</span>';
 	else {
 		$back = $subpage-1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&laquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&laquo;</a>';
 	}
 	for($i = 1; $i <= $aantal_paginas; $i++) { 
 		if ((2 >= $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else if (($aantal_paginas-2 < $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else {
 			$max = $subpage+3;
 			$min = $subpage-3;  
 			if ($subpage == $i)	echo '<span class="current">'.$i.'</span>';
-			else if (($min < $i) && ($max > $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+			else if (($min < $i) && ($max > $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 			else {
 				if ($i < $subpage) {
 					if (!$links) {
@@ -224,7 +224,7 @@ if ($aantal_paginas > 1) {
 	if ($aantal_paginas == $subpage)	echo '<span class="disabled">&raquo;</span>';
 	else {
 		$next = $subpage+1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&raquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&raquo;</a>';
 	}
 	echo "</div></td>";
 }
@@ -258,14 +258,14 @@ else $subpage = (int)$subpage;
 #Max aantal leden per pagina
 $max = 20;
 #Aantal attacks
-if ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search = "SELECT `id` FROM `abilities` WHERE `name` REGEXP '" . (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "'";
+if ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search = "SELECT `id` FROM `abilities` WHERE `name` REGEXP '" . (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "'";
 else	$search = "SELECT `id` FROM `abilities`";
 $aantal_attacks = DB::exQuery($search)->num_rows;
 
 $aantal_paginas = ceil($aantal_attacks/$max);
 $pagina = $subpage * $max - $max; 
 
-if ((isset($_POST['search_att']) && !is_array($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search2 = "SELECT * FROM `abilities` WHERE `name` REGEXP '" . (isset($_GET['attack']) && !is_array($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "' ORDER BY name ASC LIMIT ".$pagina.", ".$max;
+if ((isset($_POST['search_att']) && !is_array(($_POST['search_att'] ?? '')) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search2 = "SELECT * FROM `abilities` WHERE `name` REGEXP '" . (isset($_GET['attack']) && !is_array(($_GET['attack'] ?? '')) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "' ORDER BY name ASC LIMIT ".$pagina.", ".$max;
 else	$search2 = "SELECT * FROM `abilities` ORDER BY `name` ASC LIMIT " . $pagina . "," . $max;
 $attackquery = DB::exQuery($search2);
 for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
@@ -280,7 +280,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '3');?>"><form action="./information&category=ability-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? $_POST['attack'] : $_GET['attack']);?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -292,18 +292,18 @@ if ($aantal_paginas > 1) {
 	if ($subpage == 1)	echo '<span class="disabled">&laquo;</span>';
 	else {
 		$back = $subpage-1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&laquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&laquo;</a>';
 	}
 	for($i = 1; $i <= $aantal_paginas; $i++) { 
 		if ((2 >= $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else if (($aantal_paginas-2 < $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else {
 			$max = $subpage+3;
 			$min = $subpage-3;  
 			if ($subpage == $i)	echo '<span class="current">'.$i.'</span>';
-			else if (($min < $i) && ($max > $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+			else if (($min < $i) && ($max > $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 			else {
 				if ($i < $subpage) {
 					if (!$links) {
@@ -322,7 +322,7 @@ if ($aantal_paginas > 1) {
 	if ($aantal_paginas == $subpage)	echo '<span class="disabled">&raquo;</span>';
 	else {
 		$next = $subpage+1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&raquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&raquo;</a>';
 	}
 	echo "</div></td>";
 }
@@ -363,14 +363,14 @@ else $subpage = (int)$subpage;
 #Max aantal leden per pagina
 $max = 20;
 #Aantal attacks
-if ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search = "SELECT `id` FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' AND `naam` REGEXP '" . (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "'";
+if ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search = "SELECT `id` FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' AND `naam` REGEXP '" . (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "'";
 else	$search = "SELECT `id` FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm'";
 $aantal_attacks = DB::exQuery($search)->num_rows;
 
 $aantal_paginas = ceil($aantal_attacks/$max);
 $pagina = $subpage * $max - $max; 
 
-if ((isset($_POST['search_att']) && !is_array($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) || (isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0))	$search2 = "SELECT * FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' AND `naam` REGEXP '" . (isset($_GET['attack']) && !is_array($_GET['attack']) && strlen(trim($_GET['attack'])) != 0 ? $_GET['attack'] : $_POST['attack']) . "' ORDER BY naam ASC LIMIT ".$pagina.", ".$max;
+if ((isset($_POST['search_att']) && !is_array(($_POST['search_att'] ?? '')) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search2 = "SELECT * FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' AND `naam` REGEXP '" . (isset($_GET['attack']) && !is_array(($_GET['attack'] ?? '')) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "' ORDER BY naam ASC LIMIT ".$pagina.", ".$max;
 else	$search2 = "SELECT * FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' ORDER BY `soort` ASC LIMIT " . $pagina . "," . $max;
 $attackquery = DB::exQuery($search2);
 for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
@@ -418,7 +418,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '3');?>"><form action="./information&category=items-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? $_POST['attack'] : $_GET['attack']);?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -430,18 +430,18 @@ if ($aantal_paginas > 1) {
 	if ($subpage == 1)	echo '<span class="disabled">&laquo;</span>';
 	else {
 		$back = $subpage-1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&laquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $back . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&laquo;</a>';
 	}
 	for($i = 1; $i <= $aantal_paginas; $i++) { 
 		if ((2 >= $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else if (($aantal_paginas-2 < $i) && ($subpage == $i))	echo '<span class="current">'.$i.'</span>';
-		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 		else {
 			$max = $subpage+3;
 			$min = $subpage-3;  
 			if ($subpage == $i)	echo '<span class="current">'.$i.'</span>';
-			else if (($min < $i) && ($max > $i))	echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">'.$i.'</a>';
+			else if (($min < $i) && ($max > $i))	echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $i . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">'.$i.'</a>';
 			else {
 				if ($i < $subpage) {
 					if (!$links) {
@@ -460,7 +460,7 @@ if ($aantal_paginas > 1) {
 	if ($aantal_paginas == $subpage)	echo '<span class="disabled">&raquo;</span>';
 	else {
 		$next = $subpage+1;
-		echo '<a href="./' . $_GET['page'] . '&amp;category='.$_GET['category'].'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim($_GET['attack'])) != 0) ? '&amp;attack=' . $_GET['attack'] : ((isset($_POST['search_att']) && strlen(trim($_POST['attack'])) != 0) ? '&amp;attack=' . $_POST['attack'] : '')) . '">&raquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&amp;category='.($_GET['category'] ?? '').'&amp;subpage=' . $next . ((isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_GET['attack'] ?? '') : ((isset($_POST['search_att']) && strlen(trim(($_POST['attack'] ?? ''))) != 0) ? '&amp;attack=' . ($_POST['attack'] ?? '') : '')) . '">&raquo;</a>';
 	}
 	echo "</div></td>";
 }
@@ -475,5 +475,5 @@ if ($aantal_paginas > 1) {
 ?>
 
 <script>
-	$('#orientation').wlOrientation('<?=$_GET['category']?>');
+	$('#orientation').wlOrientation('<?=($_GET['category'] ?? '')?>');
 </script>

@@ -9,10 +9,10 @@
 </head>
 <body>
 <?php
-$select = DB::exQuery("SELECT `pokemon_speler`.`id`,`pokemon_speler`.`icon`,`pokemon_speler`.`can_trade`,`pokemon_speler`.`gevongenmet`,`pokemon_speler`.`user_id`,`pokemon_speler`.`gehecht`,`pokemon_speler`.`opzak`,`pokemon_speler`.`shiny`,`pokemon_speler`.`level`,`pokemon_wild`.`wild_id`,`pokemon_wild`.`zeldzaamheid`,`pokemon_wild`.`naam`,`gebruikers`.`silver`,`gebruikers`.`premiumaccount`,`gebruikers`.`rank`,`gebruikers`.`admin`,`rekeningen`.`gold` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` INNER JOIN `gebruikers` ON `pokemon_speler`.`user_id`=`gebruikers`.`user_id` INNER JOIN `rekeningen` ON `gebruikers`.`acc_id`=`rekeningen`.`acc_id` WHERE `pokemon_speler`.`id`='".$_GET['id']."' LIMIT 1")->fetch_assoc();
+$select = DB::exQuery("SELECT `pokemon_speler`.`id`,`pokemon_speler`.`icon`,`pokemon_speler`.`can_trade`,`pokemon_speler`.`gevongenmet`,`pokemon_speler`.`user_id`,`pokemon_speler`.`gehecht`,`pokemon_speler`.`opzak`,`pokemon_speler`.`shiny`,`pokemon_speler`.`level`,`pokemon_wild`.`wild_id`,`pokemon_wild`.`zeldzaamheid`,`pokemon_wild`.`naam`,`gebruikers`.`silver`,`gebruikers`.`premiumaccount`,`gebruikers`.`rank`,`gebruikers`.`admin`,`rekeningen`.`gold` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` INNER JOIN `gebruikers` ON `pokemon_speler`.`user_id`=`gebruikers`.`user_id` INNER JOIN `rekeningen` ON `gebruikers`.`acc_id`=`rekeningen`.`acc_id` WHERE `pokemon_speler`.`id`='".($_GET['id'] ?? '')."' LIMIT 1")->fetch_assoc();
 
 
-if ($select['user_id'] != $_SESSION['id'])	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
+if ($select['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 else if ($select['gehecht'] == 1)	echo '<div class="red">'.$txt['alert_beginpokemon'].'</div>';
 else {
 		$pokemonnaam = pokemon_naam($select['naam'], $select['roepnaam'],$select['icon']);
@@ -23,29 +23,29 @@ else {
 
 
 		
-	 DB::exQuery("UPDATE gebruikers_item SET `".$select['gevongenmet']."`=`".$select['gevongenmet']."`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+	 DB::exQuery("UPDATE gebruikers_item SET `".$select['gevongenmet']."`=`".$select['gevongenmet']."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 
 	  	 if (DB::exQuery("SELECT id FROM pokemon_speler WHERE wild_id='".$select['wild_id']."'")->num_rows == 1) update_pokedex($select['wild_id'],'','release');
 
 		
-		$select1 = DB::exQuery("SELECT `id`,`opzak_nummer` FROM `pokemon_speler` WHERE `user_id`='" . $_SESSION['id'] . "' AND `id`!='" . $select['id'] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+		$select1 = DB::exQuery("SELECT `id`,`opzak_nummer` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' AND `id`!='" . $select['id'] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
 		for($i=1;$selectx=$select1->fetch_assoc();++$i) {
 			#Alle opzak_nummers ééntje lager maken van alle pokemons die over blijven
 			DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='" . $i . "' WHERE `id`='" . $selectx['id'] . "' LIMIT 1");
 		}
 		
 		$date = date("Y-m-d H:i:s");
-		DB::exQuery("INSERT INTO release_log (date, user_id, poke_id, wild_id, pokeball) VALUES (NOW(), '".$_SESSION['id']."', '".$select['id']."', '".$select['wild_id']."', '".$select['gevongenmet']."')");
+		DB::exQuery("INSERT INTO release_log (date, user_id, poke_id, wild_id, pokeball) VALUES (NOW(), '".($_SESSION['id'] ?? '')."', '".$select['id']."', '".$select['wild_id']."', '".$select['gevongenmet']."')");
 		
 
 		//DB::exQuery("DELETE FROM pokemon_speler WHERE id = '".$id."'");
-		DB::exQuery("UPDATE pokemon_speler SET user_id = '0', release_user = '".$_SESSION['id']."', release_date = NOW() WHERE id = '".$select['id']."'");
+		DB::exQuery("UPDATE pokemon_speler SET user_id = '0', release_user = '".($_SESSION['id'] ?? '')."', release_date = NOW() WHERE id = '".$select['id']."'");
 
 		DB::exQuery("DELETE FROM transferlijst WHERE id = '".$select['id']."'");
 
-		DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`-'1' WHERE `user_id` = '".$_SESSION['id']."'");
+		DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`-'1' WHERE `user_id` = '".($_SESSION['id'] ?? '')."'");
 
-		$quests->setStatus('release', $_SESSION['id']);
+		$quests->setStatus('release', ($_SESSION['id'] ?? ''));
  		
 		
 		echo '<div class="green">' . $txt['alert_success_release'] . '</div>';

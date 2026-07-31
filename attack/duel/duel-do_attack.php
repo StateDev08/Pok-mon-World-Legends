@@ -17,7 +17,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
     //Goeie taal erbij laden voor de page
     include_once('../../language/language-pages.php');
     //Load duel info
-    $duel_info = duel_info($_GET['duel_id']);
+    $duel_info = duel_info(($_GET['duel_id'] ?? ''));
     //Check if attack was correct, and screen has to refresh
     $good = 0;
     $win_lose = 0;
@@ -33,29 +33,29 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
         $message = "Algo deu errado.";
     if (($duel_info['u_klaar'] != 1) OR ( $duel_info['t_klaar'] != 1))
         $message = $txt['opponent_not_ready'];
-    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 120) AND ( ($duel_info['volgende_beurt'] == $_SESSION['naam']) OR ( !strpos($duel_info['laaste_beurt'], $_SESSION['naam'])))) {
+    else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 120) AND ( ($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) OR ( !strpos($duel_info['laaste_beurt'], ($_SESSION['naam'] ?? ''))))) {
         $message = $txt['too_late_lost'];
-        if ($duel_info['uitdager'] == $_SESSION['naam'])
+        if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? ''))
             $winner = $duel_info['tegenstander'];
-        else if ($duel_info['tegenstander'] == $_SESSION['naam'])
+        else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? ''))
             $winner = $duel_info['uitdager'];
         DB::exQuery("UPDATE `duel` SET `winner`='" . $winner . "' WHERE `id`='" . $duel_info['id'] . "'");
         $good = 2;
-    } else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 120) AND ( ($duel_info['volgende_beurt'] != $_SESSION['naam']) OR ( !strpos($duel_info['laaste_beurt'], $_SESSION['naam'])))) {
+    } else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 120) AND ( ($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) OR ( !strpos($duel_info['laaste_beurt'], ($_SESSION['naam'] ?? ''))))) {
         $message = $txt['opponent_too_late'];
-        if ($duel_info['uitdager'] == $_SESSION['naam'])
+        if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? ''))
             $winner = $duel_info['uitdager'];
-        else if ($duel_info['tegenstander'] == $_SESSION['naam'])
+        else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? ''))
             $winner = $duel_info['tegenstander'];
         DB::exQuery("UPDATE `duel` SET `winner`='" . $winner . "' WHERE `id`='" . $duel_info['id'] . "'");
         $good = 2;
     } else if ($duel_info['volgende_beurt'] == "end_screen")
         $message = $txt['fight_over'];
-    else if ($_SESSION['naam'] != $_GET['wie'])
+    else if (($_SESSION['naam'] ?? '') != ($_GET['wie'] ?? ''))
         $message = "error: 9001";
-    else if (($duel_info['volgende_beurt'] != $_SESSION['naam']) AND ( $duel_info['volgende_zet'] == "wisselen"))
+    else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND ( $duel_info['volgende_zet'] == "wisselen"))
         $message = $txt['opponent_must_change'];
-    else if (($duel_info['volgende_beurt'] != $_SESSION['naam']) AND ( !empty($duel_info['volgende_beurt'])))
+    else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND ( !empty($duel_info['volgende_beurt'])))
         $message = $txt['opponent_must_attack'];
     else {
         $t_user_online = DB::exQuery("SELECT `online` FROM `gebruikers` WHERE `username` = '" . $duel_info['tegenstander'] . "' AND `online`+300 > UNIX_TIMESTAMP()")->num_rows;
@@ -63,18 +63,18 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
 		
         if ($t_user_online == 0 || $u_user_online == 0) {
             if ($t_user_online == 0) {
-                if ($duel_info['uitdager'] == $_SESSION['naam']) {
+                if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                     $winner = $duel_info['uitdager'];
                     $message = "O oponente ficou inativo, você venceu!";
-                } else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+                } else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                     $winner = $duel_info['tegenstander'];
                     $message = "Você ficou inativo, seu oponente venceu!";
                 }
             } else {
-                if ($duel_info['uitdager'] == $_SESSION['naam']) {
+                if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                     $winner = $duel_info['uitdager'];
                     $message = "Você ficou inativo, seu oponente venceu!";
-                } else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+                } else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                     $winner = $duel_info['tegenstander'];
                     $message = "O oponente ficou inativo, você venceu!";
                 }
@@ -82,7 +82,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
             DB::exQuery("UPDATE `duel` SET `winner`='$winner' WHERE `id`='" . $duel_info['id'] . "'");
             $good = 2;
         } else {
-            if ($duel_info['uitdager'] == $_SESSION['naam']) {
+            if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                 DB::exQuery("UPDATE `gebruikers` SET `online`=UNIX_TIMESTAMP() WHERE `username` =  '" . $duel_info['uitdager'] . "'");
             } else {
                 DB::exQuery("UPDATE `gebruikers` SET `online`=UNIX_TIMESTAMP() WHERE `username` = '" . $duel_info['tegenstander'] . "'");
@@ -102,7 +102,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
             $zmove_table = '';
 
             //Check Who attacks
-            if ($duel_info['uitdager'] == $_SESSION['naam']) {
+            if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                 //Load All Opponent Info
                 $opponent_info = &$tegenstander_info;
                 //Load All Pokemon Info
@@ -115,7 +115,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                 $attack_status['table']['other_busy'] = "aanval_bezig_t";
 
                 $zmove_table = 'zmove_u';
-            } else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+            } else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
                 //Load All Opoonent Info
                 $opponent_info = &$uitdager_info;
                 //Load All Pokemon Info
@@ -134,10 +134,10 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                 $message = $pokemon_info['naam_goed'] . " foi derrotado. Troque-o agora! ";
             } else {
                 if (isset($_GET['zmove'])) {
-                    if ($_GET['zmove'] == 'y') {
+                    if (($_GET['zmove'] ?? '') == 'y') {
                         if ($duel_info[$zmove_table] == 0) {
                             $zmove = zMoves::move($pokemon_info)[0];
-                            if ($zmove == $_GET['attack_name']) {
+                            if ($zmove == ($_GET['attack_name'] ?? '')) {
                                 DB::exQuery("UPDATE `duel` SET `".$zmove_table."`='1' WHERE id='" . $duel_info['id'] . "'");
                             } else {
                                 echo "Error: 4005";
@@ -151,8 +151,8 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                         echo "Error: 4004";
                         exit;
                     }
-                } else if (($_GET['attack_name'] != $pokemon_info['aanval_1']) AND ( $_GET['attack_name'] != $pokemon_info['aanval_2']) AND ( $_GET['attack_name'] != $pokemon_info['aanval_3']) AND ( $_GET['attack_name'] != $pokemon_info['aanval_4'])) {
-                    echo "Error: 4003<br />Info: " . $_GET['attack_name'] . "/" . $pokemon_info['id'];
+                } else if ((($_GET['attack_name'] ?? '') != $pokemon_info['aanval_1']) AND ( ($_GET['attack_name'] ?? '') != $pokemon_info['aanval_2']) AND ( ($_GET['attack_name'] ?? '') != $pokemon_info['aanval_3']) AND ( ($_GET['attack_name'] ?? '') != $pokemon_info['aanval_4'])) {
+                    echo "Error: 4003<br />Info: " . ($_GET['attack_name'] ?? '') . "/" . $pokemon_info['id'];
                     exit;
                 }
                 //Attack Begin
@@ -265,7 +265,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                             $good = 1;
                             if ($recoil_d > 0 && isset($rec_left) && $rec_left <= 0) {
                                 include_once '../../app/classes/League_battle.php';
-                                $league_battle = League_battle::select_duel($_GET['duel_id']);
+                                $league_battle = League_battle::select_duel(($_GET['duel_id'] ?? ''));
                                 if ($league_battle) {
                                     if ($pokemon_info['user_id'] == $league_battle->getUser_id2()) {
                                         $league_battle->setPontos_user1($league_battle->getPontos_user1() + 1);
@@ -326,7 +326,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                                     $weather->clima." | ".
                                     $pokemon_info['leven']." | ";
 
-                            DB::exQuery("UPDATE `duel` SET `winner`='" . $attack_status['winner'] . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . $_GET['wie'] . "', `laatste_aanval`='" . $_GET['attack_name'] . "', `laatste_aanval2`='" . $_GET['attack_name'] . "', `schade`='" . $life_decrease . "', `volgende_beurt`='" . $attack_status['next_turn'] . "', `volgende_zet`='" . $attack_status['next_move'] . "', `request`='" . str_replace(" | ", "||", $request) . "', `beurten`=`beurten`+1 WHERE `id`='" . $_GET['duel_id'] . "'");
+                            DB::exQuery("UPDATE `duel` SET `winner`='" . $attack_status['winner'] . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . ($_GET['wie'] ?? '') . "', `laatste_aanval`='" . ($_GET['attack_name'] ?? '') . "', `laatste_aanval2`='" . ($_GET['attack_name'] ?? '') . "', `schade`='" . $life_decrease . "', `volgende_beurt`='" . $attack_status['next_turn'] . "', `volgende_zet`='" . $attack_status['next_move'] . "', `request`='" . str_replace(" | ", "||", $request) . "', `beurten`=`beurten`+1 WHERE `id`='" . ($_GET['duel_id'] ?? '') . "'");
 
                             echo $request;
                             exit;
@@ -334,13 +334,13 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                     }
                 }
 
-                if ($_GET['attack_name'] == "Metronome") {
+                if (($_GET['attack_name'] ?? '') == "Metronome") {
                     $attack_inforand = DB::exQuery("SELECT `naam` FROM `aanval` WHERE is_zmoves='0' order by rand() limit 1")->fetch_assoc();
                     $_GET['attack_name'] = $attack_inforand['naam'];
                 }
                     
                 //Load Attack Infos
-                $attack_info = atk($_GET['attack_name'], $pokemon_info);
+                $attack_info = atk(($_GET['attack_name'] ?? ''), $pokemon_info);
 
                 $weather->weather_create ($pokemon_info, $opponent_info, $attack_info);
 
@@ -713,7 +713,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                     }
                 } else if ($levenover <= 0) {
                     include_once '../../app/classes/League_battle.php';
-                    $league_battle = League_battle::select_duel($_GET['duel_id']);
+                    $league_battle = League_battle::select_duel(($_GET['duel_id'] ?? ''));
                     if ($league_battle) {
                         if ($opponent_info['user_id'] == $league_battle->getUser_id2()) {
                             $league_battle->setPontos_user1($league_battle->getPontos_user1() + 1);
@@ -732,7 +732,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                             ($league_battle->getUser_id1() == $opponent_info['user_id'] && $league_battle->getN_pokemons() == $league_battle->getPontos_user2())))) {
                         $aantalbericht = "O duelo acabou.";
                         $attack_status['next_turn'] = "end_screen";
-                        $attack_status['winner'] = $_SESSION['naam'];
+                        $attack_status['winner'] = ($_SESSION['naam'] ?? '');
                         $good = 2;
                     } else {
                         $aantalbericht = $opponent_info['username'] . " está trocando de Pokémon. ";
@@ -747,7 +747,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                     $new_exp_opponent = $opponent_info['exp'] + 0;
                 } else if ($good != 2 && $recoil_d > 0 && $rec_left <= 0) {
                     include_once '../../app/classes/League_battle.php';
-                    $league_battle = League_battle::select_duel($_GET['duel_id']);
+                    $league_battle = League_battle::select_duel(($_GET['duel_id'] ?? ''));
                     if ($league_battle) {
                         if ($pokemon_info['user_id'] == $league_battle->getUser_id2()) {
                             $league_battle->setPontos_user1($league_battle->getPontos_user1() + 1);
@@ -821,7 +821,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                         $weather->clima." | ".
                         $pokemon_info['leven']." | ";
 
-                DB::exQuery("UPDATE `duel` SET `winner`='" . $attack_status['winner'] . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . $_GET['wie'] . "', `laatste_aanval`='" . $_GET['attack_name'] . "', `laatste_aanval2`='" . $_GET['attack_name'] . "', `schade`='" . $life_decrease . "', `volgende_beurt`='" . $attack_status['next_turn'] . "', `volgende_zet`='" . $attack_status['next_move'] . "', `request`='" . str_replace(" | ", "||", $request) . "', `beurten`=`beurten`+1 WHERE `id`='" . $_GET['duel_id'] . "'");
+                DB::exQuery("UPDATE `duel` SET `winner`='" . $attack_status['winner'] . "', `laatste_beurt_tijd`='" . $time . "', `laatste_beurt`='" . ($_GET['wie'] ?? '') . "', `laatste_aanval`='" . ($_GET['attack_name'] ?? '') . "', `laatste_aanval2`='" . ($_GET['attack_name'] ?? '') . "', `schade`='" . $life_decrease . "', `volgende_beurt`='" . $attack_status['next_turn'] . "', `volgende_zet`='" . $attack_status['next_move'] . "', `request`='" . str_replace(" | ", "||", $request) . "', `beurten`=`beurten`+1 WHERE `id`='" . ($_GET['duel_id'] ?? '') . "'");
 
                 echo $request;
             }

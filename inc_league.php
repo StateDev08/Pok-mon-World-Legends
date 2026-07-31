@@ -94,7 +94,7 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 		});
 	</script>
 	<div id="error_league">
-		<?php if ($erros_liga = $league->erro_duelo($_SESSION['id'])) { ?>
+		<?php if ($erros_liga = $league->erro_duelo(($_SESSION['id'] ?? ''))) { ?>
 			<script>border_color = "#ff0000";</script>
 			<?php foreach ($erros_liga as $erro_liga) { ?>
 				<p style="text-align: center; font-weight: bold; color: black; background-color: #ff6666; border: solid 3px #ff0000; border-radius: 5px;"><?= $erro_liga ?></p>

@@ -11,8 +11,8 @@ else if ($gebruiker['itembox'] == 'Black box')	$gebruiker['item_over'] = 1000 - 
 if (isset($_POST['buy-ball'])) {
     if ($gebruiker['1_drop'] >= 150) {
         if ($gebruiker['item_over'] > 0) {
-            DB::exQuery("UPDATE `gebruikers_item` SET `Master ball`=`Master ball`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'100' WHERE `user_id`='".$_SESSION['id']."'");
+            DB::exQuery("UPDATE `gebruikers_item` SET `Master ball`=`Master ball`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'100' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
             echo '<div class="green">Você ganhou 1x <img src="'.$static_url.'/images/items/Master ball.png" style="vertical-align: middle"> Master Ball!</div>';
         } else {
             echo '<div class="red">Você não tem espaço em sua MOCHILA!</div>';
@@ -64,10 +64,10 @@ if (isset($_POST['buy-pikachu'])) {
             $hpstat			= round((($hp_iv + 2 * $pkm['hp_base']) * 5 / 100) + 10 + 5);
 
             #Alle gegevens van de pokemon opslaan
-            DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='7' WHERE `id`='".$pokeid."' LIMIT 1");
+            DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='7' WHERE `id`='".$pokeid."' LIMIT 1");
             
             echo '<div class="green">Você comprou 1x '.$pkm['naam'].'!</div>';
-            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'200' WHERE `user_id`='".$_SESSION['id']."'");
+            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'200' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
         }
     } else {
 
@@ -77,8 +77,8 @@ if (isset($_POST['buy-pikachu'])) {
 if (isset($_POST['buy-zmove'])) {
     if ($gebruiker['1_drop'] >= 400) {
         if ($gebruiker['item_over'] > 0) {
-            DB::exQuery("UPDATE `gebruikers_item` SET `Pikanium Z`=`Pikanium Z`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'350' WHERE `user_id`='".$_SESSION['id']."'");
+            DB::exQuery("UPDATE `gebruikers_item` SET `Pikanium Z`=`Pikanium Z`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+            DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'350' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
             echo '<div class="green">Você ganhou 1x <img src="'.$static_url.'/images/items/Pikanium Z.png" style="vertical-align: middle"> Pikanium Z!</div>';
         } else {
             echo '<div class="red">Você não tem espaço em sua MOCHILA!</div>';

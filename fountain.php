@@ -15,7 +15,7 @@ echo addNPCBox(85, $txt['text_npc'], ''.$txt['text_npc1'].' '.number_format($val
 if ($gebruiker['rank'] >= 4) {
 #Wil de speler een starter ei
 if(isset($_POST['normal'])){
-	$pokeId = $_POST['who'];
+	$pokeId = ($_POST['who'] ?? '');
 	$poke = DB::exQuery("SELECT `pw`.`naam`,`pw`.`type1`,`pw`.`type2`,`pw`.`zeldzaamheid`,`pw`.`groei`,`pw`.`aanval_1`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`ps`.* FROM `pokemon_wild` AS `pw` INNER JOIN `pokemon_speler` AS `ps` ON `ps`.`wild_id` = `pw`.`wild_id` WHERE `ps`.`user_id`='{$_SESSION['id']}' AND `ps`.`opzak`='ja' AND `ps`.`id` = '{$pokeId}'")->fetch_assoc();
 
 	#Hoeveel gold nodig?
@@ -33,7 +33,7 @@ if(isset($_POST['normal'])){
 	if ($poke['poke_reset'] == 3 || $poke['ei'] == 1) $price = '--';
 
 	if (!$poke)											$error = $txt['fountain_error_no_pokemon'];
-	elseif ($poke['user_id'] != $_SESSION['id'])		$error = $txt['fountain_error_not_yours'];
+	elseif ($poke['user_id'] != ($_SESSION['id'] ?? ''))		$error = $txt['fountain_error_not_yours'];
 	elseif ($poke['ei'] == 1)							$error = $txt['fountain_error_egg'];
 	elseif ($poke['poke_reset'] >= 3)					$error = $txt['fountain_error_reset_max'];
 	elseif ($poke['opzak'] != 'ja')						$error = $txt['fountain_error_not_in_team'];
@@ -96,7 +96,7 @@ if(isset($_POST['normal'])){
 $bag = true;
 $total_bag = 0;
 if(isset($_POST['premium'])){
-	$pokeId = $_POST['who'];
+	$pokeId = ($_POST['who'] ?? '');
 	$poke = DB::exQuery("SELECT `pw`.`naam`,`pw`.`type1`,`pw`.`type2`,`pw`.`zeldzaamheid`,`pw`.`groei`,`pw`.`aanval_1`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`ps`.* FROM `pokemon_wild` AS `pw` INNER JOIN `pokemon_speler` AS `ps` ON `ps`.`wild_id` = `pw`.`wild_id` WHERE `ps`.`user_id`='{$_SESSION['id']}' AND `ps`.`opzak`='ja' AND `ps`.`id` = '{$pokeId}'")->fetch_assoc();
 
 	#Hoeveel gold nodig?
@@ -115,7 +115,7 @@ if(isset($_POST['premium'])){
 	$price = $price * 3;
 
 	if (!$poke)											$error = $txt['fountain_error_no_pokemon'];
-	elseif ($poke['user_id'] != $_SESSION['id'])		$error = $txt['fountain_error_not_yours'];
+	elseif ($poke['user_id'] != ($_SESSION['id'] ?? ''))		$error = $txt['fountain_error_not_yours'];
 	elseif ($poke['ei'] == 1)							$error = $txt['fountain_error_egg'];
 	elseif ($poke['opzak'] != 'ja')						$error = $txt['fountain_error_not_in_team'];
 	elseif ($poke['level'] == 5)						$error = $txt['fountain_error_cannot_reset'];
@@ -131,7 +131,7 @@ if(isset($_POST['premium'])){
 			$poke['wild_id'] = $evoluidex['wild_id'];
 			if(!empty($evoluidex['stone'])) {
 				if ($gebruiker['item_over'] > 0) {
-					DB::exQuery("UPDATE `gebruikers_item` SET `".$evoluidex['stone']."`=`".$evoluidex['stone']."`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+					DB::exQuery("UPDATE `gebruikers_item` SET `".$evoluidex['stone']."`=`".$evoluidex['stone']."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 					$text_add = "1x <img src='".$static_url."/images/items/".$evoluidex['stone'].".png' title='".$evoluidex['stone']."' style='vertical-align: -3px;' />,";
 					$item = $evoluidex['stone'];
 				} else {
@@ -181,7 +181,7 @@ if(isset($_POST['premium'])){
 			$wat = "Protein";
 			$total = $poke['attack_up'] / 3;
 			if ($gebruiker['item_over'] >= $total) {
-				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 				$text_add .= $total."x <img src='".$static_url."/images/items/".$wat.".png' title='".$wat."' style='vertical-align: -3px;' />,";
 			} else {
 				$bag = false;
@@ -193,7 +193,7 @@ if(isset($_POST['premium'])){
 			$wat = "Iron";
 			$total = $poke['defence_up'] / 3;
 			if ($gebruiker['item_over'] >= $total) {
-				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 				$text_add .= $total."x <img src='".$static_url."/images/items/".$wat.".png' title='".$wat."' style='vertical-align: -3px;' />,";
 			} else {
 				$bag = false;
@@ -205,7 +205,7 @@ if(isset($_POST['premium'])){
 			$wat = "Carbos";
 			$total = $poke['speed_up'] / 3;
 			if ($gebruiker['item_over'] >= $total) {
-				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 				$text_add .= $total."x <img src='".$static_url."/images/items/".$wat.".png' title='".$wat."' style='vertical-align: -3px;' />,";
 			} else {
 				$bag = false;
@@ -217,7 +217,7 @@ if(isset($_POST['premium'])){
 			$wat = "Calcium";
 			$total = $poke['spc_up'] / 3;
 			if ($gebruiker['item_over'] >= $total) {
-				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 				$text_add .= $total."x <img src='".$static_url."/images/items/".$wat.".png' title='".$wat."' style='vertical-align: -3px;' />,";
 			} else {
 				$bag = false;
@@ -229,7 +229,7 @@ if(isset($_POST['premium'])){
 			$wat = "HP up";
 			$total = $poke['hp_up'] / 3;
 			if ($gebruiker['item_over'] >= $total) {
-				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+				DB::exQuery("UPDATE `gebruikers_item` SET `" . $wat . "`=`" . $wat . "`+'".$total."' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 				$text_add .= $total."x <img src='".$static_url."/images/items/".$wat.".png' title='".$wat."' style='vertical-align: -3px;' />,";
 			} else {
 				$bag = false;

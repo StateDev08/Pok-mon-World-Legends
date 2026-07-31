@@ -17,7 +17,7 @@ if (($_POST['fish'] ?? '') != "") {
 		$error = 1;
 	}
 	if (($_POST['rod'] ?? '') == "1") {
-		$item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."' AND `Fishing rod`='1'")->fetch_assoc();
+		$item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `Fishing rod`='1'")->fetch_assoc();
 		$type = "Fishing Rod";
 	}
 
@@ -40,7 +40,7 @@ if (($_POST['fish'] ?? '') != "") {
 		$total = $total * 73;
 		$points = rand(1, $total);
 
-		$quests->setStatus('fishing', $_SESSION['id']);
+		$quests->setStatus('fishing', ($_SESSION['id'] ?? ''));
 		DB::exQuery("UPDATE `gebruikers` SET `fishing` = `fishing` + '{$points}', `last_fishing` = UNIX_TIMESTAMP() WHERE `user_id` = '{$_SESSION['id']}'");
 
 		echo "<table class='general box-content' width='100%' style='margin-bottom: 7px' align='center'><thead><tr><th>".sprintf($txt['fishing_caught'], $type, $swappah->naam)."</th></tr></thead><tr>";

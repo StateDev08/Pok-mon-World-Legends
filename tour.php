@@ -19,10 +19,10 @@ if (count($ligas)) {
     //NOW() - INTERVAL 4 HOUR - INTERVAL 2 MINUTE - INTERVAL 17 SECOND
     $time = time() + League::$ajuste_tempo_int;
 
-    if (isset($_POST['registration']) && $_POST['league_id'] == $liga->getId()) {
+    if (isset($_POST['registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
         $liga->select($liga->getId());
         $liga->inscrever($gebruiker['user_id']);
-    } else if (isset($_POST['undo_registration']) && $_POST['league_id'] == $liga->getId()) {
+    } else if (isset($_POST['undo_registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
         $liga->desfazer_inscricao($gebruiker['user_id']);
     }
     ?>

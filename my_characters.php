@@ -1,15 +1,15 @@
 <?php
 require_once('app/includes/resources/security-account.php');
 
-$sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`=" . (int) $_SESSION['acc_id'] . " ORDER BY `rank` DESC,`user_id` ASC");
+$sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`=" . (int) ($_SESSION['acc_id'] ?? '') . " ORDER BY `rank` DESC,`user_id` ASC");
 if ($sql->num_rows < 1)	exit(header("LOCATION: ./new_character"));
 else {
-	if (isset($_POST['submit']) && is_numeric($_POST['user_id'])) {
-		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . (int) $_POST['user_id'] . " LIMIT 1");
+	if (isset($_POST['submit']) && is_numeric(($_POST['user_id'] ?? ''))) {
+		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . (int) ($_POST['user_id'] ?? '') . " LIMIT 1");
 		if ($geb_sql->num_rows != 1)	echo "<div class=\"red\">Personagem não encontrado!</div>";
 		else {
 			$geb_login = $geb_sql->fetch_assoc();
-			if ($geb_login['acc_id'] != $_SESSION['acc_id'])	echo "<div class=\"red\">Este personagem não pertence a você!</div>";
+			if ($geb_login['acc_id'] != ($_SESSION['acc_id'] ?? ''))	echo "<div class=\"red\">Este personagem não pertence a você!</div>";
 			else if ($geb_login['banned'] == 'Y')	echo "<div class=\"red\">Este personagem está bloqueado!</div>";
 			else {
 				# Ganha 3 dias premium

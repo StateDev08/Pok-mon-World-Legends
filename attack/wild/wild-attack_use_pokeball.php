@@ -14,24 +14,24 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-pages.php');
   //Load Attack Info
-  $aanval_log = aanval_log($_GET['aanval_log_id']);
+  $aanval_log = aanval_log(($_GET['aanval_log_id'] ?? ''));
   //Check if the right aanval_log is choosen
-  if ($aanval_log['user_id'] != $_SESSION['id']) exit;
-  if ($_SESSION['sec_key'] != $_GET['_h']) exit;
-  if ($_SESSION['caught'] == 1) { $message = "Algo deu errado."; echo $message; } else {
+  if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit;
+  if (($_SESSION['sec_key'] ?? '') != ($_GET['_h'] ?? '')) exit;
+  if (($_SESSION['caught'] ?? '') == 1) { $message = "Algo deu errado."; echo $message; } else {
   //Load Computer Info
   $computer_info = computer_data($aanval_log['tegenstanderid']);
   $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
   //Load Player item info
-  $player_item_info = DB::exQuery("SELECT `Poke ball`, `Great ball`, `Ultra ball`, `Premier ball`, `Net ball`, `Dive ball`, `Nest ball`, `Repeat ball`, `Timer ball`, `Master ball`, `Moon ball`, `Dusk ball`, `Dream ball`, `Luxury ball`, `Rocket ball`, `DNA ball`, `Cherish ball`, `Black ball`, `Santa ball`, `Antique ball`, `Frozen ball`, `GS ball`, `Trader ball`, `Ecology ball` FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
-  $gegeven = DB::exQuery("SELECT `huis` FROM `gebruikers` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
+  $player_item_info = DB::exQuery("SELECT `Poke ball`, `Great ball`, `Ultra ball`, `Premier ball`, `Net ball`, `Dive ball`, `Nest ball`, `Repeat ball`, `Timer ball`, `Master ball`, `Moon ball`, `Dusk ball`, `Dream ball`, `Luxury ball`, `Rocket ball`, `DNA ball`, `Cherish ball`, `Black ball`, `Santa ball`, `Antique ball`, `Frozen ball`, `GS ball`, `Trader ball`, `Ecology ball` FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
+  $gegeven = DB::exQuery("SELECT `huis` FROM `gebruikers` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
   //Load pokeball info
-  $item_info = DB::exQuery("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `type3`, `kracht2` FROM `items` WHERE `naam`='".$_GET['item']."'")->fetch_assoc();
+  $item_info = DB::exQuery("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `type3`, `kracht2` FROM `items` WHERE `naam`='".($_GET['item'] ?? '')."'")->fetch_assoc();
   //Get opzak_nummer from last pokemon
-  $player_hand = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' and `opzak` = 'ja'")->num_rows;
+  $player_hand = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' and `opzak` = 'ja'")->num_rows;
   //$player_hand = mysql_fetch_array(DB::exQuery("SELECT `opzak_nummer` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' ORDER BY `opzak_nummer` DESC LIMIT 0,1"));
   //Count pokmon in House
-  $house = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='nee'")->num_rows;
+  $house = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='nee'")->num_rows;
   //Set default good on one
   $good = 1;
   $drp = 0;
@@ -41,11 +41,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
   else if ($gegeven['huis'] == "nhuis") { $over = 100-$house; }
   else if (($gegeven['huis'] == "villa") OR ($gegeven['huis'] == "Villa")) { $over = 2500-$house; }
   //Check if it is an valid item
-  if ($_GET['item'] == "Kies") $message = $txt['ball_choose'];
+  if (($_GET['item'] ?? '') == "Kies") $message = $txt['ball_choose'];
   //Check if it is a pokeball
   else if ($item_info['wat'] != "pokeball") $message = $txt['ball_have'];
   //Check if you have that pokeball
-  else if ($player_item_info[$_GET['item']] <= "0") $message = $txt['ball_amount'].$_GET['item'].".";
+  else if ($player_item_info[($_GET['item'] ?? '')] <= "0") $message = $txt['ball_amount'].($_GET['item'] ?? '').".";
   //Check if Hand AND House is full
   else if (($player_hand > 5) AND ($over <= 0)) $message = $txt['hand_house_full'];
   //Check if you have already caught the computer
@@ -67,7 +67,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
       //No masterball calculate catch
       $catched = false;
       //Computer has an effect
-      if ($_GET['computer_effect'] != "") {
+      if (($_GET['computer_effect'] ?? '') != "") {
         //Load Computer Effect
         $effect_info = DB::exQuery("SELECT `vangkans` FROM `effect` WHERE `actie`='".$computer_info['effect']."'")->fetch_assoc();
         //Effect Catch change
@@ -196,7 +196,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
         //Is it a repeat ball
         else if ($item_info['naam'] == "Repeat ball") {
           //Check if player already have this pokemon
-          if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `wild_id`='".$computer_info['wildid']."' AND `user_id`='".$_SESSION['id']."'")->num_rows >= 1) {
+          if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `wild_id`='".$computer_info['wildid']."' AND `user_id`='".($_SESSION['id'] ?? '')."'")->num_rows >= 1) {
             $pokeball_power = $item_info['kracht2'];
           }
           //Player don't have this pokemon yet
@@ -247,7 +247,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
     }
     
     //Pokeball is gone
-    DB::exQuery("UPDATE `gebruikers_item` SET `".$item_info['naam']."`=`".$item_info['naam']."`-'1' WHERE `user_id`='".$_SESSION['id']."'");
+    DB::exQuery("UPDATE `gebruikers_item` SET `".$item_info['naam']."`=`".$item_info['naam']."`-'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
  
     //Pokemon is Caught
     if ($catched) {
@@ -292,19 +292,19 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
       if ($player_handn > 6) {
         //Save New Pokemon
         DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`, `ability`, `capture_date`) 
-          SELECT `wildid`, '".$_SESSION['id']."', 'nee', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."'  FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
+          SELECT `wildid`, '".($_SESSION['id'] ?? '')."', 'nee', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."'  FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
         $message .= $computer_info['naam_goed'].$txt['ball_success_2'];
      }
       //Player hand is not full
       else{
         //Save New pokemon
         DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`, `ability`, `capture_date`) 
-          SELECT `wildid`, '".$_SESSION['id']."', 'ja', '".$player_handn."', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."' FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
+          SELECT `wildid`, '".($_SESSION['id'] ?? '')."', 'ja', '".$player_handn."', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."' FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
       }
       
       //Increase pokemon amount of player, make last visited page empty
-      $quests->setStatus('catch', $_SESSION['id']);
-      $quests->setStatus('catch_single', $_SESSION['id'], $computer_info['wild_id']);
+      $quests->setStatus('catch', ($_SESSION['id'] ?? ''));
+      $quests->setStatus('catch_single', ($_SESSION['id'] ?? ''), $computer_info['wild_id']);
 
       if (!empty($evento_atual)) {
         if ($evento_atual['name_id'] == 'pikachu_festival') {
@@ -313,17 +313,17 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
               $qtd = $drop;
               $name = '1_drop';
               $drp = 'TOKEN PIKACHU,'.$qtd;
-              DB::exQuery("UPDATE `gebruikers` SET `$name`=`$name`+'$qtd' WHERE `user_id`='".$_SESSION['id']."'");
+              DB::exQuery("UPDATE `gebruikers` SET `$name`=`$name`+'$qtd' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
           }
         }
       }
       
-      DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+      DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
       $_SESSION['caught']= 1;
       //Sync pokemon
       pokemon_player_hand_update();
       //Remove Attack
-      remove_attack($_GET['aanval_log_id']);
+      remove_attack(($_GET['aanval_log_id'] ?? ''));
     }
     else{
       //Last move is player
@@ -334,7 +334,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
   }
   //Create info to sent back
   $info_ball_left = $player_item_info[$item_info['naam']]-1;
-  echo $message." | ".$good." | ".$info_ball_left." | ".$_GET['option_id']." | ".$item_info['naam']." | Pokeball | ".$drp;
+  echo $message." | ".$good." | ".$info_ball_left." | ".($_GET['option_id'] ?? '')." | ".$item_info['naam']." | Pokeball | ".$drp;
 }
 }
 ?>

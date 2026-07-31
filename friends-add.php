@@ -6,19 +6,19 @@ include("app/classes/Friends.php");
 $friends = new Friends();
 
 $value = '';
-if (isset($_GET['name']))  $value = 'value="'.$_GET['name'].'"';
+if (isset($_GET['name']))  $value = 'value="'.($_GET['name'] ?? '').'"';
 
 $aprox = false;
 $success = false;
 if (isset($_GET['name'])) {
-    if (isset($_GET['like']) && $_GET['like'] == 'true') $aprox = true;
+    if (isset($_GET['like']) && ($_GET['like'] ?? '') == 'true') $aprox = true;
     if (!is_numeric($_GET['subpage'] ?? 0)) $subpage = 1; 
-    else $subpage = $_GET['subpage']; 
+    else $subpage = ($_GET['subpage'] ?? ''); 
 
     if (!$aprox) {
-        $number = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username='".$_GET['name']."'")->num_rows;
+        $number = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username='".($_GET['name'] ?? '')."'")->num_rows;
     } else {
-        $number = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username LIKE '".$_GET['name']."%'")->num_rows;
+        $number = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username LIKE '".($_GET['name'] ?? '')."%'")->num_rows;
     }
 
     $max = 20;
@@ -28,35 +28,35 @@ if (isset($_GET['name'])) {
     $pagina = $subpage * $max - $max; 
 
     if (!$aprox) {
-        $query = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username='".$_GET['name']."' LIMIT ".$pagina.",".$max);
+        $query = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username='".($_GET['name'] ?? '')."' LIMIT ".$pagina.",".$max);
     } else {
-        $query = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username LIKE '".$_GET['name']."%' LIMIT ".$pagina.",".$max);
+        $query = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username LIKE '".($_GET['name'] ?? '')."%' LIMIT ".$pagina.",".$max);
     }
 
     $success = true;
-    $value = 'value="'.$_GET['name'].'"';
+    $value = 'value="'.($_GET['name'] ?? '').'"';
 }
 
-if (isset($_POST['player']) && ctype_digit($_POST['player'])) {
-    $player = $_POST['player'];
+if (isset($_POST['player']) && ctype_digit(($_POST['player'] ?? ''))) {
+    $player = ($_POST['player'] ?? '');
     $exists = DB::exQuery ("SELECT `user_id` FROM `gebruikers` WHERE `user_id`='$player'")->num_rows;
-    $is_friend = $friends->isFriend($_SESSION['id'], $player);
+    $is_friend = $friends->isFriend(($_SESSION['id'] ?? ''), $player);
     $blocklist_1 = explode(',', $gebruiker['blocklist']);
     $blocklist_2 = explode(',', $friends->getInfos($player)['blocklist']);
 
     if ($exists == 0) {
         echo '<div class="red">Este treinador não existe!</div>';
-    } else if ($player == $_SESSION['id']) {
+    } else if ($player == ($_SESSION['id'] ?? '')) {
         echo '<div class="red">Você não pode adicionar a si mesmo!</div>';
     } else if ($is_friend) {
         echo '<div class="red">Vocês já são amigos ou há uma solicitação pendente!</div>';
     } else if (in_array($player, $blocklist_1)) { 
         echo '<div class="red">Você bloqueou este treinador!</div>';
-    } else if (in_array($_SESSION['id'], $blocklist_2)) { 
+    } else if (in_array(($_SESSION['id'] ?? ''), $blocklist_2)) { 
         echo '<div class="red">Você foi bloqueado por este treinador!</div>';
     } else {
-        $friends->sendSolicitation($_SESSION['id'], $player);
-        $quests->setStatus('friend', $_SESSION['id']);
+        $friends->sendSolicitation(($_SESSION['id'] ?? ''), $player);
+        $quests->setStatus('friend', ($_SESSION['id'] ?? ''));
         echo '<div class="green">Solicitação de amizade enviada!</div>';
     }
 }
@@ -134,10 +134,10 @@ echo addNPCBox (15, 'Adicionar amigos', 'Não há nada mais divertido do que jog
                         $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="Offline">';
                     }  
 
-                    $is_friend = $friends->isFriend($_SESSION['id'], $q['user_id']);
+                    $is_friend = $friends->isFriend(($_SESSION['id'] ?? ''), $q['user_id']);
 
                     if ($is_friend) {
-                        $is_accept = $friends->isAccept($_SESSION['id'], $q['user_id']);
+                        $is_accept = $friends->isAccept(($_SESSION['id'] ?? ''), $q['user_id']);
                         if ($is_accept) {
                             $btn = 'Vocês já são amigos!';
                         } else {

@@ -7,7 +7,7 @@ $friends = new Friends();
 $msg = $txt['friends_npc_msg'];
 echo addNPCBox(11, $txt['friends_title'], $msg);
 
-$query = $friends->query($_SESSION['id']);
+$query = $friends->query(($_SESSION['id'] ?? ''));
 
 $number = $query->num_rows;
 
@@ -21,24 +21,24 @@ $subpage = max(1, (int)$subpage);
 if ($aantal_paginas == 0) $aantal_paginas = 1;   
 $pagina = max(0, $subpage * $max - $max);
 
-$query = $friends->query($_SESSION['id'], '', $pagina, $max);
+$query = $friends->query(($_SESSION['id'] ?? ''), '', $pagina, $max);
 
 if (isset($_POST['id']) && isset($_POST['remove'])) {
-    $list = $_POST['id'];
+    $list = ($_POST['id'] ?? '');
 
     DB::exQuery("DELETE FROM `friends` WHERE `id`='$list' AND (`uid`='$_SESSION[id]' OR `uid_2`='$_SESSION[id]') AND `accept`='1'");
     echo '<script>window.location = window.location.href</script>';
 }
 
 if (isset($_POST['id']) && isset($_POST['accept'])) {
-    $list = $_POST['id'];
+    $list = ($_POST['id'] ?? '');
     $queried = $friends->queried ($list);
 
     if ($queried['id'] > 0 && $queried['accept'] == 0) {
         $date = date ('Y-m-d H:i:s');
         $uid2 = '';
 
-        if ($queried['uid'] == $_SESSION['id']) {
+        if ($queried['uid'] == ($_SESSION['id'] ?? '')) {
             $uid2 = $queried['uid2'];
         } else {
             $uid2 = $queried['uid'];
@@ -57,7 +57,7 @@ if (isset($_POST['id']) && isset($_POST['accept'])) {
 }
 
 if (isset($_POST['id']) && isset($_POST['decline'])) {
-    $list = $_POST['id'];
+    $list = ($_POST['id'] ?? '');
     
     DB::exQuery("DELETE FROM `friends` WHERE `id`='$list' AND (`uid`='$_SESSION[id]' OR `uid_2`='$_SESSION[id]') AND `accept`='0'");
     echo '<div class="green">'.$txt['friends_declined'].'</div>';
@@ -81,7 +81,7 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
             <?php
                 while ($q = $query->fetch_assoc()) {
                     $id = '';
-                    if ($q['uid'] == $_SESSION['id']) {
+                    if ($q['uid'] == ($_SESSION['id'] ?? '')) {
                         $id = $q['uid_2'];
                     } else {
                         $id = $q['uid'];
@@ -101,7 +101,7 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
 
                     if ($q['accept'] == 0) {
                         $quando = $txt['friends_pending'];
-                        if ($q['uid'] != $_SESSION['id']) {
+                        if ($q['uid'] != ($_SESSION['id'] ?? '')) {
                             $btn = '<form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="accept" value="'.$txt['friends_accept_btn'].'"></form><form method="post" style="display: inline-block; width: 47%"><input type="hidden" name="id" value="'.$q['id'].'"><input type="submit" name="decline" value="'.$txt['friends_decline_btn'].'"></form>';
                         } else {
                             $btn = $txt['friends_pending'];

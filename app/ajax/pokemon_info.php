@@ -3,13 +3,13 @@ $page = 'information';
 $_GET['category'] = 'pokemon-info';
 require_once('language/language-pages.php');
 
-if (isset($_GET['pokemon']) && is_numeric($_GET['pokemon'])) {
-	$result = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`evolutie`,`pokemon_wild`.`egg`,`pokemon_wild`.`ability`,`real_id`,`effort_hp`,`effort_attack`,`effort_defence`,`effort_spc.attack`,`effort_spc.defence`,`effort_speed`,`vangbaarheid`,`naam`,`zeldzaamheid`,`type1`,`type2`,`gebied`,`wereld`,`pokemon_wild`.`aanval_1`,`pokemon_wild`.`aanval_2`,`pokemon_wild`.`aanval_3`,`pokemon_wild`.`aanval_4`,`attack_base`,`defence_base`,`spc.attack_base`,`spc.defence_base`,`speed_base`,`hp_base`,COUNT(`pokemon_speler`.`wild_id`) AS `hoeveelingame` FROM `pokemon_wild` LEFT JOIN `pokemon_speler` ON `pokemon_wild`.`wild_id`=`pokemon_speler`.`wild_id` WHERE `pokemon_wild`.`wild_id`='" . (int)$_GET['pokemon'] . "' AND `pokemon_wild`.`aparece` = 'sim' GROUP BY `pokemon_wild`.`real_id`");
+if (isset($_GET['pokemon']) && is_numeric(($_GET['pokemon'] ?? ''))) {
+	$result = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`evolutie`,`pokemon_wild`.`egg`,`pokemon_wild`.`ability`,`real_id`,`effort_hp`,`effort_attack`,`effort_defence`,`effort_spc.attack`,`effort_spc.defence`,`effort_speed`,`vangbaarheid`,`naam`,`zeldzaamheid`,`type1`,`type2`,`gebied`,`wereld`,`pokemon_wild`.`aanval_1`,`pokemon_wild`.`aanval_2`,`pokemon_wild`.`aanval_3`,`pokemon_wild`.`aanval_4`,`attack_base`,`defence_base`,`spc.attack_base`,`spc.defence_base`,`speed_base`,`hp_base`,COUNT(`pokemon_speler`.`wild_id`) AS `hoeveelingame` FROM `pokemon_wild` LEFT JOIN `pokemon_speler` ON `pokemon_wild`.`wild_id`=`pokemon_speler`.`wild_id` WHERE `pokemon_wild`.`wild_id`='" . (int)($_GET['pokemon'] ?? '') . "' AND `pokemon_wild`.`aparece` = 'sim' GROUP BY `pokemon_wild`.`real_id`");
 	if ($result->num_rows != 0) {
 		$info = $result->fetch_assoc();
-		$levelensql = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='" . (int)$_GET['pokemon'] . "' ORDER BY `level` ASC");
+		$levelensql = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='" . (int)($_GET['pokemon'] ?? '') . "' ORDER BY `level` ASC");
 		$aantallevelen = $levelensql->num_rows;
-  		$contcem = DB::exQuery("SELECT id FROM pokemon_speler WHERE wild_id = '".(int)$_GET['pokemon']."' and level='100'")->num_rows;
+  		$contcem = DB::exQuery("SELECT id FROM pokemon_speler WHERE wild_id = '".(int)($_GET['pokemon'] ?? '')."' and level='100'")->num_rows;
 		if ($info['naam'] == "") {
 			echo "Escolha um pokémon.";
 			exit();
@@ -71,19 +71,19 @@ if (isset($_GET['pokemon']) && is_numeric($_GET['pokemon'])) {
 						</tr>';
 						}
 						
-$pgtop3 = DB::exQuery("SELECT `pokemon_speler`.*, pokemon_wild.wild_id, pokemon_wild.naam, pokemon_wild.type1, pokemon_wild.type2, gebruikers.username, SUM(`attack` + `defence` + `speed` + `spc.attack` + `spc.defence`) AS strongestpokemon FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN gebruikers ON pokemon_speler.user_id = gebruikers.user_id WHERE gebruikers.banned = 'N' AND admin = '0' AND pokemon_wild.wild_id = '".(int)$_GET['pokemon']."' GROUP BY pokemon_speler.id ORDER BY strongestpokemon DESC, pokemon_speler.id ASC LIMIT 3");
+$pgtop3 = DB::exQuery("SELECT `pokemon_speler`.*, pokemon_wild.wild_id, pokemon_wild.naam, pokemon_wild.type1, pokemon_wild.type2, gebruikers.username, SUM(`attack` + `defence` + `speed` + `spc.attack` + `spc.defence`) AS strongestpokemon FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN gebruikers ON pokemon_speler.user_id = gebruikers.user_id WHERE gebruikers.banned = 'N' AND admin = '0' AND pokemon_wild.wild_id = '".(int)($_GET['pokemon'] ?? '')."' GROUP BY pokemon_speler.id ORDER BY strongestpokemon DESC, pokemon_speler.id ASC LIMIT 3");
 						
 $i = 1;
 $top3 = '';
 
-DB::exQuery("UPDATE `pokemon_speler` SET `top3`='' WHERE `wild_id`='".(int)$_GET['pokemon']."' AND `top3`!=''");
+DB::exQuery("UPDATE `pokemon_speler` SET `top3`='' WHERE `wild_id`='".(int)($_GET['pokemon'] ?? '')."' AND `top3`!=''");
 while($pgtop3x = $pgtop3->fetch_assoc()) {
 	$pokemon_profile = pokemonei($pgtop3x, $txt);
 	$popup = pokemon_popup($pokemon_profile, $txt);
 	$pokemon_profile['naam'] = pokemon_naam($pgtop3x['naam'],$pgtop3x['roepnaam'],$pgtop3x['icon']);
 	
 	// ATUALIZA TOP 3 POKES
-	DB::exQuery("UPDATE `pokemon_speler` SET `top3`='$i' WHERE `id`='".$pgtop3x['id']."' AND `wild_id`='".(int)$_GET['pokemon']."' AND `top3`=''");
+	DB::exQuery("UPDATE `pokemon_speler` SET `top3`='$i' WHERE `id`='".$pgtop3x['id']."' AND `wild_id`='".(int)($_GET['pokemon'] ?? '')."' AND `top3`=''");
 	// ATUALIZA TOP 3 POKES
 	
 	$pokemon_profile['powertotal'] = $pokemon_profile['attack'] + $pokemon_profile['defence'] + $pokemon_profile['speed'] + $pokemon_profile['spc.attack'] + $pokemon_profile['spc.defence'];
@@ -113,7 +113,7 @@ while($pgtop3x = $pgtop3->fetch_assoc()) {
 }
 if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</div></td>';
 	$evolui_de = '-';
-	$evoluide = DB::exQuery("SELECT * FROM levelen where nieuw_id = '".(int)$_GET['pokemon']."' and wat='evo' limit 1");
+	$evoluide = DB::exQuery("SELECT * FROM levelen where nieuw_id = '".(int)($_GET['pokemon'] ?? '')."' and wat='evo' limit 1");
 	if ($evoluide->num_rows != 0) {
 		$evoluidex = $evoluide->fetch_assoc();
 		if ($evoluidex['level'] <= 100) {

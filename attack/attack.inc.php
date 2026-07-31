@@ -36,7 +36,7 @@ function one_pokemon_exp($aanval_log,$pokemon_info,$computer_info,$txt) {
         #If pokemon is level 100 no more exp for him
         if ($used_info['level'] < 100) {
           #Check if the user is premium
-          $user = DB::exQuery("SELECT premiumaccount FROM gebruikers WHERE user_id='".$_SESSION['id']."'")->fetch_assoc();
+          $user = DB::exQuery("SELECT premiumaccount FROM gebruikers WHERE user_id='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
           $valordaexp = DB::exQuery("SELECT * FROM configs WHERE config='exp'")->fetch_assoc();
           $extra_exp = 1.5;
           $extra_exp += $used_info['trade'];
@@ -96,10 +96,10 @@ function pokemon_grow($txt) {
   global $static_url;        
   $_SESSION['used'] = array();    
   $count = 0;
-  $sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE user_id='".$_SESSION['id']."' AND `exp`>=`expnodig` AND `opzak`='ja'");
+  $sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE user_id='".($_SESSION['id'] ?? '')."' AND `exp`>=`expnodig` AND `opzak`='ja'");
   while($select = $sql->fetch_assoc()) {
     if ($count == 0) $_SESSION['lvl_old'] = $select['level'];
-    array_push($_SESSION['used'], $select['id']);
+    array_push(($_SESSION['used'] ?? ''), $select['id']);
     $count++;
     #Change name for male and female
     $select['naam_goed'] = pokemon_naam($select['naam'],$select['roepnaam']);
@@ -116,7 +116,7 @@ function pokemon_grow($txt) {
           $expnodig = nieuwestats($real,$levelnieuw,$real['exp']);
       
           #Check if Pokemon is growing a level
-          if ((!$_SESSION['aanvalnieuw']) AND (!$_SESSION['evolueren'])) $toestemming = levelgroei($levelnieuw,$real);
+          if ((!($_SESSION['aanvalnieuw'] ?? '')) AND (!($_SESSION['evolueren'] ?? ''))) $toestemming = levelgroei($levelnieuw,$real);
     
           #make Log
           $pokemonnaam = htmlspecialchars($select['naam_goed'], ENT_QUOTES);
@@ -127,7 +127,7 @@ function pokemon_grow($txt) {
           $event = '<img src="' . $static_url . '/images/icons/blue.png" class="imglower" /> ' . sprintf($txt['event_is_level_up'], '<a href="./pokemon-profile&id='.$select['id'].'">'.$pokemonnaam.'</a>');
           
           #Melding geven aan de uitdager
-          DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen) VALUES (NULL, NOW(), '".$_SESSION['id']."', '".$event."', '0')");
+          DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen) VALUES (NULL, NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
 		
         } while($expnodig < $real['exp'] - $real['expnodig']);
       }
@@ -138,7 +138,7 @@ function pokemon_grow($txt) {
 #Update Pokemon PLayer Hand
 function pokemon_player_hand_update() {
   #Copy Life en Effect Stats to pokemon_speler table
-  $player_hand_query = DB::exQuery("SELECT `id`, `leven`, `exp`, `totalexp`, `effect`, `attack_ev`, `defence_ev`, `speed_ev`, `spc.attack_ev`, `spc.defence_ev`, `hp_ev` FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
+  $player_hand_query = DB::exQuery("SELECT `id`, `leven`, `exp`, `totalexp`, `effect`, `attack_ev`, `defence_ev`, `speed_ev`, `spc.attack_ev`, `spc.defence_ev`, `hp_ev` FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   while($player_hand = $player_hand_query->fetch_assoc()) {
     DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$player_hand['leven']."', `exp`='".$player_hand['exp']."', `totalexp`='".$player_hand['totalexp']."', `effect`='".$player_hand['effect']."', `attack_ev`=`attack_ev`+'".$player_hand['attack_ev']."', `defence_ev`=`defence_ev`+'".$player_hand['defence_ev']."', `speed_ev`=`speed_ev`+'".$player_hand['speed_ev']."', `spc.attack_ev`=`spc.attack_ev`+'".$player_hand['spc.attack_ev']."', `spc.defence_ev`=`spc.defence_ev`+'".$player_hand['spc.defence_ev']."', `hp_ev`=`hp_ev`+'".$player_hand['hp_ev']."' WHERE `id`='".$player_hand['id']."'");
   }
@@ -147,7 +147,7 @@ function pokemon_player_hand_update() {
 #Remove All Attack Data
 function remove_attack($aanval_log_id) {
   #Remove Attack
-  DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack_start' WHERE `user_id`='".$_SESSION['id']."'");
+  DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack_start' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   DB::exQuery("DELETE FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`='".$aanval_log_id."'");
   DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `aanval_log_id`='".$aanval_log_id."'");
   DB::exQuery("DELETE FROM `aanval_log` WHERE `id`='".$aanval_log_id."'");
@@ -203,7 +203,7 @@ function multiple_hits($attack, $damage) {
     $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";
   }
   else if ($attack['aantalkeer'] == "gezond_opzak") {
-    $times = DB::exQuery("SELECT `id` FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."' AND `effect`='' AND `leven`>'0'")->num_rows;
+    $times = DB::exQuery("SELECT `id` FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `effect`='' AND `leven`>'0'")->num_rows;
 
     $multi_hit['damage'] = $damage*$times;
     $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";

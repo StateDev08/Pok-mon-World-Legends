@@ -4,8 +4,8 @@ include("app/includes/resources/security.php");
 
 echo addNPCBox(36, "Loja do Cassino", 'Aqui é a Loja do Cassino, onde você poderá comprar Tickets ou trocar seus Tickets por recompensas!<br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.');
 
-if (isset($_POST['buy-tickets-quant']) && ctype_digit($_POST['buy-tickets-quant'])) {
-    $quant = $_POST['buy-tickets-quant'];
+if (isset($_POST['buy-tickets-quant']) && ctype_digit(($_POST['buy-tickets-quant'] ?? ''))) {
+    $quant = ($_POST['buy-tickets-quant'] ?? '');
 
     $tickets = 50 * $quant;
     $price = 2500 * $quant;
@@ -18,8 +18,8 @@ if (isset($_POST['buy-tickets-quant']) && ctype_digit($_POST['buy-tickets-quant'
     }
 }
 
-if (isset($_POST['sell-tickets-quant']) && ctype_digit($_POST['sell-tickets-quant'])) {
-    $quant = $_POST['sell-tickets-quant'];
+if (isset($_POST['sell-tickets-quant']) && ctype_digit(($_POST['sell-tickets-quant'] ?? ''))) {
+    $quant = ($_POST['sell-tickets-quant'] ?? '');
 
     $silvers = 1250 * $quant;
     $price = 50 * $quant;
@@ -34,8 +34,8 @@ if (isset($_POST['sell-tickets-quant']) && ctype_digit($_POST['sell-tickets-quan
 
 $store = DB::exQuery("SELECT * FROM `casino_store` WHERE `is_buy`='1' ORDER BY `type`,`price`");
 
-if (isset($_POST['buy']) && ctype_digit($_POST['buy'])) {
-    $id = $_POST['buy'];
+if (isset($_POST['buy']) && ctype_digit(($_POST['buy'] ?? ''))) {
+    $id = ($_POST['buy'] ?? '');
     $verify = DB::exQuery("SELECT * FROM `casino_store` WHERE `is_buy`='1' AND `id`='$id'");
 
     if ($verify->num_rows == 1) {
@@ -86,16 +86,16 @@ if (isset($_POST['buy']) && ctype_digit($_POST['buy'])) {
                     $hpstat			= round((($hp_iv + 2 * $query['hp_base']) * 5 / 100) + 10 + 5);
 
                     #Alle gegevens van de pokemon opslaan
-                DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='1' WHERE `id`='".$pokeid."' LIMIT 1");
-                    DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1',`tickets`=`tickets`-'$verify[price]' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+                DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='1' WHERE `id`='".$pokeid."' LIMIT 1");
+                    DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1',`tickets`=`tickets`-'$verify[price]' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
                     echo '<div class="green">Você comprou 1x '.$verify['name'].'!</div>';
                 }
             } else {
                 if ($gebruiker['item_over'] < 1) {
                     echo '<div class="red">VOCÊ NÃO TEM ESPAÇOS DISPONÍVEIS NA SUA MOCHILA!</div>';
                 } else {
-                    DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$verify['name']."`=`".$verify['name']."`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-                    DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`-'$verify[price]' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+                    DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$verify['name']."`=`".$verify['name']."`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+                    DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`-'$verify[price]' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
                     echo '<div class="green">Você comprou 1x '.$verify['name'].'!</div>';
                 }
             }

@@ -7,8 +7,8 @@ function duel_info($duel_id) {
 
 //Remove Duel
 function remove_duel($duel_id) {
-    DB::exQuery("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='" . $_SESSION['id'] . "'");
-    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='" . $_SESSION['id'] . "'");
+    DB::exQuery("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
+    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
     DB::exQuery("DELETE FROM `duel` WHERE `id`='" . $duel_id . "'");
 }
 

@@ -19,13 +19,13 @@
 			echo '<div class="red"> Digite uma razão.</div>';
 		else{
 			DB::ExQuery("INSERT INTO ban (ip, user_id, tot, reden)
-						VALUES ('".$_POST['ip']."', '".$_POST['player']."', '".$_POST['tot']."', '".$_POST['reden']."')");
+						VALUES ('".($_POST['ip'] ?? '')."', '".($_POST['player'] ?? '')."', '".($_POST['tot'] ?? '')."', '".($_POST['reden'] ?? '')."')");
 			
-			echo '<div class="green"> O IP '.$_POST['ip'].' foi banido com sucesso até '.$_POST['tot'].'.</div>';
+			echo '<div class="green"> O IP '.($_POST['ip'] ?? '').' foi banido com sucesso até '.($_POST['tot'] ?? '').'.</div>';
 		}
 	}
 	if (isset($_POST['take'])) {
-		DB::ExQuery("DELETE FROM ban WHERE ip = '".$_POST['who']."'");
+		DB::ExQuery("DELETE FROM ban WHERE ip = '".($_POST['who'] ?? '')."'");
 		echo '<div class="green"> O ip foi desbanido.</div>';
 	}
 
@@ -38,13 +38,13 @@
         </tr>
         <tr>
         	<td>IP:</td>
-            <td><input type="text" name="ip" class="text_long" value="<?php if ($_POST['ip'] != '') echo $_POST['ip']; else echo $_GET['ip']; ?>" maxlength="15" /></td>
+            <td><input type="text" name="ip" class="text_long" value="<?php if (($_POST['ip'] ?? '') != '') echo ($_POST['ip'] ?? ''); else echo ($_GET['ip'] ?? ''); ?>" maxlength="15" /></td>
         </tr>
 
 
         <tr>
         	<td>Tempo:</td>
-            <td><input type="text" name="tot" class="text_long" value="<?php if ($_POST['tot'] != '') echo $_POST['tot']; ?>" maxlength="10"/>
+            <td><input type="text" name="tot" class="text_long" value="<?php if (($_POST['tot'] ?? '') != '') echo ($_POST['tot'] ?? ''); ?>" maxlength="10"/>
 			<script language="JavaScript">
 				new tcal ({
 					// form name
@@ -56,7 +56,7 @@
         </tr>
         <tr>
         	<td>Razão:</td>
-            <td><input type="text" name="reden" class="text_long" value="<?php if ($_POST['reden'] != '') echo $_POST['reden']; ?>" maxlength="30" /></td>
+            <td><input type="text" name="reden" class="text_long" value="<?php if (($_POST['reden'] ?? '') != '') echo ($_POST['reden'] ?? ''); ?>" maxlength="30" /></td>
         </tr>
         <tr>
         	<td>&nbsp;</td>

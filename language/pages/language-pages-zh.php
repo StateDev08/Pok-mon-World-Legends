@@ -231,12 +231,12 @@ if ($page == 'home' || empty($page)) {
 	$txt['link_subpage_game_info'] = '常问问题';
 
 	
-			if ($_GET['category'] == 'game-info') {
+			if (($_GET['category'] ?? '') == 'game-info') {
 			#Screen
 			$txt['pagetitle'] .= ' - F.A.Q';
 			$txt['informationpage'] = '<h2>常见问题解答</h2><br>';
 		}
-	else if ($_GET['category'] == 'pokemon-info') {
+	else if (($_GET['category'] ?? '') == 'pokemon-info') {
 		$txt['titlenpc']		= 'PokePédia（神奇宝贝百科全书）';
 		$txt['textnpc']			= '您可以在此区域找到有关<b>世界传奇</b>中所有神奇宝贝的所有信息。在这里您可以提出有关统计、进化等方面的问题。';
 
@@ -262,7 +262,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['capture_chance']		  = '捕获机会';
 		$txt['evolui_de']             = '演变自';
 		$txt['trade']				  = '需要兑换。';
-	} else if ($_GET['category'] == 'attack-info') {
+	} else if (($_GET['category'] ?? '') == 'attack-info') {
 		$txt['titlenpc']		= '宝可梦攻击';
 		$txt['textnpc']			= '您是否正在寻找有关特定移动/攻击的信息？您来对地方了，在这里您可以找到有关您的神奇宝贝攻击的所有内容。';
 
@@ -304,7 +304,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['online']    = '在线的';
 	$txt['offline']   = '离线';
 } else if ($page == 'contact') {
-	$txt['alert_email_to_unknown']      = $_POST['sendto'] . '无效！';
+	$txt['alert_email_to_unknown']      = ($_POST['sendto'] ?? '') . '无效！';
 	$txt['alert_no_name']               = '您必须输入您的名字！';
 	$txt['alert_no_email']              = '您必须输入您的电子邮件！';
 	$txt['alert_email_incorrect_signs'] = '输入的电子邮件无效！';
@@ -391,7 +391,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['link_subpage_profile'] = '轮廓';
 		$txt['link_subpage_restart'] = '重置';
 		
-		if ($_GET['category'] == 'personal') {
+		if (($_GET['category'] ?? '') == 'personal') {
 			#Alerts general
 			$txt['alert_not_enough_gold'] = '你没有金子。';
 			$txt['alert_no_username'] = '没有找到用户。';
@@ -433,11 +433,11 @@ if ($page == 'home' || empty($page)) {
 			$txt['available_rank_bully'] = '等级很低。';
 			$txt['button_personal'] = '更新';
 		}
-		else if ($_GET['category'] == 'email') {
+		else if (($_GET['category'] ?? '') == 'email') {
 
 			$txt['pagetitle'] .= ' - Alterar E-mail';
 		}
-		else if ($_GET['category'] == 'password') {
+		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
 			$txt['alert_all_fields_required'] = '所有字段都必须填写。';
 			$txt['alert_old_new_password_thesame'] = '您的新密码不能与旧密码相同。';
@@ -453,7 +453,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['password_now'] = '当前密码：';
 			$txt['button_password'] = '更改密码！';
 		}
-		else if ($_GET['category'] == 'profile') {
+		else if (($_GET['category'] ?? '') == 'profile') {
 			#Alerts profile
 			$txt['success_profile'] = '您的个人资料已成功更新。';
 			
@@ -462,7 +462,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="配置文件效果"><b>在这里</b></a></u>您可以看到一些自定义配置文件的提示！';
 			$txt['button_profile'] = '更新个人资料！';
 		}
-		else if ($_GET['category'] == 'restart') {
+		else if (($_GET['category'] ?? '') == 'restart') {
 			#Alerts restart
 			$txt['embreve'] = '不久。';
 			$txt['alert_no_password'] = '没有输入密码。';
@@ -548,16 +548,16 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'items') {
 	$txt['alert_no_amount']               = '输入数量！';
 	$txt['alert_too_much_items_selected'] = '你没有这个金额！';
-	$txt['success_items']                 = '你卖了' . $_POST['amount'] . 'x' . $_POST['name'] . '';
+	$txt['success_items']                 = '你卖了' . ($_POST['amount'] ?? '') . 'x' . ($_POST['name'] ?? '') . '';
 
 	$txt['pagetitle']        = '我的物品';
-	if ($_GET['category'] == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
-	else if ($_GET['category'] == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if ($_GET['category'] == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
-	else if ($_GET['category'] == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if ($_GET['category'] == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
-	else if ($_GET['category'] == 'hm') $txt['pagetitle'] .= ' - HM\'s';
-	else if ($_GET['category'] == 'tm') $txt['pagetitle'] .= ' - TM\'s';
+	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
+	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
+	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
 	$txt['title_text_1']     = '你有';
 	$txt['title_text_2']     = '空闲插槽。';
@@ -634,7 +634,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['button']    = '关闭';
 	$txt['event']     = '通知';
 }else if ($page == 'profile') {
-	$txt['pagetitle']         = '轮廓' . $_GET['player'];
+	$txt['pagetitle']         = '轮廓' . ($_GET['player'] ?? '');
 	$txt['offline']           = '离线';
 	$txt['online']            = '在线的';
 	$txt['username']          = '培训师：';
@@ -786,26 +786,26 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']   = '攻击';
 	$txt['pokemon']   = '神奇宝贝';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = '购买精灵球';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = '购买药水';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = '购买特殊物品';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = '买石头';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
 		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = '购买口袋妖怪';
 		$txt['not_rare']               = '常见的';
@@ -822,23 +822,23 @@ if ($page == 'home' || empty($page)) {
 	$txt['stones']		= '石头';
 	$txt['attacks']		= '攻击';
 
-	if ($_GET['category'] == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if ($_GET['category'] == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if ($_GET['category'] == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
-	else if ($_GET['category'] == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
+	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['alert_no_world'] = '选择一个区域。';
-	$txt['alert_already_in_world'] = '你已经在'.$_POST['wereld'].'。';
-	$txt['alert_world_invalid'] = $_POST['wereld'].'不是有效区域。';
-	$txt['alert_not_enough_money'] = '你没有银子去旅行'.$_POST['wereld'].'。';
-	$txt['success_travel'] = '你去了'.$_POST['wereld'].'，并花费了';
+	$txt['alert_already_in_world'] = '你已经在'.($_POST['wereld'] ?? '').'。';
+	$txt['alert_world_invalid'] = ($_POST['wereld'] ?? '').'不是有效区域。';
+	$txt['alert_not_enough_money'] = '你没有银子去旅行'.($_POST['wereld'] ?? '').'。';
+	$txt['success_travel'] = '你去了'.($_POST['wereld'] ?? '').'，并花费了';
 	$txt['alert_not_everything_selected'] = '选择神奇宝贝和地区。';
 	$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的！';
 	$txt['alert_no_surf'] = '这个神奇宝贝不会冲浪！';
 	$txt['alert_no_fly'] = '这个宝可梦不会飞！';
 	$txt['alert_not_strong_enough'] = '这个神奇宝贝的实力还不够！';
-	$txt['success_surf'] = '你的神奇宝贝冲浪到'.$_POST['wereld'].'成功地！';
-	$txt['success_fly'] = '你的神奇宝贝飞走了'.$_POST['wereld'].'成功地！';
+	$txt['success_surf'] = '你的神奇宝贝冲浪到'.($_POST['wereld'] ?? '').'成功地！';
+	$txt['success_fly'] = '你的神奇宝贝飞走了'.($_POST['wereld'] ?? '').'成功地！';
 	
 	$txt['pagetitle']       = '前往另一个地区';
 	$txt['title_text']      = '在这里您可以前往其他地区';
@@ -1541,11 +1541,11 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 		$txt['alert_no_amount'] = '输入金额。';
 		$txt['alert_unknown_amount'] = '数量无效。';
 		$txt['alert_max_10_tickets'] = '只能买10张票！';
-		$txt['alert_not_enough_money'] = '你没有银子可以买'.$_POST['aantal'].'门票。';
+		$txt['alert_not_enough_money'] = '你没有银子可以买'.($_POST['aantal'] ?? '').'门票。';
 		$txt['alert_no_tickets_left'] = '你不能买更多的票！';
 		$txt['alert_buys_left_1'] = '你只能买';
 		$txt['alert_buys_left_2'] = '门票！';
-		$txt['success_lottery'] = '你买了'.$_POST['aantal'].'票成功。';
+		$txt['success_lottery'] = '你买了'.($_POST['aantal'] ?? '').'票成功。';
 		
 		#Screen
 		$txt['pagetitle'] = '彩票';
@@ -1572,15 +1572,15 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 		$txt['alert_username_dont_exist'] = '教练不存在。';
 		$txt['alert_username_incorrect_signs'] = '训练器包含无效字符。';
 		$txt['alert_admin_steal'] = '你不能破坏团队成员。';
-		$txt['alert_is_not_in'] = $_POST['player'].'不在';
-		$txt['alert_too_low_rank'] = $_POST['player'].'等级不足以被破坏';
-		$txt['alert_too_low_or_high_rank'] = $_POST['player'].'等级太低或太高而无法被破坏';
+		$txt['alert_is_not_in'] = ($_POST['player'] ?? '').'不在';
+		$txt['alert_too_low_rank'] = ($_POST['player'] ?? '').'等级不足以被破坏';
+		$txt['alert_too_low_or_high_rank'] = ($_POST['player'] ?? '').'等级太低或太高而无法被破坏';
 		$txt['alert_steal_failed_1'] = '破坏行动失败了。';
 		$txt['alert_steal_failed_2'] = '它更强大。';
 		
 		$txt['alert_steal_jail'] = '你被珍妮警官逮捕了。<br>';
 		$txt['success_stole_1'] = '你明白了';
-		$txt['success_stole_2'] = '破坏'.$_POST['player'];
+		$txt['success_stole_2'] = '破坏'.($_POST['player'] ?? '');
 		
 		$txt['alert_steal_jail_text_1'] = '您已被困，请稍候';
 		$txt['alert_steal_jail_text_2'] = '分钟和';
@@ -1629,7 +1629,7 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 	######################## LVL CHOOSE ########################
 	else if ($page == 'lvl-choose') {
 		#Alerts
-		$txt['success_lvl_choose'] = '现在你会在关卡之间找到神奇宝贝'.$_POST['lvl'].'。';
+		$txt['success_lvl_choose'] = '现在你会在关卡之间找到神奇宝贝'.($_POST['lvl'] ?? '').'。';
 		
 		#Screen
 		$txt['pagetitle'] = '选择级别';
@@ -1658,7 +1658,7 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 		$txt['alert_opponent_not_in'] = '不在';
 		$txt['alert_opponent_not_casual'] = '对手没有足够的等级。';
 		$txt['alert_no_admin'] = '您不能挑战团队成员参加比赛。';
-		$txt['success'] = '你挑战了'.$_POST['naam'].'为了一场成功的比赛！';
+		$txt['success'] = '你挑战了'.($_POST['naam'] ?? '').'为了一场成功的比赛！';
 		
 		#Screen
 		$txt['pagetitle'] = '种族';
@@ -1847,9 +1847,9 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 		$txt['alert_amount_unknown'] = '输入的值无效。';
 		$txt['alert_too_less_cash'] = '你身上没有那么多钱。';
 		$txt['alert_no_silver_or_gold'] = '你必须选择银或金。';
-		$txt['success_stort'] = $_POST['stort'].'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 存款成功。';
+		$txt['success_stort'] = ($_POST['stort'] ?? '').'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 存款成功。';
 		$txt['alert_too_less_bank'] = '你银行里没有这笔钱。';
-		$txt['success_take'] = $_POST['ophaal'].'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 已成功删除。';
+		$txt['success_take'] = ($_POST['ophaal'] ?? '').'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 已成功删除。';
 		$txt['alert_no_receiver'] = '输入金额将转移给的培训师。';
 		$txt['alert_send_to_yourself'] = '您不能将其发送给自己。';
 		$txt['alert_receiver_dont_exist'] = '接收培训师不存在。';
@@ -1878,16 +1878,16 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 	else if ($page == 'send-message') {
 		#Alerts
 		$txt['alert_no_receiver'] = '您没有输入该消息的收件人。';
-		$txt['alert_inbox_full'] = '盒子'.$_POST['ontvanger'].'已满。';
-		$txt['alert_receiver_blocked'] = '你屏蔽了'.$_POST['ontvanger'].'。';
-		$txt['alert_has_blocked_you'] = $_POST['ontvanger'].'阻止了你。';
+		$txt['alert_inbox_full'] = '盒子'.($_POST['ontvanger'] ?? '').'已满。';
+		$txt['alert_receiver_blocked'] = '你屏蔽了'.($_POST['ontvanger'] ?? '').'。';
+		$txt['alert_has_blocked_you'] = ($_POST['ontvanger'] ?? '').'阻止了你。';
 		$txt['alert_message_to_yourself'] = '你不能给自己发短信。';
-		$txt['alert_username_dont_exist'] = $_POST['ontvanger'].'不存在。';
+		$txt['alert_username_dont_exist'] = ($_POST['ontvanger'] ?? '').'不存在。';
 		$txt['alert_no_subject'] = '输入主题。';
 		$txt['alert_subject_wrong_signs'] = '主题包含无效字符。';
 		$txt['alert_text_wrong_signs'] = '消息不能包含<。';
 		$txt['alert_no_message'] = '输入消息。';
-		$txt['success_send_message'] = '消息已成功发送至'.$_POST['ontvanger'].'。';
+		$txt['success_send_message'] = '消息已成功发送至'.($_POST['ontvanger'] ?? '').'。';
 		
 		#Screen
 		$txt['pagetitle'] = '写留言';
@@ -1944,12 +1944,12 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 ######################## BUDDYLIST ########################
 	else if ($page == 'buddylist') {
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].'已成功从您的好友列表中删除。';
+		$txt['success_deleted'] = ($_POST['deletenaam'] ?? '').'已成功从您的好友列表中删除。';
 		$txt['alert_buddy_not_yourself'] = '您无法将自己添加为好友。';
 		$txt['alert_username_dont_exist'] = '教练不存在。';
-		$txt['alert_already_buddy'] = $_POST['buddynaam'].'他已经是你的朋友了。';
-		$txt['alert_is_blocked'] = $_POST['buddynaam'].'在您的阻止列表中。';
-		$txt['success_add'] = $_POST['buddynaam'].'已添加为您的好友。';
+		$txt['alert_already_buddy'] = ($_POST['buddynaam'] ?? '').'他已经是你的朋友了。';
+		$txt['alert_is_blocked'] = ($_POST['buddynaam'] ?? '').'在您的阻止列表中。';
+		$txt['success_add'] = ($_POST['buddynaam'] ?? '').'已添加为您的好友。';
 		
 		#Screen
 		$txt['pagetitle'] = '朋友们';
@@ -1971,13 +1971,13 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 	######################## POKEMON INFO ########################
 	else if ($page == 'blocklist') {
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].'已从您的阻止列表中删除。';
+		$txt['success_deleted'] = ($_POST['deletenaam'] ?? '').'已从您的阻止列表中删除。';
 		$txt['alert_block_yourself'] = '你自己无法阻止它。';
 		$txt['alert_unknown_username'] = '不存在的教练。';
-		$txt['alert_already_in_blocklist'] = $_POST['blocknaam'].'被封锁了。';
-		$txt['alert_is_your_buddy'] = $_POST['blocknaam'].'它无法被阻止，因为它已经是你的朋友了。';
+		$txt['alert_already_in_blocklist'] = ($_POST['blocknaam'] ?? '').'被封锁了。';
+		$txt['alert_is_your_buddy'] = ($_POST['blocknaam'] ?? '').'它无法被阻止，因为它已经是你的朋友了。';
 		$txt['alert_admin_block'] = '您无法阻止团队成员。';
-		$txt['success_blocked'] = $_POST['blocknaam'].'已被成功拦截。';
+		$txt['success_blocked'] = ($_POST['blocknaam'] ?? '').'已被成功拦截。';
 		
 		#Screen
 		$txt['pagetitle'] = '被阻止';
@@ -1999,7 +1999,7 @@ $txt['pagetitle'] = '出售物品';
 $txt['sellprice'] = "PokéMart 价格";
 $txt['alert_no_amount']               = '输入数量！';
 	$txt['alert_too_much_items_selected'] = '你没有这个金额！';
-	$txt['success_items']                 = '你卖了' . $_POST['amount'] . 'x' . $_POST['name'] . '';
+	$txt['success_items']                 = '你卖了' . ($_POST['amount'] ?? '') . 'x' . ($_POST['name'] ?? '') . '';
 
 
 	$txt['title_text_1']     = '你有';
@@ -2043,26 +2043,26 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['attacks']   = '攻击';
 	$txt['pokemon']   = '神奇宝贝';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = '购买精灵球';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = '购买药水';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = '购买特殊物品';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = '买石头';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
 		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = '购买口袋妖怪';
 		$txt['not_rare']               = '常见的';
@@ -2093,26 +2093,26 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['attacks']   = '攻击';
 	$txt['pokemon']   = '神奇宝贝';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = '购买精灵球';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = '购买药水';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = '购买特殊物品';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = '买石头';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
 		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = '购买口袋妖怪';
 		$txt['not_rare']               = '常见的';

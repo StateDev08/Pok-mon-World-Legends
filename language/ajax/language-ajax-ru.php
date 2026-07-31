@@ -45,7 +45,7 @@ if ($page == 'use_spcitem') {
 	$txt['alert_not_your_pokemon']			= 'Будьте осторожны, этот покемон вам не принадлежит!';
 	$txt['alert_pokeequiped']			= 'Вы не можете передать покемона из своей команды!';
 	$txt['alert_success']				= 'Покемоны успешно перенесены!';
-	$txt['alert_fail']				= 'Коробка'.$_POST['newbox'].'Это полно!';
+	$txt['alert_fail']				= 'Коробка'.($_POST['newbox'] ?? '').'Это полно!';
 
 	$txt['pagetitle']	= 'Вы хотите передать ящик %s?';
 	$txt['information']	= 'Информация';

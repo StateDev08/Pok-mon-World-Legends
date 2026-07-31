@@ -2,7 +2,7 @@
 if (isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
     $gebruiker = DB::exQuery("SELECT `pokeloot_token`,`premiumaccount`,`rank`,`rankexp`,`rankexpnodig` FROM `gebruikers` WHERE `user_id`={$_SESSION['id']} LIMIT 1")->fetch_assoc();
 
-    if ($_SESSION['ploot'] != $gebruiker['pokeloot_token']) {
+    if (($_SESSION['ploot'] ?? '') != $gebruiker['pokeloot_token']) {
         echo 'error | Acesso inválido!';
     } else {
         function addSilvers($min = 500, $max = 4999) {
@@ -49,7 +49,7 @@ if (isset($_SESSION['ploot']) && isset($_SESSION['id'])) {
         $random = rand(1, 6);
         if ($random == 6) if (rand (1, 3) == 3) $random = rand (1, 5);
 
-        $quests->setStatus('pokeloot', $_SESSION['id']);
+        $quests->setStatus('pokeloot', ($_SESSION['id'] ?? ''));
         
 		switch($random) {
 			case 1:

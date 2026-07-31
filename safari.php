@@ -19,8 +19,8 @@ $map_info = DB::exQuery("SELECT * FROM maps WHERE id='".$map."'")->fetch_assoc()
 
 if (isset($_GET['map'], $_GET['x'], $_GET['y'])) {
 	$time = time();
-	$x = (int) $_GET['x'];
-	$y = (int) $_GET['y'];
+	$x = (int) ($_GET['x'] ?? '');
+	$y = (int) ($_GET['y'] ?? '');
 	DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$x}',`map_y`='{$y}',`map_lastseen`='{$time}',`captcha_time`='{$time}' WHERE `user_id`='{$_SESSION['id']}'");
 	header('Location: ./safari&map=' . $map);
 }
@@ -45,7 +45,7 @@ $usersArray = array();
 $i = 0;
 $onMap = false;
 while ($user = $usersQuery->fetch_assoc()) {
-	if ($user['user_id'] == $_SESSION['id']) {
+	if ($user['user_id'] == ($_SESSION['id'] ?? '')) {
 		$startX = $user['map_x'];
 		$startY = $user['map_y'];
 		$onMap = true;
@@ -79,8 +79,8 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 	if(DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='{$_SESSION['id']}' AND opzak='ja'")->num_rows == 0)
 		echo '<div class="red">Todos seus Pokémon estão desmaiados.</div>';
 	else {
-		$wid = $_POST['goid'];
-        $leveltegenstander = $_POST['level'];
+		$wid = ($_POST['goid'] ?? '');
+        $leveltegenstander = ($_POST['level'] ?? '');
 		if($map == 1) $gebied = 'Gras';
 		elseif($map == 2) $gebied = 'Water';
 		elseif($map == 3) $gebied = 'Grot';
@@ -106,7 +106,7 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 					$background = "water-" . $chance;
 				}
 				
-				DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . $_SESSION['id'] . "'");
+				DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
 				header("Location: ./attack/wild/wild-attack");
 				exit;
             } else
@@ -155,8 +155,8 @@ if(isset($_POST['trainer'])){
     <?php
         $li = '';
         if ($gebruiker['admin'] >= 3) {
-            if (isset($_GET['li']) && ctype_digit($_GET['li'])) {
-                $li = 'li='.$_GET['li'].'&';
+            if (isset($_GET['li']) && ctype_digit(($_GET['li'] ?? ''))) {
+                $li = 'li='.($_GET['li'] ?? '').'&';
             }
         }
     ?>

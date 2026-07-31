@@ -12,7 +12,7 @@ include("attack/attack.inc.php");
 $duel_info = duel_info($_SESSION['duel']['duel_id']);
 
 # Check if uitdager en tegenstander or valid
-if (($duel_info['uitdager'] != $_SESSION['naam']) AND ($duel_info['tegenstander'] != $_SESSION['naam'])) {
+if (($duel_info['uitdager'] != ($_SESSION['naam'] ?? '')) AND ($duel_info['tegenstander'] != ($_SESSION['naam'] ?? ''))) {
   remove_duel($duel_info['id']);
   #Send back to home
   header("Location: ./home");
@@ -20,7 +20,7 @@ if (($duel_info['uitdager'] != $_SESSION['naam']) AND ($duel_info['tegenstander'
   unset($_SESSION['duel']['duel_id']);
 } 
 
-if ($duel_info['uitdager'] == $_SESSION['naam']) {
+if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
   $duel_info['you'] = "uitdager";
   $duel_info['you_duel'] = "u_klaar";  
   $duel_info['you_sex'] = $duel_info['u_character'];
@@ -69,7 +69,7 @@ if ($duel_info['uitdager'] == $_SESSION['naam']) {
   }
 }
 
-else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
   $duel_info['you'] = "tegenstander";
   $duel_info['you_duel'] = "t_klaar";
   $duel_info['you_sex'] = $duel_info['t_character'];

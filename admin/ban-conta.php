@@ -17,22 +17,22 @@
 			echo '<div class="red"> Digite uma razão.</div>';
 		else{
 		
-		if ($_POST['tot'] == "") {
+		if (($_POST['tot'] ?? '') == "") {
 		$_POST['tot'] = "0000-00-00";
 		}
 		
-			$select = DB::exQuery("SELECT acc_id FROM rekeningen WHERE email = '".$_POST['player']."'")->fetch_assoc();	
+			$select = DB::exQuery("SELECT acc_id FROM rekeningen WHERE email = '".($_POST['player'] ?? '')."'")->fetch_assoc();	
 			DB::exQuery("UPDATE gebruikers SET banned='Y' WHERE acc_id = '".$select['acc_id']."'");
-			DB::exQuery("UPDATE rekeningen SET account_code = '0', bloqueado='sim', bloqueado_tempo='".$_POST['tot']."', razaobloqueado='".$_POST['reden']."' WHERE email = '".$_POST['player']."'");
+			DB::exQuery("UPDATE rekeningen SET account_code = '0', bloqueado='sim', bloqueado_tempo='".($_POST['tot'] ?? '')."', razaobloqueado='".($_POST['reden'] ?? '')."' WHERE email = '".($_POST['player'] ?? '')."'");
 			
-			echo '<div class="green"> A conta foi bloqueada com sucesso até '.$_POST['tot'].'.</div>';
+			echo '<div class="green"> A conta foi bloqueada com sucesso até '.($_POST['tot'] ?? '').'.</div>';
 		}
 	}
 	if (isset($_POST['take'])) {
 	
-		$select = DB::exQuery("SELECT acc_id FROM rekeningen WHERE email = '".$_POST['player']."'")->fetch_assoc();
+		$select = DB::exQuery("SELECT acc_id FROM rekeningen WHERE email = '".($_POST['player'] ?? '')."'")->fetch_assoc();
 		DB::exQuery("UPDATE gebruikers SET banned='N' WHERE acc_id = '".$select['acc_id']."'");
-		DB::exQuery("UPDATE rekeningen SET account_code = '1', bloqueado='nao', bloqueado_tempo='0000-00-00', razaobloqueado='' WHERE email = '".$_POST['who']."'");
+		DB::exQuery("UPDATE rekeningen SET account_code = '1', bloqueado='nao', bloqueado_tempo='0000-00-00', razaobloqueado='' WHERE email = '".($_POST['who'] ?? '')."'");
 		echo '<div class="green"> A conta foi desbloqueada.</div>';
 	}
 
@@ -46,16 +46,16 @@
   
         <tr>
         	<td>E-mail da conta:</td>
-            <td><input type="text" name="player" class="text_long" value="<?php if ($_POST['player'] != '') echo $_POST['player']; else echo $_GET['player']; ?>" /></td>
+            <td><input type="text" name="player" class="text_long" value="<?php if (($_POST['player'] ?? '') != '') echo ($_POST['player'] ?? ''); else echo ($_GET['player'] ?? ''); ?>" /></td>
         </tr>
         <tr>
         	<td>Tempo:</td>
-            <td><input type="text" name="tot" class="text_long" value="<?php if ($_POST['tot'] != '') echo $_POST['tot']; else echo "AAAA-MM-DD";?>" maxlength="10"/><br/>(Deixar tempo em branco para permanente)
+            <td><input type="text" name="tot" class="text_long" value="<?php if (($_POST['tot'] ?? '') != '') echo ($_POST['tot'] ?? ''); else echo "AAAA-MM-DD";?>" maxlength="10"/><br/>(Deixar tempo em branco para permanente)
 		</td>
         </tr>
         <tr>
         	<td>Razão:</td>
-            <td><input type="text" name="reden" class="text_long" value="<?php if ($_POST['reden'] != '') echo $_POST['reden']; ?>" maxlength="30" /></td>
+            <td><input type="text" name="reden" class="text_long" value="<?php if (($_POST['reden'] ?? '') != '') echo ($_POST['reden'] ?? ''); ?>" maxlength="30" /></td>
         </tr>
         <tr>
         	<td>&nbsp;</td>

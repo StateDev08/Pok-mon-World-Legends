@@ -9,31 +9,31 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
         $lock = true;
     }
 
-    $getname = $_GET['player'];
+    $getname = ($_GET['player'] ?? '');
     if ((isset($_POST['duel']))) {
 
         if (!empty($_POST['naam']))
-            $getname = $_POST['naam'];
+            $getname = ($_POST['naam'] ?? '');
 
-        if ($_SESSION['naam'] == $_POST['naam'])
+        if (($_SESSION['naam'] ?? '') == ($_POST['naam'] ?? ''))
             echo '<div class="red">' . $txt['alert_not_yourself'] . '</div>';
 
-        else if ($_POST['bedrag'] < 0)
+        else if (($_POST['bedrag'] ?? '') < 0)
             echo '<div class="red">' . $txt['alert_unknown_amount'] . '</div>';
 
-        else if (!ctype_digit($_POST['bedrag']))
+        else if (!ctype_digit(($_POST['bedrag'] ?? '')))
             echo '<div class="red">' . $txt['alert_unknown_amount'] . '</div>';
 
         else if ($gebruiker['rank'] < 4) echo '<div class="red">Você não tem RANK SUFICIENTE PARA DUELAR!</div>';
 
-        else if ($gebruiker['silver'] < $_POST['bedrag'])
+        else if ($gebruiker['silver'] < ($_POST['bedrag'] ?? ''))
             echo '<div class="red">' . $txt['alert_not_enough_silver'] . '</div>';
 
-        else if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='" . $_SESSION['id'] . "' AND opzak='ja'")->num_rows == 0)
+        else if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='" . ($_SESSION['id'] ?? '') . "' AND opzak='ja'")->num_rows == 0)
             echo '<div class="red">' . $txt['alert_all_pokemon_ko'] . '</div>';
 
         else {
-            $sql = DB::exQuery("SELECT user_id, username, wereld, rank, premiumaccount, `character`, dueluitnodiging, pagina, `online`,`blocklist` FROM gebruikers WHERE username='" . $_POST['naam'] . "'");
+            $sql = DB::exQuery("SELECT user_id, username, wereld, rank, premiumaccount, `character`, dueluitnodiging, pagina, `online`,`blocklist` FROM gebruikers WHERE username='" . ($_POST['naam'] ?? '') . "'");
 
             if ($sql->num_rows == 1) {
 
@@ -43,29 +43,29 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                 $blocklist_2 = explode(',', $select['blocklist']);
 
                 if ($select['wereld'] != $gebruiker['wereld'])
-                    echo '<div class="red">' . $_POST['naam'] . ' ' . $txt['alert_opponent_not_in'] . ' ' . $gebruiker['wereld'] . '.</div>';
+                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_not_in'] . ' ' . $gebruiker['wereld'] . '.</div>';
 
-                else if ($select['rank'] < 4) echo '<div class="red">' . $_POST['naam'] . ' ' . ' não tem RANK SUFICIENTE!</div>';
+                else if ($select['rank'] < 4) echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . ' não tem RANK SUFICIENTE!</div>';
 
                 else if ($select['dueluitnodiging'] == 0)
-                    echo '<div class="red">' . $_POST['naam'] . ' ' . $txt['alert_opponent_duelevent_off'] . '</div>';
+                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_duelevent_off'] . '</div>';
 
                 else if (($select['pagina'] == "attack") || ($select['pagina'] == "attack-trainer") || ($select['pagina'] == "duel"))
-                    echo '<div class="red">' . $_POST['naam'] . ' ' . $txt['alert_opponent_already_fighting'] . '</div>';
+                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_already_fighting'] . '</div>';
                 else if (DB::exQuery("SELECT * FROM league_battle WHERE (user_id1 = '" . $select['user_id'] . "' OR user_id2 = '" . $select['user_id'] . "') AND ((NOW()" . League::$ajuste_tempo_string . ") BETWEEN (inicio - INTERVAL 5 MINUTE - INTERVAL 5 SECOND) AND inicio)")->num_rows >0)
-                    echo '<div class="red">' . $_POST['naam'] . ' Seu oponete está se preparando para uma batalha na liga pokémon</div>';
+                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' Seu oponete está se preparando para uma batalha na liga pokémon</div>';
                 else if (($select['online'] + 900) <= time()) 
-                    echo '<div class="red">' . $_POST['naam'] . ' está <b>OFFLINE</b>!</div>';
+                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' está <b>OFFLINE</b>!</div>';
                 else if ($lock)
                     echo '<div class="red">Você já desafiou algum treinador! Por favor, aguarde a resposta!</div>';
                 else if (in_array($select['user_id'], $blocklist_1))
                     echo '<div class="red">Você bloqueou este treinador!</div>';
-                else if (in_array($_SESSION['id'], $blocklist_2))
+                else if (in_array(($_SESSION['id'] ?? ''), $blocklist_2))
                     echo '<div class="red">Você foi bloqueado por este treinador!</div>';
                 else {
                     $date = strtotime(date("Y-m-d H:i:s"));
                     DB::exQuery("INSERT INTO duel (datum, uitdager, tegenstander, u_character, t_character, bedrag, status, laatste_beurt_tijd, laatste_beurt)
-                                 VALUES ('" . $date . "', '" . $_SESSION['naam'] . "', '" . $select['username'] . "', '" . $gebruiker['character'] . "', '" . $select['character'] . "', '" . $_POST['bedrag'] . "', 'wait', '" . $date . "', '" . $_SESSION['naam'] . "')");
+                                 VALUES ('" . $date . "', '" . ($_SESSION['naam'] ?? '') . "', '" . $select['username'] . "', '" . $gebruiker['character'] . "', '" . $select['character'] . "', '" . ($_POST['bedrag'] ?? '') . "', 'wait', '" . $date . "', '" . ($_SESSION['naam'] ?? '') . "')");
 
                     $duel_id = DB::insertID();
                     $_SESSION['duel']['duel_id'] = $duel_id;
@@ -78,7 +78,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                     $chance = rand(1,2);
                     $background = "duelo-".$chance."";
                     $_SESSION['background'] = $background;
-                    DB::exQuery("UPDATE `gebruikers` SET `background`='$background' WHERE `user_id`='".$_SESSION['id']."'"); 
+                    DB::exQuery("UPDATE `gebruikers` SET `background`='$background' WHERE `user_id`='".($_SESSION['id'] ?? '')."'"); 
                     $lock = true;                
                 }
             } else
@@ -102,7 +102,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                     <td><b style="color: #9eadcd; font-size: 12px">Treinador:</b><br><input type="text" name="naam" value="<?php echo $getname; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
                     <td><b style="color: #9eadcd; font-size: 12px">Valor:</b><br><input type="number" name="bedrag" value="<?php
                         if (!empty($_POST['bedrag']))
-                            echo $_POST['bedrag'];
+                            echo ($_POST['bedrag'] ?? '');
                         else
                             echo 0;
                         ?>" class="input-blue" min="0" style="margin-top: 5px"/></td>

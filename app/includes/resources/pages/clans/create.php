@@ -14,10 +14,10 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
     else if ($gebruiker['premiumaccount'] < (time() + 86400 * 7)) echo '<div class="red">VOCÊ PRECISA TER PREMIUM!</div>';
     else if ($rekening['gold'] < 100) echo '<div class="red">VOCÊ PRECISA TER NO MÍNIMO <img src="'.$static_url.'/images/icons/gold.png" title="Golds"> 100 <b>Golds</b>!</div>';
     else {
-        $icon = $_POST['icon'];
-        $descr = $_POST['descr'];
-        $sigla = strtolower($_POST['sigla']);
-        $name = $_POST['name'];
+        $icon = ($_POST['icon'] ?? '');
+        $descr = ($_POST['descr'] ?? '');
+        $sigla = strtolower(($_POST['sigla'] ?? ''));
+        $name = ($_POST['name'] ?? '');
 
         if ($icon > 14 || $icon <= 0) echo '<div class="red">ÍCONE DE CLÃ INVÁLIDO!</div>';
         else if (strlen($descr) > 500) echo '<div class="red">A APRESENTAÇÃO DO CLÃ NÃO PODE TER MAIS DE 500 CARACTERES!</div>';
@@ -37,11 +37,11 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
                     'descr' => htmlspecialchars($descr),
                     'sigla' => $sigla,
                     'name' => $name,
-                    'user' => $_SESSION['id']
+                    'user' => ($_SESSION['id'] ?? '')
                 );
 
                 $clan->create($infos);
-                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'100' WHERE `acc_id`='".$_SESSION['acc_id']."'");
+                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'100' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
                 echo '<div class="green">SEU CLÃ <a href="./clans&action=profile">'.$name.' ('.$sigla.')</a> FOI CRIADO COM SUCESSO!</div>';
             }
         }

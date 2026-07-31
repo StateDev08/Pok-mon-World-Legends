@@ -45,7 +45,7 @@ if ($page == 'use_spcitem') {
 	$txt['alert_not_your_pokemon']			= 'Seien Sie vorsichtig, dieses Pokémon gehört nicht Ihnen!';
 	$txt['alert_pokeequiped']			= 'Du kannst kein Pokémon aus deinem Team übertragen!';
 	$txt['alert_success']				= 'Pokémon erfolgreich übertragen!';
-	$txt['alert_fail']				= 'Die Kiste'.$_POST['newbox'].'Es ist voll!';
+	$txt['alert_fail']				= 'Die Kiste'.($_POST['newbox'] ?? '').'Es ist voll!';
 
 	$txt['pagetitle']	= 'Möchten Sie Box %s übertragen?';
 	$txt['information']	= 'Information';

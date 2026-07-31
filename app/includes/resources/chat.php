@@ -11,7 +11,7 @@
                 <?php
                 while ($var_msg = $chat->fetch_assoc()) {
                     $class = 'O';
-                    if ($var_msg['sender'] == $_SESSION['id'])  {
+                    if ($var_msg['sender'] == ($_SESSION['id'] ?? ''))  {
                         $class = 'I';
                         
                         echo '<div class="speech-bubble-'.$class.'"><p>'.ubbcode($var_msg['message']).'<br><span class="bubble-span">'.$var_msg['hour'].'</span></p></div>';

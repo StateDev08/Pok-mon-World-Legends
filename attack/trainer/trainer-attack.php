@@ -15,7 +15,7 @@ if (empty($trainer['badge'])) {
 }
 
 //Player in log is diffirent then loggedin
-if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
+if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
   //End Attack
   remove_attack($aanval_log['id']);
   //Send back to home
@@ -51,7 +51,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   
   //Load All Pokemon Info
   $pokemon_info = pokemon_data($aanval_log['pokemonid']);
-  $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.wild_id, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='" . $_SESSION['id'] . "' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
+  $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.wild_id, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='" . ($_SESSION['id'] ?? '') . "' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
   if ($pokemon_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);

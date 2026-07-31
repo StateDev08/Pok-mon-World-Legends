@@ -78,13 +78,13 @@ if ($page == 'codes') {
 	$txt['wallie_button'] = 'Wallie jetzt';
 }else if ($page == 'area-box-ideal') {
 	//Screen
-	$txt['title_text'] = 'Sie möchten ein kaufen'.$_SESSION['packnaam'].'Pack für &euro;'.$info['kosten'].'mit einer Banküberweisung. Sehen Sie hier, wie:<br /><br />
+	$txt['title_text'] = 'Sie möchten ein kaufen'.($_SESSION['packnaam'] ?? '').'Pack für &euro;'.$info['kosten'].'mit einer Banküberweisung. Sehen Sie hier, wie:<br /><br />
 		1. Gehen Sie zur Website Ihrer Bank.<br />
 		2. Gehen Sie zu „Geldtransfer“.<br />
 		3. Fügen Sie bei der Beschreibung Folgendes ein:<br />
 			<div style="padding-left:25px; float:left;">* Site: (<strong>Pokemon Browser MMO</strong>).</div><br />
-			<div style="padding-left:25px; float:left;">* Benutzername: (<strong>'.$_SESSION['naam'].'</strong>).</div><br />
-			<div style="padding-left:25px;">* Paketname: (<strong>'.$_SESSION['packnaam'].'</strong>).</div><br />
+			<div style="padding-left:25px; float:left;">* Benutzername: (<strong>'.($_SESSION['naam'] ?? '').'</strong>).</div><br />
+			<div style="padding-left:25px;">* Paketname: (<strong>'.($_SESSION['packnaam'] ?? '').'</strong>).</div><br />
 		4. Übertragen<strong>&euro;'.$info['kosten'].'</strong> bis <strong>56.09.35.803</strong>.<br />
 		5. Bitten Sie einen Administrator (<strong>SV2011</strong>), zu überprüfen, ob die Zahlung erfolgt ist.<br />
 		Wenn die Zahlung erfolgreich ist, übergibt Ihnen der Administrator Ihre Premium-Sachen.<br /><br />

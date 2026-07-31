@@ -15,14 +15,14 @@ if ((isset($_GET['computer_info_name'])) && (isset($_GET['aanval_log_id'])) && (
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-pages.php');
   //Load Attack Info
-  $aanval_log = aanval_log($_GET['aanval_log_id']);
+  $aanval_log = aanval_log(($_GET['aanval_log_id'] ?? ''));
   //Check if the right aanval_log is choosen
-  if ($aanval_log['user_id'] != $_SESSION['id']) exit;
-  if ($_SESSION['sec_key'] != $_GET['_h'])	exit;
+  if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit;
+  if (($_SESSION['sec_key'] ?? '') != ($_GET['_h'] ?? ''))	exit;
   //Load Pokemon info
   $pokemon_info = pokemon_data($aanval_log['pokemonid']);
   //Check if the right pokemon is choosen
-  if ($pokemon_info['user_id'] != $_SESSION['id']) exit;
+  if ($pokemon_info['user_id'] != ($_SESSION['id'] ?? '')) exit;
   //Run default Failed
   $good = 0;
   //Load Pokemon info
@@ -39,7 +39,7 @@ if ((isset($_GET['computer_info_name'])) && (isset($_GET['aanval_log_id'])) && (
   else{
     //If Computer has more life dan pokemon, 20% change to escape
     //Else 80%
-    if ($_GET['pokemon_leven'] > $_GET['computer_leven']) $change = 90;
+    if (($_GET['pokemon_leven'] ?? '') > ($_GET['computer_leven'] ?? '')) $change = 90;
     else $change = 60;
     //Get numbers from 1 to 100
     $rand = rand(1,100);
@@ -52,7 +52,7 @@ if ((isset($_GET['computer_info_name'])) && (isset($_GET['aanval_log_id'])) && (
       $message = $txt['success_run'];
       
       //Copy Life en Effect Stats to pokemon_speler table
-      $player_hand_query = DB::exQuery("SELECT `id`, `leven`, `effect` FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
+      $player_hand_query = DB::exQuery("SELECT `id`, `leven`, `effect` FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
       while($player_hand = $player_hand_query->fetch_assoc()) {
         DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$player_hand['leven']."', `effect`='".$player_hand['effect']."' WHERE `id`='".$player_hand['id']."'");
       }

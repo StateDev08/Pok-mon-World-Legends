@@ -78,13 +78,13 @@ if ($page == 'codes') {
 	$txt['wallie_button'] = '现在的沃利';
 }else if ($page == 'area-box-ideal') {
 	//Screen
-	$txt['title_text'] = '你想买一个'.$_SESSION['packnaam'].'打包 &euro;'.$info['kosten'].'通过银行付款。请参阅此处：<br /><br />
+	$txt['title_text'] = '你想买一个'.($_SESSION['packnaam'] ?? '').'打包 &euro;'.$info['kosten'].'通过银行付款。请参阅此处：<br /><br />
 		1. 前往您的银行网站。<br />
 		2. 前往“转账”。<br />
 		3. 在描述处插入：<br />
 			<div style="padding-left:25px; float:left;">* 站点：（<strong>Pokemon Browser MMO</strong>）。</div><br />
-			<div style="padding-left:25px; float:left;">* 用户名: (<strong>'.$_SESSION['naam'].'</strong>)。</div><br />
-			<div style="padding-left:25px;">* 包名称: (<strong>'.$_SESSION['packnaam'].'</strong>)。</div><br />
+			<div style="padding-left:25px; float:left;">* 用户名: (<strong>'.($_SESSION['naam'] ?? '').'</strong>)。</div><br />
+			<div style="padding-left:25px;">* 包名称: (<strong>'.($_SESSION['packnaam'] ?? '').'</strong>)。</div><br />
 		4. 转账<strong>&euro;'.$info['kosten'].'</strong> 至 <strong>56.09.35.803</strong>。<br />
 		5. 请管理员（<strong>SV2011</strong>）检查付款是否完成。<br />
 		支付成功，管理员将赠送您的超值物品。<br /><br />

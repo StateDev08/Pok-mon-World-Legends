@@ -22,10 +22,10 @@ $time = time() + League::$ajuste_tempo_int;
 <ul style="list-style: none;">
     <?php
     foreach ($ligas as $liga) {
-        if (isset($_POST['registration']) && $_POST['league_id'] == $liga->getId()) {
+        if (isset($_POST['registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
             $liga->select($liga->getId());
             $liga->inscrever($gebruiker['user_id']);
-        } else if (isset($_POST['undo_registration']) && $_POST['league_id'] == $liga->getId()) {
+        } else if (isset($_POST['undo_registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
             $liga->desfazer_inscricao($gebruiker['user_id']);
         }
         ?>

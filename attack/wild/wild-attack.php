@@ -1,5 +1,5 @@
 <?php 
-DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack' WHERE `user_id`='".$_SESSION['id']."'");
+DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 
 #Load Safety Script
 include("app/includes/resources/security.php");
@@ -10,7 +10,7 @@ include("attack/attack.inc.php");
 $aanval_log = aanval_log($_SESSION['attack']['aanval_log_id'] ?? 0) ?: [];
 
 #Player in log is diffirent then loggedin
-if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
+if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
   #End Attack
   remove_attack($aanval_log['id']);
   #Send back to home
@@ -141,7 +141,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
         var redirect = "location.href='./attack/<?= $gebruiker['voltaredirect'] ?? ''; ?>&map=<?= $gebruiker['map'] ?? ''; ?>'";
       <?php
         } else {
-            $m = $_SESSION['map_live'];
+            $m = ($_SESSION['map_live'] ?? '');
             $_SESSION['map_live'] = '';
        ?>
        var redirect = "location.href='./safari&map=<?=$m?>'";

@@ -3,9 +3,9 @@ ob_start();
 
 $language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
 
-if (isset($_GET['language']) && in_array($_GET['language'], $language_array, true)) {
-	$_SESSION['pa_language'] = $_GET['language'];
-	setcookie('pa_language', $_GET['language'], time() + (86400 * 365), '/');
+if (isset($_GET['language']) && in_array(($_GET['language'] ?? ''), $language_array, true)) {
+	$_SESSION['pa_language'] = ($_GET['language'] ?? '');
+	setcookie('pa_language', ($_GET['language'] ?? ''), time() + (86400 * 365), '/');
 	$page = $_GET['page'] ?? '';
 	$page = preg_replace('/[^a-zA-Z0-9\/\-_]/', '', $page);
 	$page = str_replace('..', '', $page);

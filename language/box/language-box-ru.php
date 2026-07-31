@@ -78,13 +78,13 @@ if ($page == 'codes') {
 	$txt['wallie_button'] = 'Уолли сейчас';
 }else if ($page == 'area-box-ideal') {
 	//Screen
-	$txt['title_text'] = 'Вы хотите купить'.$_SESSION['packnaam'].'пакет для &euro;'.$info['kosten'].'с банковским платежом. Посмотрите здесь:<br /><br />
+	$txt['title_text'] = 'Вы хотите купить'.($_SESSION['packnaam'] ?? '').'пакет для &euro;'.$info['kosten'].'с банковским платежом. Посмотрите здесь:<br /><br />
 		1. Зайдите на сайт вашего банка.<br />
 		2. Перейдите в раздел «Денежные переводы».<br />
 		3. Вставьте в описание:<br />
 			<div style="padding-left:25px; float:left;">* Сайт: (<strong>Браузерная MMO Pokemon</strong>).</div><br />
-			<div style="padding-left:25px; float:left;">* Имя пользователя: (<strong>'.$_SESSION['naam'].'</strong>).</div><br />
-			<div style="padding-left:25px;">* Имя пакета: (<strong>'.$_SESSION['packnaam'].'</strong>).</div><br />
+			<div style="padding-left:25px; float:left;">* Имя пользователя: (<strong>'.($_SESSION['naam'] ?? '').'</strong>).</div><br />
+			<div style="padding-left:25px;">* Имя пакета: (<strong>'.($_SESSION['packnaam'] ?? '').'</strong>).</div><br />
 		4. Передача<strong>&euro;'.$info['kosten'].'</strong> до <strong>56.09.35.803</strong>.<br />
 		5. Попросите администратора (<strong>SV2011</strong>) проверить платеж.<br />
 		Если оплата пройдет успешно, администратор передаст вам ваши премиум вещи.<br /><br />

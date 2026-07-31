@@ -45,7 +45,7 @@ if ($page == 'use_spcitem') {
 	$txt['alert_not_your_pokemon']			= 'Uważaj, ten Pokémon nie należy do ciebie!';
 	$txt['alert_pokeequiped']			= 'Nie możesz przenieść Pokémona ze swojej drużyny!';
 	$txt['alert_success']				= 'Pokémon przeniesiony pomyślnie!';
-	$txt['alert_fail']				= 'Pudełko'.$_POST['newbox'].'Jest pełno!';
+	$txt['alert_fail']				= 'Pudełko'.($_POST['newbox'] ?? '').'Jest pełno!';
 
 	$txt['pagetitle']	= 'Czy chcesz przenieść skrzynkę %s?';
 	$txt['information']	= 'Informacja';

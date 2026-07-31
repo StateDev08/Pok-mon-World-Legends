@@ -12,27 +12,27 @@ if ($gebruiker['admin'] < 3) {
 #####################################################################
 	
 
-$userfield = $_GET['player'];
+$userfield = ($_GET['player'] ?? '');
 if (isset($_POST['give'])) {
 	
 	if (empty($_POST['username'])) {
 		echo '<div class="red"> Digite o nome de um treinador.</div>';
 	}
-	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username = '".$_POST['username']."'")->num_rows == 0) {
+	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE username = '".($_POST['username'] ?? '')."'")->num_rows == 0) {
 		echo '<div class="red"> O treinador não existe.</div>';
 	}
 	else{
-		$userfield = $_POST['username'];
-		$moeda = $_POST['moeda'];
+		$userfield = ($_POST['username'] ?? '');
+		$moeda = ($_POST['moeda'] ?? '');
 		
 	  
 	 
-	 $pegauserid = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".$_POST['username']."'")->fetch_assoc();
+	 $pegauserid = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".($_POST['username'] ?? '')."'")->fetch_assoc();
   
   
   		$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> Você recebeu '.$moeda.' moedas promocionais.';
 		
-		DB::exQuery("INSERT INTO `log_moeda_promos`(`user_id`, `user`, `qnt`) VALUES ('".$pegauserid['user_id']."', '".$_POST['username']."', '".$moeda."') ");
+		DB::exQuery("INSERT INTO `log_moeda_promos`(`user_id`, `user`, `qnt`) VALUES ('".$pegauserid['user_id']."', '".($_POST['username'] ?? '')."', '".$moeda."') ");
 		
 		DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen) VALUES (NULL, NOW(), '".$pegauserid['user_id']."', '".$event."', '0')");
 
@@ -43,7 +43,7 @@ if (isset($_POST['give'])) {
 	  
 	  
 	  
-		  echo '<div class="green"> '.$moeda.' moedas promocionais foram entregues para '.$_POST['username'].' com sucesso.</div>';
+		  echo '<div class="green"> '.$moeda.' moedas promocionais foram entregues para '.($_POST['username'] ?? '').' com sucesso.</div>';
 		  
 		
 
