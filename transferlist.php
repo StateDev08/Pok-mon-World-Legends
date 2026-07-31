@@ -60,7 +60,12 @@ if (isset($_POST['buy']) && $mine == 'false') {
 
 			DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".($_SESSION['id'] ?? '')."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
 
-			$event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> comprou seu <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a> por: '.highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
+			$seller_txt = user_txt($buy['user_id']);
+			$event = DB::real_escape_string('<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+				. sprintf($seller_txt['event_pokemon_sold'],
+					'<a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a>',
+					'<a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a>',
+					highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />'));
 
 			DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['user_id'] . "', '" . $event . "', '0')");
 

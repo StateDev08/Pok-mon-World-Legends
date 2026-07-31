@@ -37,7 +37,7 @@ echo addNPCBox(5, $txt['market_title'], $txt['market_npc_text']);
 switch($_GET['shopitem'] ?? '') {
 	#Als er op balls geklikt word. Het volgende laten zien
 	case "balls":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? 'pt') . "` FROM `markt` WHERE `soort`='balls' AND `beschikbaar`='1' ORDER BY silver, gold";
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`" . description_column() . "` FROM `markt` WHERE `soort`='balls' AND `beschikbaar`='1' ORDER BY silver, gold";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 		#Als er op de knop gedrukt word
 		if (isset($_POST['balls'])) {
@@ -133,7 +133,7 @@ switch($_GET['shopitem'] ?? '') {
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=nl2br($select['omschrijving_'.($_COOKIE['pa_language'] ?? '')]);?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=nl2br($select[description_column()]);?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -150,7 +150,7 @@ switch($_GET['shopitem'] ?? '') {
 <?php
 		break;
 	case "potions":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='potions' AND `beschikbaar`='1' ORDER BY silver, gold";
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`" . description_column() . "` FROM `markt` WHERE `soort`='potions' AND `beschikbaar`='1' ORDER BY silver, gold";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
@@ -241,7 +241,7 @@ switch($_GET['shopitem'] ?? '') {
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>">
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -258,7 +258,7 @@ switch($_GET['shopitem'] ?? '') {
 <?php
 		break;
 	case "items":	#Als er op items geklikt word. Het volgende laten zien 
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='items' AND `beschikbaar`='1' AND `naam`!='Bag' AND `naam`!='Badge case' order by silver, gold";
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`" . description_column() . "` FROM `markt` WHERE `soort`='items' AND `beschikbaar`='1' AND `naam`!='Bag' AND `naam`!='Badge case' order by silver, gold";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 		#Als er op de knop gedrukt word
 		$bag = array('Bag', 'Yellow box', 'Blue box', 'Red box', 'Purple box', 'Black box');
@@ -344,7 +344,7 @@ switch($_GET['shopitem'] ?? '') {
 				<div class="greyborder">
 					<table style="width:120px">
 						<tr><td align="center" height="24px"><img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" width="24" class="icon-img"/></td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td>
 						<tr><td align="center"><input type="radio" name="productnaam" value="<?=$select['naam'];?>"/></td></tr>
 					</table>
@@ -362,7 +362,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 <?php
 		break;
 	case "specialitems":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='special items' AND `beschikbaar`='1' ORDER BY silver,gold";
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`" . description_column() . "` FROM `markt` WHERE `soort`='special items' AND `beschikbaar`='1' ORDER BY silver,gold";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
@@ -448,7 +448,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -465,7 +465,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 <?php
 		break;
 	case "stones":
-		$sql = "SELECT `id`,`naam`,`silver`,`desconto`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='stones' AND `beschikbaar`='1' ORDER BY silver,gold";
+		$sql = "SELECT `id`,`naam`,`silver`,`desconto`,`gold`,`" . description_column() . "` FROM `markt` WHERE `soort`='stones' AND `beschikbaar`='1' ORDER BY silver,gold";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
@@ -553,7 +553,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span> <br><font color='red'><?=$select['desconto'];?></font></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -580,7 +580,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 		$aantal_paginas = ceil($aantal_attacks/$max); 
 		if ($aantal_paginas == 0) $aantal_paginas = 1;   
 		$pagina = $subpage*$max-$max; 
-		$sql = "SELECT markt.id, markt.naam, markt.beschikbaar, silver, gold, omschrijving_".($_COOKIE['pa_language'] ?? '').", tmhm.type1 , tmhm.type2
+		$sql = "SELECT markt.id, markt.naam, markt.beschikbaar, silver, gold, " . description_column() . ", tmhm.type1 , tmhm.type2
 								FROM `markt`
 								INNER JOIN tmhm
 								ON markt.naam = tmhm.naam
@@ -682,7 +682,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/Attack_<?=$type;?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -745,7 +745,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 		break;
 	case "pokemon":
 	   // header('location: ./market');
-		$sql  = "SELECT `markt`.`id`,`markt`.`pokemonid`,`markt`.`silver`,`markt`.`gold`,`markt`.`omschrijving_".($_COOKIE['pa_language'] ?? '')."`,`pokemon_wild`.`zeldzaamheid` FROM `markt` INNER JOIN `pokemon_wild` ON `markt`.`pokemonid`=`pokemon_wild`.`wild_id` WHERE `markt`.`soort`='pokemon' AND `markt`.`beschikbaar`='1' AND `pokemon_wild`.`wereld`='" . $gebruiker['wereld'] . "'";
+		$sql  = "SELECT `markt`.`id`,`markt`.`pokemonid`,`markt`.`silver`,`markt`.`gold`,`markt`.`" . description_column() . "`,`pokemon_wild`.`zeldzaamheid` FROM `markt` INNER JOIN `pokemon_wild` ON `markt`.`pokemonid`=`pokemon_wild`.`wild_id` WHERE `markt`.`soort`='pokemon' AND `markt`.`beschikbaar`='1' AND `pokemon_wild`.`wereld`='" . $gebruiker['wereld'] . "'";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
@@ -839,7 +839,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				<div class="greyborder">
 					<table style="width:120px">
 						<tr><td align="center"><img src="<?=$static_url;?>/images/icons/egg.gif" class="icon-img"/></td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$name;?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$name;?> <span style="cursor:pointer;" title="<?=$select[description_column()];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="radio" name="productid" value="<?=$select['id'];?>" /></td></tr>
 					</table>

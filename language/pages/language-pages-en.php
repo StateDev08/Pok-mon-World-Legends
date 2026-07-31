@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = 'You need 5 badges from the %s region! <a href=".
 $txt['liga_err_already_in'] = 'You are already taking part!';
 $txt['liga_err_register_failed'] = 'Your registration could not be completed! #%s';
 $txt['liga_err_unregister_failed'] = 'Your registration could not be cancelled!';
+
+# league-duel
+$txt['liga_duel_ready'] = 'Everything is ready for the battle!';
+$txt['liga_duel_offline'] = 'You are not online!';
+$txt['liga_duel_offline_op'] = 'Your opponent was not online!';
+$txt['liga_duel_region'] = 'You need to be in the %s region!';
+$txt['liga_duel_region_op'] = 'Your opponent was not in the %s region!';
+$txt['liga_duel_six'] = 'You do not have 6 Pokémon in your party!';
+$txt['liga_duel_six_op'] = 'Your opponent did not have 6 Pokémon in his party!';
+$txt['liga_duel_fainted'] = 'All of your Pokémon have fainted!';
+$txt['liga_duel_fainted_op'] = 'All of your opponent\'s Pokémon had fainted!';
+$txt['liga_duel_level'] = 'One of the Pokémon in your party is above level %s!';
+$txt['liga_duel_level_op'] = 'Your opponent had a Pokémon above level %s in his party!';
+$txt['liga_duel_shiny'] = 'You have more than %s shiny Pokémon in your party!';
+$txt['liga_duel_shiny_op'] = 'Your opponent had more than %s shiny Pokémon in his party!';
+$txt['liga_duel_legendary'] = 'You have more than %s legendary Pokémon in your party!';
+$txt['liga_duel_legendary_op'] = 'Your opponent had more than %s legendary Pokémon in his party!';
+$txt['liga_duel_mega'] = 'You have more than %s mega evolved Pokémon in your party!';
+$txt['liga_duel_mega_op'] = 'Your opponent had more than %s mega evolved Pokémon in his party!';
+$txt['liga_ad_minimize'] = 'MINIMIZE';
+$txt['liga_ad_close'] = 'CLOSE';
+$txt['liga_ad_slots'] = 'Slots';
+$txt['liga_prep_title'] = 'Preparation phase for the battle %s.';
+$txt['liga_prep_in_league'] = 'in the League';
+$txt['liga_prep_in_tour'] = 'in the Tournament';
+$txt['liga_prep_text'] = 'During the preparation phase edit your team and travel to the region where %s is taking place; during this time you cannot battle or work.';
+$txt['liga_prep_the_league'] = 'the league';
+$txt['liga_prep_the_tour'] = 'the tournament';
+$txt['liga_countdown_left'] = 'Remaining:';
+$txt['liga_creating_battle'] = 'Creating battle...';
 /* === end externalized strings === */
 ?>

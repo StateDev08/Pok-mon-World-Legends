@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = 'Você precisa ter 5 insígnias da região de %s!
 $txt['liga_err_already_in'] = 'Você já esta participando!';
 $txt['liga_err_register_failed'] = 'Não foi possivel realizar a sua inscrição! #%s';
 $txt['liga_err_unregister_failed'] = 'Não foi possivel desfazer a sua inscrição!';
+
+# league-duel
+$txt['liga_duel_ready'] = 'Tudo pronto para a batalha!';
+$txt['liga_duel_offline'] = 'Você não está online!';
+$txt['liga_duel_offline_op'] = 'Seu oponente nao estava online!';
+$txt['liga_duel_region'] = 'Você precisa estar na região de %s!';
+$txt['liga_duel_region_op'] = 'Seu oponente nao estava na região de %s!';
+$txt['liga_duel_six'] = 'Você não tem 6 pokémon no bolso!';
+$txt['liga_duel_six_op'] = 'Seu oponente não possuia 6 pokémon no bolso!';
+$txt['liga_duel_fainted'] = 'Todos os seus pokémon estão desmaiados!';
+$txt['liga_duel_fainted_op'] = 'Todos os pokémon do seu oponente estavam desmaiados!';
+$txt['liga_duel_level'] = 'Algum de seus pokémon no bolso tem o lv maior que %s!';
+$txt['liga_duel_level_op'] = 'Seu oponete tinha algum pokémon com o lv maior que %s no bolso!';
+$txt['liga_duel_shiny'] = 'Você tem mais que %s pokémon shiny no bolso!';
+$txt['liga_duel_shiny_op'] = 'Seu oponete tinha mais que %s pokémon shiny no bolso!';
+$txt['liga_duel_legendary'] = 'Você tem mais que %s pokémon lendário no bolso!';
+$txt['liga_duel_legendary_op'] = 'Seu oponete tinha mais que %s pokémon lendário no bolso!';
+$txt['liga_duel_mega'] = 'Você tem mais que %s pokémon mega evoluido no bolso!';
+$txt['liga_duel_mega_op'] = 'Seu oponete tinha mais que %s pokémon mega evoluido no bolso!';
+$txt['liga_ad_minimize'] = 'MINIMIZAR';
+$txt['liga_ad_close'] = 'FECHAR';
+$txt['liga_ad_slots'] = 'Vagas';
+$txt['liga_prep_title'] = 'Fase de preparação para batalha %s.';
+$txt['liga_prep_in_league'] = 'na Liga';
+$txt['liga_prep_in_tour'] = 'no Torneio';
+$txt['liga_prep_text'] = 'Durante a fase de preparação edite seu time e vá para a região onde %s está acontecendo, neste período você não poderá batalhar ou realizar trabalhos.';
+$txt['liga_prep_the_league'] = 'a liga';
+$txt['liga_prep_the_tour'] = 'o torneio';
+$txt['liga_countdown_left'] = 'Faltam:';
+$txt['liga_creating_battle'] = 'Criando batalha...';
 /* === end externalized strings === */
 ?>

@@ -46,7 +46,9 @@ if (isset($_POST['id']) && isset($_POST['accept'])) {
 
         $username = $gebruiker['username'];
 
-        $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$username.'">'.$username.'</a> aceitou sua solicitação de amizade.';
+        $friend_txt = user_txt($uid2);
+        $event = DB::real_escape_string('<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+            . sprintf($friend_txt['event_friend_accepted'], '<a href="./profile&player='.$username.'">'.$username.'</a>'));
 
         DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $uid2 . "', '" . $event . "', '0')");
         

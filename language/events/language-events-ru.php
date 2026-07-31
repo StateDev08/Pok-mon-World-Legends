@@ -127,4 +127,26 @@
 	else if ($page == 'register') {
 		$txt['refferal_register'] = '%s успешно зарегистрировался! По этой причине вы получите 5 золотых!';
 	}
+
+/* === externalized strings (generated) === */
+
+# cron
+$txt['event_egg_desc_common'] = 'Яйцо обычного покемона. Это покемон типа %s.';
+$txt['event_egg_desc_uncommon'] = 'Яйцо необычного покемона. Похоже, это покемон типа %s.';
+$txt['event_egg_desc_rare'] = 'Яйцо редкого покемона. С высокой вероятностью это покемон типа %s.';
+$txt['event_egg_desc_legendary'] = 'Яйцо легендарного покемона — или всё же стартового? Учёные считают, что это яйцо типа %s.';
+$txt['event_fishing_prize'] = 'Вы заняли %1$s место в турнире по рыбалке и выиграли %2$s%3$s.';
+$txt['event_auction_bought'] = 'Вы купили %1$s за %2$s — покемон уже в вашем боксе!';
+$txt['event_auction_no_bids'] = 'На вашего %s никто не сделал ставку, поэтому покемон вернулся домой!';
+$txt['event_daycare_egg_lost'] = 'У вас нет Premium! Ваше яйцо потеряно в детском саду.';
+$txt['event_pokemon_sold'] = '%1$s купил вашего %2$s за %3$s!';
+$txt['event_pack_arrived'] = '<b>Поздравляем!</b> Купленный вами <b>набор %1$s (%2$s)</b> только что прибыл!';
+$txt['event_pack_gift'] = 'К купленному вами <b>набору %1$s</b> прилагался подарок: %2$s!';
+$txt['event_pack_days_premium'] = '+%s дн. PREMIUM';
+$txt['event_pack_week_premium'] = '+1 неделя PREMIUM';
+$txt['event_friend_accepted'] = '%s принял вашу заявку в друзья.';
+$txt['event_friend_request'] = '%1$s хочет добавить вас в друзья. Откройте %2$s для <b>подробностей</b>.';
+$txt['event_friend_page'] = 'страницу друзей';
+$txt['event_tour_battle_soon'] = 'Ваш турнирный бой начнётся через &plusmn;%s минут. Убедитесь, что покемоны готовы.';
+/* === end externalized strings === */
 ?>

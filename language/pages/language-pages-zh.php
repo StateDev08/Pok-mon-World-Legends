@@ -2417,5 +2417,35 @@ $txt['liga_err_need_badges'] = '你需要 %s 地区的 5 枚徽章！<a href="./
 $txt['liga_err_already_in'] = '你已经参加了！';
 $txt['liga_err_register_failed'] = '报名未能完成！#%s';
 $txt['liga_err_unregister_failed'] = '取消报名失败！';
+
+# league-duel
+$txt['liga_duel_ready'] = '一切准备就绪，可以开始战斗！';
+$txt['liga_duel_offline'] = '你不在线！';
+$txt['liga_duel_offline_op'] = '你的对手不在线！';
+$txt['liga_duel_region'] = '你必须身处 %s 地区！';
+$txt['liga_duel_region_op'] = '你的对手不在 %s 地区！';
+$txt['liga_duel_six'] = '你的队伍中没有 6 只宝可梦！';
+$txt['liga_duel_six_op'] = '你的对手队伍中没有 6 只宝可梦！';
+$txt['liga_duel_fainted'] = '你所有的宝可梦都已倒下！';
+$txt['liga_duel_fainted_op'] = '你对手的宝可梦全部倒下了！';
+$txt['liga_duel_level'] = '你队伍中有宝可梦的等级高于 %s！';
+$txt['liga_duel_level_op'] = '你的对手队伍中有等级高于 %s 的宝可梦！';
+$txt['liga_duel_shiny'] = '你的队伍中有超过 %s 只闪光宝可梦！';
+$txt['liga_duel_shiny_op'] = '你的对手队伍中有超过 %s 只闪光宝可梦！';
+$txt['liga_duel_legendary'] = '你的队伍中有超过 %s 只传说宝可梦！';
+$txt['liga_duel_legendary_op'] = '你的对手队伍中有超过 %s 只传说宝可梦！';
+$txt['liga_duel_mega'] = '你的队伍中有超过 %s 只超级进化宝可梦！';
+$txt['liga_duel_mega_op'] = '你的对手队伍中有超过 %s 只超级进化宝可梦！';
+$txt['liga_ad_minimize'] = '最小化';
+$txt['liga_ad_close'] = '关闭';
+$txt['liga_ad_slots'] = '名额';
+$txt['liga_prep_title'] = '战斗准备阶段 %s。';
+$txt['liga_prep_in_league'] = '（联盟）';
+$txt['liga_prep_in_tour'] = '（锦标赛）';
+$txt['liga_prep_text'] = '在准备阶段，请编辑你的队伍并前往 %s 举行的地区；此期间你无法战斗或工作。';
+$txt['liga_prep_the_league'] = '联盟';
+$txt['liga_prep_the_tour'] = '锦标赛';
+$txt['liga_countdown_left'] = '剩余：';
+$txt['liga_creating_battle'] = '正在创建战斗……';
 /* === end externalized strings === */
 ?>

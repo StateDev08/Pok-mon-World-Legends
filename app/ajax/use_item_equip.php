@@ -60,7 +60,7 @@ require_once 'app/includes/resources/ingame.inc.php';
                             if (pokemon_equip($pokemon['wild_id'], $q['naam'])) {
                                 echo '<tr>
                                     <td>
-                                        <div style="margin-left: 10px" title="'.nl2br($q['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'">
+                                        <div style="margin-left: 10px" title="'.nl2br($q[description_column()]).'">
                                             <img src="'.$static_url.'/images/items/'.$q['naam'].'.png" style="vertical-align: middle"> '.$q['naam'].'
                                         </div>
                                     </td>

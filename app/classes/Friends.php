@@ -9,7 +9,11 @@ class Friends {
         
         DB::exQuery("INSERT INTO `friends` (`uid`, `uid_2`, `date`, `date_to_remove`) VALUES ('$uid', '$uid2', '$date', '$date2')");
 
-        $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$username.'">'.$username.'</a> deseja ser seu amigo. Visite a <a href="./friends">Página de Amigos</a> para <b>mais detalhes</b>.';
+        $friend_txt = user_txt($uid2);
+        $event = DB::real_escape_string('<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+            . sprintf($friend_txt['event_friend_request'],
+                '<a href="./profile&player='.$username.'">'.$username.'</a>',
+                '<a href="./friends">'.$friend_txt['event_friend_page'].'</a>'));
 
 		DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $uid2 . "', '" . $event . "', '0')");
     }

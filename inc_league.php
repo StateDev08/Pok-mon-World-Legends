@@ -40,21 +40,20 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 	}
 </script>
 <div id="league_ad" style="width: 420px; height: 240px; position: fixed; top: 50%; left: 50%; z-index: 2; margin-top: -110px; margin-left: -210px; background: url('<?=$static_url;?>/images/layout/fundobox.png'); border: solid 5px black; padding: 10px;">
-	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px; position: relative; top: -15px; left: -15px;" onclick="minimize_league_ad(); return false;">MINIMIZAR</a>
+	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px; position: relative; top: -15px; left: -15px;" onclick="minimize_league_ad(); return false;"><?=$txt['liga_ad_minimize']?></a>
 <div>
 	<div id="header_league">
-		<h3 style="text-align: center;">Fase de preparação para batalha <?= ($league->getTotal_participantes() > 16 ? "na Liga" : "no Torneio") ?>.</h3>
+		<h3 style="text-align: center;"><?=sprintf($txt['liga_prep_title'], $league->getTotal_participantes() > 16 ? $txt['liga_prep_in_league'] : $txt['liga_prep_in_tour'])?></h3>
 		<p>
-			Durante a fase de preparação edite seu time e vá para a região onde <?= ($league->getTotal_participantes() > 16 ? "a liga" : "o torneio") ?> está acontecendo,
-			neste período você não poderá batalhar ou realizar trabalhos.
+			<?=sprintf($txt['liga_prep_text'], $league->getTotal_participantes() > 16 ? $txt['liga_prep_the_league'] : $txt['liga_prep_the_tour'])?>
 		</p>
 	</div>
 	<div style="text-align: center;">
-		<div style="font-size: 1.3em; font-weight: bold; margin: 10px;" id="league_counter">Faltam: <span id="countdown"></span></div>
+		<div style="font-size: 1.3em; font-weight: bold; margin: 10px;" id="league_counter"><?=$txt['liga_countdown_left']?> <span id="countdown"></span></div>
 	</div>
 	<script>
 		function batalhar() {
-			$("#league_counter").html("Criando batalha...");
+			$("#league_counter").html(<?=json_encode($txt['liga_creating_battle'])?>);
 			$.get("./ajax.php?act=league", function (data) {
 				var request = data.split(" | ");
 				$("#league_counter").html(request[1]);
@@ -103,7 +102,7 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 		} else {
 	?>
 			<script>border_color = "#00ff00";</script>
-			<p style="text-align: center; font-weight: bold; color: black; background-color: #99ff99; border: solid 3px #00ff00; border-radius: 5px;">Tudo pronto para a batalha!</p>
+			<p style="text-align: center; font-weight: bold; color: black; background-color: #99ff99; border: solid 3px #00ff00; border-radius: 5px;"><?=$txt['liga_duel_ready']?></p>
 	<?php } ?>
 	</div>
 </div>
@@ -114,12 +113,12 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 	
 ?>
 <div id="torneio_ad" style="width: 600px; height: 400px; position: fixed; top: 50%; left: 50%; z-index: 2; margin-top: -200px; margin-left: -300px;">
-	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px;" onclick="$.ajax({url: './ajax.php?act=remove_league_ad&torneio=<?=$league_id;?>', context: document.body}); $('#torneio_ad').remove(); return false;">FECHAR</a>
+	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px;" onclick="$.ajax({url: './ajax.php?act=remove_league_ad&torneio=<?=$league_id;?>', context: document.body}); $('#torneio_ad').remove(); return false;"><?=$txt['liga_ad_close']?></a>
 	<a href="./tour" style="text-decoration: none;">
 		<img src="<?=$static_url;?>/images/layout/torneio_ad.png"/>
 		<?php if (!$league->getRound_atual()) { ?>
 			<div style="position: relative; z-index: 3; bottom: 75px; left: 35px; font-family: 'Lucida Console'; color: #fad000; text-shadow:2px 2px 0 #000; font-size: 35px;">
-				<?= $league->getTotal_participantes() - $league->getParticipantes() ?> Vagas
+				<?= $league->getTotal_participantes() - $league->getParticipantes() ?> <?=$txt['liga_ad_slots']?>
 			</div>
 		<?php } ?>
 	</a>
@@ -130,12 +129,12 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 	$league->select($league_id);
 ?>
 <div id="league_ad" style="width: 600px; height: 400px; position: fixed; top: 50%; left: 50%; z-index: 2; margin-top: -200px; margin-left: -300px;">
-	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px;" onclick="$.ajax({url: './ajax.php?act=remove_league_ad', context: document.body}); $('#league_ad').remove(); return false;">FECHAR</a>
+	<a href="#" style="background-color: black; color: white; border-radius: 5px; padding: 5px;" onclick="$.ajax({url: './ajax.php?act=remove_league_ad', context: document.body}); $('#league_ad').remove(); return false;"><?=$txt['liga_ad_close']?></a>
 	<a href="./league" style="text-decoration: none;">
 		<img src="<?=$static_url;?>/images/layout/league_ad.png"/>
 		<?php if (!$league->getRound_atual()) { ?>
 			<div style="position: relative; z-index: 3; bottom: 75px; left: 35px; font-family: 'Lucida Console'; color: #fad000; text-shadow:2px 2px 0 #000; font-size: 35px;">
-				<?= $league->getTotal_participantes() - $league->getParticipantes() ?> Vagas
+				<?= $league->getTotal_participantes() - $league->getParticipantes() ?> <?=$txt['liga_ad_slots']?>
 			</div>
 		<?php } ?>
 	</a>
