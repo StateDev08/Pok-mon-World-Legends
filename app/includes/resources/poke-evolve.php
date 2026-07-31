@@ -29,13 +29,14 @@ if (isset($_POST['acceptevolutie'])) {
 	$spcdefencestat	= round((((($pokemon['spc.defence_iv'] + 2 * $update['spc.defence_base'] + floor($pokemon['spc.defence_ev'] / 4)) * $pokemon['level'] / 100) + 5) + $pokemon['spc_up']) * $info['spc.defence_add']);
 	$hpstat			= round(((($pokemon['hp_iv'] + 2 * $update['hp_base'] + floor($pokemon['hp_ev'] / 4)) * $pokemon['level'] / 100) + 10 + $pokemon['level']) + $pokemon['hp_up']);
 	
-    $ability = explode(',', $update['ability'])[rand(0, (sizeof($ability) - 1))];
+    $ability = explode(',', $update['ability']);
+    $ability = $ability[rand(0, (sizeof($ability) - 1))];
 
 	#Pokemon gegevens en Stats opslaan
 	DB::exQuery("UPDATE `pokemon_speler` SET `wild_id`='".$update['wild_id']."', `attack`='".$attackstat."', `defence`='".$defencestat."', `speed`='".$speedstat."', `spc.attack`='".$spcattackstat."', `spc.defence`='".$spcdefencestat."', `levenmax`='".$hpstat."', `leven`='".$hpstat."', `ability`='".$ability."' WHERE `id`='".$pokemon['id']."'");
 
 	#Check if more pokemon should evolve
-	$current = array_pop(($_SESSION['used'] ?? ''));      
+	$current = array_pop($_SESSION['used']);      
 
 	$count = 0;
 	$sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.wild_id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE pokemon_speler.id='".$current."'");
@@ -56,7 +57,7 @@ if (isset($_POST['acceptevolutie'])) {
 						$_SESSION['aanvalnieuw'] = base64_encode($select['id']."/".$levelen['aanval']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push(($_SESSION['used'] ?? ''), $select['id']);
+						$_SESSION['used'][] = $select['id'];
 						break;
 					}
 				} else if ($levelen['wat'] == "evo") {	#Gaat de pokemon evolueren
@@ -67,7 +68,7 @@ if (isset($_POST['acceptevolutie'])) {
 						$_SESSION['evolueren'] = base64_encode($select['id']."/".$levelen['nieuw_id']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push(($_SESSION['used'] ?? ''), $select['id']);
+						$_SESSION['used'][] = $select['id'];
 						break;
 					}
 				}
@@ -89,7 +90,7 @@ if (isset($_POST['acceptevolutie'])) {
 	$button = false;
 
 	#Checken als meer pokemon moet evolueren
-	$current = array_pop(($_SESSION['used'] ?? ''));      
+	$current = array_pop($_SESSION['used']);      
 
 	$count = 0;
 	$sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.wild_id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.trade, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE pokemon_speler.id='".$current."'");
@@ -109,7 +110,7 @@ if (isset($_POST['acceptevolutie'])) {
 						$_SESSION['aanvalnieuw'] = base64_encode($select['id']."/".$levelen['aanval']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push(($_SESSION['used'] ?? ''), $select['id']);
+						$_SESSION['used'][] = $select['id'];
 						break;
 					}
 				} else if ($levelen['wat'] == "evo") {	#Does the pokemon evolve
@@ -118,7 +119,7 @@ if (isset($_POST['acceptevolutie'])) {
 						$_SESSION['evolueren'] = base64_encode($select['id']."/".$levelen['nieuw_id']);
 						++$count;
 						$_SESSION['lvl_old'] = $levelen['level'];
-						array_push(($_SESSION['used'] ?? ''), $select['id']);
+						$_SESSION['used'][] = $select['id'];
 						break;
 					}
 				}

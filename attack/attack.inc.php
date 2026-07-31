@@ -99,7 +99,7 @@ function pokemon_grow($txt) {
   $sql = DB::exQuery("SELECT pokemon_wild.naam, pokemon_speler.id, pokemon_speler.roepnaam, pokemon_speler.level, pokemon_speler.expnodig, pokemon_speler.exp FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_wild.wild_id = pokemon_speler.wild_id WHERE user_id='".($_SESSION['id'] ?? '')."' AND `exp`>=`expnodig` AND `opzak`='ja'");
   while($select = $sql->fetch_assoc()) {
     if ($count == 0) $_SESSION['lvl_old'] = $select['level'];
-    array_push(($_SESSION['used'] ?? ''), $select['id']);
+    $_SESSION['used'][] = $select['id'];
     $count++;
     #Change name for male and female
     $select['naam_goed'] = pokemon_naam($select['naam'],$select['roepnaam']);

@@ -145,7 +145,7 @@ if (isset($_POST['haalop'])) {
   	
     for($i=1; $i<=$select['levelup']; $i++) {
       if ($count == 0) $_SESSION['lvl_old'] = $select['level'];
-      array_push(($_SESSION['used'] ?? ''), ($_POST['pokemonid'] ?? ''));
+      $_SESSION['used'][] = ($_POST['pokemonid'] ?? '');
       $count++;
       $update = DB::exQuery("SELECT pw.*, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler ps ON pw.wild_id = ps.wild_id WHERE id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
       if ($update['level'] <= 100) {

@@ -1,1 +1,1 @@
-a:2:{i:0;a:4:{s:7:"user_id";s:1:"2";s:8:"username";s:7:"Badland";s:9:"character";s:4:"Gary";s:6:"totaal";s:4:"7930";}i:1;a:4:{s:7:"user_id";s:1:"1";s:8:"username";s:5:"Admin";s:9:"character";s:5:"Alexa";s:6:"totaal";s:4:"5000";}}
+a:2:{i:0;a:4:{s:7:"user_id";s:1:"2";s:8:"username";s:7:"Badland";s:9:"character";s:4:"Gary";s:6:"totaal";s:4:"5080";}i:1;a:4:{s:7:"user_id";s:1:"1";s:8:"username";s:5:"Admin";s:9:"character";s:5:"Alexa";s:6:"totaal";s:4:"5000";}}
