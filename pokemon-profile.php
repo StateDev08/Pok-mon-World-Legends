@@ -52,9 +52,9 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         $pokemon['type'] = $sql2['type1'];
 
         $u_name = username($pokemon['user_id']);
-        $name = $pokemon['naam'].' de <a href="./profile&player='.$u_name.'" target="_blank">'.$u_name.'</a>';
+        $name = sprintf($txt['prof_owner_of'], $pokemon['naam'], '<a href="./profile&player='.$u_name.'" target="_blank">'.$u_name.'</a>');
 
-        $shiny = $pokemon['shiny'] ? 'Shiny' : 'Padrão';
+        $shiny = $pokemon['shiny'] ? $txt['prof_color_shiny'] : $txt['prof_color_normal'];
         $pokemon['powertotal'] = $pokemon['attack'] + $pokemon['defence'] + $pokemon['speed'] + $pokemon['spc.attack'] + $pokemon['spc.defence'];    
 
         $owner = isOwner($pokemon['user_id'], $gebruiker['admin'], $pokemon['opzak']);
@@ -64,7 +64,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
             if ($transferlist['type'] == 'private' && !in_array(($_SESSION['id'] ?? ''), array($transferlist['to_user'], $transferlist['user_id']))) { 
                 $owner = isOwner($pokemon['user_id'], $gebruiker['admin'], $pokemon['opzak'], 'private');
             } else {
-                $buy = ($transferlist['type'] == 'auction')? 'DAR LANCE EM' : 'COMPRAR';
+                $buy = ($transferlist['type'] == 'auction')? $txt['prof_bid_on'] : $txt['prof_buy'];
                 
                 $part = array();
 
@@ -72,18 +72,18 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     $time_end = date('Y-m-d H:i', $transferlist['time_end']);
                     $datum = '<span><b><script id="remove">document.write(jQuery.timeago("'.$time_end.' UTC")); document.getElementById("remove").outerHTML = "";</script></b></span>';
                     $nameu = username($transferlist['big_blind']);
-                    $best = (empty($nameu))? 'ninguém' : '<a href="./profile&player='.$nameu.'">'.$nameu.'</a>';
+                    $best = (empty($nameu))? $txt['prof_nobody'] : '<a href="./profile&player='.$nameu.'">'.$nameu.'</a>';
 
-                    $part[0] = '<ul><li>Tempo restante: '.$datum.'</li><li>Treinador com maior lance: '.$best.'</li><li>Maior lance: <b>'.highamount($transferlist['silver']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="Silvers" style="vertical-align: sub"></li><li>Número de lances: <b>'.$transferlist['lances'].'</b></li></ul>';
+                    $part[0] = '<ul><li>'.$txt['prof_time_left'].' '.$datum.'</li><li>'.$txt['prof_highest_bidder'].' '.$best.'</li><li>'.$txt['prof_highest_bid'].' <b>'.highamount($transferlist['silver']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="Silvers" style="vertical-align: sub"></li><li>'.$txt['prof_bid_count'].' <b>'.$transferlist['lances'].'</b></li></ul>';
                     if (strtotime(date('Y-m-d H:i')) <= $transferlist['time_end']) {
                         if ($transferlist['user_id'] != ($_SESSION['id'] ?? '')) {
                             if (isset($_POST['buy'])) {
                                 if (isset($_POST['price']) && ctype_digit(($_POST['price'] ?? ''))) {
                                     $price = ($_POST['price'] ?? '');
                                     if ($price > $gebruiker['silver']) {
-                                        echo '<div class="red">Você não tem Silvers suficientes para dar este lance!</div>';
+                                        echo '<div class="red">'.$txt['prof_bid_not_enough_silver'].'</div>';
                                     } else if ($price <= $transferlist['silver']) {
-                                        echo '<div class="red">Você não pode dar um lance menor ou igual ao atual!</div>';
+                                        echo '<div class="red">'.$txt['prof_bid_too_low'].'</div>';
                                     } else {   
                                         $quests->setStatus('buy_auction', ($_SESSION['id'] ?? ''));
                                         DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'$transferlist[silver]' WHERE `user_id`='$transferlist[big_blind]'");     
@@ -94,7 +94,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                                 }
                             }
 
-                            $part[1] = '<center><b>Lance: </b><input type="number" name="price" min="'.($transferlist['silver']+1).'" value="'.($transferlist['silver']+1000).'"><img src="'.$static_url.'/images/icons/silver.png" title="Silvers" style="vertical-align: sub"><img src="'.$static_url.'/images/icons/arrow_refresh_small.png" onclick="window.location = window.location.href" title="Atualizar a Página" style="vertical-align: sub;cursor:pointer"><br><input type="submit" name="buy" value="Dar Lance" style="margin-top: 7px"></center>';                    
+                            $part[1] = '<center><b>'.$txt['prof_bid_label'].' </b><input type="number" name="price" min="'.($transferlist['silver']+1).'" value="'.($transferlist['silver']+1000).'"><img src="'.$static_url.'/images/icons/silver.png" title="Silvers" style="vertical-align: sub"><img src="'.$static_url.'/images/icons/arrow_refresh_small.png" onclick="window.location = window.location.href" title="'.$txt['prof_refresh_page'].'" style="vertical-align: sub;cursor:pointer"><br><input type="submit" name="buy" value="'.$txt['prof_bid_button'].'" style="margin-top: 7px"></center>';                    
                         } else {
                             if ($transferlist['lances'] == 0) {
                                 if (isset($_POST['remove'])) {
@@ -102,30 +102,30 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                                     DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$transferlist['id']."'");
                                 }
 
-                                $part[1] = '<center><input type="submit" name="remove" value="REMOVER POKÉMON" style="margin-top: 17px"></center>';
+                                $part[1] = '<center><input type="submit" name="remove" value="'.$txt['prof_remove_pokemon'].'" style="margin-top: 17px"></center>';
                             } else {
-                                $part[1] = '<ul><li style="margin-top: 17px">Você não pode remover este Pokémon, porque já deram lances nele!</li></ul>';
+                                $part[1] = '<ul><li style="margin-top: 17px">'.$txt['prof_cannot_remove_bids'].'</li></ul>';
                             }
                         }
                     } else {
-                        $part[1] = '<ul><li style="margin-top: 23px">Sinto muito, mas esse leilão já acabou!</li></ul>';
+                        $part[1] = '<ul><li style="margin-top: 23px">'.$txt['prof_auction_over'].'</li></ul>';
                     }
                 } else {
-                    $type = ['private' => 'Privada', 'direct' => 'Direta'];
+                    $type = ['private' => $txt['prof_sale_private'], 'direct' => $txt['prof_sale_direct']];
                     $price_gd = ($transferlist['gold'] > 0)? highamount(round($transferlist['gold'])).' <img src="'.$static_url.'/images/icons/gold.png" style="vertical-align: sub">' : '';
                     $price_sl = ($transferlist['silver'] > 0)? highamount(round($transferlist['silver'])).' <img src="'.$static_url.'/images/icons/silver.png" style="vertical-align: sub">' : '';
-                    $ngc = ($transferlist['negociavel'])? '<li><a href="./inbox&action=send&player='.$u_name.'&assunto='.base64_encode("Venda de ".$pokemon['naam']).'">Negociar Preço</a></li>' : '';
-                    $suffix = (!empty($price_gd) && !empty($price_sl))? ' e ' : '';
+                    $ngc = ($transferlist['negociavel'])? '<li><a href="./inbox&action=send&player='.$u_name.'&assunto='.base64_encode(sprintf($txt['prof_sale_subject'], $pokemon['naam'])).'">'.$txt['prof_negotiate_price'].'</a></li>' : '';
+                    $suffix = (!empty($price_gd) && !empty($price_sl))? ' '.$txt['prof_and'].' ' : '';
 
                     $price = $price_sl.$suffix.$price_gd;
-                    $part[0] = '<ul style="margin-top: 10px"><li>Venda: <b>'.$type[$transferlist['type']].'</b></li><li>Preço: <b>'.$price.'</b></li>'.$ngc;
+                    $part[0] = '<ul style="margin-top: 10px"><li>'.$txt['prof_sale_label'].' <b>'.$type[$transferlist['type']].'</b></li><li>'.$txt['prof_price_label'].' <b>'.$price.'</b></li>'.$ngc;
                      if ($transferlist['user_id'] != ($_SESSION['id'] ?? '')) {
                         if (isset($_POST['buy'])) {
                             $silver = $transferlist['silver'];
                             $gold = $transferlist['gold'];
 
                             if ($silver > $gebruiker['silver'] || $gold > $rekening['gold']) {
-			                    echo '<div class="red">Você não tem Silvers ou Gold suficientes para comprar este Pokémon!</div>';
+			                    echo '<div class="red">'.$txt['prof_buy_not_enough'].'</div>';
 		                    } else {
                                 DB::exQuery("UPDATE `pokemon_speler` SET `user_id`='".($_SESSION['id'] ?? '')."',`trade`='1.5',`opzak`='nee',`opzak_nummer`='' WHERE `id`='".$pokemon['id']."'");
 
@@ -151,18 +151,18 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                             }
                         }
 
-                        $part[1] = '<center><input type="submit" name="buy" value="COMPRAR POKÉMON" style="margin-top: 17px"></center>';                    
+                        $part[1] = '<center><input type="submit" name="buy" value="'.$txt['prof_buy_pokemon'].'" style="margin-top: 17px"></center>';                    
                     } else {
                         if (isset($_POST['remove'])) {
                             DB::exQuery("UPDATE `pokemon_speler` SET `trade`='1.0',`opzak`='nee' WHERE `id`='".$pokemon['id']."'");
                             DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$transferlist['id']."'");
                         }
-                        $part[1] = '<center><input type="submit" name="remove" value="REMOVER POKÉMON" style="margin-top: 17px"></center>';
+                        $part[1] = '<center><input type="submit" name="remove" value="'.$txt['prof_remove_pokemon'].'" style="margin-top: 17px"></center>';
                     }
                 }
     ?>
                 <div class="box-content" style="height: 140px; margin-bottom: 7px;">
-                    <h3 class="title" style="text-transform: uppercase">DESEJA <?=$buy?> <?=$name?>?</h3>
+                    <h3 class="title" style="text-transform: uppercase"><?=sprintf($txt['prof_confirm_heading'], $buy, $name)?></h3>
                     <div id="npc-image" style="background: url(public/images/npc/36.png)no-repeat; background-size: 100% 100%; height: 143px; width: 185px; margin-top: -38px; float: left; margin-left: 90px;"></div>
                 </div>
                 <div class="box-content" style="border: unset;overflow: unset;">
@@ -170,7 +170,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                         <table style="width: 100%">
                             <tr style="text-align: center; font-size: 13px">
                                 <td class="row" style="height: 90px">
-                                    <div style="width: 108px; border-right: 1px solid #577599; padding-top: 33px; margin-left: -6px;"><button title="Voltar as vendas" onclick="window.location = './transferlist&type=<?=$transferlist['type']?>'">&lt;&lt;</button></div>
+                                    <div style="width: 108px; border-right: 1px solid #577599; padding-top: 33px; margin-left: -6px;"><button title="<?=$txt['prof_back_to_sales']?>" onclick="window.location = './transferlist&type=<?=$transferlist['type']?>'">&lt;&lt;</button></div>
                                     <div class="col-f" style="border-right: 1px solid #577599;">
                                         <div style="padding: 10px; padding-bottom: 0; text-align: left;">
                                             <?=$part[0];?>
@@ -243,7 +243,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tbody>
                         <tr>
                             <td class="first" style="width: 70px">
-                                <b>HP <span title="Pontos de vida" style="cursor: pointer">[?]</span></b>
+                                <b><?=$txt['prof_stat_hp']?> <span title="<?=$txt['prof_hp_hint']?>" style="cursor: pointer">[?]</span></b>
                             </td>
                             <td class="last last-right">
                                 <div class='bar_red' style="width: 98%; height: 13px" title="<?=highamount($pokemon['leven']).'/'.highamount($pokemon['levenmax'])?> HP">
@@ -253,10 +253,10 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                         </tr>
                         <tr>
                             <td class="first" style="width: 70px">
-                                <b>EXP <span title="Experiência" style="cursor: pointer">[?]</span></b>
+                                <b>EXP <span title="<?=$txt['prof_exp_hint']?>" style="cursor: pointer">[?]</span></b>
                             </td>
                             <td class="last last-right">
-                                <div class='bar_blue' style="width: 98%; height: 13px" title="<?=($pokemon['level'] < 100)? highamount($pokemon['expnodig'] - $pokemon['exp']).' EXP para o próximo nível' : 'Seu Pokémon já está no nível máximo (100)!'?>">
+                                <div class='bar_blue' style="width: 98%; height: 13px" title="<?=($pokemon['level'] < 100)? sprintf($txt['prof_exp_to_next'], highamount($pokemon['expnodig'] - $pokemon['exp'])) : $txt['prof_max_level']?>">
                                     <div class="progress" style='width: <?=floor(($pokemon['exp'] / $pokemon['expnodig']) * 100)?>%;'></div>
                                 </div>
                             </td>
@@ -271,28 +271,28 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         <div id="caracteristicas" class="box-content" style="float: right; width: 49%; margin-bottom: 7px;">
             <table class="general" style="width: 100%; font-size: 13px">
                 <thead>
-                    <th colspan="2">Características</th>
+                    <th colspan="2"><?=$txt['prof_characteristics']?></th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first"><b>Adquirido </b><span class="capt_date"></span></td>
-                        <td class="last last-right"><b>Cor:</b> <?=$shiny?></td>
+                        <td class="first"><b><?=$txt['prof_acquired']?> </b><span class="capt_date"></span></td>
+                        <td class="last last-right"><b><?=$txt['prof_color']?></b> <?=$shiny?></td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Negociável:</b> <?=$pokemon['can_trade'] == '0' ? 'Não Negociável' : 'Negociável'?></td>
-                        <td class="last last-right"><b>Habilidade:</b> <a href="./information&category=ability-info&attack=<?=ability($pokemon['ability'])['name']?>"><?=ability($pokemon['ability'])['name']?></a></td>
+                        <td class="first"><b><?=$txt['prof_tradable']?></b> <?=$pokemon['can_trade'] == '0' ? $txt['prof_tradable_no'] : $txt['prof_tradable_yes']?></td>
+                        <td class="last last-right"><b><?=$txt['prof_ability']?></b> <a href="./information&category=ability-info&attack=<?=ability($pokemon['ability'])['name']?>"><?=ability($pokemon['ability'])['name']?></a></td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Level:</b> <?=$pokemon['level']?></td>
-                        <td class="last last-right"><b>Humor:</b> <?=$pokemon['karakter']?><?=($pokemon['humor_change'] != 0 ? ' <sup>' . $pokemon['humor_change'] . '</sup>' : '')?></td>
+                        <td class="first"><b><?=$txt['prof_level']?></b> <?=$pokemon['level']?></td>
+                        <td class="last last-right"><b><?=$txt['prof_mood']?></b> <?=$pokemon['karakter']?><?=($pokemon['humor_change'] != 0 ? ' <sup>' . $pokemon['humor_change'] . '</sup>' : '')?></td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Poder total: </b> <?=highamount($pokemon['powertotal'])?></td>
-                        <td class="last last-right"><b>Item:</b> <?=isset($pokemon['item'])? '<img src="'.$static_url.'/images/items/'.$pokemon['item'].'.png" title="Equipado com '.$pokemon['item'].'" style="vertical-align: middle">' : 'Nenhum';?></td>
+                        <td class="first"><b><?=$txt['prof_total_power']?> </b> <?=highamount($pokemon['powertotal'])?></td>
+                        <td class="last last-right"><b><?=$txt['prof_item']?></b> <?=isset($pokemon['item'])? '<img src="'.$static_url.'/images/items/'.$pokemon['item'].'.png" title="'.sprintf($txt['prof_equipped_with'], $pokemon['item']).'" style="vertical-align: middle">' : $txt['prof_none'];?></td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Espécie:</b> <a href="./pokedex&poke=<?=$pokemon['wild_id']?>"><?=$sql2['naam']?></a></td>
-                        <td class="last last-right"><b>Pokéball:</b> <?='<img src="'.$static_url.'/images/items/'.$pokemon['gevongenmet'].'.png" title="Capturado com '.$pokemon['gevongenmet'].'" style="vertical-align: middle">'?></td>
+                        <td class="first"><b><?=$txt['prof_species']?></b> <a href="./pokedex&poke=<?=$pokemon['wild_id']?>"><?=$sql2['naam']?></a></td>
+                        <td class="last last-right"><b><?=$txt['prof_pokeball']?></b> <?='<img src="'.$static_url.'/images/items/'.$pokemon['gevongenmet'].'.png" title="'.sprintf($txt['prof_caught_with'], $pokemon['gevongenmet']).'" style="vertical-align: middle">'?></td>
                     </tr>
                 </tbody>
             </table>
@@ -304,7 +304,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         <div id="ataques" class="box-content" style="float: left; width: 49%; margin-bottom: 7px;">
             <table class="general" style="width: 100%; font-size: 14px">
                 <thead>
-                    <th>Lista de Ataques</th>
+                    <th><?=$txt['prof_attack_list']?></th>
                 </thead>
                 <tbody>
                     <tr style="width: 100%">        
@@ -350,20 +350,20 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         <div id="tip" class="box-content" style="float: right; width: 49%; margin-bottom: 7px;">
             <table class="general" style="width: 100%; font-size: 13px">
                 <thead>
-                    <th colspan="2">TIP <span title="Training Indicator Percentage" style="cursor: pointer">[?]</span> <span style="float: right"><?=$ev_tot?> EV's TOTAIS</span></th>
+                    <th colspan="2">TIP <span title="Training Indicator Percentage" style="cursor: pointer">[?]</span> <span style="float: right"><?=$ev_tot?> <?=$txt['prof_ev_total']?></span></th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="first"><b>HP:</b> <?=$pokemon['hp_ev']?> EV's</td>
-                        <td class="last last-right"><b>Sp. Ataque:</b> <?=$pokemon['spc.attack_ev']?> EV's</td>
+                        <td class="first"><b><?=$txt['prof_stat_hp']?>:</b> <?=$pokemon['hp_ev']?> EV's</td>
+                        <td class="last last-right"><b><?=$txt['prof_stat_spattack']?>:</b> <?=$pokemon['spc.attack_ev']?> EV's</td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Ataque:</b> <?=$pokemon['attack_ev']?> EV's</td>
-                        <td class="last last-right"><b>Sp. Defesa:</b> <?=$pokemon['spc.defence_ev']?> EV's</td>
+                        <td class="first"><b><?=$txt['prof_stat_attack']?>:</b> <?=$pokemon['attack_ev']?> EV's</td>
+                        <td class="last last-right"><b><?=$txt['prof_stat_spdefence']?>:</b> <?=$pokemon['spc.defence_ev']?> EV's</td>
                     </tr>
                     <tr>
-                        <td class="first"><b>Defesa:</b> <?=$pokemon['defence_ev']?> EV's</td>
-                        <td class="last last-right"><b>Speed:</b> <?=$pokemon['speed_ev']?> EV's</td>
+                        <td class="first"><b><?=$txt['prof_stat_defence']?>:</b> <?=$pokemon['defence_ev']?> EV's</td>
+                        <td class="last last-right"><b><?=$txt['prof_stat_speed']?>:</b> <?=$pokemon['speed_ev']?> EV's</td>
                     </tr>
                 </tbody>
             </table>
@@ -372,13 +372,13 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         <div id="status" class="box-content" style="float: left; width: 49%; margin-bottom: 7px;">
             <table class="general" style="width: 100%; font-size: 14px">
                 <thead>
-                    <tr><th colspan="3">Status <span title="Status máximos são baseados em IV's max. (31), EV's max. (255), Vitaminas max. (25) e Natures béneficas." style="cursor: pointer">[?]</span><span style="float: right"><?= $pokemon['powertotal']; ?> TOTAIS</span></th></tr>
+                    <tr><th colspan="3"><?=$txt['prof_status']?> <span title="<?=$txt['prof_status_hint']?>" style="cursor: pointer">[?]</span><span style="float: right"><?= $pokemon['powertotal']; ?> <?=$txt['prof_totals']?></span></th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="first" style="width: 70px"><b>HP:</b></td>
                         <td>
-                            <div id="starHP" style="margin: 0 auto"  data-rateyo-max-value="<?=$hp_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="HP Máximo: <?=$hp_max?>"></div>
+                            <div id="starHP" style="margin: 0 auto"  data-rateyo-max-value="<?=$hp_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_hp'], $hp_max)?>"></div>
                             <script id="status_del">
                                 $('#starHP').rateYo({ rating: "<?=($hp_poke/$hp_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                             </script>
@@ -390,7 +390,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tr>
                         <td class="first"><b>Ataque: </b></td>
                         <td>
-                            <div id="starATK" style="margin: 0 auto"  data-rateyo-max-value="<?=$atk_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="Ataque Máximo: <?=$atk_max?>"></div>
+                            <div id="starATK" style="margin: 0 auto"  data-rateyo-max-value="<?=$atk_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_attack'], $atk_max)?>"></div>
                             <script id="status_del">
                                 $('#starATK').rateYo({ rating: "<?=($pokemon['attack']/$atk_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                             </script>
@@ -402,7 +402,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tr>
                         <td class="first"><b>Defesa: </b></td>
                         <td>
-                            <div id="starDEF" style="margin: 0 auto"  data-rateyo-max-value="<?=$def_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="Defesa Máxima: <?=$def_max?>"></div>
+                            <div id="starDEF" style="margin: 0 auto"  data-rateyo-max-value="<?=$def_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_defence'], $def_max)?>"></div>
                             <script id="status_del">
                                 $('#starDEF').rateYo({ rating: "<?=($pokemon['defence']/$def_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                             </script>
@@ -414,7 +414,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tr>
                         <td class="first" style="width: 100px"><b>Sp. Ataque: </b></td>
                         <td>
-                            <div id="starSPATK" style="margin: 0 auto"  data-rateyo-max-value="<?=$spatk_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="Sp. Ataque Máximo: <?=$spatk_max?>"></div>
+                            <div id="starSPATK" style="margin: 0 auto"  data-rateyo-max-value="<?=$spatk_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_spattack'], $spatk_max)?>"></div>
                             <script id="status_del">
                                 $('#starSPATK').rateYo({ rating: "<?=($pokemon['spc.attack']/$spatk_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                             </script>
@@ -426,7 +426,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tr>
                         <td class="first"><b>Sp. Defesa: </b></td>
                         <td>
-                            <div id="starSPDEF" style="margin: 0 auto"  data-rateyo-max-value="<?=$spdef_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="Sp. Defesa Máxima: <?=$spdef_max?>"></div>
+                            <div id="starSPDEF" style="margin: 0 auto"  data-rateyo-max-value="<?=$spdef_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_spdefence'], $spdef_max)?>"></div>
                             <script id="status_del">
                                 $('#starSPDEF').rateYo({ rating: "<?=($pokemon['spc.defence']/$spdef_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                             </script>
@@ -438,7 +438,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                     <tr>
                         <td class="first"><b>Speed: </b></td>
                         <td>
-                            <div id="starSPD" style="margin: 0 auto" data-rateyo-max-value="<?=$speed_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="Speed Máxima: <?=$speed_max?>"></div>
+                            <div id="starSPD" style="margin: 0 auto" data-rateyo-max-value="<?=$speed_max?>" data-rateyo-num-stars="10" data-rateyo-read-only="true" data-rateyo-star-width="20px" title="<?=sprintf($txt['prof_max_of'], $txt['prof_stat_speed'], $speed_max)?>"></div>
                             <script id="status_del">
                                 $('#starSPD').rateYo({ rating: "<?=($pokemon['speed']/$speed_max)*100?>%", multiColor: { "startColor": "#FF0000", "endColor"  : "#F39C12" } });
                                 $('#status_del').remove();
@@ -455,14 +455,14 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         <div id="iv" class="box-content" style="float: right;width: 49%; margin-bottom: 7px;">
             <table class="general" style="width: 100%; font-size: 14px">
                 <thead>
-                    <th>IV's <span title="Individual Values" style="cursor: pointer">[?]</span><span style="float: right"><?php $iv_total = $pokemon['hp_iv'] + $pokemon['defence_iv'] + $pokemon['spc.attack_iv'] + $pokemon['speed_iv'] + $pokemon['spc.defence_iv'] + $pokemon['attack_iv']; if (!hasCalc($pokemon['has_calc'], $gebruiker['admin'])) $iv_total = '??'; echo $iv_total;?> IV's TOTAL</span></th>
+                    <th>IV's <span title="Individual Values" style="cursor: pointer">[?]</span><span style="float: right"><?php $iv_total = $pokemon['hp_iv'] + $pokemon['defence_iv'] + $pokemon['spc.attack_iv'] + $pokemon['speed_iv'] + $pokemon['spc.defence_iv'] + $pokemon['attack_iv']; if (!hasCalc($pokemon['has_calc'], $gebruiker['admin'])) $iv_total = '??'; echo $iv_total;?> <?=$txt['prof_iv_total']?></span></th>
                 </thead>
                 <tbody>
                     <tr>
                         <td style=" height: 200px;">                            
                             <center>
                                 <?php if (!hasCalc($pokemon['has_calc'], $gebruiker['admin'])) { ?>
-                                    <div style="border-radius: 4px;width: 47%; background: rgba(255, 255, 255, .4); height: 205px; position: absolute; line-height: 184px" title="Este Pokémon não tem suas IV's calculadas."><img src="<?=$static_url?>/images/icons/avatar/lock.png" style="width: 17%"></div>
+                                    <div style="border-radius: 4px;width: 47%; background: rgba(255, 255, 255, .4); height: 205px; position: absolute; line-height: 184px" title="<?=$txt['prof_iv_not_calculated']?>"><img src="<?=$static_url?>/images/icons/avatar/lock.png" style="width: 17%"></div>
                                 <?php } ?>
                                 <canvas id="radarChart" width="230" height="200"></canvas>
                             </center>
@@ -475,7 +475,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                                 <?php } ?>
 
                                 var radarData = {
-                                    labels : ["HP", "Defesa", "Sp. Ataque", "Speed", "Sp. Defesa", "Ataque"],
+                                    labels : [<?=json_encode($txt['prof_stat_hp'])?>, <?=json_encode($txt['prof_stat_defence'])?>, <?=json_encode($txt['prof_stat_spattack'])?>, <?=json_encode($txt['prof_stat_speed'])?>, <?=json_encode($txt['prof_stat_spdefence'])?>, <?=json_encode($txt['prof_stat_attack'])?>],
                                     datasets : [{
                                         defaultFontColor: "#fff",
                                         fillColor: "transparent",
