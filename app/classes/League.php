@@ -245,7 +245,7 @@ class League {
         global $txt;
 
         //NOW() - INTERVAL 4 HOUR - INTERVAL 2 MINUTE - INTERVAL 17 SECOND
-        $time = time() + League::$ajuste_tempo_int;
+        $time = time() + (int) League::$ajuste_tempo_int;
 
         if ($time < strtotime($this->inicio_inscricoes)) {
             $this->erros[] = $txt['liga_err_not_started'];
@@ -769,7 +769,7 @@ class League {
         $tabela = "<script type='text/javascript'>
             (function(win, doc, $) {
                 win.data_$this->id = [";
-        for ($round = $round_mata_mata, $n = count($batalhas[$round_mata_mata]); $round <= $n_rounds; $round++, $n /= 2) {
+        for ($round = $round_mata_mata, $n = count($batalhas[$round_mata_mata] ?? array()); $round <= $n_rounds; $round++, $n /= 2) {
             $tabela .="[";
             for ($j = 0; $j < $n; $j++) {
                 $tabela .= "[{'name': '";

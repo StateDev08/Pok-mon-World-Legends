@@ -159,6 +159,16 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'my_characters') {
 	$txt['pagetitle'] = '我的角色';
 	$txt['title_text'] = '<center>在下方选择您要扮演的角色。</center>';
+	$txt['my_characters_npc_title']			= '我的角色';
+	$txt['my_characters_npc_text']			= '这是你的角色列表。请选择要使用的角色。';
+	$txt['my_characters_create']			= '要创建新角色，只需点击<a href="./new_character">这里</a>。';
+	$txt['my_characters_err_not_found']		= '角色未找到！';
+	$txt['my_characters_err_not_yours']		= '此角色不属于你！';
+	$txt['my_characters_err_banned']		= '此角色已被封禁！';
+	$txt['my_characters_banned']			= '[已封禁]';
+	$txt['my_characters_staff']				= '[工作人员]';
+	$txt['my_characters_trainer']			= '[训练家]';
+	$txt['my_characters_play']				= '开始游戏';
 } else if ($page == 'new_character') {
 	$txt['alert_character_invalid']			= '您必须选择一个有效的角色！';
 	$txt['alert_no_username']				= '您必须填写所有字段！';
@@ -229,6 +239,53 @@ if ($page == 'home' || empty($page)) {
 	$txt['link_subpage_pokemon_info'] = '信息。口袋妖怪';
 	$txt['link_subpage_attack_info']  = '信息。攻击';
 	$txt['link_subpage_game_info'] = '常问问题';
+
+	// Information tabs
+	$txt['info_tab_game']        = '常见问题';
+	$txt['info_tab_attack']      = '攻击信息';
+	$txt['info_tab_mood']        = '性格信息';
+	$txt['info_tab_ability']     = '特性信息';
+	$txt['info_tab_items']       = '物品信息';
+	$txt['info_search']          = '搜索：';
+
+	// Nature table
+	$txt['info_mood_status']     = '按能力值的性格';
+	$txt['info_mood_name']       = '按名称的性格';
+	$txt['info_stat_attack']     = '攻击';
+	$txt['info_stat_defense']    = '防御';
+	$txt['info_stat_spatk']      = '特攻';
+	$txt['info_stat_spdef']      = '特防';
+	$txt['info_stat_speed']      = '速度';
+	$txt['info_raises']          = '提升';
+	$txt['info_lowers']          = '降低';
+	$txt['info_neutral']         = '中性';
+
+	// Attack info
+	$txt['info_contact']             = '接触';
+	$txt['info_effect_applies']      = '有效果';
+	$txt['info_effect_not_applies']  = '无效';
+	$txt['info_contact_makes']       = '会接触';
+	$txt['info_contact_no']          = '不会接触';
+
+	// Ability + items info
+	$txt['info_name']            = '名称';
+	$txt['info_description']     = '描述';
+	$txt['info_items_list']      = '物品列表';
+	$txt['info_item_category']   = '分类';
+	$txt['info_item_market']     = '在宝可梦市场？';
+	$txt['info_item_wheel']      = '命运轮盘？';
+	$txt['info_item_equippable'] = '可装备？';
+	$txt['info_item_balls']      = '精灵球';
+	$txt['info_item_key']        = '重要物品';
+	$txt['info_item_potions']    = '药剂';
+	$txt['info_item_stones']     = '石头';
+	$txt['info_item_special']    = '特殊物品';
+	$txt['info_item_equip_yes']  = '此物品可以装备在宝可梦身上！';
+	$txt['info_item_equip_no']   = '此物品不能装备在宝可梦身上！';
+	$txt['info_item_wheel_yes']  = '此物品可在命运轮盘获得！';
+	$txt['info_item_wheel_no']   = '此物品无法在命运轮盘获得！';
+	$txt['info_item_market_yes'] = '此物品可在宝可梦市场获得！';
+	$txt['info_item_market_no']  = '此物品无法在宝可梦市场获得！';
 
 	
 			if (($_GET['category'] ?? '') == 'game-info') {
@@ -623,6 +680,15 @@ if ($page == 'home' || empty($page)) {
 	$txt['name']      = '姓名';
 	$txt['type']      = '类型';
 	$txt['status']    = '地位';
+	$txt['pokedex_buy']             = '你没有宝可梦图鉴！';
+	$txt['pokedex_seen_captured']   = '你已经见过 %1$s / %2$s 只宝可梦，并捕获了 %3$s！';
+	$txt['pokedex_rarities']        = '稀有度';
+	$txt['pokedex_found']           = '你已经见过 %1$s / %2$s 只宝可梦';
+	$txt['pokedex_pokemons']        = '宝可梦';
+	$txt['pokedex_info']            = '信息';
+	$txt['pokedex_search']          = '搜索';
+	$txt['pokedex_choose']          = '选择一个宝可梦';
+	$txt['have_already']            = '你已经有了';
 } else if ($page == 'events') {
 	$txt['alert_nothing_selected']    = '您必须选择一些通知！';
 	$txt['alert_more_events_deleted'] = '通知已成功删除！';
@@ -868,6 +934,10 @@ if ($page == 'home' || empty($page)) {
 	$txt['price']         = '价值';
 	$txt['owner']         = '训练师';
 	$txt['buy']           = '买';
+$txt['transfer_row_level']   = '等级：';
+$txt['transfer_row_mood']    = '性格：';
+$txt['transfer_row_ability'] = '特性：';
+$txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 } else if ($page == 'daycare') {
 	$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的！';
 	$txt['alert_hand_full'] = '您已经拥有 6 只神奇宝贝了！';
@@ -1993,6 +2063,13 @@ $txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
 		$txt['online'] = '在线的';
 		$txt['block_delete'] = '消除';
 		$txt['nobody_blocked'] = '你没有任何被封锁的训练师。';
+		$txt['blocklist_npc_title'] = '屏蔽训练家';
+		$txt['blocklist_npc_text'] = '在这里你可以屏蔽训练家。被屏蔽的训练家将无法再给你发送消息。';
+		$txt['blocklist_warning'] = '只有当你真的不想收到某位训练家的消息时，才屏蔽他！';
+		$txt['blocklist_block_info'] = '如果你屏蔽了某位训练家，你将无法收到他的消息，也无法给他发送消息。';
+		$txt['blocklist_block_title'] = '屏蔽训练家';
+		$txt['blocklist_placeholder'] = '训练家';
+		$txt['blocklist_unblock'] = '解除屏蔽';
 	}
 else if ($page == 'venderitens') {
 $txt['pagetitle'] = '出售物品';
@@ -2129,6 +2206,32 @@ $txt['alert_no_amount']               = '输入数量！';
 }
 
 /* === externalized strings (generated) === */
+
+	$txt['nature_hardy']         = '勤奋';
+	$txt['nature_lonely']        = '孤独';
+	$txt['nature_adamant']       = '固执';
+	$txt['nature_naughty']       = '顽皮';
+	$txt['nature_brave']         = '勇敢';
+	$txt['nature_bold']          = '大胆';
+	$txt['nature_docile']        = '坦率';
+	$txt['nature_impish']        = '淘气';
+	$txt['nature_lax']           = '乐天';
+	$txt['nature_relaxed']       = '悠闲';
+	$txt['nature_modest']        = '保守';
+	$txt['nature_mild']          = '温和';
+	$txt['nature_bashful']       = '害羞';
+	$txt['nature_rash']          = '急躁';
+	$txt['nature_quiet']         = '冷静';
+	$txt['nature_calm']          = '沉着';
+	$txt['nature_gentle']        = '温顺';
+	$txt['nature_careful']       = '慎重';
+	$txt['nature_quirky']        = '浮躁';
+	$txt['nature_sassy']         = '马虎';
+	$txt['nature_timid']         = '胆小';
+	$txt['nature_hasty']         = '急性子';
+	$txt['nature_jolly']         = '开朗';
+	$txt['nature_naive']         = '天真';
+	$txt['nature_serious']       = '认真';
 
 # common
 $txt['common_yes'] = '是';
@@ -2316,6 +2419,8 @@ $txt['liga_confirm_unregister'] = '确定要取消该联盟的报名吗？<br/>�
 $txt['tour_next_heading'] = '下一场锦标赛：';
 $txt['tour_last_heading'] = '最近的锦标赛：';
 $txt['tour_none_history'] = '没有锦标赛记录！';
+$txt['tour_none_scheduled'] = '没有安排锦标赛！';
+$txt['tour_round_interval'] = '轮次间隔：%s 分钟';
 $txt['tour_region'] = '%s 地区的锦标赛';
 $txt['tour_not_in_region'] = '你不在该锦标赛所在的地区！';
 $txt['tour_registered'] = '你已报名参加该锦标赛！';
@@ -2417,5 +2522,32 @@ $txt['liga_err_need_badges'] = '你需要 %s 地区的 5 枚徽章！<a href="./
 $txt['liga_err_already_in'] = '你已经参加了！';
 $txt['liga_err_register_failed'] = '报名未能完成！#%s';
 $txt['liga_err_unregister_failed'] = '取消报名失败！';
+
+# league-page
+$txt['liga_travel'] = '前往';
+$txt['liga_follow'] = '关注联赛';
+$txt['liga_logo_alt'] = '精灵宝可梦联盟';
+$txt['liga_currency_silvers'] = '银币';
+$txt['liga_currency_golds'] = '金币';
+$txt['liga_currency_vip'] = 'VIP';
+$txt['liga_placement'] = '第%s名 - ';
+$txt['liga_level'] = 'Lv.%s';
+$txt['liga_icon_confirm'] = '已确认';
+$txt['liga_icon_no_confirm'] = '未确认';
+
+# league-status
+$txt['liga_status_ranking'] = '排名';
+$txt['liga_status_pos'] = '名次';
+$txt['liga_status_name'] = '名字';
+$txt['liga_status_points'] = '积分';
+$txt['liga_status_rank'] = '第%s名';
+$txt['liga_status_bracket'] = '淘汰赛';
+$txt['liga_status_round'] = '第%s轮';
+$txt['liga_status_start_at'] = '开始于 %s';
+$txt['liga_status_arena_water'] = '水之竞技场';
+$txt['liga_status_arena_ice'] = '冰之竞技场';
+$txt['liga_status_arena_rock'] = '岩石竞技场';
+$txt['liga_status_arena_grass'] = '草之竞技场';
+$txt['liga_status_no_opponent'] = '无对手';
 /* === end externalized strings === */
 ?>

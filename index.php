@@ -290,13 +290,13 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		#CORRAÇÃO DE BUG NOTIFICAÇÕES (SEXTA)
 	    $mails_count	= DB::exQuery("SELECT * FROM `conversas` WHERE `trainer_2_hidden`='0' AND `id` = ANY (SELECT DISTINCT (`conversa`) FROM `conversas_messages` WHERE `reciever`='".($_SESSION['id'] ?? '')."' AND `seen`='0')")->num_rows;
 		$official_count	= DB::exQuery("SELECT `id` FROM `official_message` WHERE `hidden`='0' AND `id` NOT IN (SELECT `id_msg` FROM `official_message_read` WHERE `id_user`='$user_id') ")->num_rows;
-		$mails_txt		= ($mails_count > 1) ? 'Você tem ' . $mails_count . ' novas mensagens!' : 'Você tem ' . $mails_count . ' nova mensagem!';
+		$mails_txt		= ($mails_count > 1) ? sprintf($txt['hud_mails_new'], $mails_count) : sprintf($txt['hud_mails_new_one'], $mails_count);
 		$general_count  = $mails_count + $official_count;
 
         $_SESSION['region'] = $gebruiker['wereld'];
 		#Load User Events
 		$events_count = DB::exQuery("SELECT `id` FROM `gebeurtenis` WHERE `ontvanger_id`='" . ($_SESSION['id'] ?? '') . "' AND `gelezen`='0'")->num_rows;
-		$events_txt = ($events_count > 1) ? 'Você tem ' . $events_count . ' novas notificações!' : 'Você tem ' . $events_count . ' nova notificação!';
+		$events_txt = ($events_count > 1) ? sprintf($txt['hud_events_new'], $events_count) : sprintf($txt['hud_events_new_one'], $events_count);
 		
 		if (!empty($evento_atual)) {
 		    $event_page = 'app/includes/resources/events/pages/'.$evento_atual['link'].'.php';
@@ -310,20 +310,20 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		}
 		
 		if ($Saffari == 'Aberto') {
-		    $safari_horario = '11:00 ATÉ 13:00';
+		    $safari_horario = $txt['hud_safari_time_1'];
 		    $date = strtotime(date('H:i'));
 		    if ($date >= $aberto_2 && $date <= $fechado_2) {
-		        $safari_horario = '18:00 ATÉ 20:00';
+		        $safari_horario = $txt['hud_safari_time_2'];
 		    } else if ($date >= $aberto_3 && $date <= $fechado_3) {
-		        $safari_horario = '00:00 até 02:00';
+		        $safari_horario = $txt['hud_safari_time_3'];
 		    } else {
-		        $safari_horario = '11:00 ATÉ 13:00';
+		        $safari_horario = $txt['hud_safari_time_1'];
 		    }
 		    $div_ballon = '<a class="noanimate" href="./safari"><div class="event_ballon">
 				<div id="e-icon-2"></div>
 				<div id="e-ballon">
-					<h3 class="title">ZONA DO SAFARI</h3>
-					<p class="text"><img src="'.$static_url.'/images/icons/time.png" style="vertical-align: text-bottom"> HOJE ÀS '.$safari_horario.'!</p>
+					<h3 class="title">'.$txt['hud_safari_zone'].'</h3>
+					<p class="text"><img src="'.$static_url.'/images/icons/time.png" style="vertical-align: text-bottom"> '.sprintf($txt['hud_safari_today'], $safari_horario).'</p>
 				</div>
 			</div></a>';
 		}
@@ -520,20 +520,20 @@ if ($pokecen_tijd > 0) {
 								<?php if ($ab != 'block') { ?> <a href="./donate" class="noanimate"><div id="golds" class="bright-low"><div class="<?=$ab?>"></div><p><?=highamount($rekening['gold'])?></p></div><span class="badges" style="float: right; margin-left: -20px; margin-top: -2px; z-index: 100; position: relative;">+</span></a> <?php } else { ?> <div id="golds" class="bright-low" title="<?=highamount($rekening['gold'])?>"><div class="<?=$ab?>"></div><p><?=balance_converter($rekening['gold'])?></p></div> <?php } ?>
 							</li>
 							<li class="hub-hud-line"><a href="./inbox" class="noanimate" style="float: right"><?=($general_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$general_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/mensagens.png" style="margin-top: -7px;" class="bright"></a></li>
-							<li class="hub-hud-line"><?=($events_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$events_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/perfil.png" style="margin-top: -10px; float: right" class="bright tip_bottom-right" title="<div class='user_hover'><a href='./profile&player=<?=$gebruiker['username']?>' class='noanimate'><div><i class='material-icons'>account_circle</i><?=isset($gebruiker['username'])? $gebruiker['username'] : 'Usuário'?></div></a><a href='./my_characters' class='noanimate'><div><i class='material-icons'>group</i>Meus Personagens</div></a><a href='./events' class='noanimate'><div><i class='material-icons'>notifications_active</i>Notificações (<?=$events_count?>)</div></a><a href='./account-options' class='noanimate'><div><i class='material-icons'>settings</i>Configurações</div></a><a href='./logout' class='noanimate'><div><i class='material-icons'>close</i>Deslogar</div></a></div>"></li>
+							<li class="hub-hud-line"><?=($events_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$events_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/perfil.png" style="margin-top: -10px; float: right" class="bright tip_bottom-right" title="<div class='user_hover'><a href='./profile&player=<?=$gebruiker['username']?>' class='noanimate'><div><i class='material-icons'>account_circle</i><?=isset($gebruiker['username'])? $gebruiker['username'] : $txt['hud_profile']?></div></a><a href='./my_characters' class='noanimate'><div><i class='material-icons'>group</i><?=$txt['hud_my_characters']?></div></a><a href='./events' class='noanimate'><div><i class='material-icons'>notifications_active</i><?=$txt['hud_notifications']?> (<?=$events_count?>)</div></a><a href='./account-options' class='noanimate'><div><i class='material-icons'>settings</i><?=$txt['hud_settings']?></div></a><a href='./logout' class='noanimate'><div><i class='material-icons'>close</i><?=$txt['hud_logout']?></div></a></div>"></li>
 						</ul>
 					</div>
 					<div class="hub" style="margin-top: -165px; z-index: 10">
 						<ul class="hub-hud">
 							<li class="hub-hud-line" style="width: 100%">
 								<div style="background: url('<?=$static_url?>/images/characters/<?=$gebruiker['character']?>/bar.png') no-repeat; border-radius: 5px; float: right">
-									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="Sua conta premium acaba em: <?=date('d/m/y H:i', $gebruiker['premiumaccount']);?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
+									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="<?=sprintf($txt['hud_premium_ends'], date('d/m/y H:i', $gebruiker['premiumaccount']));?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
 									<div style="background: url('<?=$static_url?>/images/layout/player.png') no-repeat; width: 520px; height: 93px">
 										<ul style="list-style: none; padding-top: 16px; color: #fff">
 											<li style="padding-left: 103px; width: 124px; text-align: center"><a href="./profile&amp;player=<?=$gebruiker['username'];?>"><?=GetColorName($gebruiker['user_id']);?><?=(!empty($gebruiker['clan']))? '<a href="./clans&action=profile&id='.$gebruiker['clan'].'"> - <b>'.$clan->get($gebruiker['clan'])['sigla'].'</b></a>' : '';?></a></li>
-											<li style="padding-left: 103px; width: 124px; text-align: center; padding-top: 3px"><?=(isset($gebruiker['wereld']))? $gebruiker['wereld'] : 'Lobby' ;?></li>
+											<li style="padding-left: 103px; width: 124px; text-align: center; padding-top: 3px"><?=(isset($gebruiker['wereld']))? $gebruiker['wereld'] : $txt['hud_lobby'] ;?></li>
 											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?= str_replace(" ", "&nbsp;", $gebruiker_rank['ranknaam']); ?> (<?=$gebruiker_rank['procent'];?>%)</li>
-											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?=$gebruiker_pokemon['procent'];?>% de todos os Pokémons</li>
+											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?=sprintf($txt['hud_pokedex_progress'], $gebruiker_pokemon['procent']);?></li>
 										</ul>
 									</div>
 								</div>
@@ -545,16 +545,16 @@ if ($pokecen_tijd > 0) {
 							<li class="hub-hud-line" style="width: 45%;"></li>
 							<li class="hub-hud-line" style="width:160px">
 								<div id="events">
-									<img src="<?=$static_url?>/images/icons/avatar/<?=$season[1]?>-season.png" title="Durante este mês estamos na Estação: <?=$season[0]?>!" style="width: 49px;margin-top: -3px;margin-right: -3px;">
-									<?php if (($gebruiker['quest_1']+$gebruiker['quest_2']) < 2) { ?><span class="badges" style="float: right; margin-left: -20px; margin-top: 23px; z-index: 100; position: relative; cursor:pointer; width: 13px; height:13px; line-height: 14px; font-size:8px;" onclick="window.location = './daily_quests'"><?=(2-($gebruiker['quest_1']+$gebruiker['quest_2']))?></span><?php } ?><a href="./daily_quests" class="noanimate" style="display:block"><img src="<?=$static_url?>/images/icons/avatar/quests.png" title="Clique aqui para ver suas Missões Diárias." style="margin-right: -3px;"></a>
-									<?php if ($gebruiker['daily_bonus']+86400 < time() && isset($_SESSION['id'])) { ?><img src="<?=$static_url?>/images/icons/avatar/pokeball.png" title="Clique aqui para receber seu bônus diário." onclick="Game.getDailyBonus(this);"><?php } ?>
+									<img src="<?=$static_url?>/images/icons/avatar/<?=$season[1]?>-season.png" title="<?=sprintf($txt['hud_season'], $season[0])?>" style="width: 49px;margin-top: -3px;margin-right: -3px;">
+									<?php if (($gebruiker['quest_1']+$gebruiker['quest_2']) < 2) { ?><span class="badges" style="float: right; margin-left: -20px; margin-top: 23px; z-index: 100; position: relative; cursor:pointer; width: 13px; height:13px; line-height: 14px; font-size:8px;" onclick="window.location = './daily_quests'"><?=(2-($gebruiker['quest_1']+$gebruiker['quest_2']))?></span><?php } ?><a href="./daily_quests" class="noanimate" style="display:block"><img src="<?=$static_url?>/images/icons/avatar/quests.png" title="<?=$txt['hud_daily_quests_tip']?>" style="margin-right: -3px;"></a>
+									<?php if ($gebruiker['daily_bonus']+86400 < time() && isset($_SESSION['id'])) { ?><img src="<?=$static_url?>/images/icons/avatar/pokeball.png" title="<?=$txt['hud_daily_bonus_tip']?>" onclick="Game.getDailyBonus(this);"><?php } ?>
 									<?php
 										$bonus_exp = DB::exQuery("SELECT `id`, `config`, `valor` FROM configs WHERE config='exp'")->fetch_assoc()['valor'];
 										$bonus_sil = DB::exQuery("SELECT `id`, `config`, `valor` FROM configs WHERE config='silver'")->fetch_assoc()['valor'];
 										$exp_sil_conf = array ('Double', 'Triple', 'Quadruple');
 
-										if ($bonus_exp > 1 && $bonus_exp < 5) { ?><img src="<?=$static_url?>/images/icons/avatar/<?=$bonus_exp?>x-exp.png" title="Campanha <?=$exp_sil_conf[$bonus_exp-2]?> EXP em ANDAMENTO!"><?php }
-										if ($bonus_sil > 1 && $bonus_sil < 5) { ?><img src="<?=$static_url?>/images/icons/avatar/<?=$bonus_sil?>x-silver.png" title="Campanha <?=$exp_sil_conf[$bonus_sil-2]?> SILVERS em ANDAMENTO!"><?php } ?>
+										if ($bonus_exp > 1 && $bonus_exp < 5) { ?><img src="<?=$static_url?>/images/icons/avatar/<?=$bonus_exp?>x-exp.png" title="<?=sprintf($txt['hud_campaign_exp'], $exp_sil_conf[$bonus_exp-2])?>"><?php }
+										if ($bonus_sil > 1 && $bonus_sil < 5) { ?><img src="<?=$static_url?>/images/icons/avatar/<?=$bonus_sil?>x-silver.png" title="<?=sprintf($txt['hud_campaign_silver'], $exp_sil_conf[$bonus_sil-2])?>"><?php } ?>
 								</div>
 							</li>
 							<li class="hub-hud-line" style="width: 200px">
@@ -567,7 +567,7 @@ if ($pokecen_tijd > 0) {
 											if (($pokemon['ei'] == 1) && ($pokemon['ei_tijd'] < $date)) {
 												update_pokedex($pokemon['wild_id'], '', 'ei');
 												DB::exQuery("UPDATE `pokemon_speler` SET `ei`='0' WHERE `id`=" . $pokemon['id'] . " LIMIT 1");
-												$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> Seu Ovo Pokémon chocou! É um <a href="./pokemon-profile&id='.$pokemon['id'].'" title="Clique aqui para ver o Perfil deste Pokémon!">'.$pokemon['naam'].'</a>!';
+												$event = sprintf($txt['hud_egg_hatched'], '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /><a href="./pokemon-profile&id='.$pokemon['id'].'" title="'.htmlspecialchars($txt['calc_result_click_profile'], ENT_QUOTES).'">'.$pokemon['naam'].'</a>');
 												DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
 											}
 
@@ -617,7 +617,7 @@ if ($pokecen_tijd > 0) {
 										<?php
 											if (isset($_SESSION['id'])) {
 												if (($_SESSION['share_acc'] ?? 0) == 1) {
-													echo '<div class="sharing_account">Você está na conta de '.$gebruiker['username'].' via compartilhamento. <i class="material-icons" style="color: #fff; display: inline-block; vertical-align:middle; font-size:15px">lock</i></div>';
+													echo '<div class="sharing_account">'.sprintf($txt['hud_sharing_account'], $gebruiker['username']).' <i class="material-icons" style="color: #fff; display: inline-block; vertical-align:middle; font-size:15px">lock</i></div>';
 												}
 											}
 										?>
@@ -679,17 +679,17 @@ if ($pokecen_tijd > 0) {
 					<ul>
 						<li>
 							<a href="./">
-								<img src="<?=$static_url?>/images/layout/menu/inicio.png"> Início
+								<img src="<?=$static_url?>/images/layout/menu/inicio.png"> <?=$txt['menu_home']?>
 							</a>
 						</li>
 						<li>
 							<a href="./register">
-								<img src="<?=$static_url?>/images/layout/menu/registro.png"> Registro
+								<img src="<?=$static_url?>/images/layout/menu/registro.png"> <?=$txt['menu_register']?>
 							</a>
 						</li>
 						<li>
 							<a href="./forgot">
-								<img src="<?=$static_url?>/images/layout/menu/faq.png"> Recuperar
+								<img src="<?=$static_url?>/images/layout/menu/faq.png"> <?=$txt['login_forgot']?>
 							</a>
 						</li>
 					</ul>
@@ -733,14 +733,14 @@ if ($pokecen_tijd > 0) {
 								<a href="./"><img src="<?=$static_url?>/images/layout/logo_footer.png" alt="Logo Pokémon World Legends"></a>
 							</td>
 							<td id="footer-right">
-								<b>Pokémon</b> é uma marca registrada da <b>Nintendo</b>. Sua utilização é de caráter exclusivo ao <b>fã game</b>. <br>
-								<p style="font-size: 13px">Nós não somos afiliados da <b>Nintendo</b>, da <b>Pokémon Company Creatures Inc.</b> ou da <b>Game Freak</b>.</p>
+								<?=$txt['footer_trademark']?> <br>
+								<p style="font-size: 13px"><?=$txt['footer_not_affiliated']?></p>
 
-								<p style="font-size: 13px">Não há intenção de violação de direitos autorais ou marcas registradas. | <br><a href="ajax.php?act=privacy" class="colorbox-privacy">Política de Privacidade</a> / <a href="ajax.php?act=terms" class="colorbox-terms">Termos de Serviço</a> / <a href="ajax.php?act=rules" class="colorbox-rules">Regras e Punições</a></p>
+								<p style="font-size: 13px"><?=$txt['footer_no_intent']?> | <br><a href="ajax.php?act=privacy" class="colorbox-privacy"><?=$txt['footer_privacy']?></a> / <a href="ajax.php?act=terms" class="colorbox-terms"><?=$txt['footer_terms']?></a> / <a href="ajax.php?act=rules" class="colorbox-rules"><?=$txt['footer_rules']?></a></p>
 								
-								Todos os horários do jogo são baseados em UTC (0:00), exceto anúncios de eventos, alerta de manuntenção (-3:00).
+								<?=$txt['footer_utc_times']?>
 							    
-								Para notícias, eventos e atualizações, siga-nos no <a href="https://www.facebook.com/pkworldlegends/" target="_blank">Facebook</a> / <a href="https://twitter.com/pkworldlegends/" target="_blank">Twitter</a>.
+								<?=$txt['footer_follow_us']?> <a href="https://www.facebook.com/pkworldlegends/" target="_blank">Facebook</a> / <a href="https://twitter.com/pkworldlegends/" target="_blank">Twitter</a>.
 							</td>
 						</tr>
 					</table>

@@ -1,9 +1,9 @@
 <div class="orientation-bar" id="orientation" style="margin-bottom: -1px">
-	<a href="./information&category=game-info" data-orientation="game-info" class="noanimate"><button type="button">F.A.Q</button></a>
-	<a href="./information&category=attack-info" data-orientation="attack-info" class="noanimate"><button type="button">Info. Ataques</button></a>
-	<a href="./information&category=mood-info" data-orientation="mood-info" class="noanimate"><button type="button">Info. Humores</button></a>
-	<a href="./information&category=ability-info" data-orientation="ability-info" class="noanimate"><button type="button">Info. Habilidades</button></a>
-	<a href="./information&category=items-info" data-orientation="items-info" class="noanimate"><button type="button">Info. Itens</button></a>
+	<a href="./information&category=game-info" data-orientation="game-info" class="noanimate"><button type="button"><?= $txt['info_tab_game'] ?></button></a>
+	<a href="./information&category=attack-info" data-orientation="attack-info" class="noanimate"><button type="button"><?= $txt['info_tab_attack'] ?></button></a>
+	<a href="./information&category=mood-info" data-orientation="mood-info" class="noanimate"><button type="button"><?= $txt['info_tab_mood'] ?></button></a>
+	<a href="./information&category=ability-info" data-orientation="ability-info" class="noanimate"><button type="button"><?= $txt['info_tab_ability'] ?></button></a>
+	<a href="./information&category=items-info" data-orientation="items-info" class="noanimate"><button type="button"><?= $txt['info_tab_items'] ?></button></a>
 </div>
 <?php
 switch(($_GET['category'] ?? '')) {
@@ -33,69 +33,69 @@ switch(($_GET['category'] ?? '')) {
 </style>
 <div class="box-content" style="position: relative"><table class="general" width="100%">
 	<thead>
-		<tr><th colspan="6">Humor por status</th></tr>
+		<tr><th colspan="6"><?= $txt['info_mood_status'] ?></th></tr>
 		<tr>
 			<th>#</th>
-			<th>- Attack</th>
-			<th>- Defense</th>
-			<th>- Sp. Atk</th>
-			<th>- Sp. Def</th>
-			<th>- Speed</th>
+			<th>- <?= $txt['info_stat_attack'] ?></th>
+			<th>- <?= $txt['info_stat_defense'] ?></th>
+			<th>- <?= $txt['info_stat_spatk'] ?></th>
+			<th>- <?= $txt['info_stat_spdef'] ?></th>
+			<th>- <?= $txt['info_stat_speed'] ?></th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td>+ Attack</td>
-			<td align="center">Hardy</td>
-			<td align="center" class="green">Lonely</td>
-			<td align="center" class="green">Adamant</td>
-			<td align="center" class="green">Naughty</td>
-			<td align="center" class="green">Brave</td>
+			<td>+ <?= $txt['info_stat_attack'] ?></td>
+			<td align="center"><?= $txt['nature_hardy'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_lonely'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_adamant'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_naughty'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_brave'] ?></td>
 		</tr>
 		<tr>
-			<td>+ Defense</td>
-			<td align="center" class="red">Bold</td>
-			<td align="center">Docile</td>
-			<td align="center" class="green">Impish</td>
-			<td align="center" class="green">Lax</td>
-			<td align="center" class="green">Relaxed</td>
+			<td>+ <?= $txt['info_stat_defense'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_bold'] ?></td>
+			<td align="center"><?= $txt['nature_docile'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_impish'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_lax'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_relaxed'] ?></td>
 		<tr>
-			<td>+ Sp. Atk</td>
-			<td align="center" class="red">Modest</td>
-			<td align="center" class="red">Mild</td>
-			<td align="center">Bashful</td>
-			<td align="center" class="green">Rash</td>
-			<td align="center" class="green">Quiet</td>
+			<td>+ <?= $txt['info_stat_spatk'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_modest'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_mild'] ?></td>
+			<td align="center"><?= $txt['nature_bashful'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_rash'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_quiet'] ?></td>
 		</tr>
 		<tr>
-			<td>+ Sp. Def</td>
-			<td align="center" class="red">Calm</td>
-			<td align="center" class="red">Gentle</td>
-			<td align="center" class="red">Careful</td>
-			<td align="center">Quirky</td>
-			<td align="center" class="green">Sassy</td>
+			<td>+ <?= $txt['info_stat_spdef'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_calm'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_gentle'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_careful'] ?></td>
+			<td align="center"><?= $txt['nature_quirky'] ?></td>
+			<td align="center" class="green"><?= $txt['nature_sassy'] ?></td>
 		</tr>
 		<tr>
-			<td>+ Speed</td>
-			<td align="center" class="red">Timid</td>
-			<td align="center" class="red">Hasty</td>
-			<td align="center" class="red">Jolly</td>
-			<td align="center" class="red">Naive</td>
-			<td align="center">Serious</td>
+			<td>+ <?= $txt['info_stat_speed'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_timid'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_hasty'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_jolly'] ?></td>
+			<td align="center" class="red"><?= $txt['nature_naive'] ?></td>
+			<td align="center"><?= $txt['nature_serious'] ?></td>
 		</tr>
 	</tbody>
 </table></div>
 <div class="separator"></div>
 <div class="box-content" style="position: relative"><table class="general" width="100%">
 	<thead>
-		<tr><th colspan="6">Humor por nome</th></tr>
+		<tr><th colspan="6"><?= $txt['info_mood_name'] ?></th></tr>
 		<tr>
 			<th width="16.6%">#</th>
-			<th width="16.6%">Ataque</th>
-			<th width="16.6%">Defesa</th>
-			<th width="16.6%">Speed</th>
-			<th width="16.6%">Esp. Ataque</th>
-			<th width="16.6%">Esp. Defesa</th>
+			<th width="16.6%"><?= $txt['info_stat_attack'] ?></th>
+			<th width="16.6%"><?= $txt['info_stat_defense'] ?></th>
+			<th width="16.6%"><?= $txt['info_stat_speed'] ?></th>
+			<th width="16.6%"><?= $txt['info_stat_spatk'] ?></th>
+			<th width="16.6%"><?= $txt['info_stat_spdef'] ?></th>
 		</tr>
 	</thead>
 	<tbody><?php
@@ -103,11 +103,11 @@ switch(($_GET['category'] ?? '')) {
 		while($nature = $getNatures->fetch_assoc()) {
 			echo '<tr>
 				<td>' . ucfirst($nature['karakter_naam']) . '</td>
-				<td align="center" class="' . (($nature['attack_add'] == '1.1') ? 'green' : (($nature['attack_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['attack_add'] == '1.1') ? 'Aumenta' : (($nature['attack_add'] == '0.9') ? 'Diminui' : 'Neutro')) . '</td>
-				<td align="center" class="' . (($nature['defence_add'] == '1.1') ? 'green' : (($nature['defence_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['defence_add'] == '1.1') ? 'Aumenta' : (($nature['defence_add'] == '0.9') ? 'Diminui' : 'Neutro')) . '</td>
-				<td align="center" class="' . (($nature['speed_add'] == '1.1') ? 'green' : (($nature['speed_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['speed_add'] == '1.1') ? 'Aumenta' : (($nature['speed_add'] == '0.9') ? 'Diminui' : 'Neutro')) . '</td>
-				<td align="center" class="' . (($nature['spc.attack_add'] == '1.1') ? 'green' : (($nature['spc.attack_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['spc.attack_add'] == '1.1') ? 'Aumenta' : (($nature['spc.attack_add'] == '0.9') ? 'Diminui' : 'Neutro')) . '</td>
-				<td align="center" class="' . (($nature['spc.defence_add'] == '1.1') ? 'green' : (($nature['spc.defence_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['spc.defence_add'] == '1.1') ? 'Aumenta' : (($nature['spc.defence_add'] == '0.9') ? 'Diminui' : 'Neutro')) . '</td>
+				<td align="center" class="' . (($nature['attack_add'] == '1.1') ? 'green' : (($nature['attack_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['attack_add'] == '1.1') ? $txt['info_raises'] : (($nature['attack_add'] == '0.9') ? $txt['info_lowers'] : $txt['info_neutral'])) . '</td>
+				<td align="center" class="' . (($nature['defence_add'] == '1.1') ? 'green' : (($nature['defence_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['defence_add'] == '1.1') ? $txt['info_raises'] : (($nature['defence_add'] == '0.9') ? $txt['info_lowers'] : $txt['info_neutral'])) . '</td>
+				<td align="center" class="' . (($nature['speed_add'] == '1.1') ? 'green' : (($nature['speed_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['speed_add'] == '1.1') ? $txt['info_raises'] : (($nature['speed_add'] == '0.9') ? $txt['info_lowers'] : $txt['info_neutral'])) . '</td>
+				<td align="center" class="' . (($nature['spc.attack_add'] == '1.1') ? 'green' : (($nature['spc.attack_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['spc.attack_add'] == '1.1') ? $txt['info_raises'] : (($nature['spc.attack_add'] == '0.9') ? $txt['info_lowers'] : $txt['info_neutral'])) . '</td>
+				<td align="center" class="' . (($nature['spc.defence_add'] == '1.1') ? 'green' : (($nature['spc.defence_add'] == '0.9') ? 'red' : '')) . '">' . (($nature['spc.defence_add'] == '1.1') ? $txt['info_raises'] : (($nature['spc.defence_add'] == '0.9') ? $txt['info_lowers'] : $txt['info_neutral'])) . '</td>
 			</tr>';
 		}
 	?></tbody>
@@ -125,7 +125,7 @@ switch(($_GET['category'] ?? '')) {
 		<th width="70" style="text-align: center;"><?php echo $txt['att']; ?></th>
 		<th width="70" style="text-align: center;"><?php echo $txt['acc']; ?></th>
 		<th width="130" style="text-align: center;"><?php echo $txt['effect']; ?></th>
-		<th width="60" style="text-align: center;">Contato</th>
+		<th width="60" style="text-align: center;"><?= $txt['info_contact'] ?></th>
 		<th width="60" style="text-align: center;"><?php echo $txt['ready']; ?></th>
 	</tr></thead>
 	<tbody>
@@ -153,17 +153,17 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	if ($attack['effect_kans'] == '0' || empty($attack['effect_kans']) || ($attack['effect_naam'] != 'Sleep' && $attack['effect_naam'] != 'Paralyzed' && $attack['effect_naam'] != 'Poisoned' && $attack['effect_naam'] != 'Flinch' && $attack['effect_naam'] != 'Burn' && $attack['effect_naam'] != 'Freeze' && $attack['effect_naam'] != 'Confued'))	$effect = ' -- ';
 	else	$effect = $attack['effect_kans'] . '% ' . $attack['effect_naam'];
 
-	if ($attack['klaar'] == 'ja')	$klaar = '<img src="' . $static_url . '/images/icons/green.png" title="Aplica efeito">';
-	else	$klaar = '<img src="' . $static_url . '/images/icons/red.png" title="Não aplica efeito">';
+	if ($attack['klaar'] == 'ja')	$klaar = '<img src="' . $static_url . '/images/icons/green.png" title="'.$txt['info_effect_applies'].'">';
+	else	$klaar = '<img src="' . $static_url . '/images/icons/red.png" title="'.$txt['info_effect_not_applies'].'">';
 
 	$accuracy = 100 - $attack['mis'];
 	$rank = $number + $pagina;
 	$contact = $attack['makes_contact'];
 
 	if ($contact) {
-		$contact = '<img src="' . $static_url . '/images/icons/green.png" title="Faz contato">';
+		$contact = '<img src="' . $static_url . '/images/icons/green.png" title="'.$txt['info_contact_makes'].'">';
 	} else {
-		$contact = '<img src="' . $static_url . '/images/icons/red.png" title="Não faz contato">';
+		$contact = '<img src="' . $static_url . '/images/icons/red.png" title="'.$txt['info_contact_no'].'">';
 	}
 
 	echo '<tr>
@@ -182,7 +182,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '7');?>"><form action="./information&category=attack-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="<?= $txt['info_search'] ?>" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -245,8 +245,8 @@ if ($aantal_paginas > 1) {
 		<thead>
 			<tr>
 				<th width="10%">#</th>
-				<th width="30%">Nome</th>
-				<th width="60%" colspan="2">Descrição</th>
+				<th width="30%"><?= $txt['info_name'] ?></th>
+				<th width="60%" colspan="2"><?= $txt['info_description'] ?></th>
 			</tr>
 		</thead>
 		<tbody class="ability-table">
@@ -280,7 +280,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '3');?>"><form action="./information&category=ability-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="<?= $txt['info_search'] ?>" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php
@@ -343,15 +343,15 @@ if ($aantal_paginas > 1) {
 <div class="box-content" style="position: relative">
 	<table class="general" id="example" width="100%">
 		<thead>
-			<tr><th colspan="7">Lista de Itens</th></tr>
+			<tr><th colspan="7"><?= $txt['info_items_list'] ?></th></tr>
 			<tr style="text-align: center">
 				<td width="5%"><strong>#</strong></td>
-				<td width="20%"><strong>Nome</strong></td>
-				<td width="40%" class="no-sort"><strong>Descrição</strong></td>
-				<td width="20%"><strong>Categoria</strong></td>
-				<td width="5%"><strong>Tem no PokéMarket?</strong></td>
-				<td width="5%"><strong>Roda da Fortuna?</strong></td>
-				<td width="5%"><strong>Equipável?</strong></td>
+				<td width="20%"><strong><?= $txt['info_name'] ?></strong></td>
+				<td width="40%" class="no-sort"><strong><?= $txt['info_description'] ?></strong></td>
+				<td width="20%"><strong><?= $txt['info_item_category'] ?></strong></td>
+				<td width="5%"><strong><?= $txt['info_item_market'] ?></strong></td>
+				<td width="5%"><strong><?= $txt['info_item_wheel'] ?></strong></td>
+				<td width="5%"><strong><?= $txt['info_item_equippable'] ?></strong></td>
 			</tr>
 		</thead>
 		<tbody class="item-table">
@@ -376,32 +376,32 @@ $attackquery = DB::exQuery($search2);
 for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	$rank = $number + $pagina;
 	$type_item = array(
-		'balls' => 'Poké Balls',
-		'items' => 'Itens Chave',
-		'potions' => 'Poções',
-		'stones' => 'Pedras',
-		'special items' => 'Itens Especiais'
+		'balls' => $txt['info_item_balls'],
+		'items' => $txt['info_item_key'],
+		'potions' => $txt['info_item_potions'],
+		'stones' => $txt['info_item_stones'],
+		'special items' => $txt['info_item_special']
 	);
 	
 	$equip = $attack['equip'];
 	if ($attack['equip']) {
-		$attack['equip'] = '<img src="' . $static_url . '/images/icons/green.png" title="Este item é equipável em um Pokémon!">';
+		$attack['equip'] = '<img src="' . $static_url . '/images/icons/green.png" title="'.$txt['info_item_equip_yes'].'">';
 	} else {
-		$attack['equip'] = '<img src="' . $static_url . '/images/icons/red.png" title="Este item não é equipável em um Pokémon!">';
+		$attack['equip'] = '<img src="' . $static_url . '/images/icons/red.png" title="'.$txt['info_item_equip_no'].'">';
 	}
 
 	$roleta = $attack['roleta'];
 	if ($attack['roleta'] == 'sim') {
-		$attack['roleta'] = '<img src="' . $static_url . '/images/icons/green.png" title="Este item está disponível na Roda da Fortuna!">';
+		$attack['roleta'] = '<img src="' . $static_url . '/images/icons/green.png" title="'.$txt['info_item_wheel_yes'].'">';
 	} else {
-		$attack['roleta'] = '<img src="' . $static_url . '/images/icons/red.png" title="Este item não está disponível na Roda da Fortuna!">';
+		$attack['roleta'] = '<img src="' . $static_url . '/images/icons/red.png" title="'.$txt['info_item_wheel_no'].'">';
 	}
 
 	$beschikbaar = $attack['beschikbaar'];
 	if ($attack['beschikbaar']) {
-		$attack['beschikbaar'] = '<img src="' . $static_url . '/images/icons/green.png" title="Este item está disponível no PokéMarket!">';
+		$attack['beschikbaar'] = '<img src="' . $static_url . '/images/icons/green.png" title="'.$txt['info_item_market_yes'].'">';
 	} else {
-		$attack['beschikbaar'] = '<img src="' . $static_url . '/images/icons/red.png" title="Este item não está disponível no PokéMarket!">';
+		$attack['beschikbaar'] = '<img src="' . $static_url . '/images/icons/red.png" title="'.$txt['info_item_market_no'].'">';
 	}
 
 	echo '<tr>
@@ -418,7 +418,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	</tbody>
 	<tfoot><tr>
 		<td colspan="<?=($aantal_paginas > 1 ? '3' : '3');?>"><form action="./information&category=items-info" method="post">
-			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="Buscar:" required />
+			<input type="text" name="attack" value="<?=(empty($_GET['attack']) ? ($_POST['attack'] ?? '') : ($_GET['attack'] ?? ''));?>" placeholder="<?= $txt['info_search'] ?>" required />
 			<input type="submit" name="search_att" value="Ok" class="button" />
 		</form></td>
 <?php

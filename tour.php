@@ -17,7 +17,7 @@ $ligas = League::select_atuais(true, null, 1);
 if (count($ligas)) {
     $liga = $ligas['0'];
     //NOW() - INTERVAL 4 HOUR - INTERVAL 2 MINUTE - INTERVAL 17 SECOND
-    $time = time() + League::$ajuste_tempo_int;
+    $time = time() + (int) League::$ajuste_tempo_int;
 
     if (isset($_POST['registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
         $liga->select($liga->getId());
@@ -49,12 +49,12 @@ if (count($ligas)) {
                     <?php
                     if ($liga->inscrito($gebruiker['user_id'])) {
                         ?>
-                        <img src="<?=$static_url?>/images/icons/green.png" alt="confirm"/>
+                        <img src="<?=$static_url?>/images/icons/green.png" alt="<?= $txt['liga_icon_confirm'] ?>"/>
                         <?= $txt['tour_registered'] ?>
                         <?php
                     } else {
                         ?>
-                        <img src="<?=$static_url?>/images/icons/red.png" alt="no_confirm"/>
+                        <img src="<?=$static_url?>/images/icons/red.png" alt="<?= $txt['liga_icon_no_confirm'] ?>"/>
                         <?= $txt['tour_not_registered'] ?>
                         <?php
                     }
@@ -70,7 +70,7 @@ if (count($ligas)) {
             if ($gebruiker['wereld'] != $liga->getRegiao()) {
                 ?>
                 <td style="text-align: center;">
-                    <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;">Viajar</a>
+                    <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;"><?= $txt['liga_travel'] ?></a>
                 </td>
                 <?php
             } else {
@@ -123,26 +123,26 @@ if (count($ligas)) {
             <td>
                 <?php
                 if ($liga->getPreco_silvers()) {
-                    echo '<img src="'.$static_url.'/images/icons/silver.png" alt="silver"/> ';
+                    echo '<img src="'.$static_url.'/images/icons/silver.png" alt="'.$txt['liga_currency_silvers'].'"/> ';
                     echo $liga->getPreco_silvers();
-                    echo " silvers";
+                    echo " " . $txt['liga_currency_silvers'];
                     $virgula = true;
                 }
                 if ($liga->getPreco_golds()) {
                     if ($virgula) {
                         echo ", ";
                     }
-                    echo '<img src="'.$static_url.'/images/icons/gold.png" alt="gold"/> ';
+                    echo '<img src="'.$static_url.'/images/icons/gold.png" alt="'.$txt['liga_currency_golds'].'"/> ';
                     echo $liga->getPreco_golds();
-                    echo " golds";
+                    echo " " . $txt['liga_currency_golds'];
                     $virgula = true;
                 }
                 if ($liga->getVip()) {
                     if ($virgula) {
                         echo ", ";
                     }
-                    echo '<img src="'.$static_url.'/images/icons/star.png" alt="vip"/> ';
-                    echo "VIP";
+                    echo '<img src="'.$static_url.'/images/icons/star.png" alt="'.$txt['liga_currency_vip'].'"/> ';
+                    echo $txt['liga_currency_vip'];
                 }
                 ?>
             </td>
@@ -155,20 +155,20 @@ if (count($ligas)) {
                 <?php
                 foreach (League_award::select_league($liga->getId()) as $premio) {
                     $virgula = false;
-                    echo "<p>" . $premio->getColocacao() . "º - ";
+                    echo "<p>" . sprintf($txt['liga_placement'], $premio->getColocacao());
                     if ($premio->getSilvers()) {
-                        echo '<img src="'.$static_url.'/images/icons/silver.png" alt="silver"/> ';
+                        echo '<img src="'.$static_url.'/images/icons/silver.png" alt="'.$txt['liga_currency_silvers'].'"/> ';
                         echo $premio->getSilvers();
-                        echo " silvers";
+                        echo " " . $txt['liga_currency_silvers'];
                         $virgula = true;
                     }
                     if ($premio->getGolds()) {
                         if ($virgula) {
                             echo ", ";
                         }
-                        echo '<img src="'.$static_url.'/images/icons/gold.png" alt="gold"/> ';
+                        echo '<img src="'.$static_url.'/images/icons/gold.png" alt="'.$txt['liga_currency_golds'].'"/> ';
                         echo $premio->getGolds();
-                        echo " golds";
+                        echo " " . $txt['liga_currency_golds'];
                         $virgula = true;
                     }
                     if ($premio->getPokemon_id()) {
@@ -177,11 +177,11 @@ if (count($ligas)) {
                         }
                         echo '<img src="'.$static_url.'/images/pokemon/icon/' . $premio->getPokemon_id() . '.gif" alt="pokemon"/> ';
                         $nome = DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'")->fetch_assoc();
-						echo $nome['naam'];
-                        echo " lv " . $premio->getLv_pokemon();
+						echo isset($nome['naam']) ? $nome['naam'] : '';
+                        echo sprintf($txt['liga_level'], $premio->getLv_pokemon());
                         $virgula = true;
                     }
-                    if ($premio->getVip) {
+                    if ($premio->getVip()) {
                         if ($virgula) {
                             echo ", ";
                         }
@@ -220,7 +220,7 @@ if (count($ligas)) {
     <?php
 } else {
     ?>
-    <div style="font-weight: bold; font-size: 1.2em;">Nenhum torneio agendado!</div>
+    <div style="font-weight: bold; font-size: 1.2em;"><?= $txt['tour_none_scheduled'] ?></div>
     <?php
 }
 ?>
@@ -248,7 +248,7 @@ if (count($ligas)) {
                             <?= sprintf($txt['liga_battles_start'], date("d/m/Y H:i:s", strtotime($liga->getInicio()))) ?>
                         </p>
                         <p>
-                            Intervalo entre os rounds: <?= number_format($liga->getIntervalo_fase() / 60, 0) ?> minutos
+                            <?= sprintf($txt['tour_round_interval'], number_format($liga->getIntervalo_fase() / 60, 0)) ?>
                         </p>
                         <p>
                             <span style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_rules'] ?></span><br/>
@@ -264,18 +264,18 @@ if (count($ligas)) {
                             <span style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_registration_cost'] ?></span><br/>
                             <?php
                             if ($liga->getPreco_silvers()) {
-                                echo '<img src="'.$static_url.'/images/icons/silver.png" alt="silver"/> ';
+                                echo '<img src="'.$static_url.'/images/icons/silver.png" alt="'.$txt['liga_currency_silvers'].'"/> ';
                                 echo $liga->getPreco_silvers();
-                                echo " silvers";
+                                echo " " . $txt['liga_currency_silvers'];
                                 $virgula = true;
                             }
                             if ($liga->getPreco_golds()) {
                                 if ($virgula) {
                                     echo ", ";
                                 }
-                                echo '<img src="'.$static_url.'/images/icons/gold.png" alt="gold"/> ';
+                                echo '<img src="'.$static_url.'/images/icons/gold.png" alt="'.$txt['liga_currency_golds'].'"/> ';
                                 echo $liga->getPreco_golds();
-                                echo " golds";
+                                echo " " . $txt['liga_currency_golds'];
                                 $virgula = true;
                             }
                             if ($liga->getVip()) {
@@ -292,20 +292,20 @@ if (count($ligas)) {
                             <?php
                             foreach (League_award::select_league($liga->getId()) as $premio) {
                                 $virgula = false;
-                                echo "<p>" . $premio->getColocacao() . "º - ";
+                                echo "<p>" . sprintf($txt['liga_placement'], $premio->getColocacao());
                                 if ($premio->getSilvers()) {
-                                    echo '<img src="'.$static_url.'/images/icons/silver.png" alt="silver"/> ';
+                                    echo '<img src="'.$static_url.'/images/icons/silver.png" alt="'.$txt['liga_currency_silvers'].'"/> ';
                                     echo $premio->getSilvers();
-                                    echo " silvers";
+                                    echo " " . $txt['liga_currency_silvers'];
                                     $virgula = true;
                                 }
                                 if ($premio->getGolds()) {
                                     if ($virgula) {
                                         echo ", ";
                                     }
-                                    echo '<img src="'.$static_url.'/images/icons/gold.png" alt="gold"/> ';
+                                    echo '<img src="'.$static_url.'/images/icons/gold.png" alt="'.$txt['liga_currency_golds'].'"/> ';
                                     echo $premio->getGolds();
-                                    echo " golds";
+                                    echo " " . $txt['liga_currency_golds'];
                                     $virgula = true;
                                 }
                                 if ($premio->getPokemon_id()) {
@@ -318,7 +318,7 @@ if (count($ligas)) {
                                     echo " lv " . $premio->getLv_pokemon();
                                     $virgula = true;
                                 }
-                                if ($premio->getVip) {
+                                if ($premio->getVip()) {
                                     if ($virgula) {
                                         echo ", ";
                                     }

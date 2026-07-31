@@ -12,8 +12,8 @@ $aprox = false;
 $success = false;
 if (isset($_GET['name'])) {
     if (isset($_GET['like']) && ($_GET['like'] ?? '') == 'true') $aprox = true;
-    if (!is_numeric($_GET['subpage'] ?? 0)) $subpage = 1; 
-    else $subpage = ($_GET['subpage'] ?? ''); 
+    if (!is_numeric($_GET['subpage'] ?? '')) $subpage = 1;
+    else $subpage = (int)($_GET['subpage'] ?? ''); 
 
     if (!$aprox) {
         $number = DB::exQuery ("SELECT * FROM `gebruikers` WHERE username='".($_GET['name'] ?? '')."'")->num_rows;
@@ -45,37 +45,37 @@ if (isset($_POST['player']) && ctype_digit(($_POST['player'] ?? ''))) {
     $blocklist_2 = explode(',', $friends->getInfos($player)['blocklist']);
 
     if ($exists == 0) {
-        echo '<div class="red">Este treinador não existe!</div>';
+        echo '<div class="red">'.$txt['friends_add_err_not_exists'].'</div>';
     } else if ($player == ($_SESSION['id'] ?? '')) {
-        echo '<div class="red">Você não pode adicionar a si mesmo!</div>';
+        echo '<div class="red">'.$txt['friends_add_err_yourself'].'</div>';
     } else if ($is_friend) {
-        echo '<div class="red">Vocês já são amigos ou há uma solicitação pendente!</div>';
+        echo '<div class="red">'.$txt['friends_add_err_already'].'</div>';
     } else if (in_array($player, $blocklist_1)) { 
-        echo '<div class="red">Você bloqueou este treinador!</div>';
+        echo '<div class="red">'.$txt['friends_add_err_blocked_by_you'].'</div>';
     } else if (in_array(($_SESSION['id'] ?? ''), $blocklist_2)) { 
-        echo '<div class="red">Você foi bloqueado por este treinador!</div>';
+        echo '<div class="red">'.$txt['friends_add_err_blocked_you'].'</div>';
     } else {
         $friends->sendSolicitation(($_SESSION['id'] ?? ''), $player);
         $quests->setStatus('friend', ($_SESSION['id'] ?? ''));
-        echo '<div class="green">Solicitação de amizade enviada!</div>';
+        echo '<div class="green">'.$txt['friends_add_success'].'</div>';
     }
 }
 
-echo addNPCBox (15, 'Adicionar amigos', 'Não há nada mais divertido do que jogar com <b>Amigos</b>! <br>Aqui você pode pesquisar por treinadores em todas as regiões para adicioná-los como amigos! <br>Solicitações que passarem de uma semana serão excluidas automaticamente!');
+echo addNPCBox (15, $txt['friends_add_title'], $txt['friends_add_npc_msg']);
 ?>
 
 <div style="min-height: 18px;" class="box-content">
     <div style="padding: 10px">
         <label>
-            <span style="font-size: 14px; color: #fff">Treinador:</span> <input type="text" class="text_long" placeholder="Treinador" <?=$value?> name="name" style="width: 78.5%; height:30px; padding: 5px 0 5px 10px; margin-bottom: 5px" maxlength="10" required="">
+            <span style="font-size: 14px; color: #fff"><?=$txt['friends_add_label']?></span> <input type="text" class="text_long" placeholder="<?=$txt['friends_add_placeholder']?>" <?=$value?> name="name" style="width: 78.5%; height:30px; padding: 5px 0 5px 10px; margin-bottom: 5px" maxlength="10" required="">
         </label>
     </div>
     <div style="border-top: 1px solid #577599; padding: 10px">
         <label>
-            <input type="checkbox" style="vertical-align: middle" name="like" <?=($aprox)? 'checked' : '';?>> <span style="font-size: 12.5px; color: #fff">Fazer busca aproximada?</span>
+            <input type="checkbox" style="vertical-align: middle" name="like" <?=($aprox)? 'checked' : '';?>> <span style="font-size: 12.5px; color: #fff"><?=$txt['friends_add_approximate']?></span>
         </label>
         <br>
-        <button id="search" onclick="search()">Procurar</button>
+        <button id="search" onclick="search()"><?=$txt['friends_add_search']?></button>
         <br>
     </div>
 </div>
@@ -92,12 +92,12 @@ echo addNPCBox (15, 'Adicionar amigos', 'Não há nada mais divertido do que jog
     <table class="general blue" id="example">
         <thead>
             <tr>
-                <td><strong>Treinador</strong></td>
-                <td><strong>Antiguidade</strong></td>
-                <td><strong>Última Visita</strong></td>
-                <td><strong>Classificação</strong></td>
-                <td class="no-sort"><strong>Status</strong></td>
-                <td class="no-sort"><strong>Adicionar Amigo</strong></td>
+                <td><strong><?=$txt['friends_add_th_trainer']?></strong></td>
+                <td><strong><?=$txt['friends_add_th_member_since']?></strong></td>
+                <td><strong><?=$txt['friends_add_th_last_visit']?></strong></td>
+                <td><strong><?=$txt['friends_add_th_rank']?></strong></td>
+                <td class="no-sort"><strong><?=$txt['friends_add_th_status']?></strong></td>
+                <td class="no-sort"><strong><?=$txt['friends_add_th_action']?></strong></td>
             </tr>
         </thead>
         <tbody>
@@ -125,13 +125,13 @@ echo addNPCBox (15, 'Adicionar amigos', 'Não há nada mais divertido do que jog
                         $medaille = "<img src='".$static_url."/images/icons/bronze_medaille.png'>";
                     } else if ($q['admin'] >= 1) {
                         $number = '';
-                        $medaille = "<b><font color='red'>Administrador</font></b>";
+                        $medaille = "<b><font color='red'>".$txt['friends_add_admin']."</font></b>";
                     }
                             
                     if (($q['online'] + 900) > time()) {
-                        $plaatje = '<img src="'.$static_url.'/images/icons/status_online.png" title="Online">';
+                        $plaatje = '<img src="'.$static_url.'/images/icons/status_online.png" title="'.$txt['online'].'">';
                     } else {
-                        $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="Offline">';
+                        $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="'.$txt['offline'].'">';
                     }  
 
                     $is_friend = $friends->isFriend(($_SESSION['id'] ?? ''), $q['user_id']);
@@ -139,15 +139,15 @@ echo addNPCBox (15, 'Adicionar amigos', 'Não há nada mais divertido do que jog
                     if ($is_friend) {
                         $is_accept = $friends->isAccept(($_SESSION['id'] ?? ''), $q['user_id']);
                         if ($is_accept) {
-                            $btn = 'Vocês já são amigos!';
+                            $btn = $txt['friends_add_already_friends'];
                         } else {
-                            $btn = 'Aguardando...';
+                            $btn = $txt['friends_add_waiting'];
                         }
                     } else {
-                        $btn = '<form method="post"><input type="hidden" name="player" value="'.$q['user_id'].'"><button class="btn">Adicionar</button></form>';
+                        $btn = '<form method="post"><input type="hidden" name="player" value="'.$q['user_id'].'"><button class="btn">'.$txt['friends_add_add_btn'].'</button></form>';
                     }
 
-                    echo '<tr><td><a href="./profile&player='.$q['username'].'">'.$q['username'].'</a></td><td>'.$q['antiguidade'].' dias</td><td>'.$q['ultimo_login'].'</td><td style="font-size: 14px">'.$number.' '.$medaille.'</td><td>'.$plaatje.'</td><td>'.$btn.'</td></tr>';
+                    echo '<tr><td><a href="./profile&player='.$q['username'].'">'.$q['username'].'</a></td><td>'.sprintf($txt['friends_add_days'], $q['antiguidade']).'</td><td>'.$q['ultimo_login'].'</td><td style="font-size: 14px">'.$number.' '.$medaille.'</td><td>'.$plaatje.'</td><td>'.$btn.'</td></tr>';
                 }
             ?>
         </tbody>

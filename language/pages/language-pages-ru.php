@@ -159,6 +159,16 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'my_characters') {
 	$txt['pagetitle'] = 'Мои персонажи';
 	$txt['title_text'] = '<center>Ниже выберите персонажа, которым хотите играть.</center>';
+	$txt['my_characters_npc_title']			= 'Мои персонажи';
+	$txt['my_characters_npc_text']			= 'Вот список твоих персонажей. Выбери, за кого хочешь играть.';
+	$txt['my_characters_create']			= 'Чтобы создать нового персонажа, просто нажми <a href="./new_character">ЗДЕСЬ</a>.';
+	$txt['my_characters_err_not_found']		= 'Персонаж не найден!';
+	$txt['my_characters_err_not_yours']		= 'Этот персонаж не принадлежит тебе!';
+	$txt['my_characters_err_banned']		= 'Этот персонаж заблокирован!';
+	$txt['my_characters_banned']			= '[ЗАБЛОКИРОВАН]';
+	$txt['my_characters_staff']				= '[КОМАНДА]';
+	$txt['my_characters_trainer']			= '[ТРЕНЕР]';
+	$txt['my_characters_play']				= 'ИГРАТЬ ЗА';
 } else if ($page == 'new_character') {
 	$txt['alert_character_invalid']			= 'Вы должны выбрать допустимого персонажа!';
 	$txt['alert_no_username']				= 'Вы должны заполнить все поля!';
@@ -229,6 +239,53 @@ if ($page == 'home' || empty($page)) {
 	$txt['link_subpage_pokemon_info'] = 'Информация. покемон';
 	$txt['link_subpage_attack_info']  = 'Информация. нападения';
 	$txt['link_subpage_game_info'] = 'ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ';
+
+	// Information tabs
+	$txt['info_tab_game']        = 'FAQ';
+	$txt['info_tab_attack']      = 'Инфо: атаки';
+	$txt['info_tab_mood']        = 'Инфо: натуры';
+	$txt['info_tab_ability']     = 'Инфо: способности';
+	$txt['info_tab_items']       = 'Инфо: предметы';
+	$txt['info_search']          = 'Поиск:';
+
+	// Nature table
+	$txt['info_mood_status']     = 'Характер по статам';
+	$txt['info_mood_name']       = 'Характер по имени';
+	$txt['info_stat_attack']     = 'Атака';
+	$txt['info_stat_defense']    = 'Защита';
+	$txt['info_stat_spatk']      = 'Сп. Атака';
+	$txt['info_stat_spdef']      = 'Сп. Защита';
+	$txt['info_stat_speed']      = 'Скорость';
+	$txt['info_raises']          = 'Повышает';
+	$txt['info_lowers']          = 'Понижает';
+	$txt['info_neutral']         = 'Нейтрально';
+
+	// Attack info
+	$txt['info_contact']             = 'Контакт';
+	$txt['info_effect_applies']      = 'Применяет эффект';
+	$txt['info_effect_not_applies']  = 'Не применяет эффект';
+	$txt['info_contact_makes']       = 'Есть контакт';
+	$txt['info_contact_no']          = 'Нет контакта';
+
+	// Ability + items info
+	$txt['info_name']            = 'Имя';
+	$txt['info_description']     = 'Описание';
+	$txt['info_items_list']      = 'Список предметов';
+	$txt['info_item_category']   = 'Категория';
+	$txt['info_item_market']     = 'В PokéMarket?';
+	$txt['info_item_wheel']      = 'Колесо фортуны?';
+	$txt['info_item_equippable'] = 'Экипируемый?';
+	$txt['info_item_balls']      = 'Поке-болы';
+	$txt['info_item_key']        = 'Ключевые предметы';
+	$txt['info_item_potions']    = 'Зелья';
+	$txt['info_item_stones']     = 'Камни';
+	$txt['info_item_special']    = 'Особые предметы';
+	$txt['info_item_equip_yes']  = 'Этот предмет можно экипировать покемону!';
+	$txt['info_item_equip_no']   = 'Этот предмет нельзя экипировать покемону!';
+	$txt['info_item_wheel_yes']  = 'Этот предмет доступен в Колесе фортуны!';
+	$txt['info_item_wheel_no']   = 'Этот предмет недоступен в Колесе фортуны!';
+	$txt['info_item_market_yes'] = 'Этот предмет доступен в PokéMarket!';
+	$txt['info_item_market_no']  = 'Этот предмет недоступен в PokéMarket!';
 
 	
 			if (($_GET['category'] ?? '') == 'game-info') {
@@ -623,6 +680,15 @@ if ($page == 'home' || empty($page)) {
 	$txt['name']      = 'Имя';
 	$txt['type']      = 'Тип';
 	$txt['status']    = 'Статус';
+	$txt['pokedex_buy']             = 'У тебя нет Покедекса!';
+	$txt['pokedex_seen_captured']   = 'Вы видели %1$s из %2$s покемонов и поймали %3$s!';
+	$txt['pokedex_rarities']        = 'Редкости';
+	$txt['pokedex_found']           = 'Вы видели %1$s из %2$s покемонов';
+	$txt['pokedex_pokemons']        = 'Покемоны';
+	$txt['pokedex_info']            = 'Информация';
+	$txt['pokedex_search']          = 'Поиск';
+	$txt['pokedex_choose']          = 'Выбери покемона';
+	$txt['have_already']            = 'У вас уже есть';
 } else if ($page == 'events') {
 	$txt['alert_nothing_selected']    = 'Вы должны выбрать какое-нибудь уведомление!';
 	$txt['alert_more_events_deleted'] = 'Уведомления успешно удалены!';
@@ -868,6 +934,10 @@ if ($page == 'home' || empty($page)) {
 	$txt['price']         = 'Ценить';
 	$txt['owner']         = 'Тренер';
 	$txt['buy']           = 'Купить';
+$txt['transfer_row_level']   = 'Уровень: ';
+$txt['transfer_row_mood']    = 'Характер: ';
+$txt['transfer_row_ability'] = 'Способность: ';
+$txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 } else if ($page == 'daycare') {
 	$txt['alert_not_your_pokemon'] = 'Этот покемон не твой!';
 	$txt['alert_hand_full'] = 'С вами уже 6 покемонов!';
@@ -1993,6 +2063,13 @@ $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
 		$txt['online'] = 'Онлайн';
 		$txt['block_delete'] = 'Удалять';
 		$txt['nobody_blocked'] = 'У вас нет заблокированных тренеров.';
+		$txt['blocklist_npc_title'] = 'Заблокировать тренера';
+		$txt['blocklist_npc_text'] = 'Здесь ты можешь блокировать тренеров. Заблокированные тренеры больше не смогут отправлять тебе сообщения.';
+		$txt['blocklist_warning'] = 'Блокируй тренера только в том случае, если действительно не хочешь получать от него сообщения!';
+		$txt['blocklist_block_info'] = 'Если ты заблокируешь тренера, то не будешь получать от него сообщения и не сможешь отправлять ему сообщения.';
+		$txt['blocklist_block_title'] = 'Заблокировать тренера';
+		$txt['blocklist_placeholder'] = 'Тренер';
+		$txt['blocklist_unblock'] = 'Разблокировать';
 	}
 else if ($page == 'venderitens') {
 $txt['pagetitle'] = 'Продавать предметы';
@@ -2129,6 +2206,32 @@ $txt['alert_no_amount']               = 'Введите количество!';
 }
 
 /* === externalized strings (generated) === */
+
+	$txt['nature_hardy']         = 'Харди';
+	$txt['nature_lonely']        = 'Одинокий';
+	$txt['nature_adamant']       = 'Адамант';
+	$txt['nature_naughty']       = 'Нахальный';
+	$txt['nature_brave']         = 'Смелый';
+	$txt['nature_bold']          = 'Решительный';
+	$txt['nature_docile']        = 'Скромный';
+	$txt['nature_impish']        = 'Озорной';
+	$txt['nature_lax']           = 'Вольный';
+	$txt['nature_relaxed']       = 'Расслабленный';
+	$txt['nature_modest']        = 'Умеренный';
+	$txt['nature_mild']          = 'Мягкий';
+	$txt['nature_bashful']       = 'Застенчивый';
+	$txt['nature_rash']          = 'Вспыльчивый';
+	$txt['nature_quiet']         = 'Тихий';
+	$txt['nature_calm']          = 'Спокойный';
+	$txt['nature_gentle']        = 'Нежный';
+	$txt['nature_careful']       = 'Осторожный';
+	$txt['nature_quirky']        = 'Странный';
+	$txt['nature_sassy']         = 'Дерзкий';
+	$txt['nature_timid']         = 'Робкий';
+	$txt['nature_hasty']         = 'Быстрый';
+	$txt['nature_jolly']         = 'Веселый';
+	$txt['nature_naive']         = 'Наивный';
+	$txt['nature_serious']       = 'Серьезный';
 
 # common
 $txt['common_yes'] = 'Да';
@@ -2316,6 +2419,8 @@ $txt['liga_confirm_unregister'] = 'Вы уверены, что хотите от
 $txt['tour_next_heading'] = 'Следующий турнир:';
 $txt['tour_last_heading'] = 'Последние турниры:';
 $txt['tour_none_history'] = 'История турниров отсутствует!';
+$txt['tour_none_scheduled'] = 'Турниры не запланированы!';
+$txt['tour_round_interval'] = 'Интервал между раундами: %s минут';
 $txt['tour_region'] = 'Турнир в регионе %s';
 $txt['tour_not_in_region'] = 'Вы не находитесь в регионе этого турнира!';
 $txt['tour_registered'] = 'Вы зарегистрированы на этот турнир!';
@@ -2417,5 +2522,32 @@ $txt['liga_err_need_badges'] = 'Вам нужно 5 значков регион�
 $txt['liga_err_already_in'] = 'Вы уже участвуете!';
 $txt['liga_err_register_failed'] = 'Не удалось выполнить регистрацию! #%s';
 $txt['liga_err_unregister_failed'] = 'Не удалось отменить регистрацию!';
+
+# league-page
+$txt['liga_travel'] = 'Путешествовать';
+$txt['liga_follow'] = 'Следить за лигой';
+$txt['liga_logo_alt'] = 'Лига покемонов';
+$txt['liga_currency_silvers'] = 'серебра';
+$txt['liga_currency_golds'] = 'золота';
+$txt['liga_currency_vip'] = 'VIP';
+$txt['liga_placement'] = '%s место - ';
+$txt['liga_level'] = 'ур. %s';
+$txt['liga_icon_confirm'] = 'Подтверждено';
+$txt['liga_icon_no_confirm'] = 'Не подтверждено';
+
+# league-status
+$txt['liga_status_ranking'] = 'Рейтинг';
+$txt['liga_status_pos'] = 'Поз.';
+$txt['liga_status_name'] = 'Имя';
+$txt['liga_status_points'] = 'Очки';
+$txt['liga_status_rank'] = '%s.';
+$txt['liga_status_bracket'] = 'Плей-офф';
+$txt['liga_status_round'] = 'Раунд %s';
+$txt['liga_status_start_at'] = 'Начало в %s';
+$txt['liga_status_arena_water'] = 'Водная арена';
+$txt['liga_status_arena_ice'] = 'Ледяная арена';
+$txt['liga_status_arena_rock'] = 'Каменная арена';
+$txt['liga_status_arena_grass'] = 'Травяная арена';
+$txt['liga_status_no_opponent'] = 'Нет соперника';
 /* === end externalized strings === */
 ?>

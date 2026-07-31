@@ -5,6 +5,8 @@
     #Als je geen pokemon bij je hebt, terug naar index.
     if ($gebruiker['in_hand'] == 0) header('Location: index.php');
 
+    $sucesso = false;
+
     echo addNPCBox(30, $txt['moves_npc_title'], $txt['moves_npc_text']);
 
     if (isset($_POST['pokemonview']) && isset($_POST['pokemonid'])) {

@@ -39,6 +39,10 @@ PHP 8 throws a fatal `Error: array_push(): Argument #1 ($array) cannot be passed
 #### Timer refactors
 - `attack/wild/wild-attack.php` and `attack/trainer/trainer-attack.php` — replaced `setTimeout("function()", ...)` string arguments with closures (string arguments are not allowed in stricter JavaScript environments and caused timer failures).
 
+#### Pokémon Center heal never applying (drag & drop)
+- `public/javascripts/pokecenter.js` — the slot's `receive` handler started with `var sender = ui.sender.context.id;`. Under jQuery 3.7 + jQuery UI 1.12.1, `ui.sender` is `undefined` in this handler, so the line threw `TypeError: Cannot read properties of undefined (reading 'id')` and **aborted the handler before the hidden `input[name="pokemon[]"]` checkbox could be checked**. The form then submitted without any `pokemon[]` value, the server-side heal block (`pokemoncenter.php`) was skipped entirely, and the page just reloaded with the Pokémon still injured — no error message, and (during the failed drag) an uncaught TypeError in the console.
+  - **Fix:** read the dropped element's id directly from `ui.item` instead of `ui.sender`/`sortable("serialize")` string parsing, and guard `ui.sender.sortable("cancel")` behind an existence check in both the hand and slot `receive` handlers. Verified in a real headless-browser (Chrome CDP) drag-drop simulation: checkbox now checked, no JS errors; double-click path still works.
+
 ### Notes
 - Tested against PHP 8.2.12 (ZTS, Windows), Apache 2.4.58, MySQL (local XAMPP stack).
 - The session cookie name is derived from a hash of the client IP and User-Agent (`app/includes/resources/config.php`); when reproducing requests programmatically, the correct cookie name must be computed for the same UA/IP combination.
@@ -47,7 +51,14 @@ PHP 8 throws a fatal `Error: array_push(): Argument #1 ($array) cannot be passed
 
 ## [Unreleased]
 
-Planned / open items (tracked during maintenance):
+### Fixed
+#### PHP 8 `undefined variable` / `undefined array key` warnings on game pages
+- `bank.php` — `$bericht_send` was only defined inside the POST handler, so a plain page load (GET) emitted `Undefined variable $bericht_send` at the message echo; also fixed a typo (`$bericht` → `$bericht_send`) that made the "unknown amount" error message never display. The variable is now initialized before the POST block.
+- `moves.php` — `$sucesso` was only set inside POST branches; a GET request emitted `Undefined variable $sucesso` at the view switch. Now initialized to `false` after the security check.
+- `market.php` (items shop) — the "already owned" checks read `$gebruiker[$select['naam']]` even though the `gebruikers` table has **no item columns** (items live in `gebruikers_item`), producing `Undefined array key "Yellow box"` etc. and, on GET, cascading `Undefined variable $itemgegevens` / null-offset warnings. The ownership checks now read the user's `gebruikers_item` row (`$itemgegevens_user[$select['naam']] ?? 0`), `$type[1]` and `$bag_allowed` accesses are guarded with `?? ''`, and `$itemgegevens` / `$welingevoerd` / `$niksingevoerd` / `$itemboxvol` are initialized up front. The "Pokedex chip" gate and money checks use the `gebruikers_item` values. Display and purchase flows verified locally (GET + empty/bogus/valid POST): zero warnings, owned items correctly hidden, purchase works.
+
+### Notes
+- Planned / open items (tracked during maintenance):
 
 - **Ability edge case:** if a Pokémon's `ability` column is empty, `explode(',', '')` yields a single empty string and the ability is stored empty. Consider a fallback when the ability list is blank.
 - **`wild-start.php` / `trainer-start.php`:** notices about undefined `effect` array keys are observed during battle setup; the guards prevent output corruption, but the underlying data source should be audited.

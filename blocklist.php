@@ -83,22 +83,22 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
     <table style="flex: 0 0 17%;" class="msg-table">
         <tr>
             <td onclick="window.location = './official-messages'">
-                <i class="material-icons" style="font-size: 30px">email</i> <br>Mensagens Oficiais <span class="badges" id="official-badges">0</span>
+                <i class="material-icons" style="font-size: 30px">email</i> <br><?=$txt['inbox_official']?> <span class="badges" id="official-badges">0</span>
             </td>
         </tr>
         <tr>
             <td onclick="window.location = './inbox'">
-                <i class="material-icons" style="font-size: 30px">people</i> <br>Conversas <span class="badges" id="mail-badges">0</span>
+                <i class="material-icons" style="font-size: 30px">people</i> <br><?=$txt['inbox_conversations']?> <span class="badges" id="mail-badges">0</span>
             </td>
         </tr>
         <tr>
             <td onclick="window.location = './inbox&action=send'" id="new_msg">
-                <i class="material-icons" style="font-size: 30px">message</i> <br>Nova Conversa
+                <i class="material-icons" style="font-size: 30px">message</i> <br><?=$txt['inbox_new_conv']?>
             </td>
         </tr>
         <tr>
             <td class="selected" onclick="window.location = './blocklist'">
-                <i class="material-icons" style="font-size: 30px">block</i> <br>Bloqueados (<span id="block-badges">0</span>)
+                <i class="material-icons" style="font-size: 30px">block</i> <br><?=$txt['inbox_blocked']?> (<span id="block-badges">0</span>)
             </td>
         </tr>
     </table>
@@ -116,7 +116,7 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
 
     <div style="flex: 1;" class="msg-container">
         <div class="title">
-            <p style="padding: 10px; margin: 0; font-weight: bold" id="title">Bloquear Treinador<br><span style="font-size: 12px"></span></p>
+            <p style="padding: 10px; margin: 0; font-weight: bold" id="title"><?=$txt['blocklist_block_title']?><br><span style="font-size: 12px"></span></p>
         </div>
         <div class="blue"><?=$txt['blocklist_block_info']?></div>
         <div style="max-height: 500px; overflow-y: auto;">
@@ -127,7 +127,7 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
             <div style="width: 100%;">
                   <div style="background: #34465f;padding: 10px;border-bottom: 2px solid #27374e;">
                       <div>
-                          <input type="text" class="text_long" placeholder="Treinador" name="blocknaam" value="<?php echo $naamget; ?>" style="width: 100%; height:30px; padding: 5px 0 5px 10px; margin-bottom: 5px" maxlength="10" required="" />
+                          <input type="text" class="text_long" placeholder="<?=$txt['blocklist_placeholder']?>" name="blocknaam" value="<?php echo $naamget; ?>" style="width: 100%; height:30px; padding: 5px 0 5px 10px; margin-bottom: 5px" maxlength="10" required="" />
                           <br>
                           <input type="submit" value="<?php echo $txt['button']; ?>" name="voegtoe" class="button"/>
                       </div>
@@ -164,7 +164,7 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
                       <td width="30" class="top_first_td">'.$txt['#'].'</td>
                       <td width="110" class="top_td">'.$txt['username'].'</td>
                       <td width="80" class="top_td">'.$txt['status'].'</td>
-                      <td width="30" class="top_td">Desbloquear</td>
+                      <td width="30" class="top_td">'.$txt['blocklist_unblock'].'</td>
                     </tr>';
                 }
                 
@@ -172,7 +172,8 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
                   if (($i >= $pagina) AND ($pagina+$max > $i)) {
                     $i += 1;
                     $user_info = DB::exQuery("SELECT `username`, `online`, `premiumaccount` FROM `gebruikers` WHERE `user_id`='".$name."'")->fetch_assoc();
-              $ster = '';
+                    if (empty($user_info)) continue;
+                    $ster = '';
                     $plaatje = "".$static_url."/images/icons/status_offline.png";
                     $online  = $txt['offline'];
 
@@ -192,7 +193,7 @@ echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
                         <td class="normal_td"><a href="./profile&player='.$user_info['username'].'">'.$user_info['username'].$ster.'</a></td>
                         <td class="normal_td"><img src="'.$plaatje.'" width="18" height="15" />'.$online.'</td>
                         <form method="post" name="form1" action="./blocklist">
-                          <td class="normal_td"><center><button onclick="form1.submit();">Desbloquear</button></center></td>
+                          <td class="normal_td"><center><button onclick="form1.submit();">'.$txt['blocklist_unblock'].'</button></center></td>
                           <input type="hidden" value="'.$user_info['username'].'" name="deletenaam">
                         </form>
                       </tr>';

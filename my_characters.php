@@ -6,11 +6,11 @@ if ($sql->num_rows < 1)	exit(header("LOCATION: ./new_character"));
 else {
 	if (isset($_POST['submit']) && is_numeric(($_POST['user_id'] ?? ''))) {
 		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . (int) ($_POST['user_id'] ?? '') . " LIMIT 1");
-		if ($geb_sql->num_rows != 1)	echo "<div class=\"red\">Personagem não encontrado!</div>";
+		if ($geb_sql->num_rows != 1)	echo "<div class=\"red\">".$txt['my_characters_err_not_found']."</div>";
 		else {
 			$geb_login = $geb_sql->fetch_assoc();
-			if ($geb_login['acc_id'] != ($_SESSION['acc_id'] ?? ''))	echo "<div class=\"red\">Este personagem não pertence a você!</div>";
-			else if ($geb_login['banned'] == 'Y')	echo "<div class=\"red\">Este personagem está bloqueado!</div>";
+			if ($geb_login['acc_id'] != ($_SESSION['acc_id'] ?? ''))	echo "<div class=\"red\">".$txt['my_characters_err_not_yours']."</div>";
+			else if ($geb_login['banned'] == 'Y')	echo "<div class=\"red\">".$txt['my_characters_err_banned']."</div>";
 			else {
 				# Ganha 3 dias premium
 				if ($geb_login['premiumaccount'] == 0) {
@@ -36,9 +36,9 @@ else {
 			}
 		}
 	}
-echo addNPCBox(11, 'Meus Personagens', 'Aqui está a lista dos seus personagens. Escolha qual deseja jogar.');
+echo addNPCBox(11, $txt['my_characters_npc_title'], $txt['my_characters_npc_text']);
 ?>
-<div class="blue">Para criar um novo Personagem é só clicar <a href="./new_character">AQUI</a>.</div>
+<div class="blue"><?=$txt['my_characters_create']?></div>
 <style>
 	.carousel-cell {
 		margin: 10px 10px;
@@ -73,9 +73,9 @@ echo addNPCBox(11, 'Meus Personagens', 'Aqui está a lista dos seus personagens.
 			echo "<img src=\"" . $static_url . "/images/characters/" . $gebruiker['character'] . "/Thumb.png\" id=\"trainer_infos\" title=\"" . gebruiker_popup($gebruiker, $txt) . "\" width=\"130\" height=\"130\" /><br>";
 			echo "</div>";
 
-			if ($gebruiker['banned'] != 'N') $type = "<font color='grey'><b>[BANIDO]</b></font>";
-			else if ($gebruiker['admin'] > 0) $type = "<font><b>[STAFF]</b></font>";
-			else $type = "<font><b>[TRAINER]</b></font>";
+			if ($gebruiker['banned'] != 'N') $type = "<font color='grey'><b>".$txt['my_characters_banned']."</b></font>";
+			else if ($gebruiker['admin'] > 0) $type = "<font><b>".$txt['my_characters_staff']."</b></font>";
+			else $type = "<font><b>".$txt['my_characters_trainer']."</b></font>";
 			?>
 			<script id="remove">
 				$user_array_name.push("<?=$gebruiker['username']?>");
@@ -145,13 +145,13 @@ echo addNPCBox(11, 'Meus Personagens', 'Aqui está a lista dos seus personagens.
 		$user_name.text($user_array_name[flkty.selectedIndex]);
 		$user_type.html($user_array_type[flkty.selectedIndex]);
 		$user_id.val($user_array_id[flkty.selectedIndex]);
-		$user_submit.val('JOGAR COM '+$user_array_name[flkty.selectedIndex]);
+		$user_submit.val(<?=json_encode($txt['my_characters_play'])?> + ' ' + $user_array_name[flkty.selectedIndex]);
 	});
 	
 	$user_name.text($user_array_name[$most_recent]);
 	$user_type.html($user_array_type[$most_recent]);
 	$user_id.val($user_array_id[$most_recent]);
-	$user_submit.val('JOGAR COM '+$user_array_name[$most_recent]);
+	$user_submit.val(<?=json_encode($txt['my_characters_play'])?> + ' ' + $user_array_name[$most_recent]);
 
 	$car.resize();
 </script>

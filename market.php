@@ -265,26 +265,32 @@ switch($_GET['shopitem'] ?? '') {
 		$b = array_search($gebruiker['itembox'], $bag) + 1;
 		if ($b < 6) $bag_allowed = $bag[$b];
 
+		$itemgegevens = array();
+		$welingevoerd = false;
+		$niksingevoerd = false;
+		$itemboxvol = false;
+		$itemgegevens_user = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1")->fetch_assoc();
+
 		if (isset($_POST['items'])) {
 			#Gegevens laden van het item
 			$itemgegevens = DB::exQuery("SELECT `naam`,`silver`,`gold` FROM `markt` WHERE `naam`='".($_POST['productnaam'] ?? '')."' AND `beschikbaar`='1' LIMIT 1")->fetch_assoc();
 
 			#Als er niks aangvinkt is.
-			if (empty($_POST['productnaam']))	$niksingevoerd = true;
-			else if ($gebruiker['Pokedex'] == 0 && $itemgegevens['naam'] == 'Pokedex chip') {	#heeft speler nog geen pokedex maar wil het wel de chip kopen?
+			if (empty($_POST['productnaam']) || empty($itemgegevens['naam']))	$niksingevoerd = true;
+			else if (($itemgegevens_user['Pokedex'] ?? 0) == 0 && ($itemgegevens['naam'] ?? '') == 'Pokedex chip') {	#heeft speler nog geen pokedex maar wil het wel de chip kopen?
 				$welingevoerd = false;
 				echo '<div class="blue">'.$txt['alert_pokedex_chip'].'</div>';
-			} else if ($gebruiker['silver'] < $itemgegevens['silver'] || $rekening['gold'] < $itemgegevens['gold']) {	#Heeft speler niet genoeg silver?
+			} else if ($gebruiker['silver'] < ($itemgegevens['silver'] ?? 0) || $rekening['gold'] < ($itemgegevens['gold'] ?? 0)) {	#Heeft speler niet genoeg silver?
 				$welingevoerd = false;
 				echo '<div class="red">'.$txt['alert_not_enough_money'].'</div>';
-			} else if ($gebruiker[$itemgegevens['naam']] >= 1) {
+			} else if (($itemgegevens_user[($itemgegevens['naam'] ?? '')] ?? 0) >= 1) {
 				$welingevoerd = false;
 				echo '<div class="red">'.$txt['market_key_item_bought'].'</div>';
 			} else {	#Alles is goed
 				$welingevoerd = true;
 				$type = explode(" ", $itemgegevens['naam']);
-				#Kijken als het te kopen type een box is
-				if ($type[1] == "box") { 
+					#Kijken als het te kopen type een box is
+					if (($type[1] ?? '') == "box") { 
 					if ($itemgegevens['naam'] == $bag_allowed) {
 						DB::exQuery("UPDATE `gebruikers_item` SET `itembox`='".$itemgegevens['naam']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 						echo '<script>window.location = window.location.href</script>';
@@ -330,14 +336,14 @@ switch($_GET['shopitem'] ?? '') {
 			$prijs = highamount($select[$icon]);
 
 			$type = explode(" ", $select['naam']);
-			if ($type[1] == "box") { 
-				if ($select['naam'] != $bag_allowed) {
+			if (($type[1] ?? '') == "box") { 
+				if (($select['naam'] ?? '') != ($bag_allowed ?? '')) {
 					continue;
 				}
 			}
 
 
-			if ($gebruiker[$select['naam']] >= 1 || ($itemgegevens['naam'] == $select['naam'] && $welingevoerd)) {
+			if (($itemgegevens_user[$select['naam']] ?? 0) >= 1 || (($itemgegevens['naam'] ?? '') == $select['naam'] && $welingevoerd)) {
 				continue;
 			}
 ?>

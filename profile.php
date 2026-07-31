@@ -81,16 +81,16 @@ else {
 		$profile_silver = number_format(round($profiel['silver']),0,",",".");
 		$profile_gold = number_format(round($profiel['gold']),0,",",".");
 		
-		if ($profiel['premiumaccount'] >= time()) $star  = '<img src="'.$static_url.'/images/icons/lidbetaald.png" width="16" height="16" border="0" alt="Premium" title="Premium" style="margin-bottom:-3px;">';
+		if ($profiel['premiumaccount'] >= time()) $star  = '<img src="'.$static_url.'/images/icons/lidbetaald.png" width="16" height="16" border="0" alt="'.$txt['spec_premium'].'" title="'.$txt['spec_premium'].'" style="margin-bottom:-3px;">';
 		
 		$pokes100 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$profiel['user_id']."' AND level='100'")->num_rows;
 		$top33 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$profiel['user_id']."' AND top3='3'")->num_rows;
 		$top22 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$profiel['user_id']."' AND top3='2'")->num_rows;
 		$top11 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".$profiel['user_id']."' AND top3='1'")->num_rows;
 
-		$top3 = '<img src=\'' . $static_url . '/images/icons/medal3.png\' title=\'Tops 3 Pokémons\' /> ' . $top33 . ' | ';
-		$top3 .= '<img src=\'' . $static_url . '/images/icons/medal2.png\' title=\'Tops 2 Pokémons\' /> ' . $top22 . ' | ';
-		$top3 .= '<img src=\'' . $static_url . '/images/icons/medal1.png\' title=\'Tops 1 Pokémons\' /> ' . $top11 . ' ';
+		$top3 = '<img src=\'' . $static_url . '/images/icons/medal3.png\' title=\'' . sprintf($txt['profile_top3_medal'], 3) . '\' /> ' . $top33 . ' | ';
+		$top3 .= '<img src=\'' . $static_url . '/images/icons/medal2.png\' title=\'' . sprintf($txt['profile_top3_medal'], 2) . '\' /> ' . $top22 . ' | ';
+		$top3 .= '<img src=\'' . $static_url . '/images/icons/medal1.png\' title=\'' . sprintf($txt['profile_top3_medal'], 1) . '\' /> ' . $top11 . ' ';
 		
 		$inhuissql = DB::exQuery("SELECT COUNT(`id`) AS `aantal` FROM `pokemon_speler` WHERE `user_id`='".$profiel['user_id']."' AND (opzak = 'nee' OR opzak = 'tra')")->fetch_assoc();
 	    $inhuis = $inhuissql['aantal'];
@@ -187,7 +187,7 @@ else {
 	</tr>
 	<?php if ($gebruiker['admin'] >= 2) { ?>
 	<tr>
-		<td height="20"><b>ADM <?=$txt['action'];?></b></td>
+		<td height="20"><b><?=$txt['profile_adm_actions']?></b></td>
 		<td>
 			<?php echo '<a href="./admin/change-profile&player='.$profiel['username'].'">
   	        <img src="'.$static_url.'/images/icons/user_edit.png" width="16" height="16" alt="'.$txt['edit_profile'].'" title="'.$txt['edit_profile'].'" /></a> - <a href="./admin/admins&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_admin.png" width="16" height="16" alt="'.$txt['make_admin'].'" title="'.$txt['make_admin'].'" /></a> - <a href="./admin/give-egg&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/egg2.gif" width="16" height="16" alt="'.$txt['give_egg'].'" title="'.$txt['give_egg'].'"></a> - <a href="./admin/give-pokemon&player='.$profiel['user_id'].'"><img src="'.$static_url.'/images/icons/pokeball.gif" width="14" height="14" alt="'.$txt['give_pokemon'].'" title="'.$txt['give_pokemon'].'"></a> - <a href="./admin/give-pack&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/basket_put.png" alt="'.$txt['give_pack'].'" title="'.$txt['give_pack'].'"></a> - <a href="./admin/ban-char&player='.$profiel['username'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="'.$txt['profile_block'].'" title="'.$txt['profile_block'].'"></a>  - <a href="./admin/ban-conta&player='.$profiel['email'].'"><img src="'.$static_url.'/images/icons/user_ban.png" alt="'.$txt['profile_block_account'].'" title="'.$txt['profile_block_account'].'"></a>'; ?>
@@ -240,7 +240,7 @@ else {
 				echo '<script>window.location = window.location.href</script>';
 			}
 			
-			echo '<form method="post" id="edit" style="display: none"><script type="text/javascript">$(document).ready(function() { $(".colorbox").colorbox({width:"850", height:"1050", iframe:true}); $("#click").click(function() { $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here."); return false; }); }); </script><u><a href="codes.php?category=profile" class="colorbox cboxElement" title="' . $txt['profile_effects'] . '"><b>' . $txt['profile_here'] . '</b></a></u> ' . $txt['profile_customize_hint'] . '<br><textarea name="apresentacao" style="width: 100%; height: 101px">'.htmlspecialchars_decode($profiel['profiel']).'</textarea><input type="submit" name="editAprensetacao" value="' . $txt['profile_save_changes'] . '"></form>';
+			echo '<form method="post" id="edit" style="display: none"><script type="text/javascript">$(document).ready(function() { $(".colorbox").colorbox({width:"850", height:"1050", iframe:true}); $("#click").click(function() { $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("'.$txt['profile_dialog_note'].'"); return false; }); }); </script><u><a href="codes.php?category=profile" class="colorbox cboxElement" title="' . $txt['profile_effects'] . '"><b>' . $txt['profile_here'] . '</b></a></u> ' . $txt['profile_customize_hint'] . '<br><textarea name="apresentacao" style="width: 100%; height: 101px">'.htmlspecialchars_decode($profiel['profiel']).'</textarea><input type="submit" name="editAprensetacao" value="' . $txt['profile_save_changes'] . '"></form>';
 		}
 		
 		echo '</td></tr></table></div>';
@@ -517,138 +517,138 @@ if ($profiel['badgeszien'] == 1 && $profiel['Badge case'] == 1) {
 
 echo '<div class="box-content" style="margin-top: 7px"><table class="general" width="100%"><thead><tr><th>'.$txt['profile_badges'].'</th></tr></thead>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#kanto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Kanto:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#kanto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_kanto'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="kanto">
 <td colspan="3" align="center">';
 
  
-  			if ($badge['Boulder'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Boulder.png" alt="Boulder Badge" title="Boulder Badge" />';
-  			if ($badge['Cascade'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cascade.png" alt="Cascade Badge" title="Cascade Badge" />';
-  			if ($badge['Thunder'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Thunder.png" alt="Thunder Badge" title="Thunder Badge" />';
-  			if ($badge['Rainbow'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rainbow.png" alt="Rainbow Badge" title="Rainbow Badge" />';
-  			if ($badge['Marsh'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Marsh.png" alt="Marsh Badge" title="Marsh Badge" />';
-  			if ($badge['Soul'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Soul.png" alt="Soul Badge" title="Soul Badge" />';
-  			if ($badge['Volcano'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Volcano.png" alt="Volcano Badge" title="Volcano Badge" />';
-  			if ($badge['Earth'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Earth.png" alt="Earth Badge" title="Earth Badge" />';
+  			if ($badge['Boulder'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Boulder.png" alt="'.$txt['badge_boulder'].'" title="'.$txt['badge_boulder'].'" />';
+  			if ($badge['Cascade'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cascade.png" alt="'.$txt['badge_cascade'].'" title="'.$txt['badge_cascade'].'" />';
+  			if ($badge['Thunder'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Thunder.png" alt="'.$txt['badge_thunder'].'" title="'.$txt['badge_thunder'].'" />';
+  			if ($badge['Rainbow'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rainbow.png" alt="'.$txt['badge_rainbow'].'" title="'.$txt['badge_rainbow'].'" />';
+  			if ($badge['Marsh'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Marsh.png" alt="'.$txt['badge_marsh'].'" title="'.$txt['badge_marsh'].'" />';
+  			if ($badge['Soul'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Soul.png" alt="'.$txt['badge_soul'].'" title="'.$txt['badge_soul'].'" />';
+  			if ($badge['Volcano'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Volcano.png" alt="'.$txt['badge_volcano'].'" title="'.$txt['badge_volcano'].'" />';
+  			if ($badge['Earth'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Earth.png" alt="'.$txt['badge_earth'].'" title="'.$txt['badge_earth'].'" />';
   			
   	
-if ($badge['Boulder'] == 0 && $badge['Cascade'] == 0 && $badge['Thunder'] == 0 && $badge['Rainbow'] == 0 && $badge['Marsh'] == 0 && $badge['Soul'] == 0 && $badge['Volcano'] == 0 && $badge['Earth'] == 0) echo $txt['no_badges_from'].' Kanto';
+if ($badge['Boulder'] == 0 && $badge['Cascade'] == 0 && $badge['Thunder'] == 0 && $badge['Rainbow'] == 0 && $badge['Marsh'] == 0 && $badge['Soul'] == 0 && $badge['Volcano'] == 0 && $badge['Earth'] == 0) echo $txt['no_badges_from'].' '.$txt['region_kanto'];
 
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#johto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Johto:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#johto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_johto'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="johto">
 <td colspan="3" align="center">';
 
-		if ($badge['Zephyr'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Zephyr.png" alt="Zephyr Badge" title="Zephyr Badge" />';
-			if ($badge['Hive'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Hive.png" alt="Hive Badge" title="Hive Badge" />';
-			if ($badge['Plain'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Plain.png" alt="Plain Badge" title="Plain Badge" />';
-			if ($badge['Fog'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fog.png" alt="Fog Badge" title="Fog Badge" />';
-			if ($badge['Storm'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Storm.png" alt="Storm Badge" title="Storm Badge" />';
-			if ($badge['Mineral'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mineral.png" alt="Mineral Badge" title="Mineral Badge" />';
-			if ($badge['Glacier'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Glacier.png" alt="Glacier Badge" title="Glacier Badge" />';
-			if ($badge['Rising'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rising.png" alt="Rising Badge" title="Rising Badge" />';
+		if ($badge['Zephyr'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Zephyr.png" alt="'.$txt['badge_zephyr'].'" title="'.$txt['badge_zephyr'].'" />';
+			if ($badge['Hive'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Hive.png" alt="'.$txt['badge_hive'].'" title="'.$txt['badge_hive'].'" />';
+			if ($badge['Plain'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Plain.png" alt="'.$txt['badge_plain'].'" title="'.$txt['badge_plain'].'" />';
+			if ($badge['Fog'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fog.png" alt="'.$txt['badge_fog'].'" title="'.$txt['badge_fog'].'" />';
+			if ($badge['Storm'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Storm.png" alt="'.$txt['badge_storm'].'" title="'.$txt['badge_storm'].'" />';
+			if ($badge['Mineral'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mineral.png" alt="'.$txt['badge_mineral'].'" title="'.$txt['badge_mineral'].'" />';
+			if ($badge['Glacier'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Glacier.png" alt="'.$txt['badge_glacier'].'" title="'.$txt['badge_glacier'].'" />';
+			if ($badge['Rising'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rising.png" alt="'.$txt['badge_rising'].'" title="'.$txt['badge_rising'].'" />';
 			
 
-	if ($badge['Zephyr'] == 0 && $badge['Hive'] == 0 && $badge['Plain'] == 0 && $badge['Fog'] == 0 && $badge['Storm'] == 0 && $badge['Mineral'] == 0 && $badge['Glacier'] == 0 && $badge['Rising'] == 0) echo $txt['no_badges_from'].' Johto';
+	if ($badge['Zephyr'] == 0 && $badge['Hive'] == 0 && $badge['Plain'] == 0 && $badge['Fog'] == 0 && $badge['Storm'] == 0 && $badge['Mineral'] == 0 && $badge['Glacier'] == 0 && $badge['Rising'] == 0) echo $txt['no_badges_from'].' '.$txt['region_johto'];
 			
 
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#hoenn\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Hoenn:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#hoenn\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_hoenn'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="hoenn">
 <td colspan="3" align="center">';
 
-	if ($badge['Stone'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Stone.png" alt="Stone Badge" title="Stone Badge" />';
-			if ($badge['Knuckle'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Knuckle.png" alt="Knuckle Badge" title="Knuckle Badge" />';
-			if ($badge['Dynamo'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Dynamo.png" alt="Dynamo Badge" title="Dynamo Badge" />';
-			if ($badge['Heat'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Heat.png" alt="Heat Badge" title="Heat Badge" />';
-			if ($badge['Balance'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Balance.png" alt="Balance Badge" title="Balance Badge" />';
-			if ($badge['Feather'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Feather.png" alt="Feather Badge" title="Feather Badge" />';
-			if ($badge['Mind'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mind.png" alt="Mind Badge" title="Mind Badge" />';
-			if ($badge['Rain'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rain.png" alt="Rain Badge" title="Rain Badge" />';
+	if ($badge['Stone'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Stone.png" alt="'.$txt['badge_stone'].'" title="'.$txt['badge_stone'].'" />';
+			if ($badge['Knuckle'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Knuckle.png" alt="'.$txt['badge_knuckle'].'" title="'.$txt['badge_knuckle'].'" />';
+			if ($badge['Dynamo'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Dynamo.png" alt="'.$txt['badge_dynamo'].'" title="'.$txt['badge_dynamo'].'" />';
+			if ($badge['Heat'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Heat.png" alt="'.$txt['badge_heat'].'" title="'.$txt['badge_heat'].'" />';
+			if ($badge['Balance'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Balance.png" alt="'.$txt['badge_balance'].'" title="'.$txt['badge_balance'].'" />';
+			if ($badge['Feather'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Feather.png" alt="'.$txt['badge_feather'].'" title="'.$txt['badge_feather'].'" />';
+			if ($badge['Mind'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mind.png" alt="'.$txt['badge_mind'].'" title="'.$txt['badge_mind'].'" />';
+			if ($badge['Rain'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rain.png" alt="'.$txt['badge_rain'].'" title="'.$txt['badge_rain'].'" />';
 			
-			if ($badge['Stone'] == 0 && $badge['Knuckle'] == 0 && $badge['Dynamo'] == 0 && $badge['Heat'] == 0 && $badge['Balance'] == 0 && $badge['Feather'] == 0 && $badge['Mind'] == 0 && $badge['Rain'] == 0) echo $txt['no_badges_from'].' Hoenn';
+			if ($badge['Stone'] == 0 && $badge['Knuckle'] == 0 && $badge['Dynamo'] == 0 && $badge['Heat'] == 0 && $badge['Balance'] == 0 && $badge['Feather'] == 0 && $badge['Mind'] == 0 && $badge['Rain'] == 0) echo $txt['no_badges_from'].' '.$txt['region_hoenn'];
 		
 
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#sinnoh\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Sinnoh:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#sinnoh\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_sinnoh'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="sinnoh">
 <td colspan="3" align="center">';
 
-		if ($badge['Coal'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Coal.png" alt="Coal Badge" title="Coal Badge" />';
-			if ($badge['Forest'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Forest.png" alt="Forest Badge" title="Forest Badge" />';
-			if ($badge['Cobble'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cobble.png" alt="Cobble Badge" title="Cobble Badge" />';
-			if ($badge['Fen'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fen.png" alt="Fen Badge" title="Fen Badge" />';
-			if ($badge['Relic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Relic.png" alt="Relic Badge" title="Relic Badge" />';
-			if ($badge['Mine'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mine.png" alt="Mine Badge" title="Mine Badge" />';
-			if ($badge['Icicle'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Icicle.png" alt="Icicle Badge" title="Icicle Badge" />';
-			if ($badge['Beacon'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Beacon.png" alt="Beacon Badge" title="Beacon Badge" />';
+		if ($badge['Coal'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Coal.png" alt="'.$txt['badge_coal'].'" title="'.$txt['badge_coal'].'" />';
+			if ($badge['Forest'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Forest.png" alt="'.$txt['badge_forest'].'" title="'.$txt['badge_forest'].'" />';
+			if ($badge['Cobble'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cobble.png" alt="'.$txt['badge_cobble'].'" title="'.$txt['badge_cobble'].'" />';
+			if ($badge['Fen'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fen.png" alt="'.$txt['badge_fen'].'" title="'.$txt['badge_fen'].'" />';
+			if ($badge['Relic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Relic.png" alt="'.$txt['badge_relic'].'" title="'.$txt['badge_relic'].'" />';
+			if ($badge['Mine'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Mine.png" alt="'.$txt['badge_mine'].'" title="'.$txt['badge_mine'].'" />';
+			if ($badge['Icicle'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Icicle.png" alt="'.$txt['badge_icicle'].'" title="'.$txt['badge_icicle'].'" />';
+			if ($badge['Beacon'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Beacon.png" alt="'.$txt['badge_beacon'].'" title="'.$txt['badge_beacon'].'" />';
 			
-			if ($badge['Coal'] == 0 && $badge['Forest'] == 0 && $badge['Cobble'] == 0 && $badge['Fen'] == 0 && $badge['Relic'] == 0 && $badge['Mine'] == 0 && $badge['Icicle'] == 0 && $badge['Beacon'] == 0) echo $txt['no_badges_from'].' Sinnoh';
+			if ($badge['Coal'] == 0 && $badge['Forest'] == 0 && $badge['Cobble'] == 0 && $badge['Fen'] == 0 && $badge['Relic'] == 0 && $badge['Mine'] == 0 && $badge['Icicle'] == 0 && $badge['Beacon'] == 0) echo $txt['no_badges_from'].' '.$txt['region_sinnoh'];
 			
 
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#unova\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Unova:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#unova\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_unova'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="unova">
 <td colspan="3" align="center">';
 
-		if ($badge['Trio'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Trio.png" alt="Trio Badge" title="Trio Badge" />';
-			if ($badge['Basic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Basic.png" alt="Basic Badge" title="Basic Badge" />';
-			if ($badge['Insect'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Insect.png" alt="Insect Badge" title="Insect Badge" />';
-			if ($badge['Bolt'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Bolt.png" alt="Bolt Badge" title="Bolt Badge" />';
-			if ($badge['Quake'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Quake.png" alt="Quake Badge" title="Quake Badge" />';
-			if ($badge['Jet'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Jet.png" alt="Jet Badge" title="Jet Badge" />';
-			if ($badge['Freeze'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Freeze.png" alt="Freeze Badge" title="Freeze Badge" />';
-			if ($badge['Legend'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Legend.png" alt="Legend Badge" title="Legend Badge" />';
+		if ($badge['Trio'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Trio.png" alt="'.$txt['badge_trio'].'" title="'.$txt['badge_trio'].'" />';
+			if ($badge['Basic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Basic.png" alt="'.$txt['badge_basic'].'" title="'.$txt['badge_basic'].'" />';
+			if ($badge['Insect'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Insect.png" alt="'.$txt['badge_insect'].'" title="'.$txt['badge_insect'].'" />';
+			if ($badge['Bolt'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Bolt.png" alt="'.$txt['badge_bolt'].'" title="'.$txt['badge_bolt'].'" />';
+			if ($badge['Quake'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Quake.png" alt="'.$txt['badge_quake'].'" title="'.$txt['badge_quake'].'" />';
+			if ($badge['Jet'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Jet.png" alt="'.$txt['badge_jet'].'" title="'.$txt['badge_jet'].'" />';
+			if ($badge['Freeze'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Freeze.png" alt="'.$txt['badge_freeze'].'" title="'.$txt['badge_freeze'].'" />';
+			if ($badge['Legend'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Legend.png" alt="'.$txt['badge_legend'].'" title="'.$txt['badge_legend'].'" />';
 			
-			if ($badge['Trio'] == 0 && $badge['Basic'] == 0 && $badge['Insect'] == 0 && $badge['Bolt'] == 0 && $badge['Quake'] == 0 && $badge['Jet'] == 0 && $badge['Freeze'] == 0 && $badge['Legend'] == 0) echo $txt['no_badges_from'].' Unova';
+			if ($badge['Trio'] == 0 && $badge['Basic'] == 0 && $badge['Insect'] == 0 && $badge['Bolt'] == 0 && $badge['Quake'] == 0 && $badge['Jet'] == 0 && $badge['Freeze'] == 0 && $badge['Legend'] == 0) echo $txt['no_badges_from'].' '.$txt['region_unova'];
 			
 			
 
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#kalos\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Kalos:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#kalos\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_kalos'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="kalos">
 <td colspan="3" align="center">';
 
-			if ($badge['Bug'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Bug.png" alt="Bug Badge" title="Bug Badge" />';
-			if ($badge['Cliff'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cliff.png" alt="Cliff Badge" title="Cliff Badge" />';
-			if ($badge['Rumble'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rumble.png" alt="Rumble Badge" title="Rumble Badge" />';
-			if ($badge['Plant'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Plant.png" alt="Plant Badge" title="Plant Badge" />';
-			if ($badge['Voltage'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Voltage.png" alt="Voltage Badge" title="Voltage Badge" />';
-			if ($badge['Fairy'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fairy.png" alt="Fairy Badge" title="Fairy Badge" />';
-			if ($badge['Psychic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Psychic.png" alt="Psychic Badge" title="Psychic Badge" />';
-			if ($badge['Iceberg'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Iceberg.png" alt="Iceberg Badge" title="Iceberg Badge" />';
+			if ($badge['Bug'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Bug.png" alt="'.$txt['badge_bug'].'" title="'.$txt['badge_bug'].'" />';
+			if ($badge['Cliff'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Cliff.png" alt="'.$txt['badge_cliff'].'" title="'.$txt['badge_cliff'].'" />';
+			if ($badge['Rumble'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Rumble.png" alt="'.$txt['badge_rumble'].'" title="'.$txt['badge_rumble'].'" />';
+			if ($badge['Plant'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Plant.png" alt="'.$txt['badge_plant'].'" title="'.$txt['badge_plant'].'" />';
+			if ($badge['Voltage'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Voltage.png" alt="'.$txt['badge_voltage'].'" title="'.$txt['badge_voltage'].'" />';
+			if ($badge['Fairy'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Fairy.png" alt="'.$txt['badge_fairy'].'" title="'.$txt['badge_fairy'].'" />';
+			if ($badge['Psychic'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Psychic.png" alt="'.$txt['badge_psychic'].'" title="'.$txt['badge_psychic'].'" />';
+			if ($badge['Iceberg'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Iceberg.png" alt="'.$txt['badge_iceberg'].'" title="'.$txt['badge_iceberg'].'" />';
 			
-			if ($badge['Bug'] == 0 && $badge['Cliff'] == 0 && $badge['Rumble'] == 0 && $badge['Plant'] == 0 && $badge['Voltage'] == 0 && $badge['Fairy'] == 0 && $badge['Psychic'] == 0 && $badge['Iceberg'] == 0) echo $txt['no_badges_from'].' Kalos';
+			if ($badge['Bug'] == 0 && $badge['Cliff'] == 0 && $badge['Rumble'] == 0 && $badge['Plant'] == 0 && $badge['Voltage'] == 0 && $badge['Fairy'] == 0 && $badge['Psychic'] == 0 && $badge['Iceberg'] == 0) echo $txt['no_badges_from'].' '.$txt['region_kalos'];
 			
 			
 echo '</td></tr>
 <tr>
-<td colspan="3" onclick="wlBadges(\'#alola\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Alola:</center></b></h3></td>
+<td colspan="3" onclick="wlBadges(\'#alola\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' '.$txt['region_alola'].':</center></b></h3></td>
 </tr>
 <tr class="wlBadges" id="alola">
 <td colspan="3" align="center">';
 
-			if ($badge['Melemele Normal'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Melemele Normal.png" alt="Melemele Normal Badge" title="Melemele Normal Badge" />';
-			if ($badge['Akala Water'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Water.png" alt="Akala Water Badge" title="Akala Water Badge" />';
-			if ($badge['Akala Fire'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Fire.png" alt="Akala Fire Badge" title="Akala Fire Badge" />';
-			if ($badge['Akala Grass'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Grass.png" alt="PlanAkala Grasst Badge" title="Akala Grass Badge" />';
-			if ($badge['Ulaula Electric'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Ulaula Electric.png" alt="Ulaula Electric" title="Ulaula Electric" />';
-			if ($badge['Ulaula Ghost'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Ulaula Ghost.png" alt="Ulaula Ghost Badge" title="Ulaula Ghost Badge" />';
-			if ($badge['Poni Fairy'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Poni Fairy.png" alt="Poni Fairy Badge" title="Poni Fairy Badge" />';
-			if ($badge['Poni Ground'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Poni Ground.png" alt="Poni Ground Badge" title="Poni Ground Badge" />';
+			if ($badge['Melemele Normal'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Melemele Normal.png" alt="'.$txt['badge_melemele_normal'].'" title="'.$txt['badge_melemele_normal'].'" />';
+			if ($badge['Akala Water'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Water.png" alt="'.$txt['badge_akala_water'].'" title="'.$txt['badge_akala_water'].'" />';
+			if ($badge['Akala Fire'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Fire.png" alt="'.$txt['badge_akala_fire'].'" title="'.$txt['badge_akala_fire'].'" />';
+			if ($badge['Akala Grass'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Akala Grass.png" alt="'.$txt['badge_akala_grass'].'" title="'.$txt['badge_akala_grass'].'" />';
+			if ($badge['Ulaula Electric'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Ulaula Electric.png" alt="'.$txt['badge_ulaula_electric'].'" title="'.$txt['badge_ulaula_electric'].'" />';
+			if ($badge['Ulaula Ghost'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Ulaula Ghost.png" alt="'.$txt['badge_ulaula_ghost'].'" title="'.$txt['badge_ulaula_ghost'].'" />';
+			if ($badge['Poni Fairy'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Poni Fairy.png" alt="'.$txt['badge_poni_fairy'].'" title="'.$txt['badge_poni_fairy'].'" />';
+			if ($badge['Poni Ground'] != 0) echo '<img src="'.$static_url.'/images/badges/pixel/Poni Ground.png" alt="'.$txt['badge_poni_ground'].'" title="'.$txt['badge_poni_ground'].'" />';
 			
-			if ($badge['Melemele Normal'] == 0 && $badge['Akala Water'] == 0 && $badge['Akala Fire'] == 0 && $badge['Akala Grass'] == 0 && $badge['Ulaula Electric'] == 0 && $badge['Ulaula Ghost'] == 0 && $badge['Poni Fairy'] == 0 && $badge['Poni Ground'] == 0) echo $txt['no_badges_from'].' Alola';
+			if ($badge['Melemele Normal'] == 0 && $badge['Akala Water'] == 0 && $badge['Akala Fire'] == 0 && $badge['Akala Grass'] == 0 && $badge['Ulaula Electric'] == 0 && $badge['Ulaula Ghost'] == 0 && $badge['Poni Fairy'] == 0 && $badge['Poni Ground'] == 0) echo $txt['no_badges_from'].' '.$txt['region_alola'];
 echo '</table></div>';
 ?>
 <script>

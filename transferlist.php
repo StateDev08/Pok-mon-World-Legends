@@ -60,7 +60,7 @@ if (isset($_POST['buy']) && $mine == 'false') {
 
 			DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$tl['wild_id']."', '".$tl['id']."', '".$tl['level']."', '".$buy['user_id']."', '".($_SESSION['id'] ?? '')."', '".$buy['silver']."', '".$buy['gold']."', '".$tl['item']."')");
 
-			$event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> comprou seu <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a> por: '.highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
+			$event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> ' . sprintf($txt['transfer_bought_your'], '<a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a>', highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="'.$txt['liga_currency_silvers'].'" width="16" height="16" />', highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="'.$txt['liga_currency_golds'].'" width="16" height="16" />') . '!';
 
 			DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['user_id'] . "', '" . $event . "', '0')");
 
@@ -189,12 +189,13 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 						if ($w == ($filter_arr[3]??'')) {
 							$selected = 'selected';
 						}
+						$label = ($w == 'Todas') ? $txt['region_all'] : (isset($txt['region_' . strtolower($w)]) ? $txt['region_' . strtolower($w)] : $w);
 
-						echo '<option value="'.$w.'" '.$selected.'>'.$w.'</option>';
+						echo '<option value="'.$w.'" '.$selected.'>'.$label.'</option>';
 					}
 				?>
 			</select>
-			<b><?=$txt['transfer_price']?> </b><input type="number" min="0" class="select-transferlist" id="price" placeholder="0" style="width: 70px" value="<?=$filter_arr[4]??''?>"><select class="select-transferlist" id="price-type"><option value="silver" <?=(($filter_arr[5]??'') == 'silver')? 'selected' : ''?>>Silvers</option><option value="golds" <?=(($filter_arr[5]??'') == 'golds')? 'selected' : ''?>>Golds</option></select>
+			<b><?=$txt['transfer_price']?> </b><input type="number" min="0" class="select-transferlist" id="price" placeholder="0" style="width: 70px" value="<?=$filter_arr[4]??''?>"><select class="select-transferlist" id="price-type"><option value="silver" <?=(($filter_arr[5]??'') == 'silver')? 'selected' : ''?>><?=$txt['liga_currency_silvers']?></option><option value="golds" <?=(($filter_arr[5]??'') == 'golds')? 'selected' : ''?>><?=$txt['liga_currency_golds']?></option></select>
 			<b><?=$txt['transfer_trainer']?> </b><input type="text" class="select-transferlist" id="trainer" placeholder="<?=$txt['transfer_any']?>" value="<?=$filter_arr[6]??''?>">
 			<b><?=$txt['transfer_level']?> </b><input type="number" min="0" max="100" class="select-transferlist" id="level" placeholder="0" style="width: 70px" value="<?=$filter_arr[7]??''?>"><select class="select-transferlist" id="level-type"><option value="maior" <?=(($filter_arr[8]??'') == 'maior')? 'selected' : ''?>><?=$txt['transfer_greater']?></option><option value="menor" <?=(($filter_arr[8]??'') == 'menor')? 'selected' : ''?>><?=$txt['transfer_less']?></option></select>
 			<b><?=$txt['transfer_equipped']?> </b><select class="select-transferlist" id="equip" style="width: 100px"><option value=""><?=$txt['transfer_any']?></option><option value="none" <?=(($filter_arr[9]??'') == 'none')? 'selected' : ''?>><?=$txt['transfer_none']?></option>
@@ -376,7 +377,7 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 
 			echo '<tr id="' . $tl['id'] . '">
 				<td data-sort="'.$tl['naam'].'" style="text-align: left; padding-left: 27px;"><img src="'.$static_url.'/'.$tl['animatie'].'" class="tip_top-middle elipse" title="' . $popup . '" width="32" height="32"/><b>'. $tl['naam'] . $shinystar . '</b></td>
-				<td style="text-align: left"><b>Nível: </b>' . $tl['level'] . '<br><b>Humor: </b>'.$tl['karakter'].'<br><b>Habilidade: </b><a href="./information&category=ability-info&attack='.$tl['ability'].'">'.$tl['ability'].'</a></td>
+				<td style="text-align: left"><b>' . $txt['transfer_row_level'] . '</b>' . $tl['level'] . '<br><b>' . $txt['transfer_row_mood'] . '</b>' . (isset($txt['nature_' . strtolower($tl['karakter'])]) ? $txt['nature_' . strtolower($tl['karakter'])] : $tl['karakter']) . '<br><b>' . $txt['transfer_row_ability'] . '</b><a href="./information&category=ability-info&attack='.$tl['ability'].'">'.$tl['ability'].'</a></td>
 				<td data-sort="'.$tl['powertotal'].'">'. highamount($tl['powertotal']) .'</td>
 				<td data-sort="'.$tl['item'].'">'.$item.'</td>
 				<td>'.$datum.'</td>

@@ -10,8 +10,6 @@ $page = 'wondertrade';
 //Goeie taal erbij laden voor de page
 include_once('language/language-pages.php');
 
-echo addNPCBox(85, $txt['text_npc'], ''.$txt['text_npc1'].' '.number_format($valor).' ' .$txt['text_npc2']. '.');
-
 if ($gebruiker['rank'] >= 4) {
 #Wil de speler een starter ei
 if(isset($_POST['normal'])){

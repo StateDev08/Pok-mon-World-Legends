@@ -159,6 +159,16 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'my_characters') {
 	$txt['pagetitle'] = 'Meus personagens';
 	$txt['title_text'] = '<center>Selecione abaixo o personagem que deseja jogar.</center>';
+	$txt['my_characters_npc_title']			= 'Meus Personagens';
+	$txt['my_characters_npc_text']			= 'Aqui está a lista dos seus personagens. Escolha qual deseja jogar.';
+	$txt['my_characters_create']			= 'Para criar um novo Personagem é só clicar <a href="./new_character">AQUI</a>.';
+	$txt['my_characters_err_not_found']		= 'Personagem não encontrado!';
+	$txt['my_characters_err_not_yours']		= 'Este personagem não pertence a você!';
+	$txt['my_characters_err_banned']		= 'Este personagem está bloqueado!';
+	$txt['my_characters_banned']			= '[BANIDO]';
+	$txt['my_characters_staff']				= '[STAFF]';
+	$txt['my_characters_trainer']			= '[TRAINER]';
+	$txt['my_characters_play']				= 'JOGAR COM';
 } else if ($page == 'new_character') {
 	$txt['alert_character_invalid']			= 'Você deve selecionar um personagem válido!';
 	$txt['alert_no_username']				= 'Você deve preencher todos os campos!';
@@ -229,6 +239,53 @@ if ($page == 'home' || empty($page)) {
 	$txt['link_subpage_pokemon_info'] = 'Info. pokemons';
 	$txt['link_subpage_attack_info']  = 'Info. ataques';
 	$txt['link_subpage_game_info'] = 'F.A.Q';
+
+	// Information tabs
+	$txt['info_tab_game']        = 'F.A.Q';
+	$txt['info_tab_attack']      = 'Info. Ataques';
+	$txt['info_tab_mood']        = 'Info. Humores';
+	$txt['info_tab_ability']     = 'Info. Habilidades';
+	$txt['info_tab_items']       = 'Info. Itens';
+	$txt['info_search']          = 'Buscar:';
+
+	// Nature table
+	$txt['info_mood_status']     = 'Humor por status';
+	$txt['info_mood_name']       = 'Humor por nome';
+	$txt['info_stat_attack']     = 'Ataque';
+	$txt['info_stat_defense']    = 'Defesa';
+	$txt['info_stat_spatk']      = 'Esp. Ataque';
+	$txt['info_stat_spdef']      = 'Esp. Defesa';
+	$txt['info_stat_speed']      = 'Speed';
+	$txt['info_raises']          = 'Aumenta';
+	$txt['info_lowers']          = 'Diminui';
+	$txt['info_neutral']         = 'Neutro';
+
+	// Attack info
+	$txt['info_contact']             = 'Contato';
+	$txt['info_effect_applies']      = 'Aplica efeito';
+	$txt['info_effect_not_applies']  = 'Não aplica efeito';
+	$txt['info_contact_makes']       = 'Faz contato';
+	$txt['info_contact_no']          = 'Não faz contato';
+
+	// Ability + items info
+	$txt['info_name']            = 'Nome';
+	$txt['info_description']     = 'Descrição';
+	$txt['info_items_list']      = 'Lista de Itens';
+	$txt['info_item_category']   = 'Categoria';
+	$txt['info_item_market']     = 'Tem no PokéMarket?';
+	$txt['info_item_wheel']      = 'Roda da Fortuna?';
+	$txt['info_item_equippable'] = 'Equipável?';
+	$txt['info_item_balls']      = 'Poké Balls';
+	$txt['info_item_key']        = 'Itens Chave';
+	$txt['info_item_potions']    = 'Poções';
+	$txt['info_item_stones']     = 'Pedras';
+	$txt['info_item_special']    = 'Itens Especiais';
+	$txt['info_item_equip_yes']  = 'Este item é equipável em um Pokémon!';
+	$txt['info_item_equip_no']   = 'Este item não é equipável em um Pokémon!';
+	$txt['info_item_wheel_yes']  = 'Este item está disponível na Roda da Fortuna!';
+	$txt['info_item_wheel_no']   = 'Este item não está disponível na Roda da Fortuna!';
+	$txt['info_item_market_yes'] = 'Este item está disponível no PokéMarket!';
+	$txt['info_item_market_no']  = 'Este item não está disponível no PokéMarket!';
 
 	
 			if (($_GET['category'] ?? '') == 'game-info') {
@@ -623,6 +680,15 @@ if ($page == 'home' || empty($page)) {
 	$txt['name']      = 'Nome';
 	$txt['type']      = 'Tipo';
 	$txt['status']    = 'Status';
+	$txt['pokedex_buy']             = 'Você não tem uma Pokédex!';
+	$txt['pokedex_seen_captured']   = 'Você já viu %1$s de %2$s pokémons e capturou %3$s!';
+	$txt['pokedex_rarities']        = 'Raridades';
+	$txt['pokedex_found']           = 'Você já viu %1$s de %2$s pokémons';
+	$txt['pokedex_pokemons']        = 'Pokémons';
+	$txt['pokedex_info']            = 'Informações';
+	$txt['pokedex_search']          = 'Pesquisar';
+	$txt['pokedex_choose']          = 'Escolha um Pokémon';
+	$txt['have_already']            = 'Você já tem';
 } else if ($page == 'events') {
 	$txt['alert_nothing_selected']    = 'Você deve selecionar alguma notificação!';
 	$txt['alert_more_events_deleted'] = 'Notificações removidas com sucesso!';
@@ -868,6 +934,10 @@ if ($page == 'home' || empty($page)) {
 	$txt['price']         = 'Valor';
 	$txt['owner']         = 'Treinador';
 	$txt['buy']           = 'Comprar';
+$txt['transfer_row_level']   = 'Nível: ';
+$txt['transfer_row_mood']    = 'Humor: ';
+$txt['transfer_row_ability'] = 'Habilidade: ';
+$txt['transfer_bought_your'] = 'comprou seu %1$s por: %2$s e %3$s';
 } else if ($page == 'daycare') {
 	$txt['alert_not_your_pokemon'] = 'Este pokémon não é seu!';
 	$txt['alert_hand_full'] = 'Você já tem 6 pokémons com você!';
@@ -1993,6 +2063,13 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 		$txt['online'] = 'Online';
 		$txt['block_delete'] = 'Remover';
 		$txt['nobody_blocked'] = 'Você não tem nenhum treinador bloqueado.';
+		$txt['blocklist_npc_title'] = 'Bloquear Treinador';
+		$txt['blocklist_npc_text'] = 'Aqui você pode bloquear treinadores. Treinadores bloqueados não poderão mais enviar mensagens para você.';
+		$txt['blocklist_warning'] = 'Bloqueie um treinador apenas se você realmente não quiser receber mensagens dele!';
+		$txt['blocklist_block_info'] = 'Ao bloquear um treinador, você não receberá mensagens dele e não poderá enviar mensagens para ele.';
+		$txt['blocklist_block_title'] = 'Bloquear Treinador';
+		$txt['blocklist_placeholder'] = 'Treinador';
+		$txt['blocklist_unblock'] = 'Desbloquear';
 	}
 else if ($page == 'venderitens') {
 $txt['pagetitle'] = 'Vender Itens';
@@ -2129,6 +2206,32 @@ $txt['alert_no_amount']               = 'Digite uma quantidade!';
 }
 
 /* === externalized strings (generated) === */
+
+	$txt['nature_hardy']         = 'Hardy';
+	$txt['nature_lonely']        = 'Lonely';
+	$txt['nature_adamant']       = 'Adamant';
+	$txt['nature_naughty']       = 'Naughty';
+	$txt['nature_brave']         = 'Brave';
+	$txt['nature_bold']          = 'Bold';
+	$txt['nature_docile']        = 'Docile';
+	$txt['nature_impish']        = 'Impish';
+	$txt['nature_lax']           = 'Lax';
+	$txt['nature_relaxed']       = 'Relaxed';
+	$txt['nature_modest']        = 'Modest';
+	$txt['nature_mild']          = 'Mild';
+	$txt['nature_bashful']       = 'Bashful';
+	$txt['nature_rash']          = 'Rash';
+	$txt['nature_quiet']         = 'Quiet';
+	$txt['nature_calm']          = 'Calm';
+	$txt['nature_gentle']        = 'Gentle';
+	$txt['nature_careful']       = 'Careful';
+	$txt['nature_quirky']        = 'Quirky';
+	$txt['nature_sassy']         = 'Sassy';
+	$txt['nature_timid']         = 'Timid';
+	$txt['nature_hasty']         = 'Hasty';
+	$txt['nature_jolly']         = 'Jolly';
+	$txt['nature_naive']         = 'Naive';
+	$txt['nature_serious']       = 'Serious';
 
 # common
 $txt['common_yes'] = 'Sim';
@@ -2316,6 +2419,8 @@ $txt['liga_confirm_unregister'] = 'Tem certeza que deseja desfazer a sua inscri�
 $txt['tour_next_heading'] = 'Próximo torneio:';
 $txt['tour_last_heading'] = 'Últimos torneios:';
 $txt['tour_none_history'] = 'Nenhum histórico de torneio!';
+$txt['tour_none_scheduled'] = 'Nenhum torneio agendado!';
+$txt['tour_round_interval'] = 'Intervalo entre os rounds: %s minutos';
 $txt['tour_region'] = 'Torneio na região de %s';
 $txt['tour_not_in_region'] = 'Você não está na região deste torneio!';
 $txt['tour_registered'] = 'Você está inscrito neste torneio!';
@@ -2417,5 +2522,32 @@ $txt['liga_err_need_badges'] = 'Você precisa ter 5 insígnias da região de %s!
 $txt['liga_err_already_in'] = 'Você já esta participando!';
 $txt['liga_err_register_failed'] = 'Não foi possivel realizar a sua inscrição! #%s';
 $txt['liga_err_unregister_failed'] = 'Não foi possivel desfazer a sua inscrição!';
+
+# league-page
+$txt['liga_travel'] = 'Viajar';
+$txt['liga_follow'] = 'Acompanhar liga';
+$txt['liga_logo_alt'] = 'Liga Pokémon';
+$txt['liga_currency_silvers'] = 'pratas';
+$txt['liga_currency_golds'] = 'ouros';
+$txt['liga_currency_vip'] = 'VIP';
+$txt['liga_placement'] = '%sº - ';
+$txt['liga_level'] = 'lv %s';
+$txt['liga_icon_confirm'] = 'Confirmado';
+$txt['liga_icon_no_confirm'] = 'Não confirmado';
+
+# league-status
+$txt['liga_status_ranking'] = 'Ranking';
+$txt['liga_status_pos'] = 'Pos.';
+$txt['liga_status_name'] = 'Nome';
+$txt['liga_status_points'] = 'Pontos';
+$txt['liga_status_rank'] = '%sº';
+$txt['liga_status_bracket'] = 'Mata-mata';
+$txt['liga_status_round'] = 'Round %s';
+$txt['liga_status_start_at'] = 'Início às %s';
+$txt['liga_status_arena_water'] = 'Arena de água';
+$txt['liga_status_arena_ice'] = 'Arena de gelo';
+$txt['liga_status_arena_rock'] = 'Arena de pedra';
+$txt['liga_status_arena_grass'] = 'Arena de grama';
+$txt['liga_status_no_opponent'] = 'Sem oponente';
 /* === end externalized strings === */
 ?>

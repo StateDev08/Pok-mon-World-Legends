@@ -7,6 +7,7 @@ if (isset($_GET['player'])) $spelernaam = ($_GET['player'] ?? '');
 else $spelernaam = $_POST['gebruiker'] ?? '';
 
 #Als er silver of gold naar een ander gestuurd word
+$bericht_send = '';
 if (isset($_POST['naargebruiker'])) {
   #Eventuele komma vervangen door punt
   if (($_POST['what'] ?? '') == 'silver') $what = 'silver';
@@ -33,7 +34,7 @@ if (isset($_POST['naargebruiker'])) {
     $bericht_send = '<div class="red">'.$txt['alert_receiver_dont_exist'].'</div>';
   #is er wel een bedrag ingevoerd?
   else if (preg_match('/[A-Za-z_]+$/',$bedrag))
-    $bericht = '<div class="red">'.$txt['alert_amount_unknown'].'</div>';
+    $bericht_send = '<div class="red">'.$txt['alert_amount_unknown'].'</div>';
   #Kijken als het ingevoerde bedrag wel meer dan 0 is
   else if ($bedrag < 0)
     $bericht_send = '<div class="red">'.$txt['alert_amount_unknown'].'</div>';

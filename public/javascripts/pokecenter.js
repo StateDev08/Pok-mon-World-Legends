@@ -44,18 +44,12 @@ $(document).ready(function () {
 
         },
         receive: function (event, ui) {
-            let hand = $(this).sortable("serialize").split('&').join('').split('pkm[]=');
-            let h;
-
-            for (let i = 0; i < hand.length; i++) {
-                h = hand[i];
-                
-                $('input[name="pokemon[]"][value="' + h + '"]').prop('checked', false);
-            }
+            let id = $(ui.item).attr('id').replace('pkm_', '');
+            $('input[name="pokemon[]"][value="' + id + '"]').prop('checked', false);
 
             if (event.target.childElementCount > 6) {
                 calcelSortable = true;
-                ui.sender.sortable("cancel");
+                if (ui.sender) ui.sender.sortable("cancel");
                 return;
             }
         },
@@ -79,14 +73,12 @@ $(document).ready(function () {
                 revert: true,
                 delay: 50,
                 receive: function (event, ui) {
-                    var sender = ui.sender.context.id;
-
-                    let slot = $(this).sortable("serialize").split('pkm[]=').join('');
-                    $('input[name="pokemon[]"][value="' + slot + '"]').prop('checked', true);
+                    let id = $(ui.item).attr('id').replace('pkm_', '');
+                    $('input[name="pokemon[]"][value="' + id + '"]').prop('checked', true);
 
                     if (event.target.childElementCount > 1) {
                         calcelSortable = true;
-                        ui.sender.sortable("cancel");
+                        if (ui.sender) ui.sender.sortable("cancel");
                         return;
                     }
                 },

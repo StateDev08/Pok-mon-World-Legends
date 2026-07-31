@@ -23,7 +23,7 @@
     <tr>
         <td>
             <div style="text-align: center; max-width: 685px;">
-                <img src="<?=$static_url?>/images/layout/liga_pokemon.png" alt="Liga Pokémon"/>
+                <img src="<?=$static_url?>/images/layout/liga_pokemon.png" alt="<?= $txt['liga_logo_alt'] ?>"/>
             </div>
         </td>
     </tr>
@@ -32,19 +32,19 @@
         ?>
         <tr>
             <td>
-                <h3 style="width: 720px; margin-top: 15px;">Ranking</h3>
+                <h3 style="width: 720px; margin-top: 15px;"><?= $txt['liga_status_ranking'] ?></h3>
                 <div style="height: 300px; max-width: 200px; overflow-y: scroll;">
                     <table id="league_ranking">
                         <tr>
-                            <th>Pos.</th>
-                            <th>Nome</th>
-                            <th>Pontos</th>
+                            <th><?= $txt['liga_status_pos'] ?></th>
+                            <th><?= $txt['liga_status_name'] ?></th>
+                            <th><?= $txt['liga_status_points'] ?></th>
                         </tr>
                         <?php
                         foreach ($liga->ranking() as $key => $player) {
                             ?>
                             <tr>
-                                <td><?= $key + 1 ?> º</td>
+                                <td><?= sprintf($txt['liga_status_rank'], $key + 1) ?></td>
                                 <td><?= $player['username'] ?></td>
                                 <td><?= $player['pontos'] ?></td>
                             </tr>
@@ -64,7 +64,7 @@
         <tr>
             <td>
                 <div style='width: auto; height: auto;'>
-                    <h3 style="float: left; width: 720px; height: 50px; margin-top: 15px;">Mata-mata</h3>
+                    <h3 style="float: left; width: 720px; height: 50px; margin-top: 15px;"><?= $txt['liga_status_bracket'] ?></h3>
                     <div id='gracket_<?= $liga->getId() ?>'></div>
                     <div id='gracket2_<?= $liga->getId() ?>' style='float: left; bottom: 300px; left: 730px;'></div>
                 </div>
@@ -81,7 +81,7 @@
         <tr>
             <td>
                 <div class="preeliminar round<?= $i ?>">
-                    <h3 style="float: left; width: 720px; height: 50px; margin-top: 15px;">Round <?= $i ?><span style="padding-left: 100px; font-size: 0.9em;">Início às <?= $liga->inicio_round($i) ?></span></h3>
+                    <h3 style="float: left; width: 720px; height: 50px; margin-top: 15px;"><?= sprintf($txt['liga_status_round'], $i) ?><span style="padding-left: 100px; font-size: 0.9em;"><?= sprintf($txt['liga_status_start_at'], $liga->inicio_round($i)) ?></span></h3>
                     <?php
                     foreach ($preeliminares as $campo => $batalhas) {
                         ?>
@@ -89,16 +89,16 @@
                             <p style="font-weight: bold; font-size: 1.1em;text-align: center"><?php
                                 switch ($campo) {
                                     case 'water':
-                                        echo "Arena de água";
+                                        echo $txt['liga_status_arena_water'];
                                         break;
                                     case 'ice':
-                                        echo "Arena de gelo";
+                                        echo $txt['liga_status_arena_ice'];
                                         break;
                                     case 'rock':
-                                        echo "Arena de pedra";
+                                        echo $txt['liga_status_arena_rock'];
                                         break;
                                     default:
-                                        echo "Arena de grama";
+                                        echo $txt['liga_status_arena_grass'];
                                         break;
                                 }
                                 ?></p>
@@ -112,7 +112,7 @@
                                         <?php if (isset($batalha['user2_pontos'])) { ?>
                                             <span class = "player2"  <?= ($batalha['user2_id'] == $batalha['vencedor'] ? "style=\"font-weight: bold; background-color: yellow; color: black; border-radius: 5px; padding: 3px;\"" : "") ?>><?= $batalha['user2_pontos'] ?> <?= $batalha['user2_username'] ?></span>
                                         <?php } else { ?>
-                                            <span class = "player2">Sem oponente</span>
+                                            <span class = "player2"><?= $txt['liga_status_no_opponent'] ?></span>
                                         <?php } ?>
                                     </li>
                                     <?php

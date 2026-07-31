@@ -12,10 +12,10 @@ require_once './app/classes/League_award.php';
 $ligas = League::select_atuais();
 
 //NOW() - INTERVAL 4 HOUR - INTERVAL 2 MINUTE - INTERVAL 17 SECOND
-$time = time() + League::$ajuste_tempo_int;
+$time = time() + (int) League::$ajuste_tempo_int;
 ?>
 <div style="margin-bottom: 30px; text-align: center;">
-    <img src="<?=$static_url?>/images/layout/liga_pokemon.png" alt="Liga Pokémon"/>
+    <img src="<?=$static_url?>/images/layout/liga_pokemon.png" alt="<?= $txt['liga_logo_alt'] ?>"/>
 </div>
 
 <h3><?= $txt['liga_open_heading'] ?></h3>
@@ -53,12 +53,12 @@ $time = time() + League::$ajuste_tempo_int;
                             <?php
                             if ($liga->inscrito($gebruiker['user_id'])) {
                                 ?>
-                                <img src="images/icons/green.png" alt="confirm"/>
+                                <img src="images/icons/green.png" alt="<?= $txt['liga_icon_confirm'] ?>"/>
                                 <?= $txt['liga_registered'] ?>
                                 <?php
                             } else {
                                 ?>
-                                <img src="images/icons/red.png" alt="no_confirm"/>
+                                <img src="images/icons/red.png" alt="<?= $txt['liga_icon_no_confirm'] ?>"/>
                                 <?= $txt['liga_not_registered'] ?>
                                 <?php
                             }
@@ -74,7 +74,7 @@ $time = time() + League::$ajuste_tempo_int;
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
                         <td style="text-align: center;">
-                            <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;">Viajar</a>
+                            <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;"><?= $txt['liga_travel'] ?></a>
                         </td>
                         <?php
                     } else {
@@ -127,26 +127,26 @@ $time = time() + League::$ajuste_tempo_int;
                     <td>
                         <?php
                         if ($liga->getPreco_silvers()) {
-                            echo '<img src="images/icons/silver.png" alt="silver"/> ';
+                            echo '<img src="images/icons/silver.png" alt="' . $txt['liga_currency_silvers'] . '"/> ';
                             echo $liga->getPreco_silvers();
-                            echo " silvers";
+                            echo " " . $txt['liga_currency_silvers'];
                             $virgula = true;
                         }
                         if ($liga->getPreco_golds()) {
                             if ($virgula) {
                                 echo ", ";
                             }
-                            echo '<img src="images/icons/gold.png" alt="gold"/> ';
+                            echo '<img src="images/icons/gold.png" alt="' . $txt['liga_currency_golds'] . '"/> ';
                             echo $liga->getPreco_golds();
-                            echo " golds";
+                            echo " " . $txt['liga_currency_golds'];
                             $virgula = true;
                         }
                         if ($liga->getVip()) {
                             if ($virgula) {
                                 echo ", ";
                             }
-                            echo '<img src="images/icons/star.png" alt="vip"/> ';
-                            echo "VIP";
+                            echo '<img src="images/icons/star.png" alt="' . $txt['liga_currency_vip'] . '"/> ';
+                            echo $txt['liga_currency_vip'];
                         }
                         ?>
                     </td>
@@ -159,20 +159,20 @@ $time = time() + League::$ajuste_tempo_int;
                         <?php
                         foreach (League_award::select_league($liga->getId()) as $premio) {
                             $virgula = false;
-                            echo "<p>" . $premio->getColocacao() . "º - ";
+                            echo "<p>" . sprintf($txt['liga_placement'], $premio->getColocacao());
                             if ($premio->getSilvers()) {
-                                echo '<img src="images/icons/silver.png" alt="silver"/> ';
+                                echo '<img src="images/icons/silver.png" alt="' . $txt['liga_currency_silvers'] . '"/> ';
                                 echo $premio->getSilvers();
-                                echo " silvers";
+                                echo " " . $txt['liga_currency_silvers'];
                                 $virgula = true;
                             }
                             if ($premio->getGolds()) {
                                 if ($virgula) {
                                     echo ", ";
                                 }
-                                echo '<img src="images/icons/gold.png" alt="gold"/> ';
+                                echo '<img src="images/icons/gold.png" alt="' . $txt['liga_currency_golds'] . '"/> ';
                                 echo $premio->getGolds();
-                                echo " golds";
+                                echo " " . $txt['liga_currency_golds'];
                                 $virgula = true;
                             }
                             if ($premio->getPokemon_id()) {
@@ -180,8 +180,9 @@ $time = time() + League::$ajuste_tempo_int;
                                     echo ", ";
                                 }
                                 echo '<img src="images/pokemon/icon/' . $premio->getPokemon_id() . '.gif" alt="pokemon"/> ';
-                                echo (DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'"))->fetch_assoc()['0'];
-                                echo " lv " . $premio->getLv_pokemon();
+                                $prow = DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'")->fetch_assoc();
+                                echo isset($prow['naam']) ? $prow['naam'] : '';
+                                echo sprintf($txt['liga_level'], $premio->getLv_pokemon());
                                 $virgula = true;
                             }
                             if ($premio->getVip()) {
@@ -262,12 +263,12 @@ $time = time() + League::$ajuste_tempo_int;
                             <?php
                             if ($liga->inscrito($gebruiker['user_id'])) {
                                 ?>
-                                <img src="images/icons/green.png" alt="confirm"/>
+                                <img src="images/icons/green.png" alt="<?= $txt['liga_icon_confirm'] ?>"/>
                                 <?= $txt['liga_registered'] ?>
                                 <?php
                             } else {
                                 ?>
-                                <img src="images/icons/red.png" alt="no_confirm"/>
+                                <img src="images/icons/red.png" alt="<?= $txt['liga_icon_no_confirm'] ?>"/>
                                 <?= $txt['liga_not_registered'] ?>
                                 <?php
                             }
@@ -283,7 +284,7 @@ $time = time() + League::$ajuste_tempo_int;
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
                         <td style="text-align: center;">
-                            <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;">Viajar</a>
+                            <a href="./travel" class="button_mini" style="padding: 7px 6px; border-radius: 7px;"><?= $txt['liga_travel'] ?></a>
                         </td>
                         <?php
                     } else {
@@ -300,7 +301,7 @@ $time = time() + League::$ajuste_tempo_int;
                     if ($gebruiker['wereld'] == $liga->getRegiao()) {
                         ?>
                         <td style="text-align: center;">
-                            <a href="./league_status&league_id=<?= $liga->getId() ?>" class="button" style="padding: 7px 6px;">Acompanhar liga</a>
+                            <a href="./league_status&league_id=<?= $liga->getId() ?>" class="button" style="padding: 7px 6px;"><?= $txt['liga_follow'] ?></a>
                         </td>
                         <?php
                     }
@@ -310,26 +311,26 @@ $time = time() + League::$ajuste_tempo_int;
                     <td>
                         <?php
                         if ($liga->getPreco_silvers()) {
-                            echo '<img src="images/icons/silver.png" alt="silver"/> ';
+                            echo '<img src="images/icons/silver.png" alt="' . $txt['liga_currency_silvers'] . '"/> ';
                             echo $liga->getPreco_silvers();
-                            echo " silvers";
+                            echo " " . $txt['liga_currency_silvers'];
                             $virgula = true;
                         }
                         if ($liga->getPreco_golds()) {
                             if ($virgula) {
                                 echo ", ";
                             }
-                            echo '<img src="images/icons/gold.png" alt="gold"/> ';
+                            echo '<img src="images/icons/gold.png" alt="' . $txt['liga_currency_golds'] . '"/> ';
                             echo $liga->getPreco_golds();
-                            echo " golds";
+                            echo " " . $txt['liga_currency_golds'];
                             $virgula = true;
                         }
                         if ($liga->getVip()) {
                             if ($virgula) {
                                 echo ", ";
                             }
-                            echo '<img src="images/icons/star.png" alt="vip"/> ';
-                            echo "VIP";
+                            echo '<img src="images/icons/star.png" alt="' . $txt['liga_currency_vip'] . '"/> ';
+                            echo $txt['liga_currency_vip'];
                         }
                         ?>
                     </td>
@@ -342,20 +343,20 @@ $time = time() + League::$ajuste_tempo_int;
                         <?php
                         foreach (League_award::select_league($liga->getId()) as $premio) {
                             $virgula = false;
-                            echo "<p>" . $premio->getColocacao() . "º - ";
+                            echo "<p>" . sprintf($txt['liga_placement'], $premio->getColocacao());
                             if ($premio->getSilvers()) {
-                                echo '<img src="images/icons/silver.png" alt="silver"/> ';
+                                echo '<img src="images/icons/silver.png" alt="' . $txt['liga_currency_silvers'] . '"/> ';
                                 echo $premio->getSilvers();
-                                echo " silvers";
+                                echo " " . $txt['liga_currency_silvers'];
                                 $virgula = true;
                             }
                             if ($premio->getGolds()) {
                                 if ($virgula) {
                                     echo ", ";
                                 }
-                                echo '<img src="images/icons/gold.png" alt="gold"/> ';
+                                echo '<img src="images/icons/gold.png" alt="' . $txt['liga_currency_golds'] . '"/> ';
                                 echo $premio->getGolds();
-                                echo " golds";
+                                echo " " . $txt['liga_currency_golds'];
                                 $virgula = true;
                             }
                             if ($premio->getPokemon_id()) {
@@ -363,8 +364,9 @@ $time = time() + League::$ajuste_tempo_int;
                                     echo ", ";
                                 }
                                 echo '<img src="images/pokemon/icon/' . $premio->getPokemon_id() . '.gif" alt="pokemon"/> ';
-                                echo (DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'"))->fetch_assoc()['0'];
-                                echo " lv " . $premio->getLv_pokemon();
+                                $prow = DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'")->fetch_assoc();
+                                echo isset($prow['naam']) ? $prow['naam'] : '';
+                                echo sprintf($txt['liga_level'], $premio->getLv_pokemon());
                                 $virgula = true;
                             }
                             if ($premio->getVip()) {

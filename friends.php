@@ -46,7 +46,7 @@ if (isset($_POST['id']) && isset($_POST['accept'])) {
 
         $username = $gebruiker['username'];
 
-        $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$username.'">'.$username.'</a> aceitou sua solicitação de amizade.';
+        $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$username.'">'.$username.'</a> ' . $txt['friends_accept_event'] . '.';
 
         DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $uid2 . "', '" . $event . "', '0')");
         
@@ -88,15 +88,16 @@ if (isset($_POST['id']) && isset($_POST['decline'])) {
                     }
                     
                     $infos = $friends->getInfos($id);
+                    if (empty($infos)) continue;
                     $q['username'] = $infos['username'];
                     $q['ultimo_login'] = $infos['ultimo_login'];
                     $q['online'] = $infos['online'];
                     $q['rank'] = $infos['rank'];
                     
                     if (($q['online'] + 900) > time()) {
-                        $plaatje = '<img src="'.$static_url.'/images/icons/status_online.png" title="Online">';
+                        $plaatje = '<img src="'.$static_url.'/images/icons/status_online.png" title="'.$txt['online'].'">';
                     } else {
-                        $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="Offline">';
+                        $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="'.$txt['offline'].'">';
                     }
 
                     if ($q['accept'] == 0) {

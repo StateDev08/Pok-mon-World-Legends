@@ -527,11 +527,11 @@ if (!empty($message))	echo $message;
                     </select>
                     &nbsp;&nbsp;
                     <select name="atribute">
-                        <option value="attack">Attack</option>
-                        <option value="defense">Defense</option>
-                        <option value="spatk">Sp. Atk</option>
-                        <option value="spdef">Sp. Def</option>
-                        <option value="speed">Speed</option>
+                        <option value="attack"><?=$txt['prof_stat_attack']?></option>
+                        <option value="defense"><?=$txt['prof_stat_defence']?></option>
+                        <option value="spatk"><?=$txt['prof_stat_spattack']?></option>
+                        <option value="spdef"><?=$txt['prof_stat_spdefence']?></option>
+                        <option value="speed"><?=$txt['prof_stat_speed']?></option>
                     </select>
 					<input type="submit" name="mood2" value="<?=$txt['buttom'];?>" class="button" /></td></tr>
 					<tr><td colspan="5"><?=$txt['spec_mood_refined_desc']?></td></tr></tfoot>
@@ -576,7 +576,8 @@ if (!empty($message))	echo $message;
 						<?php
 							$humores = DB::exQuery("SELECT * FROM `karakters` ORDER BY `karakter_naam`");
 							while($h = $humores->fetch_assoc()) {
-								echo '<option value="'.$h['karakter_naam'].'">'.ucfirst($h['karakter_naam']).'</option>';
+								$nature = $h['karakter_naam'];
+								echo '<option value="'.$nature.'">'.(isset($txt['nature_'.$nature]) ? $txt['nature_'.$nature] : ucfirst($nature)).'</option>';
 							}
 						?>
                     </select>
