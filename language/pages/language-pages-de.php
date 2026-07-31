@@ -2301,5 +2301,41 @@ $txt['battle_status_poisoned'] = '%s ist vergiftet.';
 $txt['battle_status_sleeping'] = '%s schläft.';
 $txt['battle_status_flinching'] = '%s zögert.';
 $txt['battle_stat_speed_up_atk_down'] = '%s hat jetzt mehr Initiative, aber weniger Angriff.';
+
+# league-tour
+$txt['liga_open_heading'] = 'Ligen mit offener Anmeldung';
+$txt['liga_closed_heading'] = 'Ligen mit beendeter Anmeldung';
+$txt['liga_none_open'] = 'Zurzeit ist keine Liga zur Anmeldung geöffnet!';
+$txt['liga_none_closed'] = 'Keine Liga mit beendeter Anmeldung!';
+$txt['liga_region'] = 'Liga in der Region %s';
+$txt['liga_not_in_region'] = 'Du bist nicht in der Region dieser Liga!';
+$txt['liga_registered'] = 'Du bist für diese Liga angemeldet!';
+$txt['liga_not_registered'] = 'Du nimmst an dieser Liga nicht teil!';
+$txt['liga_confirm_register'] = 'Möchtest du dich wirklich für diese Liga anmelden?!';
+$txt['liga_confirm_unregister'] = 'Möchtest du deine Anmeldung für diese Liga wirklich zurückziehen?<br/>Hinweis: Die Anmeldegebühr wird nicht erstattet!';
+$txt['tour_next_heading'] = 'Nächstes Turnier:';
+$txt['tour_last_heading'] = 'Letzte Turniere:';
+$txt['tour_none_history'] = 'Keine Turnierhistorie!';
+$txt['tour_region'] = 'Turnier in der Region %s';
+$txt['tour_not_in_region'] = 'Du bist nicht in der Region dieses Turniers!';
+$txt['tour_registered'] = 'Du bist für dieses Turnier angemeldet!';
+$txt['tour_not_registered'] = 'Du nimmst an diesem Turnier nicht teil!';
+$txt['tour_confirm_register'] = 'Möchtest du dich wirklich für dieses Turnier anmelden?!';
+$txt['tour_confirm_unregister'] = 'Möchtest du deine Anmeldung für dieses Turnier wirklich zurückziehen?<br/>Hinweis: Die Anmeldegebühr wird nicht erstattet!';
+$txt['liga_registration_period'] = 'Anmeldung von %s bis %s';
+$txt['liga_battles_start'] = 'Kampfbeginn am %s';
+$txt['liga_registration_cost'] = 'Anmeldegebühr:';
+$txt['liga_register_button'] = 'Anmelden';
+$txt['liga_unregister_button'] = 'Anmeldung zurückziehen';
+$txt['liga_registration_soon'] = 'Die Anmeldung wird bald geöffnet!';
+$txt['liga_prizes'] = 'Preise:';
+$txt['liga_rules'] = 'Regeln:';
+$txt['liga_max_level'] = 'Maximales Level der Pokémon:';
+$txt['liga_max_special'] = 'Maximale Anzahl besonderer Pokémon pro Kampf:';
+$txt['liga_shinys'] = 'Shinys:';
+$txt['liga_legendaries'] = 'Legendäre:';
+$txt['liga_megas'] = 'Mega-Entwicklungen:';
+$txt['liga_slots'] = 'Freie Plätze:';
+$txt['liga_vip_days'] = '%s Tage VIP';
 /* === end externalized strings === */
 ?>

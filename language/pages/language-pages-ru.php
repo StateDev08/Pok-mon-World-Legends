@@ -2301,5 +2301,41 @@ $txt['battle_status_poisoned'] = '%s отравлен.';
 $txt['battle_status_sleeping'] = '%s спит.';
 $txt['battle_status_flinching'] = '%s дрогнул.';
 $txt['battle_stat_speed_up_atk_down'] = '%s теперь имеет повышенную Скорость, но пониженную Атаку.';
+
+# league-tour
+$txt['liga_open_heading'] = 'Лиги с открытой регистрацией';
+$txt['liga_closed_heading'] = 'Лиги с закрытой регистрацией';
+$txt['liga_none_open'] = 'Сейчас нет лиг с открытой регистрацией!';
+$txt['liga_none_closed'] = 'Нет лиг с закрытой регистрацией!';
+$txt['liga_region'] = 'Лига в регионе %s';
+$txt['liga_not_in_region'] = 'Вы не находитесь в регионе этой лиги!';
+$txt['liga_registered'] = 'Вы зарегистрированы в этой лиге!';
+$txt['liga_not_registered'] = 'Вы не участвуете в этой лиге!';
+$txt['liga_confirm_register'] = 'Вы действительно хотите зарегистрироваться в этой лиге?!';
+$txt['liga_confirm_unregister'] = 'Вы уверены, что хотите отменить регистрацию в этой лиге?<br/>Внимание: вступительный взнос не возвращается!';
+$txt['tour_next_heading'] = 'Следующий турнир:';
+$txt['tour_last_heading'] = 'Последние турниры:';
+$txt['tour_none_history'] = 'История турниров отсутствует!';
+$txt['tour_region'] = 'Турнир в регионе %s';
+$txt['tour_not_in_region'] = 'Вы не находитесь в регионе этого турнира!';
+$txt['tour_registered'] = 'Вы зарегистрированы на этот турнир!';
+$txt['tour_not_registered'] = 'Вы не участвуете в этом турнире!';
+$txt['tour_confirm_register'] = 'Вы действительно хотите зарегистрироваться на этот турнир?!';
+$txt['tour_confirm_unregister'] = 'Вы уверены, что хотите отменить регистрацию на этот турнир?<br/>Внимание: вступительный взнос не возвращается!';
+$txt['liga_registration_period'] = 'Регистрация с %s до %s';
+$txt['liga_battles_start'] = 'Бои начинаются %s';
+$txt['liga_registration_cost'] = 'Стоимость регистрации:';
+$txt['liga_register_button'] = 'Зарегистрироваться';
+$txt['liga_unregister_button'] = 'Отменить регистрацию';
+$txt['liga_registration_soon'] = 'Регистрация скоро откроется!';
+$txt['liga_prizes'] = 'Награды:';
+$txt['liga_rules'] = 'Правила:';
+$txt['liga_max_level'] = 'Максимальный уровень покемонов:';
+$txt['liga_max_special'] = 'Максимальное число особых покемонов в бою:';
+$txt['liga_shinys'] = 'Шайни:';
+$txt['liga_legendaries'] = 'Легендарные:';
+$txt['liga_megas'] = 'Мега-эволюции:';
+$txt['liga_slots'] = 'мест:';
+$txt['liga_vip_days'] = '%s дн. VIP';
 /* === end externalized strings === */
 ?>

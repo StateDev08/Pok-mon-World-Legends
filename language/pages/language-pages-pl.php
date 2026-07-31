@@ -2301,5 +2301,41 @@ $txt['battle_status_poisoned'] = '%s jest zatruty.';
 $txt['battle_status_sleeping'] = '%s śpi.';
 $txt['battle_status_flinching'] = '%s się waha.';
 $txt['battle_stat_speed_up_atk_down'] = '%s ma teraz zwiększoną Szybkość, ale obniżony Atak.';
+
+# league-tour
+$txt['liga_open_heading'] = 'Ligi z otwartymi zapisami';
+$txt['liga_closed_heading'] = 'Ligi z zakończonymi zapisami';
+$txt['liga_none_open'] = 'Obecnie żadna liga nie ma otwartych zapisów!';
+$txt['liga_none_closed'] = 'Brak lig z zakończonymi zapisami!';
+$txt['liga_region'] = 'Liga w regionie %s';
+$txt['liga_not_in_region'] = 'Nie jesteś w regionie tej ligi!';
+$txt['liga_registered'] = 'Jesteś zapisany do tej ligi!';
+$txt['liga_not_registered'] = 'Nie bierzesz udziału w tej lidze!';
+$txt['liga_confirm_register'] = 'Czy na pewno chcesz zapisać się do tej ligi?!';
+$txt['liga_confirm_unregister'] = 'Czy na pewno chcesz wycofać zapis do tej ligi?<br/>Uwaga: opłata za zapis nie zostanie zwrócona!';
+$txt['tour_next_heading'] = 'Następny turniej:';
+$txt['tour_last_heading'] = 'Ostatnie turnieje:';
+$txt['tour_none_history'] = 'Brak historii turniejów!';
+$txt['tour_region'] = 'Turniej w regionie %s';
+$txt['tour_not_in_region'] = 'Nie jesteś w regionie tego turnieju!';
+$txt['tour_registered'] = 'Jesteś zapisany do tego turnieju!';
+$txt['tour_not_registered'] = 'Nie bierzesz udziału w tym turnieju!';
+$txt['tour_confirm_register'] = 'Czy na pewno chcesz zapisać się na ten turniej?!';
+$txt['tour_confirm_unregister'] = 'Czy na pewno chcesz wycofać zapis na ten turniej?<br/>Uwaga: opłata za zapis nie zostanie zwrócona!';
+$txt['liga_registration_period'] = 'Zapisy od %s do %s';
+$txt['liga_battles_start'] = 'Walki rozpoczynają się %s';
+$txt['liga_registration_cost'] = 'Opłata za zapis:';
+$txt['liga_register_button'] = 'Zapisz się';
+$txt['liga_unregister_button'] = 'Wycofaj zapis';
+$txt['liga_registration_soon'] = 'Zapisy wkrótce się otworzą!';
+$txt['liga_prizes'] = 'Nagrody:';
+$txt['liga_rules'] = 'Zasady:';
+$txt['liga_max_level'] = 'Maksymalny poziom Pokémonów:';
+$txt['liga_max_special'] = 'Maksymalna liczba specjalnych Pokémonów na walkę:';
+$txt['liga_shinys'] = 'Shiny:';
+$txt['liga_legendaries'] = 'Legendarne:';
+$txt['liga_megas'] = 'Mega ewolucje:';
+$txt['liga_slots'] = 'miejsca:';
+$txt['liga_vip_days'] = '%s dni VIP';
 /* === end externalized strings === */
 ?>

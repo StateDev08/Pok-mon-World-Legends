@@ -2301,5 +2301,41 @@ $txt['battle_status_poisoned'] = '%s 中毒了。';
 $txt['battle_status_sleeping'] = '%s 睡着了。';
 $txt['battle_status_flinching'] = '%s 畏缩了。';
 $txt['battle_stat_speed_up_atk_down'] = '%s 的速度提升了，但攻击下降了。';
+
+# league-tour
+$txt['liga_open_heading'] = '开放报名的联盟';
+$txt['liga_closed_heading'] = '已结束报名的联盟';
+$txt['liga_none_open'] = '目前没有开放报名的联盟！';
+$txt['liga_none_closed'] = '没有已结束报名的联盟！';
+$txt['liga_region'] = '%s 地区的联盟';
+$txt['liga_not_in_region'] = '你不在该联盟所在的地区！';
+$txt['liga_registered'] = '你已报名参加该联盟！';
+$txt['liga_not_registered'] = '你没有参加该联盟！';
+$txt['liga_confirm_register'] = '确定要报名参加该联盟吗？！';
+$txt['liga_confirm_unregister'] = '确定要取消该联盟的报名吗？<br/>注意：报名费用不予退还！';
+$txt['tour_next_heading'] = '下一场锦标赛：';
+$txt['tour_last_heading'] = '最近的锦标赛：';
+$txt['tour_none_history'] = '没有锦标赛记录！';
+$txt['tour_region'] = '%s 地区的锦标赛';
+$txt['tour_not_in_region'] = '你不在该锦标赛所在的地区！';
+$txt['tour_registered'] = '你已报名参加该锦标赛！';
+$txt['tour_not_registered'] = '你没有参加该锦标赛！';
+$txt['tour_confirm_register'] = '确定要报名参加该锦标赛吗？！';
+$txt['tour_confirm_unregister'] = '确定要取消该锦标赛的报名吗？<br/>注意：报名费用不予退还！';
+$txt['liga_registration_period'] = '报名时间：%s 至 %s';
+$txt['liga_battles_start'] = '对战开始时间：%s';
+$txt['liga_registration_cost'] = '报名费用：';
+$txt['liga_register_button'] = '报名';
+$txt['liga_unregister_button'] = '取消报名';
+$txt['liga_registration_soon'] = '报名即将开放！';
+$txt['liga_prizes'] = '奖励：';
+$txt['liga_rules'] = '规则：';
+$txt['liga_max_level'] = '宝可梦最高等级：';
+$txt['liga_max_special'] = '每场对战的特殊宝可梦数量上限：';
+$txt['liga_shinys'] = '异色：';
+$txt['liga_legendaries'] = '传说：';
+$txt['liga_megas'] = '超级进化：';
+$txt['liga_slots'] = '名额：';
+$txt['liga_vip_days'] = '%s 天 VIP';
 /* === end externalized strings === */
 ?>
