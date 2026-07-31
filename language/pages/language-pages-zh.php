@@ -2256,5 +2256,47 @@ $txt['gold_alert_name_invalid'] = '训练师名称只能包含字母和数字！
 $txt['gold_alert_name_taken'] = '该名称已被其他训练师使用！';
 $txt['gold_alert_choose_char'] = '请选择角色！';
 $txt['gold_alert_char_missing'] = '该角色不存在！';
+
+# battle
+$txt['battle_opponent_inactive_won'] = '对手长时间未行动，你获胜了！';
+$txt['battle_you_inactive_lost'] = '你长时间未行动，对手获胜了！';
+$txt['battle_no_zmoves'] = '本场对战中无法使用 Z 招式！';
+$txt['battle_not_confused_anymore'] = '%s 不再混乱了。<br/>';
+$txt['battle_confused_hit_self'] = '%s 陷入混乱并攻击了自己！';
+$txt['battle_is_confused'] = '%s 陷入了混乱。';
+$txt['battle_switching_pokemon'] = '%s 正在更换宝可梦。';
+$txt['battle_charging'] = '%s 正在蓄力 %s';
+$txt['battle_recharging_move'] = '%s 正在从 %s 中恢复';
+$txt['battle_now_status'] = '%s 现在处于 %s 状态';
+$txt['battle_stat_def_down'] = '的防御下降了。';
+$txt['battle_stat_speed_down'] = '的速度下降了。';
+$txt['battle_stat_spdef_down'] = '的特防下降了。';
+$txt['battle_stat_atk_down'] = '的攻击下降了。';
+$txt['battle_stat_atk_speed_down'] = '的攻击和速度下降了。';
+$txt['battle_stat_accuracy_down'] = '的命中率下降了。';
+$txt['battle_stat_def_up'] = '的防御提升了。';
+$txt['battle_stat_atk_up'] = '的攻击提升了。';
+$txt['battle_stat_speed_up'] = '的速度提升了。';
+$txt['battle_stat_spdef_up'] = '的特防提升了。';
+$txt['battle_stat_all_up'] = '的所有能力都提升了。';
+$txt['battle_stat_atk_def_up'] = '的攻击和防御提升了。';
+$txt['battle_stat_def_speed_up'] = '的防御和速度提升了。';
+$txt['battle_stat_special_up'] = '的特殊能力提升了。';
+$txt['battle_stat_spatk_up'] = '的特攻提升了。';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s 的攻击和防御提升了，但速度下降了。';
+$txt['battle_recovering'] = '%s 正在恢复。 ';
+$txt['battle_burning'] = '%s 正在被灼伤。 ';
+$txt['battle_poisoned'] = '%s 中毒了。 ';
+$txt['battle_stat_atk_speed_up'] = '的攻击和速度提升了。';
+$txt['battle_had_effect'] = '，产生了效果。';
+
+# league
+$txt['league_won_opponent_not_ready'] = '你赢了！<br/>你的对手没有准备好！';
+$txt['league_lost_not_ready'] = '你输了！<br/>你没有为对战做好准备！';
+$txt['league_creating_battle'] = '请稍候，正在创建对战……';
+$txt['league_not_created_5min'] = '对战未在 5 分钟内创建';
+$txt['league_lost_not_created'] = '你输了！<br/>对战未被创建！';
+$txt['league_won_not_created'] = '你赢了！<br/>对战未被创建！';
+$txt['league_not_time_yet'] = '还没到你的对战时间！';
 /* === end externalized strings === */
 ?>

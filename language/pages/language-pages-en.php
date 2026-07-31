@@ -2256,5 +2256,47 @@ $txt['gold_alert_name_invalid'] = 'Only letters and numbers are allowed in the t
 $txt['gold_alert_name_taken'] = 'This name is already used by another trainer!';
 $txt['gold_alert_choose_char'] = 'Choose a character!';
 $txt['gold_alert_char_missing'] = 'This character does not exist!';
+
+# battle
+$txt['battle_opponent_inactive_won'] = 'Your opponent was inactive, you won!';
+$txt['battle_you_inactive_lost'] = 'You were inactive, your opponent won!';
+$txt['battle_no_zmoves'] = 'You cannot use Z-MOVES in this battle!';
+$txt['battle_not_confused_anymore'] = '%s is no longer confused.<br/>';
+$txt['battle_confused_hit_self'] = '%s is confused and hurt itself!';
+$txt['battle_is_confused'] = '%s is confused.';
+$txt['battle_switching_pokemon'] = '%s is switching Pokémon.';
+$txt['battle_charging'] = '%s is charging %s';
+$txt['battle_recharging_move'] = '%s is recharging from %s';
+$txt['battle_now_status'] = '%s is now %s';
+$txt['battle_stat_def_down'] = 'has lowered Defense.';
+$txt['battle_stat_speed_down'] = 'has lowered Speed.';
+$txt['battle_stat_spdef_down'] = 'has lowered Sp. Defense.';
+$txt['battle_stat_atk_down'] = 'has lowered Attack.';
+$txt['battle_stat_atk_speed_down'] = 'has lowered Attack and Speed.';
+$txt['battle_stat_accuracy_down'] = 'has lowered Accuracy.';
+$txt['battle_stat_def_up'] = 'has raised Defense.';
+$txt['battle_stat_atk_up'] = 'has raised Attack.';
+$txt['battle_stat_speed_up'] = 'has raised Speed.';
+$txt['battle_stat_spdef_up'] = 'has raised Sp. Defense.';
+$txt['battle_stat_all_up'] = 'has all stats raised.';
+$txt['battle_stat_atk_def_up'] = 'has raised Attack and Defense.';
+$txt['battle_stat_def_speed_up'] = 'has raised Defense and Speed.';
+$txt['battle_stat_special_up'] = 'has raised special stats.';
+$txt['battle_stat_spatk_up'] = 'has raised Sp. Attack.';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s now has raised Attack and Defense but lowered Speed.';
+$txt['battle_recovering'] = '%s is recovering. ';
+$txt['battle_burning'] = '%s is burning. ';
+$txt['battle_poisoned'] = '%s is poisoned. ';
+$txt['battle_stat_atk_speed_up'] = 'has raised Attack and Speed.';
+$txt['battle_had_effect'] = ', it had an effect.';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'You won!<br/>Your opponent was not ready!';
+$txt['league_lost_not_ready'] = 'You lost!<br/>You were not ready for the battle!';
+$txt['league_creating_battle'] = 'Please wait while the battle is created ...';
+$txt['league_not_created_5min'] = 'The battle was not created within 5 minutes';
+$txt['league_lost_not_created'] = 'You lost!<br/>The battle was not created!';
+$txt['league_won_not_created'] = 'You won!<br/>The battle was not created!';
+$txt['league_not_time_yet'] = 'It is not time for your battle yet!';
 /* === end externalized strings === */
 ?>

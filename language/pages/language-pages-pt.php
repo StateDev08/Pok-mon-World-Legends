@@ -2256,5 +2256,47 @@ $txt['gold_alert_name_invalid'] = 'Só é permitido letras e numeros no nome do 
 $txt['gold_alert_name_taken'] = 'Este nome já está em uso por outro treinador!';
 $txt['gold_alert_choose_char'] = 'Escolha o personagem!';
 $txt['gold_alert_char_missing'] = 'Este personagem não existe!';
+
+# battle
+$txt['battle_opponent_inactive_won'] = 'O oponente ficou inativo, você venceu!';
+$txt['battle_you_inactive_lost'] = 'Você ficou inativo, seu oponente venceu!';
+$txt['battle_no_zmoves'] = 'Você não pode usar Z-MOVES nesta batalha!';
+$txt['battle_not_confused_anymore'] = '%s não está mais confuso.<br/>';
+$txt['battle_confused_hit_self'] = '%s está confuso e se atacou!';
+$txt['battle_is_confused'] = '%s está confuso.';
+$txt['battle_switching_pokemon'] = '%s está trocando de Pokémon.';
+$txt['battle_charging'] = '%s está carregando %s';
+$txt['battle_recharging_move'] = '%s está se recuperando de %s';
+$txt['battle_now_status'] = '%s agora está %s';
+$txt['battle_stat_def_down'] = 'está com a Defesa diminuida.';
+$txt['battle_stat_speed_down'] = 'está com a Velocidade diminuida.';
+$txt['battle_stat_spdef_down'] = 'está com a Sp. Defesa diminuida.';
+$txt['battle_stat_atk_down'] = 'está com o Ataque diminuido.';
+$txt['battle_stat_atk_speed_down'] = 'está com o Ataque e Speed diminuidos.';
+$txt['battle_stat_accuracy_down'] = 'está com a Chance de Acerto diminuida.';
+$txt['battle_stat_def_up'] = 'está com a Defesa aumentada.';
+$txt['battle_stat_atk_up'] = 'está com o Ataque aumentado.';
+$txt['battle_stat_speed_up'] = 'está com a Speed aumentada.';
+$txt['battle_stat_spdef_up'] = 'está com a Sp. Defesa aumentada.';
+$txt['battle_stat_all_up'] = 'está com todos atributos aumentados.';
+$txt['battle_stat_atk_def_up'] = 'está com o Ataque e Defesa aumentados.';
+$txt['battle_stat_def_speed_up'] = 'está com a Defesa e Speed aumentados.';
+$txt['battle_stat_special_up'] = 'está com os atributos esp aumentados.';
+$txt['battle_stat_spatk_up'] = 'está com Sp. Ataque aumentado.';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s está agora com Ataque e Defesa aumentados porém com a Speed diminuida.';
+$txt['battle_recovering'] = '%s está se recuperando. ';
+$txt['battle_burning'] = '%s está queimando. ';
+$txt['battle_poisoned'] = '%s está envenenado. ';
+$txt['battle_stat_atk_speed_up'] = 'está com o Ataque e Speed aumentados.';
+$txt['battle_had_effect'] = ', teve efeito.';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'Você ganhou!<br/>Seu oponente não estava pronto!';
+$txt['league_lost_not_ready'] = 'Você perdeu!<br/>Você não estava pronto para a batalha!';
+$txt['league_creating_battle'] = 'Aguarde enquanto a batalha é criada...';
+$txt['league_not_created_5min'] = 'A batalha não foi criada em 5 minutos';
+$txt['league_lost_not_created'] = 'Você perdeu!<br/>A batalha não foi criada!';
+$txt['league_won_not_created'] = 'Você ganhou!<br/>A batalha não foi criada!';
+$txt['league_not_time_yet'] = 'Ainda não é hora para sua batalha!';
 /* === end externalized strings === */
 ?>

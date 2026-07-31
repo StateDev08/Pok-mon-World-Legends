@@ -2256,5 +2256,47 @@ $txt['gold_alert_name_invalid'] = 'В имени тренера разрешен
 $txt['gold_alert_name_taken'] = 'Это имя уже занято другим тренером!';
 $txt['gold_alert_choose_char'] = 'Выберите персонажа!';
 $txt['gold_alert_char_missing'] = 'Такого персонажа не существует!';
+
+# battle
+$txt['battle_opponent_inactive_won'] = 'Противник был неактивен, вы победили!';
+$txt['battle_you_inactive_lost'] = 'Вы были неактивны, победил противник!';
+$txt['battle_no_zmoves'] = 'В этом бою нельзя использовать Z-приёмы!';
+$txt['battle_not_confused_anymore'] = '%s больше не сбит с толку.<br/>';
+$txt['battle_confused_hit_self'] = '%s сбит с толку и ранил себя!';
+$txt['battle_is_confused'] = '%s сбит с толку.';
+$txt['battle_switching_pokemon'] = '%s меняет покемона.';
+$txt['battle_charging'] = '%s заряжает %s';
+$txt['battle_recharging_move'] = '%s восстанавливается после %s';
+$txt['battle_now_status'] = '%s теперь %s';
+$txt['battle_stat_def_down'] = 'имеет пониженную Защиту.';
+$txt['battle_stat_speed_down'] = 'имеет пониженную Скорость.';
+$txt['battle_stat_spdef_down'] = 'имеет пониженную Спец. Защиту.';
+$txt['battle_stat_atk_down'] = 'имеет пониженную Атаку.';
+$txt['battle_stat_atk_speed_down'] = 'имеет пониженные Атаку и Скорость.';
+$txt['battle_stat_accuracy_down'] = 'имеет пониженную Меткость.';
+$txt['battle_stat_def_up'] = 'имеет повышенную Защиту.';
+$txt['battle_stat_atk_up'] = 'имеет повышенную Атаку.';
+$txt['battle_stat_speed_up'] = 'имеет повышенную Скорость.';
+$txt['battle_stat_spdef_up'] = 'имеет повышенную Спец. Защиту.';
+$txt['battle_stat_all_up'] = 'имеет повышенные все характеристики.';
+$txt['battle_stat_atk_def_up'] = 'имеет повышенные Атаку и Защиту.';
+$txt['battle_stat_def_speed_up'] = 'имеет повышенные Защиту и Скорость.';
+$txt['battle_stat_special_up'] = 'имеет повышенные спец. характеристики.';
+$txt['battle_stat_spatk_up'] = 'имеет повышенную Спец. Атаку.';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s теперь имеет повышенные Атаку и Защиту, но пониженную Скорость.';
+$txt['battle_recovering'] = '%s восстанавливается. ';
+$txt['battle_burning'] = '%s горит. ';
+$txt['battle_poisoned'] = '%s отравлен. ';
+$txt['battle_stat_atk_speed_up'] = 'имеет повышенные Атаку и Скорость.';
+$txt['battle_had_effect'] = ', это подействовало.';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'Вы победили!<br/>Ваш противник не был готов!';
+$txt['league_lost_not_ready'] = 'Вы проиграли!<br/>Вы не были готовы к бою!';
+$txt['league_creating_battle'] = 'Подождите, бой создаётся ...';
+$txt['league_not_created_5min'] = 'Бой не был создан в течение 5 минут';
+$txt['league_lost_not_created'] = 'Вы проиграли!<br/>Бой не был создан!';
+$txt['league_won_not_created'] = 'Вы победили!<br/>Бой не был создан!';
+$txt['league_not_time_yet'] = 'Время вашего боя ещё не наступило!';
 /* === end externalized strings === */
 ?>

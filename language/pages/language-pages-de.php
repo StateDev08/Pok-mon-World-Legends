@@ -2256,5 +2256,47 @@ $txt['gold_alert_name_invalid'] = 'Im Trainernamen sind nur Buchstaben und Zahle
 $txt['gold_alert_name_taken'] = 'Dieser Name wird bereits von einem anderen Trainer verwendet!';
 $txt['gold_alert_choose_char'] = 'Wähle einen Charakter!';
 $txt['gold_alert_char_missing'] = 'Dieser Charakter existiert nicht!';
+
+# battle
+$txt['battle_opponent_inactive_won'] = 'Der Gegner war inaktiv, du hast gewonnen!';
+$txt['battle_you_inactive_lost'] = 'Du warst inaktiv, dein Gegner hat gewonnen!';
+$txt['battle_no_zmoves'] = 'Du kannst in diesem Kampf keine Z-ATTACKEN einsetzen!';
+$txt['battle_not_confused_anymore'] = '%s ist nicht mehr verwirrt.<br/>';
+$txt['battle_confused_hit_self'] = '%s ist verwirrt und hat sich selbst angegriffen!';
+$txt['battle_is_confused'] = '%s ist verwirrt.';
+$txt['battle_switching_pokemon'] = '%s wechselt das Pokémon.';
+$txt['battle_charging'] = '%s lädt %s auf';
+$txt['battle_recharging_move'] = '%s erholt sich von %s';
+$txt['battle_now_status'] = '%s ist jetzt %s';
+$txt['battle_stat_def_down'] = 'hat weniger Verteidigung.';
+$txt['battle_stat_speed_down'] = 'hat weniger Initiative.';
+$txt['battle_stat_spdef_down'] = 'hat weniger Spezial-Verteidigung.';
+$txt['battle_stat_atk_down'] = 'hat weniger Angriff.';
+$txt['battle_stat_atk_speed_down'] = 'hat weniger Angriff und Initiative.';
+$txt['battle_stat_accuracy_down'] = 'hat weniger Genauigkeit.';
+$txt['battle_stat_def_up'] = 'hat mehr Verteidigung.';
+$txt['battle_stat_atk_up'] = 'hat mehr Angriff.';
+$txt['battle_stat_speed_up'] = 'hat mehr Initiative.';
+$txt['battle_stat_spdef_up'] = 'hat mehr Spezial-Verteidigung.';
+$txt['battle_stat_all_up'] = 'hat alle Werte erhöht.';
+$txt['battle_stat_atk_def_up'] = 'hat mehr Angriff und Verteidigung.';
+$txt['battle_stat_def_speed_up'] = 'hat mehr Verteidigung und Initiative.';
+$txt['battle_stat_special_up'] = 'hat mehr Spezial-Werte.';
+$txt['battle_stat_spatk_up'] = 'hat mehr Spezial-Angriff.';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s hat jetzt mehr Angriff und Verteidigung, aber weniger Initiative.';
+$txt['battle_recovering'] = '%s erholt sich. ';
+$txt['battle_burning'] = '%s verbrennt. ';
+$txt['battle_poisoned'] = '%s ist vergiftet. ';
+$txt['battle_stat_atk_speed_up'] = 'hat mehr Angriff und Initiative.';
+$txt['battle_had_effect'] = ', es hatte Wirkung.';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'Du hast gewonnen!<br/>Dein Gegner war nicht bereit!';
+$txt['league_lost_not_ready'] = 'Du hast verloren!<br/>Du warst nicht bereit für den Kampf!';
+$txt['league_creating_battle'] = 'Bitte warte, der Kampf wird erstellt ...';
+$txt['league_not_created_5min'] = 'Der Kampf wurde nicht innerhalb von 5 Minuten erstellt';
+$txt['league_lost_not_created'] = 'Du hast verloren!<br/>Der Kampf wurde nicht erstellt!';
+$txt['league_won_not_created'] = 'Du hast gewonnen!<br/>Der Kampf wurde nicht erstellt!';
+$txt['league_not_time_yet'] = 'Es ist noch nicht Zeit für deinen Kampf!';
 /* === end externalized strings === */
 ?>
