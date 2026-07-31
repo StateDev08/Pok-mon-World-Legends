@@ -3,8 +3,8 @@
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
-        $bedrag = $_POST['bedrag'];
-        $bedragname = $_POST['bedragname']; 
+        $bedrag = ($_POST['bedrag'] ?? '');
+        $bedragname = ($_POST['bedragname'] ?? ''); 
         //Kijken of er een cijfer is ingevuld
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
@@ -25,7 +25,7 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
                
 				$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> deu para '.$bedragname.' '.$bedrag.' dia(s) de premium.';
 				DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)
-	VALUES (NULL, NOW(), '".$_SESSION['id']."', '".$event."', '0')");
+	VALUES (NULL, NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
 	} else {
 	$melding = '<font color="red">Treinador não existe!</font>';
 	}

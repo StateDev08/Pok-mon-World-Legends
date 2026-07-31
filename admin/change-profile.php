@@ -11,7 +11,7 @@ if (isset($_GET['player'])) {
 	  
     //Gegevens laden van de ingevoerde gebruiker
     //GOLD E EMAIL
-	  $profiel = (DB::exQuery("SELECT `username`, `datum`, `ip_aangemeld`, `ip_ingelogd`, `premiumaccount`, `silver`, `admin`, `wereld`, `online`, `voornaam`, `achternaam`, `character`, `profiel`, `teamzien`, `rank`, `aantalpokemon`, `gewonnen`, `verloren`, COUNT(DISTINCT `user_id`) AS `aantal` FROM `gebruikers` WHERE `username`='".$_GET['player']."' GROUP BY `user_id`"))->fetch_assoc();
+	  $profiel = (DB::exQuery("SELECT `username`, `datum`, `ip_aangemeld`, `ip_ingelogd`, `premiumaccount`, `silver`, `admin`, `wereld`, `online`, `voornaam`, `achternaam`, `character`, `profiel`, `teamzien`, `rank`, `aantalpokemon`, `gewonnen`, `verloren`, COUNT(DISTINCT `user_id`) AS `aantal` FROM `gebruikers` WHERE `username`='".($_GET['player'] ?? '')."' GROUP BY `user_id`"))->fetch_assoc();
 	  
 	  //is er geen player ingevuld dan terug naar home
 	  if ($profiel['aantal'] != 1) header("Location: ./home");
@@ -54,20 +54,20 @@ if (isset($_GET['player'])) {
 			$online  = "Online";
 		  }
 	  
-        $character 	  = $_POST['character'] == ''   ? $profiel['character']   : $_POST['character'];
-		$teamzien     = $_POST['teamzien'] == '' ? $profiel['teamzien'] : $_POST['teamzien'];
-		$rank     = $_POST['rank'] == '' ? $profiel['rank'] : $_POST['rank'];
+        $character 	  = ($_POST['character'] ?? '') == ''   ? $profiel['character']   : ($_POST['character'] ?? '');
+		$teamzien     = ($_POST['teamzien'] ?? '') == '' ? $profiel['teamzien'] : ($_POST['teamzien'] ?? '');
+		$rank     = ($_POST['rank'] ?? '') == '' ? $profiel['rank'] : ($_POST['rank'] ?? '');
 		
 	  ##### Als er op de knop is gedrukt #####
 	  
 	  if (isset($_POST['change'])) {
 	  	    $quem = $gebruiker['username'];
-	  	    $acao = "Editou Perfil de ".$_POST['username']."";
-	  	    $mensagem = "O administrador ".$gebruiker['username']." modificou o perfil do jogador ".$_POST['username'].".";
+	  	    $acao = "Editou Perfil de ".($_POST['username'] ?? '')."";
+	  	    $mensagem = "O administrador ".$gebruiker['username']." modificou o perfil do jogador ".($_POST['username'] ?? '').".";
 	  	    salvaLogAdmin($quem,$acao,$mensagem);
-		    DB::exQuery("UPDATE `gebruikers` SET `character`='".$_POST['character']."', `username`='".$_POST['username']."', `premiumaccount`='".$_POST['premiumaccount']."', `voornaam`='".$_POST['voornaam']."', `achternaam`='".$_POST['achternaam']."', `wereld`='".$_POST['wereld']."', `datum`='".$_POST['datum']."', `rank`='".$_POST['rank']."', `aantalpokemon`='".$_POST['aantalpokemon']."', `gewonnen`='".$_POST['gewonnen']."', `verloren`='".$_POST['verloren']."', `email`='".$_POST['email']."', `ip_aangemeld`='".$_POST['ip_aangemeld']."' , `ip_ingelogd`='".$_POST['ip_ingelogd']."', `teamzien`='".$_POST['teamzien']."', `silver`='".$_POST['silver']."', `gold`='".$_POST['gold']."', `profiel`='".$_POST['profiel']."' WHERE `username`='".$_GET['player']."'");
+		    DB::exQuery("UPDATE `gebruikers` SET `character`='".($_POST['character'] ?? '')."', `username`='".($_POST['username'] ?? '')."', `premiumaccount`='".($_POST['premiumaccount'] ?? '')."', `voornaam`='".($_POST['voornaam'] ?? '')."', `achternaam`='".($_POST['achternaam'] ?? '')."', `wereld`='".($_POST['wereld'] ?? '')."', `datum`='".($_POST['datum'] ?? '')."', `rank`='".($_POST['rank'] ?? '')."', `aantalpokemon`='".($_POST['aantalpokemon'] ?? '')."', `gewonnen`='".($_POST['gewonnen'] ?? '')."', `verloren`='".($_POST['verloren'] ?? '')."', `email`='".($_POST['email'] ?? '')."', `ip_aangemeld`='".($_POST['ip_aangemeld'] ?? '')."' , `ip_ingelogd`='".($_POST['ip_ingelogd'] ?? '')."', `teamzien`='".($_POST['teamzien'] ?? '')."', `silver`='".($_POST['silver'] ?? '')."', `gold`='".($_POST['gold'] ?? '')."', `profiel`='".($_POST['profiel'] ?? '')."' WHERE `username`='".($_GET['player'] ?? '')."'");
 	  
-	  		echo '<div class="green">Treinador '.$_GET['player'].' atualizado!</div>';
+	  		echo '<div class="green">Treinador '.($_GET['player'] ?? '').' atualizado!</div>';
 	  }
 ?>
 <form method="post">
@@ -80,7 +80,7 @@ if (isset($_GET['player'])) {
       $charactersql = DB::exQuery("SELECT naam FROM characters ORDER BY id ASC");
       
       if (isset($_POST['character'])) {
-        $characterr = $_POST['character'];
+        $characterr = ($_POST['character'] ?? '');
       }
       else{
         $characterr = $profiel['character'];
@@ -100,23 +100,23 @@ if (isset($_GET['player'])) {
         </tr>
         <tr>
           <td height="20"><strong>Usuário:</strong></td>
-          <td><input name="username" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['username']; else echo $_POST['username']; ?>" maxlength="10" /></td>
+          <td><input name="username" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['username']; else echo ($_POST['username'] ?? ''); ?>" maxlength="10" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Dias premium:</strong></td>
-          <td><input name="premiumaccount" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['premiumaccount']; else echo $_POST['premiumaccount']; ?>" maxlength="4" /></td>
+          <td><input name="premiumaccount" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['premiumaccount']; else echo ($_POST['premiumaccount'] ?? ''); ?>" maxlength="4" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Nome:</strong></td>
-          <td><input name="voornaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['voornaam']; else echo $_POST['voornaam']; ?>" maxlength="12" /></td>
+          <td><input name="voornaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['voornaam']; else echo ($_POST['voornaam'] ?? ''); ?>" maxlength="12" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Sobrenome:</strong></td>
-          <td><input name="achternaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['achternaam']; else echo $_POST['achternaam']; ?>" maxlength="12" /></td>
+          <td><input name="achternaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['achternaam']; else echo ($_POST['achternaam'] ?? ''); ?>" maxlength="12" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Inicio:</strong></td>
-          <td><input type="text" name="datum" value="<?php if (!isset($_POST['change'])) echo $profiel['datum']; else echo $_POST['datum']; ?>" class="text_long" /></td>
+          <td><input type="text" name="datum" value="<?php if (!isset($_POST['change'])) echo $profiel['datum']; else echo ($_POST['datum'] ?? ''); ?>" class="text_long" /></td>
         </tr>
         <tr>
           <td height="20" colspan="2">&nbsp;</td>
@@ -132,12 +132,12 @@ if (isset($_GET['player'])) {
 		$kalosselected = '';
 		
 		if (isset($_POST['change'])) {
-			if ($_POST['wereld'] == 'Kanto') $kantoselected = 'selected';
-			else if ($_POST['wereld'] == 'Johto') $johtoselected = 'selected';
-			else if ($_POST['wereld'] == 'Hoenn') $hoennselected = 'selected';
-			else if ($_POST['wereld'] == 'Sinnoh') $sinnohselected = 'selected';
-			else if ($_POST['wereld'] == 'Unova') $unovaselected = 'selected';
-			else if ($_POST['wereld'] == 'Kalos') $kalosselected = 'selected';
+			if (($_POST['wereld'] ?? '') == 'Kanto') $kantoselected = 'selected';
+			else if (($_POST['wereld'] ?? '') == 'Johto') $johtoselected = 'selected';
+			else if (($_POST['wereld'] ?? '') == 'Hoenn') $hoennselected = 'selected';
+			else if (($_POST['wereld'] ?? '') == 'Sinnoh') $sinnohselected = 'selected';
+			else if (($_POST['wereld'] ?? '') == 'Unova') $unovaselected = 'selected';
+			else if (($_POST['wereld'] ?? '') == 'Kalos') $kalosselected = 'selected';
 		}
 		else{
 			if ($profiel['wereld'] == 'Kanto') $kantoselected = 'selected';
@@ -163,7 +163,7 @@ if (isset($_GET['player'])) {
         </tr>
         <tr>
           <td height="20"><strong>Silvers:</strong></td>
-          <td height="20"><input type="text" name="silver" value="<?php if (!isset($_POST['change'])) echo $profiel['silver']; else echo $_POST['silver']; ?>" class="text_long" /></td>
+          <td height="20"><input type="text" name="silver" value="<?php if (!isset($_POST['change'])) echo $profiel['silver']; else echo ($_POST['silver'] ?? ''); ?>" class="text_long" /></td>
         </tr>
         
         <tr>
@@ -196,15 +196,15 @@ if (isset($_GET['player'])) {
         </tr>
         <tr>
           <td height="20"><strong>Pokemons:</strong></td>
-          <td><input name="aantalpokemon" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['aantalpokemon']; else echo $_POST['aantalpokemon']; ?>" maxlength="3" /></td>
+          <td><input name="aantalpokemon" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['aantalpokemon']; else echo ($_POST['aantalpokemon'] ?? ''); ?>" maxlength="3" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Batalhas Ganhas:</strong></td>
-          <td><input name="gewonnen" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['gewonnen']; else echo $_POST['gewonnen']; ?>" maxlength="9" /></td>
+          <td><input name="gewonnen" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['gewonnen']; else echo ($_POST['gewonnen'] ?? ''); ?>" maxlength="9" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Batalhas Perdidas:</strong></td>
-          <td><input name="verloren" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['verloren']; else echo $_POST['verloren']; ?>" maxlength="9" /></td>
+          <td><input name="verloren" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['verloren']; else echo ($_POST['verloren'] ?? ''); ?>" maxlength="9" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Status:</strong></td>
@@ -215,11 +215,11 @@ if (isset($_GET['player'])) {
         </tr>
         <tr>
           <td height="20"><strong>Ip logado:</strong></td>
-          <td><input name="ip_aangemeld" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_aangemeld']; else echo $_POST['ip_aangemeld']; ?>" maxlength="15" /></td>
+          <td><input name="ip_aangemeld" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_aangemeld']; else echo ($_POST['ip_aangemeld'] ?? ''); ?>" maxlength="15" /></td>
         </tr>
         <tr>
           <td height="20"><strong>Ip login:</strong></td>
-          <td><input name="ip_ingelogd" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_ingelogd']; else echo $_POST['ip_ingelogd']; ?>" maxlength="15" /></td>
+          <td><input name="ip_ingelogd" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_ingelogd']; else echo ($_POST['ip_ingelogd'] ?? ''); ?>" maxlength="15" /></td>
         </tr>
 	</table>
 </center>
@@ -242,7 +242,7 @@ if (isset($_GET['player'])) {
               }?>
 </center>
             <hr />
-			<textarea style="width:580px;" class="text_area" rows="15" name="profiel" ><?php if (!isset($_POST['change'])) echo $profiel['profiel']; else echo $_POST['profiel']; ?></textarea>
+			<textarea style="width:580px;" class="text_area" rows="15" name="profiel" ><?php if (!isset($_POST['change'])) echo $profiel['profiel']; else echo ($_POST['profiel'] ?? ''); ?></textarea>
             <br />
 			<input type="submit" name="change" value="Atualizar!" class="button" /><br />
 

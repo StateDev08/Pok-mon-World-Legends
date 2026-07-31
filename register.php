@@ -20,14 +20,14 @@ function createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, 
 }
 
 if (isset($_POST['registreer'])) {
-	$inlognaam = $_POST['username'];
-	$wachtwoord = $_POST['wachtwoord'];
-	$wachtwoord_nogmaals = $_POST['wachtwoord_nogmaals'];
+	$inlognaam = ($_POST['username'] ?? '');
+	$wachtwoord = ($_POST['wachtwoord'] ?? '');
+	$wachtwoord_nogmaals = ($_POST['wachtwoord_nogmaals'] ?? '');
 	$wachtwoordmd5 = password($wachtwoord);
-	$email = $_POST['email'];
-	$others = $_POST['others'];
+	$email = ($_POST['email'] ?? '');
+	$others = ($_POST['others'] ?? '');
 	$ip = DB::real_escape_string($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-	$referer = $_POST['refferal'];
+	$referer = ($_POST['refferal'] ?? '');
 	$black_list = array('yopmail.com');
 	$_yapMail = explode('@', $email);
 

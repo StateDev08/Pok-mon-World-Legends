@@ -1,7 +1,7 @@
 <?php
 include('app/includes/resources/security.php');
 
-$id = $_GET['id'];
+$id = ($_GET['id'] ?? '');
 if (empty($id) && !is_numeric($id)) header('location: ./clans&action=central');
 
 $infos = $clan->get($id);

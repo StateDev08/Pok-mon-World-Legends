@@ -1,7 +1,7 @@
 <?php
-$error = "Escolha o pokémon para qual você vai usar ".$_GET['name'].".";
-$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
-if ($gebruiker_item[$_GET['name']] <= 0) {
+$error = "Escolha o pokémon para qual você vai usar ".($_GET['name'] ?? '').".";
+$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
+if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 ?>
 <script type="text/javascript">
 	parent.$.colorbox.close();
@@ -21,11 +21,11 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 	//Als er op de heal knop gedrukt word
 	if (isset($_POST['use']) && isset($_POST['pokemonid'])) {
 		//Gegevens laden van de potion
-		$name = $_GET['name'];
+		$name = ($_GET['name'] ?? '');
 		$itemgegevens = DB::exQuery("SELECT `kracht`, `naam`, `wat`, `apart`, `type1`, `type2`, `kracht2` FROM `items` WHERE `naam`='$name'")->fetch_assoc();
 
 		//Pokemon gegevens laden
-		$pokemon = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id='".$_POST['pokemonid']."'")->fetch_assoc();
+		$pokemon = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id='".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
 		$pokemon = pokemonei($pokemon, $txt);
 		$pokemon['naam'] = pokemon_naam($pokemon['naam'],$pokemon['roepnaam'],$pokemon['icon']);
 
@@ -50,7 +50,7 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 				if ($newlife > $pokemon['levenmax'])	$newlife = $pokemon['levenmax'];
 
 				//Save new life
-				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."' WHERE `id`='".$_POST['pokemonid']."'");
+				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."' WHERE `id`='".($_POST['pokemonid'] ?? '')."'");
 				$finish = true;
 			}else	$error = '<div class="red">Você não pode curar '.$pokemon['naam'].'.</div>';
 		} else if ($status) {	//Is er een aparte potion gebruikt?
@@ -58,15 +58,15 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 			else if ($pokemon['leven'] == 0) {
 				if ($itemgegevens['naam'] == "Revive")	$newlife = round($pokemon['levenmax'] / 2);
 				else if ($itemgegevens['naam'] == "Max revive")	$newlife = $pokemon['levenmax'];
-				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."',`effect`='".$effect."' WHERE `id`='".$_POST['pokemonid']."' LIMIT 1");
+				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."',`effect`='".$effect."' WHERE `id`='".($_POST['pokemonid'] ?? '')."' LIMIT 1");
 				$finish = true;
 			} else	$error = '<div class="red">Somente funciona em pokémons que estão totalmente sem vida.</div>';
 		}
-		if ($finish)	DB::exQuery("UPDATE `gebruikers_item` SET `".$name."`=`".$name."`-'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+		if ($finish)	DB::exQuery("UPDATE `gebruikers_item` SET `".$name."`=`".$name."`-'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 	}
 ?>
 <center>
-<form action="./ajax.php?act=<?=$_GET['act'];?>&amp;name=<?=$_GET['name'];?>" method="post">
+<form action="./ajax.php?act=<?=($_GET['act'] ?? '');?>&amp;name=<?=($_GET['name'] ?? '');?>" method="post">
 	<div class="box-content">
 	<table class="general" style="width: 100%;">
 		<thead>
@@ -81,13 +81,13 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 		<tbody>
 <?php
 	//Pokemon laden van de gebruiker die hij opzak heeft
-	$poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+	$poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
 
 	//Pokemons die hij opzak heeft weergeven  
 	for($teller=0;$pokemon=$poke->fetch_assoc();++$teller) {
 		//Als leven niet 0 is en er word een Revive Of Max revive gebruikt, Dan is radio gedisabled
 		$disabled = '';
-		if ($pokemon['leven'] != 0 && ($_GET['name'] == "Revive" || $_GET['name'] == "Max revive"))	$disabled = 'disabled';
+		if ($pokemon['leven'] != 0 && (($_GET['name'] ?? '') == "Revive" || ($_GET['name'] ?? '') == "Max revive"))	$disabled = 'disabled';
 		else if ($pokemon['leven'] >= $pokemon['levenmax'])	$disabled = 'disabled';
 
 		//Pagina includen dat berekend als het nog een pokemon ei is.
@@ -121,10 +121,10 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 	} else {
 ?>
 <script type="text/javascript">
-	var num = parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
-	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html('<b>'+(num - 1)+'x</b>');
+	var num = parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
+	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html('<b>'+(num - 1)+'x</b>');
 	else {
-		parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').empty().parent().remove();
+		parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').empty().parent().remove();
 		parent.$.colorbox.close();
 	}
 </script>

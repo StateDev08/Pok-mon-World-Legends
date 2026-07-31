@@ -50,7 +50,7 @@ $(document).ready(function () {
             for (let i = 0; i < hand.length; i++) {
                 h = hand[i];
                 
-                $('input[name="pokemon[]"][value="' + h + '"]').attr('checked', false);
+                $('input[name="pokemon[]"][value="' + h + '"]').prop('checked', false);
             }
 
             if (event.target.childElementCount > 6) {
@@ -82,7 +82,7 @@ $(document).ready(function () {
                     var sender = ui.sender.context.id;
 
                     let slot = $(this).sortable("serialize").split('pkm[]=').join('');
-                    $('input[name="pokemon[]"][value="' + slot + '"]').attr('checked', true);
+                    $('input[name="pokemon[]"][value="' + slot + '"]').prop('checked', true);
 
                     if (event.target.childElementCount > 1) {
                         calcelSortable = true;
@@ -116,7 +116,7 @@ $(function () {
             let id = $(this).attr('id').replace('pkm_', '');
 
             $("#hand ul").append(this);
-            $('input[name="pokemon[]"][value="' + id + '"]').attr('checked', false);
+            $('input[name="pokemon[]"][value="' + id + '"]').prop('checked', false);
 
             double_hand();
         });
@@ -137,7 +137,7 @@ $(function () {
             }
 
             $("#slot_" + disp).append(this);
-            $('input[name="pokemon[]"][value="' + id + '"]').attr('checked', true);
+            $('input[name="pokemon[]"][value="' + id + '"]').prop('checked', true);
 
             double_slot();
         });

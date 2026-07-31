@@ -9,10 +9,10 @@ else $toegestaan = 30;
 
 $events_arr = array();
 
-$event_sql = DB::exQuery("SELECT `id`,`datum`,`ontvanger_id`,`bericht`,`gelezen` FROM `gebeurtenis` WHERE `ontvanger_id`='" . $_SESSION['id'] . "' ORDER BY `id` DESC LIMIT " . $toegestaan);
+$event_sql = DB::exQuery("SELECT `id`,`datum`,`ontvanger_id`,`bericht`,`gelezen` FROM `gebeurtenis` WHERE `ontvanger_id`='" . ($_SESSION['id'] ?? '') . "' ORDER BY `id` DESC LIMIT " . $toegestaan);
 $event_count = $event_sql->num_rows;
 
-if ($events_count > 0) DB::exQuery("UPDATE `gebeurtenis` SET `gelezen`='1' WHERE `ontvanger_id`='".$_SESSION['id']."'");
+if ($events_count > 0) DB::exQuery("UPDATE `gebeurtenis` SET `gelezen`='1' WHERE `ontvanger_id`='".($_SESSION['id'] ?? '')."'");
 
 #Lijst opbouwen per bericht gaat vanzelf
 while($events = $event_sql->fetch_assoc()) {

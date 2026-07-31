@@ -1,7 +1,7 @@
 <?php
-$error = "<center><div style='padding-bottom:10px;'>Escolha o pokémon no qual você vai usar ".$_GET['name'].".</div></center>"; 
-$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
-if ($gebruiker_item[$_GET['name']] <= 0) {
+$error = "<center><div style='padding-bottom:10px;'>Escolha o pokémon no qual você vai usar ".($_GET['name'] ?? '').".</div></center>"; 
+$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
+if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 	?>
   <script>  
   	parent.$.colorbox.close();
@@ -36,16 +36,16 @@ if (isset($_POST['nee'])) {
 //Als een pokemon moet evolueren met de steen
 if (isset($_POST['zeker'])) {
   //Gegevens laden van de des betreffende pokemon
-  $pokemon = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.*, karakters.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN karakters ON pokemon_speler.karakter = karakters.karakter_naam WHERE pokemon_speler.id='".$_POST['pokemonid']."'")->fetch_assoc();
+  $pokemon = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.*, karakters.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN karakters ON pokemon_speler.karakter = karakters.karakter_naam WHERE pokemon_speler.id='".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
   //Gegevens halen uit de levelen tabel
-  $levelensql = DB::exQuery("SELECT nieuw_id FROM `levelen` WHERE `id`='".$_POST['levelenid']."'");
+  $levelensql = DB::exQuery("SELECT nieuw_id FROM `levelen` WHERE `id`='".($_POST['levelenid'] ?? '')."'");
   $levelen = $levelensql->fetch_assoc();
   if (empty($_POST['pokemonid']))
-    $error = 'FOUT 2!<br /> Code: '.$_POST['pokemonid'].'<br />Como tudo sobre a';
+    $error = 'FOUT 2!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br />Como tudo sobre a';
   else if ($levelensql->num_rows == 1) {
-    if ($pokemon['wild_id'] == '25' && $_SESSION['region'] == 'Alola') {
+    if ($pokemon['wild_id'] == '25' && ($_SESSION['region'] ?? '') == 'Alola') {
         $levelen['nieuw_id'] = '26001';
-    } else if ($pokemon['wild_id'] == '102' && $_SESSION['region'] == 'Alola') {
+    } else if ($pokemon['wild_id'] == '102' && ($_SESSION['region'] ?? '') == 'Alola') {
         $levelen['nieuw_id'] = '103001';
     }
     
@@ -65,27 +65,28 @@ if (isset($_POST['zeker'])) {
     //Pokemon opslaan als in bezit
     update_pokedex($update['wild_id'],$pokemon['wild_id'],'evo');
     //Stone weg
-    DB::exQuery("UPDATE `gebruikers_item` SET `".$_POST['item']."`=`".$_POST['item']."`-'1' WHERE `user_id`='".$_SESSION['id']."'");
+    DB::exQuery("UPDATE `gebruikers_item` SET `".($_POST['item'] ?? '')."`=`".($_POST['item'] ?? '')."`-'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
     //Post leeg maken.
     unset($_POST['zeker']);
     
-    $error = '<div class="green"><img src="' . $static_url . '/images/icons/green.png"> Parabéns, seu  <strong>'.$pokemon['naam'].'</strong> evoluiu para <strong>'.$update['naam'].'</strong> com '.$_POST['item'].'!</div>';
+    $error = '<div class="green"><img src="' . $static_url . '/images/icons/green.png"> Parabéns, seu  <strong>'.$pokemon['naam'].'</strong> evoluiu para <strong>'.$update['naam'].'</strong> com '.($_POST['item'] ?? '').'!</div>';
      
   }
   else{
-    $error = 'FOUT 1!<br /> Code: '.$_POST['levelenid'].'<br />Como tudo sobre a';
+    $error = 'FOUT 1!<br /> Code: '.($_POST['levelenid'] ?? '').'<br />Como tudo sobre a';
   }
   ?>
   
 <script type="text/javascript">
-	var num = parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
-	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html('<b>'+(num - 1)+'x</b>');
+	var num = parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
+	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html('<b>'+(num - 1)+'x</b>');
 	else {
-		parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').empty().parent().remove();
+		parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').empty().parent().remove();
 		parent.$.colorbox.close();
 	}
 </script>
-  <script src="<?=$static_url?>/javascripts/jquery-2.1.3.min.js"></script>
+  <script src="<?=$static_url?>/javascripts/jquery-3.7.1.min.js"></script>
+  <script src="<?=$static_url?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
   <script src="<?=$static_url;?>/javascripts/poke.evolve.js"></script>
   <?php
       $sprite_1 = $pokemon['shiny'] == 1 ? 'shiny' : 'pokemon'.'/'.$pokemon['wild_id'].'.gif';
@@ -109,19 +110,19 @@ if (isset($_POST['zeker'])) {
 }
 else{
 	if (isset($_POST['evolve'])) {
-  	list ($pokemonid, $levelenid, $pokemonnaam, $wildid) = explode('/', $_POST['pokemonid']);
+  	list ($pokemonid, $levelenid, $pokemonnaam, $wildid) = explode('/', ($_POST['pokemonid'] ?? ''));
   	if (empty($pokemonid))
-		  echo '<div class="red">Escolha um pokémon para usar '.$_POST['item'].'.';
+		  echo '<div class="red">Escolha um pokémon para usar '.($_POST['item'] ?? '').'.';
 		else if (empty($levelenid))
-      echo '<div class="red">FOUT!<br /> Code: '.$_POST['pokemonid'].'<br />';
-  	else if (DB::exQuery("SELECT `id` FROM `levelen` WHERE `wild_id`='".$wildid."' AND `wat`='evo' AND `stone`='".$_POST['item']."'")->num_rows == 0)
-		  echo '<div class="red">O pokémon '.$pokemonnaam.' não pode ter '.$_POST['item'].' usada nele.';  
+      echo '<div class="red">FOUT!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br />';
+  	else if (DB::exQuery("SELECT `id` FROM `levelen` WHERE `wild_id`='".$wildid."' AND `wat`='evo' AND `stone`='".($_POST['item'] ?? '')."'")->num_rows == 0)
+		  echo '<div class="red">O pokémon '.$pokemonnaam.' não pode ter '.($_POST['item'] ?? '').' usada nele.';  
   	else if (DB::exQuery("SELECT `id` FROM `levelen` WHERE `id`='".$levelenid."'")->num_rows == 0)
-		  echo '<div class="red">Fout!<br /> Code: '.$_POST['pokemonid'].'<br>';  
+		  echo '<div class="red">Fout!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br>';  
    	else{
 			echo '<center><div class="blue">Tem certeza que deseja evoluir '.$pokemonnaam.'?<br />';
 			echo '<form method="post">
-        <input type="hidden" Value="'.$_POST['item'].'" name="item">
+        <input type="hidden" Value="'.($_POST['item'] ?? '').'" name="item">
         <input type="hidden" Value="'.$pokemonid.'" name="pokemonid">
         <input type="hidden" Value="'.$levelenid.'" name="levelenid">   
 				<input type="submit" Value="Sim" name="zeker" class="button"> | <input type="submit" Value="Não" name="nee" class="button">
@@ -148,7 +149,7 @@ else{
 		
     <?php
     //Pokemon laden van de gebruiker die hij opzak heeft
-    $poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+    $poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
     
     //Pokemons die hij opzak heeft weergeven  
     for($teller=0; $pokemon = $poke->fetch_assoc(); $teller++) {
@@ -156,7 +157,7 @@ else{
         $kan = "<img src='".$static_url."/images/icons/red.png' alt='Não usável'>";
         $disabled = 'disabled';   
         //Als er een result is kan pokemon evolueren.
-        $stoneevolvesql = DB::exQuery("SELECT `id`, `stone`, `nieuw_id` FROM `levelen` WHERE `wild_id`='".$pokemon['wild_id']."' AND `stone`='".$_GET['name']."'");
+        $stoneevolvesql = DB::exQuery("SELECT `id`, `stone`, `nieuw_id` FROM `levelen` WHERE `wild_id`='".$pokemon['wild_id']."' AND `stone`='".($_GET['name'] ?? '')."'");
         $stoneevolve = $stoneevolvesql->fetch_assoc();
         
         //Heeft de stone werking?
@@ -201,7 +202,7 @@ else{
 		<?php    if ($button) { ?>
 		<tr>
 			<td colspan="5" align="right">
-				<input type="hidden" name="item" value="<?=$_GET['name'];?>" />
+				<input type="hidden" name="item" value="<?=($_GET['name'] ?? '');?>" />
 				<input type="submit" name="evolve" value="Ok!" class="button" />
 			</td>
 		</tr>

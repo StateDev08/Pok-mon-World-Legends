@@ -12,7 +12,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
     $unlock = true;
     if ($unlock) {
         if (isset($_POST['buy-store'])) {
-            $id = $_POST['buy-store'];
+            $id = ($_POST['buy-store'] ?? '');
             
             $query = DB::exQuery("SELECT * FROM `events_drop_1_2019_store` WHERE `id`='$id' AND `active`='1'")->fetch_assoc();
             if (isset($query)) {
@@ -85,7 +85,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                             $hpstat			= round((($hp_iv + 2 * $pkm['hp_base']) * 5 / 100) + 10 + 5);
         
                             #Alle gegevens van de pokemon opslaan
-                        DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='4' WHERE `id`='".$pokeid."' LIMIT 1");
+                        DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='4' WHERE `id`='".$pokeid."' LIMIT 1");
                         
                         echo '<div class="green">Você comprou 1x '.$query['name'].'!</div>';
                         DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'".$query['1_drop']."', `2_drop`=`2_drop`-'".$query['2_drop']."', `3_drop`=`3_drop`-'".$query['3_drop']."', `4_drop`=`4_drop`-'".$query['4_drop']."', `5_drop`=`5_drop`-'".$query['5_drop']."', `6_drop`=`6_drop`-'".$query['6_drop']."', `7_drop`=`7_drop`-'".$query['7_drop']."' WHERE `user_id`='$_SESSION[id]'");
@@ -189,8 +189,8 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                 
                 $insql = rtrim($insql, ', ');
 
-                DB::exQuery("UPDATE `gebruikers` SET ".$insql." WHERE `user_id`='".$_SESSION['id']."'");
-                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'50' WHERE `acc_id`='".$_SESSION['acc_id']."'");
+                DB::exQuery("UPDATE `gebruikers` SET ".$insql." WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
+                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'50' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
                 echo '<div class="green">Você recebeu: '.rtrim($drops, ', ').'!</div>';
             }
         }

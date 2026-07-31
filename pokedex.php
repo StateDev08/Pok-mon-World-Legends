@@ -12,7 +12,7 @@ if (isset($_SESSION['id'])) {
 
 $totaal = DB::exQuery("SELECT wild_id FROM pokemon_wild")->num_rows;
 
-$pokedexverify = DB::exQuery("SELECT `pokedex` FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
+$pokedexverify = DB::exQuery("SELECT `pokedex` FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 $pokedexhave = $pokedexverify['pokedex'];
 		
 if ($pokedexhave == 0) {
@@ -53,7 +53,7 @@ echo '<div class="red">'.$txt['pokedex_buy'].'</div>';
 					echo '<option selected disabled>'.$z['nome'].'</option>';
 					while ($p = $poke->fetch_assoc()) {
 						if (isset($_GET['poke'])) {
-							if ($p['wild_id'] == $_GET['poke']) {
+							if ($p['wild_id'] == ($_GET['poke'] ?? '')) {
 								$selected = ' selected';
 							} else {
 								$selected = '';
@@ -126,8 +126,8 @@ echo '<div class="red">'.$txt['pokedex_buy'].'</div>';
 							$("#pokemon_info").load("./ajax.php?act=pokemon_info&pokemon=" + pokemon);
 						} else	$("#pokemon_info").html()
 					}
-					<?php if (!empty($_GET['poke']) && is_numeric($_GET['poke'])) { ?>$(document).ready(function() {
-						show_info(<?=$_GET['poke'];?>);
+					<?php if (!empty($_GET['poke']) && is_numeric(($_GET['poke'] ?? ''))) { ?>$(document).ready(function() {
+						show_info(<?=($_GET['poke'] ?? '');?>);
 					});<?php } ?>
 				</script>
 				<div id="pokemon_info">

@@ -1,21 +1,21 @@
 <?php
 $txt['event_is_level_up'] = '<b>%s</b> passou de nível!';
-$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
+$gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 $continue = false;
-if ($gebruiker_item[$_GET['name']] <= 0) {
+if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 ?>
 <script type="text/javascript">
 	parent.$.fn.colorbox.close();
 </script>
 <?php
 } else {
-	if (isset($_POST['spcitem']) && isset($_POST['pokemonid']) && is_numeric($_POST['num_' . $_POST['pokemonid']])) {
-		$num_ = round($_POST['num_' . $_POST['pokemonid']]);
+	if (isset($_POST['spcitem']) && isset($_POST['pokemonid']) && is_numeric($_POST['num_' . ($_POST['pokemonid'] ?? '')])) {
+		$num_ = round($_POST['num_' . ($_POST['pokemonid'] ?? '')]);
 
 		//Pokemon gegevens laden
-		$pokemon = DB::exQuery("SELECT pokemon_wild.*,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id='".$_POST['pokemonid']."'")->fetch_assoc();
+		$pokemon = DB::exQuery("SELECT pokemon_wild.*,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id='".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
 
-		if ($gebruiker_item[$_GET['name']] < $num_)	$error = 'Você não possui está quantidade!';
+		if ($gebruiker_item[($_GET['name'] ?? '')] < $num_)	$error = 'Você não possui está quantidade!';
 		else if ($pokemon['level'] + $num_ > 100)	$error = 'Você não pode usar esta quantidade';
 		else if ($num_ < 0.9) $error = "Digite um valor.";
 		else {
@@ -42,9 +42,9 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 
 			$continue = true;
 
-			DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen) VALUES (NOW(), '".$_SESSION['id']."', '".$event."', '0')");
+			DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen) VALUES (NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
 			#Item weg
-			DB::exQuery("UPDATE `gebruikers_item` SET `".$_POST['item']."`=`".$_POST['item']."`-'".$num_."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers_item` SET `".($_POST['item'] ?? '')."`=`".($_POST['item'] ?? '')."`-'".$num_."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 		}
 	}
 ?>
@@ -58,10 +58,10 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 	<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style.css?<?=rand(1111, 9999);?>" />
 </head>
 <body>
-<form action="./ajax.php?act=<?=$_GET['act'];?>&amp;name=<?=$_GET['name'];?>" method="post">
+<form action="./ajax.php?act=<?=($_GET['act'] ?? '');?>&amp;name=<?=($_GET['name'] ?? '');?>" method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="5">Escolha qual pokémon irá receber a <?=$_GET['name'];?>.</th></tr>
+			<tr><th colspan="5">Escolha qual pokémon irá receber a <?=($_GET['name'] ?? '');?>.</th></tr>
 			<tr>
 				<th style="max-width: 10px;">#</th>
 				<th style="max-width: 80px;">Quantidade</th>
@@ -73,7 +73,7 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 		<?php if (!empty($error)) { echo '<tr><td colspan="10">' . $error . '</td></tr>'; } ?>
 <?php
 	//Pokemon laden van de gebruiker die hij opzak heeft
-	$poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+	$poke = DB::exQuery("SELECT pokemon_wild.* ,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE user_id='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
 
 	//Pokemons die hij opzak heeft weergeven  
 	for($teller=0;$pokemon=$poke->fetch_assoc();++$teller) {
@@ -94,10 +94,10 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 	if ($continue) {
 ?>
 <script type="text/javascript">
-	var num = parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
-	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').html('<b>'+(num - 1)+'x</b>');
+	var num = parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html().replace('x', '').replace('<b>', '').replace('</b>', '');
+	if ((num - 1) > 0)	parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').html('<b>'+(num - 1)+'x</b>');
 	else {
-		parent.$('#num_<?=str_replace(' ', '_', $_GET['name']);?>').empty().parent().remove();
+		parent.$('#num_<?=str_replace(' ', '_', ($_GET['name'] ?? ''));?>').empty().parent().remove();
 		parent.$.colorbox.close();
 	}
 </script>
@@ -107,7 +107,7 @@ if ($gebruiker_item[$_GET['name']] <= 0) {
 		</tbody>
 		<tfoot><tr>
 			<td colspan="5" align="right">
-				<input type="hidden" name="item" value="<?=$_GET['name'];?>" />
+				<input type="hidden" name="item" value="<?=($_GET['name'] ?? '');?>" />
 				<input type="submit" name="spcitem" value="Ok" class="button blue" />
 			</td>
 		</tr></tfoot>

@@ -2,10 +2,10 @@
 function create_new_attack($computer_id,$computer_level,$gebied) {
 
   //Delete last attack logs
-  DB::exQuery("DELETE FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'");
-  DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
+  DB::exQuery("DELETE FROM `aanval_log` WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
+  DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   
-  $pokemonopzaksqlx = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY opzak_nummer ASC");
+  $pokemonopzaksqlx = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY opzak_nummer ASC");
   
   while($pokemonopzakx = $pokemonopzaksqlx->fetch_assoc()) {
     DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `id`='".$pokemonopzakx['id']."'"); 
@@ -36,7 +36,7 @@ function create_new_attack($computer_id,$computer_level,$gebied) {
     //Clear Computer
     DB::exQuery("DELETE FROM `pokemon_wild_gevecht` WHERE `id`='".$attack_info['computer_id']."'");
     //Clear Player
-    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
+    DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   }
   
   
@@ -47,7 +47,7 @@ function create_new_attack($computer_id,$computer_level,$gebied) {
 
 function create_aanval_log($gebied) {
   DB::exQuery("INSERT INTO `aanval_log` (`user_id`, `gebied`)
-    VALUES ('".$_SESSION['id']."', '".$gebied."')");
+    VALUES ('".($_SESSION['id'] ?? '')."', '".$gebied."')");
     
   $_SESSION['attack']['aanval_log_id'] = DB::insertID();
 }
@@ -59,7 +59,7 @@ function save_attack($attack_info) {
   DB::exQuery("UPDATE `aanval_log` SET `laatste_aanval`='".$attack_info['begin']."', `tegenstanderid`='".$attack_info['computer_id']."', `pokemonid`='".$attack_info['pokemonid']."', `gebruikt_id`='".$gebruikt."' WHERE `id`='".$_SESSION['attack']['aanval_log_id']."'");
   
   //Save Player Page Status   
-  DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`in_battle`=1,`map_wild`='".$attack_info['computer_wildid']."' WHERE `user_id`='".$_SESSION['id']."'");
+  DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`in_battle`=1,`map_wild`='".$attack_info['computer_wildid']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 }
 
 function who_can_start($attack_info) {
@@ -67,7 +67,7 @@ function who_can_start($attack_info) {
   //Speed stat tegenstander -> $speedstat
   //Pokemons laden die de speler opzak heeft
   $nummer = 0;
-  $opzaksql = DB::exQuery("SELECT pokemon_speler.id, pokemon_speler.opzak_nummer, pokemon_speler.leven, pokemon_speler.speed, pokemon_speler.ei, pokemon_wild.naam FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+  $opzaksql = DB::exQuery("SELECT pokemon_speler.id, pokemon_speler.opzak_nummer, pokemon_speler.leven, pokemon_speler.speed, pokemon_speler.ei, pokemon_wild.naam FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
   //Alle pokemon opzak stuk voor stuk behandelen
   while($opzak = $opzaksql->fetch_assoc()) {
     //Kijken als het level groter dan 0 is
@@ -99,12 +99,12 @@ function who_can_start($attack_info) {
 
 function create_player($attack_info) {
   //Spelers van de pokemon laden die hij opzak heeft
-  $pokemonopzaksql = DB::exQuery("SELECT * FROM pokemon_speler WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='ja' ORDER BY opzak_nummer ASC");
+  $pokemonopzaksql = DB::exQuery("SELECT * FROM pokemon_speler WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY opzak_nummer ASC");
   //Nieuwe stats berekenen aan de hand van karakter, en opslaan
   while($pokemonopzak = $pokemonopzaksql->fetch_assoc()) {
     //Alle gegevens opslaan, incl nieuwe stats
     DB::exQuery("INSERT INTO `pokemon_speler_gevecht` (`id`, `user_id`, `aanval_log_id`, `levenmax`, `leven`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `exp`, `totalexp`, `effect`, `hoelang`) 
-      VALUES ('".$pokemonopzak['id']."', '".$_SESSION['id']."', '".$_SESSION['attack']['aanval_log_id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['attack']."', '".$pokemonopzak['defence']."', '".$pokemonopzak['speed']."', '".$pokemonopzak['spc.attack']."', '".$pokemonopzak['spc.defence']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')"); 
+      VALUES ('".$pokemonopzak['id']."', '".($_SESSION['id'] ?? '')."', '".$_SESSION['attack']['aanval_log_id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['attack']."', '".$pokemonopzak['defence']."', '".$pokemonopzak['speed']."', '".$pokemonopzak['spc.attack']."', '".$pokemonopzak['spc.defence']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')"); 
   }
 }
 

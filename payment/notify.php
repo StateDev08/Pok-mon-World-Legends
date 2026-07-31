@@ -2,7 +2,7 @@
 require_once('../app/includes/resources/config.php');
 
 if (isset($_POST['notificationCode'])) {
-    $notificationCode = preg_replace('/[^[:alnum:]-]/','',$_POST['notificationCode']);
+    $notificationCode = preg_replace('/[^[:alnum:]-]/','',($_POST['notificationCode'] ?? ''));
     
     //SANDBOX
     // $data['token'] = '95C7BFB7BA5E4E1CA6A6D0A70752D5B3';

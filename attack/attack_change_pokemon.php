@@ -15,10 +15,10 @@ if ((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (i
   //Goeie taal erbij laden voor de page
   include('../language/language-pages.php');
   //Load Attack Info
-  $aanval_log = aanval_log($_GET['aanval_log_id']);
+  $aanval_log = aanval_log(($_GET['aanval_log_id'] ?? ''));
   //Check if the right aanval_log is choosen
-  if ($aanval_log['user_id'] != $_SESSION['id']) exit;
-  if ($_SESSION['sec_key'] != $_GET['_h']) exit;
+  if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit;
+  if (($_SESSION['sec_key'] ?? '') != ($_GET['_h'] ?? '')) exit;
   //Load Computer Info
   $computer_info = computer_data($aanval_log['tegenstanderid']);
   $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
@@ -27,10 +27,10 @@ if ((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (i
   //Refresh?
   $refresh = 0;
   //Load New Pokemon Data
-  $existeopoke = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='ja' AND `opzak_nummer`='".$_GET['opzak_nummer']."'")->num_rows;
+  $existeopoke = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND `opzak_nummer`='".($_GET['opzak_nummer'] ?? '')."'")->num_rows;
   //Does The Pokemon excist
   if ($existeopoke > 0) {
-    $change_pokemon = DB::exQuery("SELECT * FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id WHERE pokemon_speler.user_id='".$_SESSION['id']."' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='".$_GET['opzak_nummer']."'")->fetch_assoc();
+    $change_pokemon = DB::exQuery("SELECT * FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id WHERE pokemon_speler.user_id='".($_SESSION['id'] ?? '')."' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='".($_GET['opzak_nummer'] ?? '')."'")->fetch_assoc();
     //Are you hit by block and you're pokemon still alive.
     if (($change_pokemon['leven'] > 0) AND ($aanval_log['effect_speler'] == "Block")) $message = $txt['change_block'];
     //Is the new pokemon an egg
@@ -88,6 +88,6 @@ if ((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (i
   }
   else $message = "Erro, algo deu errado.";
   //Bericht, Goed/Fout, 
-  echo $message." | ".$good." | ".$refresh." | ".$change_pokemon['naam']." | ".$change_pokemon['level']." | ".$change_pokemon['aanval_1']." | ".$change_pokemon['aanval_2']." | ".$change_pokemon['aanval_3']." | ".$change_pokemon['aanval_4']." | ".$_GET['opzak_nummer']." | ".$change_pokemon['leven']." | ".$change_pokemon['levenmax']." | ".$change_pokemon['exp']." | ".$change_pokemon['expnodig']." | ".$change_pokemon['shiny']." | ".$change_pokemon['wild_id']." | ".$change_pokemon['effect']." | ".$t1." | ".$t2." | ".$t3." | ".$t4." | ".$zmove." | ".$tz;
+  echo $message." | ".$good." | ".$refresh." | ".$change_pokemon['naam']." | ".$change_pokemon['level']." | ".$change_pokemon['aanval_1']." | ".$change_pokemon['aanval_2']." | ".$change_pokemon['aanval_3']." | ".$change_pokemon['aanval_4']." | ".($_GET['opzak_nummer'] ?? '')." | ".$change_pokemon['leven']." | ".$change_pokemon['levenmax']." | ".$change_pokemon['exp']." | ".$change_pokemon['expnodig']." | ".$change_pokemon['shiny']." | ".$change_pokemon['wild_id']." | ".$change_pokemon['effect']." | ".$t1." | ".$t2." | ".$t3." | ".$t4." | ".$zmove." | ".$tz;
 }
 ?>

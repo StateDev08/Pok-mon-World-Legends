@@ -17,7 +17,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
   //Goeie taal erbij laden voor de page
   include_once('../../language/language-pages.php');
   //Load Duel Data
-  $duel_sql = DB::exQuery("SElECT `id`, `uitdager`, `tegenstander`, `u_pokemonid`, `t_pokemonid`, `laatste_beurt_tijd`, `laatste_beurt`, `laatste_aanval`,`laatste_aanval2`, `schade`, `volgende_beurt`, `last_pokemon_id` FROM `duel` WHERE `id`='".$_GET['duel_id']."'");
+  $duel_sql = DB::exQuery("SElECT `id`, `uitdager`, `tegenstander`, `u_pokemonid`, `t_pokemonid`, `laatste_beurt_tijd`, `laatste_beurt`, `laatste_aanval`,`laatste_aanval2`, `schade`, `volgende_beurt`, `last_pokemon_id` FROM `duel` WHERE `id`='".($_GET['duel_id'] ?? '')."'");
 
   //Default text
   $refresh = 0;
@@ -42,7 +42,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
       $refresh = 2;
     }
     else{
-      if ($duel_info['uitdager'] == $_SESSION['naam']) {
+      if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
         if ($duel_info['laatste_beurt'] == $duel_info['tegenstander']) {
           if ($duel_info['laatste_aanval'] == "wissel") {
             $pokemon_info = pokemon_data($duel_info['t_pokemonid']);
@@ -65,7 +65,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             }
           }
 
-          else if ($duel_info['volgende_beurt'] == $_SESSION['naam']) {
+          else if ($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) {
             $pokemon_info = pokemon_data($duel_info['u_pokemonid']);
             $pokemon_info['naam_goed'] = pokemon_naam($pokemon_info['naam'],$pokemon_info['roepnaam']);
             $opponent_info = pokemon_data($duel_info['t_pokemonid']);
@@ -104,7 +104,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
           }
         }
       }  
-      else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
+      else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
         if ($duel_info['laatste_beurt'] == $duel_info['uitdager']) {
           if ($duel_info['laatste_aanval'] == "wissel") {
             $pokemon_info = pokemon_data($duel_info['u_pokemonid']);
@@ -127,7 +127,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
               $mes = "Seu oponente trocou de Pokémon. Turno do oponente.";
             }
           }
-          else if ($duel_info['volgende_beurt'] == $_SESSION['naam']) {
+          else if ($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) {
             $pokemon_info = pokemon_data($duel_info['t_pokemonid']);
             $pokemon_info['naam_goed'] = pokemon_naam($pokemon_info['naam'],$pokemon_info['roepnaam']);
             $opponent_info = pokemon_data($duel_info['u_pokemonid']);

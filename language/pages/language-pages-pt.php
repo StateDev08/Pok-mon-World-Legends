@@ -231,12 +231,12 @@ if ($page == 'home' || empty($page)) {
 	$txt['link_subpage_game_info'] = 'F.A.Q';
 
 	
-			if ($_GET['category'] == 'game-info') {
+			if (($_GET['category'] ?? '') == 'game-info') {
 			#Screen
 			$txt['pagetitle'] .= ' - F.A.Q';
 			$txt['informationpage'] = '<h2>F.A.Q</h2><br>';
 		}
-	else if ($_GET['category'] == 'pokemon-info') {
+	else if (($_GET['category'] ?? '') == 'pokemon-info') {
 		$txt['titlenpc']		= 'PokePédia (Enciclopédia Pokémon)';
 		$txt['textnpc']			= 'Está área é aonde se encontra todas as informações sobre todos os pokémons existentes em <b>World Legends</b>. Aqui você pode tirar suas dúvidas sobre stats, evoluções e etc.';
 
@@ -262,7 +262,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['capture_chance']		  = 'Chance de captura';
 		$txt['evolui_de']             = 'Evolui de';
 		$txt['trade']				  = 'Troca necessária.';
-	} else if ($_GET['category'] == 'attack-info') {
+	} else if (($_GET['category'] ?? '') == 'attack-info') {
 		$txt['titlenpc']		= 'Ataques Pokémon';
 		$txt['textnpc']			= 'Está procurando informações sobre um certo move/ataque? Você está no lugar certo, aqui você irá entrar tudo que procura sobre o ataque do seu pokemon.';
 
@@ -304,7 +304,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['online']    = 'Online';
 	$txt['offline']   = 'Offline';
 } else if ($page == 'contact') {
-	$txt['alert_email_to_unknown']      = $_POST['sendto'] . ' é inválido!';
+	$txt['alert_email_to_unknown']      = ($_POST['sendto'] ?? '') . ' é inválido!';
 	$txt['alert_no_name']               = 'Você deve inserir seu nome!';
 	$txt['alert_no_email']              = 'Vcê deve inserir seu e-mail!';
 	$txt['alert_email_incorrect_signs'] = 'O e-mail inserido não é valido!';
@@ -391,7 +391,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['link_subpage_profile'] = 'Perfil';
 		$txt['link_subpage_restart'] = 'Resetar';
 		
-		if ($_GET['category'] == 'personal') {
+		if (($_GET['category'] ?? '') == 'personal') {
 			#Alerts general
 			$txt['alert_not_enough_gold'] = 'Você não possui gold.';
 			$txt['alert_no_username'] = 'Nenhum usuário foi encontrado.';
@@ -433,11 +433,11 @@ if ($page == 'home' || empty($page)) {
 			$txt['available_rank_bully'] = 'Rank muito baixo.';
 			$txt['button_personal'] = 'Atualizar';
 		}
-		else if ($_GET['category'] == 'email') {
+		else if (($_GET['category'] ?? '') == 'email') {
 
 			$txt['pagetitle'] .= ' - Alterar E-mail';
 		}
-		else if ($_GET['category'] == 'password') {
+		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
 			$txt['alert_all_fields_required'] = 'Todos os campos devem estar preenchidos.';
 			$txt['alert_old_new_password_thesame'] = 'Sua senha nova não pode ser igual a antiga.';
@@ -453,7 +453,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['password_now'] = 'Senha atual:';
 			$txt['button_password'] = 'Alterar senha!';
 		}
-		else if ($_GET['category'] == 'profile') {
+		else if (($_GET['category'] ?? '') == 'profile') {
 			#Alerts profile
 			$txt['success_profile'] = 'Seu perfil foi atualizado com sucesso.';
 			
@@ -462,7 +462,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Efeitos para o perfil"><b>Aqui</b></a></u> você pode ver algumas dicas para personalizar seu perfil!';
 			$txt['button_profile'] = 'Atualizar Perfil!';
 		}
-		else if ($_GET['category'] == 'restart') {
+		else if (($_GET['category'] ?? '') == 'restart') {
 			#Alerts restart
 			$txt['embreve'] = 'Em breve.';
 			$txt['alert_no_password'] = 'No password entered.';
@@ -548,16 +548,16 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'items') {
 	$txt['alert_no_amount']               = 'Digite uma quantidade!';
 	$txt['alert_too_much_items_selected'] = 'Você não possui está quantidade!';
-	$txt['success_items']                 = 'Você vendeu ' . $_POST['amount'] . 'x ' . $_POST['name'] . '';
+	$txt['success_items']                 = 'Você vendeu ' . ($_POST['amount'] ?? '') . 'x ' . ($_POST['name'] ?? '') . '';
 
 	$txt['pagetitle']        = 'Meus itens';
-	if ($_GET['category'] == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
-	else if ($_GET['category'] == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if ($_GET['category'] == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
-	else if ($_GET['category'] == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if ($_GET['category'] == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
-	else if ($_GET['category'] == 'hm') $txt['pagetitle'] .= ' - HM\'s';
-	else if ($_GET['category'] == 'tm') $txt['pagetitle'] .= ' - TM\'s';
+	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
+	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
+	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
 	$txt['title_text_1']     = 'Você tem ';
 	$txt['title_text_2']     = ' slot(s) livre(s).';
@@ -634,7 +634,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['button']    = 'Apagar';
 	$txt['event']     = 'Notificação';
 }else if ($page == 'profile') {
-	$txt['pagetitle']         = 'Perfil de ' . $_GET['player'];
+	$txt['pagetitle']         = 'Perfil de ' . ($_GET['player'] ?? '');
 	$txt['offline']           = 'Offline';
 	$txt['online']            = 'Online';
 	$txt['username']          = 'Treinador:';
@@ -786,26 +786,26 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']   = 'Ataques';
 	$txt['pokemon']   = 'Pokémons';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = 'Comprar pokébolas';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = 'Comprar poções';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Comprar itens';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = 'Comprar itens especais';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = 'Comprar pedras';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = 'Comprar ataques';
 		$txt['market_attack_types'] = 'Pokémon pode aprender ataques.';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = 'Comprar pokémon';
 		$txt['not_rare']               = 'Comum';
@@ -822,23 +822,23 @@ if ($page == 'home' || empty($page)) {
 	$txt['stones']		= 'Pedras';
 	$txt['attacks']		= 'Ataques';
 
-	if ($_GET['category'] == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if ($_GET['category'] == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if ($_GET['category'] == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
-	else if ($_GET['category'] == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
+	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['alert_no_world'] = 'Selecione uma região.';
-	$txt['alert_already_in_world'] = 'Você já está em '.$_POST['wereld'].'.';
-	$txt['alert_world_invalid'] = $_POST['wereld'].' não é uma região válida.';
-	$txt['alert_not_enough_money'] = 'Você não tem silvers para viajar para '.$_POST['wereld'].'.';
-	$txt['success_travel'] = 'Você foi para '.$_POST['wereld'].', e gastou';
+	$txt['alert_already_in_world'] = 'Você já está em '.($_POST['wereld'] ?? '').'.';
+	$txt['alert_world_invalid'] = ($_POST['wereld'] ?? '').' não é uma região válida.';
+	$txt['alert_not_enough_money'] = 'Você não tem silvers para viajar para '.($_POST['wereld'] ?? '').'.';
+	$txt['success_travel'] = 'Você foi para '.($_POST['wereld'] ?? '').', e gastou';
 	$txt['alert_not_everything_selected'] = 'Selecione o pokémon e a região.';
 	$txt['alert_not_your_pokemon'] = 'Este pokémon não é seu!';
 	$txt['alert_no_surf'] = 'Este pokémon não pode surfar!';
 	$txt['alert_no_fly'] = 'Este pokémon não pode voar!';
 	$txt['alert_not_strong_enough'] = 'Este pokémon não é forte o suficiente!';
-	$txt['success_surf'] = 'Seu pokémon foi surfando para '.$_POST['wereld'].' com sucesso!';
-	$txt['success_fly'] = 'Seu pokémon foi voando para '.$_POST['wereld'].' com sucesso!';
+	$txt['success_surf'] = 'Seu pokémon foi surfando para '.($_POST['wereld'] ?? '').' com sucesso!';
+	$txt['success_fly'] = 'Seu pokémon foi voando para '.($_POST['wereld'] ?? '').' com sucesso!';
 	
 	$txt['pagetitle']       = 'Viajar para outra região';
 	$txt['title_text']      = 'Aqui você pode viajar para outras regiões';
@@ -1541,11 +1541,11 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 		$txt['alert_no_amount'] = 'Digite uma quantidade.';
 		$txt['alert_unknown_amount'] = 'Quantidade inválida.';
 		$txt['alert_max_10_tickets'] = 'Você só pode comprar 10 tickets!';
-		$txt['alert_not_enough_money'] = 'Você não tem silvers para comprar '.$_POST['aantal'].' ticket(s).';
+		$txt['alert_not_enough_money'] = 'Você não tem silvers para comprar '.($_POST['aantal'] ?? '').' ticket(s).';
 		$txt['alert_no_tickets_left'] = 'Você não pode comprar mais tickets!';
 		$txt['alert_buys_left_1'] = 'Você só pode comprar';
 		$txt['alert_buys_left_2'] = 'tickets!';
-		$txt['success_lottery'] = 'Você comprou '.$_POST['aantal'].' ticket(s) com sucesso.';
+		$txt['success_lottery'] = 'Você comprou '.($_POST['aantal'] ?? '').' ticket(s) com sucesso.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Loteria';
@@ -1572,15 +1572,15 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 		$txt['alert_username_dont_exist'] = 'O treinador não existe.';
 		$txt['alert_username_incorrect_signs'] = 'O treinador contém caracters inválidos.';
 		$txt['alert_admin_steal'] = 'Você não pode sabotar um membro da equipe.';
-		$txt['alert_is_not_in'] = $_POST['player'].' não está em';
-		$txt['alert_too_low_rank'] = $_POST['player'].' não tem rank suficiente para ser sabotado';
-		$txt['alert_too_low_or_high_rank'] = $_POST['player'].' é de um rank muito baixo ou muito alto para ser sabotado';
+		$txt['alert_is_not_in'] = ($_POST['player'] ?? '').' não está em';
+		$txt['alert_too_low_rank'] = ($_POST['player'] ?? '').' não tem rank suficiente para ser sabotado';
+		$txt['alert_too_low_or_high_rank'] = ($_POST['player'] ?? '').' é de um rank muito baixo ou muito alto para ser sabotado';
 		$txt['alert_steal_failed_1'] = 'A sabotagem falhou.';
 		$txt['alert_steal_failed_2'] = 'foi mais forte.';
 		
 		$txt['alert_steal_jail'] = 'Você foi preso pela Oficial Jenny.<br>';
 		$txt['success_stole_1'] = 'Você conseguiu';
-		$txt['success_stole_2'] = 'sabotando '.$_POST['player'];
+		$txt['success_stole_2'] = 'sabotando '.($_POST['player'] ?? '');
 		
 		$txt['alert_steal_jail_text_1'] = 'Você está preso, aguarde';
 		$txt['alert_steal_jail_text_2'] = 'minutos e';
@@ -1629,7 +1629,7 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 	######################## LVL CHOOSE ########################
 	else if ($page == 'lvl-choose') {
 		#Alerts
-		$txt['success_lvl_choose'] = 'Agora você ira encontrar pokémons entre o level '.$_POST['lvl'].'.';
+		$txt['success_lvl_choose'] = 'Agora você ira encontrar pokémons entre o level '.($_POST['lvl'] ?? '').'.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Escolha o Level';
@@ -1658,7 +1658,7 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 		$txt['alert_opponent_not_in'] = 'não está em';
 		$txt['alert_opponent_not_casual'] = 'O oponente não tem rank suficiente.';
 		$txt['alert_no_admin'] = 'Você não pode desafiar um membro da equipe para uma corrida.';
-		$txt['success'] = 'Você desafiou '.$_POST['naam'].' para uma corrida com sucesso!';
+		$txt['success'] = 'Você desafiou '.($_POST['naam'] ?? '').' para uma corrida com sucesso!';
 		
 		#Screen
 		$txt['pagetitle'] = 'Corrida';
@@ -1847,9 +1847,9 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 		$txt['alert_amount_unknown'] = 'Valor digitado inválido.';
 		$txt['alert_too_less_cash'] = 'Você não tem essa quantia com você.';
 		$txt['alert_no_silver_or_gold'] = 'Você tem que escolher silver ou gold.';
-		$txt['success_stort'] = $_POST['stort'].' <img src="'.$static_url.'/images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> depositado com sucesso.';
+		$txt['success_stort'] = ($_POST['stort'] ?? '').' <img src="'.$static_url.'/images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> depositado com sucesso.';
 		$txt['alert_too_less_bank'] = 'Você não tem essa quantia no banco.';
-		$txt['success_take'] = $_POST['ophaal'].' <img src="'.$static_url.'/images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> retirado com sucesso.';
+		$txt['success_take'] = ($_POST['ophaal'] ?? '').' <img src="'.$static_url.'/images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> retirado com sucesso.';
 		$txt['alert_no_receiver'] = 'Digite um treinador para quem a quantia sera transferida.';
 		$txt['alert_send_to_yourself'] = 'Você não pode enviar para você mesmo.';
 		$txt['alert_receiver_dont_exist'] = 'O treinador destinatário não existe.';
@@ -1878,16 +1878,16 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 	else if ($page == 'send-message') {
 		#Alerts
 		$txt['alert_no_receiver'] = 'Você não digitou para quem é a mensagem.';
-		$txt['alert_inbox_full'] = 'A caixa de '.$_POST['ontvanger'].' está cheia.';
-		$txt['alert_receiver_blocked'] = 'Você bloqueou '.$_POST['ontvanger'].'.';
-		$txt['alert_has_blocked_you'] = $_POST['ontvanger'].' bloqueou você.';
+		$txt['alert_inbox_full'] = 'A caixa de '.($_POST['ontvanger'] ?? '').' está cheia.';
+		$txt['alert_receiver_blocked'] = 'Você bloqueou '.($_POST['ontvanger'] ?? '').'.';
+		$txt['alert_has_blocked_you'] = ($_POST['ontvanger'] ?? '').' bloqueou você.';
 		$txt['alert_message_to_yourself'] = 'Você não pode mandar mensagem para você mesmo.';
-		$txt['alert_username_dont_exist'] = $_POST['ontvanger'].' não existe.';
+		$txt['alert_username_dont_exist'] = ($_POST['ontvanger'] ?? '').' não existe.';
 		$txt['alert_no_subject'] = 'Digite um assunto.';
 		$txt['alert_subject_wrong_signs'] = 'O assunto possui caracters inválidos.';
 		$txt['alert_text_wrong_signs'] = 'A mensagem não pode conter <.';
 		$txt['alert_no_message'] = 'Digite uma mensagem.';
-		$txt['success_send_message'] = 'Mensagem enviada com sucesso para '.$_POST['ontvanger'].'.';
+		$txt['success_send_message'] = 'Mensagem enviada com sucesso para '.($_POST['ontvanger'] ?? '').'.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Escrever Mensagem';
@@ -1944,12 +1944,12 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 ######################## BUDDYLIST ########################
 	else if ($page == 'buddylist') {
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].' foi removido da sua lista de amigos com sucesso.';
+		$txt['success_deleted'] = ($_POST['deletenaam'] ?? '').' foi removido da sua lista de amigos com sucesso.';
 		$txt['alert_buddy_not_yourself'] = 'Você não pode adicionar você mesmo como amigo.';
 		$txt['alert_username_dont_exist'] = 'O treinador não existe.';
-		$txt['alert_already_buddy'] = $_POST['buddynaam'].' já é seu amigo.';
-		$txt['alert_is_blocked'] = $_POST['buddynaam'].' está na sua lista de bloqueados.';
-		$txt['success_add'] = $_POST['buddynaam'].' foi adicionado como seu amigo.';
+		$txt['alert_already_buddy'] = ($_POST['buddynaam'] ?? '').' já é seu amigo.';
+		$txt['alert_is_blocked'] = ($_POST['buddynaam'] ?? '').' está na sua lista de bloqueados.';
+		$txt['success_add'] = ($_POST['buddynaam'] ?? '').' foi adicionado como seu amigo.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Amigos';
@@ -1971,13 +1971,13 @@ $txt['no_pokemon']	   = 'Nenhum pokémon foi encontrado.';
 	######################## POKEMON INFO ########################
 	else if ($page == 'blocklist') {
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].' foi removido da sua lista de bloqueados.';
+		$txt['success_deleted'] = ($_POST['deletenaam'] ?? '').' foi removido da sua lista de bloqueados.';
 		$txt['alert_block_yourself'] = 'Você não pode bloquear você mesmo.';
 		$txt['alert_unknown_username'] = 'Treinador não existente.';
-		$txt['alert_already_in_blocklist'] = $_POST['blocknaam'].' foi bloqueado.';
-		$txt['alert_is_your_buddy'] = $_POST['blocknaam'].' não pode ser bloqueado porque já é seu amigo.';
+		$txt['alert_already_in_blocklist'] = ($_POST['blocknaam'] ?? '').' foi bloqueado.';
+		$txt['alert_is_your_buddy'] = ($_POST['blocknaam'] ?? '').' não pode ser bloqueado porque já é seu amigo.';
 		$txt['alert_admin_block'] = 'Você não pode bloquear um membro da Equipe.';
-		$txt['success_blocked'] = $_POST['blocknaam'].' foi bloqueado com sucesso.';
+		$txt['success_blocked'] = ($_POST['blocknaam'] ?? '').' foi bloqueado com sucesso.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Bloqueados';
@@ -1999,7 +1999,7 @@ $txt['pagetitle'] = 'Vender Itens';
 $txt['sellprice'] = "Preço PokéMart";
 $txt['alert_no_amount']               = 'Digite uma quantidade!';
 	$txt['alert_too_much_items_selected'] = 'Você não possui está quantidade!';
-	$txt['success_items']                 = 'Você vendeu ' . $_POST['amount'] . 'x ' . $_POST['name'] . '';
+	$txt['success_items']                 = 'Você vendeu ' . ($_POST['amount'] ?? '') . 'x ' . ($_POST['name'] ?? '') . '';
 
 
 	$txt['title_text_1']     = 'Você tem ';
@@ -2043,26 +2043,26 @@ $txt['alert_no_amount']               = 'Digite uma quantidade!';
 	$txt['attacks']   = 'Ataques';
 	$txt['pokemon']   = 'Pokémons';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = 'Comprar pokébolas';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = 'Comprar poções';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Comprar itens';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = 'Comprar itens especais';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = 'Comprar pedras';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = 'Comprar ataques';
 		$txt['market_attack_types'] = 'Pokémon pode aprender ataques.';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = 'Comprar pokémon';
 		$txt['not_rare']               = 'Comum';
@@ -2093,26 +2093,26 @@ $txt['alert_no_amount']               = 'Digite uma quantidade!';
 	$txt['attacks']   = 'Ataques';
 	$txt['pokemon']   = 'Pokémons';
 	
-	if ($_GET['shopitem'] == 'balls') {
+	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
 		$txt['button_balls'] = 'Comprar pokébolas';
-	} else if ($_GET['shopitem'] == 'potions') {
+	} else if (($_GET['shopitem'] ?? '') == 'potions') {
 		$txt['pagetitle']      .= ' - Poções';
 		$txt['button_potions'] = 'Comprar poções';
-	} else if ($_GET['shopitem'] == 'items') {
+	} else if (($_GET['shopitem'] ?? '') == 'items') {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Comprar itens';
-	} else if ($_GET['shopitem'] == 'specialitems') {
+	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
 		$txt['pagetitle']        .= ' - Itens especais';
 		$txt['button_spc_items'] = 'Comprar itens especais';
-	} else if ($_GET['shopitem'] == 'stones') {
+	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
 		$txt['button_stones'] = 'Comprar pedras';
-	} else if ($_GET['shopitem'] == 'attacks') {
+	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = 'Comprar ataques';
 		$txt['market_attack_types'] = 'Pokémon pode aprender ataques.';
-	} else if ($_GET['shopitem'] == 'pokemon') {
+	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['button_pokemon']         = 'Comprar pokémon';
 		$txt['not_rare']               = 'Comum';
@@ -2127,4 +2127,215 @@ $txt['alert_no_amount']               = 'Digite uma quantidade!';
 } else if ($page == 'pokemon-profile') {
 	$txt['pagetitle'] = 'Perfil Pokémon';
 }
+
+/* === externalized strings (generated) === */
+
+# common
+$txt['common_yes'] = 'Sim';
+$txt['common_no'] = 'Não';
+$txt['common_edit'] = 'Editar';
+$txt['common_add'] = 'Adicionar';
+$txt['common_remove'] = 'Remover';
+$txt['common_buy'] = 'COMPRAR';
+$txt['common_confirm_purchase'] = 'Deseja realmente realizar esta compra?';
+$txt['common_not_enough_silver'] = 'Você não tem SILVERS suficientes!';
+$txt['common_not_enough_gold'] = 'Você não tem Golds suficientes!';
+$txt['common_not_enough_tickets'] = 'Você não tem TICKETS suficientes!';
+$txt['common_no_bag_space'] = 'VOCÊ NÃO TEM ESPAÇOS DISPONÍVEIS NA SUA MOCHILA!';
+$txt['common_six_pokemon_in_hand'] = 'VOCÊ JA POSSUI 6 POKÉMONS COM VOCÊ!';
+$txt['common_bought_one_item'] = 'Você comprou 1x %s!';
+$txt['common_cannot_afford'] = 'Você não pode pagar por isso!';
+$txt['common_buy_button'] = 'Comprar';
+$txt['common_change_button'] = 'Alterar';
+$txt['common_confirm_purchase_2'] = 'Deseja realmente fazer esta compra?';
+
+# account-options
+$txt['acc_npc_title'] = 'Configuração de Conta';
+$txt['acc_npc_text'] = 'Olá, treinador! Seja bem vindo a configuração de conta, aqui você encontrará várias funções para configurar sua conta, dentre elas: dados pessoais, alterar a senha, atualizar seu e-mail ou compartilhamento de conta.';
+$txt['acc_share_info'] = 'O Compartilhamento de Conta é uma opção que permite o acesso à sua conta para outros Treinadores que são seus amigos. Dando-lhes acesso à algumas funcionalidades da sua Conta, portanto utilize apenas em pessoas de confiança!';
+$txt['acc_success_personal'] = 'Dados pessoais modificados com sucesso!';
+$txt['acc_alert_volume_invalid'] = 'Volume inválido!';
+$txt['acc_alert_email_empty'] = 'Digite um e-mail.';
+$txt['acc_alert_email_invalid'] = 'Digite um e-mail válido.';
+$txt['acc_alert_email_taken'] = 'Este e-mail já está sendo usado.';
+$txt['acc_alert_email_mismatch'] = 'Os e-mails não estão iguais.';
+$txt['acc_success_email'] = 'E-mail alterado com sucesso. <br>Seu novo e-mail é: %s';
+$txt['acc_success_share_removed'] = 'Você removeu %s da tua lista de Compartilhamento!';
+$txt['acc_alert_share_remove_invalid'] = 'Você só pode remover alguém da sua lista!';
+$txt['acc_alert_share_self'] = 'Este treinador não pode ser você!';
+$txt['acc_alert_share_limit'] = 'Limite atingido! Você já compartilhou sua conta 2 vezes!';
+$txt['acc_success_share_added'] = 'Você acabou de compartilhar sua conta com %s!';
+$txt['acc_alert_share_duplicate'] = 'Você já compartilhou a conta com este treinador!';
+$txt['acc_alert_share_not_friends'] = 'Vocês precisam ser amigos!';
+$txt['acc_success_levels'] = 'AGORA VOCÊ IRA ENCONTRAR POKÉMONS ENTRE OS LEVELS %s';
+$txt['acc_personal_data'] = 'Dados pessoais';
+$txt['acc_show_team'] = 'Mostrar equipe no perfil:';
+$txt['acc_show_badges'] = 'Mostrar insígnias no perfil';
+$txt['acc_chat'] = 'Chat';
+$txt['acc_accept_duels'] = 'Aceitar duelos:';
+$txt['acc_show_pokemon_status'] = 'Exibe status dos pokémons no perfil:';
+$txt['acc_volume'] = 'Volume:';
+$txt['acc_sharing_title'] = 'Compartilhamento de Conta';
+$txt['acc_shared_with'] = 'COMPARTILHADO COM (%s / 2):';
+$txt['acc_confirm_remove_share'] = 'Deseja remover %s de sua lista de compartilhamento?';
+$txt['acc_share_with'] = 'COMPARTILHAR COM:';
+$txt['acc_confirm_add_share'] = 'Deseja confiar neste Treinador para ter acesso ao Compartilhamento de sua Conta?';
+$txt['acc_nobody'] = 'NINGUÉM';
+$txt['acc_confirm_change_password'] = 'Desejar trocar sua senha?';
+$txt['acc_change_password'] = 'Alterar Senha';
+$txt['acc_current_password'] = 'Senha Atual:';
+$txt['acc_new_password'] = 'Nova Senha:';
+$txt['acc_confirm_new_password'] = 'Confirme a nova senha:';
+$txt['acc_confirm_change_email'] = 'Desejar trocar seu E-mail?';
+$txt['acc_update_email'] = 'Atualizar E-mail';
+$txt['acc_current_email'] = 'E-mail Atual:';
+$txt['acc_new_email'] = 'Novo e-mail:';
+$txt['acc_repeat_new_email'] = 'Repita o novo e-mail:';
+$txt['acc_change_email_button'] = 'Alterar e-mail';
+$txt['acc_confirm_change_level'] = 'Desejar mudar o Level que os Pokémons aparecem no mapa?';
+$txt['acc_choose_level'] = 'Escolher Level';
+$txt['acc_choose_level_hint'] = 'Altera o Level dos Pokémons encontrados no MAPA';
+$txt['acc_change_level_button'] = 'Alterar Level';
+
+# casino-store
+$txt['casino_store_npc_title'] = 'Loja do Cassino';
+$txt['casino_store_npc_text'] = 'Aqui é a Loja do Cassino, onde você poderá comprar Tickets ou trocar seus Tickets por recompensas!<br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.';
+$txt['casino_store_bought_tickets'] = 'Você comprou %sx TICKETS!';
+$txt['casino_store_bought_silvers'] = 'Você comprou %sx SILVERS!';
+$txt['casino_store_inventory_tickets'] = 'Tickets no Inventário:';
+$txt['casino_store_buy_or_exchange'] = 'Compre tickets ou troque-os por Silvers!';
+$txt['casino_store_silver_to_tickets'] = 'Troque seus Silvers por Tickets!';
+$txt['casino_store_tickets_to_silver'] = 'Troque seus Tickets por Silvers!';
+$txt['casino_store_rewards_title'] = 'TROQUE SEUS TICKETS POR ESSAS RECOMPENSAS!';
+$txt['casino_store_desc_pokemon'] = 'Troque seus Tickets por este belíssimo %s!';
+$txt['casino_store_desc_item'] = 'Troque seus Tickets por este fabuloso %s: %s';
+
+# blocklist
+$txt['blocklist_npc_title'] = 'Caixa de Mensagens';
+$txt['blocklist_npc_text'] = 'Você pode enviar e receber mensagens de outros treinadores utilizando as Mensagens Privadas, Bloquear Treinadores e ver as Mensagens Oficiais do jogo. <br>Não é permitido utilizá-lo para fins de propaganda!';
+$txt['blocklist_warning'] = 'NUNCA dê sua senha ou e-mail a ninguém através de mensagem privada. Em nenhum momento, alguém da equipe do jogo irá pedir sua senha.';
+$txt['blocklist_block_info'] = 'Caso bloqueie algum treinador, você não poderá mandar ou receber mensagens dele e irá exluí-lo de sua lista de amigos.';
+
+# daily_quests
+$txt['quests_no_bag_space'] = 'Não há espaço na sua mochila!';
+$txt['quests_seven_days_reward'] = 'Você completou 7 dias de MISSÕES CONSECULTIVAS e ganhou uma Master Ball %s!';
+
+# bank
+$txt['bank_rank_too_low'] = 'Você não tem rank suficiente.';
+
+# badges
+$txt['badges_title'] = 'Insígnias';
+$txt['badges_not_obtained'] = '%s Badge não adquirida!';
+
+# choose-pokemon
+$txt['choose_confirm_journey'] = '%s Você deseja realmente iniciar sua jornada com %s?';
+$txt['choose_phrase_1'] = 'Parece que ele gostou de você.';
+$txt['choose_phrase_2'] = 'Que bela escolha!';
+$txt['choose_phrase_3'] = 'Uma escolha interessante.';
+$txt['choose_phrase_4'] = 'Gostei do vínculo entre vocês.';
+$txt['choose_phrase_5'] = 'Ele está meio tímido, mas parece que gostou de você!';
+$txt['choose_button'] = 'Escolher %s';
+
+# gold-market
+$txt['gold_npc_title'] = 'Gaste seus golds';
+$txt['gold_npc_text'] = 'Este é um mercado exclusivo para compras com golds, nele você pode adiquirir vip, mudar o nome do seu treinador, trocar o treinador/personagem entre outras coisas que podem vir a ser adicionadas em breve!';
+$txt['gold_buy_golds_link'] = 'Clique aqui para comprar GOLDS.';
+$txt['gold_col_item'] = 'Item';
+$txt['gold_col_value'] = 'Valor';
+$txt['gold_col_action'] = 'Ação';
+$txt['gold_vip_days'] = 'Vip - %s dias';
+$txt['gold_vip_desc'] = 'Ao adquirir vip, você ganha algumas vantagens, como bonus de experiência/silvers, vip bar, tempo reduzido no centro pokémon e viagens e mais...';
+$txt['gold_name_change_title'] = 'Troca de nome';
+$txt['gold_name_change_desc'] = 'Aqui você pode mudar o nome do seu treinador por um pequeno custo.';
+$txt['gold_char_change_title'] = 'Troca de personagem';
+$txt['gold_char_change_desc'] = 'Aqui você pode mudar o personagem do seu treinador por um pequeno custo.';
+$txt['gold_alert_name_empty'] = 'Preencha o campo com novo nome!';
+$txt['gold_alert_name_short'] = 'O USUÁRIO DEVE CONTER AO MENOS 4 CARACTERES!';
+$txt['gold_alert_name_long'] = 'O USUÁRIO NÃO DEVE CONTER MAIS DE 12 CARACTERES!';
+$txt['gold_alert_name_invalid'] = 'Só é permitido letras e numeros no nome do treinador!';
+$txt['gold_alert_name_taken'] = 'Este nome já está em uso por outro treinador!';
+$txt['gold_alert_choose_char'] = 'Escolha o personagem!';
+$txt['gold_alert_char_missing'] = 'Este personagem não existe!';
+
+# battle
+$txt['battle_opponent_inactive_won'] = 'O oponente ficou inativo, você venceu!';
+$txt['battle_you_inactive_lost'] = 'Você ficou inativo, seu oponente venceu!';
+$txt['battle_no_zmoves'] = 'Você não pode usar Z-MOVES nesta batalha!';
+$txt['battle_not_confused_anymore'] = '%s não está mais confuso.<br/>';
+$txt['battle_confused_hit_self'] = '%s está confuso e se atacou!';
+$txt['battle_is_confused'] = '%s está confuso.';
+$txt['battle_switching_pokemon'] = '%s está trocando de Pokémon.';
+$txt['battle_charging'] = '%s está carregando %s';
+$txt['battle_recharging_move'] = '%s está se recuperando de %s';
+$txt['battle_now_status'] = '%s agora está %s';
+$txt['battle_stat_def_down'] = 'está com a Defesa diminuida.';
+$txt['battle_stat_speed_down'] = 'está com a Velocidade diminuida.';
+$txt['battle_stat_spdef_down'] = 'está com a Sp. Defesa diminuida.';
+$txt['battle_stat_atk_down'] = 'está com o Ataque diminuido.';
+$txt['battle_stat_atk_speed_down'] = 'está com o Ataque e Speed diminuidos.';
+$txt['battle_stat_accuracy_down'] = 'está com a Chance de Acerto diminuida.';
+$txt['battle_stat_def_up'] = 'está com a Defesa aumentada.';
+$txt['battle_stat_atk_up'] = 'está com o Ataque aumentado.';
+$txt['battle_stat_speed_up'] = 'está com a Speed aumentada.';
+$txt['battle_stat_spdef_up'] = 'está com a Sp. Defesa aumentada.';
+$txt['battle_stat_all_up'] = 'está com todos atributos aumentados.';
+$txt['battle_stat_atk_def_up'] = 'está com o Ataque e Defesa aumentados.';
+$txt['battle_stat_def_speed_up'] = 'está com a Defesa e Speed aumentados.';
+$txt['battle_stat_special_up'] = 'está com os atributos esp aumentados.';
+$txt['battle_stat_spatk_up'] = 'está com Sp. Ataque aumentado.';
+$txt['battle_stat_atk_def_up_speed_down'] = '%s está agora com Ataque e Defesa aumentados porém com a Speed diminuida.';
+$txt['battle_recovering'] = '%s está se recuperando. ';
+$txt['battle_burning'] = '%s está queimando. ';
+$txt['battle_poisoned'] = '%s está envenenado. ';
+$txt['battle_stat_atk_speed_up'] = 'está com o Ataque e Speed aumentados.';
+$txt['battle_had_effect'] = ', teve efeito.';
+$txt['battle_used_but_missed'] = '%s usou %s, mas errou!';
+$txt['battle_used_had_effect'] = '%s usou %s, teve efeito.';
+$txt['battle_life_stolen'] = '%s tendo sua vida roubada. ';
+$txt['battle_not_confused_anymore_plain'] = '%s não está mais confuso.';
+$txt['battle_recharging_from'] = '%s está recarregando de %s';
+$txt['battle_status_burning'] = '%s está queimando.';
+$txt['battle_status_frozen'] = '%s está congelado.';
+$txt['battle_status_paralyzed'] = '%s está paralizado.';
+$txt['battle_status_poisoned'] = '%s está envenenado.';
+$txt['battle_status_sleeping'] = '%s está dormindo.';
+$txt['battle_status_flinching'] = '%s está hesitando.';
+$txt['battle_stat_speed_up_atk_down'] = '%s está agora com Speed aumentada porém com Ataque diminuido.';
+
+# league-tour
+$txt['liga_open_heading'] = 'Ligas com inscrições abertas';
+$txt['liga_closed_heading'] = 'Ligas com inscrições finalizadas';
+$txt['liga_none_open'] = 'Nenhuma liga com inscrições abertas no momento!';
+$txt['liga_none_closed'] = 'Nenhuma liga com inscrições finalizadas!';
+$txt['liga_region'] = 'Liga na região de %s';
+$txt['liga_not_in_region'] = 'Você não está na região desta liga!';
+$txt['liga_registered'] = 'Você está inscrito nesta liga!';
+$txt['liga_not_registered'] = 'Você não está participanto desta liga!';
+$txt['liga_confirm_register'] = 'Deseja mesmo fazer a inscrição nessa liga?!';
+$txt['liga_confirm_unregister'] = 'Tem certeza que deseja desfazer a sua inscrição nessa liga?<br/>Obs.: Os custos de inscrição não serão devolvidos!';
+$txt['tour_next_heading'] = 'Próximo torneio:';
+$txt['tour_last_heading'] = 'Últimos torneios:';
+$txt['tour_none_history'] = 'Nenhum histórico de torneio!';
+$txt['tour_region'] = 'Torneio na região de %s';
+$txt['tour_not_in_region'] = 'Você não está na região deste torneio!';
+$txt['tour_registered'] = 'Você está inscrito neste torneio!';
+$txt['tour_not_registered'] = 'Você não está participanto deste torneio!';
+$txt['tour_confirm_register'] = 'Deseja mesmo fazer a inscrição nesse torneio?!';
+$txt['tour_confirm_unregister'] = 'Tem certeza que deseja desfazer a sua inscrição nesse torneio?<br/>Obs.: Os custos de inscrição não serão devolvidos!';
+$txt['liga_registration_period'] = 'Inscrições a partir de %s até %s';
+$txt['liga_battles_start'] = 'Início das batalhas em %s';
+$txt['liga_registration_cost'] = 'Custo de inscrição:';
+$txt['liga_register_button'] = 'Fazer inscrição';
+$txt['liga_unregister_button'] = 'Desfazer inscrição';
+$txt['liga_registration_soon'] = 'As inscrições serão abertas em breve!';
+$txt['liga_prizes'] = 'Premiação:';
+$txt['liga_rules'] = 'Regras:';
+$txt['liga_max_level'] = 'Nível máximo dos pokémon:';
+$txt['liga_max_special'] = 'Número máximo de pokémons especiais por batalha:';
+$txt['liga_shinys'] = 'Shinys:';
+$txt['liga_legendaries'] = 'Lendários:';
+$txt['liga_megas'] = 'Mega evoluções:';
+$txt['liga_slots'] = 'vagas:';
+$txt['liga_vip_days'] = '%s dias de VIP';
+/* === end externalized strings === */
 ?>

@@ -2,25 +2,25 @@
 require_once 'app/includes/resources/config.php';
 require_once 'app/includes/resources/ingame.inc.php';
 
-$map = (int) $_GET['map'];
-$uid = $_SESSION['id'];
+$map = (int) ($_GET['map'] ?? '');
+$uid = ($_SESSION['id'] ?? '');
 
 $result = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`='$_SESSION[acc_id]' AND `user_id`='$uid'");
 		$gebruiker = $result->fetch_assoc();
 		
 $li = 6;
 if ($gebruiker['admin'] >= 3) {
-    if (isset($_GET['li']) && ctype_digit($_GET['li'])) {
-        $li += $_GET['li'];
+    if (isset($_GET['li']) && ctype_digit(($_GET['li'] ?? ''))) {
+        $li += ($_GET['li'] ?? '');
     }
 }
 		
 // $server = DB::exQuery("SELECT lendario FROM servers WHERE `id`='" . $gebruiker['server'] . "'")->fetch_assoc();
 
-$x = (int) $_GET['x'];
+$x = (int) ($_GET['x'] ?? '');
 $x = $x < 0 || $x > 25 ? 3 : $x;
 
-$y = (int) $_GET['y'];
+$y = (int) ($_GET['y'] ?? '');
 $y = $y < 0 || $y > 35 ? 3 : $y;
 
 $time = time();
@@ -72,9 +72,9 @@ if($random <= 8) {
 			$randomLevel = $pokelevel;
 			
 			if($zeldzaamheid == 3){
-				$event = 'O jogador '.$_SESSION['naam'].' encontrou um(a) '.$query2['naam'].'('.$query2['wild_id'].').';
+				$event = 'O jogador '.($_SESSION['naam'] ?? '').' encontrou um(a) '.$query2['naam'].'('.$query2['wild_id'].').';
 				DB::exQuery("INSERT INTO `legendary_logs` (`acc_id`,`username`,`msg`) 
-					VALUES ('".$_SESSION['acc_id']."','".$_SESSION['naam']."','".$event."')"); 
+					VALUES ('".($_SESSION['acc_id'] ?? '')."','".($_SESSION['naam'] ?? '')."','".$event."')"); 
 			}
 					
 			$levelenquery = DB::exQuery("SELECT * FROM `levelen` WHERE `wild_id`='".$wild_id."' AND `level`<='".$randomLevel."' AND wat='evo' LIMIT 1");

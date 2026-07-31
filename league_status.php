@@ -2,7 +2,7 @@
     <?php
     include("app/includes/resources/security.php");
 
-    if (!isset($_GET['league_id']) || $_GET['league_id'] <= 0) {
+    if (!isset($_GET['league_id']) || ($_GET['league_id'] ?? '') <= 0) {
         header("Location: ./league");
         exit("<script>location.href='./league'</script>");
     }
@@ -13,7 +13,7 @@
 
     $liga = new League();
 
-    $liga->select($_GET['league_id']);
+    $liga->select(($_GET['league_id'] ?? ''));
 
     if ($liga->getTotal_participantes() <= 16) {
         header("Location: ./tour");

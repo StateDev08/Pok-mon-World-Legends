@@ -5,16 +5,16 @@ require_once("app/includes/resources/security.php");
 // arrays , refresh button.
 $traders_sql = DB::exQuery("SELECT * FROM `traders`");
 										 
-if ($_POST['submit'] && $gebruiker['restrict'] != '1' && $gebruiker['rank']>=4) {
+if (($_POST['submit'] ?? '') && $gebruiker['restrict'] != '1' && $gebruiker['rank']>=4) {
 	$trader = DB::exQuery("SELECT * FROM `traders` WHERE `eigenaar`='{$_POST['check']}' LIMIT 1")->fetch_assoc();
 	
-	if (DB::exQuery("SELECT pokemon_speler.id FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_wild.naam='".$trader['wil']."' AND pokemon_speler.user_id='".$_SESSION['id']."' AND pokemon_speler.opzak='ja'")->num_rows == 0)
+	if (DB::exQuery("SELECT pokemon_speler.id FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_wild.naam='".$trader['wil']."' AND pokemon_speler.user_id='".($_SESSION['id'] ?? '')."' AND pokemon_speler.opzak='ja'")->num_rows == 0)
 		echo '<div class="red">'.$trader['eigenaar'].': '.$txt['alert_dont_have_1'].' '.$trader['wil'].' '.$txt['alert_dont_have_2'].'</div>';
 	else if (empty($trader['naam']))
 		echo '<div class="red">'.$trader['eigenaar'].': '.$txt['alert_i_have_1'].' '.$trader['naam'].' '.$txt['alert_i_have_2'].'</div>';
 	else {
 		if ($trader['eigenaar'] == 'Wayne')
-			DB::exQuery("UPDATE gebruikers SET silver = silver+'100' WHERE user_id = '".$_SESSION['id']."' LIMIT 1");
+			DB::exQuery("UPDATE gebruikers SET silver = silver+'100' WHERE user_id = '".($_SESSION['id'] ?? '')."' LIMIT 1");
 	
 		echo '<div class="green">'.$trader['eigenaar'].': '.$txt['success_traders_change'].' '.$trader['naam'].'!</div>';
 
@@ -124,10 +124,10 @@ if ($_POST['submit'] && $gebruiker['restrict'] != '1' && $gebruiker['rank']>=4) 
 	$date = date('Y-m-d H:i:s');
 	
     DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `trade`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `gevongenmet`, `ability`, `capture_date`) 
-      VALUES ('".$add_pokemon['id']."', '".$_SESSION['id']."', 'ja', '".$delete_info['opzak_nummer']."', '".$karakter['karakter_naam']."', '1.5', '".$delete_info['level']."', '".$add_pokemon['hpstat'] ."', '".$add_pokemon['hpstat']."', '".$info['punten']."', '".$add_pokemon['attackstat']."', '".$add_pokemon['defencestat']."', '".$add_pokemon['speedstat']."', '".$add_pokemon['spcattackstat']."', '".$add_pokemon['spcdefencestat']."', '".$attack_iv."', '".$defence_iv."', '".$speed_iv."', '".$spcattack_iv."', '".$spcdefence_iv."', '".$hp_iv."', '".$add_pokemon['aanval1']."', '".$add_pokemon['aanval2']."', '".$add_pokemon['aanval3']."', '".$add_pokemon['aanval4']."', 'Trader ball', '".$ability."', '".$date."')");
+      VALUES ('".$add_pokemon['id']."', '".($_SESSION['id'] ?? '')."', 'ja', '".$delete_info['opzak_nummer']."', '".$karakter['karakter_naam']."', '1.5', '".$delete_info['level']."', '".$add_pokemon['hpstat'] ."', '".$add_pokemon['hpstat']."', '".$info['punten']."', '".$add_pokemon['attackstat']."', '".$add_pokemon['defencestat']."', '".$add_pokemon['speedstat']."', '".$add_pokemon['spcattackstat']."', '".$add_pokemon['spcdefencestat']."', '".$attack_iv."', '".$defence_iv."', '".$speed_iv."', '".$spcattack_iv."', '".$spcdefence_iv."', '".$hp_iv."', '".$add_pokemon['aanval1']."', '".$add_pokemon['aanval2']."', '".$add_pokemon['aanval3']."', '".$add_pokemon['aanval4']."', 'Trader ball', '".$ability."', '".$date."')");
     
     //Remove pokemon from trader
-    DB::exQuery("UPDATE `traders` SET `wil`='', `naam`=''  WHERE `eigenaar`='".$_POST['check']."'");
+    DB::exQuery("UPDATE `traders` SET `wil`='', `naam`=''  WHERE `eigenaar`='".($_POST['check'] ?? '')."'");
     
     update_pokedex($add_pokemon['id'],'','ei');
     

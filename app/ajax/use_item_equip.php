@@ -2,16 +2,16 @@
 require_once 'app/includes/resources/ingame.inc.php';
 
     if (isset($_GET['id'])) {
-        $qryzita =  DB::exQuery("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$_SESSION['id']."' AND ps.id='".$_GET['id']."'");
+        $qryzita =  DB::exQuery("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".($_SESSION['id'] ?? '')."' AND ps.id='".($_GET['id'] ?? '')."'");
         $pokemon = $qryzita->fetch_assoc();
         $pokemon['naam'] = pokemon_naam($pokemon['naam'], $pokemon['roepnaam'], $pokemon['icon']);
 
         if (isset($_POST['item']) && isset($_POST['send_item'])) {
-            $item = $_POST['item'];
+            $item = ($_POST['item'] ?? '');
             if (pokemon_equip($pokemon['wild_id'], $item) && $pokemon['ei'] == 0 && $item != $pokemon['item']) {
-                $item2 = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."' AND `$item` > 0");
+                $item2 = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `$item` > 0");
                 if ($item2->num_rows > 0) {
-                    DB::exQuery("UPDATE `gebruikers_item` SET `$item`=`$item`-1 WHERE `user_id`='".$_SESSION['id']."'");
+                    DB::exQuery("UPDATE `gebruikers_item` SET `$item`=`$item`-1 WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
                     DB::exQuery("UPDATE `pokemon_speler` SET `item`='$item' WHERE id='$_GET[id]'");
                 }
             }
@@ -33,7 +33,7 @@ require_once 'app/includes/resources/ingame.inc.php';
 <body>
     <?php
             if ($qryzita->num_rows > 0) {
-                $itemData = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='" . $_SESSION['id'] . "'")->fetch_assoc();
+                $itemData = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'")->fetch_assoc();
                 $arrayItems = array();
             
                 $getItems = DB::exQuery("SELECT * FROM `markt` WHERE `soort`='special items' AND `equip`='1' ORDER BY `naam` ASC");
@@ -86,6 +86,7 @@ require_once 'app/includes/resources/ingame.inc.php';
             }
     ?>
 
-    <script src="<?=$static_url;?>/javascripts/jquery-2.1.3.min.js"></script>
+    <script src="<?=$static_url;?>/javascripts/jquery-3.7.1.min.js"></script>
+    <script src="<?=$static_url;?>/javascripts/jquery-migrate-3.5.2.min.js"></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <?php
 if (isset($_SESSION['id']) && isset($_POST['message'])) {
-    $message = mb_strimwidth(strval(strip_tags($_POST['message'])), 0, 255, '');
+    $message = mb_strimwidth(strval(strip_tags(($_POST['message'] ?? ''))), 0, 255, '');
 
     if (!empty ($message)) {
         $nick = DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `user_id` = '$_SESSION[id]'")->fetch_assoc()['username'];
-        $verify = DB::exQuery("SELECT * FROM `chat` WHERE `sender`='".$_SESSION['id']."' ORDER BY `id` DESC LIMIT 1")->fetch_assoc();
+        $verify = DB::exQuery("SELECT * FROM `chat` WHERE `sender`='".($_SESSION['id'] ?? '')."' ORDER BY `id` DESC LIMIT 1")->fetch_assoc();
         if (!empty($verify['hour'])) {
             $dateval = str_replace('/', '-', $verify['date']).' '.$verify['hour'];
             $vdate_full = strtotime('+5 seconds', strtotime($dateval));

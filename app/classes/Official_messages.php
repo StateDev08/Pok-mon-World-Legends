@@ -15,7 +15,7 @@ class Official {
             }
         }
 
-        $this->user = $_SESSION['id'];
+        $this->user = ($_SESSION['id'] ?? '');
         $this->messages = $this->message ();
     }
 

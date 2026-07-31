@@ -48,7 +48,7 @@ switch($_GET['shopitem'] ?? '') {
 			$ruimteover = $ruimte['max'] - $gebruiker['items'];
 
 			#Laden voor de verwerking van de informatie
-			for($i=1;$i<=$_POST['teller'];++$i) {
+			for($i=1;$i<=($_POST['teller'] ?? '');++$i) {
 				#Item id opvragen
 				$itemid = (int)$_POST['id' . $i];
 
@@ -91,7 +91,7 @@ switch($_GET['shopitem'] ?? '') {
 							$totalegold += $goldd;
 							$rekening_gold -= $goldd;
 							$ruimteover -= $aantal;
-							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 							echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].' '.$aantal.'x.</div>';
 						}
 						$welingevoerd = true;
@@ -99,8 +99,8 @@ switch($_GET['shopitem'] ?? '') {
 				}
 			}
 			#silver opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 			if ($gebruiker['pagina'] == 'attack')	setcookie('market_battle_used', '1', time() + ((86400 * 30) * 12), '/');
 			if (!$welingevoerd) {
 				if ($niksingevoerd)	echo '<div class="red">'.$txt['alert_nothing_selected'].'</div>';
@@ -133,7 +133,7 @@ switch($_GET['shopitem'] ?? '') {
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=nl2br($select['omschrijving_'.$_COOKIE['pa_language']]);?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=nl2br($select['omschrijving_'.($_COOKIE['pa_language'] ?? '')]);?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -150,8 +150,8 @@ switch($_GET['shopitem'] ?? '') {
 <?php
 		break;
 	case "potions":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='potions' AND `beschikbaar`='1' ORDER BY silver, gold";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='potions' AND `beschikbaar`='1' ORDER BY silver, gold";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
 		if (isset($_POST['potions'])) {
@@ -162,7 +162,7 @@ switch($_GET['shopitem'] ?? '') {
 			$ruimteover = $ruimte['max'] - $gebruiker['items'];
 
 			#Laden voor de verwerking van de informatie
-			for($i=1;$i<=$_POST['teller'];++$i) {
+			for($i=1;$i<=($_POST['teller'] ?? '');++$i) {
 				#Item id opvragen
 				$itemid = (int)$_POST['id' . $i];
 
@@ -203,7 +203,7 @@ switch($_GET['shopitem'] ?? '') {
 							$totalegold += $goldd;
 							$rekening_gold -= $goldd;
 							$ruimteover -= $aantal;
-							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 							echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].' '.$aantal.'x.</div>';
 						}
 						$welingevoerd = true;
@@ -211,8 +211,8 @@ switch($_GET['shopitem'] ?? '') {
 				}
 			}
 			#silver opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 
 			#Als wel ingevoerd een waarde heeft/true is
 			if (!$welingevoerd) {
@@ -241,7 +241,7 @@ switch($_GET['shopitem'] ?? '') {
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>">
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -258,8 +258,8 @@ switch($_GET['shopitem'] ?? '') {
 <?php
 		break;
 	case "items":	#Als er op items geklikt word. Het volgende laten zien 
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='items' AND `beschikbaar`='1' AND `naam`!='Bag' AND `naam`!='Badge case' order by silver, gold";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='items' AND `beschikbaar`='1' AND `naam`!='Bag' AND `naam`!='Badge case' order by silver, gold";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 		#Als er op de knop gedrukt word
 		$bag = array('Bag', 'Yellow box', 'Blue box', 'Red box', 'Purple box', 'Black box');
 		$b = array_search($gebruiker['itembox'], $bag) + 1;
@@ -267,7 +267,7 @@ switch($_GET['shopitem'] ?? '') {
 
 		if (isset($_POST['items'])) {
 			#Gegevens laden van het item
-			$itemgegevens = DB::exQuery("SELECT `naam`,`silver`,`gold` FROM `markt` WHERE `naam`='".$_POST['productnaam']."' AND `beschikbaar`='1' LIMIT 1")->fetch_assoc();
+			$itemgegevens = DB::exQuery("SELECT `naam`,`silver`,`gold` FROM `markt` WHERE `naam`='".($_POST['productnaam'] ?? '')."' AND `beschikbaar`='1' LIMIT 1")->fetch_assoc();
 
 			#Als er niks aangvinkt is.
 			if (empty($_POST['productnaam']))	$niksingevoerd = true;
@@ -286,7 +286,7 @@ switch($_GET['shopitem'] ?? '') {
 				#Kijken als het te kopen type een box is
 				if ($type[1] == "box") { 
 					if ($itemgegevens['naam'] == $bag_allowed) {
-						DB::exQuery("UPDATE `gebruikers_item` SET `itembox`='".$itemgegevens['naam']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+						DB::exQuery("UPDATE `gebruikers_item` SET `itembox`='".$itemgegevens['naam']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 						echo '<script>window.location = window.location.href</script>';
 					} else {
 						$welingevoerd = false;
@@ -298,12 +298,12 @@ switch($_GET['shopitem'] ?? '') {
 					if ($ruimte['max'] <= $gebruiker['items']) {
 						$welingevoerd = false;
 						$itemboxvol = true;
-					} else	DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`='1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+					} else	DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`='1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 				}
 				if (!$itemboxvol) {	#Als itembox niet vol is
 					#Opslaan
-					DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$itemgegevens['silver']."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-					DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$itemgegevens['gold']."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$itemgegevens['silver']."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+					DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$itemgegevens['gold']."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 					echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].'.</div>';
 				}
 			}
@@ -344,7 +344,7 @@ switch($_GET['shopitem'] ?? '') {
 				<div class="greyborder">
 					<table style="width:120px">
 						<tr><td align="center" height="24px"><img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" width="24" class="icon-img"/></td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td>
 						<tr><td align="center"><input type="radio" name="productnaam" value="<?=$select['naam'];?>"/></td></tr>
 					</table>
@@ -362,8 +362,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 <?php
 		break;
 	case "specialitems":
-		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='special items' AND `beschikbaar`='1' ORDER BY silver,gold";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql = "SELECT `id`,`naam`,`silver`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='special items' AND `beschikbaar`='1' ORDER BY silver,gold";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
 		if (isset($_POST['specialitems'])) {
@@ -374,7 +374,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 			$ruimteover = $ruimte['max']-$gebruiker['items'];
 
 			#Laden voor de verwerking van de informatie
-			for($i=1;$i<=$_POST['teller'];++$i) {
+			for($i=1;$i<=($_POST['teller'] ?? '');++$i) {
 				#Item id opvragen
 				$itemid = (int)$_POST['id'.$i];
 
@@ -412,7 +412,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							$totalegold += $goldd;
 							$rekening_gold -= $goldd;
 							$ruimteover -= $aantal;
-							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".$_SESSION['id']."'");
+							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 							echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].' '.$aantal.'x.</div>';
 						}
 						$welingevoerd = true;
@@ -420,8 +420,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				}
 			}
 			#silver opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 			#Als wel ingevoerd een waarde heeft/true is
 			if (!$welingevoerd) {
 				if ($niksingevoerd)	echo '<div class="red">'.$txt['alert_nothing_selected'].'</div>';
@@ -448,7 +448,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="2" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -465,8 +465,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 <?php
 		break;
 	case "stones":
-		$sql = "SELECT `id`,`naam`,`silver`,`desconto`,`gold`,`omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='stones' AND `beschikbaar`='1' ORDER BY silver,gold";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql = "SELECT `id`,`naam`,`silver`,`desconto`,`gold`,`omschrijving_" . ($_COOKIE['pa_language'] ?? '') . "` FROM `markt` WHERE `soort`='stones' AND `beschikbaar`='1' ORDER BY silver,gold";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
 		if (isset($_POST['stones'])) {
@@ -477,7 +477,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 			$ruimteover = $ruimte['max']-$gebruiker['items'];
 
 			#Laden voor de verwerking van de informatie
-			for($i=1;$i<=$_POST['teller'];++$i) {
+			for($i=1;$i<=($_POST['teller'] ?? '');++$i) {
 				#Item id opvragen
 				$itemid = (int)$_POST['id'.$i];
 
@@ -515,7 +515,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							$gebruiker_silver -= $silverr;
 							$rekening_gold -= $goldd;
 							$ruimteover -= $aantal;
-							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".$_SESSION['id']."'");
+							DB::exQuery("UPDATE `gebruikers_item` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 							echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].' '.$aantal.'x.</div>';
 						}
 						$welingevoerd = true;
@@ -523,8 +523,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				}
 			}
 			#silver opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 			#Als wel ingevoerd een waarde heeft/true is
 			if (!$welingevoerd) {
 				#Als niksingevoerd TRUE is
@@ -553,7 +553,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/<?=$select['naam'];?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span> <br><font color='red'><?=$select['desconto'];?></font></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -571,8 +571,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 	break;
 	#Als er op potions geklikt word, het volgende laten zien
 	case "attacks":
-		if (!is_numeric($_GET['subpage']))	$subpage = 1; 
-		else	$subpage = $_GET['subpage']; 
+		if (!is_numeric(($_GET['subpage'] ?? '')))	$subpage = 1; 
+		else	$subpage = ($_GET['subpage'] ?? ''); 
 
 		#Max aantal pokemon per pagina
 		$max = 20; 
@@ -580,13 +580,13 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 		$aantal_paginas = ceil($aantal_attacks/$max); 
 		if ($aantal_paginas == 0) $aantal_paginas = 1;   
 		$pagina = $subpage*$max-$max; 
-		$sql = "SELECT markt.id, markt.naam, markt.beschikbaar, silver, gold, omschrijving_".$_COOKIE['pa_language'].", tmhm.type1 , tmhm.type2
+		$sql = "SELECT markt.id, markt.naam, markt.beschikbaar, silver, gold, omschrijving_".($_COOKIE['pa_language'] ?? '').", tmhm.type1 , tmhm.type2
 								FROM `markt`
 								INNER JOIN tmhm
 								ON markt.naam = tmhm.naam
 								WHERE `soort`='tm' AND `beschikbaar` = '1' order by id
 								LIMIT ".$pagina.", ".$max."";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'] . '_' . $subpage, $sql, $att_time);
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? '') . '_' . $subpage, $sql, $att_time);
 
 		#Als er op de knop gedrukt word
 		if (isset($_POST['tm'])) {
@@ -597,7 +597,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 			$ruimteover = $ruimte['max']-$gebruiker['items'];
 
 			#Laden voor de verwerking van de informatie
-			for($i=1;$i<=$_POST['teller'];++$i) {
+			for($i=1;$i<=($_POST['teller'] ?? '');++$i) {
 				#Item id opvragen
 				$itemid = (int)$_POST['id'.$i];
 
@@ -638,7 +638,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							$gebruiker_silver -= $silverr;
 							$rekening_gold -= $goldd;
 							$ruimteover -= $aantal;
-							DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+							DB::exQuery("UPDATE `gebruikers_tmhm` SET `".$itemgegevens['naam']."`=`".$itemgegevens['naam']."`+'".$aantal."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 							echo '<div class="green">'.$txt['success_market'].' '.$itemgegevens['naam'].' '.$aantal.'x.</div>';
 						}
 						$welingevoerd = true;
@@ -646,8 +646,8 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				}
 			}
 			#silver opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".$_SESSION['acc_id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$totalesilver."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$totalegold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."' LIMIT 1");
 			#Als wel ingevoerd een waarde heeft/true is
 			if (!$welingevoerd) {
 				if ($niksingevoerd)	echo '<div class="red">'.$txt['alert_nothing_selected'].'</div>';
@@ -682,7 +682,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 							<input type="hidden" name="id<?=$j;?>" value="<?=$select['id'];?>" />
 							<img src="<?=$static_url;?>/images/items/Attack_<?=$type;?>.png" class="icon-img"/>
 						</td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$select['naam'];?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;"> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="number" min="0" maxlength="3" style="width:75px;text-align:center;" name="aantal<?=$select['id'];?>" placeholder="<?=$txt['market_placeholder']?>" /></td></tr>
 					</table>
@@ -702,18 +702,18 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 			if ($subpage == 1)	echo '<span class="disabled">&laquo;</span>';
 			else {
 				$back = $subpage-1;
-				echo '<a href="'.$_GET['page'].'&shopitem='.$_GET['shopitem'].'&subpage='.$back.'">&laquo;</a>';
+				echo '<a href="'.($_GET['page'] ?? '').'&shopitem='.($_GET['shopitem'] ?? '').'&subpage='.$back.'">&laquo;</a>';
 			}
 			for($i=1;$i<=$aantal_paginas;++$i) {
 				if (3 >= $i && $subpage == $i)	echo '<span class="current">'.$i.'</span>';
-				else if (3 >= $i && $subpage != $i)	echo '<a href="'.$_GET['page'].'&shopitem='.$_GET['shopitem'].'&subpage='.$i.'">'.$i.'</a>';
+				else if (3 >= $i && $subpage != $i)	echo '<a href="'.($_GET['page'] ?? '').'&shopitem='.($_GET['shopitem'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 				else if ($aantal_paginas-2 < $i && $subpage == $i)	echo '<span class="current">'.$i.'</span>';
-				else if ($aantal_paginas-2 < $i && $subpage != $i)	echo '<a href="'.$_GET['page'].'&shopitem='.$_GET['shopitem'].'&subpage='.$i.'">'.$i.'</a>';
+				else if ($aantal_paginas-2 < $i && $subpage != $i)	echo '<a href="'.($_GET['page'] ?? '').'&shopitem='.($_GET['shopitem'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 				else {
 					$max = $subpage + 3;
 					$min = $subpage -3;  
 					if ($page == $i)	echo '<span class="current">'.$i.'</span>';
-					else if ($min < $i && $max > $i)	echo '<a href="'.$_GET['page'].'&shopitem='.$_GET['shopitem'].'&subpage='.$i.'">'.$i.'</a>';
+					else if ($min < $i && $max > $i)	echo '<a href="'.($_GET['page'] ?? '').'&shopitem='.($_GET['shopitem'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 					else {
 						if ($i < $subpage) {
 							if (!$links) {
@@ -732,7 +732,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 			if ($aantal_paginas == $subpage) echo '<span class="disabled">&raquo;</span>';
 			else {
 				$next = $subpage+1;
-				echo '<a href="'.$_GET['page'].'&shopitem='.$_GET['shopitem'].'&subpage='.$next.'">&raquo;</a>';
+				echo '<a href="'.($_GET['page'] ?? '').'&shopitem='.($_GET['shopitem'] ?? '').'&subpage='.$next.'">&raquo;</a>';
 			}
 			echo '</div></td>';
 		}
@@ -745,13 +745,13 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 		break;
 	case "pokemon":
 	   // header('location: ./market');
-		$sql  = "SELECT `markt`.`id`,`markt`.`pokemonid`,`markt`.`silver`,`markt`.`gold`,`markt`.`omschrijving_".$_COOKIE['pa_language']."`,`pokemon_wild`.`zeldzaamheid` FROM `markt` INNER JOIN `pokemon_wild` ON `markt`.`pokemonid`=`pokemon_wild`.`wild_id` WHERE `markt`.`soort`='pokemon' AND `markt`.`beschikbaar`='1' AND `pokemon_wild`.`wereld`='" . $gebruiker['wereld'] . "'";
-		$result = query_cache($_GET['page'] . '_' . $_GET['shopitem'], $sql, $att_time);
+		$sql  = "SELECT `markt`.`id`,`markt`.`pokemonid`,`markt`.`silver`,`markt`.`gold`,`markt`.`omschrijving_".($_COOKIE['pa_language'] ?? '')."`,`pokemon_wild`.`zeldzaamheid` FROM `markt` INNER JOIN `pokemon_wild` ON `markt`.`pokemonid`=`pokemon_wild`.`wild_id` WHERE `markt`.`soort`='pokemon' AND `markt`.`beschikbaar`='1' AND `pokemon_wild`.`wereld`='" . $gebruiker['wereld'] . "'";
+		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
 		#Als er op de knop gedrukt word
 		if (isset($_POST['pokemon'])) {
 			#Gegevens laden van het item
-			$itemgegevens = DB::exQuery("SELECT `id`,`pokemonid`,`silver`,`gold`,`beschikbaar` FROM `markt` WHERE `id`='".$_POST['productid']."' LIMIT 1")->fetch_assoc();
+			$itemgegevens = DB::exQuery("SELECT `id`,`pokemonid`,`silver`,`gold`,`beschikbaar` FROM `markt` WHERE `id`='".($_POST['productid'] ?? '')."' LIMIT 1")->fetch_assoc();
 
 			if (empty($_POST['productid']))	echo '<div class="red">'.$txt['alert_nothing_selected'].'</div>';
 			else if ($itemgegevens['beschikbaar'] != 1)	echo '<div class="red">'.$txt['alert_not_in_stock'].'</div>';
@@ -800,12 +800,12 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				$hpstat			= round((($hp_iv + 2 * $query['hp_base']) * 5 / 100) + 10 + 5);
 
 				#Alle gegevens van de pokemon opslaan
-				DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`ei`='1',`ei_tijd`='".$tijd."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
+				DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`ei`='1',`ei_tijd`='".$tijd."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
 
 				##################EINDE POKEMON GEVEN
 				DB::exQuery("UPDATE `markt` SET `beschikbaar`='0' WHERE `id`='" . $itemgegevens['id'] . "' LIMIT 1");
-				DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$itemgegevens['silver']."',`aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
-				DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$itemgegevens['gold']."' WHERE `acc_id`='".$_SESSION['acc_id']."'");
+				DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$itemgegevens['silver']."',`aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
+				DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$itemgegevens['gold']."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
 				echo '<div class="green">'.$txt['success_market'].' '.$txt['success_bought_pokemon'].'</div>';      
 			}
 		}
@@ -839,7 +839,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 				<div class="greyborder">
 					<table style="width:120px">
 						<tr><td align="center"><img src="<?=$static_url;?>/images/icons/egg.gif" class="icon-img"/></td></tr>
-						<tr><td align="center"><span class="smalltext"><?=$name;?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.$_COOKIE['pa_language']];?>"><b>[?]</b></span></span></td></tr>
+						<tr><td align="center"><span class="smalltext"><?=$name;?> <span style="cursor:pointer;" title="<?=$select['omschrijving_'.($_COOKIE['pa_language'] ?? '')];?>"><b>[?]</b></span></span></td></tr>
 						<tr><td align="center"><span class="smalltext"><img src="<?=$static_url;?>/images/icons/<?=$icon;?>.png" style="margin-bottom:-3px;" /> <?=$prijs;?></span></td></tr>
 						<tr><td align="center"><input type="radio" name="productid" value="<?=$select['id'];?>" /></td></tr>
 					</table>
@@ -864,5 +864,5 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 
 
 <script>
-	$('#itens').wlOrientation('<?=$_GET['shopitem']?>');
+	$('#itens').wlOrientation('<?=($_GET['shopitem'] ?? '')?>');
 </script>

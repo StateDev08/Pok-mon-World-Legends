@@ -19,12 +19,12 @@ $unova_arr = ['Trio', 'Basic', 'Insect', 'Bolt', 'Quake', 'Jet', 'Freeze', 'Lege
 $kalos_arr = ['Bug', 'Cliff', 'Rumble', 'Plant', 'Voltage', 'Fairy', 'Psychic', 'Iceberg'];
 $alola_arr = ['Melemele Normal', 'Akala Water', 'Akala Fire', 'Akala Grass', 'Ulaula Electric', 'Ulaula Ghost', 'Poni Fairy', 'Poni Ground'];
 
-$badge = DB::exQuery("SELECT * FROM gebruikers_badges WHERE user_id = '".$_SESSION['id']."'")->fetch_assoc();
+$badge = DB::exQuery("SELECT * FROM gebruikers_badges WHERE user_id = '".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 ?>
 
 <?php
 
-echo '<div class="box-content" style="margin-top: 7px"><table class="general" width="100%"><thead><tr><th>Insígnias</th></tr></thead>
+echo '<div class="box-content" style="margin-top: 7px"><table class="general" width="100%"><thead><tr><th>'.$txt['badges_title'].'</th></tr></thead>
 <tr>
 <td colspan="3" onclick="wlBadges(\'#kanto\')" style="cursor: pointer"><h3 style="margin: 0"><b><center>'.$txt['badges'].' Kanto:</center></b></h3></td>
 </tr>
@@ -36,7 +36,7 @@ echo '<div class="box-content" style="margin-top: 7px"><table class="general" wi
 				if ($badge[$kanto_arr[$i]] == 1) { 
 					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 				} else {
-					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 				}
 			}
 echo '</td></tr>
@@ -51,7 +51,7 @@ echo '</td></tr>
 				if ($badge[$johto_arr[$i]] == 1) { 
 					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 				} else {
-					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 				}
 			}
 echo '</td></tr>
@@ -67,7 +67,7 @@ echo '</td></tr>
 				if ($badge[$hoenn_arr[$i]] == 1) { 
 					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 				} else {
-					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+					echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 				}
 			}
 		
@@ -85,7 +85,7 @@ echo '</td></tr>
 			if ($badge[$sinnoh_arr[$i]] == 1) { 
 				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 			} else {
-				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 			}
 		}
 			
@@ -103,7 +103,7 @@ echo '</td></tr>
 			if ($badge[$unova_arr[$i]] == 1) { 
 				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 			} else {
-				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 			}
 		}
 			
@@ -122,7 +122,7 @@ echo '</td></tr>
 			if ($badge[$kalos_arr[$i]] == 1) { 
 				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 			} else {
-				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 			}
 		}
 			
@@ -140,7 +140,7 @@ echo '</td></tr>
 			if ($badge[$alola_arr[$i]] == 1) { 
 				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge adquirida!" />';	
 			} else {
-				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.$name.' Badge não adquirida!" style="filter: grayscale(100%);" />';
+				echo '<img src="'.$static_url.'/images/badges/pixel/'.$name.'.png"  alt="'.$name.' Badge" title="'.sprintf($txt['badges_not_obtained'], $name).'" style="filter: grayscale(100%);" />';
 			}
 		}
 			

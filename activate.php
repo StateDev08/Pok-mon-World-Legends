@@ -2,8 +2,8 @@
 if (isset($_SESSION['acc_id'])) header ('Location: ./notfound');
 
 if (isset($_POST['activate'])) {
-	$inlognaam	=	$_POST['username'];
-	$activatie	=	$_POST['activatie'];
+	$inlognaam	=	($_POST['username'] ?? '');
+	$activatie	=	($_POST['activatie'] ?? '');
   
 	#Gegevens laden van uit de database
 	$getRekening = DB::exQuery("SELECT `acc_id`,`username`,`account_code`,`email` FROM `rekeningen` WHERE `username`='" . $inlognaam . "' AND `account_code`='" . $activatie . "' LIMIT 1");
@@ -60,8 +60,8 @@ if (isset($_POST['activate'])) {
 	}
 }
 if (isset($_POST['resend'])) {
-	$inlognaam	= $_POST['username'];
-	$email		= $_POST['email'];
+	$inlognaam	= ($_POST['username'] ?? '');
+	$email		= ($_POST['email'] ?? '');
 
 	if (empty($inlognaam)) $message = '<div class="red">'.$txt['alert_no_username'].'</div>';
 	else if (strlen(trim($inlognaam)) < 3)  $message = '<div class="red">'.$txt['alert_username_too_short'].'</div>';
@@ -116,7 +116,7 @@ if (!empty($message))	echo $message;
 <center>
 	<form method="post" autocomplete="off" style="padding: 10px; width: 520px; z-index: 10">
 		<table width="70%" cellspacing="0" celpadding="0" border="0">
-			<?php if (isset($_GET['method']) && $_GET['method'] == 'resend') { ?>
+			<?php if (isset($_GET['method']) && ($_GET['method'] ?? '') == 'resend') { ?>
 			<tr>
 				<td colspan="2">
 					<input type="text" name="username" value="<?=$inlognaam;?>"  placeholder="<?=$txt['login_username'];?>:" style="width:99%; height: 40px; margin-bottom: 5px; font-size: 14px" required />
@@ -143,7 +143,7 @@ if (!empty($message))	echo $message;
 			</tr>
 			<?php } else { 
 			    if (!empty($_SESSION['act_msg'])) {
-			        echo $_SESSION['act_msg'];
+			        echo ($_SESSION['act_msg'] ?? '');
 			    }
 			?>
 			<tr>

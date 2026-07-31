@@ -78,13 +78,13 @@ if ($page == 'codes') {
 	$txt['wallie_button'] = 'Wallie now';
 }else if ($page == 'area-box-ideal') {
 	//Screen
-	$txt['title_text'] = 'You want to buy a '.$_SESSION['packnaam'].' pack for &euro;'.$info['kosten'].' with a bank payment. See here how:<br /><br />
+	$txt['title_text'] = 'You want to buy a '.($_SESSION['packnaam'] ?? '').' pack for &euro;'.$info['kosten'].' with a bank payment. See here how:<br /><br />
 		1. Go to your bank website.<br />
 		2. Go to \'money transfer\'.<br />
 		3. Insert at description:<br />
 			<div style="padding-left:25px; float:left;">* Site: (<strong>Pokemon Browser MMO</strong>).</div><br />
-			<div style="padding-left:25px; float:left;">* Username: (<strong>'.$_SESSION['naam'].'</strong>).</div><br />
-			<div style="padding-left:25px;">* Packname: (<strong>'.$_SESSION['packnaam'].'</strong>).</div><br />
+			<div style="padding-left:25px; float:left;">* Username: (<strong>'.($_SESSION['naam'] ?? '').'</strong>).</div><br />
+			<div style="padding-left:25px;">* Packname: (<strong>'.($_SESSION['packnaam'] ?? '').'</strong>).</div><br />
 		4. Transfer <strong>&euro; '.$info['kosten'].'</strong> to <strong>56.09.35.803</strong>.<br />
 		5. Ask a administrator (<strong>SV2011</strong>) to check of the payment is done.<br />
 		If the payment is successfully, the administrator will give you your premium things.<br /><br />

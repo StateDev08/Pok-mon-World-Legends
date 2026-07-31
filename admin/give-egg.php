@@ -10,9 +10,9 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 
 if (isset($_POST['submit'])) {
   //Makkelijke naam toewijzen
-  $user_id = $_POST['user_id'];
-  $wereld = $_POST['wereld'];
-  $ei     = $_POST['ei'];
+  $user_id = ($_POST['user_id'] ?? '');
+  $wereld = ($_POST['wereld'] ?? '');
+  $ei     = ($_POST['ei'] ?? '');
 
   //Gegevens laden van speler
   $aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$user_id."' AND `opzak`='ja'")->num_rows;
@@ -182,7 +182,7 @@ if (isset($_POST['submit'])) {
 <table width="250">
   <tr>
     	<td width="100"><strong>ID Treinador:</strong></td>
-    <td width="150"><input name="user_id" class="text_long" type="text" value="<?php if ($_GET['player'] == '') echo $_POST['user_id']; else echo $_GET['player']; ?>"></td>
+    <td width="150"><input name="user_id" class="text_long" type="text" value="<?php if (($_GET['player'] ?? '') == '') echo ($_POST['user_id'] ?? ''); else echo ($_GET['player'] ?? ''); ?>"></td>
     </tr>
   <tr>
     <td rowspan="10">&nbsp;</td>

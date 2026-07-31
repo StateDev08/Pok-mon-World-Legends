@@ -1,8 +1,8 @@
 <?php
 if (isset($_SESSION['acc_id'])) header ('Location: ./notfound');
 if (isset($_POST['submit'])) {
-	$inlognaam = $_POST['inlognaam'];
-	$email = $_POST['email'];
+	$inlognaam = ($_POST['inlognaam'] ?? '');
+	$email = ($_POST['email'] ?? '');
   
 	#Gegevens laden
 	//`username`='" . $inlognaam . "' OR

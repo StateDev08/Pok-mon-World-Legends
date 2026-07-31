@@ -8,8 +8,8 @@ require_once('app/includes/resources/security-account.php');
 
 echo addNPCBox(18, $txt['titlenpc'], 'Ao efetuar qualquer tipo de compra nesta página, você estará colaborando com o desenvolvimento do jogo em si. Todo o dinheiro aqui arrecadado será convertido para melhorias do jogo, assim como a divulgação do jogo.');
 
-if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit($_POST['pack'])) {
-    $pack = $_POST['pack'];
+if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST['pack'] ?? ''))) {
+    $pack = ($_POST['pack'] ?? '');
     $exist = DB::exQuery("SELECT * FROM `donate_packs` WHERE `id`='$pack' AND `ativo`='1'")->fetch_assoc();
     if ($exist) {
         require_once ('app/classes/PagSeguro_WL.php');

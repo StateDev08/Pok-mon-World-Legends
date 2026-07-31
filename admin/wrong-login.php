@@ -25,7 +25,7 @@ if (empty($_GET['subpage'])) {
   $subpage = 1; 
 } 
 else{ 
-  $subpage = $_GET['subpage']; 
+  $subpage = ($_GET['subpage'] ?? ''); 
 } 
 //Max aantal leden per pagina
 $max = 50; 
@@ -56,7 +56,7 @@ for($j=$pagina+1; $foutgegevens = $fout->fetch_assoc(); $j++) {
           }
           else{
             $back = $subpage-1;
-            echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$back.'"> &lt; </a>';
+            echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$back.'"> &lt; </a>';
           }
           for($i = 1; $i <= $aantal_paginas; $i++) 
           { 
@@ -65,13 +65,13 @@ for($j=$pagina+1; $foutgegevens = $fout->fetch_assoc(); $j++) {
               echo '<span class="current">'.$i.'</span>';
             }
             else if ((2 >= $i) && ($subpage != $i)) {
-              echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+              echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
             }
             else if (($aantal_paginas-2 < $i) && ($subpage == $i)) {
               echo '<span class="current">'.$i.'</span>';
             }
             else if (($aantal_paginas-2 < $i) && ($subpage != $i)) {
-              echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+              echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
             }
             else{
               $max = $subpage+3;
@@ -80,7 +80,7 @@ for($j=$pagina+1; $foutgegevens = $fout->fetch_assoc(); $j++) {
                 echo '<span class="current">'.$i.'</span>';
               }
               else if (($min < $i) && ($max > $i)) {
-              	echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+              	echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
               }
               else{
                 if ($i < $subpage) {
@@ -104,7 +104,7 @@ for($j=$pagina+1; $foutgegevens = $fout->fetch_assoc(); $j++) {
           }
           else{
             $next = $subpage+1;
-            echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$next.'"> &gt; </a>';
+            echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$next.'"> &gt; </a>';
           }
           echo "</div></center>
 		  		</td>

@@ -6,10 +6,10 @@ require_once('app/includes/resources/security.php');
 #Se você não tiver um Pokemon com você, volte ao índice.
 if ($gebruiker['in_hand'] == 0 ) exit ( header('LOCATION: ./') );
 
-if (empty($_GET['id']) || !is_numeric($_GET['id'])) { 
+if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) { 
     require_once('notfound.php'); 
 } else {
-    $id = (int) $_GET['id'];
+    $id = (int) ($_GET['id'] ?? '');
     $sql = DB::exQuery("SELECT * FROM `pokemon_speler` WHERE id='$id' AND release_date='0000-00-00 00:00:00'");
     if ($sql->num_rows == 1) {
         $pokemon = $sql->fetch_assoc();
@@ -28,7 +28,7 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
         }
 
         function real_owner ($id, $admin) {
-            if ($id == $_SESSION['id'] || $admin >= 3) {
+            if ($id == ($_SESSION['id'] ?? '') || $admin >= 3) {
                 return true;
             }
 
@@ -59,9 +59,9 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
 
         $owner = isOwner($pokemon['user_id'], $gebruiker['admin'], $pokemon['opzak']);
 
-        if ($pokemon['opzak'] == 'tra' && $_SESSION['share_acc'] == 0 && $gebruiker['rank'] >= 4) {
+        if ($pokemon['opzak'] == 'tra' && ($_SESSION['share_acc'] ?? '') == 0 && $gebruiker['rank'] >= 4) {
             $transferlist = DB::exQuery("SELECT * FROM `transferlijst` WHERE `pokemon_id`='$pokemon[id]'")->fetch_assoc();
-            if ($transferlist['type'] == 'private' && !in_array($_SESSION['id'], array($transferlist['to_user'], $transferlist['user_id']))) { 
+            if ($transferlist['type'] == 'private' && !in_array(($_SESSION['id'] ?? ''), array($transferlist['to_user'], $transferlist['user_id']))) { 
                 $owner = isOwner($pokemon['user_id'], $gebruiker['admin'], $pokemon['opzak'], 'private');
             } else {
                 $buy = ($transferlist['type'] == 'auction')? 'DAR LANCE EM' : 'COMPRAR';
@@ -76,16 +76,16 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
 
                     $part[0] = '<ul><li>Tempo restante: '.$datum.'</li><li>Treinador com maior lance: '.$best.'</li><li>Maior lance: <b>'.highamount($transferlist['silver']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="Silvers" style="vertical-align: sub"></li><li>Número de lances: <b>'.$transferlist['lances'].'</b></li></ul>';
                     if (strtotime(date('Y-m-d H:i')) <= $transferlist['time_end']) {
-                        if ($transferlist['user_id'] != $_SESSION['id']) {
+                        if ($transferlist['user_id'] != ($_SESSION['id'] ?? '')) {
                             if (isset($_POST['buy'])) {
-                                if (isset($_POST['price']) && ctype_digit($_POST['price'])) {
-                                    $price = $_POST['price'];
+                                if (isset($_POST['price']) && ctype_digit(($_POST['price'] ?? ''))) {
+                                    $price = ($_POST['price'] ?? '');
                                     if ($price > $gebruiker['silver']) {
                                         echo '<div class="red">Você não tem Silvers suficientes para dar este lance!</div>';
                                     } else if ($price <= $transferlist['silver']) {
                                         echo '<div class="red">Você não pode dar um lance menor ou igual ao atual!</div>';
                                     } else {   
-                                        $quests->setStatus('buy_auction', $_SESSION['id']);
+                                        $quests->setStatus('buy_auction', ($_SESSION['id'] ?? ''));
                                         DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'$transferlist[silver]' WHERE `user_id`='$transferlist[big_blind]'");     
                                         DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'$price' WHERE `user_id`='$_SESSION[id]'");
                                         DB::exQuery("UPDATE `transferlijst` SET `big_blind`='$_SESSION[id]', `silver`='$price', `lances`=`lances`+'1' WHERE `id`='$transferlist[id]'");
@@ -119,7 +119,7 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
 
                     $price = $price_sl.$suffix.$price_gd;
                     $part[0] = '<ul style="margin-top: 10px"><li>Venda: <b>'.$type[$transferlist['type']].'</b></li><li>Preço: <b>'.$price.'</b></li>'.$ngc;
-                     if ($transferlist['user_id'] != $_SESSION['id']) {
+                     if ($transferlist['user_id'] != ($_SESSION['id'] ?? '')) {
                         if (isset($_POST['buy'])) {
                             $silver = $transferlist['silver'];
                             $gold = $transferlist['gold'];
@@ -127,14 +127,14 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
                             if ($silver > $gebruiker['silver'] || $gold > $rekening['gold']) {
 			                    echo '<div class="red">Você não tem Silvers ou Gold suficientes para comprar este Pokémon!</div>';
 		                    } else {
-                                DB::exQuery("UPDATE `pokemon_speler` SET `user_id`='".$_SESSION['id']."',`trade`='1.5',`opzak`='nee',`opzak_nummer`='' WHERE `id`='".$pokemon['id']."'");
+                                DB::exQuery("UPDATE `pokemon_speler` SET `user_id`='".($_SESSION['id'] ?? '')."',`trade`='1.5',`opzak`='nee',`opzak_nummer`='' WHERE `id`='".$pokemon['id']."'");
 
-                                if ($transferlist['type'] == 'direct') $quests->setStatus('buy_direct', $_SESSION['id']);
-			                    if ($transferlist['type'] == 'private') $quests->setStatus('buy_private', $_SESSION['id']);
+                                if ($transferlist['type'] == 'direct') $quests->setStatus('buy_direct', ($_SESSION['id'] ?? ''));
+			                    if ($transferlist['type'] == 'private') $quests->setStatus('buy_private', ($_SESSION['id'] ?? ''));
 
-                                DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$silver."', `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+                                DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$silver."', `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
                                 DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$silver."', `aantalpokemon`=`aantalpokemon`-'1' WHERE `user_id`='".$transferlist['user_id']."'");
-                                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$gold."' WHERE `acc_id`='".$_SESSION['acc_id']."'");
+                                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'".$gold."' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
 
                                 $acc_id = DB::exQuery("SELECT `acc_id` FROM `gebruikers` WHERE user_id='$transferlist[user_id]'")->fetch_assoc()['acc_id'];
                                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$gold."' WHERE `acc_id`='".$acc_id."'");
@@ -142,7 +142,7 @@ if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
                                 DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$transferlist['id']."'");
                                 update_pokedex($pokemon['wild_id'], '', 'buy');
 
-                                DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$pokemon['wild_id']."', '".$pokemon['id']."', '".$pokemon['level']."', '".$transferlist['user_id']."', '".$_SESSION['id']."', '".$transferlist['silver']."', '".$transferlist['gold']."', '".$pokemon['item']."')");
+                                DB::exQuery("INSERT INTO transferlist_log (date, wild_id, speler_id, level, seller, buyer, silver, gold, item) VALUES (NOW(), '".$pokemon['wild_id']."', '".$pokemon['id']."', '".$pokemon['level']."', '".$transferlist['user_id']."', '".($_SESSION['id'] ?? '')."', '".$transferlist['silver']."', '".$transferlist['gold']."', '".$pokemon['item']."')");
 
                                 $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> comprou seu <a href="./pokemon-profile&id='.$pokemon['id'].'">'.$pokemon['naam'].'</a> por: '.highamount($transferlist['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($transferlist['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
 

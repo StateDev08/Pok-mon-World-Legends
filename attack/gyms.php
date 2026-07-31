@@ -8,7 +8,7 @@ if ($gebruiker['item_over'] < 1)
 	echo '<div class="blue">'.$txt['alert_itemplace'].'</div>';
 
 $gymsql = DB::exQuery("SELECT * FROM trainer WHERE wereld ='".$gebruiker['wereld']."' ORDER BY id ASC");
-$trainer = DB::exQuery("SELECT * FROM gebruikers_badges WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
+$trainer = DB::exQuery("SELECT * FROM gebruikers_badges WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 
 function possible ($rank, $act, $next) {
     if ($rank >= 3 && $act == $next) {
@@ -22,9 +22,9 @@ if (isset($_POST['submit']) && isset($_POST['gym_leader'])) {
   if ($gebruiker['in_hand'] == 0) {
     echo '<div class="red">'.$txt['no_pokemon'].'</div>';
   } else {
-    $gym_info = DB::exQuery("SELECT `rank`, `wereld`, `badge`, `progress` FROM `trainer` WHERE `naam`='".$_POST['gym_leader']."' AND `badge`!=''")->fetch_assoc();
+    $gym_info = DB::exQuery("SELECT `rank`, `wereld`, `badge`, `progress` FROM `trainer` WHERE `naam`='".($_POST['gym_leader'] ?? '')."' AND `badge`!=''")->fetch_assoc();
     if (possible($gebruiker['rank'], $gebruiker[$gebruiker['wereld'].'_gym'], $gym_info['progress'])) {
-      $pokesvivos = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".$_SESSION['id']."' AND `opzak`='ja' AND `leven`>'0'")->num_rows;  
+      $pokesvivos = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND `leven`>'0'")->num_rows;  
       if (empty($gym_info['badge']))
         echo "<div class='red'>Isto não é um ginásio!</div>";
       else if ($gebruiker['rank'] < $gym_info['rank'])
@@ -43,7 +43,7 @@ if (isset($_POST['submit']) && isset($_POST['gym_leader'])) {
         while($pokemon = $pokemon_sql->fetch_assoc()) $level += $pokemon['level'];
         $trainer_ave_level = $level/$opzak;
         #Make Fight
-        $info5 = create_new_trainer_attack($_POST['gym_leader'],$trainer_ave_level,$_POST['gebied']);
+        $info5 = create_new_trainer_attack(($_POST['gym_leader'] ?? ''),$trainer_ave_level,($_POST['gebied'] ?? ''));
         if (empty($info5['bericht'])) header("Location: ./gyms");
         else echo '<div class="red"> '.$txt[$info['bericht']].'</div>';
       }

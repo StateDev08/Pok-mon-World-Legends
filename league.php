@@ -18,14 +18,14 @@ $time = time() + League::$ajuste_tempo_int;
     <img src="<?=$static_url?>/images/layout/liga_pokemon.png" alt="Liga Pokémon"/>
 </div>
 
-<h3>Ligas com inscrições abertas</h3>
+<h3><?= $txt['liga_open_heading'] ?></h3>
 <ul style="list-style: none;">
     <?php
     foreach ($ligas as $liga) {
-        if (isset($_POST['registration']) && $_POST['league_id'] == $liga->getId()) {
+        if (isset($_POST['registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
             $liga->select($liga->getId());
             $liga->inscrever($gebruiker['user_id']);
-        } else if (isset($_POST['undo_registration']) && $_POST['league_id'] == $liga->getId()) {
+        } else if (isset($_POST['undo_registration']) && ($_POST['league_id'] ?? '') == $liga->getId()) {
             $liga->desfazer_inscricao($gebruiker['user_id']);
         }
         ?>
@@ -33,18 +33,18 @@ $time = time() + League::$ajuste_tempo_int;
             <table style="border-bottom: solid 2px;">
                 <tr>
                     <td style="font-weight: bold; font-size: 1.2em;">
-                        Liga na região de <?= $liga->getRegiao() ?>
+                        <?= sprintf($txt['liga_region'], $liga->getRegiao()) ?>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding-right: 10px;">
-                        Inscrições a partir de <?= date("d/m/Y à\s H:i:s", strtotime($liga->getInicio_inscricoes())) ?> até <?= date("d/m/Y à\s H:i:s", strtotime($liga->getFim_inscricoes())) ?>
+                        <?= sprintf($txt['liga_registration_period'], date("d/m/Y H:i:s", strtotime($liga->getInicio_inscricoes())), date("d/m/Y H:i:s", strtotime($liga->getFim_inscricoes()))) ?>
                     </td>
                     <?php
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
                         <td style="font-weight: bold; font-size: 1.1em; margin-left: 10px;">
-                            Você não está na região desta liga!
+                            <?= $txt['liga_not_in_region'] ?>
                         </td>
                         <?php
                     } else {
@@ -54,12 +54,12 @@ $time = time() + League::$ajuste_tempo_int;
                             if ($liga->inscrito($gebruiker['user_id'])) {
                                 ?>
                                 <img src="images/icons/green.png" alt="confirm"/>
-                                Você está inscrito nesta liga!
+                                <?= $txt['liga_registered'] ?>
                                 <?php
                             } else {
                                 ?>
                                 <img src="images/icons/red.png" alt="no_confirm"/>
-                                Você não está participanto desta liga!
+                                <?= $txt['liga_not_registered'] ?>
                                 <?php
                             }
                             ?>
@@ -69,7 +69,7 @@ $time = time() + League::$ajuste_tempo_int;
                     ?>
                 </tr>
                 <tr>
-                    <td>Início das batalhas em <?= date("d/m/Y à\s H:i:s", strtotime($liga->getInicio())) ?></td>
+                    <td><?= sprintf($txt['liga_battles_start'], date("d/m/Y H:i:s", strtotime($liga->getInicio()))) ?></td>
                     <?php
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
@@ -80,14 +80,14 @@ $time = time() + League::$ajuste_tempo_int;
                     } else {
                         ?>
                         <td>
-                            vagas: <?= ($liga->getTotal_participantes() - $liga->getParticipantes()) ?>
+                            <?= $txt['liga_slots'] ?> <?= ($liga->getTotal_participantes() - $liga->getParticipantes()) ?>
                         </td>
                         <?php
                     }
                     ?>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Custo de inscrição:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_registration_cost'] ?></td>
                     <?php
                     if ($gebruiker['wereld'] == $liga->getRegiao()) {
                         ?>
@@ -100,13 +100,13 @@ $time = time() + League::$ajuste_tempo_int;
                                     <?php
                                     if (!$liga->inscrito($gebruiker['user_id'])) {
                                         ?>
-                                        <input type="submit" name="registration" value="Fazer inscrição" class="button" onclick="if (confirm('Deseja mesmo fazer a inscrição nessa liga?!') == false) {
+                                        <input type="submit" name="registration" value="<?= $txt['liga_register_button'] ?>" class="button" onclick="if (confirm('<?= $txt['liga_confirm_register'] ?>') == false) {
                                                     return false;
                                                 }"/>
                                                <?php
                                            } else {
                                                ?>
-                                        <input type="submit" name="undo_registration" value="Desfazer inscrição" class="button" onclick="if (confirm('Tem certeza que deseja desfazer a  sua inscrição nessa liga?<br/>Obs.: Os custos de inscrição não serão devolvidos!') == false) {
+                                        <input type="submit" name="undo_registration" value="<?= $txt['liga_unregister_button'] ?>" class="button" onclick="if (confirm('<?= $txt['liga_confirm_unregister'] ?>') == false) {
                                                     return false;
                                                 }"/>
                                                <?php
@@ -115,7 +115,7 @@ $time = time() + League::$ajuste_tempo_int;
                                 </form>
                                 <?php
                             } else {
-                                echo "As inscrições serão abertas em breve!";
+                                echo $txt['liga_registration_soon'];
                             }
                             ?>
                         </td>
@@ -152,7 +152,7 @@ $time = time() + League::$ajuste_tempo_int;
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Premiação:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_prizes'] ?></td>
                 </tr>
                 <tr>
                     <td>
@@ -189,7 +189,7 @@ $time = time() + League::$ajuste_tempo_int;
                                     echo ", ";
                                 }
                                 echo '<img src="images/icons/star.png" alt="vip"/> ';
-                                echo $premio->getVip() . "dias de VIP";
+                                echo sprintf($txt['liga_vip_days'], $premio->getVip());
                             }
                             echo "</p>";
                         }
@@ -197,15 +197,15 @@ $time = time() + League::$ajuste_tempo_int;
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Regras:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_rules'] ?></td>
                 </tr>
                 <tr>
                     <td>
-                        Nível máximo dos pokémon: <?= $liga->getLv_max_pokemon() ?><br/>
-                        Número máximo de pokémons especiais por batalha:<br/>
-                        Shinys: <?= $liga->getN_shinys() ?><br/>
-                        Lendários: <?= $liga->getN_lendas() ?><br/>
-                        Mega evoluções: <?= $liga->getN_megas() ?>
+                        <?= $txt['liga_max_level'] ?> <?= $liga->getLv_max_pokemon() ?><br/>
+                        <?= $txt['liga_max_special'] ?><br/>
+                        <?= $txt['liga_shinys'] ?> <?= $liga->getN_shinys() ?><br/>
+                        <?= $txt['liga_legendaries'] ?> <?= $liga->getN_lendas() ?><br/>
+                        <?= $txt['liga_megas'] ?> <?= $liga->getN_megas() ?>
                     </td>
                 </tr>
                 <tr>
@@ -225,13 +225,13 @@ $time = time() + League::$ajuste_tempo_int;
     }
     if (count($ligas) == 0) {
         ?>
-        <div style="font-weight: bold; font-size: 1.2em;">Nenhuma liga com inscrições abertas no momento!</div>
+        <div style="font-weight: bold; font-size: 1.2em;"><?= $txt['liga_none_open'] ?></div>
         <?php
     }
     ?>
 </ul>
 
-<h3 style="margin-top: 30px;">Ligas com inscrições finalizadas</h3>
+<h3 style="margin-top: 30px;"><?= $txt['liga_closed_heading'] ?></h3>
 <ul style="list-style: none;">
     <?php
     $ligas = League::select_terminadas();
@@ -242,18 +242,18 @@ $time = time() + League::$ajuste_tempo_int;
             <table style="border-bottom: solid 2px;">
                 <tr>
                     <td style="font-weight: bold; font-size: 1.2em;">
-                        Liga na região de <?= $liga->getRegiao() ?>
+                        <?= sprintf($txt['liga_region'], $liga->getRegiao()) ?>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding-right: 10px;">
-                        Inscrições a partir de <?= date("d/m/Y à\s H:i:s", strtotime($liga->getInicio_inscricoes())) ?> até <?= date("d/m/Y à\s H:i:s", strtotime($liga->getFim_inscricoes())) ?>
+                        <?= sprintf($txt['liga_registration_period'], date("d/m/Y H:i:s", strtotime($liga->getInicio_inscricoes())), date("d/m/Y H:i:s", strtotime($liga->getFim_inscricoes()))) ?>
                     </td>
                     <?php
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
                         <td style="font-weight: bold; font-size: 1.1em; margin-left: 10px;">
-                            Você não está na região desta liga!
+                            <?= $txt['liga_not_in_region'] ?>
                         </td>
                         <?php
                     } else {
@@ -263,12 +263,12 @@ $time = time() + League::$ajuste_tempo_int;
                             if ($liga->inscrito($gebruiker['user_id'])) {
                                 ?>
                                 <img src="images/icons/green.png" alt="confirm"/>
-                                Você está inscrito nesta liga!
+                                <?= $txt['liga_registered'] ?>
                                 <?php
                             } else {
                                 ?>
                                 <img src="images/icons/red.png" alt="no_confirm"/>
-                                Você não está participanto desta liga!
+                                <?= $txt['liga_not_registered'] ?>
                                 <?php
                             }
                             ?>
@@ -278,7 +278,7 @@ $time = time() + League::$ajuste_tempo_int;
                     ?>
                 </tr>
                 <tr>
-                    <td>Início das batalhas em <?= date("d/m/Y à\s H:i:s", strtotime($liga->getInicio())) ?></td>
+                    <td><?= sprintf($txt['liga_battles_start'], date("d/m/Y H:i:s", strtotime($liga->getInicio()))) ?></td>
                     <?php
                     if ($gebruiker['wereld'] != $liga->getRegiao()) {
                         ?>
@@ -295,7 +295,7 @@ $time = time() + League::$ajuste_tempo_int;
                     ?>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Custo de inscrição:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_registration_cost'] ?></td>
                     <?php
                     if ($gebruiker['wereld'] == $liga->getRegiao()) {
                         ?>
@@ -335,7 +335,7 @@ $time = time() + League::$ajuste_tempo_int;
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Premiação:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_prizes'] ?></td>
                 </tr>
                 <tr>
                     <td>
@@ -372,7 +372,7 @@ $time = time() + League::$ajuste_tempo_int;
                                     echo ", ";
                                 }
                                 echo '<img src="images/icons/star.png" alt="vip"/> ';
-                                echo $premio->getVip() . "dias de VIP";
+                                echo sprintf($txt['liga_vip_days'], $premio->getVip());
                             }
                             echo "</p>";
                         }
@@ -380,15 +380,15 @@ $time = time() + League::$ajuste_tempo_int;
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; font-size: 1.1em;">Regras:</td>
+                    <td style="font-weight: bold; font-size: 1.1em;"><?= $txt['liga_rules'] ?></td>
                 </tr>
                 <tr>
                     <td>
-                        Nível máximo dos pokémon: <?= $liga->getLv_max_pokemon() ?><br/>
-                        Número máximo de pokémons especiais por batalha:<br/>
-                        Shinys: <?= $liga->getN_shinys() ?><br/>
-                        Lendários: <?= $liga->getN_lendas() ?><br/>
-                        Mega evoluções: <?= $liga->getN_megas() ?>
+                        <?= $txt['liga_max_level'] ?> <?= $liga->getLv_max_pokemon() ?><br/>
+                        <?= $txt['liga_max_special'] ?><br/>
+                        <?= $txt['liga_shinys'] ?> <?= $liga->getN_shinys() ?><br/>
+                        <?= $txt['liga_legendaries'] ?> <?= $liga->getN_lendas() ?><br/>
+                        <?= $txt['liga_megas'] ?> <?= $liga->getN_megas() ?>
                     </td>
                 </tr>
             </table>
@@ -397,7 +397,7 @@ $time = time() + League::$ajuste_tempo_int;
     }
     if (count($ligas) == 0) {
         ?>
-        <div style="font-weight: bold; font-size: 1.2em;">Nenhuma liga com inscrições finalizadas!</div>
+        <div style="font-weight: bold; font-size: 1.2em;"><?= $txt['liga_none_closed'] ?></div>
         <?php
     }
     ?>

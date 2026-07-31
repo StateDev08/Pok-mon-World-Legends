@@ -46,7 +46,7 @@ if ($gebruiker['premiumaccount'] > time()) {
 
 #Als er op de knop gedrukt word
 if (isset($_POST['travel'])) {
-	$wereld = $_POST['wereld'];
+	$wereld = ($_POST['wereld'] ?? '');
 
 	$count_time = $prijs[$wereld . '_time_total'];
 	if ($gebruiker['admin'] > 0) $count_time = 0;
@@ -68,7 +68,7 @@ if (isset($_POST['travel'])) {
 		if ($gebruiker['silver'] <= $prijss)	$message = '<div class="red">'.$txt['alert_not_enough_money'].'</div>';
 		else { #Speler heeft genoeg silver.
 			#silver minderen en nieuwe wereld opslaan
-			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver` - '".$prijss."',`wereld`='" . $wereld . "',`traveltijdbegin`=NOW(),`traveltijd`='" . $count_time . "' WHERE `user_id`=" . $_SESSION['id'] . " LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver` - '".$prijss."',`wereld`='" . $wereld . "',`traveltijdbegin`=NOW(),`traveltijd`='" . $count_time . "' WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " LIMIT 1");
 			exit(header("LOCATION: ./travel"));
 		}
 	}
@@ -77,14 +77,14 @@ if (isset($_POST['travel'])) {
 #########SURF
 #Als er op de knop gedrukt word
 if (isset($_POST['surf'])) {
-	if (empty($_POST['wereld']) || !is_numeric($_POST['pokemonid']))	$surferror = '<div class="red">'.$txt['alert_not_everything_selected'].'</div>';
+	if (empty($_POST['wereld']) || !is_numeric(($_POST['pokemonid'] ?? '')))	$surferror = '<div class="red">'.$txt['alert_not_everything_selected'].'</div>';
 	else {
 		#query voor alle info
-		$pkmninfo = DB::exQuery("SELECT `id`,`user_id`,`level`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_speler` WHERE `id`=" . (int)$_POST['pokemonid'] . " LIMIT 1")->fetch_assoc();
+		$pkmninfo = DB::exQuery("SELECT `id`,`user_id`,`level`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_speler` WHERE `id`=" . (int)($_POST['pokemonid'] ?? '') . " LIMIT 1")->fetch_assoc();
 		#De eerste letter verandere in hoofdletter
-		$wereld = ucfirst($_POST['wereld']);
+		$wereld = ucfirst(($_POST['wereld'] ?? ''));
 		#eigenaar check
-		if ($pkmninfo['user_id'] != $_SESSION['id'])	$message = ' <div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
+		if ($pkmninfo['user_id'] != ($_SESSION['id'] ?? ''))	$message = ' <div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
 		#Bestaat de wereld wel?
 		else if ($wereld != 'Kanto' && $wereld != 'Johto' && $wereld != 'Hoenn' && $wereld != 'Sinnoh' && $wereld != 'Unova' && $wereld != 'Kalos' && $wereld != 'Alola')	$message = '<div class="red">'.$txt['alert_world_invalid'].'</div>';
 		#Zit de speler al in deze wereld?
@@ -96,7 +96,7 @@ if (isset($_POST['surf'])) {
 		else if ($pkmninfo['level'] < 80)	$message = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
 		#Alles goed:	
 		else {
-			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".$_SESSION['id']."'");
+			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 			exit(header("LOCATION: ./travel"));
 		}
 	}
@@ -105,14 +105,14 @@ if (isset($_POST['surf'])) {
 ##########SURF
 #Als er op de knop gedrukt word
 if (isset($_POST['fly'])) {
-	if (empty($_POST['wereld']) || !is_numeric($_POST['pokemonid']))	$message = '<div class="red">'.$txt['alert_not_everything_selected'].'</div>';
+	if (empty($_POST['wereld']) || !is_numeric(($_POST['pokemonid'] ?? '')))	$message = '<div class="red">'.$txt['alert_not_everything_selected'].'</div>';
 	else {
 		#query voor alle info
-		$pkmninfo = DB::exQuery("SELECT `id`,`user_id`,`level`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_speler` WHERE `id`=" . (int)$_POST['pokemonid'] . " LIMIT 1")->fetch_assoc();
+		$pkmninfo = DB::exQuery("SELECT `id`,`user_id`,`level`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_speler` WHERE `id`=" . (int)($_POST['pokemonid'] ?? '') . " LIMIT 1")->fetch_assoc();
 		#De eerste letter verandere in hoofdletter
-		$wereld = ucfirst($_POST['wereld']);
+		$wereld = ucfirst(($_POST['wereld'] ?? ''));
 		#eigenaar check
-		if ($pkmninfo['user_id'] != $_SESSION['id'])	$message = ' <div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
+		if ($pkmninfo['user_id'] != ($_SESSION['id'] ?? ''))	$message = ' <div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
 		#Bestaat de wereld wel?
 		else if ($wereld != 'Kanto' && $wereld != 'Johto' && $wereld != 'Hoenn' && $wereld != 'Sinnoh' && $wereld != 'Unova' && $wereld != 'Kalos' && $wereld != 'Alola')	$message = '<div class="red">'.$txt['alert_world_invalid'].'</div>';
 		#Zit de speler al in deze wereld?
@@ -124,7 +124,7 @@ if (isset($_POST['fly'])) {
 		else if ($pkmninfo['level'] < 80)	$message = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
 		#Alles goed:	
 		else {
-			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 			exit(header("LOCATION: ./travel"));
 		}
 	}

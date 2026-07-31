@@ -92,19 +92,19 @@ if ($aantal_paginas > 1) {
 	if ($subpage == 1)	echo '<span class="disabled">&laquo;</span>';
 	else {
 		$back = $subpage - 1;
-		echo '<a href="./' . $_GET['page'] . '&subpage=' . $back . '">&laquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&subpage=' . $back . '">&laquo;</a>';
 	}
 
 	for($i = 1; $i <= $aantal_paginas; $i++) { 
 		if ((2 >= $i) && ($subpage == $i))	echo '<span class="current">' . $i . '</span>';
-		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+		else if ((2 >= $i) && ($subpage != $i))	echo '<a href="./'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 		else if (($aantal_paginas-2 < $i) && ($subpage == $i))	echo '<span class="current">' . $i . '</span>';
-		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+		else if (($aantal_paginas-2 < $i) && ($subpage != $i))	echo '<a href="./'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 		else {
 			$max = $subpage + 3;
 			$min = $subpage - 3;
 			if ($subpage == $i)	echo '<span class="current">' . $i . '</span>';
-			else if (($min < $i) && ($max > $i))	echo '<a href="./'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+			else if (($min < $i) && ($max > $i))	echo '<a href="./'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
 			else {
 				if ($i < $subpage) {
 					if (!$links) {
@@ -123,7 +123,7 @@ if ($aantal_paginas > 1) {
 	if ($aantal_paginas == $subpage) echo '<span class="disabled">&raquo;</span>';
 	else {
 		$next = $subpage + 1;
-		echo '<a href="./' . $_GET['page'] . '&subpage=' . $next . '">&raquo;</a>';
+		echo '<a href="./' . ($_GET['page'] ?? '') . '&subpage=' . $next . '">&raquo;</a>';
 	}
 	echo "</td>";
 }

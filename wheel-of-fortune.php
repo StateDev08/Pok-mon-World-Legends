@@ -20,17 +20,17 @@ if (isset($_POST['draai'])) {
     $melding = '<div class="blue">'.$txt['alert_no_more_wof'].'</div>';
   //Is het nog niet gedaan.
   else{
-	$quests->setStatus('spin', $_SESSION['id']);
+	$quests->setStatus('spin', ($_SESSION['id'] ?? ''));
   	#WIN: 100 silver
   	if ($getal == 0) {
   		$melding = '<div class="green">VOCÊ GANHOU <img src="'.$static_url.'/images/icons/ticket.png"> 100 TICKETS!</div>';
-		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'100' WHERE user_id='".$_SESSION['id']."'");
+		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'100' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
   	}
   	#WIN: 250 silver
   	else if ($getal == 1) {
   		$melding = '<div class="green">VOCÊ GANHOU <img src="'.$static_url.'/images/icons/ticket.png"> 250 TICKETS!</div>';
-		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'250' WHERE user_id='".$_SESSION['id']."'");
+		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'250' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
   	}
   	#WIN: Ball
@@ -38,8 +38,8 @@ if (isset($_POST['draai'])) {
       if ($gebruiker['item_over'] > 0) {
         $ball = DB::exQuery("SELECT naam FROM markt WHERE soort = 'balls' AND naam != 'Master ball' AND naam != 'DNA ball' AND naam != 'Santa ball' AND naam != 'Cherish ball' AND naam != 'Antique ball' AND naam != 'Black ball' AND naam != 'Frozen ball' AND naam != 'GS ball' AND naam != 'Trader ball' AND naam != 'Ecology ball' ORDER BY rand() limit 1")->fetch_assoc();
     	$melding = '<div class="green">'.$txt['win_ball'].' '.$ball['naam'].'!</div>';
-  		  DB::exQuery("UPDATE gebruikers_item SET `".$ball['naam']."`=`".$ball['naam']."`+'1' WHERE user_id='".$_SESSION['id']."'");
-		  DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".$_SESSION['id']."'");
+  		  DB::exQuery("UPDATE gebruikers_item SET `".$ball['naam']."`=`".$ball['naam']."`+'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
+		  DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		  $gebruiker['geluksrad']--;
 		  }
 		  else $melding = '<div class="red">'.$txt['alert_itembox_full'].'</div>';
@@ -49,8 +49,8 @@ if (isset($_POST['draai'])) {
       if ($gebruiker['item_over'] > 0) {
         $specialitem = DB::exQuery("SELECT naam FROM markt WHERE soort = 'special items' and roleta='sim' ORDER BY rand() limit 1")->fetch_assoc();
         $melding = '<div class="green">'.$txt['win_spc_item'].' '.$specialitem['naam'].'!</div>'; 
-        DB::exQuery("UPDATE gebruikers_item SET `".$specialitem['naam']."`=`".$specialitem['naam']."`+'1' WHERE user_id='".$_SESSION['id']."'");
-		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".$_SESSION['id']."'");
+        DB::exQuery("UPDATE gebruikers_item SET `".$specialitem['naam']."`=`".$specialitem['naam']."`+'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
+		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
       }
       else $melding = '<div class="red">'.$txt['alert_itembox_full'].'</div>';
@@ -60,8 +60,8 @@ if (isset($_POST['draai'])) {
       if ($gebruiker['item_over'] > 0) {
         $stone = DB::exQuery("SELECT naam FROM markt WHERE soort = 'stones' and roleta='sim' ORDER BY rand() limit 1")->fetch_assoc();
         $melding = '<div class="green">'.$txt['win_stone'].' '.$stone['naam'].'!</div>'; 
-        DB::exQuery("UPDATE gebruikers_item SET `".$stone['naam']."`=`".$stone['naam']."`+'1' WHERE user_id='".$_SESSION['id']."'");
-		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".$_SESSION['id']."'");
+        DB::exQuery("UPDATE gebruikers_item SET `".$stone['naam']."`=`".$stone['naam']."`+'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
+		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
       }
       else $melding = '<div class="red">'.$txt['alert_itembox_full'].'</div>';
@@ -77,8 +77,8 @@ if (isset($_POST['draai'])) {
       if ($gebruiker['item_over'] > 0) {
         $tm = DB::exQuery("SELECT naam FROM markt WHERE soort = 'tm' and gold='0' and silver<'60000' and beschikbaar='1' and roleta='sim' ORDER BY rand() limit 1")->fetch_assoc();
         $melding = '<div class="green">'.$txt['win_tm'].' '.$tm['naam'].'!</div>'; 
-        DB::exQuery("UPDATE gebruikers_tmhm SET `".$tm['naam']."`=`".$tm['naam']."`+'1' WHERE user_id='".$_SESSION['id']."'");
-		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".$_SESSION['id']."'");
+        DB::exQuery("UPDATE gebruikers_tmhm SET `".$tm['naam']."`=`".$tm['naam']."`+'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
+		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
       }
       else $melding = '<div class="red">'.$txt['alert_itembox_full'].'</div>';

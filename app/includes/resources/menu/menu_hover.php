@@ -1,4 +1,4 @@
-<?php if ($_SESSION['share_acc'] == 0) { ?>
+<?php if (($_SESSION['share_acc'] ?? '') == 0) { ?>
 <table class='in_menu'>
     <tr>
         <td>

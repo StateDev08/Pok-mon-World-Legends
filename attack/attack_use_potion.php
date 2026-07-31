@@ -28,20 +28,20 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Load Attack Info
 
-  $aanval_log = aanval_log($_GET['aanval_log_id']);
+  $aanval_log = aanval_log(($_GET['aanval_log_id'] ?? ''));
 
   //Check if the right aanval_log is choosen
 
-  if ($aanval_log['user_id'] != $_SESSION['id']) exit;
-  if ($_SESSION['sec_key'] != $_GET['_h'])	exit;
+  if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit;
+  if (($_SESSION['sec_key'] ?? '') != ($_GET['_h'] ?? ''))	exit;
 
   //Load Pokemon info
 
-  $pokemon_info = pokemon_data($_GET['potion_pokemon_id']);
+  $pokemon_info = pokemon_data(($_GET['potion_pokemon_id'] ?? ''));
 
   //Check if the right pokemon is choosen
 
-  if ($pokemon_info['user_id'] != $_SESSION['id']) exit;
+  if ($pokemon_info['user_id'] != ($_SESSION['id'] ?? '')) exit;
 
   //Change Pokemon Name
 
@@ -49,11 +49,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Load Player item info
 
-  $player_item_info = DB::exQuery("SELECT `Potion`, `Super potion`, `Hyper potion`, `Full heal`, `Revive`, `Max revive`, `Moomoo Milk`, `Fresh Water`, `Soda Pop`, `Lemonade` FROM `gebruikers_item` WHERE `user_id`='".$_SESSION['id']."'")->fetch_assoc();
+  $player_item_info = DB::exQuery("SELECT `Potion`, `Super potion`, `Hyper potion`, `Full heal`, `Revive`, `Max revive`, `Moomoo Milk`, `Fresh Water`, `Soda Pop`, `Lemonade` FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 
   //Load pokeball info
 
-  $item_info = DB::exQuery("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `kracht2` FROM `items` WHERE `naam`='".$_GET['item']."'")->fetch_assoc();
+  $item_info = DB::exQuery("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `kracht2` FROM `items` WHERE `naam`='".($_GET['item'] ?? '')."'")->fetch_assoc();
 
   //Potion was no succes
 
@@ -61,11 +61,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Create Right name for computer
 
-  $_GET['computer_info_name'] = computer_naam($_GET['computer_info_name']);
+  $_GET['computer_info_name'] = computer_naam(($_GET['computer_info_name'] ?? ''));
 
   //Check if it is an valid item
 
-  if ($_GET['item'] == "Kies") $message = $txt['potion_choose'];
+  if (($_GET['item'] ?? '') == "Kies") $message = $txt['potion_choose'];
 
   //Check if it is a potion
 
@@ -73,7 +73,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Check if you have that pokeball
 
-  else if ($player_item_info[$item_info['naam']] <= 0) $message = $txt['potion_amount'].$_GET['item'].".";
+  else if ($player_item_info[$item_info['naam']] <= 0) $message = $txt['potion_amount'].($_GET['item'] ?? '').".";
 
   //Pokemon has full life
 
@@ -85,11 +85,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Check if the fight is finished yet
 
-  else if ($aanval_log['laatste_aanval'] == "klaar") $message = $txt['dead_1'].$_GET['computer_info_name'].$txt['dead_2'];
+  else if ($aanval_log['laatste_aanval'] == "klaar") $message = $txt['dead_1'].($_GET['computer_info_name'] ?? '').$txt['dead_2'];
 
   //Check if it is not your turn
 
-  else if ($aanval_log['laatste_aanval'] == "pokemon") $message = $_GET['computer_info_name'].$taal['attack']['general']['lastattack'];
+  else if ($aanval_log['laatste_aanval'] == "pokemon") $message = ($_GET['computer_info_name'] ?? '').$taal['attack']['general']['lastattack'];
 
   //Use Potion
 
@@ -207,7 +207,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
     //Remove Potion
 
-    DB::exQuery("UPDATE `gebruikers_item` SET `".$item_info['naam']."`='".$new_amount."' WHERE `user_id`='".$_SESSION['id']."'");
+    DB::exQuery("UPDATE `gebruikers_item` SET `".$item_info['naam']."`='".$new_amount."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 
   }
 
@@ -221,7 +221,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   else $pokemon_infight = 0;
 
-  echo ucfirst($message)." | ".$good." | ".$info_potion_left." | ".$_GET['option_id']." | ".$item_info['naam']." | Potion | ".$new_life." | ".$pokemon_info['levenmax']." | ".$pokemon_infight." | ".$pokemon_info['opzak_nummer']." | ".$pokemon_info['naam_goed']." | ".$pokemon_info['id'];
+  echo ucfirst($message)." | ".$good." | ".$info_potion_left." | ".($_GET['option_id'] ?? '')." | ".$item_info['naam']." | Potion | ".$new_life." | ".$pokemon_info['levenmax']." | ".$pokemon_infight." | ".$pokemon_info['opzak_nummer']." | ".$pokemon_info['naam_goed']." | ".$pokemon_info['id'];
 
 }
 

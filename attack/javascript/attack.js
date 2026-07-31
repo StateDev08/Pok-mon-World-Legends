@@ -34,7 +34,7 @@ function oplopend(green_old,green_new,wie,life,life_new,life_max) {
     document.getElementById(wie + '_life').style.width = green_old + '%';
 
     //Do it agian
-    timer = setTimeout('leven_verandering( '+ life_new + ', "'+ wie+ '", ' + life_max + ');', 5);
+    timer = setTimeout(function () { leven_verandering(life_new, wie, life_max); }, 5);
   }
   //life old is same as life new
   else{
@@ -52,7 +52,7 @@ function aflopend(green_old,green_new,wie,life,life_new,life_max) {
     document.getElementById(wie + '_life').style.width = green_old + '%';
  
     //Do it agian
-    timer = setTimeout('leven_verandering( '+ life_new + ', "'+ wie+ '", ' + life_max + ');', 5);
+    timer = setTimeout(function () { leven_verandering(life_new, wie, life_max); }, 5);
   }
   //life old is same as life new
   else{
@@ -96,7 +96,7 @@ function oplopend_exp(blue_old,blue_new,exp_old,exp_new,exp_max) {
     document.getElementById('pokemon_exp').style.width = blue_old + '%';
 
     //Do it agian
-    timer = setTimeout('exp_change( '+ exp_new + ', ' + exp_max + ');', 5);
+    timer = setTimeout(function () { exp_change(exp_new, exp_max); }, 5);
   }
   //life old is same as Exp new
   else{
@@ -138,7 +138,7 @@ function oplopend2(green_old2,green_new2,wie2,life2,life_new2,life_max2) {
     document.getElementById(wie2 + '_life').style.width = green_old2 + '%';
 
     //Do it agian
-    timer2 = setTimeout('leven_verandering2( '+ life_new2 + ', "'+ wie2+ '", ' + life_max2 + ');', 5);
+    timer2 = setTimeout(function () { leven_verandering2(life_new2, wie2, life_max2); }, 5);
   }
   //life old is same as life new
   else{
@@ -156,7 +156,7 @@ function aflopend2(green_old2,green_new2,wie2,life2,life_new2,life_max2) {
     document.getElementById(wie2 + '_life').style.width = green_old2 + '%';
  
     //Do it agian
-    timer2 = setTimeout('leven_verandering2( '+ life_new2 + ', "'+ wie2+ '", ' + life_max2 + ');', 5);
+    timer2 = setTimeout(function () { leven_verandering2(life_new2, wie2, life_max2); }, 5);
   }
   //life old is same as life new
   else{

@@ -3,15 +3,15 @@
 include("app/includes/resources/security.php");
 	
 #ALs er al een speler naam binnenkomt met een GET, deze laden
-if (isset($_GET['player'])) $spelernaam = $_GET['player'];
+if (isset($_GET['player'])) $spelernaam = ($_GET['player'] ?? '');
 else $spelernaam = $_POST['gebruiker'] ?? '';
 
 #Als er silver of gold naar een ander gestuurd word
 if (isset($_POST['naargebruiker'])) {
   #Eventuele komma vervangen door punt
-  if ($_POST['what'] == 'silver') $what = 'silver';
+  if (($_POST['what'] ?? '') == 'silver') $what = 'silver';
   else $what = 'gold';
-  $bedrag = floor($_POST['send_amount']);
+  $bedrag = floor(($_POST['send_amount'] ?? ''));
   
   #Is er wel een ontvanger?
   if (empty($_POST['gebruiker']))
@@ -24,12 +24,12 @@ if (isset($_POST['naargebruiker'])) {
   	$bericht_send = '<div class="red">'.$txt['alert_no_silver_or_gold'].'</div>'; 
   #Sem ranking suficiente
   else if (($gebruiker['rank'] < 8) && ($what == 'gold'))
-  	$bericht_send = '<div class="red">Você não tem rank suficiente.</div>'; 
+  	$bericht_send = '<div class="red">'.$txt['bank_rank_too_low'].'</div>'; 
   #Tentando enviar pra si proprio	
-  else if (strtolower($_POST['gebruiker']) == strtolower($gebruiker['username']))
+  else if (strtolower(($_POST['gebruiker'] ?? '')) == strtolower($gebruiker['username']))
     $bericht_send = '<div class="red">'.$txt['alert_send_to_yourself'].'</div>';  
   #Bestaat de ontvanger wel?
-  else if (DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".$_POST['gebruiker']."'")->num_rows == 0)
+  else if (DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".($_POST['gebruiker'] ?? '')."'")->num_rows == 0)
     $bericht_send = '<div class="red">'.$txt['alert_receiver_dont_exist'].'</div>';
   #is er wel een bedrag ingevoerd?
   else if (preg_match('/[A-Za-z_]+$/',$bedrag))
@@ -55,25 +55,25 @@ if (isset($_POST['naargebruiker'])) {
     $bericht_send = '<div class="green">'.$txt['success_send'].'</div>';
     #silver bij jezelf verminderen
 	if ($what == 'silver') {
-		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$bedrag."' WHERE `user_id`='".$_SESSION['id']."'");
+		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$bedrag."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 		#5% van het bedrag afhalen
 		$bedrag = $bedrag;
 		#silver bij de tegen party ophogen
-		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$bedrag."' WHERE `username`='".$_POST['gebruiker']."'");
+		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'".$bedrag."' WHERE `username`='".($_POST['gebruiker'] ?? '')."'");
 		$sg = 'silver';
 	}
 	else{
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$bedrag} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
 		
 		
-		$quemvai = DB::exQuery("select `acc_id` from `gebruikers` where `username`='".$_POST['gebruiker']."' limit 1")->fetch_assoc();
+		$quemvai = DB::exQuery("select `acc_id` from `gebruikers` where `username`='".($_POST['gebruiker'] ?? '')."' limit 1")->fetch_assoc();
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+{$bedrag} WHERE `acc_id`={$quemvai['acc_id']} LIMIT 1");
 		
 		
 		$sg = 'gold';
 	}
 		###Event
-		$select = DB::exQuery("SELECT user_id FROM gebruikers WHERE username = '".$_POST['gebruiker']."'")->fetch_assoc();
+		$select = DB::exQuery("SELECT user_id FROM gebruikers WHERE username = '".($_POST['gebruiker'] ?? '')."'")->fetch_assoc();
 		
 		#Taal pack includen
 		$eventlanguage = GetEventLanguage();
@@ -87,7 +87,7 @@ if (isset($_POST['naargebruiker'])) {
 		VALUES (NULL, NOW(), '".$select['user_id']."', '".$event."', '0')");
 		$date = date("Y-m-d H:i:s");
 		DB::exQuery("INSERT INTO bank_logs (id, date, sender, reciever, amount, what)
-		VALUES (NULL, NOW(), '".$gebruiker['username']."', '".$_POST['gebruiker']."', '".$bedrag."', '".$what."')");
+		VALUES (NULL, NOW(), '".$gebruiker['username']."', '".($_POST['gebruiker'] ?? '')."', '".$bedrag."', '".$what."')");
   }
 }
 
@@ -102,8 +102,8 @@ echo addNPCBox(5, $txt['bank_title'], sprintf($txt['bank_npc_text'], $static_url
   <form method="post" onsubmit="return confirm('<?=$txt['bank_confirm']?>');">
     <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
       <tr>
-        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_trainer']?></b><br><input type="text" name="gebruiker" value="<?php if (($_GET['player'] ?? '') != '') echo $_GET['player']; else echo $spelernaam; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
-        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount" class="input-blue" min="10" required style="margin-top: 5px"/></td>
+        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_trainer']?></b><br><input type="text" name="gebruiker" value="<?php if (($_GET['player'] ?? '') != '') echo ($_GET['player'] ?? ''); else echo $spelernaam; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
+        <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount" value="<?php if (isset($_POST['send_amount'])) echo ($_POST['send_amount'] ?? ''); ?>" id="send_amount" class="input-blue" min="10" required style="margin-top: 5px"/></td>
       </tr>
       <tr>
         <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what" value="silver" id="silver"  <?php if (($_POST['what'] ?? '') != 'gold') echo 'checked'; ?> /> <label for="silver"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>
@@ -124,7 +124,7 @@ if (!empty($gebruiker['clan'])) {
   <form method="post" onsubmit="return confirm('<?=$txt['bank_clan_confirm']?>');">
     <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
       <tr>
-        <td colspan="2"><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount_clan" value="<?php if (isset($_POST['send_amount'])) echo $_POST['send_amount']; ?>" id="send_amount_clan" class="input-blue" min="10" required style="margin-top: 5px"/></td>
+        <td colspan="2"><b style="color: #9eadcd; font-size: 12px"><?=$txt['bank_value']?></b><br><input type="number" name="send_amount_clan" value="<?php if (isset($_POST['send_amount'])) echo ($_POST['send_amount'] ?? ''); ?>" id="send_amount_clan" class="input-blue" min="10" required style="margin-top: 5px"/></td>
       </tr>
       <tr>
         <td style="text-align: right; padding: 4px 30px;"><input type="radio" name="what_clan" value="silver" id="silver_clan"  <?php if (($_POST['what'] ?? '') != 'gold') echo 'checked'; ?> /> <label for="silver_clan"><img src="<?=$static_url?>/images/icons/silver.png" alt="Silver" title="Silver" width="16" height="16" style="vertical-align: unset"/></label></td>

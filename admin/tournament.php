@@ -15,22 +15,22 @@ include_once 'app/classes/League_battle.php';
 if (isset($_POST['new'])) {
     $league = new League();
 
-    $league->setRegiao($_POST['regiao']);
-    $league->setTotal_participantes($_POST['total_participantes']);
-    $league->setInicio_inscricoes($_POST['inicio_inscricoes']);
-    $league->setFim_inscricoes($_POST['fim_inscricoes']);
-    $league->setInicio($_POST['inicio']);
-    $league->setIntervalo_fase($_POST['intervalo_fase']);
-    $league->setPreco_silvers($_POST['preco_silvers']);
-    $league->setPreco_golds($_POST['preco_golds']);
-    $league->setN_shinys($_POST['n_shinys']);
-    $league->setN_lendas($_POST['n_lendas']);
-    $league->setN_megas($_POST['n_megas']);
-    $league->setLv_max_pokemon($_POST['lv_max_pokemon']);
-    $league->setVip($_POST['vip']);
-    $league->setMods($_POST['mods']);
-    $league->setAdmins($_POST['adms']);
-    $league->setDonos($_POST['donos']);
+    $league->setRegiao(($_POST['regiao'] ?? ''));
+    $league->setTotal_participantes(($_POST['total_participantes'] ?? ''));
+    $league->setInicio_inscricoes(($_POST['inicio_inscricoes'] ?? ''));
+    $league->setFim_inscricoes(($_POST['fim_inscricoes'] ?? ''));
+    $league->setInicio(($_POST['inicio'] ?? ''));
+    $league->setIntervalo_fase(($_POST['intervalo_fase'] ?? ''));
+    $league->setPreco_silvers(($_POST['preco_silvers'] ?? ''));
+    $league->setPreco_golds(($_POST['preco_golds'] ?? ''));
+    $league->setN_shinys(($_POST['n_shinys'] ?? ''));
+    $league->setN_lendas(($_POST['n_lendas'] ?? ''));
+    $league->setN_megas(($_POST['n_megas'] ?? ''));
+    $league->setLv_max_pokemon(($_POST['lv_max_pokemon'] ?? ''));
+    $league->setVip(($_POST['vip'] ?? ''));
+    $league->setMods(($_POST['mods'] ?? ''));
+    $league->setAdmins(($_POST['adms'] ?? ''));
+    $league->setDonos(($_POST['donos'] ?? ''));
 
     if ($league->insert()) {
         ?>
@@ -48,13 +48,13 @@ if (isset($_POST['new'])) {
 } else if (isset($_POST['new_award'])) {
     $league_award = new League_award();
 
-    $league_award->setLeague_id($_POST['league_id']);
-    $league_award->setColocacao($_POST['colocacao']);
-    $league_award->setSilvers($_POST['silvers']);
-    $league_award->setGolds($_POST['golds']);
-    $league_award->setVip($_POST['vip']);
-    $league_award->setPokemon_id($_POST['pokemon_id']);
-    $league_award->setLv_pokemon($_POST['lv_pokemon']);
+    $league_award->setLeague_id(($_POST['league_id'] ?? ''));
+    $league_award->setColocacao(($_POST['colocacao'] ?? ''));
+    $league_award->setSilvers(($_POST['silvers'] ?? ''));
+    $league_award->setGolds(($_POST['golds'] ?? ''));
+    $league_award->setVip(($_POST['vip'] ?? ''));
+    $league_award->setPokemon_id(($_POST['pokemon_id'] ?? ''));
+    $league_award->setLv_pokemon(($_POST['lv_pokemon'] ?? ''));
 
     if ($league_award->insert()) {
         ?>
@@ -71,7 +71,7 @@ if (isset($_POST['new'])) {
     }
 } else if (isset($_POST['criar_duelos'])) {
   $league = new League();
-  $league->select($_POST['league_id']);
+  $league->select(($_POST['league_id'] ?? ''));
 
   $league->criar_duelos();
 
@@ -79,7 +79,7 @@ if (isset($_POST['new'])) {
   $msg_form = "Duelos criados!";
   } else if (isset($_POST['passar_round'])) {
   $league = new League();
-  $league->select($_POST['league_id']);
+  $league->select(($_POST['league_id'] ?? ''));
 
   $league->passar_round();
 
@@ -87,7 +87,7 @@ if (isset($_POST['new'])) {
   $msg_form = "Round atualizado!";
   } else if (isset($_POST['entregar_premiacao'])) {
   $league = new League();
-  $league->select($_POST['league_id']);
+  $league->select(($_POST['league_id'] ?? ''));
 
   $league->entregar_premiacao();
 
@@ -196,7 +196,7 @@ if (isset($_GET['new'])) {
             <h2>Criar nova premiação:</h2><br/>
 
             <label>Id do torneio: 
-                <input type="text" name="league_id" class="text_long" value="<?= (isset($_GET['league_id']) ? $_GET['league_id'] : "1")?>"/>
+                <input type="text" name="league_id" class="text_long" value="<?= (isset($_GET['league_id']) ? ($_GET['league_id'] ?? '') : "1")?>"/>
             </label>
             <br/><br/>
             <label>Colocação: 

@@ -15,19 +15,19 @@ if ((isset($_GET['duel_id'])) && (isset($_GET['sid']))) {
   //Load language
   include_once('../../language/language-general.php');
   //Load duel info
-  $duel_info = duel_info($_GET['duel_id']);
+  $duel_info = duel_info(($_GET['duel_id'] ?? ''));
   $league_id = 0;
         
-  if ($duel_info['uitdager'] == $_SESSION['naam']) {
-    $you = DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".$_SESSION['naam']."'")->fetch_assoc();
+  if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
+    $you = DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".($_SESSION['naam'] ?? '')."'")->fetch_assoc();
     $other =  DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".$duel_info['tegenstander']."'")->fetch_assoc();
     $you_ch = $duel_info['u_character'];
     $other_ch = $duel_info['t_character'];
     $other_id = $duel_info['t_used_id'];
     $dood_1 = DB::exQuery("SELECT id FROM pokemon_speler_gevecht WHERE leven='0' AND user_id='".$you['user_id']."'")->num_rows;
     $dood_2 = DB::exQuery("SELECT id FROM pokemon_speler_gevecht WHERE leven='0' AND user_id='".$other['user_id']."'")->num_rows;
-  } else if ($duel_info['tegenstander'] == $_SESSION['naam']) {
-    $you = DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".$_SESSION['naam']."'")->fetch_assoc();
+  } else if ($duel_info['tegenstander'] == ($_SESSION['naam'] ?? '')) {
+    $you = DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".($_SESSION['naam'] ?? '')."'")->fetch_assoc();
     $other =  DB::exQuery("SELECT user_id, username FROM gebruikers WHERE username='".$duel_info['uitdager']."'")->fetch_assoc();
     $you_ch = $duel_info['t_character'];
     $other_ch = $duel_info['u_character'];
@@ -40,7 +40,7 @@ if ((isset($_GET['duel_id'])) && (isset($_GET['sid']))) {
   //Grow Pokemon
   pokemon_grow($txt);
   
-  if ($_SESSION['naam'] == $duel_info['winner']) {
+  if (($_SESSION['naam'] ?? '') == $duel_info['winner']) {
     //Save log
     DB::exQuery("INSERT INTO duel_logs (`datum`, `win`, `lose`)
       VALUES ( '".date("Y-m-d H:i:s")."', '".$you['user_id']."', '".$other['user_id']."')");
@@ -61,14 +61,14 @@ if ((isset($_GET['duel_id'])) && (isset($_GET['sid']))) {
     
       require_once '../../app/classes/League_battle.php';
 
-        if ($league_battle = League_battle::select_duel($_GET['duel_id'])) {
+        if ($league_battle = League_battle::select_duel(($_GET['duel_id'] ?? ''))) {
             $league_id = $league_battle->getLeague_id();
             $league_battle->informarVencedor($you['user_id'], "Batalha finalizada");
             $league_battle->update();
         }
     
     rankerbij('duel',$txt);
-    $quests->setStatus('win_duel', $_SESSION['id']);
+    $quests->setStatus('win_duel', ($_SESSION['id'] ?? ''));
     $text = 1;
   }
   else{
@@ -77,7 +77,7 @@ if ((isset($_GET['duel_id'])) && (isset($_GET['sid']))) {
 
   if ($duel_info['status'] == 'finish') remove_duel($duel_info['id']);
   
-  DB::exQuery("UPDATE `duel` SET `status`='finish' WHERE `id`='".$_GET['duel_id']."'"); 
+  DB::exQuery("UPDATE `duel` SET `status`='finish' WHERE `id`='".($_GET['duel_id'] ?? '')."'"); 
                              
   unset($_SESSION['duel']['duel_id']);
 

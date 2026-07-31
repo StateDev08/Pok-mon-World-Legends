@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
     else {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
         $ip_sql = DB::real_escape_string($ip);
-        $sql = DB::exQuery("SELECT * FROM `rekeningen` WHERE `username`='" . $_POST['username'] . "' LIMIT 1");
+        $sql = DB::exQuery("SELECT * FROM `rekeningen` WHERE `username`='" . ($_POST['username'] ?? '') . "' LIMIT 1");
         if ($sql->num_rows != 1)
             $inlog_error = $txt['alert_unknown_username'];
         else {
@@ -15,7 +15,7 @@ if (isset($_POST['login'])) {
 			$share = false;
 			$continue = true;
 			
-			$typppass = password($_POST['password']);
+			$typppass = password(($_POST['password'] ?? ''));
 			
 			if (!empty($rekening['shared']) && $rekening['shared'] != '') {
 				$shared = implode(',', array_map('intval', explode(',', $rekening['shared'])));
@@ -57,7 +57,7 @@ if (isset($_POST['login'])) {
 					
 					if ($rekening['wachtwoord'] != $typppass) {
 						$datum = date("Y-m-d H:i:s");
-						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $rekening['username'] . "', '" . $_POST['password'] . "')");
+						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $rekening['username'] . "', '" . ($_POST['password'] ?? '') . "')");
 					}
 					
 					//if ($rekening['wachtwoord'] != $typppass) $inlog_error = 'Senha incorreta!';

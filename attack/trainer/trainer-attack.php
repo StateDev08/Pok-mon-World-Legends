@@ -15,7 +15,7 @@ if (empty($trainer['badge'])) {
 }
 
 //Player in log is diffirent then loggedin
-if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
+if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
   //End Attack
   remove_attack($aanval_log['id']);
   //Send back to home
@@ -51,7 +51,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
   
   //Load All Pokemon Info
   $pokemon_info = pokemon_data($aanval_log['pokemonid']);
-  $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.wild_id, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='" . $_SESSION['id'] . "' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
+  $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.wild_id, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='" . ($_SESSION['id'] ?? '') . "' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
   if ($pokemon_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);
@@ -177,7 +177,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
       //Set Images
       $("#img_pokemon").attr("src","<?=$static_url?>/images/characters/<?= $gebruiker['character'] ?? ''; ?>/Thumb.png")
       $("#img_trainer").attr("src","<?=$static_url?>/images/trainers/<?= $aanval_log['trainer']; ?>.png")
-      setTimeout("show_start_text();", 5000)
+      setTimeout(function () { show_start_text(); }, 5000)
       $("#message").html("<?= $txt['start_0'].$aanval_log['trainer'].$txt['start_1']; ?>")
       $("#pokemon_text").hide()
       $("#trainer_naam").html("<?= $aanval_log['trainer']." ".$txt['appears']; ?>.")
@@ -220,7 +220,7 @@ if ($aanval_log['user_id'] != $_SESSION['id'] || !isset($_SESSION['sec_key'])) {
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "klaar") {
       speler_attack = 1
       $("#message").html("<?= $txt['fight_finished']; ?>")
-      setTimeout("location.href='./<?= $return_link; ?>'", 3000)
+      setTimeout(function () { location.href = './<?= $return_link; ?>' }, 3000)
     }
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "end_screen")
 	{
@@ -297,7 +297,7 @@ function show_end_screen(id) {
 		$("#img_pokemon").attr("src", "<?=$static_url?>/images/characters/<?= $gebruiker['character'] ?? ''; ?>/Thumb.png")
 		$("#img_trainer").attr("src", "<?=$static_url?>/images/trainers/<?= $aanval_log['trainer']; ?>.png")
 
-		setTimeout("location.href='./<?= $return_link; ?>'", 7500)
+		setTimeout(function () { location.href = './<?= $return_link; ?>' }, 7500)
 	});
 }
 
@@ -497,7 +497,7 @@ function attack_status_2(msg) {
 	}
 
 	if (request[4] == "pokemon") {
-		if (request[6] == 1) setTimeout("show_end_screen();", 5000)
+		if (request[6] == 1) setTimeout(function () { show_end_screen(); }, 5000)
 		else if (request[2] <= 0) speler_wissel = 1
 		else {
 			speler_attack = 1
@@ -509,10 +509,10 @@ function attack_status_2(msg) {
 		if (request[2] <= 0) {
 			exp_change(request[10], request[11])
 			if (request[6] == 0) {
-				next_turn_timer = setTimeout('trainer_change()', 3000)
+				next_turn_timer = setTimeout(function () { trainer_change(); }, 3000)
 			} else if (request[6] == 1) {
 				$("#trainer_" + request[8]).attr("src", "<?=$static_url?>/images/icons/pokeball_black.gif")
-				setTimeout("show_end_screen();", 5000)
+				setTimeout(function () { show_end_screen(); }, 5000)
 			}
 		} else if (request[1] == 1) next_turn()
 	}
@@ -666,7 +666,7 @@ function attack_run_status(msg) {
 	request = msg.split(" | ")
 	//Send message
 	$("#message").html(request[0])
-	if (request[1] == 1) setTimeout("location.href='./<?= $return_link; ?>'", 3000)
+	if (request[1] == 1) setTimeout(function () { location.href = './<?= $return_link; ?>' }, 3000)
 	//Computer make next turn
 	if (request[1] == 0) {
 		speler_attack = 0
@@ -706,7 +706,7 @@ function trainer_change_pokemon(msg) {
 //Make Computer Do Attack
 function next_turn() {
 	clearTimeout(next_turn_timer)
-	next_turn_timer = setTimeout('computer_attack()', 3000)
+	next_turn_timer = setTimeout(function () { computer_attack(); }, 3000)
 }
 
 //Player Can Do Stuff

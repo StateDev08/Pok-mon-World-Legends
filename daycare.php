@@ -5,7 +5,7 @@ include('app/includes/resources/security.php');
 #Je moet rank 4 zijn om deze pagina te kunnen zien
 if ($gebruiker['rank'] <= 3) header("Location: ./home");
 	
-$eicheck_sql = DB::exQuery("SELECT * FROM `daycare` WHERE `user_id`=" . $_SESSION['id'] . " AND `ei`='1'");
+$eicheck_sql = DB::exQuery("SELECT * FROM `daycare` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `ei`='1'");
 $eicheck = $eicheck_sql->fetch_assoc();
 
 echo addNPCBox(35, 'Jardim de Infância', $txt['title_text'].'<br>'.$hoeveel);
@@ -14,7 +14,7 @@ if (isset($_POST['accept'])) {
 	$hoeveelinhand = $gebruiker['in_hand'] + 1;
 	$eiaantal = $eicheck_sql->num_rows;
 	
-	if ($eicheck['user_id'] != $_SESSION['id'])	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
+	if ($eicheck['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 	else if ($hoeveelinhand == 7)	echo'<div class="red">' . $txt['alert_hand_full'] . '</div>';
 	else if ($eiaantal == 0)	echo'<div class="red">' . $txt['alert_no_eggs'] . '</div>';
 	else {
@@ -64,26 +64,26 @@ if (isset($_POST['accept'])) {
 		$date = date ('Y-m-d H:i:s');
 
 		#Heeft speler wel pokemon gekregen??
-		if (is_numeric($pokeid))	DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`=" . $_SESSION['id'] . " LIMIT 1");
+		if (is_numeric($pokeid))	DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " LIMIT 1");
     
 		#Alle gegevens van de pokemon opslaan
-		DB::exQuery("UPDATE `pokemon_speler` SET `karakter`='" . $karakter . "',`expnodig`='" . $experience['punten'] . "',`user_id`=" . $_SESSION['id'] . ",`opzak`='ja',`opzak_nummer`='" . $hoeveelinhand . "',`shiny`='" . $eicheck['levelup'] . "',`ei`='1',`ei_tijd`='" . $tijd . "',`attack_iv`='" . $attack_iv . "',`defence_iv`='" . $defence_iv . "',`speed_iv`='" . $speed_iv . "',`spc.attack_iv`='" . $spcattack_iv . "',`spc.defence_iv`='" . $spcdefence_iv . "',`hp_iv`='" . $hp_iv . "',`attack`='" . $attackstat . "',`defence`='" . $defencestat . "',`speed`='" . $speedstat . "',`spc.attack`='" . $spcattackstat . "',`spc.defence`='" . $spcdefencestat . "',`levenmax`='" . $hpstat . "',`leven`='" . $hpstat . "',`level`='5', `ability`='" . $ability . "', capture_date='" . $date . "' WHERE `id`=" . $pokeid . " LIMIT 1");
+		DB::exQuery("UPDATE `pokemon_speler` SET `karakter`='" . $karakter . "',`expnodig`='" . $experience['punten'] . "',`user_id`=" . ($_SESSION['id'] ?? '') . ",`opzak`='ja',`opzak_nummer`='" . $hoeveelinhand . "',`shiny`='" . $eicheck['levelup'] . "',`ei`='1',`ei_tijd`='" . $tijd . "',`attack_iv`='" . $attack_iv . "',`defence_iv`='" . $defence_iv . "',`speed_iv`='" . $speed_iv . "',`spc.attack_iv`='" . $spcattack_iv . "',`spc.defence_iv`='" . $spcdefence_iv . "',`hp_iv`='" . $hp_iv . "',`attack`='" . $attackstat . "',`defence`='" . $defencestat . "',`speed`='" . $speedstat . "',`spc.attack`='" . $spcattackstat . "',`spc.defence`='" . $spcdefencestat . "',`levenmax`='" . $hpstat . "',`leven`='" . $hpstat . "',`level`='5', `ability`='" . $ability . "', capture_date='" . $date . "' WHERE `id`=" . $pokeid . " LIMIT 1");
     
 		#Delete From Daycare
-		DB::exQuery("DELETE FROM `daycare` WHERE `user_id`=" . $_SESSION['id'] . " AND `ei`='1'");
+		DB::exQuery("DELETE FROM `daycare` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `ei`='1'");
 		echo '<div class="green">' . $txt['success_egg'] . '</div>';
 	}
 } else if (isset($_POST['dontaccept'])) {
 	$eiaantal = $eicheck_sql->num_rows;
-	if ($eicheck['user_id'] != $_SESSION['id'])	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
+	if ($eicheck['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">' . $txt['alert_not_your_pokemon'] . '</div>';
 	else if ($eiaantal == 0)	echo '<div class="red">' . $txt['alert_no_eggs'] . '</div>';
-	else	DB::exQuery("DELETE FROM `daycare` WHERE `user_id`=" . $_SESSION['id'] . " AND `ei`='1'");
+	else	DB::exQuery("DELETE FROM `daycare` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `ei`='1'");
 } else if ($eicheck_sql->num_rows == 1)	echo '<form method="post">
 	<div class="green">' . $txt['egg_text'] . '<br /><br /></div>
 </form>';
 #-----------------------EINDE EI
 
-$daycaresql = DB::exQuery("SELECT `daycare`.*,`pokemon_speler`.`wild_id`,`pokemon_speler`.`shiny` FROM `daycare` INNER JOIN `pokemon_speler` ON `daycare`.`pokemonid`=`pokemon_speler`.`id` WHERE `daycare`.`user_id`=" . $_SESSION['id'] . " AND `daycare`.`ei`='0'");
+$daycaresql = DB::exQuery("SELECT `daycare`.*,`pokemon_speler`.`wild_id`,`pokemon_speler`.`shiny` FROM `daycare` INNER JOIN `pokemon_speler` ON `daycare`.`pokemonid`=`pokemon_speler`.`id` WHERE `daycare`.`user_id`=" . ($_SESSION['id'] ?? '') . " AND `daycare`.`ei`='0'");
 $aantal = $daycaresql->num_rows;
 
 #Default
@@ -99,8 +99,8 @@ if ($gebruiker['premiumaccount'] < time()) {
 
 #Things van pokemon wegbrengen:
 if (isset($_POST['brengweg'])) {
-	$update = DB::exQuery("SELECT `pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_speler`.`id`,`pokemon_speler`.`user_id`,`pokemon_speler`.`opzak`,`pokemon_speler`.`level` FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_wild`.`wild_id`=`pokemon_speler`.`wild_id` WHERE `id`=" . $_POST['pokemonid'] . " LIMIT 1")->fetch_assoc();
-	if ($update['user_id'] != $_SESSION['id'])	echo '<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
+	$update = DB::exQuery("SELECT `pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_speler`.`id`,`pokemon_speler`.`user_id`,`pokemon_speler`.`opzak`,`pokemon_speler`.`level` FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_wild`.`wild_id`=`pokemon_speler`.`wild_id` WHERE `id`=" . ($_POST['pokemonid'] ?? '') . " LIMIT 1")->fetch_assoc();
+	if ($update['user_id'] != ($_SESSION['id'] ?? ''))	echo '<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
 	else if ($gebruiker['in_hand'] <= 1) echo'<div class="red">'.$txt['daycare_no_empty_team'].'</div>';
     	else if ($update['type1'] == 'Shadow') echo' <div class="red">'.$txt['daycare_no_shadow'].'</div>';
 	else if ($update['opzak'] == 'day')			echo '<div class="red">'.$txt['alert_already_in_daycare'].'</div>';
@@ -110,9 +110,9 @@ if (isset($_POST['brengweg'])) {
 		$pokemon_sql->data_seek(0);
 		$i = 0;
 		while($pokemon = $pokemon_sql->fetch_assoc()) {
-			if ($pokemon['id'] == $_POST['pokemonid']) {
-				DB::exQuery("UPDATE pokemon_speler SET `opzak`='day', `opzak_nummer`='' WHERE id = '".$_POST['pokemonid']."'");
-				DB::exQuery("INSERT INTO daycare (pokemonid, user_id, naam, level) VALUES ('".$update['id']."', '".$_SESSION['id']."', '".$update['naam']."', '".$update['level']."')");
+			if ($pokemon['id'] == ($_POST['pokemonid'] ?? '')) {
+				DB::exQuery("UPDATE pokemon_speler SET `opzak`='day', `opzak_nummer`='' WHERE id = '".($_POST['pokemonid'] ?? '')."'");
+				DB::exQuery("INSERT INTO daycare (pokemonid, user_id, naam, level) VALUES ('".$update['id']."', '".($_SESSION['id'] ?? '')."', '".$update['naam']."', '".$update['level']."')");
 			} else {
 				++$i;
 				DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$i."' WHERE `id`='".$pokemon['id']."'");
@@ -124,30 +124,30 @@ if (isset($_POST['brengweg'])) {
 
 #Things van pokemon ophalen:
 if (isset($_POST['haalop'])) {
-  $select = DB::exQuery("SELECT * FROM `daycare` WHERE `pokemonid`='".$_POST['pokemonid']."'")->fetch_assoc();
+  $select = DB::exQuery("SELECT * FROM `daycare` WHERE `pokemonid`='".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
   $level = $select['level'] + $select['levelup'];
   $kostenlevelup = $select['levelup'] * 500;
   $kosten = $kostenbegin + $kostenlevelup;
 	$hoeveelinhand = $gebruiker['in_hand'] + 1;
-	if ($_SESSION['id'] != $select['user_id'])
+	if (($_SESSION['id'] ?? '') != $select['user_id'])
     echo'<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
 	else if ($hoeveelinhand == 7)
 		echo'<div class="red">'.$txt['alert_hand_full'].'</div>';
 	else if ($kosten > $gebruiker['silver'])
 		echo'<div class="red">'.$txt['alert_not_enough_silver'].'</div>';
 	else{
-  	DB::exQuery("UPDATE pokemon_speler SET `opzak`='ja', `opzak_nummer`='".$hoeveelinhand."' WHERE id = '".$_POST['pokemonid']."'");
-  	DB::exQuery("DELETE FROM daycare WHERE pokemonid = '".$_POST['pokemonid']."'");
-  	DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$kosten."' WHERE `user_id`='".$_SESSION['id']."'");
+  	DB::exQuery("UPDATE pokemon_speler SET `opzak`='ja', `opzak_nummer`='".$hoeveelinhand."' WHERE id = '".($_POST['pokemonid'] ?? '')."'");
+  	DB::exQuery("DELETE FROM daycare WHERE pokemonid = '".($_POST['pokemonid'] ?? '')."'");
+  	DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$kosten."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   	
     $_SESSION['used'] = array();    
     $count = 0;
   	
     for($i=1; $i<=$select['levelup']; $i++) {
       if ($count == 0) $_SESSION['lvl_old'] = $select['level'];
-      array_push($_SESSION['used'], $_POST['pokemonid']);
+      array_push(($_SESSION['used'] ?? ''), ($_POST['pokemonid'] ?? ''));
       $count++;
-      $update = DB::exQuery("SELECT pw.*, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler ps ON pw.wild_id = ps.wild_id WHERE id = '".$_POST['pokemonid']."'")->fetch_assoc();
+      $update = DB::exQuery("SELECT pw.*, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler ps ON pw.wild_id = ps.wild_id WHERE id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
       if ($update['level'] <= 100) {
         #informatie van level
         $nieuwelevel = $update['level']+1; # Dit was 2
@@ -157,14 +157,14 @@ if (isset($_POST['haalop'])) {
         nieuwestats($update,$nieuwelevel,$update['expnodig']);
         
         #Script aanroepen dat berekent als pokemon evolueert of een aanval leert
-        if ((!$_SESSION['aanvalnieuw']) AND (!$_SESSION['evolueren']))
+        if ((!($_SESSION['aanvalnieuw'] ?? '')) AND (!($_SESSION['evolueren'] ?? '')))
           $toestemming = levelgroei($levelnieuw,$update);
         
         #Gebeurtenis maken.
         $pokemonnaam = htmlspecialchars($update['naam'], ENT_QUOTES);
 
         DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)
-	        VALUES (NOW(), '".$_SESSION['id']."', '".sprintf($txt['daycare_level_up'], $pokemonnaam)."', '0')");
+	        VALUES (NOW(), '".($_SESSION['id'] ?? '')."', '".sprintf($txt['daycare_level_up'], $pokemonnaam)."', '0')");
       } 
     }
 	  echo' <div class="green">'.$txt['success_take'].'</div>';
@@ -204,7 +204,7 @@ if (isset($_POST['haalop'])) {
                         <td style="padding: 0" colspan="2">
                             <div class="main-carousel" style="height: 97px; position: relative">
 								<?php
-									$pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . $_SESSION["id"] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+									$pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . ($_SESSION["id"] ?? '') . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
                                     while($pokemon_profile = $pokemon_profiel_sql->fetch_assoc()) {
                                         $pokemon_profile = pokemonei($pokemon_profile, $txt);
                                         $of_name = $pokemon_profile['naam'];

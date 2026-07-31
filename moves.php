@@ -8,21 +8,21 @@
     echo addNPCBox(30, $txt['moves_npc_title'], $txt['moves_npc_text']);
 
     if (isset($_POST['pokemonview']) && isset($_POST['pokemonid'])) {
-        if ($_POST['pokemonview'] != 1 && $_POST['pokemonview'] != 2) {
+        if (($_POST['pokemonview'] ?? '') != 1 && ($_POST['pokemonview'] ?? '') != 2) {
             $_POST['pokemonview'] = 1;
         }
-            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
             if (empty($_POST['pokemonid'])) echo '<div class="red">'.$txt['moves_error_no_pokemon'].'</div>';
             else if ($pokemoninfo['ei'] == 1) echo '<div class="red">'.$txt['moves_error_egg'].'</div>';
-            else if ($pokemoninfo['user_id'] != $_SESSION['id']) echo '<div class="red">'.$txt['moves_error_not_yours'].'</div>';
+            else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) echo '<div class="red">'.$txt['moves_error_not_yours'].'</div>';
             else if ($pokemoninfo['opzak'] != 'ja') echo '<div class="red">'.$txt['moves_error_not_in_team'].'</div>';
             else{
                 $succ = true;
-                $pokemonid = $_POST['pokemonid'];
+                $pokemonid = ($_POST['pokemonid'] ?? '');
                 $category = '';
                 $pokemon_name = pokemon_naam($pokemoninfo['naam'], $pokemoninfo['roepnaam'], $pokemoninfo['icon']);
 
-                if ($_POST['pokemonview'] == 1) {
+                if (($_POST['pokemonview'] ?? '') == 1) {
                     if (!isset($_POST['ataque'])) {
                         $category = 'moves-tutor-show';
                     }
@@ -37,11 +37,11 @@
     }
 
     if (isset($_POST['ataque']) && isset($_POST['pokemonid'])) {
-        if (empty($_POST['method']) || $_POST['method'] > 2) {
+        if (empty($_POST['method']) || ($_POST['method'] ?? '') > 2) {
             $_POST['method'] = 1;
         }
 
-        $method = $_POST['method'];
+        $method = ($_POST['method'] ?? '');
         $succ = false;
 
         if ($method == 1) {
@@ -74,8 +74,8 @@
             }
         } else {
             $verify = 0;
-            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
-            $sql = DB::exQuery("select * from levelen where wild_id='".$pokemoninfo['wild_id']."' and level<='".$pokemoninfo['level']."' and aanval='".$_POST['ataque']."' order by level asc");
+            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
+            $sql = DB::exQuery("select * from levelen where wild_id='".$pokemoninfo['wild_id']."' and level<='".$pokemoninfo['level']."' and aanval='".($_POST['ataque'] ?? '')."' order by level asc");
 
             if ($sql->num_rows > 0) {
                 $sql = $sql->fetch_assoc();
@@ -126,23 +126,23 @@
 
         if ($succ) {
             $sucesso = true;
-            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+            $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
             $pokemon_name = pokemon_naam($pokemoninfo['naam'], $pokemoninfo['roepnaam'], $pokemoninfo['icon']);
-            $ataqueinfo = atk($_POST['ataque']);
+            $ataqueinfo = atk(($_POST['ataque'] ?? ''));
 
             if (!empty($pokemoninfo['aanval_1']) && !empty($pokemoninfo['aanval_2']) && !empty($pokemoninfo['aanval_3']) && !empty($pokemoninfo['aanval_4'])) {
                 $category = 'moves-learn';
 
                 if (isset($_POST['welke'])) {
-                    if (in_array($_POST['welke'], array('aanval_1', 'aanval_2', 'aanval_3', 'aanval_4'))) {
+                    if (in_array(($_POST['welke'] ?? ''), array('aanval_1', 'aanval_2', 'aanval_3', 'aanval_4'))) {
                         $money = explode (',', $money);
-                        $aanval = $_POST['welke'];
+                        $aanval = ($_POST['welke'] ?? '');
 
                         DB::exQuery ("UPDATE `gebruikers` SET `silver`=`silver`-'$money[0]' WHERE user_id='$_SESSION[id]'");
                         DB::exQuery ("UPDATE `rekeningen` SET `gold`=`gold`-'$money[1]' WHERE acc_id='$_SESSION[id]'");
                         DB::exQuery ("UPDATE `pokemon_speler` SET $aanval='$_POST[ataque]' WHERE id='$_POST[pokemonid]'");
 
-                        $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+                        $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
 
                         $category = 'moves-learn-nomove';
                     } else {
@@ -169,7 +169,7 @@
                 DB::exQuery ("UPDATE `rekeningen` SET `gold`=`gold`-'$money[1]' WHERE acc_id='$_SESSION[id]'");
                 DB::exQuery ("UPDATE `pokemon_speler` SET $aanval='$_POST[ataque]' WHERE id='$_POST[pokemonid]'");
 
-                $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".$_POST['pokemonid']."'")->fetch_assoc();
+                $pokemoninfo = DB::exQuery("SELECT pokemon_wild.wild_id,pokemon_wild.type1,pokemon_wild.type2,pokemon_wild.naam,pokemon_speler.*, pokemon_wild.zeldzaamheid FROM pokemon_speler INNER JOIN pokemon_wild ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id = '".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
             }
         }
     }
@@ -211,7 +211,7 @@
                         <td style="padding: 0" colspan="2">
                             <div class="main-carousel" style="height: 97px; position: relative">
                                 <?php
-                                    $pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . $_SESSION["id"] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+                                    $pokemon_profiel_sql = DB::exQuery("SELECT `pokemon_speler`.*,`pokemon_wild`.`naam`,`pokemon_wild`.`type1`,`pokemon_wild`.`type2` FROM `pokemon_speler` INNER JOIN `pokemon_wild` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `user_id`='" . ($_SESSION["id"] ?? '') . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
                                     while($pokemon_profile = $pokemon_profiel_sql->fetch_assoc()) {
                                         $pokemon_profile = pokemonei($pokemon_profile, $txt);
                                         $of_name = $pokemon_profile['naam'];
@@ -401,7 +401,7 @@
                                 $('#subm').val('<?=$txt['moves_teach_confirm_js']?>' + move + '?');
                             }
                         </script>
-                        <input type="hidden" value="<?=$_POST['pokemonid']?>" name="pokemonid">
+                        <input type="hidden" value="<?=($_POST['pokemonid'] ?? '')?>" name="pokemonid">
                         <input type="hidden" value="1" name="method">
 
                         <div style="border-top: 1px solid #577599;"><input type="submit" value="<?=$txt['moves_teach_btn']?>" id="subm" class="button" style="margin: 6px">
@@ -437,36 +437,36 @@
                     <tr>
                     <td>
                         <form method="post">
-                            <input type="hidden" name="pokemonid" value="<?=$_POST['pokemonid']?>">
-                            <input type="hidden" name="ataque" value="<?=$_POST['ataque']?>">
-                            <input type="hidden" value="<?=$_POST['method']?>" name="method">
+                            <input type="hidden" name="pokemonid" value="<?=($_POST['pokemonid'] ?? '')?>">
+                            <input type="hidden" name="ataque" value="<?=($_POST['ataque'] ?? '')?>">
+                            <input type="hidden" value="<?=($_POST['method'] ?? '')?>" name="method">
                             <button style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemoninfo['aanval_1'], $pokemoninfo)['soort']?>.png) no-repeat;" class="btn-type"><?=atk($pokemoninfo['aanval_1'], $pokemoninfo)['naam']?></button>
                             <input type="hidden" name="welke" value="aanval_1">
                         </form>
                     </td>
                     <td>
                         <form method="post">
-                            <input type="hidden" name="pokemonid" value="<?=$_POST['pokemonid']?>">
-                            <input type="hidden" name="ataque" value="<?=$_POST['ataque']?>">
-                            <input type="hidden" value="<?=$_POST['method']?>" name="method">
+                            <input type="hidden" name="pokemonid" value="<?=($_POST['pokemonid'] ?? '')?>">
+                            <input type="hidden" name="ataque" value="<?=($_POST['ataque'] ?? '')?>">
+                            <input type="hidden" value="<?=($_POST['method'] ?? '')?>" name="method">
                             <button style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemoninfo['aanval_2'], $pokemoninfo)['soort']?>.png) no-repeat;" class="btn-type"><?=atk($pokemoninfo['aanval_2'], $pokemoninfo)['naam']?></button>
                             <input type="hidden" name="welke" value="aanval_2">
                         </form>
                     </td>
                     <td>
                         <form method="post">
-                            <input type="hidden" name="pokemonid" value="<?=$_POST['pokemonid']?>">
-                            <input type="hidden" name="ataque" value="<?=$_POST['ataque']?>">
-                            <input type="hidden" value="<?=$_POST['method']?>" name="method">
+                            <input type="hidden" name="pokemonid" value="<?=($_POST['pokemonid'] ?? '')?>">
+                            <input type="hidden" name="ataque" value="<?=($_POST['ataque'] ?? '')?>">
+                            <input type="hidden" value="<?=($_POST['method'] ?? '')?>" name="method">
                             <button style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemoninfo['aanval_3'], $pokemoninfo)['soort']?>.png) no-repeat;" class="btn-type"><?=atk($pokemoninfo['aanval_3'], $pokemoninfo)['naam']?></button>
                             <input type="hidden" name="welke" value="aanval_3">
                         </form>
                     </td>
                     <td>
                         <form method="post">
-                            <input type="hidden" name="pokemonid" value="<?=$_POST['pokemonid']?>">
-                            <input type="hidden" name="ataque" value="<?=$_POST['ataque']?>">
-                            <input type="hidden" value="<?=$_POST['method']?>" name="method">
+                            <input type="hidden" name="pokemonid" value="<?=($_POST['pokemonid'] ?? '')?>">
+                            <input type="hidden" name="ataque" value="<?=($_POST['ataque'] ?? '')?>">
+                            <input type="hidden" value="<?=($_POST['method'] ?? '')?>" name="method">
                             <button style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemoninfo['aanval_4'], $pokemoninfo)['soort']?>.png) no-repeat;" class="btn-type"><?=atk($pokemoninfo['aanval_4'], $pokemoninfo)['naam']?></button>
                             <input type="hidden" name="welke" value="aanval_4">
                         </form>
@@ -574,7 +574,7 @@
                                 $('#subm').val('<?=$txt['moves_remind_confirm_js']?>' + move + '?');
                             }
                         </script>
-                        <input type="hidden" value="<?=$_POST['pokemonid']?>" name="pokemonid">
+                        <input type="hidden" value="<?=($_POST['pokemonid'] ?? '')?>" name="pokemonid">
                         <input type="hidden" value="2" name="method">
                         <div style="border-top: 1px solid #577599;">
                         <input type="submit" value="<?=$txt['moves_remind_btn']?>" id="subm" class="button">
@@ -590,9 +590,9 @@
                     $pokemon = pokemonei($pokemoninfo, $txt);
                     $pokemon['naam'] = $pokemon_name;
 
-                    if ($_POST['method'] == 1) {
+                    if (($_POST['method'] ?? '') == 1) {
                         echo '<div class="green">'.sprintf($txt['moves_learned_move'], $pokemon['naam'], $ataqueinfo['naam']).'</div>';
-                    } else if ($_POST['method'] == 2) {
+                    } else if (($_POST['method'] ?? '') == 2) {
                         echo '<div class="green">'.sprintf($txt['moves_reminded_move'], $pokemon['naam'], $ataqueinfo['naam']).'</div>';
                     }
                 ?>

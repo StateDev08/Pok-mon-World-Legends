@@ -15,12 +15,12 @@ if (isset($_POST['give'])) {
 	if (empty($_POST['exp'])) {
 		echo '<div class="red"> Escolha uma exp.</div>';
 	}
-	else if ($_POST['exp'] != 1 AND $_POST['exp'] != 2 AND $_POST['exp'] != 3) {
+	else if (($_POST['exp'] ?? '') != 1 AND ($_POST['exp'] ?? '') != 2 AND ($_POST['exp'] ?? '') != 3) {
 		echo '<div class="red"> Escolha uma exp.</div>';
 	}
 	else{
 		
-  		  DB::exQuery("UPDATE `configs` SET `valor`='".$_POST['exp']."' WHERE `config`='exp'");
+  		  DB::exQuery("UPDATE `configs` SET `valor`='".($_POST['exp'] ?? '')."' WHERE `config`='exp'");
 		  #Error tonen
 		  echo '<div class="green"> Exp modificada com sucesso.</div>';
 

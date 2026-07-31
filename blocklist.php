@@ -4,29 +4,29 @@ include("app/includes/resources/security.php");
 	
 #ALs er al een speler naam binnenkomt met een GET, deze laden
 
-if (isset($_GET['player'])) $naamget = $_GET['player'];
+if (isset($_GET['player'])) $naamget = ($_GET['player'] ?? '');
 
 #Als er op de verwijder knop gedrukt word
 if (isset($_POST['deletenaam'])) {
   #Persoon filteren uit de blocklist array
-  $info = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".$_POST['deletenaam']."'")->fetch_assoc();
+  $info = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `username`='".($_POST['deletenaam'] ?? '')."'")->fetch_assoc();
   $blocknaam = str_replace(",".$info['user_id'].",", "", $gebruiker['blocklist']);
   $id = $info['user_id'];
   #Array zonder persoon weer update'en
-  DB::exQuery("UPDATE `gebruikers` SET `blocklist`='".$blocknaam."' WHERE `user_id`='".$_SESSION['id']."'");
+  DB::exQuery("UPDATE `gebruikers` SET `blocklist`='".$blocknaam."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 
   #Melding maken dat speler verwijderd is.
   $error = '<div class="green">'.$txt['success_deleted'].'</div>';
   
-  $new_block = DB::exQuery("SELECT blocklist FROM gebruikers WHERE user_id='".$_SESSION['id']."'")->fetch_assoc();
+  $new_block = DB::exQuery("SELECT blocklist FROM gebruikers WHERE user_id='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
   $gebruiker['blocklist'] = $new_block['blocklist'];
 }
 #Als er op voeg toe word gedrukt
 if (isset($_POST['blocknaam'])) {
-  $naamget = $_POST['blocknaam'];
+  $naamget = ($_POST['blocknaam'] ?? '');
   #Gegevens laden van je block list
-  $blocknaam = strtolower($_POST['blocknaam']);
-  $spelerkleineletter = strtolower($_SESSION['naam']);
+  $blocknaam = strtolower(($_POST['blocknaam'] ?? ''));
+  $spelerkleineletter = strtolower(($_SESSION['naam'] ?? ''));
   
   #Je kunt jezelf natuurlijk niet toevoegen
   if ($blocknaam == $spelerkleineletter)
@@ -49,7 +49,7 @@ if (isset($_POST['blocknaam'])) {
     else{
       $id = $info['user_id'];
       #Buddy opslaan
-      DB::exQuery("UPDATE `gebruikers` SET `blocklist`='".$gebruiker['blocklist'].",".$id.",' WHERE `user_id`='".$_SESSION['id']."'");
+      DB::exQuery("UPDATE `gebruikers` SET `blocklist`='".$gebruiker['blocklist'].",".$id.",' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
       DB::exQuery("DELETE FROM `friends` WHERE (`uid`='$_SESSION[id]' OR `uid_2`='$_SESSION[id]') AND (`uid`='$id' OR `uid_2`='$id') AND `accept`='1'");
 
       require_once 'app/classes/Sharing_account.php';
@@ -69,14 +69,14 @@ if (isset($_POST['blocknaam'])) {
 	  $error = '<div class="green">'.$txt['success_blocked'].'</div>';
     }
   }
-  $new_block = DB::exQuery("SELECT blocklist FROM gebruikers WHERE user_id='".$_SESSION['id']."'")->fetch_assoc();
+  $new_block = DB::exQuery("SELECT blocklist FROM gebruikers WHERE user_id='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
   $gebruiker['blocklist'] = $new_block['blocklist'];
 }
 
-echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens de outros treinadores utilizando as Mensagens Privadas, Bloquear Treinadores e ver as Mensagens Oficiais do jogo. <br>Não é permitido utilizá-lo para fins de propaganda!');
+echo addNPCBox(14, $txt['blocklist_npc_title'], $txt['blocklist_npc_text']);
 ?>
 
-<div class="red">NUNCA dê sua senha ou e-mail a ninguém através de mensagem privada. Em nenhum momento, alguém da equipe do jogo irá pedir sua senha.</div>
+<div class="red"><?=$txt['blocklist_warning']?></div>
 
 <?php if ($error) echo $error; ?>
 <div style="width: 100%; display: flex" class="box-content">
@@ -118,7 +118,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
         <div class="title">
             <p style="padding: 10px; margin: 0; font-weight: bold" id="title">Bloquear Treinador<br><span style="font-size: 12px"></span></p>
         </div>
-        <div class="blue">Caso bloqueie algum treinador, você não poderá mandar ou receber mensagens dele e irá exluí-lo de sua lista de amigos.</div>
+        <div class="blue"><?=$txt['blocklist_block_info']?></div>
         <div style="max-height: 500px; overflow-y: auto;">
             <ul class="ul">
                 <li>
@@ -138,7 +138,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                 <?php
                 #Pagina nummer opvragen
                 $subpage = 1; 
-                if (isset($_GET['subpage'])) $subpage = $_GET['subpage']; 
+                if (isset($_GET['subpage'])) $subpage = ($_GET['subpage'] ?? ''); 
                 #Max aantal spelers per pagina
                 #Pagina systeem
                 $max = 10;       
@@ -208,24 +208,24 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                     echo '<span class="disabled"> &lt; </span>';
                   else{
                     $back = $subpage-1;
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$back.'"> &lt; </a>';
+                    echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$back.'"> &lt; </a>';
                   }
                   for($i = 1; $i <= $aantal_paginas; $i++) { 
                     if ((2 >= $i) && ($subpage == $i))
                       echo '<span class="current">'.$i.'</span>';
                     else if ((2 >= $i) && ($subpage != $i))
-                      echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+                      echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
                     else if (($aantal_paginas-2 < $i) && ($subpage == $i))
                       echo '<span class="current">'.$i.'</span>';
                     else if (($aantal_paginas-2 < $i) && ($subpage != $i))
-                      echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+                      echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
                     else{
                       $max = $subpage+3;
                       $min = $subpage-3;  
                       if ($subpage == $i)
                         echo '<span class="current">'.$i.'</span>';
                       else if (($min < $i) && ($max > $i))
-                        echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['page'].'&subpage='.$i.'">'.$i.'</a>';
+                        echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['page'] ?? '').'&subpage='.$i.'">'.$i.'</a>';
                       else{
                         if ($i < $subpage) {
                           if (!$links) {
@@ -246,7 +246,7 @@ echo addNPCBox(14, 'Caixa de Mensagens', 'Você pode enviar e receber mensagens 
                     echo '<span class="disabled"> &gt; </span>';
                   else{
                     $next = $subpage+1;
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'/'.$_GET['pagina'].'&subpage='.$next.'"> &gt; </a>';
+                    echo '<a href="'.($_SERVER['PHP_SELF'] ?? '').'/'.($_GET['pagina'] ?? '').'&subpage='.$next.'"> &gt; </a>';
                   }
               echo '</div></center></td></tr>
               </td></tr>

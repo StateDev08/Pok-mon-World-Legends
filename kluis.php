@@ -6,22 +6,22 @@ $casino = $query->fetch_assoc();
 
 echo addNPCBox(36, "Quebre o segredo", 'Tente quebrar o segredo do cofre, caso você consiga, todo os <b>TICKETS</b> de dentro dele serão seus! <br><b>200 Tickets</b> serão adicionados ao prêmio atual a cada tentativa.<br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.');
 
-if ($_POST["post"]) { 
+if (($_POST["post"] ?? '')) { 
     if ($gebruiker['tickets'] <= 200) { echo "<div class='red'>Você não tem tickets suficiente.</div>"; } else { 
-        if ($_POST["code1"] == $casino['kluis_1'] && $_POST["code2"] == $casino['kluis_2'] && $_POST["code3"] == $casino['kluis_3']) { 
+        if (($_POST["code1"] ?? '') == $casino['kluis_1'] && ($_POST["code2"] ?? '') == $casino['kluis_2'] && ($_POST["code3"] ?? '') == $casino['kluis_3']) { 
             echo "<div class='green'>Parabéns! O código está correto! <b>Você ganhou o prêmio de ".highamount($casino['kluis_4'])."!<br/>O código foi resetado, o prêmio voltou para o valor de 200 TICKETS!</div>"; 
             $r1 = rand(0,6); 
             $r2 = rand(0,6); 
             $r3 = rand(0,6); 
-            DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`+'" . $casino['kluis_4'] . "' WHERE user_id='".$_SESSION['id']."'");  
+            DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`+'" . $casino['kluis_4'] . "' WHERE user_id='".($_SESSION['id'] ?? '')."'");  
             DB::exQuery("UPDATE `casino` SET `kluis_1`=$r1, `kluis_2`=$r2, `kluis_3`=$r3, `kluis_4`=1000"); 
             DB::exQuery("TRUNCATE TABLE kluis_kraken"); 
         } else { 
             echo "<div class='red'>Infelizmente o segredo está errado.</div>."; 
                 
-            DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`-'200' WHERE user_id='".$_SESSION['id']."'"); 
+            DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`-'200' WHERE user_id='".($_SESSION['id'] ?? '')."'"); 
             DB::exQuery("UPDATE `casino` SET `kluis_4`=`kluis_4`+'200'"); 
-            DB::exQuery("INSERT INTO `kluis_kraken` (`1`, `2`, `3`) VALUES ('" . $_POST['code1'] . "','" . $_POST['code2'] . "', '" . $_POST['code3'] . "')"); 
+            DB::exQuery("INSERT INTO `kluis_kraken` (`1`, `2`, `3`) VALUES ('" . ($_POST['code1'] ?? '') . "','" . ($_POST['code2'] ?? '') . "', '" . ($_POST['code3'] ?? '') . "')"); 
         } 
     } 
 } 

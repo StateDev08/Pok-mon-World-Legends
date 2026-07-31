@@ -11,32 +11,32 @@ include("app/includes/resources/security.php");
 #Als er op de Buy knop gedrukt word
 if (isset($_POST['koop'])) {
   #Naamopbouwen
-  if ($_POST['huis'] == "doos") $huus = $txt['house1'];
-  else if ($_POST['huis'] == "shuis") $huus = $txt['house2'];
-  else if ($_POST['huis'] == "nhuis") $huus = $txt['house3'];
-  else if ($_POST['huis'] == "villa") $huus = $txt['house4'];
+  if (($_POST['huis'] ?? '') == "doos") $huus = $txt['house1'];
+  else if (($_POST['huis'] ?? '') == "shuis") $huus = $txt['house2'];
+  else if (($_POST['huis'] ?? '') == "nhuis") $huus = $txt['house3'];
+  else if (($_POST['huis'] ?? '') == "villa") $huus = $txt['house4'];
   
   #Gegevens laden van het huis
-  $gegevenhuis = DB::exQuery("SELECT `kosten` FROM `huizen` WHERE `afkorting`='".$_POST['huis']."'")->fetch_assoc();
+  $gegevenhuis = DB::exQuery("SELECT `kosten` FROM `huizen` WHERE `afkorting`='".($_POST['huis'] ?? '')."'")->fetch_assoc();
   
   #Heeft de speler dit huis al?
   if (empty($_POST['huis'])) echo '<div class="red">'.$txt['alert_nothing_selected'].'</div>';
   #Heeft de speler dit huis al?
-  else if ($_POST['huis'] == $gebruiker['huis']) echo '<div class="red">'.$txt['alert_you_own_this_house'].'</div>';
+  else if (($_POST['huis'] ?? '') == $gebruiker['huis']) echo '<div class="red">'.$txt['alert_you_own_this_house'].'</div>';
   #heeft de speler wel genoeg silver?
   else if ($gebruiker['silver'] < $gegevenhuis['kosten']) echo '<div class="red">'.$txt['alert_not_enough_silver'].'</div>';
   #Heeft de speler al een villa?
   else if ($gebruiker['huis'] == "villa") echo '<div class="red">'.$txt['alert_already_have_villa'].'</div>';
   #Heeft de speler een nhuis en wil hij/zij iets anders kopen dan een villa?
-  else if (($gebruiker['huis'] == "nhuis") AND ($_POST['huis'] != "villa")) echo '<div class="red">'.$txt['alert_you_have_better_now'].'</div>';
+  else if (($gebruiker['huis'] == "nhuis") AND (($_POST['huis'] ?? '') != "villa")) echo '<div class="red">'.$txt['alert_you_have_better_now'].'</div>';
   #Heeft de speler een klein huis en wil hij/zij een doos kopen?
-  else if (($gebruiker['huis'] == "shuis") AND ($_POST['huis'] == "doos")) echo '<div class="red">'.$txt['alert_you_have_better_now'].'</div>';
+  else if (($gebruiker['huis'] == "shuis") AND (($_POST['huis'] ?? '') == "doos")) echo '<div class="red">'.$txt['alert_you_have_better_now'].'</div>';
   #Is alles goed dan dit uitvoeren
   else{
     #Er is een error en bericht opstellen
     echo '<div class="green">'.$txt['success_house_1'].' '.$huus.' '.$txt['success_house_2'].'</div>';
     #Opslaan
-    DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$gegevenhuis['kosten']."', `huis`='".$_POST['huis']."' WHERE `user_id`='".$_SESSION['id']."'");
+    DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-'".$gegevenhuis['kosten']."', `huis`='".($_POST['huis'] ?? '')."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   }
 }
 

@@ -41,17 +41,17 @@ echo addNPCBox(10, $txt['items_title'], $txt['items_npc_text']);
 	}
 </script>
 <?php
-$itemData = DB::exQuery("SELECT `gebruikers_item`.*,`gebruikers_tmhm`.* FROM `gebruikers_item` INNER JOIN `gebruikers_tmhm` ON `gebruikers_item`.`user_id`=`gebruikers_tmhm`.`user_id` WHERE `gebruikers_item`.`user_id`='" . $_SESSION['id'] . "'")->fetch_assoc();
+$itemData = DB::exQuery("SELECT `gebruikers_item`.*,`gebruikers_tmhm`.* FROM `gebruikers_item` INNER JOIN `gebruikers_tmhm` ON `gebruikers_item`.`user_id`=`gebruikers_tmhm`.`user_id` WHERE `gebruikers_item`.`user_id`='" . ($_SESSION['id'] ?? '') . "'")->fetch_assoc();
 if (isset($_POST['verkoop'])) {
-	$select = DB::exQuery("SELECT `naam`,`soort`,`silver`,`gold` FROM `markt` WHERE `naam`='" . $_POST['name'] . "' LIMIT 1")->fetch_assoc();
-	$_POST['amount'] = (int)round($_POST['amount']);	
+	$select = DB::exQuery("SELECT `naam`,`soort`,`silver`,`gold` FROM `markt` WHERE `naam`='" . ($_POST['name'] ?? '') . "' LIMIT 1")->fetch_assoc();
+	$_POST['amount'] = (int)round(($_POST['amount'] ?? ''));	
 	
 	
 	if ($select['soort'] != "items") {
 	if (empty($_POST['amount']))  $error = '<div class="red">'.$txt['items_error_empty_buy'].'</div>';
-	else if (!is_numeric($_POST['amount']))  $error = '<div class="red">'.$txt['items_error_generic'].'</div>';
-	else if ($_POST['amount'] <= 0)  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
-	else if ($_POST['amount'] > ($itemData[$select['naam']] ?? 0))  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
+	else if (!is_numeric(($_POST['amount'] ?? '')))  $error = '<div class="red">'.$txt['items_error_generic'].'</div>';
+	else if (($_POST['amount'] ?? '') <= 0)  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
+	else if (($_POST['amount'] ?? '') > ($itemData[$select['naam']] ?? 0))  $error = '<div class="red">'.$txt['items_error_not_enough'].'</div>';
 	else {
 		//if (!empty($event_type) && $select['tickets'] != 0) {
 			//$currency = 'tickets';
@@ -59,23 +59,23 @@ if (isset($_POST['verkoop'])) {
 		//} else {
 			if ($select['gold'] != 0) {
 				$currency = 'gold';
-				$price = floor($_POST['amount'] * ($select[$currency] * 0.5));
+				$price = floor(($_POST['amount'] ?? '') * ($select[$currency] * 0.5));
 				if ($select['soort'] == 'stones') $price = 0;
 			} else {
 				$currency = 'silver';
-				$price = floor($_POST['amount'] * ($select[$currency] * 0.5));
+				$price = floor(($_POST['amount'] ?? '') * ($select[$currency] * 0.5));
 				if ($select['soort'] == 'stones') $price = 0;
 			}
 		//}
 		$show = '<img src="' . $static_url . '/images/icons/' . $currency . '.png" /> ' . highamount($price);
-		if ($select['soort'] == "tm" || $select['soort'] == "hm")	DB::exQuery("UPDATE `gebruikers_tmhm` SET `" . $_POST['name'] . "`=`" . $_POST['name'] . "`-'" . $_POST['amount'] . "' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
-		else	DB::exQuery("UPDATE `gebruikers_item` SET `" . $_POST['name'] . "`=`" . $_POST['name'] . "`-'" . $_POST['amount'] . "' WHERE `user_id`='" . $_SESSION['id'] . "' LIMIT 1");
+		if ($select['soort'] == "tm" || $select['soort'] == "hm")	DB::exQuery("UPDATE `gebruikers_tmhm` SET `" . ($_POST['name'] ?? '') . "`=`" . ($_POST['name'] ?? '') . "`-'" . ($_POST['amount'] ?? '') . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
+		else	DB::exQuery("UPDATE `gebruikers_item` SET `" . ($_POST['name'] ?? '') . "`=`" . ($_POST['name'] ?? '') . "`-'" . ($_POST['amount'] ?? '') . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 
 		//if (!empty($event_type) && $select['tickets'] != 0)
 			//DB::exQuery("UPDATE `rekeningen` SET `tickets`=`tickets`+'" . $price . "' WHERE `acc_id`='" . $_SESSION['acc_id']."' LIMIT 1");
 		//else {
-			if ($select['gold'] != 0)	DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'" . $price . "' WHERE `acc_id`='" . $_SESSION['acc_id']."' LIMIT 1");
-			else	DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'" . $price . "' WHERE `user_id`='" . $_SESSION['id']."' LIMIT 1");
+			if ($select['gold'] != 0)	DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'" . $price . "' WHERE `acc_id`='" . ($_SESSION['acc_id'] ?? '')."' LIMIT 1");
+			else	DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'" . $price . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '')."' LIMIT 1");
 		//}
 
 ?>
@@ -101,10 +101,10 @@ echo $error;
 </div>
 <?php
 
-$_GET['category'] = $_GET['category'] == 'spc_items' ? 'special items' : $_GET['category'];
+$_GET['category'] = ($_GET['category'] ?? '') == 'spc_items' ? 'special items' : ($_GET['category'] ?? '');
 
 $arrayItems = array();
-$getItems = DB::exQuery("SELECT * FROM `markt` WHERE `soort`='" . $_GET['category'] . "' ORDER BY `soort` ASC, `id` ASC");
+$getItems = DB::exQuery("SELECT * FROM `markt` WHERE `soort`='" . ($_GET['category'] ?? '') . "' ORDER BY `soort` ASC, `id` ASC");
 while($item = $getItems->fetch_assoc()) {
 	if (($itemData[$item['naam']] ?? 0) > 0)
 		$arrayItems[$item['soort']][] = $item;
@@ -158,11 +158,11 @@ if (count($arrayItems) > 0) {
 					if ($value2['gold'] != 0) {
 						$munt = 'gold';
 						$price = highamount(floor($value2[$munt] * 0.5));
-						if ($_GET['category'] == 'stones') $price = 0;
+						if (($_GET['category'] ?? '') == 'stones') $price = 0;
 					} else {
 						$munt = 'silver';
 						$price = highamount(floor($value2[$munt] * 0.5));
-						if ($_GET['category'] == 'stones') $price = 0;
+						if (($_GET['category'] ?? '') == 'stones') $price = 0;
 					}
 				}
 		
@@ -235,5 +235,5 @@ if (count($arrayItems) > 0) {
 ?>
 
 <script>
-	$('#itens').wlOrientation('<?=$_GET['category']?>');
+	$('#itens').wlOrientation('<?=($_GET['category'] ?? '')?>');
 </script>

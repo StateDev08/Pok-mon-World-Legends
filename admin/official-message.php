@@ -7,8 +7,8 @@ include("app/includes/resources/security.php");
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 
 if (isset($_POST['text']) && isset($_POST['title'])) {
-	$text = htmlspecialchars($_POST['text']);
-	$title = $_POST['title'];
+	$text = htmlspecialchars(($_POST['text'] ?? ''));
+	$title = ($_POST['title'] ?? '');
 	$date = date ('d/m/Y'); 
 	DB::exQuery("INSERT INTO `official_message` SET `title`='$title', `message`='$text', `admin`='$_SESSION[acc_id]', `date`='$date'");
 	echo 'Mensagem enviada!';

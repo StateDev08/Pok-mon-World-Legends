@@ -21,7 +21,7 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 		
 		//Updaten dat de pokemon er is.
 		$datenow = date('Y-m-d H:i:s');
-		DB::exQuery("UPDATE gebruikers SET wiequiz = '".$datenow."' WHERE user_id = '".$_SESSION['id']."'");
+		DB::exQuery("UPDATE gebruikers SET wiequiz = '".$datenow."' WHERE user_id = '".($_SESSION['id'] ?? '')."'");
 			
 		//Haal een pokemon uit de database
 		$pkmn = DB::exQuery("SELECT wild_id FROM pokemon_wild ORDER BY rand() limit 1")->fetch_assoc();
@@ -33,11 +33,11 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 	}
 	
 	//Code splitten, zodat informatie duidelijk word
-  if (!empty($_SESSION['who_is_that_img'])) list ($answer, $status) = preg_split ('[/]', $_SESSION['who_is_that_img']);
+  if (!empty($_SESSION['who_is_that_img'])) list ($answer, $status) = preg_split ('[/]', ($_SESSION['who_is_that_img'] ?? ''));
 	
 	//Als er op de knop word geklikt
 	if (isset($_POST['submit']) && ($pass != 0)) {
-		if ($_POST['who'] == '0') {
+		if (($_POST['who'] ?? '') == '0') {
 			echo '<div class="red">'.$txt['alert_choose_a_pokemon'].'</div>';
 		}
 		else if (empty($_SESSION['who_is_that_img'])) {
@@ -46,12 +46,12 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 		else{
 			$pass = 0;
 
-			DB::exQuery("UPDATE gebruikers SET `tickets` = `tickets`-'50' WHERE user_id = '".$_SESSION['id']."'");
+			DB::exQuery("UPDATE gebruikers SET `tickets` = `tickets`-'50' WHERE user_id = '".($_SESSION['id'] ?? '')."'");
 
 			//Kijken of de speler het antwoord goed heeft
-			if ($_POST['who'] == $answer) {
+			if (($_POST['who'] ?? '') == $answer) {
 				echo '<div class="green">'.$txt['success_win'].'</div>';
-				DB::exQuery("UPDATE gebruikers SET `tickets` = `tickets`+'100' WHERE user_id = '".$_SESSION['id']."'");
+				DB::exQuery("UPDATE gebruikers SET `tickets` = `tickets`+'100' WHERE user_id = '".($_SESSION['id'] ?? '')."'");
 				rankerbij('whoisitquiz',$txt);
 			}
 			else{
@@ -125,7 +125,7 @@ function aftellen3() {
 	}  
 }
 	aftellen3();  
-	interval3 = setInterval('aftellen3();', 1000);
+	interval3 = setInterval(function () { aftellen3(); }, 1000);
 </script> 
 
 <?php } ?>

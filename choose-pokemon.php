@@ -16,10 +16,10 @@ if ($gebruiker['eigekregen'] == 0) {
 		sort($whocheck);
 	  
 		if (!isset($_POST['who'])) echo '<div class="error">'.$txt['alert_no_pokemon'].'</div>';
-		else if (!in_array($_POST['who'], $whocheck)) echo '<div class="error">'.$txt['alert_pokemon_unknown'].'</div>';
+		else if (!in_array(($_POST['who'] ?? ''), $whocheck)) echo '<div class="error">'.$txt['alert_pokemon_unknown'].'</div>';
 		else {
 			#Willekeurige pokemon laden, en daarvan de gegevens
-			$query = DB::exQuery("SELECT `pw`.`wild_id`,`pw`.`naam`,`pw`.`groei`,`pw`.`attack_base`,`pw`.`defence_base`,`pw`.`speed_base`,`pw`.`spc.attack_base`,`pw`.`spc.defence_base`,`pw`.`hp_base`,`pw`.`aanval_1`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`pw`.`ability` FROM `pokemon_wild` AS `pw` WHERE `pw`.`wild_id`='".$_POST['who']."' LIMIT 1")->fetch_assoc();
+			$query = DB::exQuery("SELECT `pw`.`wild_id`,`pw`.`naam`,`pw`.`groei`,`pw`.`attack_base`,`pw`.`defence_base`,`pw`.`speed_base`,`pw`.`spc.attack_base`,`pw`.`spc.defence_base`,`pw`.`hp_base`,`pw`.`aanval_1`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`pw`.`ability` FROM `pokemon_wild` AS `pw` WHERE `pw`.`wild_id`='".($_POST['who'] ?? '')."' LIMIT 1")->fetch_assoc();
 
 			#De willekeurige pokemon in de pokemon_speler tabel zetten
 			DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4`) SELECT `wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_wild` WHERE `wild_id`='".$query['wild_id']."'");
@@ -28,7 +28,7 @@ if ($gebruiker['eigekregen'] == 0) {
 			$pokeid	= DB::insertID();
 
 			#Heeft speler wel pokemon gekregen??
-			if (is_numeric($pokeid)) DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1',`eigekregen`='1' WHERE `user_id`='".$_SESSION['id']."' LIMIT 1");
+			if (is_numeric($pokeid)) DB::exQuery("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1',`eigekregen`='1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 
 			#Karakter kiezen 
 			$karakter  = DB::exQuery("SELECT * FROM `karakters` ORDER BY rand() limit 1")->fetch_assoc();
@@ -61,7 +61,7 @@ if ($gebruiker['eigekregen'] == 0) {
 			$date = date('Y-m-d H:i:s');
 
 			#Alle gegevens van de pokemon opslaan
-			DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".$_SESSION['id']."',`opzak`='ja',`opzak_nummer`='1',`gehecht`='1',`ei`='0',`ei_tijd`= NOW(),`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
+			DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='1',`gehecht`='1',`ei`='0',`ei_tijd`= NOW(),`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
 
 			#Tekst laten zien
 			exit(header("LOCATION: ./home"));
@@ -132,12 +132,18 @@ if ($gebruiker['eigekregen'] == 0) {
 	var $submit = $('#choose');
 	var $form = $('#form');
 	var frases = [
-		'Parece que ele gostou de você.',
-		'Que bela escolha!',
-		'Uma escolha interessante.',
-		'Gostei do vínculo entre vocês.',
-		'Ele está meio tímido, mas parece que gostou de você!'
+		<?=json_encode($txt['choose_phrase_1'])?>,
+		<?=json_encode($txt['choose_phrase_2'])?>,
+		<?=json_encode($txt['choose_phrase_3'])?>,
+		<?=json_encode($txt['choose_phrase_4'])?>,
+		<?=json_encode($txt['choose_phrase_5'])?>
 	];
+	var choose_button_text = <?=json_encode($txt['choose_button'])?>;
+	var choose_confirm_text = <?=json_encode($txt['choose_confirm_journey'])?>;
+
+	function chooseText(template, value) {
+		return template.replace('%s', value);
+	}
 	let f1 = frases[Math.floor(Math.random() * frases.length)];
 	let f2 = frases[Math.floor(Math.random() * frases.length)];
 	let f3 = frases[Math.floor(Math.random() * frases.length)];
@@ -158,15 +164,15 @@ if ($gebruiker['eigekregen'] == 0) {
 		$poke_name.text($poke_array_name[flkty.selectedIndex]);
 		$poke_link.html($poke_array_type[flkty.selectedIndex]);
 		$poke_id.val ($poke_array_id[flkty.selectedIndex]);
-		$submit.val('Escolher '+$poke_array_name[flkty.selectedIndex]);
-		$form.attr('onsubmit', "return confirm('"+frase[flkty.selectedIndex]+" Você deseja realmente iniciar sua jornada com "+$poke_array_name[flkty.selectedIndex]+"?')");
+		$submit.val(chooseText(choose_button_text, $poke_array_name[flkty.selectedIndex]));
+		$form.attr('onsubmit', "return confirm('"+choose_confirm_text.replace('%s', frase[flkty.selectedIndex]).replace('%s', $poke_array_name[flkty.selectedIndex])+"')");
 	});
 
 	$poke_name.text($poke_array_name[0]);
 	$poke_link.html($poke_array_type[0]);
 	$poke_id.val ($poke_array_id[0]);
-	$submit.val('Escolher '+$poke_array_name[0]);
-	$form.attr('onsubmit', "return confirm('"+frase[0]+" Você deseja realmente iniciar sua jornada com "+$poke_array_name[0]+"?')");
+	$submit.val(chooseText(choose_button_text, $poke_array_name[0]));
+	$form.attr('onsubmit', "return confirm('"+choose_confirm_text.replace('%s', frase[0]).replace('%s', $poke_array_name[0])+"')");
 
 	$car.resize();
 	

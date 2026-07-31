@@ -3,7 +3,7 @@
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
-        $bedrag = $_POST['bedrag'];
+        $bedrag = ($_POST['bedrag'] ?? '');
         //Kijken of er een cijfer is ingevuld
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
@@ -27,7 +27,7 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 <?php
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
-        $bedrag = $_POST['bedrag'];
+        $bedrag = ($_POST['bedrag'] ?? '');
         //Kijken of er een cijfer is ingevuld
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
@@ -51,7 +51,7 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 <?php
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
-        $bedrag = $_POST['bedrag'];
+        $bedrag = ($_POST['bedrag'] ?? '');
         //Kijken of er een cijfer is ingevuld
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
