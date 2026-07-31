@@ -85,7 +85,7 @@ if (isset($_POST['login'])) {
 						$keylog = md5(microtime());
 						
 						setcookie('pa_lang', $pa_lang, time() + (86400 * 7), '/');
-						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='{$_COOKIE['pa_lang']}',`locked`='1',`ip_ingelogd`='" . $ip_sql . "',`session`='{$_COOKIE['PHPSESSID']}',`last_login`=NOW(), `keylog`='" . $keylog . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
+						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='".($_COOKIE['pa_lang'] ?? '')."',`locked`='1',`ip_ingelogd`='" . $ip_sql . "',`session`='" . (session_id() ?? '') . "',`last_login`=NOW(), `keylog`='" . $keylog . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
 						
 						$_SESSION['share_acc'] = 0;
 

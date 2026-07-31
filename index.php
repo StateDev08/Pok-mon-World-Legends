@@ -164,7 +164,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		$gebruiker['items'] = 0;
 		$gebruiker['items'] += freeSlots ();
 
-		if (!is_array($gebruiker) || $gebruiker['acc_id'] != $rekening['acc_id'] || $gebruiker['session'] != ($_COOKIE['PHPSESSID'] ?? '') || $gebruiker['banned'] == 'Y') {
+		if (!is_array($gebruiker) || $gebruiker['acc_id'] != $rekening['acc_id'] || $gebruiker['session'] != (session_id() ?? '') || $gebruiker['banned'] == 'Y') {
 			unset($_SESSION['hash'], $_SESSION['id'], $_SESSION['naam']);
 			exit(header("Location: ./my_characters"));
 		}

@@ -695,6 +695,7 @@ function gebruiker_popup($gebruiker, $txt) {
     $pokemon_sql = DB::exQuery("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, ps.humor_change, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$gebruiker['user_id']."' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
     $gebruiker['in_hand'] = $pokemon_sql->num_rows;
 
+    $premium = '';
     if ($gebruiker['premiumaccount'] > time()) $premium = "<img src='".$static_url."/images/icons/vip.gif' style='vertical-align:-3px;'>";
 
     $return = '<div class=\'box-content\'><table class=\'general\' style=\'width:320px;\'>
@@ -1262,7 +1263,7 @@ function createKey($size = 6) {
 	return $key;
 }
 
-$keyzitapass = "SENHAENCRYPTSIMBOLSPASSWORD2016";
+$keyzitapass = (string) Env::get('KEYZITAPASS', '');
 
 function password($password) {
 	global $keyzitapass;

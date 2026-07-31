@@ -52,6 +52,20 @@ $installText = [
         'delete_installer' => 'Bitte lösche anschließend die Datei <code>install.php</code> aus Sicherheitsgründen.',
         'fail' => 'Fehlgeschlagen',
         'ok' => 'OK',
+        'admin_settings' => 'Admin-Konto',
+        'admin_username' => 'Admin-Benutzername',
+        'admin_email' => 'Admin-E-Mail',
+        'admin_password' => 'Admin-Passwort',
+        'admin_password_repeat' => 'Admin-Passwort wiederholen',
+        'admin_help' => 'Der Admin wird automatisch als erster Trainer angelegt. Das Team-Passwort (KEYZITAPASS) wird zufällig generiert und in der .env gespeichert.',
+        'err_fields_required' => 'Bitte alle Felder ausfüllen.',
+        'err_email_invalid' => 'Bitte eine gültige E-Mail-Adresse angeben.',
+        'err_password_too_short' => 'Das Passwort muss mindestens 6 Zeichen lang sein.',
+        'err_passwords_mismatch' => 'Die Passwörter stimmen nicht überein.',
+        'team_password_label' => 'Team-Passwort (KEYZITAPASS)',
+        'team_password_generated' => 'Generiert und in <code>.env</code> gespeichert.',
+        'admin_created' => 'Admin-Konto erstellt',
+        'save_credentials' => 'Bitte bewahre die Zugangsdaten an einem sicheren Ort auf.',
     ],
     'en' => [
         'title' => 'World Legends Installation',
@@ -81,12 +95,34 @@ $installText = [
         'delete_installer' => 'Please delete <code>install.php</code> afterwards for security.',
         'fail' => 'Failed',
         'ok' => 'OK',
+        'admin_settings' => 'Admin account',
+        'admin_username' => 'Admin username',
+        'admin_email' => 'Admin email',
+        'admin_password' => 'Admin password',
+        'admin_password_repeat' => 'Repeat admin password',
+        'admin_help' => 'The admin will automatically be created as the first trainer. The team password (KEYZITAPASS) is generated randomly and stored in the .env file.',
+        'err_fields_required' => 'Please fill in all fields.',
+        'err_email_invalid' => 'Please provide a valid email address.',
+        'err_password_too_short' => 'The password must be at least 6 characters long.',
+        'err_passwords_mismatch' => 'The passwords do not match.',
+        'team_password_label' => 'Team password (KEYZITAPASS)',
+        'team_password_generated' => 'Generated and stored in <code>.env</code>.',
+        'admin_created' => 'Admin account created',
+        'save_credentials' => 'Please store the credentials in a safe place.',
     ],
 ];
 $txt = $installText[$lang] ?? $installText['de'];
 
 function h($s) {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+
+function wl_password_hash($password, $keyzitapass) {
+    return hash('sha1', crypt($password, md5(strrev($keyzitapass))));
+}
+
+function generate_team_password($length = 32) {
+    return bin2hex(random_bytes((int) ($length / 2)));
 }
 
 function check_requirements($root) {
@@ -175,7 +211,41 @@ if ($step === 'database') {
     echo '<label>' . h($txt['smtp_port']) . '</label><input type="text" name="smtp_port" value="' . h($db['smtp_port']) . '">';
     echo '<label>' . h($txt['smtp_mail']) . '</label><input type="text" name="smtp_mail" value="' . h($db['smtp_mail']) . '">';
     echo '<label>' . h($txt['smtp_pass']) . '</label><input type="password" name="smtp_pass" value="' . h($db['smtp_pass']) . '">';
-    echo '<button type="submit" name="step" value="install">' . h($txt['install']) . '</button>';
+    echo '<button type="submit" name="step" value="admin">' . h($txt['next']) . '</button>';
+    echo '</form></div>';
+    render_footer();
+    exit;
+}
+
+if ($step === 'admin') {
+    render_header($txt);
+    $db = [
+        'host' => $_POST['db_host'] ?? 'localhost',
+        'user' => $_POST['db_user'] ?? '',
+        'pass' => $_POST['db_pass'] ?? '',
+        'name' => $_POST['db_name'] ?? 'worldlegends',
+        'smtp_host' => $_POST['smtp_host'] ?? 'smtp.example.com',
+        'smtp_port' => $_POST['smtp_port'] ?? '587',
+        'smtp_mail' => $_POST['smtp_mail'] ?? 'noreply@example.com',
+        'smtp_pass' => $_POST['smtp_pass'] ?? '',
+    ];
+    $admin = [
+        'username' => $_POST['admin_username'] ?? 'admin',
+        'email' => $_POST['admin_email'] ?? '',
+        'password' => $_POST['admin_password'] ?? '',
+        'password_repeat' => $_POST['admin_password_repeat'] ?? '',
+    ];
+
+    echo '<div class="box"><h2>' . h($txt['admin_settings']) . '</h2><p>' . h($txt['admin_help']) . '</p>';
+    echo '<form method="post"><input type="hidden" name="step" value="install">';
+    foreach ($db as $key => $value) {
+        echo '<input type="hidden" name="db_' . h($key) . '" value="' . h($value) . '">';
+    }
+    echo '<label>' . h($txt['admin_username']) . '</label><input type="text" name="admin_username" value="' . h($admin['username']) . '">';
+    echo '<label>' . h($txt['admin_email']) . '</label><input type="text" name="admin_email" value="' . h($admin['email']) . '">';
+    echo '<label>' . h($txt['admin_password']) . '</label><input type="password" name="admin_password">';
+    echo '<label>' . h($txt['admin_password_repeat']) . '</label><input type="password" name="admin_password_repeat">';
+    echo '<button type="submit">' . h($txt['install']) . '</button>';
     echo '</form></div>';
     render_footer();
     exit;
@@ -193,6 +263,30 @@ if ($step === 'install') {
         'smtp_mail' => $_POST['smtp_mail'] ?? 'noreply@example.com',
         'smtp_pass' => $_POST['smtp_pass'] ?? '',
     ];
+    $admin = [
+        'username' => trim($_POST['admin_username'] ?? ''),
+        'email' => trim($_POST['admin_email'] ?? ''),
+        'password' => (string) ($_POST['admin_password'] ?? ''),
+        'password_repeat' => (string) ($_POST['admin_password_repeat'] ?? ''),
+    ];
+
+    $admin_error = '';
+    if ($admin['username'] === '' || $admin['email'] === '' || $admin['password'] === '' || $admin['password_repeat'] === '') {
+        $admin_error = $txt['err_fields_required'];
+    } elseif (!filter_var($admin['email'], FILTER_VALIDATE_EMAIL)) {
+        $admin_error = $txt['err_email_invalid'];
+    } elseif (strlen($admin['password']) < 6) {
+        $admin_error = $txt['err_password_too_short'];
+    } elseif ($admin['password'] !== $admin['password_repeat']) {
+        $admin_error = $txt['err_passwords_mismatch'];
+    }
+
+    if ($admin_error !== '') {
+        echo '<div class="box"><p class="fail">' . h($admin_error) . '</p>';
+        echo '<p><a href="javascript:history.back()">' . h($txt['back']) . '</a></p></div>';
+        render_footer();
+        exit;
+    }
 
     $conn = @mysqli_connect($db['host'], $db['user'], $db['pass']);
     if (!$conn) {
@@ -250,6 +344,9 @@ if ($step === 'install') {
         }
     }
 
+    $keyzitapass = generate_team_password();
+    $admin_hash = wl_password_hash($admin['password'], $keyzitapass);
+
     $env = "DB_HOST=" . $db['host'] . "\n";
     $env .= "DB_USER=" . $db['user'] . "\n";
     $env .= "DB_PASSWORD=" . $db['pass'] . "\n";
@@ -258,9 +355,36 @@ if ($step === 'install') {
     $env .= "SMTP_PORT=" . $db['smtp_port'] . "\n";
     $env .= "SMTP_MAIL=" . $db['smtp_mail'] . "\n";
     $env .= "SMTP_PASS=" . $db['smtp_pass'] . "\n";
+    $env .= "KEYZITAPASS=" . $keyzitapass . "\n";
 
     if (file_put_contents($root . '/.env', $env) === false) {
         echo '<p class="fail">Could not write .env file. Make sure the root directory is writable.</p>';
+        render_footer();
+        exit;
+    }
+
+    // Create/update the admin account and the first trainer character.
+    $admin_username_esc = mysqli_real_escape_string($conn, $admin['username']);
+    $admin_email_esc = mysqli_real_escape_string($conn, $admin['email']);
+
+    mysqli_query($conn, "INSERT INTO `rekeningen` (`acc_id`, `username`, `wachtwoord`, `email`, `account_code`, `land`, `datum`, `aanmeld_datum`, `ip_aangemeld`, `ip_ingelogd`, `gold`, `refferal`, `session`, `ban_cookie`, `last_login`, `mobile`, `bloqueado`, `bloqueado_tempo`, `razaobloqueado`, `facebook`, `keylog`, `karma`, `shared`, `locked`, `quest_r_1`, `quest_r_2`, `quest_r_master`) VALUES (1, '$admin_username_esc', '$admin_hash', '$admin_email_esc', 1, '', NOW(), NOW(), '', '', 0, 0, '', '', NOW(), 0, 'nao', '0000-00-00', '', 'default', '', 10, NULL, b'1', 0, 0, 0) ON DUPLICATE KEY UPDATE `username`='$admin_username_esc', `wachtwoord`='$admin_hash', `email`='$admin_email_esc', `account_code`=1, `keylog`='', `locked`=b'1'");
+
+    if (mysqli_error($conn) !== '') {
+        echo '<p class="fail">Could not create admin account: ' . h(mysqli_error($conn)) . '</p>';
+        render_footer();
+        exit;
+    }
+
+    $admin_user = mysqli_query($conn, "SELECT `user_id` FROM `gebruikers` WHERE `user_id`=1");
+    if ($admin_user && $admin_user->num_rows > 0) {
+        mysqli_query($conn, "UPDATE `gebruikers` SET `username`='$admin_username_esc', `acc_id`=1 WHERE `user_id`=1");
+    } else {
+        echo '<p class="fail">Admin trainer row (user_id=1) is missing from the database dump.</p>';
+        render_footer();
+        exit;
+    }
+    if (mysqli_error($conn) !== '') {
+        echo '<p class="fail">Could not create admin trainer: ' . h(mysqli_error($conn)) . '</p>';
         render_footer();
         exit;
     }
@@ -275,6 +399,11 @@ if ($step === 'install') {
 
     echo '<div class="box"><h2>' . h($txt['done']) . '</h2>';
     echo '<p class="ok">' . h($txt['done']) . '</p>';
+    echo '<p><strong>' . h($txt['admin_created']) . '</strong><br>';
+    echo h($txt['admin_username']) . ': ' . h($admin['username']) . '<br>';
+    echo h($txt['admin_email']) . ': ' . h($admin['email']) . '</p>';
+    echo '<p><strong>' . h($txt['team_password_label']) . ':</strong><br><code>' . h($keyzitapass) . '</code><br><small>' . h($txt['team_password_generated']) . '</small></p>';
+    echo '<p class="fail">' . h($txt['save_credentials']) . '</p>';
     echo '<p>' . h($txt['delete_installer']) . '</p>';
     echo '<p><a href="./">Go to homepage</a></p></div>';
     render_footer();

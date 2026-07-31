@@ -27,9 +27,9 @@ else {
 				$date_loh = date('H:i:s');
 
 				if (($date_lo) > ($geb_login['ultimo_login'])) {
-					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `antiguidade`=`antiguidade`+1, `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `antiguidade`=`antiguidade`+1, `sec_key`='{$sec_key}', `session`='" . (session_id() ?? '') . "', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				} else {
-					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `sec_key`='{$sec_key}', `session`='{$_COOKIE['PHPSESSID']}', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
+					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `sec_key`='{$sec_key}', `session`='" . (session_id() ?? '') . "', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				}
 
 				exit(header("LOCATION: ./home"));
