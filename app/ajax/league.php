@@ -17,9 +17,9 @@ if ($result->num_rows>0) {
 
     if ($l_battle->getVencedor()) {
         if (($_SESSION['id'] ?? '') == $l_battle->getVencedor()) {
-            echo "3 | Você ganhou!<br/>Seu oponente não estava pronto!";
+            echo "3 | " . $txt['league_won_opponent_not_ready'];
         } else {
-            echo "4 | Você perdeu!<br/>Você não estava pronto para a batalha!";
+            echo "4 | " . $txt['league_lost_not_ready'];
         }
         exit();
     }
@@ -34,7 +34,7 @@ if ($result->num_rows>0) {
         exit();
     }
 
-    echo "0 | Aguarde enquanto a batalha é criada...";
+    echo "0 | " . $txt['league_creating_battle'];
     exit();
 } else if (DB::exQuery("SELECT id FROM league_battle WHERE "
                 . "duel_id = 0 AND termino IS NULL AND "
@@ -44,16 +44,16 @@ if ($result->num_rows>0) {
     $l_battle = new League_battle();
 	$plleag = $result->fetch-assoc();
     $l_battle->select($result['id']);
-    $l_battle->informarVencedor($l_battle->getUser_id2(), "A batalha não foi criada em 5 minutos");
+    $l_battle->informarVencedor($l_battle->getUser_id2(), $txt['league_not_created_5min']);
     $l_battle->update();
 
     if (($_SESSION['id'] ?? '') == $l_battle->getUser_id1()) {
-        echo "4 | Você perdeu!<br/>A batalha não foi criada!";
+        echo "4 | " . $txt['league_lost_not_created'];
     } else if (($_SESSION['id'] ?? '') == $l_battle->getUser_id2()) {
-        echo "3 | Você ganhou!<br/>A batalha não foi criada!";
+        echo "3 | " . $txt['league_won_not_created'];
     }
     exit();
 }
 
-echo "1 | Ainda não é hora para sua batalha!";
+echo "1 | " . $txt['league_not_time_yet'];
 exit();

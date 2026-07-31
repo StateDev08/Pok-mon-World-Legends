@@ -20,6 +20,8 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
     $duel_info = duel_info(($_GET['duel_id'] ?? ''));
     //Check if attack was correct, and screen has to refresh
     $good = 0;
+    $attack_missed = false;
+    $attack_had_effect = false;
     $win_lose = 0;
     $recoil_d = 0;
     $auto_turn = 0;
@@ -357,7 +359,8 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                 //Check if attack does hit
                 if ((($attack_info['mis'] != 0) AND ( $duel_info[$attack_status['table']['you_busy']] == '') AND ( rand(0, 100) <= $attack_info['mis'])) OR ( $duel_info[$attack_status['table']['other_busy']] == 'Fly') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Dig') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Dive') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Bounce')) {
                     //OR ( $duel_info[$attack_status['table']['other_busy']] == 'Fly') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Dig') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Dive') OR ( $duel_info[$attack_status['table']['other_busy']] == 'Bounce')
-                    $message = $pokemon_info['naam_goed'] . " usou " . $attack_info['naam'] . ", mas errou!";
+                    $message = sprintf($txt['battle_used_but_missed'], $pokemon_info['naam_goed'], $attack_info['naam']);
+                    $attack_missed = true;
                     $message .= "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
 
                     $attack_info['soort'] = 'Fail';
@@ -453,6 +456,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                                     //Save to opponent
                                     DB::exQuery("UPDATE " . $opponent_info['table']['fight'] . " SET effect='" . $effect_info['actie'] . "', hoelang='" . $turns . "' WHERE id='" . $opponent_info['id'] . "'");
                                     $message = $pokemon_info['naam_goed'] . $txt['did'] . $attack_info['naam'] . $txt['battle_had_effect'];
+                                    $attack_had_effect = true;
                                     if (empty($opponent_info['effect']))
                                         $message .= "<br />" . sprintf($txt['battle_now_status'], $opponent_info['naam_goed'], $effect_info['naam']);
                                     $message .= "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
@@ -702,12 +706,12 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                         $recoil_d = $pokemon_info['leven'];
                     }
                     DB::exQuery("UPDATE `" . $pokemon_info['table']['fight'] . "` SET `leven`='" . $rec_left . "' WHERE `id`='" . $pokemon_info['id'] . "'");
-                    $message_add .= "<br /> " . $pokemon_info['naam_goed'] . " tendo sua vida roubada. ";
+                    $message_add .= "<br /> " . sprintf($txt['battle_life_stolen'], $pokemon_info['naam_goed']);
                 }
 
                 $good = 1;
                 if ($life_decrease == 0 && $recoil_d == 0) {
-                    if (!stripos($message, "teve efeito") && !stripos($message, "mas errou") && $attack_info['stappen'] != 2) {
+                    if (!$attack_had_effect && !$attack_missed && $attack_info['stappen'] != 2) {
                         $message = $pokemon_info['naam_goed'] . " " . $txt['did'] . " " . $attack_info['naam'] . $txt['hit!'] . $message_add;
                         $message .= "<br />" . $opponent_info['username'] . " " . $txt['opponent_choose_attack'];
                     }

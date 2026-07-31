@@ -96,5 +96,14 @@ $txt['sellbox_direct_info'] = 'Если этот покемон не будет 
 $txt['sellbox_trainer'] = 'Тренер:';
 $txt['sellbox_trainer_hint'] = '(Имя тренера, которому вы хотите продать)';
 $txt['sellbox_submit'] = 'ПРОДАТЬ ПОКЕМОНА!';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'Вы победили!<br/>Ваш противник не был готов!';
+$txt['league_lost_not_ready'] = 'Вы проиграли!<br/>Вы не были готовы к бою!';
+$txt['league_creating_battle'] = 'Подождите, бой создаётся ...';
+$txt['league_not_created_5min'] = 'Бой не был создан в течение 5 минут';
+$txt['league_lost_not_created'] = 'Вы проиграли!<br/>Бой не был создан!';
+$txt['league_won_not_created'] = 'Вы победили!<br/>Бой не был создан!';
+$txt['league_not_time_yet'] = 'Время вашего боя ещё не наступило!';
 /* === end externalized strings === */
 ?>

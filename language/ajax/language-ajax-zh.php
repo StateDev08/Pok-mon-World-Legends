@@ -96,5 +96,14 @@ $txt['sellbox_direct_info'] = '如果这只宝可梦在 <b>2</b> 天内没有售
 $txt['sellbox_trainer'] = '训练师：';
 $txt['sellbox_trainer_hint'] = '（你想出售给的训练师名称）';
 $txt['sellbox_submit'] = '出售宝可梦！';
+
+# league
+$txt['league_won_opponent_not_ready'] = '你赢了！<br/>你的对手没有准备好！';
+$txt['league_lost_not_ready'] = '你输了！<br/>你没有为对战做好准备！';
+$txt['league_creating_battle'] = '请稍候，正在创建对战……';
+$txt['league_not_created_5min'] = '对战未在 5 分钟内创建';
+$txt['league_lost_not_created'] = '你输了！<br/>对战未被创建！';
+$txt['league_won_not_created'] = '你赢了！<br/>对战未被创建！';
+$txt['league_not_time_yet'] = '还没到你的对战时间！';
 /* === end externalized strings === */
 ?>

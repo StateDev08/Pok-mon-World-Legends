@@ -2289,14 +2289,17 @@ $txt['battle_burning'] = '%s 正在被灼伤。 ';
 $txt['battle_poisoned'] = '%s 中毒了。 ';
 $txt['battle_stat_atk_speed_up'] = '的攻击和速度提升了。';
 $txt['battle_had_effect'] = '，产生了效果。';
-
-# league
-$txt['league_won_opponent_not_ready'] = '你赢了！<br/>你的对手没有准备好！';
-$txt['league_lost_not_ready'] = '你输了！<br/>你没有为对战做好准备！';
-$txt['league_creating_battle'] = '请稍候，正在创建对战……';
-$txt['league_not_created_5min'] = '对战未在 5 分钟内创建';
-$txt['league_lost_not_created'] = '你输了！<br/>对战未被创建！';
-$txt['league_won_not_created'] = '你赢了！<br/>对战未被创建！';
-$txt['league_not_time_yet'] = '还没到你的对战时间！';
+$txt['battle_used_but_missed'] = '%s 使用了 %s，但没有命中！';
+$txt['battle_used_had_effect'] = '%s 使用了 %s，产生了效果。';
+$txt['battle_life_stolen'] = '%s 的生命值正被吸取。 ';
+$txt['battle_not_confused_anymore_plain'] = '%s 不再混乱了。';
+$txt['battle_recharging_from'] = '%s 正在从 %s 中充能';
+$txt['battle_status_burning'] = '%s 被灼伤了。';
+$txt['battle_status_frozen'] = '%s 被冰冻了。';
+$txt['battle_status_paralyzed'] = '%s 麻痹了。';
+$txt['battle_status_poisoned'] = '%s 中毒了。';
+$txt['battle_status_sleeping'] = '%s 睡着了。';
+$txt['battle_status_flinching'] = '%s 畏缩了。';
+$txt['battle_stat_speed_up_atk_down'] = '%s 的速度提升了，但攻击下降了。';
 /* === end externalized strings === */
 ?>

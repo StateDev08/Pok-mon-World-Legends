@@ -96,5 +96,14 @@ $txt['sellbox_direct_info'] = 'Se este Pokémon não for vendido em até <b>2</b
 $txt['sellbox_trainer'] = 'Treinador:';
 $txt['sellbox_trainer_hint'] = '(O nome do treinador que você quer vender)';
 $txt['sellbox_submit'] = 'VENDER POKÉMON!';
+
+# league
+$txt['league_won_opponent_not_ready'] = 'Você ganhou!<br/>Seu oponente não estava pronto!';
+$txt['league_lost_not_ready'] = 'Você perdeu!<br/>Você não estava pronto para a batalha!';
+$txt['league_creating_battle'] = 'Aguarde enquanto a batalha é criada...';
+$txt['league_not_created_5min'] = 'A batalha não foi criada em 5 minutos';
+$txt['league_lost_not_created'] = 'Você perdeu!<br/>A batalha não foi criada!';
+$txt['league_won_not_created'] = 'Você ganhou!<br/>A batalha não foi criada!';
+$txt['league_not_time_yet'] = 'Ainda não é hora para sua batalha!';
 /* === end externalized strings === */
 ?>

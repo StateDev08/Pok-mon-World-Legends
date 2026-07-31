@@ -2289,14 +2289,17 @@ $txt['battle_burning'] = '%s горит. ';
 $txt['battle_poisoned'] = '%s отравлен. ';
 $txt['battle_stat_atk_speed_up'] = 'имеет повышенные Атаку и Скорость.';
 $txt['battle_had_effect'] = ', это подействовало.';
-
-# league
-$txt['league_won_opponent_not_ready'] = 'Вы победили!<br/>Ваш противник не был готов!';
-$txt['league_lost_not_ready'] = 'Вы проиграли!<br/>Вы не были готовы к бою!';
-$txt['league_creating_battle'] = 'Подождите, бой создаётся ...';
-$txt['league_not_created_5min'] = 'Бой не был создан в течение 5 минут';
-$txt['league_lost_not_created'] = 'Вы проиграли!<br/>Бой не был создан!';
-$txt['league_won_not_created'] = 'Вы победили!<br/>Бой не был создан!';
-$txt['league_not_time_yet'] = 'Время вашего боя ещё не наступило!';
+$txt['battle_used_but_missed'] = '%s использовал %s, но промахнулся!';
+$txt['battle_used_had_effect'] = '%s использовал %s, это подействовало.';
+$txt['battle_life_stolen'] = 'У %s похищают здоровье. ';
+$txt['battle_not_confused_anymore_plain'] = '%s больше не сбит с толку.';
+$txt['battle_recharging_from'] = '%s восстанавливается после %s';
+$txt['battle_status_burning'] = '%s горит.';
+$txt['battle_status_frozen'] = '%s заморожен.';
+$txt['battle_status_paralyzed'] = '%s парализован.';
+$txt['battle_status_poisoned'] = '%s отравлен.';
+$txt['battle_status_sleeping'] = '%s спит.';
+$txt['battle_status_flinching'] = '%s дрогнул.';
+$txt['battle_stat_speed_up_atk_down'] = '%s теперь имеет повышенную Скорость, но пониженную Атаку.';
 /* === end externalized strings === */
 ?>
