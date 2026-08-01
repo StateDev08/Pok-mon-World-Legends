@@ -452,7 +452,7 @@ if ($pokecen_tijd > 0) {
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style.css" />
-		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style_override.css" />
+		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/style_override.css?v=9" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url?>/javascripts/flickity/flickity.min.css">
 
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery-3.7.1.min.js"></script>
@@ -488,16 +488,20 @@ if ($pokecen_tijd > 0) {
 		<div id="wrapper">
 			<div id="container">
 				<?php if (isset($_SESSION['id'])) include('app/includes/resources/poke-ovni.php'); ?>
-				<div id="header">
-					<div class="hub" style="z-index: 10">
-						<ul class="hub-hud">
-							<li class="hub-hud-line" style="width: 45%; text-align: left; vertical-align: top;">
-								<a href="./" class="noanimate" style="display:block; padding-top: 150px;">
-									<div id="logo" class="logo_<?=rand(1, 5)?>" style="display:block;"></div>
+				<?php
+				$header_character = basename($gebruiker['character'] ?? '');
+				if ($header_character === '' || !is_file(__DIR__ . '/public/images/characters/' . $header_character . '/bar.png')) $header_character = 'Ash';
+				?>
+				<div id="header" class="game-header">
+					<div class="header-primary">
+						<ul class="header-primary__grid">
+							<li class="header-logo">
+								<a href="./" class="noanimate header-logo__link">
+									<div id="logo" class="logo_<?=rand(1, 5)?>"></div>
 								</a>
 							</li>
-							<li class="hub-hud-line" style="text-align: right; padding-top: 150px; vertical-align: top;">
-								<div style="background: url('<?=$static_url?>/images/characters/<?=$gebruiker['character']?>/bar.png') no-repeat; border-radius: 5px; display: inline-block;">
+							<li class="header-player">
+								<div class="header-player__card" style="background-image: url('<?=$static_url?>/images/characters/<?=rawurlencode($header_character)?>/bar.png');">
 									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="<?=sprintf($txt['hud_premium_ends'], date('d/m/y H:i', $gebruiker['premiumaccount']));?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
 									<div style="background: url('<?=$static_url?>/images/layout/player.png') no-repeat; width: 520px; height: 93px">
 										<ul style="list-style: none; padding-top: 16px; color: #fff">
@@ -511,11 +515,9 @@ if ($pokecen_tijd > 0) {
 							</li>
 						</ul>
 					</div>
-					<div class="hub">
-						<ul class="hub-hud">
-							<li class="hub-hud-line" style="width: 45%">
-								<div style="float:left;margin:5px 0 0 5px;">
-									<?php
+					<div class="header-account">
+						<ul class="header-account__grid">
+								<?php
 									$flag_codes = ['pt','de','en','pl','ru','zh'];
 									$flag_names = ['pt'=>'Português','de'=>'Deutsch','en'=>'English','pl'=>'Polski','ru'=>'Русский','zh'=>'中文'];
 									$flag_current = $_SESSION['pa_language'] ?? $_COOKIE['pa_language'] ?? 'pt';
@@ -527,26 +529,19 @@ if ($pokecen_tijd > 0) {
 										'ru' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#FFF"/><rect y="5.33" width="24" height="5.33" fill="#0039A6"/><rect y="10.66" width="24" height="5.34" fill="#D52B1E"/></svg>',
 										'zh' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16"><rect width="24" height="16" fill="#DE2910"/><polygon points="4,2 4.8,4.3 7.2,4.3 5.2,5.7 6,8 4,6.5 2,8 2.8,5.7 0.8,4.3 3.2,4.3" fill="#FFDE00"/></svg>',
 									];
-									foreach ($flag_codes as $fcode) {
-										$fsel = $fcode === $flag_current ? 'border:2px solid #FFD700;border-radius:3px;' : '';
-										echo '<a href="?language=' . $fcode . ($page ? '&page=' . urlencode($page) : '') . '" class="noanimate" title="' . $flag_names[$fcode] . '" style="display:inline-block;margin:0 2px;vertical-align:middle;' . $fsel . '">' . $flag_svgs[$fcode] . '</a>';
-									}
 									?>
-								</div>
-							</li>
 							<?php $ab = (empty($_SESSION['id']) || !empty($_SESSION['share_acc']))? 'block' : 'add'; ?>
-							<li class="hub-hud-line" style="padding-right: 5px;"><div id="silvers" class="bright-low" <?=($gebruiker['silver'] >= 1000000)? 'title="'.highamount($gebruiker['silver']).'"' : ''?>"><div class="<?=$ab?>"></div><p><?=balance_converter($gebruiker['silver'])?></p></div></li>
-							<li class="hub-hud-line">
+							<li class="header-currency header-currency--silver"><div id="silvers" class="bright-low" <?=($gebruiker['silver'] >= 1000000)? 'title="'.highamount($gebruiker['silver']).'"' : ''?>><div class="<?=$ab?>"></div><p><?=balance_converter($gebruiker['silver'])?></p></div></li>
+							<li class="header-currency header-currency--gold">
 								<?php if ($ab != 'block') { ?> <a href="./donate" class="noanimate"><div id="golds" class="bright-low"><div class="<?=$ab?>"></div><p><?=highamount($rekening['gold'])?></p></div><span class="badges" style="float: right; margin-left: -20px; margin-top: -2px; z-index: 100; position: relative;">+</span></a> <?php } else { ?> <div id="golds" class="bright-low" title="<?=highamount($rekening['gold'])?>"><div class="<?=$ab?>"></div><p><?=balance_converter($rekening['gold'])?></p></div> <?php } ?>
 							</li>
-							<li class="hub-hud-line"><a href="./inbox" class="noanimate" style="float: right"><?=($general_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$general_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/mensagens.png" style="margin-top: -7px;" class="bright"></a></li>
-							<li class="hub-hud-line"><?=($events_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$events_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/perfil.png" style="margin-top: -10px; float: right" class="bright tip_bottom-right" title="<div class='user_hover'><a href='./profile&player=<?=$gebruiker['username']?>' class='noanimate'><div><i class='material-icons'>account_circle</i><?=isset($gebruiker['username'])? $gebruiker['username'] : $txt['hud_profile']?></div></a><a href='./my_characters' class='noanimate'><div><i class='material-icons'>group</i><?=$txt['hud_my_characters']?></div></a><a href='./events' class='noanimate'><div><i class='material-icons'>notifications_active</i><?=$txt['hud_notifications']?> (<?=$events_count?>)</div></a><a href='./account-options' class='noanimate'><div><i class='material-icons'>settings</i><?=$txt['hud_settings']?></div></a><a href='./logout' class='noanimate'><div><i class='material-icons'>close</i><?=$txt['hud_logout']?></div></a></div>"></li>
+							<li class="header-action header-action--inbox"><a href="./inbox" class="noanimate"><?=($general_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$general_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/mensagens.png" style="margin-top: -7px;" class="bright"></a></li>
+							<li class="header-action header-action--profile"><?=($events_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$events_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/perfil.png" style="margin-top: -10px; float: right" class="bright tip_bottom-right" title="<div class='user_hover'><a href='./profile&player=<?=$gebruiker['username']?>' class='noanimate'><div><i class='material-icons'>account_circle</i><?=isset($gebruiker['username'])? $gebruiker['username'] : $txt['hud_profile']?></div></a><a href='./my_characters' class='noanimate'><div><i class='material-icons'>group</i><?=$txt['hud_my_characters']?></div></a><a href='./events' class='noanimate'><div><i class='material-icons'>notifications_active</i><?=$txt['hud_notifications']?> (<?=$events_count?>)</div></a><a href='./account-options' class='noanimate'><div><i class='material-icons'>settings</i><?=$txt['hud_settings']?></div></a><a href='./logout' class='noanimate'><div><i class='material-icons'>close</i><?=$txt['hud_logout']?></div></a></div>"></li>
 						</ul>
 					</div>
-					<div class="hub" style="padding-top: 10px">
-						<ul class="hub-hud">
-							<li class="hub-hud-line" style="width: 45%;"></li>
-							<li class="hub-hud-line" style="width:160px">
+					<div class="header-extras">
+						<ul class="header-extras__grid">
+							<li class="header-events">
 								<div id="events">
 									<img src="<?=$static_url?>/images/icons/avatar/<?=$season[1]?>-season.png" title="<?=sprintf($txt['hud_season'], $season[0])?>" style="width: 49px;margin-top: -3px;margin-right: -3px;">
 									<?php if (($gebruiker['quest_1']+$gebruiker['quest_2']) < 2) { ?><span class="badges" style="float: right; margin-left: -20px; margin-top: 23px; z-index: 100; position: relative; cursor:pointer; width: 13px; height:13px; line-height: 14px; font-size:8px;" onclick="window.location = './daily_quests'"><?=(2-($gebruiker['quest_1']+$gebruiker['quest_2']))?></span><?php } ?><a href="./daily_quests" class="noanimate" style="display:block"><img src="<?=$static_url?>/images/icons/avatar/quests.png" title="<?=$txt['hud_daily_quests_tip']?>" style="margin-right: -3px;"></a>
@@ -560,8 +555,8 @@ if ($pokecen_tijd > 0) {
 										if ($bonus_sil > 1 && $bonus_sil < 5) { ?><img src="<?=$static_url?>/images/icons/avatar/<?=$bonus_sil?>x-silver.png" title="<?=sprintf($txt['hud_campaign_silver'], $exp_sil_conf[$bonus_sil-2])?>"><?php } ?>
 								</div>
 							</li>
-							<li class="hub-hud-line" style="width: 200px">
-								<div class="my_pokemons" style="float: right">
+							<li class="header-pokemon">
+								<div class="my_pokemons">
 								<?php if ($gebruiker['in_hand'] > 0) { 
 										$pkm_count = 6;
 										while($pokemon = $pokemon_sql->fetch_assoc()) {
@@ -605,6 +600,19 @@ if ($pokecen_tijd > 0) {
 							<?php if (($_SESSION['share_acc'] ?? 0) == 0){ ?><li><a href="./items" class="noanimate"><?=$txt['navbar_items']?> &bull;</a></li><?php } ?>
 							<li><a href="./attack/attack_map" class="noanimate"><?=$txt['navbar_map']?> &bull;</a></li>
 							<li><a href="./trainer" class="noanimate"><?=$txt['navbar_npcs']?> &bull;</a></li>
+							<li class="navbar-language">
+								<button type="button" class="navbar-language__toggle" aria-label="Language" aria-haspopup="true">
+									<?=$flag_svgs[$flag_current]?>
+									<span class="navbar-language__arrow">&#9662;</span>
+								</button>
+								<div class="navbar-language__dropdown">
+									<?php foreach ($flag_codes as $fcode) { ?>
+										<a href="?language=<?=$fcode?><?=($page ? '&amp;page=' . urlencode($page) : '')?>" class="noanimate navbar-language__option<?=($fcode === $flag_current ? ' is-active' : '')?>" title="<?=$flag_names[$fcode]?>">
+											<?=$flag_svgs[$fcode]?><span><?=$flag_names[$fcode]?></span>
+										</a>
+									<?php } ?>
+								</div>
+							</li>
 						</ul></center>
 					</div>
 				</div>
