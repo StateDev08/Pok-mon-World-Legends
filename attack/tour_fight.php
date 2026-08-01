@@ -3,7 +3,7 @@
 if (isset($_POST['here'])) {
   //Check alive pokemon.
   if (DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND leven>'0'")->num_rows == 0)
-    echo "Você não tem nenhum pokémon que possa batalhar!";
+    echo $txt['tour_no_pokemon'];
   else{
     //Include Duel Functions
     include_once('duel/duel-start.php');
@@ -47,7 +47,7 @@ if (isset($_POST['here'])) {
           VALUES ('".$pokemonopzak['id']."', '".($_SESSION['id'] ?? '')."', '-1', '".$excist['id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')");  
       }
       ?>
-        <span id="status">Aguarde</span>
+        <span id="status"><?= $txt['tour_wait'] ?></span>
         <script type="text/javascript">
         var t
         function status_check() {
@@ -62,7 +62,7 @@ if (isset($_POST['here'])) {
             }
             else if (data == 2) {
               clearTimeout(t) 
-              $("#status").append("O oponente não respondeu. Você ganhou.")
+              $("#status").append("<?= addslashes($txt['tour_opponent_no_answer']) ?>")
             }
             else{
               $("#status").append("...")
@@ -70,7 +70,7 @@ if (isset($_POST['here'])) {
             }
           });
         }
-        $("#status").html("Carregando")
+        $("#status").html("<?= addslashes($txt['tour_loading']) ?>")
         status_check()
         </script>
       <?php
@@ -111,8 +111,8 @@ else{
   Daarna stappen doorlopen zoals dat met duel ook gebeurd
   */
   echo '
-    <form method="post"><center>O Torneio começou.</center><br />
-    <center>  <input type="submit" name="here" value="Batalhar!"></center>
+    <form method="post"><center>' . $txt['tour_started'] . '</center><br />
+    <center>  <input type="submit" name="here" value="' . $txt['tour_battle_btn'] . '"></center>
     </form>';
 }
 ?>

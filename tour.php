@@ -283,7 +283,7 @@ if (count($ligas)) {
                                     echo ", ";
                                 }
                                 echo '<img src="'.$static_url.'/images/icons/star.png" alt="vip"/> ';
-                                echo "VIP";
+                                echo $txt['liga_currency_vip'];
                             }
                             ?>
                         </p>
@@ -315,7 +315,7 @@ if (count($ligas)) {
                                     echo '<img src="'.$static_url.'/images/pokemon/icon/' . $premio->getPokemon_id() . '.gif" alt="pokemon"/> ';
                                     $nome = DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id`='" . $premio->getPokemon_id() . "'")->fetch_assoc();
 									echo $nome['naam'];
-                                    echo " lv " . $premio->getLv_pokemon();
+								echo sprintf($txt['liga_level'], $premio->getLv_pokemon());
                                     $virgula = true;
                                 }
                                 if ($premio->getVip()) {

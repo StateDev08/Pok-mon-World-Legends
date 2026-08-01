@@ -4,7 +4,7 @@
 	$trainer = 1;
 	$lock = false;
 
-	echo addNPCBox(24, 'Batalhar contra NPC', 'Aqui você tem a oportunidade de procurar treinadores para desafia-los!<br /> Clicando no botão <b>PROCURAR NPC\'s</b> automaticamente um treinador aleatório será escolhido para batalhar com você.');
+	echo addNPCBox(24, $txt['trainer_npc_title'], $txt['trainer_npc_text']);
 	
 	if ($gebruiker['rank'] >= 4) {
 
@@ -64,7 +64,7 @@
 		}
 	}
 	} else {
-		echo '<div class="red">RANK MÍNIMO PARA BATALHAR CONTRA NPCS: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div>';
+		echo '<div class="red">' . $txt['trainer_rank_min'] . '</div>';
 	}
 
 	$trainer = ['Rival Barry', 'Scientist Chip', 'Jessie e James', 'Team Aether Sara', 'Team Rocket Butch', 'Team Skull Guzma'];
@@ -85,7 +85,7 @@
 <div class="box-content" style="display: inline-block; width: 100%;">
 	<table class="general" width="100%">
 		<thead>
-			<tr><th colspan="6">NPC's</th></tr>
+			<tr><th colspan="6"><?= $txt['trainer_table_title'] ?></th></tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -106,7 +106,7 @@
       <tr style="border-top: 1px solid #577599;">
           <td>
             <form method="post">
-							<?php if ($gebruiker['rank'] >= 4)  {?><center><input type='submit' name='submit' value='Procurar NPCs' class='button' style="margin: 6px"></center><?php } else { ?> <center><input type='submit' name='submit' value='SUBA DE RANK PARA DESAFIAR OS NPCS' class='button' style="margin: 6px" disabled></center> <?php } ?>
+							<?php if ($gebruiker['rank'] >= 4)  {?><center><input type='submit' name='submit' value='<?= $txt['trainer_search_btn'] ?>' class='button' style="margin: 6px"></center><?php } else { ?> <center><input type='submit' name='submit' value='<?= $txt['trainer_rank_btn'] ?>' class='button' style="margin: 6px" disabled></center> <?php } ?>
             </form>
           </td>
       </tr>
@@ -124,10 +124,10 @@
 					duration: dur,
 					stopImageNumber: num,
 					startCallback : function() {
-							$('input[name="submit"]').attr('value', 'Batalhar!');
+							$('input[name="submit"]').attr('value', '<?= $txt['trainer_battle_btn'] ?>');
 					},
 					stopCallback : function($stopElm) {
-							$('#trainer_name').text("Batalha contra <?=$selected[1]?>");
+							$('#trainer_name').text("<?= addslashes(sprintf($txt['trainer_vs'], $selected[1])) ?>");
 							setTimeout(() => {
 								window.location = window.location.href;
 							}, 1500);

@@ -211,12 +211,11 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
     $_SESSION['map_uniqid']   = uniqid(($_SESSION['id'] ?? ''));
     $_SESSION['attak_map_id'] = uniqid('am');
 
-    echo addNPCBox(11, 'Mapa de '.$gebruiker['wereld'], 'Olá, treinador! Seja bem vindo ao <b>MAPA</b> da região de '.$gebruiker['wereld'].'.<br>  
-Busque sempre progredir no jogo, e para isso derrote e capture vários Pokémons. Lembre-se sempre de andar com Poke balls, pois nunca se sabe qual Pokémon você irá encontrar no seu caminho!');
+    echo addNPCBox(11, sprintf($txt['map_title'], $gebruiker['wereld']), sprintf($txt['map_npc_text'], $gebruiker['wereld']));
 
     echo $error ?? '';
 ?>
-  <div class="blue">Para poder ter acesso ao mar/lago compre a <a href="./market&shopitem=items">FISHING ROD</a> e para ter acesso à gruta adquira o <a href="./market&shopitem=items">CAVE SUIT</a> NO <a href="./market&shopitem=items">MERCADO</a>!</div>
+  <div class="blue"><?=$txt['map_shop_hint'];?></div>
   <style type="text/css">
   input {
     border: 0px;

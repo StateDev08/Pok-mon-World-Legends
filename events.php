@@ -22,11 +22,11 @@ while($events = $event_sql->fetch_assoc()) {
   array_push($events_arr, $arr);
 }
 
-$text = 'Bom, aqui você poderá acompanhar todos os procedimentos feitos em seu jogo. <br>';
-if ($gebruiker['premiumaccount'] < time())	$text .= 'Usuários normais têm um limite de até as 30 notificações mais recentes.<br><br>&mdash; Seja VIP clicando <a href="./gold-market">AQUI</a> e aumente o limite para 60!';
-else	$text .= '<br><br>Você têm acesso as 60 notificações mais recentes.'; 
+$text = $txt['events_npc_text'].' <br>';
+if ($gebruiker['premiumaccount'] < time())	$text .= $txt['events_vip_text'];
+else	$text .= $txt['events_premium_text']; 
 
-echo addNPCBox(14, 'Minhas Notificações', $text);
+echo addNPCBox(14, $txt['events_title'], $text);
 ?>
 
 <div class="box-content" style="max-height: 495px; overflow-y: scroll">
@@ -34,7 +34,7 @@ echo addNPCBox(14, 'Minhas Notificações', $text);
     $size = sizeof($events_arr);
 
     if ($size == 0) {
-      echo '<h3 class="title" style="font-size: 14px">NÃO HÁ NOTIFICAÇÕES A SEREM LISTADAS!</h3>'; 
+      echo '<h3 class="title" style="font-size: 14px">'.$txt['events_no_notifications'].'</h3>'; 
     }
 
     for ($i = 0; $i < $size; $i++) {

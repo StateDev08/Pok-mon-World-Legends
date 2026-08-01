@@ -13,7 +13,7 @@ $naam = 'Badland';
 
 $row = DB::exQuery("SELECT `keylog` FROM `rekeningen` WHERE `acc_id`='$acc_id' LIMIT 1")->fetch_assoc();
 
-DB::exQuery("UPDATE `gebruikers` SET `session`='" . (session_id() ?? '') . "' WHERE `user_id`='$user_id' LIMIT 1");
+DB::exQuery("UPDATE `gebruikers` SET `session`='" . (session_id() ?? '') . "', `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='$user_id' LIMIT 1");
 
 $_SESSION['acc_id'] = $acc_id;
 $_SESSION['acc_naam'] = $acc_naam;

@@ -373,6 +373,9 @@ $pagina = $subpage * $max - $max;
 if ((isset($_POST['search_att']) && !is_array(($_POST['search_att'] ?? '')) && strlen(trim(($_POST['attack'] ?? ''))) != 0) || (isset($_GET['attack']) && strlen(trim(($_GET['attack'] ?? ''))) != 0))	$search2 = "SELECT * FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' AND `naam` REGEXP '" . (isset($_GET['attack']) && !is_array(($_GET['attack'] ?? '')) && strlen(trim(($_GET['attack'] ?? ''))) != 0 ? ($_GET['attack'] ?? '') : ($_POST['attack'] ?? '')) . "' ORDER BY naam ASC LIMIT ".$pagina.", ".$max;
 else	$search2 = "SELECT * FROM `markt` WHERE `soort`!='pokemon' AND `soort`!='tm' AND `soort`!='hm' ORDER BY `soort` ASC LIMIT " . $pagina . "," . $max;
 $attackquery = DB::exQuery($search2);
+$desc_lang = ($_COOKIE['pa_language'] ?? 'pt');
+if (!in_array($desc_lang, array('pt', 'de', 'en', 'pl'), true)) $desc_lang = 'en';
+$omschrijving_col = 'omschrijving_' . $desc_lang;
 for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	$rank = $number + $pagina;
 	$type_item = array(
@@ -407,7 +410,7 @@ for($number=1;$attack=$attackquery->fetch_assoc();++$number) {
 	echo '<tr>
 		<td align="center">'.$rank.'.</td>
 		<td align="left"><img src="'.$static_url.'/images/items/'.$attack['naam'].'.png" class="elipse" width="24" height="24">'.$attack['naam'].'</td>
-		<td align="center">'.$attack['omschrijving_pt'].'</td>
+		<td align="center">'.$attack[$omschrijving_col].'</td>
 		<td align="center"><b>'.$type_item[$attack['soort']].'</b></td>
 		<td align="center" data-order="'.$beschikbaar.'"><b>'.$attack['beschikbaar'].'</b></td>
 		<td align="center" data-order="'.$roleta.'"><b>'.$attack['roleta'].'</b></td>

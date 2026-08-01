@@ -67,7 +67,7 @@ echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
                         }
                     } else if ( !empty ($_GET['action']) && ($_GET['action'] ?? '') == 'send' ) {
 						$var->selected_modify('#new_msg');
-                        $var->text_modify ('#title', 'Nova Conversa');
+                        $var->text_modify ('#title', $txt['inbox_new_conv']);
                         
                         $player = '';
                         if (!empty($_GET['player'])) {

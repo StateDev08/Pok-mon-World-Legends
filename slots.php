@@ -1,13 +1,13 @@
 <?php
 include('app/includes/resources/security.php');
-echo addNPCBox(36, 'Caça-Níqueis', 'Aposte 150 Tickets na Máquina de Caça Níqueis, acerte as combinações e ganhe mais Tickets! <br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.');
+echo addNPCBox(36, $txt['slots_npc_title'], $txt['slots_npc_text']);
 
 $valid = false;
 
 if (isset($_POST['play-slots'])) {
     if ($gebruiker['tickets'] <= '149') { 
         $valid = false;
-        echo '<div class="red">Você não tem Tickets suficientes! Compre na <a href="./casino-store">LOJA DO CASSINO</a> ou <a href="./casino-store">JOGUE OUTROS MINIGAMES</a>!</div>'; 
+        echo '<div class="red">'.$txt['slots_not_enough'].'</div>'; 
     } else {
         $valid = true;
         
@@ -42,10 +42,10 @@ if (isset($_POST['play-slots'])) {
         DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`-'150' WHERE `user_id`='$gebruiker[user_id]'");
 
         if ($ticket > 0) {
-            echo '<div class="green" style="display: none" id="comb">Você conseguiu uma combinação e ganhou: '.$ticket.' TICKETS!</div>';
+            echo '<div class="green" style="display: none" id="comb">'.sprintf($txt['slots_won'], $ticket).'</div>';
             DB::exQuery("UPDATE `gebruikers` SET `tickets`=`tickets`+'$ticket' WHERE `user_id`='$gebruiker[user_id]'");
         } else {
-            echo '<div class="red" style="display: none" id="comb">Você não conseguiu nenhuma combinação.</div>';
+            echo '<div class="red" style="display: none" id="comb">'.$txt['slots_lost'].'</div>';
         } 
 
         echo '<script>setTimeout(function (){ $("#comb").show(500) }, 5250);</script>';
@@ -54,7 +54,7 @@ if (isset($_POST['play-slots'])) {
 
 ?>
 
-<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> Tickets no Inventário: <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
+<div class="box-content" style="margin-bottom: 7px"><h3 class="title" style="background: none"> <?=$txt['tickets_inventory']?> <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
 
 <style>
     .slots {
@@ -67,7 +67,7 @@ if (isset($_POST['play-slots'])) {
 <script src="<?=$static_url?>/javascripts/jquery.roulette.min.js"></script>
 
 <table class="general box-content" width="100%">
-    <thead><tr><th>Caça-Níqueis</th></tr></thead>
+    <thead><tr><th><?=$txt['slots_title']?></th></tr></thead>
     <tbody>
         <tr><td>
         <div class="row" style="text-align: center">
@@ -119,7 +119,7 @@ if (isset($_POST['play-slots'])) {
         <tr>
             <td>
                 <form method="post">
-                    <center><input type="submit" value="JOGAR" name="play-slots" style="margin: 6px"></center>
+                    <center><input type="submit" value="<?=$txt['slots_play']?>" name="play-slots" style="margin: 6px"></center>
                 </form>
             </td>
         </tr>
@@ -127,14 +127,14 @@ if (isset($_POST['play-slots'])) {
 </table>
 
 <div class="box-content" style="margin-top: 7px; text-align: center">
-    <table class="general" width="100%"><thead><tr onclick="wlBadges('#combinacao')" style="cursor: pointer"><th><b id="comb-text">Combinações (Clique para comprimir):</b></th></tr></thead>
+    <table class="general" width="100%"><thead><tr onclick="wlBadges('#combinacao')" style="cursor: pointer"><th><b id="comb-text"><?=$txt['slots_comb_collapse']?></b></th></tr></thead>
         <tr id="combinacao">
             <td style="padding:0">
                 <table class="general" style="width: 100%; font-size: 13px; font-weight: 600">
                         <tbody>
                             <tr>
-                                <td>Combinações:</td>
-                                <td>Prêmio:</td>
+                                <td><?=$txt['slots_comb']?></td>
+                                <td><?=$txt['slots_prize']?></td>
                             </tr>
                             <tr>
                                 <td><img src="<?=$static_url?>/images/slots/4.png"> <img src="<?=$static_url?>/images/slots/4.png"> <img src="<?=$static_url?>/images/slots/4.png"></td>
@@ -188,10 +188,10 @@ if (isset($_POST['play-slots'])) {
 	function wlBadges( el ) {
 		$(el).toggleClass('wlBadges');
         if (!open) {
-            $('#comb-text').text('Combinações (Clique para comprimir):');
+            $('#comb-text').text('<?=$txt['slots_comb_collapse']?>');
             open = true;
         } else {
-            $('#comb-text').text('Combinações (Clique para expandir):');
+            $('#comb-text').text('<?=$txt['slots_comb_expand']?>');
             open = false;
         }
 	}
@@ -222,7 +222,7 @@ function start(obj, dur, num) {
     $(obj).roulette('start');
 
     $('.aux').hide();
-    $('input[name="play-slots"]').val('Jogar novamente');
+    $('input[name="play-slots"]').val('<?=$txt['slots_play_again']?>');
 }
 
 start('.r1', '2', '<?=$val[0]?>'); start('.r2', '3', '<?=$val[1]?>'); start('.r3', '4', '<?=$val[2]?>');

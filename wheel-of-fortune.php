@@ -1,7 +1,7 @@
 <?php
 include("app/includes/resources/security.php");
 
-echo addNPCBox(36, "Roda da Fortuna", 'Todo dia você terá alguns giros grátis para jogar aqui na RODA DA FORTUNA e ganhar recompensas!<br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.');
+echo addNPCBox(36, $txt['wof_npc_title'], $txt['wof_npc_text']);
 
 $arr = [false, false, false, false, false, false];
 
@@ -23,13 +23,13 @@ if (isset($_POST['draai'])) {
 	$quests->setStatus('spin', ($_SESSION['id'] ?? ''));
   	#WIN: 100 silver
   	if ($getal == 0) {
-  		$melding = '<div class="green">VOCÊ GANHOU <img src="'.$static_url.'/images/icons/ticket.png"> 100 TICKETS!</div>';
+  		$melding = '<div class="green">'.sprintf($txt['wof_won_tickets'], 100).' <img src="'.$static_url.'/images/icons/ticket.png"></div>';
 		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'100' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
   	}
   	#WIN: 250 silver
   	else if ($getal == 1) {
-  		$melding = '<div class="green">VOCÊ GANHOU <img src="'.$static_url.'/images/icons/ticket.png"> 250 TICKETS!</div>';
+  		$melding = '<div class="green">'.sprintf($txt['wof_won_tickets'], 250).' <img src="'.$static_url.'/images/icons/ticket.png"></div>';
 		DB::exQuery("UPDATE gebruikers SET geluksrad=geluksrad-'1', tickets=tickets+'250' WHERE user_id='".($_SESSION['id'] ?? '')."'");
 		$gebruiker['geluksrad']--;
   	}
@@ -93,7 +93,7 @@ if (isset($melding) && !empty($melding)) echo $melding;
   <table class="general" width="100%">
 		<thead>
 			<tr>
-				<th>Roda da Fortuna</th>
+				<th><?=$txt['wof_title']?></th>
 			</tr>
 		</thead>
 		<tbody>    <tr>
@@ -109,32 +109,32 @@ if (isset($melding) && !empty($melding)) echo $melding;
         $('#wheel').easyWheel({
             items : [
                 {
-                  name    : '100 TICKETS',
+                  name    : '<?=$txt['wof_wheel_100']?>',
                   color   : '#f44336',
 				  win	  : '<?=var_export($arr[0])?>'
                 },
                 {
-                  name    : '250 TICKETS',
+                  name    : '<?=$txt['wof_wheel_250']?>',
                   color   : '#ffc107',
 				  win	  : '<?=var_export($arr[1])?>'
                 },
                 {
-                  name    : 'POKÉBALL',
+                  name    : '<?=$txt['wof_wheel_ball']?>',
                   color   : '#3498db',
 				  win	  : '<?=var_export($arr[2])?>'
                 },
                 {
-                  name    : 'ITEM ESPECIAL',
+                  name    : '<?=$txt['wof_wheel_item']?>',
                   color   : '#f44336',
 				  win	    : '<?=var_export($arr[3])?>'
                 },
                 {
-                  name    : 'PEDRA EVOLUTIVA',
+                  name    : '<?=$txt['wof_wheel_stone']?>',
                   color   : '#ffc107',
 				  win	  : '<?=var_export($arr[4])?>'
                 },
                 {
-                  name    : 'TM',
+                  name    : '<?=$txt['wof_wheel_tm']?>',
                   color   : '#3498db',
 				  win	  : '<?=var_export($arr[5])?>'
                 }

@@ -12,7 +12,7 @@ if (isset($_GET['action']) && in_array(($_GET['action'] ?? ''), $actions)) {
 	else if ($action == 'profile') $valid = true;
 
 	if ($valid) include('app/includes/resources/pages/clans/'.$action.'.php');	
-	else echo '<div class="red">RANK MÍNIMO PARA TER ACESSO AOS CLÃS: 5 - FIRST COACH. CONTINUE UPANDO PARA LIBERAR!</div>';	
+	else echo '<div class="red">'.$txt['clans_rank_min'].'</div>';	
 } else {
 	header('location: ./clans&action=central');
 }

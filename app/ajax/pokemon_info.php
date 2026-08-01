@@ -11,7 +11,7 @@ if (isset($_GET['pokemon']) && is_numeric(($_GET['pokemon'] ?? ''))) {
 		$aantallevelen = $levelensql->num_rows;
   		$contcem = DB::exQuery("SELECT id FROM pokemon_speler WHERE wild_id = '".(int)($_GET['pokemon'] ?? '')."' and level='100'")->num_rows;
 		if ($info['naam'] == "") {
-			echo "Escolha um pokémon.";
+			echo $txt['info_choose_pokemon'];
 			exit();
 		}
 
@@ -20,15 +20,10 @@ if (isset($_GET['pokemon']) && is_numeric(($_GET['pokemon'] ?? ''))) {
 
 		$info['naam'] = computer_naam($info['naam']);
 
-		$zeldzaam = DB::exQuery("SELECT `nome` FROM `zeldzaamheid` WHERE `id`='".$info['zeldzaamheid']."'")->fetch_assoc()['nome'];
+		$zeldzaamq = DB::exQuery("SELECT `nome` FROM `zeldzaamheid` WHERE `id`='".$info['zeldzaamheid']."'")->fetch_assoc();
+		$zeldzaam = $txt['pokedex_rarity_'.$info['zeldzaamheid']] ?? $zeldzaamq['nome'];
 
-		if ($info['gebied'] == "Gras")				$info['gebied'] = "Grama";
-		else if ($info['gebied'] == "Lavagrot")		$info['gebied'] = "Lava";
-		else if ($info['gebied'] == "Water")			$info['gebied'] = "Agua";
-		else if ($info['gebied'] == "Grot")			$info['gebied'] = "Gruta";
-		else if ($info['gebied'] == "Strand")			$info['gebied'] = "Praia";
-		else if ($info['gebied'] == "Vechtschool")	$info['gebied'] = "Dojo";
-		else if ($info['gebied'] == "Spookhuis")		$info['gebied'] = "Torre";
+		$info['gebied'] = $txt['info_area_'.$info['gebied']] ?? $info['gebied'];
 
 		if (empty($info['gebied'])) $gebied = $txt['not_a_favorite_place'];
   		else if ($info['gebied'] == "Mega" OR $info['gebied'] == "Primal" OR $info['wereld'] == "Promo") $gebied = $txt['not_a_favorite_place'];
@@ -96,7 +91,7 @@ while($pgtop3x = $pgtop3->fetch_assoc()) {
 	$top3 .=  '
 	<td width="33.33%" align="center">
 	<div class="tip_top-middle" title="'.$popup.'" style="width: 100%; height: 130px; background: url(\'' . $static_url . '/'.$pokemon_profile['link'].'\') center center no-repeat;"></div>
-	Poder Total: <b>'. highamount($pokemon_profile['powertotal']).'</b> 
+	'.$txt['info_total_power'].' <b>'. highamount($pokemon_profile['powertotal']).'</b> 
 	<br>
 	<img src="'.$static_url.'/images/icons/'.$rnk.'.png"> <a href="./profile&amp;player=' . $pokemon_profile['username'] . '">'.GetColorName($pokemon_profile['user_id']).'</a>
 	</td>
@@ -111,7 +106,7 @@ while($pgtop3x = $pgtop3->fetch_assoc()) {
 
 	
 }
-if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</div></td>';
+if ($i == 1) $top3 = '<td><div class="red">'.$txt['info_no_pokemon_species'].'</div></td>';
 	$evolui_de = '-';
 	$evoluide = DB::exQuery("SELECT * FROM levelen where nieuw_id = '".(int)($_GET['pokemon'] ?? '')."' and wat='evo' limit 1");
 	if ($evoluide->num_rows != 0) {
@@ -129,13 +124,13 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 	}
 	
 	$egg = $info['egg'];
-	$egg_rar = array('Comum', 'Incomum', 'Raro', 'Lendário/Inicial');
+	$egg_rar = array($txt['pokedex_rarity_1'], $txt['pokedex_rarity_2'], $txt['pokedex_rarity_3'], $txt['info_egg_legendary']);
 	if ($info['zeldzaamheid'] >= 5) $info['zeldzaamheid'] = 4;
 	
 	if ($egg == '1' && $info['evolutie'] == '1') {
-	    $egg = '<b>Sim ['.$egg_rar[($info['zeldzaamheid']-1)].']</b>';
+	    $egg = '<b>'.$txt['info_egg_yes'].' ['.$egg_rar[($info['zeldzaamheid']-1)].']</b>';
 	} else {
-	    $egg = '<b>Não</b>';
+	    $egg = '<b>'.$txt['info_egg_no'].'</b>';
 	}
 	
 
@@ -153,7 +148,7 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 							<td align="center">' . $gebied . '</td>
 						</tr>
 						<tr>
-							<td><b>&raquo; Possíveis Habilidade(s):</b></td>
+							<td><b>&raquo; '.$txt['info_possible_abilities'].'</b></td>
 							<td align="center">' . substr($abilities_2, 0, -2) . '</td>
 						</tr>
 						<tr>
@@ -161,15 +156,15 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 							<td align="center">' . $eredmeny . '%</td>
 						</tr>
 						<tr>
-							<td><b>&raquo; Pode vir no PokéMart?</b></td>
+							<td><b>&raquo; '.$txt['info_can_come_pokemart'].'</b></td>
 							<td align="center">'.$egg.'</td>
 						</tr>
-						<tr><td align="center" colspan="2">' . sprintf($txt['how_much'], highamount($info['hoeveelingame']), $info['naam']) . '   <br>Existem <b>'.highamount($contcem).'</b> no level 100. </td></tr>
+						<tr><td align="center" colspan="2">' . sprintf($txt['how_much'], highamount($info['hoeveelingame']), $info['naam']) . '   <br>'.sprintf($txt['info_exist_level100'], highamount($contcem)).'</td></tr>
 					</tbody>
 				</table></div>
 				<div class="box-content" style="margin-top: 3px"><table class="general" style="width:365px;">
 					<thead>
-						<tr><th colspan="6">Base stats</th></tr>
+						<tr><th colspan="6">'.$txt['info_base_stats'].'</th></tr>
 						<tr>
 							<th style="width: 60px;" align="center"><img src="' . $static_url . '/images/icons/stats/stat_hp.png" title="HP" /></th>
 							<th style="width: 61px;" align="center"><img src="' . $static_url . '/images/icons/stats/stat_at.png" title="Attack" /></th>
@@ -190,12 +185,12 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 				</table></div>
 				<div class="box-content" style="margin-top: 3px"><table class="general" style="width:365px;">
 					<thead>
-						<tr><th colspan="4">Ataques</th></tr>
+						<tr><th colspan="4">'.$txt['info_attacks'].'</th></tr>
 						<tr>
-							<th width="25%">Ataque 1</th>
-							<th width="25%">Ataque 2</th>
-							<th width="25%">Ataque 3</th>
-							<th width="25%">Ataque 4</th>
+							<th width="25%">'.sprintf($txt['info_attack_num'], '1').'</th>
+							<th width="25%">'.sprintf($txt['info_attack_num'], '2').'</th>
+							<th width="25%">'.sprintf($txt['info_attack_num'], '3').'</th>
+							<th width="25%">'.sprintf($txt['info_attack_num'], '4').'</th>
 						</tr>
 					</thead>
 					<tbody><tr>
@@ -207,7 +202,7 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 				</table></div>
 				<div class="box-content" style="margin-top: 3px"><table class="general" style="width:365px;">
 					<thead>
-						<tr><th colspan="4">TOP 3 Melhores da Espécie</th></tr>
+						<tr><th colspan="4">'.$txt['info_top3_species'].'</th></tr>
 					</thead>
 					<tbody><tr>
 				
@@ -267,7 +262,7 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 								}
  
 								if (!empty($levelen['item']) && $levelen['trade'] == 1) {
-									$method .= ' + <img src="' . $static_url . '/images/items/'.$levelen['item'].'.png" title="Segurando o item ' . $levelen['item'] . '" width="16"/>';
+									$method .= ' + <img src="' . $static_url . '/images/items/'.$levelen['item'].'.png" title="'.sprintf($txt['info_holding_item'], $levelen['item']).'" width="16"/>';
 								}
 
 								echo '<td align="center">'.$method.'</td>';
@@ -279,7 +274,7 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 				echo '</tbody></table></div>';
 				echo '<div class="box-content" style="margin-top: 3px"><table class="general" style="width:365px;">
 					<thead>
-						<tr><th colspan="6">Ganho de EVs</th></tr>
+						<tr><th colspan="6">'.$txt['info_ev_gain'].'</th></tr>
 						<tr>
 							<th style="width: 60px;" align="center"><img src="' . $static_url . '/images/icons/stats/stat_hp.png" title="EV HP" /></th>
 							<th style="width: 61px;" align="center"><img src="' . $static_url . '/images/icons/stats/stat_at.png" title="EV Attack" /></th>
@@ -301,7 +296,7 @@ if ($i == 1) $top3 = '<td><div class="red">Não há Pokémons dessa espécie!</d
 				$getTmHm = DB::exQuery("SELECT `tmhm`.*,`tmhm_relacionados`.`relacionados` FROM `tmhm` LEFT JOIN `tmhm_relacionados` ON `tmhm`.`naam`=`tmhm_relacionados`.`naam` ORDER BY `tmhm`.`naam` ASC");
 				if ($getTmHm->num_rows != 0) {
 					echo '<div class="box-content" style="margin-top: 3px;max-height: 300px; overflow-y: auto"><table class="general" width="100%">
-						<thead><tr><th>TM / HM</th></tr></thead>
+						<thead><tr><th>'.$txt['info_tm_hm'].'</th></tr></thead>
 						<tbody><tr><td align="center">';
 					while($tmhm = $getTmHm->fetch_assoc()) {
 						$wilds_id = explode(',', $tmhm['relacionados']);
@@ -466,6 +461,7 @@ class Retornoo
 }
 #Vantagens (Water sobre Fire)
 function attack_to_defender_advantage($soort,$defender) {
+  global $txt;
   $ret = new Retornoo();
   $voordeel2 = DB::exQuery("SELECT `krachtiger` FROM `voordeel` WHERE `aanval`='".$soort."' AND `verdediger`='".ucfirst($defender['type1'])."'")->fetch_assoc();
 	$voordeel3 = DB::exQuery("SELECT `krachtiger` FROM `voordeel` WHERE `aanval`='".$soort."' AND `verdediger`='".ucfirst($defender['type2'])."'")->fetch_assoc();
@@ -478,14 +474,14 @@ function attack_to_defender_advantage($soort,$defender) {
 
 	$ret->vlr = $voordeel;
   
-  if ($ret->vlr == 0) {$ret->vlr2 = "eff0"; $ret->vlr3 = "Sem efeito."; }
-  else if ($ret->vlr == 1) {$ret->vlr2 = "eff1"; $ret->vlr3 = "Eficácia normal."; }
-  else if ($ret->vlr == 1.38) {$ret->vlr2 = "eff1"; $ret->vlr3 = "Eficácia normal."; }
-  else if ($ret->vlr == 2.00) {$ret->vlr2 = "eff2"; $ret->vlr3 = "Super efetivo."; }
-  else if ($ret->vlr == 4.00) {$ret->vlr2 = "eff4"; $ret->vlr3 = "Super efetivo."; }
-  else if ($ret->vlr == 2.76) {$ret->vlr2 = "eff2"; $ret->vlr3 = "Super efetivo."; }
-  else if ($ret->vlr == 0.50) {$ret->vlr2 = "eff12"; $ret->vlr3 = "Não muito efetivo."; }
-  else if ($ret->vlr == 0.25) {$ret->vlr2 = "eff14"; $ret->vlr3 = "Não muito efetivo."; }
+  if ($ret->vlr == 0) {$ret->vlr2 = "eff0"; $ret->vlr3 = $txt['info_no_effect']; }
+  else if ($ret->vlr == 1) {$ret->vlr2 = "eff1"; $ret->vlr3 = $txt['info_normal_effect']; }
+  else if ($ret->vlr == 1.38) {$ret->vlr2 = "eff1"; $ret->vlr3 = $txt['info_normal_effect']; }
+  else if ($ret->vlr == 2.00) {$ret->vlr2 = "eff2"; $ret->vlr3 = $txt['info_super_effective']; }
+  else if ($ret->vlr == 4.00) {$ret->vlr2 = "eff4"; $ret->vlr3 = $txt['info_super_effective']; }
+  else if ($ret->vlr == 2.76) {$ret->vlr2 = "eff2"; $ret->vlr3 = $txt['info_super_effective']; }
+  else if ($ret->vlr == 0.50) {$ret->vlr2 = "eff12"; $ret->vlr3 = $txt['info_not_very_effective']; }
+  else if ($ret->vlr == 0.25) {$ret->vlr2 = "eff14"; $ret->vlr3 = $txt['info_not_very_effective']; }
   
   return $ret;
 }
@@ -494,7 +490,7 @@ else $nm = ''.ucfirst($info['type1']).'/'.ucfirst($info['type2']).'';
 
 				
 					echo '<div class="box-content" style="margin-top: 3px"><table class="general" width="100%">
-						<thead><tr><th>Vantagens e desvantagens</th></tr></thead>
+						<thead><tr><th>'.$txt['info_advantages_disadvantages'].'</th></tr></thead>
 						<tbody><tr><td align="center">';
 					?>
 					
@@ -533,39 +529,39 @@ else $nm = ''.ucfirst($info['type1']).'/'.ucfirst($info['type2']).'';
 <tr>
 <td>
 <?php $inff = attack_to_defender_advantage('Normal',$info); ?>
-<div class="typee <?=$inff->vlr2?>" title="Ataque Normal → <?php echo $nm; ?> = <?=$inff->vlr3?>"><?=$inff->vlr?>x</div>
+<div class="typee <?=$inff->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Normal', $nm, $inff->vlr3); ?>"><?=$inff->vlr?>x</div>
 </td>
 <td>
 <?php $inff2 = attack_to_defender_advantage('Fire',$info); ?>
-<div class="typee <?=$inff2->vlr2?>" title="Ataque Fire → <?php echo $nm; ?> = <?=$inff2->vlr3?>"><?=$inff2->vlr?>x</div>
+<div class="typee <?=$inff2->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Fire', $nm, $inff2->vlr3); ?>"><?=$inff2->vlr?>x</div>
 </td>
 <td>
 <?php $inff3 = attack_to_defender_advantage('Water',$info); ?>
-<div class="typee <?=$inff3->vlr2?>" title="Ataque Water → <?php echo $nm; ?> = <?=$inff3->vlr3?>"><?=$inff3->vlr?>x</div>
+<div class="typee <?=$inff3->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Water', $nm, $inff3->vlr3); ?>"><?=$inff3->vlr?>x</div>
 </td>
 <td>
 <?php $inff4 = attack_to_defender_advantage('Electric',$info); ?>
-<div class="typee <?=$inff4->vlr2?>" title="Ataque Electric → <?php echo $nm; ?> = <?=$inff4->vlr3?>"><?=$inff4->vlr?>x</div>
+<div class="typee <?=$inff4->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Electric', $nm, $inff4->vlr3); ?>"><?=$inff4->vlr?>x</div>
 </td>
 <td>
 <?php $inff5 = attack_to_defender_advantage('Grass',$info); ?>
-<div class="typee <?=$inff5->vlr2?>" title="Ataque Grass → <?php echo $nm; ?> = <?=$inff5->vlr3?>"><?=$inff5->vlr?>x</div>
+<div class="typee <?=$inff5->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Grass', $nm, $inff5->vlr3); ?>"><?=$inff5->vlr?>x</div>
 </td>
 <td>
 <?php $inff6 = attack_to_defender_advantage('Ice',$info); ?>
-<div class="typee <?=$inff6->vlr2?>" title="Ataque Ice → <?php echo $nm; ?> = <?=$inff6->vlr3?>"><?=$inff6->vlr?>x</div>
+<div class="typee <?=$inff6->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Ice', $nm, $inff6->vlr3); ?>"><?=$inff6->vlr?>x</div>
 </td>
 <td>
 <?php $inff7 = attack_to_defender_advantage('Fighting',$info); ?>
-<div class="typee <?=$inff7->vlr2?>" title="Ataque Fighting → <?php echo $nm; ?> = <?=$inff7->vlr3?>"><?=$inff7->vlr?>x</div>
+<div class="typee <?=$inff7->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Fighting', $nm, $inff7->vlr3); ?>"><?=$inff7->vlr?>x</div>
 </td>
 <td>
 <?php $inff8 = attack_to_defender_advantage('Poison',$info); ?>
-<div class="typee <?=$inff8->vlr2?>" title="Ataque Poison → <?php echo $nm; ?> = <?=$inff8->vlr3?>"><?=$inff8->vlr?>x</div>
+<div class="typee <?=$inff8->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Poison', $nm, $inff8->vlr3); ?>"><?=$inff8->vlr?>x</div>
 </td>
 <td>
 <?php $inff9 = attack_to_defender_advantage('Ground',$info); ?>
-<div class="typee <?=$inff9->vlr2?>" title="Ataque Ground → <?php echo $nm; ?> = Sem efeito."><?=$inff9->vlr?>x</div>
+<div class="typee <?=$inff9->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Ground', $nm, $inff9->vlr3); ?>"><?=$inff9->vlr?>x</div>
 </td>
 <td>
 </tr>
@@ -606,39 +602,39 @@ else $nm = ''.ucfirst($info['type1']).'/'.ucfirst($info['type2']).'';
 <tr>
 <td>
 <?php $inff11 = attack_to_defender_advantage('Psychic',$info); ?>
-<div class="typee <?=$inff11->vlr2?>" title="Ataque Psychic → <?php echo $nm; ?> = <?=$inff11->vlr3?>"><?=$inff11->vlr?>x</div>
+<div class="typee <?=$inff11->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Psychic', $nm, $inff11->vlr3); ?>"><?=$inff11->vlr?>x</div>
 </td>
 <td>
 <?php $inff12 = attack_to_defender_advantage('Bug',$info); ?>
-<div class="typee <?=$inff12->vlr2?>" title="Ataque Bug → <?php echo $nm; ?> = <?=$inff12->vlr3?>"><?=$inff12->vlr?>x</div>
+<div class="typee <?=$inff12->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Bug', $nm, $inff12->vlr3); ?>"><?=$inff12->vlr?>x</div>
 </td>
 <td>
 <?php $inff13 = attack_to_defender_advantage('Rock',$info); ?>
-<div class="typee <?=$inff13->vlr2?>" title="Ataque Rock → <?php echo $nm; ?> = <?=$inff13->vlr3?>"><?=$inff13->vlr?>x</div>
+<div class="typee <?=$inff13->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Rock', $nm, $inff13->vlr3); ?>"><?=$inff13->vlr?>x</div>
 </td>
 <td>
 <?php $inff14 = attack_to_defender_advantage('Ghost',$info); ?>
-<div class="typee <?=$inff14->vlr2?>" title="Ataque Ghost → <?php echo $nm; ?> = <?=$inff14->vlr3?>"><?=$inff14->vlr?>x</div>
+<div class="typee <?=$inff14->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Ghost', $nm, $inff14->vlr3); ?>"><?=$inff14->vlr?>x</div>
 </td>
 <td>
 <?php $inff15 = attack_to_defender_advantage('Dragon',$info); ?>
-<div class="typee <?=$inff15->vlr2?>" title="Ataque Dragon → <?php echo $nm; ?> = <?=$inff15->vlr3?>"><?=$inff15->vlr?>x</div>
+<div class="typee <?=$inff15->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Dragon', $nm, $inff15->vlr3); ?>"><?=$inff15->vlr?>x</div>
 </td>
 <td>
 <?php $inff16 = attack_to_defender_advantage('Dark',$info); ?>
-<div class="typee <?=$inff16->vlr2?>" title="Ataque Dark → <?php echo $nm; ?> = <?=$inff16->vlr3?>"><?=$inff16->vlr?>x</div>
+<div class="typee <?=$inff16->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Dark', $nm, $inff16->vlr3); ?>"><?=$inff16->vlr?>x</div>
 </td>
 <td>
 <?php $inff17 = attack_to_defender_advantage('Stell',$info); ?>
-<div class="typee <?=$inff17->vlr2?>" title="Ataque Stell → <?php echo $nm; ?> = <?=$inff17->vlr3?>"><?=$inff17->vlr?>x</div>
+<div class="typee <?=$inff17->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Stell', $nm, $inff17->vlr3); ?>"><?=$inff17->vlr?>x</div>
 </td>
 <td>
 <?php $inff18 = attack_to_defender_advantage('Fairy',$info); ?>
-<div class="typee <?=$inff18->vlr2?>" title="Ataque Fairy → <?php echo $nm; ?> = <?=$inff18->vlr3?>"><?=$inff18->vlr?>x</div>
+<div class="typee <?=$inff18->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Fairy', $nm, $inff18->vlr3); ?>"><?=$inff18->vlr?>x</div>
 </td>
 <td>
 <?php $inff10 = attack_to_defender_advantage('Flying',$info); ?>
-<div class="typee <?=$inff10->vlr2?>" title="Ataque Flying → <?php echo $nm; ?> = <?=$inff10->vlr3?>"><?=$inff10->vlr?>x</div>
+<div class="typee <?=$inff10->vlr2?>" title="<?php echo sprintf($txt['info_attack_title'], 'Flying', $nm, $inff10->vlr3); ?>"><?=$inff10->vlr?>x</div>
 </td>
 </tr>
 

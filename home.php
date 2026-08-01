@@ -115,7 +115,7 @@
 		</div>
 		<div class="box-content">
 			<h3 class="title"><?=$txt['home_news']?></h3>
-			<p>[16/07/2019] - <b>VERSÃO 1.4</b> LANÇADA! CONFIRA AS <b>NOTAS DE ATUALIZAÇÃO</b> NAS <a href="./official-messages">MENSAGENS OFICIAIS</a>!</p>
+			<p><?=sprintf($txt['home_news_text'], 'VERSÃO 1.4')?></p>
 		</div>
 </div>
 <?php } else {

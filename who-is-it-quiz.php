@@ -1,7 +1,7 @@
 <?php 
 include("app/includes/resources/security.php");
 
-echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? Para ganhar aqui tem que ser! <br>Você pode tentar acertar o nome deste Pokémon uma vez a <b>cada hora</b> por <b>50 TICKETS</b>. <br>Caso você acerte, você ganha <b>100 TICKETS!</b><br> Clique <a href="./casino">AQUI</a> para <b>voltar</b> ao Cassino.');
+echo addNPCBox(36, $txt['quiz_npc_title'], $txt['quiz_npc_text']);
 
 	$keuzessql = DB::exQuery("SELECT wild_id, naam FROM pokemon_wild ORDER BY naam ASC");
 	$pass = 1;
@@ -65,7 +65,7 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 	if ($pass != 0) {
 	
 ?>
-<div class="box-content" style="margin-bottom: 7px;"><h3 class="title" style="background: none"> Tickets no Inventário: <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
+<div class="box-content" style="margin-bottom: 7px;"><h3 class="title" style="background: none"> <?=$txt['tickets_inventory']?> <img src="<?=$static_url?>/images/icons/ticket.png" title="Tickets" />  <?= highamount($gebruiker['tickets']); ?></h3> </div>
 
 <div class="box-content">
 <form method="post">
@@ -73,7 +73,7 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 <table class="general" width="100%" style="text-align: center">
 		<thead>
 			<tr>
-				<th>Quem é este Pokémon?</th>
+				<th><?=$txt['quiz_title']?></th>
 			</tr>
 		</thead>
     <tr>
@@ -91,7 +91,7 @@ echo addNPCBox(36, "Quem é esse Pokémon?", 'Você é uma PokéDex ambulante? P
 </select></td>
 	</tr>
     <tr>
-    	<td><input type="submit" name="submit" value="Tentar advinhar" class="button" <?php echo $disable; ?>></td>
+    	<td><input type="submit" name="submit" value="<?=$txt['quiz_guess']?>" class="button" <?php echo $disable; ?>></td>
     </tr>
 </table>
 </center>

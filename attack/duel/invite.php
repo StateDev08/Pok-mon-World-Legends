@@ -24,7 +24,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
         else if (!ctype_digit(($_POST['bedrag'] ?? '')))
             echo '<div class="red">' . $txt['alert_unknown_amount'] . '</div>';
 
-        else if ($gebruiker['rank'] < 4) echo '<div class="red">Você não tem RANK SUFICIENTE PARA DUELAR!</div>';
+        else if ($gebruiker['rank'] < 4) echo '<div class="red">' . $txt['duel_rank_insufficient'] . '</div>';
 
         else if ($gebruiker['silver'] < ($_POST['bedrag'] ?? ''))
             echo '<div class="red">' . $txt['alert_not_enough_silver'] . '</div>';
@@ -45,7 +45,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                 if ($select['wereld'] != $gebruiker['wereld'])
                     echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_not_in'] . ' ' . $gebruiker['wereld'] . '.</div>';
 
-                else if ($select['rank'] < 4) echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . ' não tem RANK SUFICIENTE!</div>';
+                else if ($select['rank'] < 4) echo '<div class="red">' . sprintf($txt['duel_opponent_rank_insufficient'], ($_POST['naam'] ?? '')) . '</div>';
 
                 else if ($select['dueluitnodiging'] == 0)
                     echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_duelevent_off'] . '</div>';
@@ -53,15 +53,15 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                 else if (($select['pagina'] == "attack") || ($select['pagina'] == "attack-trainer") || ($select['pagina'] == "duel"))
                     echo '<div class="red">' . ($_POST['naam'] ?? '') . ' ' . $txt['alert_opponent_already_fighting'] . '</div>';
                 else if (DB::exQuery("SELECT * FROM league_battle WHERE (user_id1 = '" . $select['user_id'] . "' OR user_id2 = '" . $select['user_id'] . "') AND ((NOW()" . League::$ajuste_tempo_string . ") BETWEEN (inicio - INTERVAL 5 MINUTE - INTERVAL 5 SECOND) AND inicio)")->num_rows >0)
-                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' Seu oponete está se preparando para uma batalha na liga pokémon</div>';
+                    echo '<div class="red">' . $txt['duel_opponent_league_prep'] . '</div>';
                 else if (($select['online'] + 900) <= time()) 
-                    echo '<div class="red">' . ($_POST['naam'] ?? '') . ' está <b>OFFLINE</b>!</div>';
+                    echo '<div class="red">' . sprintf($txt['duel_opponent_offline'], ($_POST['naam'] ?? '')) . '</div>';
                 else if ($lock)
-                    echo '<div class="red">Você já desafiou algum treinador! Por favor, aguarde a resposta!</div>';
+                    echo '<div class="red">' . $txt['duel_already_challenged'] . '</div>';
                 else if (in_array($select['user_id'], $blocklist_1))
-                    echo '<div class="red">Você bloqueou este treinador!</div>';
+                    echo '<div class="red">' . $txt['duel_blocked_trainer'] . '</div>';
                 else if (in_array(($_SESSION['id'] ?? ''), $blocklist_2))
-                    echo '<div class="red">Você foi bloqueado por este treinador!</div>';
+                    echo '<div class="red">' . $txt['duel_blocked_by'] . '</div>';
                 else {
                     $date = strtotime(date("Y-m-d H:i:s"));
                     DB::exQuery("INSERT INTO duel (datum, uitdager, tegenstander, u_character, t_character, bedrag, status, laatste_beurt_tijd, laatste_beurt)
@@ -87,20 +87,19 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
     }
 
     if ($gebruiker['rank'] < 4) {
-        echo '<div class="red">RANK MÍNIMO PARA DESAFIAR OUTROS TREINADORES: 4 - TRAINER. CONTINUE UPANDO PARA LIBERAR!</div>';
+        echo '<div class="red">' . $txt['duel_rank_min'] . '</div>';
     }
 
     if (!$lock) {
     ?>
-            <div class="blue"><img src="<?=$static_url?>/images/icons/duel.png" style="vertical-align: bottom;"> <strong>Desafie um treinador para um duelo.</strong> <img src="<?=$static_url?>/images/icons/duel.png" style="vertical-align: bottom;"><br>
-                O Treinador deve estar online.</div>
+            <div class="blue"><?=$txt['title_text']?></div>
                 <div class="box-content">
-            <h3 class="title">DESAFIAR</h3>
-            <form method="post" onsubmit="return confirm('Deseja realmente desafiar este Treinador?');">
+            <h3 class="title"><?=$txt['duel_challenge']?></h3>
+            <form method="post" onsubmit="return confirm('<?=addslashes($txt['duel_confirm'])?>');">
                 <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
                 <tr>
-                    <td><b style="color: #9eadcd; font-size: 12px">Treinador:</b><br><input type="text" name="naam" value="<?php echo $getname; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
-                    <td><b style="color: #9eadcd; font-size: 12px">Valor:</b><br><input type="number" name="bedrag" value="<?php
+                    <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['player']?></b><br><input type="text" name="naam" value="<?php echo $getname; ?>" id="player" class="input-blue" required style="margin-top: 5px"/></td>
+                    <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['money']?></b><br><input type="number" name="bedrag" value="<?php
                         if (!empty($_POST['bedrag']))
                             echo ($_POST['bedrag'] ?? '');
                         else
@@ -123,7 +122,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
     $infos = $gb->getInfos($duel2['tegenstander'], '`user_id`, `exibepokes`')->fetch_assoc();
 
     echo '<div class="blue">' . $duel2['tegenstander'] . ' ' . $txt['waiting_for_accept'] . '<br /><br />
-                            Status: <span id="status">Esperando..</span></div>';
+                            Status: <span id="status">' . $txt['duel_status_waiting'] . '</span></div>';
                     ?>
 
                     <script type="text/javascript">
@@ -131,19 +130,19 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                         function status_check() {
                             $.get("attack/duel/status_check.php?duel_id=" +<?php echo $duel2['id']; ?> + "&sid=" + Math.random(), function(data) {
                                 if (data == 0) {
-                                    $("#status").html("Esperando<span class='dots'></span>")
+                                    $("#status").html("<?php echo $txt['duel_waiting']; ?><span class='dots'></span>")
                                     t = setTimeout(function () { status_check(); }, 5000);
                                 }
                                 else if (data == 1) {
-                                    $("#status").html("Expirado.")
+                                    $("#status").html("<?php echo $txt['duel_status_expired']; ?>")
                                     clearTimeout(t)
                                 }
                                 else if (data == 2) {
-                                    $("#status").html("Recusado.")
+                                    $("#status").html("<?php echo $txt['duel_status_refused']; ?>")
                                     clearTimeout(t)
                                 }
                                 else if (data == 3) {
-                                    $("#status").html("Aceito.")
+                                    $("#status").html("<?php echo $txt['duel_status_accepted']; ?>")
                                     clearTimeout(t)
                                     setTimeout(function () { location.href = './attack/duel/duel-attack' }, 0)
                                 }

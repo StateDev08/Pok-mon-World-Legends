@@ -23,8 +23,10 @@ class Messages {
     }
 
     public function include_list () {
+        global $txt;
+
         $i = 0;
-        $this->text_modify ('#title', 'Conversas');
+        $this->text_modify ('#title', $txt['msg_title_conversas']);
         $a = $this->conversa();
        
         while ( $var = $a->fetch_assoc() ) {
@@ -53,7 +55,7 @@ class Messages {
                         $read = '';
                     }
                 } else {
-                    $msg = '<b>Você:</b> '.$msg;
+                    $msg = '<b>'.$txt['msg_you'].':</b> '.$msg;
                 }
 
                 if ($i == 0) {
@@ -85,17 +87,17 @@ class Messages {
         }
         
         if ( $i == 0 ) {
-            echo '<li class="li" style="text-align: center; color:#fff">Não há Conversas para serem listadas</li>';
+            echo '<li class="li" style="text-align: center; color:#fff">'.$txt['msg_no_conversas'].'</li>';
         } else {
             echo '</form>';
-            echo '<div style="background: #34465f;border-bottom: 2px solid #27374e;"><div style="padding: 10px 0;color: #fff;text-align: center;"><input type="checkbox" style="vertical-align: middle;" onclick="checkAll()">Entre as selecionadas: <br><button id="apagar" style="margin-top: 5px" class="btn">Apagar</button></div></div>';
+            echo '<div style="background: #34465f;border-bottom: 2px solid #27374e;"><div style="padding: 10px 0;color: #fff;text-align: center;"><input type="checkbox" style="vertical-align: middle;" onclick="checkAll()">'.$txt['msg_select_actions'].' <br><button id="apagar" style="margin-top: 5px" class="btn">'.$txt['msg_delete'].'</button></div></div>';
             echo '<script>
             function checkAll() {
                 $(\'input[name="messages[]"]\').trigger(\'click\');
             }
   
             $("#apagar").click (() => {
-                let aceitar = confirm("Você realmente deseja apagar essa(s) mensagen(s)?");
+                let aceitar = confirm("'.$txt['msg_delete_confirm'].'");
                 if (aceitar) {
                     $("#delete").submit();
                     return false;
@@ -154,6 +156,8 @@ class Messages {
     }
 
     public function create_message ( $subject, $title, $message ) {
+        global $txt;
+
         $lower_title = strtolower ($title);
         $subject_validate = $this->user ($subject);
         $blocked = $this->blocked ($subject);
@@ -166,9 +170,9 @@ class Messages {
                     $search = DB::exQuery("SELECT * FROM `conversas` WHERE (trainer_1='$this->user' OR trainer_2='$this->user') AND (trainer_1='$reciever[user_id]' OR trainer_2='$reciever[user_id]') AND (trainer_1_hidden='0' OR trainer_2='0') AND title='$lower_title'");
                     
                     if ($search->num_rows > 0) {
-                        echo '<div class="red">Você já tem uma conversa com este treinador com o mesmo título!</div>';
+                        echo '<div class="red">'.$txt['msg_same_title'].'</div>';
                     } else {
-                        echo '<div class="green">Mensagem enviada para '.$subject.'!</div>';
+                        echo '<div class="green">'.sprintf($txt['msg_sent'], $subject).'</div>';
                         $date = date ('d/m/Y H:i:s');
                         DB::exQuery("INSERT INTO `conversas` (`trainer_1`, `trainer_2`, `title`, `last_message`) VALUES ('$this->user', '$reciever[user_id]', '$title', '$date')");
                         $conversa = DB::insertID();
@@ -176,10 +180,10 @@ class Messages {
                         $this->send_message( $conversa, $message, $reciever['user_id'] );
                     }
                 } else {
-                    echo '<div class="red">Você não pode mandar mensagens para si!</div>';
+                    echo '<div class="red">'.$txt['msg_self'].'</div>';
                 }
             } else {
-                echo '<div class="red">Este usuário não existe!</div>';
+                echo '<div class="red">'.$txt['msg_user_not_exists'].'</div>';
             }
         } else {
             echo $this->blocked_msg();
@@ -243,6 +247,8 @@ class Messages {
     }
 
     public function delete_conversa ($id) {
+        global $txt;
+
         $valid = DB::exQuery ("SELECT * FROM `conversas` WHERE trainer_1='$this->user' AND trainer_1_hidden='0' AND id IN ('$id')")->num_rows;
         $valid2 = DB::exQuery ("SELECT * FROM `conversas` WHERE trainer_2='$this->user' AND trainer_2_hidden='0' AND id IN ('$id')")->num_rows;
 
@@ -256,16 +262,18 @@ class Messages {
 
         $valid += $valid2;
 
-        return '<div class="green">'.$valid.' conversas foram apagadas!</div>';
+        return '<div class="green">'.sprintf($txt['msg_deleted'], $valid).'</div>';
     }
 
     public function blocked_msg () {
+        global $txt;
+
         $var = $this->blocked;
 
         if ($var[1] == $this->user) {
-            return '<div class="red">Você foi bloqueado por este treinador, portanto não poderá mandar ou receber mensagens dele!</div>';
+            return '<div class="red">'.$txt['msg_blocked_by'].'</div>';
         } else {
-            return '<div class="red">Você bloqueou este treinador, portanto não poderá mandar ou receber mensagens dele!</div>';
+            return '<div class="red">'.$txt['msg_blocked_you'].'</div>';
         }
     }
 

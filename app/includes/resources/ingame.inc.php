@@ -769,41 +769,42 @@ function pokedex_popup($pokemon, $txt) {
 	if (empty($pokemon['type2']))	$pokemon['type'] = '<table><tr><td><div class=\'type-icon type-' . strtolower($pokemon['type1']) . '\'>' . $pokemon['type1'] . '</div></td></tr></table>';
 	else	$pokemon['type'] = '<table><tr><td><div class=\'type-icon type-' . strtolower($pokemon['type1']) . '\'>' . $pokemon['type1'] . '</div></td><td> <div class=\'type-icon type-' . strtolower($pokemon['type2']) . '\'>' . $pokemon['type2'] . '</div></td></tr></table>';
 
-    $raridade = DB::exQuery("SELECT `nome` FROM `zeldzaamheid` WHERE `id`='".$pokemon['zeldzaamheid']."'")->fetch_assoc()['nome'];
+    $zeldzaamq = DB::exQuery("SELECT `nome` FROM `zeldzaamheid` WHERE `id`='".$pokemon['zeldzaamheid']."'")->fetch_assoc();
+    $raridade = $txt['pokedex_rarity_'.$pokemon['zeldzaamheid']] ?? ($zeldzaamq['nome'] ?? '');
 	$eredmeny = ceil($pokemon['vangbaarheid'] / (255 / 100));
 	
 	$top3 = ''; 
-	if ($pokemon['top3'] != '') $top3 = '<img src=\'' . $static_url . '/images/icons/medal' . $pokemon['top3'] . '.png\' title=\'Top ' . $pokemon['top3'] . ' Pokémon\' />';
+	if ($pokemon['top3'] != '') $top3 = '<img src=\'' . $static_url . '/images/icons/medal' . $pokemon['top3'] . '.png\' title=\'' . sprintf($txt['popup_top'], $pokemon['top3']) . '\' />';
 	
 	$return = '<div class=\'box-content\' style=\'width: 350px;\'><table width=\'100%\' class=\'general\'>
 		<thead>
 			<tr><th colspan=\'3\' style=\'text-align: left; padding: 5px 0;\'>
 				#' . $pokemon['real_id'] . ' - ' . $pokemon['naam'] . '
-				<span style=\'float: right;\'>'. $shiny .'(Nv. ' . $pokemon['level'] . ')</span>
+				<span style=\'float: right;\'>'. $shiny .'(' . $txt['popup_level'] . ' ' . $pokemon['level'] . ')</span>
 			</th></tr>
 		</thead>
 		<tr>
 			<td rowspan=\'5\' class=\'no-padding\' style=\'background: url(' . $static_url . '/images/' . $pokemon['map'] . '/' . $pokemon['wild_id'] . '.gif) center center no-repeat; width: 120px;\' align=\'center\' valign=\'top\'></td>
-			<td class=\'no-padding\'><b>Chance de captura:</b></td>
+			<td class=\'no-padding\'><b>' . $txt['popup_capture_chance'] . '</b></td>
 			<td class=\'no-padding\' style=\'text-align: center\'>' . $eredmeny . '%</td>
 		</tr>
 		<tr>
-			<td class=\'no-padding\'><b>Ability:</b></td>
+			<td class=\'no-padding\'><b>' . $txt['popup_ability'] . '</b></td>
 			<td class=\'no-padding\' style=\'text-align: center\'><div title=\''.$ability['descr'].'\'>' . $ability['name'] . '</div></td>
 		</tr>
 		<tr>
-			<td class=\'no-padding\'><b>Poder total:</b></td>
+			<td class=\'no-padding\'><b>' . $txt['popup_total_power'] . '</b></td>
 			<td class=\'no-padding\' style=\'text-align: center\'>' . highamount($pokemon['powertotal']) . '</td>
 		</tr>
 		<tr>
 			<td colspan=\'2\' style=\'padding: 0;\'><table width=\'100%\' class=\'general\'>
 				<tr>
 					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_hp.png\' title=\'HP\' width=\'16\' height=\'16\' /></td>
-					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_at.png\' title=\'Ataque\' width=\'16\' height=\'16\' /></td>
-					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_de.png\' title=\'Defesa\' width=\'16\' height=\'16\' /></td>
-					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sa.png\' title=\'Esp. Ataque\' width=\'16\' height=\'16\' /></td>
-					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sd.png\' title=\'Esp. Defesa\' width=\'16\' height=\'16\' /></td>
-					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sp.png\' title=\'Speed\' width=\'16\' height=\'16\' /></td>
+					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_at.png\' title=\'' . $txt['popup_attack'] . '\' width=\'16\' height=\'16\' /></td>
+					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_de.png\' title=\'' . $txt['popup_defense'] . '\' width=\'16\' height=\'16\' /></td>
+					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sa.png\' title=\'' . $txt['popup_sp_attack'] . '\' width=\'16\' height=\'16\' /></td>
+					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sd.png\' title=\'' . $txt['popup_sp_defense'] . '\' width=\'16\' height=\'16\' /></td>
+					<td align=\'center\' width=\'16.6%\' class=\'no-padding\'><img src=\'' . $static_url . '/images/icons/stats/stat_sp.png\' title=\'' . $txt['popup_speed'] . '\' width=\'16\' height=\'16\' /></td>
 				</tr>
 				<tr>
 					<td align=\'center\' class=\'no-padding\'>' . $pokemon['levenmax'] . '<sup>'.$pokemon['effort_hp'].'</sup></td>
@@ -815,7 +816,7 @@ function pokedex_popup($pokemon, $txt) {
 				</tr>
 			</table></td>
 		</tr>
-		<tr><td class=\'no-padding\' colspan=\'2\' align=\'center\'><b>Este pokémon é <u>' . $raridade . '</u>.</b></td></tr>
+		<tr><td class=\'no-padding\' colspan=\'2\' align=\'center\'><b>' . sprintf($txt['popup_rarity_is'], $raridade) . '</b></td></tr>
 		<tr>
 			<td class=\'no-padding\' align=\'center\'>' . $pokemon['type'] . '</td>
 			<td align=\'center\' colspan=\'2\' style=\'font-size: x-small;\' class=\'no-padding\'>' . $aanval1 . $aanval2 . $aanval3 . $aanval4 . '</td>
@@ -847,7 +848,7 @@ function pokemon_popup($pokemon, $txt) {
 	if ($pokemon['shiny'] == 1)	$shiny = "<img src='" . $static_url . "/images/icons/lidbetaald.png' />";
 
 	$gehecht = '';
-	if ($pokemon['gehecht'] == 1) $gehecht = '<img src=\'' . $static_url . '/images/icons/friend.png\' title=\'Inicial\' />';
+	if ($pokemon['gehecht'] == 1) $gehecht = '<img src=\'' . $static_url . '/images/icons/friend.png\' title=\'' . $txt['popup_initial'] . '\' />';
 
 	if (empty($pokemon['aanval_1']))	$aanval1 = "";
 	else	$aanval1 = "<a href='./information&amp;category=attack-info&amp;attack=" . $pokemon['aanval_1'] . "'>" . $pokemon['aanval_1'] . "</a>";
@@ -860,7 +861,7 @@ function pokemon_popup($pokemon, $txt) {
 
 	$top3 = '';
 	if ($pokemon['top3'] != '') { 
-		$top3 = '<img src=\'' . $static_url . '/images/icons/medal' . $pokemon['top3'] . '.png\' title=\'Top ' . $pokemon['top3'] . ' Pokémon\' />';
+$top3 = '<img src=\'' . $static_url . '/images/icons/medal' . $pokemon['top3'] . '.png\' title=\'' . sprintf($txt['popup_top'], $pokemon['top3']) . '\' />';
 
 		if ($pokemon['top3'] == 1) {
 			$color = ['FFEB3B', 'FFEB39'];	
@@ -877,12 +878,12 @@ function pokemon_popup($pokemon, $txt) {
 	if (!empty($pokemon['item'])) $item = '<span style=\'float: left; margin-top: 155px;\'><img src=\'' . $static_url . '/images/items/' . $pokemon['item'] . '.png\' title=\'' . $pokemon['item'] . '\' /></span>';
 
 	$profile = '';
-	if (isset($_SESSION['id'])) $profile = "<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle'><img src='".$static_url."/images/icons/info.png' title='Ver Perfil do Pokémon'></a>";
+	if (isset($_SESSION['id'])) $profile = "<a href='./pokemon-profile&id=".$pokemon['id']."' style='vertical-align: middle'><img src='".$static_url."/images/icons/info.png' title='".$txt['popup_view_profile']."'></a>";
 
 	$return = '<div class=\'box-content\' style=\'width: 415px;\'><table width=\'100%\' class=\'general\'>
 		<thead>
 			<tr><th colspan=\'8\' style=\'padding: 5px 0; vertical-align: middle\'>
-				'.$profile.' #' . $pokemon['real_id'] . ' - ' . pokemon_naam($pokemon['naam'], '', $pokemon['icon']) . '<span>'. $shiny . $top3 .' (Nv. ' . $pokemon['level'] . ')</span>
+				'.$profile.' #' . $pokemon['real_id'] . ' - ' . pokemon_naam($pokemon['naam'], '', $pokemon['icon']) . '<span>'. $shiny . $top3 .' (' . $txt['popup_level'] . ' ' . $pokemon['level'] . ')</span>
 			</th></tr>
 		</thead>
 		<tbody>
@@ -898,12 +899,12 @@ function pokemon_popup($pokemon, $txt) {
 				</td>
 				<td align=\'center\' class=\'no-padding bordered\' width=\'30\'><img src=\'' . $static_url . '/images/icons/stats/stat_hp.png\' title=\'HP\' width=\'16\' height=\'16\' /></td>
 				<td class=\'no-bordered\' width=\'5\'></td>
-				<td align=\'center\' class=\'no-padding bordered\' width=\'30\'><img src=\'' . $static_url . '/images/icons/stats/stat_at.png\' title=\'Ataque\' width=\'16\' height=\'16\' /></td>
+				<td align=\'center\' class=\'no-padding bordered\' width=\'30\'><img src=\'' . $static_url . '/images/icons/stats/stat_at.png\' title=\'' . $txt['popup_attack'] . '\' width=\'16\' height=\'16\' /></td>
 				<td class=\'no-bordered\' width=\'5\'></td>
-				<td align=\'center\' class=\'no-padding bordered\' width=\'30\'><img src=\'' . $static_url . '/images/icons/stats/stat_de.png\' title=\'Defesa\' width=\'16\' height=\'16\' /></td>
+				<td align=\'center\' class=\'no-padding bordered\' width=\'30\'><img src=\'' . $static_url . '/images/icons/stats/stat_de.png\' title=\'' . $txt['popup_defense'] . '\' width=\'16\' height=\'16\' /></td>
 			</tr>
 			<tr>
-				<td class=\'no-padding\'><b>Apelido: '.$pokemon['roepnaam'].'</b></td>
+				<td class=\'no-padding\'><b>' . $txt['popup_nickname'] . ' '.$pokemon['roepnaam'].'</b></td>
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['levenmax']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['hp_ev'] != 0 ? $pokemon['hp_ev'] : '')) . '</sup></td>
 				<td class=\'no-bordered\'></td>
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['attack']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['attack_ev'] != 0 ? $pokemon['attack_ev'] : '')) . '</sup></td>
@@ -911,15 +912,15 @@ function pokemon_popup($pokemon, $txt) {
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['defence']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['defence_ev'] != 0 ? $pokemon['defence_ev'] : '')) . '</sup></td>
 			</tr>
 			<tr>
-				<td class=\'no-padding\'><b>Humor: '. $pokemon['karakter'] . ($pokemon['humor_change'] != 0 ? ' <sup>' . $pokemon['humor_change'] . '</sup>' : '') .'</b></td>
-				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sa.png\' title=\'Esp. Ataque\' width=\'16\' height=\'16\' /></td>
+				<td class=\'no-padding\'><b>' . $txt['popup_mood'] . ' '. $pokemon['karakter'] . ($pokemon['humor_change'] != 0 ? ' <sup>' . $pokemon['humor_change'] . '</sup>' : '') .'</b></td>
+				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sa.png\' title=\'' . $txt['popup_sp_attack'] . '\' width=\'16\' height=\'16\' /></td>
 				<td class=\'no-bordered\'></td>
-				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sd.png\' title=\'Esp. Defesa\' width=\'16\' height=\'16\' /></td>
+				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sd.png\' title=\'' . $txt['popup_sp_defense'] . '\' width=\'16\' height=\'16\' /></td>
 				<td class=\'no-bordered\'></td>
-				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sp.png\' title=\'Speed\' width=\'16\' height=\'16\' /></td>
+				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/icons/stats/stat_sp.png\' title=\'' . $txt['popup_speed'] . '\' width=\'16\' height=\'16\' /></td>
 			</tr>
 			<tr>
-				<td class=\'no-padding\'><b>Negociavel: '. ($pokemon['can_trade'] == '0' ? 'Não negociavel' : 'Negociavel') .'</b></td>
+				<td class=\'no-padding\'><b>' . $txt['popup_tradable'] . ' '. ($pokemon['can_trade'] == '0' ? $txt['popup_tradable_no'] : $txt['popup_tradable_yes']) .'</b></td>
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['spc.attack']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['spc.attack_ev'] != 0 ? $pokemon['spc.attack_ev'] : '')) . '</sup></td>
 				<td class=\'no-bordered\'></td>
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['spc.defence']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['spc.defence_ev'] != 0 ? $pokemon['spc.defence_ev'] : '')) . '</sup></td>
@@ -927,7 +928,7 @@ function pokemon_popup($pokemon, $txt) {
 				<td align=\'center\' class=\'no-padding bordered\'>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '??' : $pokemon['speed']) . '<sup>' . (!isOwner($pokemon['user_id'], 1, $pokemon['opzak']) ? '?' : ($pokemon['speed_ev'] != 0 ? $pokemon['speed_ev'] : '')) . '</sup></td>
 			</tr>
 			<tr>
-				<td class=\'no-padding\'><b>Poder total: '. highamount($pokemon['powertotal']) .'</b></td>
+				<td class=\'no-padding\'><b>' . $txt['popup_total_power'] . ' '. highamount($pokemon['powertotal']) .'</b></td>
 				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/items/Protein.png\' title=\'Protein\' width=\'16\' height=\'16\' /></td>
 				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/items/Iron.png\' title=\'Iron\' width=\'16\' height=\'16\' /></td>
 				<td align=\'center\' class=\'no-padding bordered\'><img src=\'' . $static_url . '/images/items/Carbos.png\' title=\'Carbos\' width=\'16\' height=\'16\' /></td>
@@ -948,7 +949,7 @@ function pokemon_popup($pokemon, $txt) {
 	if (isOwner($pokemon['user_id'], 1, $pokemon['opzak'])) {
 		$return .= '<div class=\'box-content\' style=\'width: 415px; margin-top: 7px\'><table width=\'100%\' class=\'general\'>';
 		if ($pokemon['ei'] == 1)	{ 
-			$return .= '<script>$(\'.timer-'.$pokemon['id'].'\').startTimer();</script><tr><td colspan=\'2\' align=\'center\'><b>O ovo chocará em: <span class=\'timer-'.$pokemon['id'].'\' data-seconds-left=\''.(strtotime('+10 minutes', strtotime($pokemon['ei_tijd'])) - strtotime(date('Y-m-d H:i:s'))).'\'></span></b></td></tr>';
+			$return .= '<script>$(\'.timer-'.$pokemon['id'].'\').startTimer();</script><tr><td colspan=\'2\' align=\'center\'><b>'. $txt['popup_egg_hatch'] .' <span class=\'timer-'.$pokemon['id'].'\' data-seconds-left=\''.(strtotime('+10 minutes', strtotime($pokemon['ei_tijd'])) - strtotime(date('Y-m-d H:i:s'))).'\'></span></b></td></tr>';
 		} else {
 			$return .= '<tr>
 				<td width=\'34\'><b>HP:</b></td>
@@ -1084,7 +1085,7 @@ function pokemonei($geg, $txt) {
 			$new['expnodig'] = "??";
 			$new['spc.attack'] = "??";
 			$new['spc.defence']  = "??";
-			$new['lvl_hook'] = "(Nv. ??)";
+			$new['lvl_hook'] = "(" . $txt['popup_level'] . " ??)";
 			$new['level_1'] = "-";
 			$new['type'] = "<div style='padding-left:2px'>??</div>";
 			$new['gevongenmet'] = 'Poke ball';
@@ -1132,7 +1133,7 @@ function pokemonei($geg, $txt) {
 			$new['expnodig'] = "??";
 			$new['spc.attack'] = "??";
 			$new['spc.defence'] = "??";
-			$new['lvl_hook'] = "(Nv. ??)";
+			$new['lvl_hook'] = "(" . $txt['popup_level'] . " ??)";
 			$new['lvl_stripe'] = "-";
 			$new['type'] = "<div style='padding-left:2px'>??</div>";
 			$new['gevongenmet'] = 'Poke ball';

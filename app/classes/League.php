@@ -1153,26 +1153,28 @@ class League {
     }
 
     public function erro_duelo($user_id, $oponent = false) {
+        global $txt;
+
         $erros = array();
 
         $user = DB::exQuery("SELECT wereld, online FROM gebruikers WHERE user_id='$user_id'")->fetch_assoc();
 
         if ($user['online'] + 900 < time()) {
-            $erros[] = ($oponent ? "Seu oponente nao estava online!" : "Você não está online!");
+            $erros[] = ($oponent ? $txt['league_err_online_op'] : $txt['league_err_online_you']);
         }
 
         if ($user['wereld'] != $this->regiao) {
-            $erros[] = ($oponent ? "Seu oponente nao estava na região de $this->regiao!" : "Você precisa estar na região de $this->regiao!");
+            $erros[] = ($oponent ? sprintf($txt['league_err_region_op'], $this->regiao) : sprintf($txt['league_err_region_you'], $this->regiao));
         }
 
         $result = DB::exQuery("SELECT ps.id, ps.wild_id, ps.shiny, ps.level, pw.naam, pw.lendario FROM pokemon_speler ps, pokemon_wild pw WHERE ps.user_id='$user_id' AND ps.opzak='ja' AND ps.wild_id = pw.wild_id");
 
         if ($result->num_rows < 6) {
-            $erros[] = ($oponent ? "Seu oponente não possuia 6 pokémon no bolso!" : "Você não tem 6 pokémon no bolso!");
+            $erros[] = ($oponent ? $txt['league_err_six_op'] : $txt['league_err_six_you']);
         }
 
         if (DB::exQuery("SELECT * FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='$user_id' AND opzak='ja'")->num_rows == 0) {
-            $erros[] = ($oponent ? "Todos os pokémon do seu oponente estavam desmaiados!" : "Todos os seus pokémon estão desmaiados!");
+            $erros[] = ($oponent ? $txt['league_err_allko_op'] : $txt['league_err_allko_you']);
         }
 
         if ($this->lv_max_pokemon < 100 || $this->n_shinys < 6 || $this->n_lendas < 6 || $this->n_megas < 6) {
@@ -1197,19 +1199,19 @@ class League {
             }
 
             if ($lv_max) {
-                $erros[] = ($oponent ? "Seu oponete tinha algum pokémon com o lv maior que $this->lv_max_pokemon no bolso!" : "Algum de seus pokémon no bolso tem o lv maior que $this->lv_max_pokemon!");
+                $erros[] = ($oponent ? sprintf($txt['league_err_lvmax_op'], $this->lv_max_pokemon) : sprintf($txt['league_err_lvmax_you'], $this->lv_max_pokemon));
             }
 
             if ($n_shinys > $this->n_shinys) {
-                $erros[] = ($oponent ? "Seu oponete tinha mais que $this->n_shinys pokémon shiny no bolso!" : "Você tem mais que $this->n_shinys pokémon shiny no bolso!!");
+                $erros[] = ($oponent ? sprintf($txt['league_err_shinys_op'], $this->n_shinys) : sprintf($txt['league_err_shinys_you'], $this->n_shinys));
             }
 
             if ($n_lendas > $this->n_lendas) {
-                $erros[] = ($oponent ? "Seu oponete tinha mais que $this->n_lendas pokémon lendário no bolso!" : "Você tem mais que $this->n_lendas pokémon lendário no bolso!!");
+                $erros[] = ($oponent ? sprintf($txt['league_err_lendas_op'], $this->n_lendas) : sprintf($txt['league_err_lendas_you'], $this->n_lendas));
             }
 
             if ($n_megas > $this->n_megas) {
-                $erros[] = ($oponent ? "Seu oponete tinha mais que $this->n_megas pokémon mega evoluido no bolso!" : "Você tem mais que $this->n_megas pokémon mega evoluido no bolso!!");
+                $erros[] = ($oponent ? sprintf($txt['league_err_megas_op'], $this->n_megas) : sprintf($txt['league_err_megas_you'], $this->n_megas));
             }
         }
 

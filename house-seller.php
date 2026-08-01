@@ -65,7 +65,11 @@ else if ($gebruiker['huis'] == "villa") {
 
 $sql = DB::exQuery("SELECT * FROM `huizen`");
 
-echo addNPCBox(5, 'VENDEDOR DE CASAS', $txt['title_text'].' <b>'.$huusnu.'</b>.');
+$huis_lang = ($_COOKIE['pa_language'] ?? 'pt');
+if (!in_array($huis_lang, array('de', 'en', 'pl'), true)) $huis_lang = 'en';
+$huis_col = 'omschrijving_' . $huis_lang;
+
+echo addNPCBox(5, $txt['house_seller_npc_title'], $txt['title_text'].' <b>'.$huusnu.'</b>.');
 ?>
 <form method="post" class="box-content">
   <table class="general" cellpadding="0" cellspacing="0">
@@ -83,12 +87,12 @@ echo addNPCBox(5, 'VENDEDOR DE CASAS', $txt['title_text'].' <b>'.$huusnu.'</b>.'
             <td class="normal_td"><center><input type="radio" name="huis" value="'.$select['afkorting'].'" '.$keet[$j].'/></center></td>
             <td class="normal_td" height="80"><center><img src="'.$static_url.'/'.$select['link'].'" /></center></td>
             <td class="normal_td"><img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;" /> '.$prijs.'</td>
-            <td class="normal_td">'.$select['omschrijving_en'].'</td>
+            <td class="normal_td">'.$select[$huis_col].'</td>
           </tr>';
       }
       ?>
       <tr>
-        <td colspan="4"><center><input type="submit" name="koop" class="button_mini" value="COMPRAR!"></center></td>
+        <td colspan="4"><center><input type="submit" name="koop" class="button_mini" value="<?=$txt['house_seller_buy_btn']?>"></center></td>
       </tr>
   </table>
 </form>

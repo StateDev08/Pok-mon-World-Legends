@@ -4,6 +4,7 @@ $txt['footer_made_by']   = 'Pokémon 和所有相应名称均为 Nintendo 1996 �
 $txt['footer_copyright'] = '版权所有&copy;' . date('Y') . '- 世界传奇 - 保留所有权利。';
 
 $txt['logo_text']             = '世界传奇|成为神奇宝贝大师！';
+$txt['site_description']      = '在Pokémon World Legends免费成为一名宝可梦训练家！拥有900多种不同的宝可梦物种，与其他训练家对战以及更多精彩内容！最棒的是，无需下载！立即注册，加入这段不可思议的宝可梦旅程！';
 $txt['login_username']        = '用户';
 $txt['login_password']        = '密码';
 $txt['login_activation']      = '激活您的帐户';
@@ -181,14 +182,31 @@ $txt['alert_trys_left_2'] = '还剩 2 次尝试。';
 $txt['popup_pokemon']      = '姓名：';
 $txt['popup_clamour_name'] = '姓：';
 $txt['popup_type']         = '类型：';
-$txt['popup_level']        = '等级：';
-$txt['popup_mood']         = '幽默：';
+$txt['popup_level']        = 'Lv.';
+$txt['popup_mood']         = '性格：';
 $txt['pop_up_powertotal']  = '全功率：';
 $txt['popup_ball']         = '精灵球：';
 $txt['popup_attacks']      = '攻击：';
 $txt['popup_hp']           = '生命值：';
 $txt['popup_exp']          = '经验：';
 $txt['popup_begin']        = '入门神奇宝贝：';
+$txt['popup_attack']       = '攻击';
+$txt['popup_defense']      = '防御';
+$txt['popup_sp_attack']    = '特攻';
+$txt['popup_sp_defense']   = '特防';
+$txt['popup_speed']        = '速度';
+$txt['popup_capture_chance'] = '捕获几率：';
+$txt['popup_ability']      = '特性：';
+$txt['popup_total_power']  = '总战力：';
+$txt['popup_rarity_is']    = '这只宝可梦是<u>%s</u>。';
+$txt['popup_top']          = '前%s名宝可梦';
+$txt['popup_view_profile'] = '查看宝可梦档案';
+$txt['popup_nickname']     = '昵称：';
+$txt['popup_tradable']     = '可交易：';
+$txt['popup_tradable_yes'] = '可交易';
+$txt['popup_tradable_no']  = '不可交易';
+$txt['popup_initial']      = '初始';
+$txt['popup_egg_hatch']    = '蛋将在：';
 
 //Users online page
 $txt['online_users'] = '在线培训师';
@@ -200,7 +218,7 @@ $txt['online_elite_four']   = '四大天王';
 $txt['online_premium']      = '高级会员';
 
 // Egg
-$txt['pokemonei_egg'] = 'Nog %s tot het ei uitkomt。';
+$txt['pokemonei_egg'] = '蛋将在 %s 后孵化。';
 $txt['pokemonei_level'] = 'LV。';
 
 // New user

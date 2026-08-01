@@ -1,11 +1,7 @@
 <?php
 include("app/includes/resources/security.php");
 
-//if ($gebruiker['admin'] == 1) $senha = "simbol2017";
-//else if ($gebruiker['admin'] == 2) $senha = "simbol2017";
-//else if ($gebruiker['admin'] == 3) $senha = "simbol2017";
-
-$senha = "egvwl2018";
+$senha = (string) Env::get('TEAM_PASSWORD', '');
 
 $captcha = ($_POST['captcha'] ?? '');
 if ($captcha != "")

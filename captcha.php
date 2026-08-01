@@ -1,7 +1,7 @@
 <?php
 include("app/includes/resources/security.php");
 
-echo addNPCBox(11, 'TESTE DE SEGURANÇA', ' Para evitar problemas de BOTS E MACROS tivemos que adotar essa medida de segurança.');
+echo addNPCBox(11, $txt['captcha_box_title'] ?? 'SECURITY CHECK', $txt['captcha_box_text'] ?? ' To avoid problems with BOTS and MACROS, we had to adopt this security measure.');
 
 if($_POST) {
 
@@ -10,10 +10,10 @@ if($_POST) {
 
 	if(($_POST['wild_id'] ?? '') != ($_SESSION['pkmon'] ?? '')){
 		$_SESSION['captchaincorreto'] = ($_SESSION['captchaincorreto'] ?? '')+1;
-		echo '<div class="red">Incorreto, você tem mais '.$chances.' chance(s)!</div>';
+		echo '<div class="red">'.sprintf(($txt['captcha_incorrect'] ?? 'Incorrect, you have %s more chance(s)!'), $chances).'</div>';
 	} else if((($_POST['emqual'] ?? '')) != ($_SESSION['emqual'] ?? '')){
 		$_SESSION['captchaincorreto'] = ($_SESSION['captchaincorreto'] ?? '')+1;
-		echo '<div class="red">Incorreto, você tem mais '.$chances.' chance(s)!</div>';
+		echo '<div class="red">'.sprintf(($txt['captcha_incorrect'] ?? 'Incorrect, you have %s more chance(s)!'), $chances).'</div>';
 	} else {		
 		$tempook = time();
 		DB::exQuery("UPDATE `gebruikers` SET `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
@@ -23,7 +23,7 @@ if($_POST) {
 			header("Location: ./" . ($_GET['page'] ?? ''));
 		}
 		$_SESSION['captchaincorreto'] = 0;
-		echo '<div class="green">Código correto, você pode continuar!</div>';
+		echo '<div class="green">'.($txt['captcha_correct'] ?? 'Correct code, you can continue!').'</div>';
 	}
    
 }    
@@ -84,13 +84,18 @@ if($_POST) {
  		} 	 		
  		
  		
- 		$rnd1 = mt_rand(1,2);
- 		$rnd2 = mt_rand(1,2);
- 		$rnd3 = mt_rand(1,2);
- 		$rnd4 = mt_rand(1,2);	
- 		$rnd5 = mt_rand(1,2);
- 		
- 		if($rnd1 != 1){ $front1 = "back/"; }
+  		$rnd1 = mt_rand(1,2);
+  		$rnd2 = mt_rand(1,2);
+  		$rnd3 = mt_rand(1,2);
+  		$rnd4 = mt_rand(1,2);	
+  		$rnd5 = mt_rand(1,2);
+  		
+  		$front1 = '';
+  		$front2 = '';
+  		$front3 = '';
+  		$front4 = '';
+  		$front5 = '';
+  		if($rnd1 != 1){ $front1 = "back/"; }
  		if($rnd2 != 1){ $front2 = "back/"; }
  		if($rnd3 != 1){ $front3 = "back/"; }
  		if($rnd4 != 1){ $front4 = "back/"; }
@@ -98,9 +103,9 @@ if($_POST) {
 		 
 ?>
 <?php if($gebruiker['premiumaccount'] < time()){ ?>
-<div class="red">Você não é premium. Seja Premium clicando <a href="./gold-market">AQUI</a> e tenha vantagens.</div>
+<div class="red"><?=($txt['captcha_not_premium'] ?? 'You are not premium. Become Premium by clicking <a href="./gold-market">HERE</a> and enjoy advantages.')?></div>
 <?php } ?>
-<div class="blue">Clique no <b><font color="#d25757"><?=$pegapoke1['naam']?></font></b> abaixo.</div>
+<div class="blue"><?=sprintf(($txt['captcha_click_on'] ?? 'Click on <b><font color="#d25757">%s</font></b> below.'), $pegapoke1['naam'])?></div>
 <div class="row">
     <div style="width: 20%;" class="col">
 		<div id="npc-section" style="height: 185px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: 1px solid #577599;">

@@ -57,12 +57,14 @@ $installText = [
         'admin_email' => 'Admin-E-Mail',
         'admin_password' => 'Admin-Passwort',
         'admin_password_repeat' => 'Admin-Passwort wiederholen',
-        'admin_help' => 'Der Admin wird automatisch als erster Trainer angelegt. Das Team-Passwort (KEYZITAPASS) wird zufällig generiert und in der .env gespeichert.',
+        'admin_help' => 'Der Admin wird automatisch als erster Trainer mit vollen Admin-Rechten angelegt.',
         'err_fields_required' => 'Bitte alle Felder ausfüllen.',
         'err_email_invalid' => 'Bitte eine gültige E-Mail-Adresse angeben.',
         'err_password_too_short' => 'Das Passwort muss mindestens 6 Zeichen lang sein.',
         'err_passwords_mismatch' => 'Die Passwörter stimmen nicht überein.',
-        'team_password_label' => 'Team-Passwort (KEYZITAPASS)',
+        'team_password_label' => 'Team-Passwort (Sicherheitspasswort)',
+        'team_password_help' => 'Mit diesem Passwort loggen sich Teammitglieder im Team-Bereich ein. Leer lassen, um ein zufälliges Passwort zu generieren.',
+        'team_password_short' => 'Das Team-Passwort muss mindestens 6 Zeichen lang sein.',
         'team_password_generated' => 'Generiert und in <code>.env</code> gespeichert.',
         'admin_created' => 'Admin-Konto erstellt',
         'save_credentials' => 'Bitte bewahre die Zugangsdaten an einem sicheren Ort auf.',
@@ -100,12 +102,14 @@ $installText = [
         'admin_email' => 'Admin email',
         'admin_password' => 'Admin password',
         'admin_password_repeat' => 'Repeat admin password',
-        'admin_help' => 'The admin will automatically be created as the first trainer. The team password (KEYZITAPASS) is generated randomly and stored in the .env file.',
+        'admin_help' => 'The admin will automatically be created as the first trainer with full admin rights.',
         'err_fields_required' => 'Please fill in all fields.',
         'err_email_invalid' => 'Please provide a valid email address.',
         'err_password_too_short' => 'The password must be at least 6 characters long.',
         'err_passwords_mismatch' => 'The passwords do not match.',
-        'team_password_label' => 'Team password (KEYZITAPASS)',
+        'team_password_label' => 'Team password (security password)',
+        'team_password_help' => 'Team members use this password to log in to the team area. Leave empty to generate a random one.',
+        'team_password_short' => 'The team password must be at least 6 characters long.',
         'team_password_generated' => 'Generated and stored in <code>.env</code>.',
         'admin_created' => 'Admin account created',
         'save_credentials' => 'Please store the credentials in a safe place.',
@@ -234,6 +238,7 @@ if ($step === 'admin') {
         'email' => $_POST['admin_email'] ?? '',
         'password' => $_POST['admin_password'] ?? '',
         'password_repeat' => $_POST['admin_password_repeat'] ?? '',
+        'team_password' => $_POST['team_password'] ?? '',
     ];
 
     echo '<div class="box"><h2>' . h($txt['admin_settings']) . '</h2><p>' . h($txt['admin_help']) . '</p>';
@@ -245,6 +250,8 @@ if ($step === 'admin') {
     echo '<label>' . h($txt['admin_email']) . '</label><input type="text" name="admin_email" value="' . h($admin['email']) . '">';
     echo '<label>' . h($txt['admin_password']) . '</label><input type="password" name="admin_password">';
     echo '<label>' . h($txt['admin_password_repeat']) . '</label><input type="password" name="admin_password_repeat">';
+    echo '<label>' . h($txt['team_password_label']) . '</label><input type="password" name="team_password">';
+    echo '<p><small>' . h($txt['team_password_help']) . '</small></p>';
     echo '<button type="submit">' . h($txt['install']) . '</button>';
     echo '</form></div>';
     render_footer();
@@ -268,7 +275,12 @@ if ($step === 'install') {
         'email' => trim($_POST['admin_email'] ?? ''),
         'password' => (string) ($_POST['admin_password'] ?? ''),
         'password_repeat' => (string) ($_POST['admin_password_repeat'] ?? ''),
+        'team_password' => trim((string) ($_POST['team_password'] ?? '')),
     ];
+
+    if ($admin['team_password'] === '') {
+        $admin['team_password'] = generate_team_password();
+    }
 
     $admin_error = '';
     if ($admin['username'] === '' || $admin['email'] === '' || $admin['password'] === '' || $admin['password_repeat'] === '') {
@@ -279,6 +291,8 @@ if ($step === 'install') {
         $admin_error = $txt['err_password_too_short'];
     } elseif ($admin['password'] !== $admin['password_repeat']) {
         $admin_error = $txt['err_passwords_mismatch'];
+    } elseif (strlen($admin['team_password']) < 6) {
+        $admin_error = $txt['team_password_short'];
     }
 
     if ($admin_error !== '') {
@@ -346,6 +360,7 @@ if ($step === 'install') {
 
     $keyzitapass = generate_team_password();
     $admin_hash = wl_password_hash($admin['password'], $keyzitapass);
+    $team_password = $admin['team_password'];
 
     $env = "DB_HOST=" . $db['host'] . "\n";
     $env .= "DB_USER=" . $db['user'] . "\n";
@@ -356,6 +371,7 @@ if ($step === 'install') {
     $env .= "SMTP_MAIL=" . $db['smtp_mail'] . "\n";
     $env .= "SMTP_PASS=" . $db['smtp_pass'] . "\n";
     $env .= "KEYZITAPASS=" . $keyzitapass . "\n";
+    $env .= "TEAM_PASSWORD=" . $team_password . "\n";
 
     if (file_put_contents($root . '/.env', $env) === false) {
         echo '<p class="fail">Could not write .env file. Make sure the root directory is writable.</p>';
@@ -377,7 +393,7 @@ if ($step === 'install') {
 
     $admin_user = mysqli_query($conn, "SELECT `user_id` FROM `gebruikers` WHERE `user_id`=1");
     if ($admin_user && $admin_user->num_rows > 0) {
-        mysqli_query($conn, "UPDATE `gebruikers` SET `username`='$admin_username_esc', `acc_id`=1 WHERE `user_id`=1");
+        mysqli_query($conn, "UPDATE `gebruikers` SET `username`='$admin_username_esc', `acc_id`=1, `admin`=3 WHERE `user_id`=1");
     } else {
         echo '<p class="fail">Admin trainer row (user_id=1) is missing from the database dump.</p>';
         render_footer();
@@ -402,7 +418,7 @@ if ($step === 'install') {
     echo '<p><strong>' . h($txt['admin_created']) . '</strong><br>';
     echo h($txt['admin_username']) . ': ' . h($admin['username']) . '<br>';
     echo h($txt['admin_email']) . ': ' . h($admin['email']) . '</p>';
-    echo '<p><strong>' . h($txt['team_password_label']) . ':</strong><br><code>' . h($keyzitapass) . '</code><br><small>' . h($txt['team_password_generated']) . '</small></p>';
+    echo '<p><strong>' . h($txt['team_password_label']) . ':</strong><br><code>' . h($team_password) . '</code><br><small>' . h($txt['team_password_generated']) . '</small></p>';
     echo '<p class="fail">' . h($txt['save_credentials']) . '</p>';
     echo '<p>' . h($txt['delete_installer']) . '</p>';
     echo '<p><a href="./">Go to homepage</a></p></div>';

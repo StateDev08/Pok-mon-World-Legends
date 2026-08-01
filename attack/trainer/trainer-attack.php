@@ -4,6 +4,8 @@ include("app/includes/resources/security.php");
 //Include Attack Functions
 include("attack/attack.inc.php");
 
+$js_trainer_defeated = addslashes($txt['trainer_defeated']);
+
 $aanval_log = aanval_log($_SESSION['trainer']['aanval_log_id'] ?? 0) ?: [];
 $trainer = DB::exQuery("SELECT * FROM `trainer` WHERE `naam`='".($aanval_log['trainer'] ?? '')."'")->fetch_assoc();
 if (empty($trainer['badge'])) {
@@ -695,7 +697,7 @@ function trainer_change_pokemon(msg) {
 	var computer_life_procent = Math.round((request[3] / request[2]) * 100)
 	$("#computer_life").width(computer_life_procent + '%')
 	$("#trainer_" + request[5]).attr("src", "<?=$static_url?>/images/icons/pokeball_black.gif")
-	$("#trainer_" + request[5]).attr("data-original-title", "Derrotado")
+	$("#trainer_" + request[5]).attr("data-original-title", js_trainer_defeated)
 	if (request[4] == 1) next_turn()
 	else {
 		speler_attack = 1
@@ -865,11 +867,11 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
 			<div class="progress" id="computer_life" title="<?= $computer_info['leven']."/".$computer_info['levenmax']; ?>" style="width: <?= $computer_life_procent; ?>%"></div>
 			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px;  display: <?= ($computer_info['effect'] ?? '') ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= ($computer_info['effect'] ?? '') ? $computer_info['effect'] : 'none' ?>.png" alt="<?= $computer_info['effect'] ?? '' ?>" title="<?= $computer_info['effect'] ?? '' ?>"/> </div></div>
 			<div align="left" style="padding: 5px 0px 0px 10px;"><font style="text-shadow:1px 1px 1px #fff;" size="3">
-		Batalhando contra <strong><span id="trainer_naam"><?= $computer_info['naam_goed']; ?></span></strong><span id='computer_star' style='display: <?= $computer_info['star'];?> ;'></span><br> <?php
+		<?= sprintf($txt['trainer_fighting'], '<strong><span id="trainer_naam">' . $computer_info['naam_goed'] . '</span></strong>') ?><span id='computer_star' style='display: <?= $computer_info['star'];?> ;'></span><br> <?php
 			  $trainer_pok = DB::exQuery("SELECT `id`, `leven` FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`='".$aanval_log['id']."' ORDER BY `id`");
         while($trainer_pokemon = $trainer_pok->fetch_assoc()) {
-            if ($trainer_pokemon['leven'] > 0) echo '<img id="trainer_'.$trainer_pokemon['id'].'" src="'.$static_url.'/images/icons/pokeball.gif" width="14" height="14" alt="Disposto" title="Disposto" />';
-            else echo '<img id="trainer_'.$trainer_pokemon['id'].'" src="'.$static_url.'/images/icons/pokeball_black.gif" width="14" height="14" "Derrotado" title="Derrotado" />';
+            if ($trainer_pokemon['leven'] > 0) echo '<img id="trainer_'.$trainer_pokemon['id'].'" src="'.$static_url.'/images/icons/pokeball.gif" width="14" height="14" alt="'.$txt['trainer_willing'].'" title="'.$txt['trainer_willing'].'" />';
+            else echo '<img id="trainer_'.$trainer_pokemon['id'].'" src="'.$static_url.'/images/icons/pokeball_black.gif" width="14" height="14" alt="'.$txt['trainer_defeated'].'" title="'.$txt['trainer_defeated'].'" />';
         }
         ?></font>		
 			</div>		
@@ -982,7 +984,7 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
       </tr>
 	</table></div>
   	<span id="potion_screen" style="display:none;">
-						<h3 class="title">Escolha o Pokémon que irá receber <span id="item_name"></span>:</h3>
+						<h3 class="title"><?= sprintf($txt['trainer_choose_pokemon'], '<span id="item_name"></span>') ?></h3>
             <?php
 
           //Show all pokemon inhand

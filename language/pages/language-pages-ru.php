@@ -1,5 +1,6 @@
 <?php
 if ($page == 'home' || empty($page)) {
+	$txt['home_news_text'] = '[16/07/2019] - Вышла <b>%s</b>! Ознакомьтесь с <b>примечаниями к обновлению</b> в <a href="./official-messages">официальных сообщениях</a>!';
 	$txt['pagetitle']			= 'Дом';
 	$txt['news_empty']			= 'На данный момент новостей нет!';
 	$txt['poke_stats']			= 'статистика покемонов';
@@ -319,6 +320,35 @@ if ($page == 'home' || empty($page)) {
 		$txt['capture_chance']		  = 'Шанс захвата';
 		$txt['evolui_de']             = 'Эволюционирует из';
 		$txt['trade']				  = 'Требуется обмен.';
+		$txt['info_choose_pokemon']           = 'Выберите покемона.';
+		$txt['info_egg_yes']                  = 'Да';
+		$txt['info_egg_no']                   = 'Нет';
+		$txt['info_egg_legendary']            = 'Легендарный/Стартовый';
+		$txt['info_total_power']              = 'Общая сила:';
+		$txt['info_no_pokemon_species']       = 'Нет покемонов этого вида!';
+		$txt['info_possible_abilities']       = 'Возможные способности:';
+		$txt['info_can_come_pokemart']        = 'Можно получить в PokéMart?';
+		$txt['info_exist_level100']           = 'На уровне 100: <b>%s</b>.';
+		$txt['info_base_stats']               = 'Базовые характеристики';
+		$txt['info_attacks']                  = 'Атаки';
+		$txt['info_attack_num']               = 'Атака %s';
+		$txt['info_top3_species']             = 'TOP 3 лучших вида';
+		$txt['info_holding_item']             = 'Держит предмет %s';
+		$txt['info_ev_gain']                  = 'Получение EV';
+		$txt['info_tm_hm']                    = 'TM / HM';
+		$txt['info_advantages_disadvantages'] = 'Преимущества и недостатки';
+		$txt['info_attack_title']             = 'Атака %s → %s = %s';
+		$txt['info_no_effect']                = 'Нет эффекта.';
+		$txt['info_normal_effect']            = 'Обычная эффективность.';
+		$txt['info_super_effective']          = 'Очень эффективно.';
+		$txt['info_not_very_effective']       = 'Не очень эффективно.';
+		$txt['info_area_Gras']                = 'Трава';
+		$txt['info_area_Lavagrot']            = 'Лавовая пещера';
+		$txt['info_area_Water']               = 'Вода';
+		$txt['info_area_Grot']                = 'Пещера';
+		$txt['info_area_Strand']              = 'Пляж';
+		$txt['info_area_Vechtschool']         = 'Школа боя';
+		$txt['info_area_Spookhuis']           = 'Дом с привидениями';
 	} else if (($_GET['category'] ?? '') == 'attack-info') {
 		$txt['titlenpc']		= 'Покемоны атакуют';
 		$txt['textnpc']			= 'Вы ищете информацию об определенном движении/атаке? Вы попали по адресу, здесь вы найдете все, что ищете об атаке вашего покемона.';
@@ -688,8 +718,21 @@ if ($page == 'home' || empty($page)) {
 	$txt['pokedex_info']            = 'Информация';
 	$txt['pokedex_search']          = 'Поиск';
 	$txt['pokedex_choose']          = 'Выбери покемона';
+	$txt['pokedex_rarity_1']        = 'Обычный';
+	$txt['pokedex_rarity_2']        = 'Необычный';
+	$txt['pokedex_rarity_3']        = 'Редкий';
+	$txt['pokedex_rarity_4']        = 'Легендарный';
+	$txt['pokedex_rarity_5']        = 'Стартовый';
+	$txt['pokedex_rarity_6']        = 'Мифический';
+	$txt['pokedex_rarity_7']        = 'Мега';
+	$txt['pokedex_rarity_8']        = 'Особый';
 	$txt['have_already']            = 'У вас уже есть';
 } else if ($page == 'events') {
+	$txt['events_title']            = 'Мои уведомления';
+	$txt['events_npc_text']         = 'Здесь вы можете отслеживать все события в вашей игре.';
+	$txt['events_vip_text']         = 'Обычные пользователи имеют лимит до 30 последних уведомлений.<br><br>&mdash; Станьте VIP, нажав <a href="./gold-market">ЗДЕСЬ</a>, и увеличьте лимит до 60!';
+	$txt['events_premium_text']     = '<br><br>У вас есть доступ к 60 последним уведомлениям.';
+	$txt['events_no_notifications'] = 'НЕТ УВЕДОМЛЕНИЙ ДЛЯ ОТОБРАЖЕНИЯ!';
 	$txt['alert_nothing_selected']    = 'Вы должны выбрать какое-нибудь уведомление!';
 	$txt['alert_more_events_deleted'] = 'Уведомления успешно удалены!';
 	$txt['alert_one_event_deleted']   = 'Уведомление успешно удалено!';
@@ -811,6 +854,26 @@ if ($page == 'home' || empty($page)) {
 	$txt['refresh_pokemon']        = 'Обновите покемонов';
 	$txt['button_traders_refresh'] = 'Обновление покемонов';
 } else if ($page == 'donate') {
+	$txt['donate_pack_not_exist']    = 'Такого пакета не существует!';
+	$txt['donate_featured_title']    = 'Рекомендуемые пакеты';
+	$txt['donate_content_label']     = '+Содержимое';
+	$txt['donate_confirm_buy']       = 'Вы уверены, что хотите купить %s за %s?';
+	$txt['donate_buy_btn']           = 'Купить пакет';
+	$txt['donate_no_featured']       = 'В данный момент нет рекомендуемых пакетов.';
+	$txt['donate_title']             = 'Пакеты';
+	$txt['donate_transfers_title']   = 'Последние 10 переводов';
+	$txt['donate_package']           = 'Пакет';
+	$txt['donate_transfers_price']   = 'Цена';
+	$txt['donate_transfers_date']    = 'Дата';
+	$txt['donate_transfers_status']  = 'Статус';
+	$txt['donate_status_pending']    = 'Ожидание оплаты';
+	$txt['donate_status_analysis']   = 'На рассмотрении';
+	$txt['donate_status_paid']       = 'Оплачено';
+	$txt['donate_status_available']  = 'Доступно';
+	$txt['donate_status_dispute']    = 'В споре';
+	$txt['donate_status_refunded']   = 'Возвращено';
+	$txt['donate_status_cancelled']  = 'Отменено';
+	$txt['donate_transfers_none']    = 'Нет переводов для отображения!';
 	$txt['pagetitle']	= 'Приобретайте золото';
 
 	$txt['titlenpc']	= 'Купите золото прямо сейчас!';
@@ -893,6 +956,13 @@ if ($page == 'home' || empty($page)) {
 	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
+	$txt['travel_region_0'] = 'Регион Канто является домом для многих покемонов и имеет богатую историю создания покемонов с помощью технологий. Исследователи Канто превосходно выполняли свою работу. Один исследователь, работавший на злодейскую организацию «Команда Р», клонировал Мью с помощью его генов и создал генетического покемона Мьюту. Поригон, виртуальный покемон, также был создан людьми в Канто.';
+	$txt['travel_region_1'] = 'За 1500 лет до современности место, ныне известное как Руины Альфа, было построено в Джото, и была разработана древнейшая известная система письменности — современный латинский алфавит. Хотя никто точно не знает, кто построил Руины Альфа, исследования показывают, что это была древняя цивилизация, желавшая сосуществовать с загадочным Уноуном, который очень похож на буквы алфавита. Это племя не только передавало на стенах руин сообщения, описывающие Уноуна, но и воздвигло статую покемона по неизвестной причине.';
+	$txt['travel_region_2'] = 'Хоэнн был создан после того, как сформировались Первобытный Гроудон и Первобытный Кайогр. Первобытный Гроудон поднял сушу, а Первобытный Кайогр наполнил моря, которые позже стали Хоэнном. Встреча этих двоих породила великую битву за превосходство, пока её не прекратил Мега-Рэйкваза, отправив Первобытного Гроудона и Первобытного Кайогра в пещеры, где они отдыхали.';
+	$txt['travel_region_3'] = 'Согласно различным мифам Синно, этот регион был создан первым среди всех регионов мира покемонов. Из пустоты возникло единственное яйцо, из которого вылупился Аркеус — первый покемон, когда-либо существовавший.';
+	$txt['travel_region_4'] = 'Согласно мифологии, Юнова была создана братьями-героями, объединившими воинственные народы земли. Более 2500 лет назад они использовали единого дракона. Братья начали спорить о своих убеждениях; старший брат искал истину, а младший — идеалы. Их споры разделили единого дракона на Реширама, вставшего на сторону старшего брата, и Зекрома, вставшего на сторону младшего. Поскольку оба родились из одного дракона, ни один не мог победить другого, и братья заявили, что правой стороны не существует.';
+	$txt['travel_region_5'] = '3000 лет назад в Калосе произошла война, и вместе с ней было создано Высшее оружие — оружие, дарующее бессмертие. Через 2200 лет после окончания войны легендарный покемон Ксернеас в конце своего жизненного цикла высвободил жизненную энергию по всему региону. Легендарный покемон Ивельтал, в свою очередь, поглотил эту энергию, и оба впали в состояние глубокой спячки, вернув региону равновесие.';
+	$txt['travel_region_6'] = 'Алола состоит из четырёх природных островов и одного искусственного. Легенды гласят, что хранители островов, Тапу, сразились с Солгалео и Луналой и изгнали их. Прошло много лет, и появился таинственный портал, ведущий в другое измерение, из которого вышли новые существа, названные Ультра-чудовищами.';
 	$txt['alert_no_world'] = 'Выберите регион.';
 	$txt['alert_already_in_world'] = 'Вы уже внутри'.($_POST['wereld'] ?? '').'.';
 	$txt['alert_world_invalid'] = ($_POST['wereld'] ?? '').'недопустимый регион.';
@@ -1046,6 +1116,9 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		#Screen
 		$txt['pagetitle'] = 'Выберите область для исследования!';
 		$txt['title_text'] = 'Выберите место для поиска покемона для битвы!';
+		$txt['map_title'] = 'Карта %s';
+		$txt['map_npc_text'] = 'Привет, тренер! Добро пожаловать на <b>КАРТУ</b> региона %s.<br>Всегда стремитесь прогрессировать в игре, для этого побеждайте и ловите разных покемонов. Не забывайте носить с собой покеболы, ведь никогда не знаешь, какого покемона вы встретите на своём пути!';
+		$txt['map_shop_hint'] = 'Чтобы получить доступ к морю/озеру, купите <a href="./market&shopitem=items">УДОЧКУ</a>, а чтобы попасть в пещеру, приобретите <a href="./market&shopitem=items">ПЕЩЕРНЫЙ КОСТЮМ</a> НА <a href="./market&shopitem=items">РЫНКЕ</a>!';
 	}
 	######################## Attack Gyms ########################
 	else if ($page == 'attack/gyms') {
@@ -1063,6 +1136,25 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		$txt['rank_too_less'] = 'Ваш рейтинг очень низкий.';
 		$txt['leader'] = 'Лидер:';
 		$txt['from_rank'] = 'Классифицировать:';
+		
+		#Localized
+		$txt['gym_not_gym'] = 'Это не спортзал!';
+		$txt['gym_err_230'] = 'ОШИБКА 230';
+		$txt['gym_npc_title'] = 'Спортзалы';
+		$txt['gym_npc_text'] = 'Добро пожаловать, тренер! <br>Здесь ты можешь бросить вызов лидерам спортзалов определённых регионов и, победив их, получить преимущества, например <b>Значки</b>. Хорошенько тренируй своих покемонов, ведь здесь ни один лидер спортзала не пожалеет тебя!';
+		$txt['gym_rank_required'] = 'МИНИМАЛЬНЫЙ РАНГ ДЛЯ БРОСКА ВЫЗОВА СПОРТЗАЛАМ: 3 - ТРЕНЕР. ПРОКАЧИВАЙСЯ, ЧТОБЫ ОТКРЫТЬ!';
+		$txt['gym_region_title'] = 'Спортзалы региона %s';
+		$txt['gym_badge_label'] = 'Значок';
+		$txt['gym_elite_member'] = '%s — член ЭЛИТНОЙ ЧЕТВЁРКИ региона %s!';
+		$txt['gym_blocked_prev'] = '[СПОРТЗАЛ ЗАБЛОКИРОВАН!] <BR> [ПОБЕДИ ПРЕДЫДУЩЕГО, ЧТОБЫ БРОСИТЬ ВЫЗОВ ЛИДЕРУ СПОРТЗАЛА!]';
+		$txt['gym_blocked_rank'] = '[СПОРТЗАЛ ЗАБЛОКИРОВАН!] <BR> [ПОВЫСЬ СВОЙ РАНГ, ЧТОБЫ БРОСИТЬ ВЫЗОВ ЭТОМУ ЛИДЕРУ СПОРТЗАЛА!]';
+		$txt['gym_no_description'] = 'Для этого тренера нет описания!';
+		$txt['gym_description_label'] = 'Описание:';
+		$txt['gym_challenge'] = 'Бросить вызов ';
+		$txt['gym_win_prev'] = 'ПОБЕДИ ПРЕДЫДУЩЕГО ТРЕНЕРА, ЧТОБЫ СРАЗИТЬСЯ С НИМ!';
+		$txt['gym_challenge_trainer'] = 'БРОСИТЬ ВЫЗОВ %s';
+		$txt['gym_already_fought'] = 'ТЫ УЖЕ СРАЗИЛСЯ С %s!';
+		$txt['gym_up_rank'] = 'ПОВЫСЬ СВОЙ РАНГ, ЧТОБЫ СРАЗИТЬСЯ С НИМ!';
 	}
 	
 	######################## Attack Duel invite ########################
@@ -1090,6 +1182,21 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		$txt['player'] = 'Тренер:';
 		$txt['money'] = 'Ценить:';
 		$txt['button_duel'] = 'Испытание';
+		$txt['duel_rank_insufficient'] = 'У тебя недостаточно РАНГА для дуэли!';
+		$txt['duel_opponent_rank_insufficient'] = 'У %s недостаточно РАНГА!';
+		$txt['duel_opponent_league_prep'] = 'Твой противник готовится к битве в лиге покемонов.';
+		$txt['duel_opponent_offline'] = '%s <b>ОФФЛАЙН</b>!';
+		$txt['duel_already_challenged'] = 'Ты уже бросил вызов тренеру! Пожалуйста, дождись ответа!';
+		$txt['duel_blocked_trainer'] = 'Ты заблокировал этого тренера!';
+		$txt['duel_blocked_by'] = 'Этот тренер заблокировал тебя!';
+		$txt['duel_rank_min'] = 'МИНИМАЛЬНЫЙ РАНГ ДЛЯ ВЫЗОВА ДРУГИХ ТРЕНЕРОВ: 4 - ТРЕНЕР. ПРОДОЛЖАЙ ПРОКАЧИВАТЬСЯ, ЧТОБЫ ОТКРЫТЬ!';
+		$txt['duel_challenge'] = 'ВЫЗОВ';
+		$txt['duel_confirm'] = 'Ты действительно хочешь бросить вызов этому тренеру?';
+		$txt['duel_status_waiting'] = 'Ожидание..';
+		$txt['duel_waiting'] = 'Ожидание';
+		$txt['duel_status_expired'] = 'Истёк.';
+		$txt['duel_status_refused'] = 'Отклонено.';
+		$txt['duel_status_accepted'] = 'Принято.';
 	}
 	
 	######################## Attack Duel invited ########################
@@ -1341,6 +1448,10 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		
 		$txt['opponent_choose_attack'] = 'выбирает атаку';
 		$txt['opponent_choose_pokemon'] = 'Вы выбираете покемона.';
+		$txt['trainer_fighting'] = 'Сражение против %s';
+		$txt['trainer_willing'] = 'Готов';
+		$txt['trainer_defeated'] = 'Побеждён';
+		$txt['trainer_choose_pokemon'] = 'Выберите покемона, который получит %s:';
   }
 
  ######################## Attack Duel ########################
@@ -1449,6 +1560,12 @@ else if ($page == 'app/includes/resources/poke-evolve') {
 if ($type_timer == 'work')			$txt['pagetitle']	= 'Работающий';
 else if ($type_timer == 'pokecenter')	$txt['pagetitle']	= 'Уход';
 else if ($type_timer == 'travel')		$txt['pagetitle']	= 'Путешествие';
+	$txt['wait_pokecenter_title'] = 'Лечение в процессе';
+	$txt['wait_pokecenter_text'] = 'Вы должны подождать, пока медсестра Джой позаботится о ваших покемонах. Как только лечение завершится, вы сможете продолжить своё путешествие.';
+	$txt['wait_pokecenter_end'] = 'Конец лечения:';
+	$txt['wait_travel_title'] = 'Путешествие';
+	$txt['wait_travel_text'] = 'В данный момент вы путешествуете в <b>%s</b>, и вам нужно немного подождать.';
+	$txt['wait_travel_end'] = 'Конец путешествия:';
 }else if ($page == 'app/includes/resources/wait-jail') {
 $txt['pagetitle']	= 'Тюрьма';
 }else if ($page == 'gold-market') {
@@ -1457,6 +1574,15 @@ $txt['pagetitle'] = 'Рынок золота';
 $txt['pagetitle'] = 'Казино Покемон';
 }else if ($page == 'kluis') {
 $txt['pagetitle'] = 'Раскройте секрет';
+		$txt['kluis_npc_title'] = 'Сейф';
+		$txt['kluis_npc_text'] = 'Испытай удачу и взломай сейф казино!<br>Одна попытка стоит 200 билетов. Угадай код и выиграй весь джекпот!<br>Нажми <a href="./casino">ЗДЕСЬ</a>, чтобы вернуться в Казино.';
+		$txt['kluis_no_tickets'] = 'Тебе нужно как минимум 200 билетов, чтобы взломать сейф.';
+		$txt['kluis_won'] = 'Поздравляем! Ты взломал сейф и выиграл %s билетов!';
+		$txt['kluis_lost'] = 'Неправильный код! Ты потерял 200 билетов.';
+		$txt['kluis_current_prize'] = 'Текущий джекпот:';
+		$txt['kluis_code_label'] = 'Код %s';
+		$txt['kluis_try'] = 'Попробовать';
+		$txt['tickets_inventory'] = 'Твои билеты:';
 }else if ($page == 'online') {
 $txt['pagetitle'] = 'Онлайн-тренеры';
 }else if ($page == 'town') {
@@ -1505,6 +1631,95 @@ $txt['pagetitle'] = 'Рыболовство';
 $txt['pagetitle'] = 'Больше или меньше';
 }else if ($page == 'slots') {
 $txt['pagetitle'] = 'Слоты';
+		$txt['slots_npc_title'] = 'Слоты';
+		$txt['slots_npc_text'] = 'Испытай удачу на игровых автоматах!<br>Одна игра стоит 150 билетов. Собери 3 одинаковых символа, чтобы выиграть!<br>Нажми <a href="./casino">ЗДЕСЬ</a>, чтобы вернуться в Казино.';
+		$txt['slots_not_enough'] = 'Тебе нужно как минимум 150 билетов, чтобы играть.';
+		$txt['slots_won'] = 'Ты выиграл %s билетов!';
+		$txt['slots_lost'] = 'Ты проиграл. Попробуй ещё раз!';
+		$txt['tickets_inventory'] = 'Твои билеты:';
+		$txt['slots_title'] = 'Игровой автомат';
+		$txt['slots_play'] = 'Играть';
+		$txt['slots_comb_collapse'] = 'Свернуть комбинации';
+		$txt['slots_comb_expand'] = 'Развернуть комбинации';
+		$txt['slots_comb'] = 'Комбинация';
+		$txt['slots_prize'] = 'Приз';
+		$txt['slots_play_again'] = 'Играть снова';
+}else if ($page == 'trainer') {
+$txt['pagetitle'] = 'Тренеры';
+$txt['trainer_npc_title'] = 'Битва с NPC';
+$txt['trainer_npc_text'] = 'Здесь у вас есть возможность искать тренеров, чтобы бросить им вызов!<br /> Нажав кнопку <b>ИСКАТЬ NPC</b>, автоматически будет выбран случайный тренер для битвы с вами.';
+$txt['trainer_rank_min'] = 'МИНИМАЛЬНЫЙ РАНГ ДЛЯ БИТВЫ С NPC: 4 - ТРЕНЕР. ПРОДОЛЖАЙТЕ ПОВЫШАТЬ РАНГ, ЧТОБЫ ОТКРЫТЬ!';
+$txt['trainer_table_title'] = 'NPC\'s';
+$txt['trainer_search_btn'] = 'Искать NPC';
+$txt['trainer_rank_btn'] = 'ПОВЫСЬТЕ РАНГ, ЧТОБЫ ВЫЗВАТЬ NPC';
+$txt['trainer_battle_btn'] = 'Сразиться!';
+$txt['trainer_vs'] = 'Битва против %s';
+}else if ($page == 'safari') {
+$txt['pagetitle'] = 'Зона Сафари';
+$txt['safari_npc_title'] = 'Зона Сафари';
+$txt['safari_npc_text'] = 'Ищите и ловите экзотических покемонов со всех регионов здесь, в <b>Зоне Сафари</b>! <br>Сафари открыто каждый <b>вторник</b>, <b>четверг</b> и <b>субботу</b> с 00:00 до 02:00, с 11:00 до 13:00 и с 18:00 до 20:00!';
+$txt['safari_event_npc_text'] = 'Ищите и ловите экзотических покемонов со всех регионов здесь, в <b>Зоне Сафари</b>! <br>Событие заканчивается <b>28.06.2019</b>!';
+$txt['safari_all_fainted'] = 'Все ваши покемоны потеряли сознание.';
+$txt['safari_not_found'] = 'Вы не нашли этого покемона или уже сражались с ним!';
+$txt['safari_wrong_level'] = 'Это не уровень покемона, которого вы нашли!';
+$txt['safari_wait'] = 'Подождите...';
+$txt['safari_found_wild'] = 'Вы нашли %s!';
+$txt['safari_level_label'] = 'Уровень: %s';
+$txt['safari_attack_btn'] = 'Атаковать!';
+$txt['safari_see_trainer'] = 'Смотрите, тренер!';
+$txt['safari_duel_ask'] = 'Сразиться с ним?';
+$txt['safari_battle_btn'] = 'Сразиться!';
+$txt['safari_trainers_area'] = 'Тренеры поблизости: %s';
+$txt['safari_you'] = 'Вы';
+$txt['safari_map_label'] = 'Карта - %s';
+$txt['safari_map_grass'] = 'Карта травы';
+$txt['safari_map_water'] = 'Карта воды';
+$txt['safari_map_cave'] = 'Карта пещеры';
+$txt['safari_map_tower'] = 'Карта башни';
+$txt['safari_map_lava'] = 'Карта лавы';
+$txt['safari_map_beach'] = 'Карта пляжа';
+$txt['safari_map_dojo'] = 'Школа боевых искусств';
+$txt['safari_map_center'] = 'Центр покемонов';
+$txt['safari_map_market'] = 'Рынок';
+$txt['safari_move_hint'] = 'Используйте кнопки выше или стрелки на клавиатуре, чтобы двигаться!';
+$txt['safari_closed'] = 'Зона Сафари сейчас закрыта.';
+}else if ($page == 'eventos') {
+$txt['pagetitle'] = 'Событие';
+$txt['safari_npc_title'] = 'Зона Сафари';
+$txt['safari_npc_text'] = 'Ищите и ловите экзотических покемонов со всех регионов здесь, в <b>Зоне Сафари</b>! <br>Сафари открыто каждый <b>вторник</b>, <b>четверг</b> и <b>субботу</b> с 00:00 до 02:00, с 11:00 до 13:00 и с 18:00 до 20:00!';
+$txt['safari_event_npc_text'] = 'Ищите и ловите экзотических покемонов со всех регионов здесь, в <b>Зоне Сафари</b>! <br>Событие заканчивается <b>28.06.2019</b>!';
+$txt['safari_all_fainted'] = 'Все ваши покемоны потеряли сознание.';
+$txt['safari_not_found'] = 'Вы не нашли этого покемона или уже сражались с ним!';
+$txt['safari_wrong_level'] = 'Это не уровень покемона, которого вы нашли!';
+$txt['safari_wait'] = 'Подождите...';
+$txt['safari_found_wild'] = 'Вы нашли %s!';
+$txt['safari_level_label'] = 'Уровень: %s';
+$txt['safari_attack_btn'] = 'Атаковать!';
+$txt['safari_see_trainer'] = 'Смотрите, тренер!';
+$txt['safari_duel_ask'] = 'Сразиться с ним?';
+$txt['safari_battle_btn'] = 'Сразиться!';
+$txt['safari_trainers_area'] = 'Тренеры поблизости: %s';
+$txt['safari_you'] = 'Вы';
+$txt['safari_map_label'] = 'Карта - %s';
+$txt['safari_map_grass'] = 'Карта травы';
+$txt['safari_map_water'] = 'Карта воды';
+$txt['safari_map_cave'] = 'Карта пещеры';
+$txt['safari_map_tower'] = 'Карта башни';
+$txt['safari_map_lava'] = 'Карта лавы';
+$txt['safari_map_beach'] = 'Карта пляжа';
+$txt['safari_map_dojo'] = 'Школа боевых искусств';
+$txt['safari_map_center'] = 'Центр покемонов';
+$txt['safari_map_market'] = 'Рынок';
+$txt['safari_move_hint'] = 'Используйте кнопки выше или стрелки на клавиатуре, чтобы двигаться!';
+$txt['safari_closed'] = 'Зона Сафари сейчас закрыта.';
+}else if ($page == 'attack/tour_fight') {
+$txt['pagetitle'] = 'Турнир';
+$txt['tour_no_pokemon'] = 'У вас нет покемонов, которые могли бы сражаться!';
+$txt['tour_wait'] = 'Подождите';
+$txt['tour_opponent_no_answer'] = 'Противник не ответил. Вы победили.';
+$txt['tour_loading'] = 'Загрузка';
+$txt['tour_started'] = 'Турнир начался.';
+$txt['tour_battle_btn'] = 'Сразиться!';
 }else if ($page == 'tour') {
 $txt['pagetitle'] = 'Турнир';
 }else if ($page == 'league') {
@@ -1540,6 +1755,12 @@ $txt['button_take']        = 'ХОРОШО';
 $txt['button_bring']       = 'ХОРОШО';
 $txt['empty']              = 'Пустой';
 $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
+$txt['box_pokemons_word']  = 'Покемоны.';
+$txt['box_lv100']          = 'Покемоны ур.100: ';
+$txt['box_top3']           = 'Покемоны ТОП 3: ';
+$txt['box_medal_top1']     = 'Топ 1 покемон';
+$txt['box_medal_top2']     = 'Топ 2 покемона';
+$txt['box_medal_top3']     = 'Топ 3 покемона';
 }
 ######################## FLIP A COIN ########################
 	else if ($page == 'flip-a-coin') {
@@ -1578,6 +1799,11 @@ $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
 							  Если вы все сделаете правильно, вы выиграете <img src="'.$static_url.'/images/icons/ticket.png" title="Билет"> 100!';
 		$txt['choose_a_pokemon'] = 'Выбор';
 		$txt['button'] = 'ХОРОШО!';
+		$txt['quiz_npc_title'] = 'Кто это?';
+		$txt['quiz_npc_text'] = 'Угадай, какой покемон здесь показан, и выиграй билеты!<br>Одна попытка стоит 50 билетов, но ты выиграешь 100 билетов, если угадаешь.<br>Нажми <a href="./casino">ЗДЕСЬ</a>, чтобы вернуться в Казино.';
+		$txt['quiz_title'] = 'Какой это покемон?';
+		$txt['quiz_guess'] = 'Угадать';
+		$txt['tickets_inventory'] = 'Твои билеты:';
 	}
 	
 	######################## WHEEL OF FORTUNE ########################
@@ -1602,6 +1828,16 @@ $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
 		$txt['title_text_2'] = 'оставшиеся шансы на сегодня.';
 		//$txt['premiumtext'] = '<br>Premium members can do this 3 times per day. <a href="./area-market"><strong>Become a Premium Member!</strong></a>';
 		$txt['button'] = 'Крутите колесо!';
+		$txt['wof_npc_title'] = 'Колесо фортуны';
+		$txt['wof_npc_text'] = 'Крути колесо фортуны и выигрывай отличные призы!<br>Каждый день у тебя есть несколько бесплатных вращений.<br>Нажми <a href="./casino">ЗДЕСЬ</a>, чтобы вернуться в Казино.';
+		$txt['wof_title'] = 'Колесо фортуны';
+		$txt['wof_won_tickets'] = 'ТЫ ВЫИГРАЛ %s БИЛЕТОВ!';
+		$txt['wof_wheel_100'] = '100 БИЛЕТОВ';
+		$txt['wof_wheel_250'] = '250 БИЛЕТОВ';
+		$txt['wof_wheel_ball'] = 'ПОКЕБОЛ';
+		$txt['wof_wheel_item'] = 'ОСОБЫЙ ПРЕДМЕТ';
+		$txt['wof_wheel_stone'] = 'КАМЕНЬ ЭВОЛЮЦИИ';
+		$txt['wof_wheel_tm'] = 'ТМ';
 	}
 	
 	######################## WHEEL OF FORTUNE ########################
@@ -1867,6 +2103,7 @@ $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
 		$txt['alert_no_pokemon'] = "У вас нет покемонов, желающих сражаться.";
 	}
 	else if ($page == 'clans') {
+		$txt['clans_rank_min'] = 'МИНИМАЛЬНЫЙ РАНГ ДЛЯ ДОСТУПА К КЛАНАМ: 5 - FIRST COACH. ПРОДОЛЖАЙТЕ ПОВЫШАТЬ РАНГ, ЧТОБЫ РАЗБЛОКИРОВАТЬ!';
 		$txt['pagetitle'] = 'Рейтинг клана';
 	
 	}
@@ -1887,6 +2124,8 @@ $txt['no_pokemon']	   = 'Покемонов не обнаружено.';
 	}
 	######################## HOUSE SELLER ########################
 	else if ($page == 'house-seller') {
+		$txt['house_seller_npc_title'] = 'ПРОДАВЕЦ ДОМОВ';
+		$txt['house_seller_buy_btn']   = 'КУПИТЬ!';
 		#Alerts
 		$txt['alert_nothing_selected'] = 'Вам нужно выбрать дом.';
 		$txt['alert_you_own_this_house'] = 'У вас уже есть этот дом!';
@@ -2549,5 +2788,72 @@ $txt['liga_status_arena_ice'] = 'Ледяная арена';
 $txt['liga_status_arena_rock'] = 'Каменная арена';
 $txt['liga_status_arena_grass'] = 'Травяная арена';
 $txt['liga_status_no_opponent'] = 'Нет соперника';
+$txt['league_err_online_op'] = 'Твой соперник не был онлайн!';
+$txt['league_err_online_you'] = 'Ты не онлайн!';
+$txt['league_err_region_op'] = 'Твой соперник не был в регионе %s!';
+$txt['league_err_region_you'] = 'Ты должен быть в регионе %s!';
+$txt['league_err_six_op'] = 'У твоего соперника не было 6 покемонов в команде!';
+$txt['league_err_six_you'] = 'У тебя нет 6 покемонов в команде!';
+$txt['league_err_allko_op'] = 'Все покемоны твоего соперника были без сознания!';
+$txt['league_err_allko_you'] = 'Все твои покемоны без сознания!';
+$txt['league_err_lvmax_op'] = 'У твоего соперника был покемон с уровнем выше %s в команде!';
+$txt['league_err_lvmax_you'] = 'Один из твоих покемонов в команде имеет уровень выше %s!';
+$txt['league_err_shinys_op'] = 'У твоего соперника было больше %s блестящих покемонов в команде!';
+$txt['league_err_shinys_you'] = 'У тебя больше %s блестящих покемонов в команде!';
+$txt['league_err_lendas_op'] = 'У твоего соперника было больше %s легендарных покемонов в команде!';
+$txt['league_err_lendas_you'] = 'У тебя больше %s легендарных покемонов в команде!';
+$txt['league_err_megas_op'] = 'У твоего соперника было больше %s мега-эволюционировавших покемонов в команде!';
+$txt['league_err_megas_you'] = 'У тебя больше %s мега-эволюционировавших покемонов в команде!';
+$txt['msg_title_conversas'] = 'Беседы';
+$txt['msg_you'] = 'Ты';
+$txt['msg_no_conversas'] = 'Нет бесед для отображения';
+$txt['msg_select_actions'] = 'С выбранными:';
+$txt['msg_delete'] = 'Удалить';
+$txt['msg_delete_confirm'] = 'Ты действительно хочешь удалить это(и) сообщение(я)?';
+$txt['msg_same_title'] = 'У тебя уже есть беседа с этим тренером с таким же названием!';
+$txt['msg_sent'] = 'Сообщение отправлено %s!';
+$txt['msg_self'] = 'Ты не можешь отправлять сообщения самому себе!';
+$txt['msg_user_not_exists'] = 'Этот пользователь не существует!';
+$txt['msg_deleted'] = 'Удалено бесед: %s!';
+$txt['msg_blocked_by'] = 'Этот тренер заблокировал тебя, поэтому ты не можешь отправлять ему сообщения или получать их!';
+$txt['msg_blocked_you'] = 'Ты заблокировал этого тренера, поэтому не можешь отправлять ему сообщения или получать их!';
+$txt['om_title'] = 'Официальные сообщения';
+$txt['om_posted_in'] = 'Опубликовано: %s';
+$txt['om_no_messages'] = 'Нет официальных сообщений для отображения';
+$txt['friends_request_event'] = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player=%s">%s</a> хочет стать твоим другом. Посети <a href="./friends">Страницу друзей</a> для <b>подробностей</b>.';
+$txt['captcha_box_title'] = 'ПРОВЕРКА БЕЗОПАСНОСТИ';
+$txt['captcha_box_text'] = ' Чтобы избежать проблем с БОТАМИ и МАКРОСАМИ, нам пришлось ввести эту меру безопасности.';
+$txt['captcha_incorrect'] = 'Неверно, у вас осталось ещё %s попытки(ок)!';
+$txt['captcha_correct'] = 'Код верный, можете продолжать!';
+$txt['captcha_not_premium'] = 'У вас нет премиума. Станьте премиум-пользователем, нажав <a href="./gold-market">ЗДЕСЬ</a>, и получайте преимущества.';
+$txt['captcha_click_on'] = 'Нажмите на <b><font color="#d25757">%s</font></b> ниже.';
+$txt['pokedex_rarity_1']        = 'Обычный';
+$txt['pokedex_rarity_2']        = 'Необычный';
+$txt['pokedex_rarity_3']        = 'Редкий';
+$txt['pokedex_rarity_4']        = 'Легендарный';
+$txt['pokedex_rarity_5']        = 'Стартовый';
+$txt['pokedex_rarity_6']        = 'Мифический';
+$txt['pokedex_rarity_7']        = 'Мега';
+$txt['pokedex_rarity_8']        = 'Особый';
+# popup (HUD / pokemon-info)
+$txt['popup_level'] = 'ур.';
+$txt['popup_attack'] = 'Атака';
+$txt['popup_defense'] = 'Защита';
+$txt['popup_sp_attack'] = 'Сп. Атака';
+$txt['popup_sp_defense'] = 'Сп. Защита';
+$txt['popup_speed'] = 'Скорость';
+$txt['popup_capture_chance'] = 'Шанс поимки:';
+$txt['popup_ability'] = 'Способность:';
+$txt['popup_total_power'] = 'Общая сила:';
+$txt['popup_rarity_is'] = 'Этот покемон — <u>%s</u>.';
+$txt['popup_top'] = 'Топ %s покемон';
+$txt['popup_view_profile'] = 'Просмотр профиля покемона';
+$txt['popup_nickname'] = 'Кличка:';
+$txt['popup_mood'] = 'Характер:';
+$txt['popup_tradable'] = 'Обмениваемый:';
+$txt['popup_tradable_yes'] = 'Обмениваемый';
+$txt['popup_tradable_no'] = 'Не обмениваемый';
+$txt['popup_initial'] = 'Стартовый';
+$txt['popup_egg_hatch'] = 'Яйцо вылупится через:';
 /* === end externalized strings === */
 ?>

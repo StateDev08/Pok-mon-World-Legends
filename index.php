@@ -50,6 +50,7 @@ function isAllowedPage($page) {
 
 require_once('app/includes/resources/config.php');
 require_once('language/language-general.php');
+$site_description = $txt['site_description'] ?? $site_description;
 require_once('app/includes/resources/ingame.inc.php');
 
 #Load Page
@@ -490,7 +491,29 @@ if ($pokecen_tijd > 0) {
 				<div id="header">
 					<div class="hub" style="z-index: 10">
 						<ul class="hub-hud">
-							<li class="hub-hud-line" style="width: 600px">
+							<li class="hub-hud-line" style="width: 45%; text-align: left; vertical-align: top;">
+								<a href="./" class="noanimate" style="display:block; padding-top: 150px;">
+									<div id="logo" class="logo_<?=rand(1, 5)?>" style="display:block;"></div>
+								</a>
+							</li>
+							<li class="hub-hud-line" style="text-align: right; padding-top: 150px; vertical-align: top;">
+								<div style="background: url('<?=$static_url?>/images/characters/<?=$gebruiker['character']?>/bar.png') no-repeat; border-radius: 5px; display: inline-block;">
+									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="<?=sprintf($txt['hud_premium_ends'], date('d/m/y H:i', $gebruiker['premiumaccount']));?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
+									<div style="background: url('<?=$static_url?>/images/layout/player.png') no-repeat; width: 520px; height: 93px">
+										<ul style="list-style: none; padding-top: 16px; color: #fff">
+											<li style="padding-left: 103px; width: 124px; text-align: center"><a href="./profile&amp;player=<?=$gebruiker['username'];?>"><?=GetColorName($gebruiker['user_id']);?><?=(!empty($gebruiker['clan']))? '<a href="./clans&action=profile&id='.$gebruiker['clan'].'"> - <b>'.$clan->get($gebruiker['clan'])['sigla'].'</b></a>' : '';?></a></li>
+											<li style="padding-left: 103px; width: 124px; text-align: center; padding-top: 3px"><?=(isset($gebruiker['wereld']))? $gebruiker['wereld'] : $txt['hud_lobby'] ;?></li>
+											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?= str_replace(" ", "&nbsp;", $gebruiker_rank['ranknaam']); ?> (<?=$gebruiker_rank['procent'];?>%)</li>
+											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?=sprintf($txt['hud_pokedex_progress'], $gebruiker_pokemon['procent']);?></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="hub">
+						<ul class="hub-hud">
+							<li class="hub-hud-line" style="width: 45%">
 								<div style="float:left;margin:5px 0 0 5px;">
 									<?php
 									$flag_codes = ['pt','de','en','pl','ru','zh'];
@@ -510,9 +533,6 @@ if ($pokecen_tijd > 0) {
 									}
 									?>
 								</div>
-								<a href="./" class="noanimate" style="padding-top: 150px;">
-									<div id="logo" class="logo_<?=rand(1, 5)?>"></div>
-								</a>
 							</li>
 							<?php $ab = (empty($_SESSION['id']) || !empty($_SESSION['share_acc']))? 'block' : 'add'; ?>
 							<li class="hub-hud-line" style="padding-right: 5px;"><div id="silvers" class="bright-low" <?=($gebruiker['silver'] >= 1000000)? 'title="'.highamount($gebruiker['silver']).'"' : ''?>"><div class="<?=$ab?>"></div><p><?=balance_converter($gebruiker['silver'])?></p></div></li>
@@ -521,23 +541,6 @@ if ($pokecen_tijd > 0) {
 							</li>
 							<li class="hub-hud-line"><a href="./inbox" class="noanimate" style="float: right"><?=($general_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$general_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/mensagens.png" style="margin-top: -7px;" class="bright"></a></li>
 							<li class="hub-hud-line"><?=($events_count > 0)? '<span class="badges" style="float: right; margin-left: -20px; margin-top: -15px; z-index: 100; position: relative;">'.$events_count.'</span>' : ''; ?><img src="<?=$static_url?>/images/layout/perfil.png" style="margin-top: -10px; float: right" class="bright tip_bottom-right" title="<div class='user_hover'><a href='./profile&player=<?=$gebruiker['username']?>' class='noanimate'><div><i class='material-icons'>account_circle</i><?=isset($gebruiker['username'])? $gebruiker['username'] : $txt['hud_profile']?></div></a><a href='./my_characters' class='noanimate'><div><i class='material-icons'>group</i><?=$txt['hud_my_characters']?></div></a><a href='./events' class='noanimate'><div><i class='material-icons'>notifications_active</i><?=$txt['hud_notifications']?> (<?=$events_count?>)</div></a><a href='./account-options' class='noanimate'><div><i class='material-icons'>settings</i><?=$txt['hud_settings']?></div></a><a href='./logout' class='noanimate'><div><i class='material-icons'>close</i><?=$txt['hud_logout']?></div></a></div>"></li>
-						</ul>
-					</div>
-					<div class="hub" style="margin-top: -165px; z-index: 10">
-						<ul class="hub-hud">
-							<li class="hub-hud-line" style="width: 100%">
-								<div style="background: url('<?=$static_url?>/images/characters/<?=$gebruiker['character']?>/bar.png') no-repeat; border-radius: 5px; float: right">
-									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="<?=sprintf($txt['hud_premium_ends'], date('d/m/y H:i', $gebruiker['premiumaccount']));?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
-									<div style="background: url('<?=$static_url?>/images/layout/player.png') no-repeat; width: 520px; height: 93px">
-										<ul style="list-style: none; padding-top: 16px; color: #fff">
-											<li style="padding-left: 103px; width: 124px; text-align: center"><a href="./profile&amp;player=<?=$gebruiker['username'];?>"><?=GetColorName($gebruiker['user_id']);?><?=(!empty($gebruiker['clan']))? '<a href="./clans&action=profile&id='.$gebruiker['clan'].'"> - <b>'.$clan->get($gebruiker['clan'])['sigla'].'</b></a>' : '';?></a></li>
-											<li style="padding-left: 103px; width: 124px; text-align: center; padding-top: 3px"><?=(isset($gebruiker['wereld']))? $gebruiker['wereld'] : $txt['hud_lobby'] ;?></li>
-											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?= str_replace(" ", "&nbsp;", $gebruiker_rank['ranknaam']); ?> (<?=$gebruiker_rank['procent'];?>%)</li>
-											<li style="padding-left: 85px; width: 171px; text-align: center; padding-top: 6px"><?=sprintf($txt['hud_pokedex_progress'], $gebruiker_pokemon['procent']);?></li>
-										</ul>
-									</div>
-								</div>
-							</li>
 						</ul>
 					</div>
 					<div class="hub" style="padding-top: 10px">

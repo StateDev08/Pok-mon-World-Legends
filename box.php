@@ -31,9 +31,9 @@
 	$top22 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND top3='2'")->num_rows;
 	$top11 = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id = '".($_SESSION['id'] ?? '')."' AND top3='1'")->num_rows;
 
-	$top3 = '<img src=\'' . $static_url . '/images/icons/medal3.png\' title=\'Tops 3 Pokémons\' /> ' . $top33 . ' | ';
-	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal2.png\' title=\'Tops 2 Pokémons\' /> ' . $top22 . ' | ';
-	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal1.png\' title=\'Tops 1 Pokémons\' /> ' . $top11 . ' ';
+	$top3 = '<img src=\'' . $static_url . '/images/icons/medal3.png\' title=\'' . $txt['box_medal_top3'] . '\' /> ' . $top33 . ' | ';
+	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal2.png\' title=\'' . $txt['box_medal_top2'] . '\' /> ' . $top22 . ' | ';
+	$top3 .= '<img src=\'' . $static_url . '/images/icons/medal1.png\' title=\'' . $txt['box_medal_top1'] . '\' /> ' . $top11 . ' ';
 
     if ($gebruiker['in_hand'] == 0) {
         echo '<div class="red">'.$txt['box_no_pokemon'].'</div>';
@@ -74,9 +74,9 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
    <p>
       <?php
          echo '<div style="color: white; vertical-align: middle;padding-top: 40px; padding-left: 4px;padding-left:4px;">
-            <center>'.$txt['title_text_1'].' '.$huiss.', '.$txt['title_text_2'].' '.$huis['ruimte'].' Pokémons.<br><br>
-            Pokémons Nv.100: '.$pokes100.' <br><br>
-            Pokémons TOP 3: <br> '.$top3.'
+            <center>'.$txt['title_text_1'].' '.$huiss.', '.$txt['title_text_2'].' '.$huis['ruimte'].' '.$txt['box_pokemons_word'].'<br><br>
+            '.$txt['box_lv100'].$pokes100.' <br><br>
+            '.$txt['box_top3'].'<br> '.$top3.'
             </center>
             </div><br>';
          

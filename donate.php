@@ -6,7 +6,7 @@
 <?php
 require_once('app/includes/resources/security-account.php');
 
-echo addNPCBox(18, $txt['titlenpc'], 'Ao efetuar qualquer tipo de compra nesta página, você estará colaborando com o desenvolvimento do jogo em si. Todo o dinheiro aqui arrecadado será convertido para melhorias do jogo, assim como a divulgação do jogo.');
+echo addNPCBox(18, $txt['titlenpc'], $txt['textnpc']);
 
 if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST['pack'] ?? ''))) {
     $pack = ($_POST['pack'] ?? '');
@@ -33,7 +33,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
             DB::exQuery("DELETE FROM `fatura` WHERE `id`='$id_ref'");
         }
     } else {
-        echo '<div class="red">Esse Pacote não existe!</div>';
+        echo '<div class="red">'.$txt['donate_pack_not_exist'].'</div>';
     }
 }
 
@@ -46,7 +46,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 	<table class="general" width="100%">
 		<thead>
 			<tr>
-				<th>Pacotes em Destaque</th>
+				<th><?=$txt['donate_featured_title']?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,15 +68,15 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 									<td colspan="2"><img src="<?=$static_url?>/images/layout/logo_footer.png" class="img"></td>
 								</tr>
 								<tr>
-									<td style="padding-top: 21px; width: 49%"><span><b style="cursor: help" title="<?=$s1['msg']?>">+Conteúdo</b></span></td>
+									<td style="padding-top: 21px; width: 49%"><span><b style="cursor: help" title="<?=$s1['msg']?>"><?=$txt['donate_content_label']?></b></span></td>
 									<td style="padding-top: 21px; width: 50%"><span>R$ <?=$s1['value']?></span></td>
 								</tr>
 								<tr>
-									<td colspan="2" style="padding-top: 10px;"><form method="post" onsubmit="return confirm('Tem certeza que deseja comprar o <?=$s1['naam']?> por R$ <?=$s1['value']?>?')"><input type="hidden" name="pack" value="<?=$s1['id']?>"><input type="submit" value="Comprar Pacote" name="button-pack"></form></td>
+									<td colspan="2" style="padding-top: 10px;"><form method="post" onsubmit="return confirm('<?=addslashes(sprintf($txt['donate_confirm_buy'], $s1['naam'], 'R$ '.$s1['value']))?>')"><input type="hidden" name="pack" value="<?=$s1['id']?>"><input type="submit" value="<?=$txt['donate_buy_btn']?>" name="button-pack"></form></td>
 								</tr>
 							</table>
 						</div>
-						<?php } if ($i == 1) {echo '<div class="red">Não há Pacotes em Destaque no momento.</div>';} ?>
+						<?php } if ($i == 1) {echo '<div class="red">'.$txt['donate_no_featured'].'</div>';} ?>
 					</div>
 				</td>
 			</tr>
@@ -98,7 +98,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 	<table class="general" width="100%" style="padding: 13px 0;">
 		<thead>
 			<tr>
-				<th colspan="2">Pacotes</th>
+				<th colspan="2"><?=$txt['donate_title']?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -126,7 +126,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 								</td>
 								<td>
 									<h3 class="title" style="background: none;margin-top: 20px;"><?=$s['naam']?></h3>
-									<p style="margin-left: 6px;width: 166px;hyphens: manual;word-wrap: break-word;margin: 0 6px;"><?=$s['descritivo']?><form method="post" onsubmit="return confirm('Tem certeza que deseja comprar o Pacote <?=$s['naam']?> por R$ <?=$s['value']?>?')"><input type="hidden" name="pack" value="<?=$s['id']?>"><input type="submit" value="Comprar Pacote" name="button-pack" style="margin-top:<?=$top?>;margin-left:31px"></form></p>		
+									<p style="margin-left: 6px;width: 166px;hyphens: manual;word-wrap: break-word;margin: 0 6px;"><?=$s['descritivo']?><form method="post" onsubmit="return confirm('<?=addslashes(sprintf($txt['donate_confirm_buy'], $s['naam'], 'R$ '.$s['value']))?>')"><input type="hidden" name="pack" value="<?=$s['id']?>"><input type="submit" value="<?=$txt['donate_buy_btn']?>" name="button-pack" style="margin-top:<?=$top?>;margin-left:31px"></form></p>		
 								</td>
 								<td style="width: 25%">
 									<div style="margin-top: 61px;">
@@ -159,21 +159,21 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 	<table class="general" width="100%" style="padding: 13px 0;">
 		<thead>
 			<tr>
-				<th colspan="5">Últimas 10 Transferências</th>
+				<th colspan="5"><?=$txt['donate_transfers_title']?></th>
 			</tr>
 			<tr>
 			    <th>#</th>
-			    <th>Pacote</th>
-			    <th>Preço</th>
-			    <th>Data</th>
-			    <th>Status</th>
+			    <th><?=$txt['donate_package']?></th>
+			    <th><?=$txt['donate_transfers_price']?></th>
+			    <th><?=$txt['donate_transfers_date']?></th>
+			    <th><?=$txt['donate_transfers_status']?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
 				$sql = DB::exQuery("SELECT * FROM `fatura` WHERE `user_id`='$_SESSION[id]' ORDER BY `id` DESC LIMIT 0, 10");
 				$i = 0;
-				$status = array('Aguardando pagamento', 'Em análise', 'Paga', 'Disponível', 'Em disputa', 'Devolvida', 'Cancelada');
+				$status = array($txt['donate_status_pending'], $txt['donate_status_analysis'], $txt['donate_status_paid'], $txt['donate_status_available'], $txt['donate_status_dispute'], $txt['donate_status_refunded'], $txt['donate_status_cancelled']);
 
 				while($f = $sql->fetch_assoc()) {
 				    ++$i;
@@ -181,7 +181,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 			?>
 				<tr style="text-align: center">
 				    <td><?=$i?></td>
-				    <td>Pacote <?=$pack['naam']?></td>
+				    <td><?=$txt['donate_package']?> <?=$pack['naam']?></td>
 				    <td>R$<?=$f['valor']?></td>
 				    <td><?=str_replace('-', '/', $f['data'])?></td>
 				    <td><b><?=$status[$f['status']-1]?></b></td>
@@ -190,7 +190,7 @@ if (isset($_POST['pack']) && isset($_POST['button-pack']) && ctype_digit(($_POST
 				}
 				
 				if ($i == 0) {
-				    echo '<td colspan="5" style="text-align: center">Não há transferências à serem listadas!</td>';
+				    echo '<td colspan="5" style="text-align: center">'.$txt['donate_transfers_none'].'</td>';
 				}
 			?>
 		</tbody>

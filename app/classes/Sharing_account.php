@@ -30,11 +30,12 @@ class Sharing_account {
     public function getShared () {
         $user = $this->user()->fetch_assoc();
         
-        return explode(',', $user['shared']);
+        return explode(',', $user['shared'] ?? '');
     }
 
     public function username ($id) {
-        return DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `user_id`='$id'")->fetch_assoc()['username'];
+        $row = DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `user_id`='$id'")->fetch_assoc();
+        return $row['username'] ?? '';
     }
 
     protected function user () {

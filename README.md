@@ -64,7 +64,7 @@ Two ways to install the game.
 
 1. Upload the repository to your web server and point the document root to the repository root.
 2. Open `install.php` in your browser.
-3. Follow the assistant: it creates your `.env` file, connects to the database, imports the bundled schema, creates the **admin account** (username, e-mail and password you choose) and generates the random **team password** (`KEYZITAPASS`).
+3. Follow the assistant: it creates your `.env` file, connects to the database, imports the bundled schema, creates the **admin account** (username, e-mail and password you choose, with full admin rights) and generates the random **team password** (`KEYZITAPASS` password-salt and the `TEAM_PASSWORD` staff security password).
 4. After installation, **delete `install.php` and `install.lock`** from the document root for security.
 
 ### Option 2: Manual setup
@@ -104,9 +104,10 @@ All environment-specific settings live in `.env` (the template is `.env.example`
 | `SMTP_PORT`     | SMTP port                                      | `587`                  |
 | `SMTP_MAIL`     | "From" address for system e-mails              | `noreply@yourdomain.com` |
 | `SMTP_PASS`     | SMTP password                                  |                        |
-| `KEYZITAPASS`   | Team password / salt used for password hashing | auto-generated         |
+| `KEYZITAPASS`   | Password-hash salt (auto-generated on install) | auto-generated         |
+| `TEAM_PASSWORD` | Shared staff security password (team area)     | auto-generated         |
 
-The `.env` file is loaded by `app/includes/Env.php`. `KEYZITAPASS` is the salt for the `password()` hash; the web installer generates a random value on install. Existing installations must keep their original value, otherwise stored account passwords no longer match. The schema also ships a number of in-code feature toggles (e.g. weekend triple XP, double silver days, seasonal shops) in `app/includes/resources/config.php`.
+The `.env` file is loaded by `app/includes/Env.php`. `KEYZITAPASS` is the salt for the `password()` hash; `TEAM_PASSWORD` is the shared security password for the team area (`equipe-check`). The web installer generates both on install (the team password can also be chosen in the installer form). Existing installations must keep their original `KEYZITAPASS`, otherwise stored account passwords no longer match. The schema also ships a number of in-code feature toggles (e.g. weekend triple XP, double silver days, seasonal shops) in `app/includes/resources/config.php`.
 
 ---
 

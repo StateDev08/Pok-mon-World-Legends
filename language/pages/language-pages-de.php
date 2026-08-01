@@ -1,5 +1,6 @@
 <?php
 if ($page == 'home' || empty($page)) {
+	$txt['home_news_text'] = '[16/07/2019] - <b>%s</b> VERÖFFENTLICHT! SEHT EUCH DIE <b>UPDATE-NOTIZEN</b> UNTER DEN <a href="./official-messages">OFFIZIELLEN NACHRICHTEN</a> AN!';
 	$txt['pagetitle']			= 'Heim';
 	$txt['news_empty']			= 'Im Moment keine Neuigkeiten!';
 	$txt['poke_stats']			= 'Pokemon-Statistiken';
@@ -319,6 +320,35 @@ if ($page == 'home' || empty($page)) {
 		$txt['capture_chance']		  = 'Chance auf Gefangennahme';
 		$txt['evolui_de']             = 'Entsteht aus';
 		$txt['trade']				  = 'Umtausch erforderlich.';
+		$txt['info_choose_pokemon']           = 'Wähle ein Pokémon.';
+		$txt['info_egg_yes']                  = 'Ja';
+		$txt['info_egg_no']                   = 'Nein';
+		$txt['info_egg_legendary']            = 'Legendär/Starter';
+		$txt['info_total_power']              = 'Gesamtstärke:';
+		$txt['info_no_pokemon_species']       = 'Es gibt keine Pokémon dieser Art!';
+		$txt['info_possible_abilities']       = 'Mögliche Fähigkeiten:';
+		$txt['info_can_come_pokemart']        = 'Im PokéMart erhältlich?';
+		$txt['info_exist_level100']           = 'Es gibt <b>%s</b> auf Level 100.';
+		$txt['info_base_stats']               = 'Basiswerte';
+		$txt['info_attacks']                  = 'Attacken';
+		$txt['info_attack_num']               = 'Attacke %s';
+		$txt['info_top3_species']             = 'TOP 3 der Art';
+		$txt['info_holding_item']             = 'Hält das Item %s';
+		$txt['info_ev_gain']                  = 'EV-Gewinn';
+		$txt['info_tm_hm']                    = 'TM / HM';
+		$txt['info_advantages_disadvantages'] = 'Vor- und Nachteile';
+		$txt['info_attack_title']             = 'Angriff %s → %s = %s';
+		$txt['info_no_effect']                = 'Keine Wirkung.';
+		$txt['info_normal_effect']            = 'Normale Wirksamkeit.';
+		$txt['info_super_effective']          = 'Sehr effektiv.';
+		$txt['info_not_very_effective']       = 'Nicht sehr effektiv.';
+		$txt['info_area_Gras']                = 'Gras';
+		$txt['info_area_Lavagrot']            = 'Lavagrotte';
+		$txt['info_area_Water']               = 'Wasser';
+		$txt['info_area_Grot']                = 'Höhle';
+		$txt['info_area_Strand']              = 'Strand';
+		$txt['info_area_Vechtschool']         = 'Kampfschule';
+		$txt['info_area_Spookhuis']           = 'Geisterhaus';
 	} else if (($_GET['category'] ?? '') == 'attack-info') {
 		$txt['titlenpc']		= 'Pokémon-Angriffe';
 		$txt['textnpc']			= 'Suchen Sie Informationen zu einem bestimmten Zug/Angriff? Hier sind Sie richtig, hier finden Sie alles, was Sie zum Angriff Ihres Pokémon suchen.';
@@ -688,8 +718,21 @@ if ($page == 'home' || empty($page)) {
 	$txt['pokedex_info']            = 'Info';
 	$txt['pokedex_search']          = 'Suchen';
 	$txt['pokedex_choose']          = 'Wähle ein Pokémon';
+	$txt['pokedex_rarity_1']        = 'Häufig';
+	$txt['pokedex_rarity_2']        = 'Ungewöhnlich';
+	$txt['pokedex_rarity_3']        = 'Selten';
+	$txt['pokedex_rarity_4']        = 'Legendär';
+	$txt['pokedex_rarity_5']        = 'Starter';
+	$txt['pokedex_rarity_6']        = 'Mythisch';
+	$txt['pokedex_rarity_7']        = 'Mega';
+	$txt['pokedex_rarity_8']        = 'Speziell';
 	$txt['have_already']            = 'Du hast bereits';
 } else if ($page == 'events') {
+	$txt['events_title']            = 'Meine Benachrichtigungen';
+	$txt['events_npc_text']         = 'Hier können Sie alle Vorgänge in Ihrem Spiel verfolgen.';
+	$txt['events_vip_text']         = 'Normale Benutzer haben ein Limit von bis zu den 30 neuesten Benachrichtigungen.<br><br>&mdash; Werden Sie VIP, indem Sie <a href="./gold-market">HIER</a> klicken, und erhöhen Sie das Limit auf 60!';
+	$txt['events_premium_text']     = '<br><br>Sie haben Zugriff auf die 60 neuesten Benachrichtigungen.';
+	$txt['events_no_notifications'] = 'ES GIBT KEINE BENACHRICHTIGUNGEN ZU ANZEIGEN!';
 	$txt['alert_nothing_selected']    = 'Sie müssen eine Benachrichtigung auswählen!';
 	$txt['alert_more_events_deleted'] = 'Benachrichtigungen erfolgreich entfernt!';
 	$txt['alert_one_event_deleted']   = 'Benachrichtigung erfolgreich entfernt!';
@@ -811,6 +854,26 @@ if ($page == 'home' || empty($page)) {
 	$txt['refresh_pokemon']        = 'Aktualisiere das Pokémon';
 	$txt['button_traders_refresh'] = 'Pokémon aktualisieren';
 } else if ($page == 'donate') {
+	$txt['donate_pack_not_exist']    = 'Dieses Paket existiert nicht!';
+	$txt['donate_featured_title']    = 'Ausgewählte Pakete';
+	$txt['donate_content_label']     = '+Inhalt';
+	$txt['donate_confirm_buy']       = 'Sind Sie sicher, dass Sie %s für %s kaufen möchten?';
+	$txt['donate_buy_btn']           = 'Paket kaufen';
+	$txt['donate_no_featured']       = 'Im Moment gibt es keine ausgewählten Pakete.';
+	$txt['donate_title']             = 'Pakete';
+	$txt['donate_transfers_title']   = 'Letzte 10 Überweisungen';
+	$txt['donate_package']           = 'Paket';
+	$txt['donate_transfers_price']   = 'Preis';
+	$txt['donate_transfers_date']    = 'Datum';
+	$txt['donate_transfers_status']  = 'Status';
+	$txt['donate_status_pending']    = 'Wartet auf Zahlung';
+	$txt['donate_status_analysis']   = 'In Prüfung';
+	$txt['donate_status_paid']       = 'Bezahlt';
+	$txt['donate_status_available']  = 'Verfügbar';
+	$txt['donate_status_dispute']    = 'In Streit';
+	$txt['donate_status_refunded']   = 'Zurückerstattet';
+	$txt['donate_status_cancelled']  = 'Abgebrochen';
+	$txt['donate_transfers_none']    = 'Es gibt keine Überweisungen, die angezeigt werden können!';
 	$txt['pagetitle']	= 'Erwerben Sie Gold';
 
 	$txt['titlenpc']	= 'Kaufen Sie jetzt Ihr Gold!';
@@ -893,6 +956,13 @@ if ($page == 'home' || empty($page)) {
 	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
+	$txt['travel_region_0'] = 'Die Kanto-Region ist die Heimat vieler Pokémon und hat eine reiche Geschichte der Erschaffung von Pokémon durch Technologie. Die Forscher Kantos waren hervorragend in ihrer Arbeit. Ein Forscher der bösen Organisation Team Rocket klonte Mew mithilfe seiner Gene und erschuf das genetische Pokémon Mewtu. Porygon, das virtuelle Pokémon, wurde in Kanto ebenfalls von Menschen erschaffen.';
+	$txt['travel_region_1'] = '1500 Jahre vor der Neuzeit wurde der heute als Alfa-Ruinen bekannte Ort in Johto erbaut und das älteste bekannte Schriftsystem – das moderne lateinische Alphabet – entwickelt. Obwohl niemand genau weiß, wer die Alfa-Ruinen erbaut hat, deuten Forschungen darauf hin, dass es sich um eine uralte Zivilisation handelte, die mit dem rätselhaften Unown koexistieren wollte, das den Buchstaben des Alphabets stark ähnelt. Dieser Stamm übermittelte nicht nur Botschaften, die das Unown beschreiben, an den Wänden der Ruinen, sondern errichtete auch aus unbekanntem Grund eine Pokémon-Statue.';
+	$txt['travel_region_2'] = 'Hoenn wurde erschaffen, nachdem Ur-Groudon und Ur-Kyogre entstanden waren. Ur-Groudon hob die Landmassen an und Ur-Kyogre füllte die Meere, die später zu Hoenn werden sollten. Das Aufeinandertreffen dieser beiden führte zu einer großen Schlacht um die Vorherrschaft, bis Mega-Rayquaza sie beendete und Ur-Groudon und Ur-Kyogre in Höhlen schickte, wo sie ruhten.';
+	$txt['travel_region_3'] = 'Laut verschiedener Sinnoh-Mythen war diese Region die erste aller Regionen der Pokémon-Welt, die erschaffen wurde. Aus einem Nichts entstand ein einzelnes Ei, aus dem Arceus schlüpfte, das erste Pokémon, das jemals existierte.';
+	$txt['travel_region_4'] = 'Der Mythologie zufolge wurde Unova von Zwillingshelden erschaffen, die die kriegführenden Völker des Landes vereinten. Sie nutzten einen einzigen Drachen vor über 2500 Jahren. Die Brüder begannen, über ihre Überzeugungen zu streiten; der ältere Bruder suchte die Wahrheit, der jüngere suchte Ideale. Ihre Streitigkeiten spalteten den einzelnen Drachen in Reshiram, das sich auf die Seite des älteren Bruders stellte, und Zekrom, das sich auf die Seite des jüngeren stellte. Da beide aus demselben Drachen geboren wurden, konnte keiner den anderen besiegen, und die Brüder erklärten, es gäbe keine richtige Seite.';
+	$txt['travel_region_5'] = 'Vor 3000 Jahren tobte ein Krieg in Kalos, und mit ihm wurde die Ultimative Waffe erschaffen, eine Waffe, die Unsterblichkeit verlieh. 2200 Jahre nach dem Ende des Krieges gab das legendäre Pokémon Xerneas am Ende seines Lebenszyklus lebenswichtige Energie in der gesamten Region frei. Das legendäre Pokémon Yveltal wiederum absorbierte die Energie, und beide fielen in einen tiefen Winterschlaf, was ein Gleichgewicht in die Region brachte.';
+	$txt['travel_region_6'] = 'Alola besteht aus vier natürlichen Inseln und einer künstlichen. Die Legenden besagen, dass die Wächter der Inseln, die Tapu, sich Solgaleo und Lunala stellten und sie vertrieben. Viele Jahre vergingen, und es erschien ein geheimnisvolles Portal zu einer anderen Dimension, aus dem neue Kreaturen hervorgingen, die als Ultrabestien bezeichnet wurden.';
 	$txt['alert_no_world'] = 'Wählen Sie eine Region aus.';
 	$txt['alert_already_in_world'] = 'Du bist bereits dabei'.($_POST['wereld'] ?? '').'.';
 	$txt['alert_world_invalid'] = ($_POST['wereld'] ?? '').'ist keine gültige Region.';
@@ -1046,6 +1116,9 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		#Screen
 		$txt['pagetitle'] = 'Wählen Sie ein Gebiet zum Erkunden aus!';
 		$txt['title_text'] = 'Wähle einen Ort, an dem du nach einem Pokémon suchen kannst, gegen das du kämpfen kannst!';
+		$txt['map_title'] = 'Karte von %s';
+		$txt['map_npc_text'] = 'Hallo, Trainer! Willkommen auf der <b>KARTE</b> der Region %s.<br>Strebe immer danach, im Spiel voranzukommen, und besiege und fange dafür viele Pokémon. Denke immer daran, Pokébälle mitzunehmen, denn du weißt nie, welches Pokémon du auf deinem Weg treffen wirst!';
+		$txt['map_shop_hint'] = 'Um Zugang zum Meer/See zu erhalten, kaufe die <a href="./market&shopitem=items">ANGELRUTE</a> und für den Zugang zur Höhle besorge dir den <a href="./market&shopitem=items">HÖHLENANZUG</a> IM <a href="./market&shopitem=items">MARKT</a>!';
 	}
 	######################## Attack Gyms ########################
 	else if ($page == 'attack/gyms') {
@@ -1063,6 +1136,25 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		$txt['rank_too_less'] = 'Dein Rang ist sehr niedrig.';
 		$txt['leader'] = 'Führer:';
 		$txt['from_rank'] = 'Rang:';
+		
+		#Localized
+		$txt['gym_not_gym'] = 'Das ist keine Arena!';
+		$txt['gym_err_230'] = 'FEHLER 230';
+		$txt['gym_npc_title'] = 'Arenen';
+		$txt['gym_npc_text'] = 'Willkommen, Trainer! <br>Hier kannst du die Arenaleiter der jeweiligen Regionen herausfordern und dadurch Vorteile erlangen, wie zum Beispiel die <b>Orden</b>. Trainiere deine Pokémon fleißig, denn hier wird kein Arenaleiter Gnade mit dir haben!';
+		$txt['gym_rank_required'] = 'MINDESTRANG FÜR ARENEN: 3 - COACH. LEVEL AUF, UM ES FREIZUSCHALTEN!';
+		$txt['gym_region_title'] = 'Arenen der Region %s';
+		$txt['gym_badge_label'] = 'Orden';
+		$txt['gym_elite_member'] = '%s ist ein Mitglied der TOP VIER von %s!';
+		$txt['gym_blocked_prev'] = '[ARENA GESPERRT!] <BR> [BESIEGE DEN VORHERIGEN, UM DEN ARENALEITER HERAUSFORDERN ZU KÖNNEN!]';
+		$txt['gym_blocked_rank'] = '[ARENA GESPERRT!] <BR> [STEIGE IM RANG AUF, UM DIESEN ARENALEITER HERAUSFORDERN ZU KÖNNEN!]';
+		$txt['gym_no_description'] = 'Für diesen Trainer ist keine Beschreibung verfügbar!';
+		$txt['gym_description_label'] = 'Beschreibung:';
+		$txt['gym_challenge'] = 'Herausfordern ';
+		$txt['gym_win_prev'] = 'BESIEGE DEN VORHERIGEN TRAINER, UM IHN ZU BEKÄMPFEN!';
+		$txt['gym_challenge_trainer'] = 'HERAUSFORDERN: %s';
+		$txt['gym_already_fought'] = 'DU HAST %s BEREITS BEKÄMPFT!';
+		$txt['gym_up_rank'] = 'STEIGE IM RANG AUF, UM IHN ZU BEKÄMPFEN!';
 	}
 	
 	######################## Attack Duel invite ########################
@@ -1090,6 +1182,21 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		$txt['player'] = 'Trainer:';
 		$txt['money'] = 'Wert:';
 		$txt['button_duel'] = 'Herausforderung';
+		$txt['duel_rank_insufficient'] = 'Du hast nicht genug RANG, um zu duellieren!';
+		$txt['duel_opponent_rank_insufficient'] = '%s hat nicht genug RANG!';
+		$txt['duel_opponent_league_prep'] = 'Dein Gegner bereitet sich auf einen Kampf in der Pokémon-Liga vor.';
+		$txt['duel_opponent_offline'] = '%s ist <b>OFFLINE</b>!';
+		$txt['duel_already_challenged'] = 'Du hast bereits einen Trainer herausgefordert! Bitte warte auf die Antwort!';
+		$txt['duel_blocked_trainer'] = 'Du hast diesen Trainer blockiert!';
+		$txt['duel_blocked_by'] = 'Du wurdest von diesem Trainer blockiert!';
+		$txt['duel_rank_min'] = 'MINDESTRANG ZUM HERAUSFORDERN ANDERER TRAINER: 4 - TRAINER. LEVEL WEITER, UM ES FREIZUSCHALTEN!';
+		$txt['duel_challenge'] = 'HERAUSFORDERN';
+		$txt['duel_confirm'] = 'Möchtest du diesen Trainer wirklich herausfordern?';
+		$txt['duel_status_waiting'] = 'Warten..';
+		$txt['duel_waiting'] = 'Warten';
+		$txt['duel_status_expired'] = 'Abgelaufen.';
+		$txt['duel_status_refused'] = 'Abgelehnt.';
+		$txt['duel_status_accepted'] = 'Angenommen.';
 	}
 	
 	######################## Attack Duel invited ########################
@@ -1341,6 +1448,10 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		
 		$txt['opponent_choose_attack'] = 'wählt einen Angriff';
 		$txt['opponent_choose_pokemon'] = 'Du wählst ein Pokémon.';
+		$txt['trainer_fighting'] = 'Kampf gegen %s';
+		$txt['trainer_willing'] = 'Bereit';
+		$txt['trainer_defeated'] = 'Besiegt';
+		$txt['trainer_choose_pokemon'] = 'Wähle das Pokémon, das %s erhalten soll:';
   }
 
  ######################## Attack Duel ########################
@@ -1449,6 +1560,12 @@ else if ($page == 'app/includes/resources/poke-evolve') {
 if ($type_timer == 'work')			$txt['pagetitle']	= 'Arbeiten';
 else if ($type_timer == 'pokecenter')	$txt['pagetitle']	= 'Behandlung';
 else if ($type_timer == 'travel')		$txt['pagetitle']	= 'Reisen';
+	$txt['wait_pokecenter_title'] = 'Behandlung läuft';
+	$txt['wait_pokecenter_text'] = 'Du musst warten, während Schwester Joy sich um deine Pokémon kümmert. Sobald die Behandlung abgeschlossen ist, kannst du deine Reise fortsetzen.';
+	$txt['wait_pokecenter_end'] = 'Ende der Behandlung:';
+	$txt['wait_travel_title'] = 'Reisen';
+	$txt['wait_travel_text'] = 'Du bist gerade unterwegs nach <b>%s</b> und musst eine kurze Reisezeit abwarten.';
+	$txt['wait_travel_end'] = 'Ende der Reise:';
 }else if ($page == 'app/includes/resources/wait-jail') {
 $txt['pagetitle']	= 'Gefängnis';
 }else if ($page == 'gold-market') {
@@ -1457,6 +1574,15 @@ $txt['pagetitle'] = 'Goldmarkt';
 $txt['pagetitle'] = 'Pokémon-Casino';
 }else if ($page == 'kluis') {
 $txt['pagetitle'] = 'Lüfte das Geheimnis';
+		$txt['kluis_npc_title'] = 'Der Tresor';
+		$txt['kluis_npc_text'] = 'Teste dein Glück und knacke den Tresor des Casinos!<br>Ein Versuch kostet 200 Tickets. Wenn du den richtigen Code errätst, gewinnst du den gesamten Jackpot!<br>Klicke <a href="./casino">HIER</a>, um zum Casino zurückzukehren.';
+		$txt['kluis_no_tickets'] = 'Du brauchst mindestens 200 Tickets, um den Tresor zu knacken.';
+		$txt['kluis_won'] = 'Glückwunsch! Du hast den Tresor geknackt und %s Tickets gewonnen!';
+		$txt['kluis_lost'] = 'Falscher Code! Du hast 200 Tickets verloren.';
+		$txt['kluis_current_prize'] = 'Aktueller Jackpot:';
+		$txt['kluis_code_label'] = 'Code %s';
+		$txt['kluis_try'] = 'Versuch es';
+		$txt['tickets_inventory'] = 'Deine Tickets:';
 }else if ($page == 'online') {
 $txt['pagetitle'] = 'Online-Trainer';
 }else if ($page == 'town') {
@@ -1505,6 +1631,95 @@ $txt['pagetitle'] = 'Fischerei';
 $txt['pagetitle'] = 'Größer oder kleiner';
 }else if ($page == 'slots') {
 $txt['pagetitle'] = 'Spielautomaten';
+		$txt['slots_npc_title'] = 'Spielautomaten';
+		$txt['slots_npc_text'] = 'Versuche dein Glück an den Spielautomaten!<br>Ein Spiel kostet 150 Tickets. Kombiniere 3 gleiche Symbole, um zu gewinnen!<br>Klicke <a href="./casino">HIER</a>, um zum Casino zurückzukehren.';
+		$txt['slots_not_enough'] = 'Du brauchst mindestens 150 Tickets, um zu spielen.';
+		$txt['slots_won'] = 'Du hast %s Tickets gewonnen!';
+		$txt['slots_lost'] = 'Leider verloren. Versuch es noch einmal!';
+		$txt['tickets_inventory'] = 'Deine Tickets:';
+		$txt['slots_title'] = 'Spielautomat';
+		$txt['slots_play'] = 'Spielen';
+		$txt['slots_comb_collapse'] = 'Kombinationen einklappen';
+		$txt['slots_comb_expand'] = 'Kombinationen aufklappen';
+		$txt['slots_comb'] = 'Kombination';
+		$txt['slots_prize'] = 'Gewinn';
+		$txt['slots_play_again'] = 'Noch einmal spielen';
+}else if ($page == 'trainer') {
+$txt['pagetitle'] = 'Trainer';
+$txt['trainer_npc_title'] = 'Kampf gegen NPC';
+$txt['trainer_npc_text'] = 'Hier hast du die Möglichkeit, Trainer zu suchen und herauszufordern!<br /> Wenn du auf die Schaltfläche <b>NPC SUCHEN</b> klickst, wird automatisch ein zufälliger Trainer für den Kampf mit dir ausgewählt.';
+$txt['trainer_rank_min'] = 'MINDESTRANG ZUM KÄMPFEN GEGEN NPCS: 4 - TRAINER. STEIGE AUF, UM ES FREIZUSCHALTEN!';
+$txt['trainer_table_title'] = 'NPC\'s';
+$txt['trainer_search_btn'] = 'NPCs suchen';
+$txt['trainer_rank_btn'] = 'STEIGE IM RANG AUF, UM DIE NPCS HERAUSZUFORDERN';
+$txt['trainer_battle_btn'] = 'Kämpfen!';
+$txt['trainer_vs'] = 'Kampf gegen %s';
+}else if ($page == 'safari') {
+$txt['pagetitle'] = 'Safari-Zone';
+$txt['safari_npc_title'] = 'Safari-Zone';
+$txt['safari_npc_text'] = 'Suche und fange exotische Pokémon aus allen Regionen hier in der <b>Safari-Zone</b>! <br>Die Safari ist jeden <b>Dienstag</b>, <b>Donnerstag</b> und <b>Samstag</b> von 00:00 bis 02:00, 11:00 bis 13:00 und 18:00 bis 20:00 Uhr geöffnet!';
+$txt['safari_event_npc_text'] = 'Suche und fange exotische Pokémon aus allen Regionen hier in der <b>Safari-Zone</b>! <br>Das Event endet am <b>28.06.2019</b>!';
+$txt['safari_all_fainted'] = 'Alle deine Pokémon sind ohnmächtig.';
+$txt['safari_not_found'] = 'Du hast dieses Pokémon nicht gefunden, oder du hast bereits mit ihm gekämpft!';
+$txt['safari_wrong_level'] = 'Das ist nicht das Level des Pokémon, das du gefunden hast!';
+$txt['safari_wait'] = 'Warte...';
+$txt['safari_found_wild'] = 'Du hast ein %s gefunden!';
+$txt['safari_level_label'] = 'Level: %s';
+$txt['safari_attack_btn'] = 'Angreifen!';
+$txt['safari_see_trainer'] = 'Schau, ein Trainer!';
+$txt['safari_duel_ask'] = 'Willst du gegen ihn kämpfen?';
+$txt['safari_battle_btn'] = 'Kämpfen!';
+$txt['safari_trainers_area'] = 'Trainer in der Nähe: %s';
+$txt['safari_you'] = 'Du';
+$txt['safari_map_label'] = 'Karte - %s';
+$txt['safari_map_grass'] = 'Gras-Karte';
+$txt['safari_map_water'] = 'Wasser-Karte';
+$txt['safari_map_cave'] = 'Höhlen-Karte';
+$txt['safari_map_tower'] = 'Turm-Karte';
+$txt['safari_map_lava'] = 'Lava-Karte';
+$txt['safari_map_beach'] = 'Strand-Karte';
+$txt['safari_map_dojo'] = 'Kampfschule';
+$txt['safari_map_center'] = 'Pokémon-Center';
+$txt['safari_map_market'] = 'Markt';
+$txt['safari_move_hint'] = 'Benutze die Tasten oben oder die Pfeiltasten der Tastatur, um dich zu bewegen!';
+$txt['safari_closed'] = 'Die Safari-Zone ist im Moment geschlossen.';
+}else if ($page == 'eventos') {
+$txt['pagetitle'] = 'Event';
+$txt['safari_npc_title'] = 'Safari-Zone';
+$txt['safari_npc_text'] = 'Suche und fange exotische Pokémon aus allen Regionen hier in der <b>Safari-Zone</b>! <br>Die Safari ist jeden <b>Dienstag</b>, <b>Donnerstag</b> und <b>Samstag</b> von 00:00 bis 02:00, 11:00 bis 13:00 und 18:00 bis 20:00 Uhr geöffnet!';
+$txt['safari_event_npc_text'] = 'Suche und fange exotische Pokémon aus allen Regionen hier in der <b>Safari-Zone</b>! <br>Das Event endet am <b>28.06.2019</b>!';
+$txt['safari_all_fainted'] = 'Alle deine Pokémon sind ohnmächtig.';
+$txt['safari_not_found'] = 'Du hast dieses Pokémon nicht gefunden, oder du hast bereits mit ihm gekämpft!';
+$txt['safari_wrong_level'] = 'Das ist nicht das Level des Pokémon, das du gefunden hast!';
+$txt['safari_wait'] = 'Warte...';
+$txt['safari_found_wild'] = 'Du hast ein %s gefunden!';
+$txt['safari_level_label'] = 'Level: %s';
+$txt['safari_attack_btn'] = 'Angreifen!';
+$txt['safari_see_trainer'] = 'Schau, ein Trainer!';
+$txt['safari_duel_ask'] = 'Willst du gegen ihn kämpfen?';
+$txt['safari_battle_btn'] = 'Kämpfen!';
+$txt['safari_trainers_area'] = 'Trainer in der Nähe: %s';
+$txt['safari_you'] = 'Du';
+$txt['safari_map_label'] = 'Karte - %s';
+$txt['safari_map_grass'] = 'Gras-Karte';
+$txt['safari_map_water'] = 'Wasser-Karte';
+$txt['safari_map_cave'] = 'Höhlen-Karte';
+$txt['safari_map_tower'] = 'Turm-Karte';
+$txt['safari_map_lava'] = 'Lava-Karte';
+$txt['safari_map_beach'] = 'Strand-Karte';
+$txt['safari_map_dojo'] = 'Kampfschule';
+$txt['safari_map_center'] = 'Pokémon-Center';
+$txt['safari_map_market'] = 'Markt';
+$txt['safari_move_hint'] = 'Benutze die Tasten oben oder die Pfeiltasten der Tastatur, um dich zu bewegen!';
+$txt['safari_closed'] = 'Die Safari-Zone ist im Moment geschlossen.';
+}else if ($page == 'attack/tour_fight') {
+$txt['pagetitle'] = 'Turnier';
+$txt['tour_no_pokemon'] = 'Du hast kein Pokémon, das kämpfen kann!';
+$txt['tour_wait'] = 'Warte';
+$txt['tour_opponent_no_answer'] = 'Der Gegner hat nicht geantwortet. Du hast gewonnen.';
+$txt['tour_loading'] = 'Laden';
+$txt['tour_started'] = 'Das Turnier hat begonnen.';
+$txt['tour_battle_btn'] = 'Kämpfen!';
 }else if ($page == 'tour') {
 $txt['pagetitle'] = 'Turnier';
 }else if ($page == 'league') {
@@ -1540,6 +1755,12 @@ $txt['button_take']        = 'OK';
 $txt['button_bring']       = 'OK';
 $txt['empty']              = 'Leer';
 $txt['no_pokemon']	   = 'Es wurden keine Pokémon gefunden.';
+$txt['box_pokemons_word']  = 'Pokémon.';
+$txt['box_lv100']          = 'Pokémon Lv.100: ';
+$txt['box_top3']           = 'Pokémon TOP 3: ';
+$txt['box_medal_top1']     = 'Top-1-Pokémon';
+$txt['box_medal_top2']     = 'Top-2-Pokémon';
+$txt['box_medal_top3']     = 'Top-3-Pokémon';
 }
 ######################## FLIP A COIN ########################
 	else if ($page == 'flip-a-coin') {
@@ -1578,6 +1799,11 @@ $txt['no_pokemon']	   = 'Es wurden keine Pokémon gefunden.';
 							  Wenn Sie es richtig machen, gewinnen Sie <img src="'.$static_url.'/images/icons/ticket.png" title="Ticket"> 100!';
 		$txt['choose_a_pokemon'] = 'Auswahl';
 		$txt['button'] = 'OK!';
+		$txt['quiz_npc_title'] = 'Wer ist es?';
+		$txt['quiz_npc_text'] = 'Rate, welches Pokémon hier abgebildet ist, und gewinne Tickets!<br>Ein Versuch kostet 50 Tickets, aber du gewinnst 100 Tickets, wenn du richtig liegst.<br>Klicke <a href="./casino">HIER</a>, um zum Casino zurückzukehren.';
+		$txt['quiz_title'] = 'Welches Pokémon ist das?';
+		$txt['quiz_guess'] = 'Raten';
+		$txt['tickets_inventory'] = 'Deine Tickets:';
 	}
 	
 	######################## WHEEL OF FORTUNE ########################
@@ -1602,6 +1828,16 @@ $txt['no_pokemon']	   = 'Es wurden keine Pokémon gefunden.';
 		$txt['title_text_2'] = 'verbleibende Chancen heute.';
 		//$txt['premiumtext'] = '<br>Premium members can do this 3 times per day. <a href="./area-market"><strong>Become a Premium Member!</strong></a>';
 		$txt['button'] = 'Drehen Sie das Rad!';
+		$txt['wof_npc_title'] = 'Glücksrad';
+		$txt['wof_npc_text'] = 'Drehe das Glücksrad und gewinne tolle Preise!<br>Jeden Tag hast du ein paar kostenlose Drehungen.<br>Klicke <a href="./casino">HIER</a>, um zum Casino zurückzukehren.';
+		$txt['wof_title'] = 'Glücksrad';
+		$txt['wof_won_tickets'] = 'DU HAST %s TICKETS GEWONNEN!';
+		$txt['wof_wheel_100'] = '100 TICKETS';
+		$txt['wof_wheel_250'] = '250 TICKETS';
+		$txt['wof_wheel_ball'] = 'POKÉBALL';
+		$txt['wof_wheel_item'] = 'SPEZIAL-ITEM';
+		$txt['wof_wheel_stone'] = 'ENTWICKLUNGSSTEIN';
+		$txt['wof_wheel_tm'] = 'TM';
 	}
 	
 	######################## WHEEL OF FORTUNE ########################
@@ -1867,6 +2103,7 @@ $txt['no_pokemon']	   = 'Es wurden keine Pokémon gefunden.';
 		$txt['alert_no_pokemon'] = "Du hast kein Pokémon, das bereit ist zu kämpfen.";
 	}
 	else if ($page == 'clans') {
+		$txt['clans_rank_min'] = 'MINDESTRANG FÜR DEN ZUGANG ZU DEN CLANS: 5 - FIRST COACH. STEIGEN SIE WEITER AUF, UM ES FREIZUSCHALTEN!';
 		$txt['pagetitle'] = 'Clan-Rangliste';
 	
 	}
@@ -1887,6 +2124,8 @@ $txt['no_pokemon']	   = 'Es wurden keine Pokémon gefunden.';
 	}
 	######################## HOUSE SELLER ########################
 	else if ($page == 'house-seller') {
+		$txt['house_seller_npc_title'] = 'HAUSVERKÄUFER';
+		$txt['house_seller_buy_btn']   = 'KAUFEN!';
 		#Alerts
 		$txt['alert_nothing_selected'] = 'Sie müssen ein Haus auswählen.';
 		$txt['alert_you_own_this_house'] = 'Sie haben dieses Haus bereits!';
@@ -2549,5 +2788,72 @@ $txt['liga_status_arena_ice'] = 'Eis-Arena';
 $txt['liga_status_arena_rock'] = 'Fels-Arena';
 $txt['liga_status_arena_grass'] = 'Gras-Arena';
 $txt['liga_status_no_opponent'] = 'Kein Gegner';
+$txt['league_err_online_op'] = 'Dein Gegner war nicht online!';
+$txt['league_err_online_you'] = 'Du bist nicht online!';
+$txt['league_err_region_op'] = 'Dein Gegner war nicht in der Region %s!';
+$txt['league_err_region_you'] = 'Du musst dich in der Region %s befinden!';
+$txt['league_err_six_op'] = 'Dein Gegner hatte keine 6 Pokémon im Team!';
+$txt['league_err_six_you'] = 'Du hast keine 6 Pokémon im Team!';
+$txt['league_err_allko_op'] = 'Alle Pokémon deines Gegners waren besiegt!';
+$txt['league_err_allko_you'] = 'Alle deine Pokémon sind besiegt!';
+$txt['league_err_lvmax_op'] = 'Dein Gegner hatte ein Pokémon mit einem höheren Level als %s im Team!';
+$txt['league_err_lvmax_you'] = 'Eines deiner Pokémon im Team hat ein höheres Level als %s!';
+$txt['league_err_shinys_op'] = 'Dein Gegner hatte mehr als %s Shiny-Pokémon im Team!';
+$txt['league_err_shinys_you'] = 'Du hast mehr als %s Shiny-Pokémon im Team!';
+$txt['league_err_lendas_op'] = 'Dein Gegner hatte mehr als %s legendäre Pokémon im Team!';
+$txt['league_err_lendas_you'] = 'Du hast mehr als %s legendäre Pokémon im Team!';
+$txt['league_err_megas_op'] = 'Dein Gegner hatte mehr als %s Mega-entwickelte Pokémon im Team!';
+$txt['league_err_megas_you'] = 'Du hast mehr als %s Mega-entwickelte Pokémon im Team!';
+$txt['msg_title_conversas'] = 'Unterhaltungen';
+$txt['msg_you'] = 'Du';
+$txt['msg_no_conversas'] = 'Keine Unterhaltungen vorhanden';
+$txt['msg_select_actions'] = 'Mit den ausgewählten:';
+$txt['msg_delete'] = 'Löschen';
+$txt['msg_delete_confirm'] = 'Möchtest du diese Nachricht(en) wirklich löschen?';
+$txt['msg_same_title'] = 'Du hast bereits eine Unterhaltung mit diesem Trainer unter demselben Titel!';
+$txt['msg_sent'] = 'Nachricht an %s gesendet!';
+$txt['msg_self'] = 'Du kannst keine Nachrichten an dich selbst senden!';
+$txt['msg_user_not_exists'] = 'Dieser Benutzer existiert nicht!';
+$txt['msg_deleted'] = '%s Unterhaltungen wurden gelöscht!';
+$txt['msg_blocked_by'] = 'Du wurdest von diesem Trainer blockiert und kannst ihm daher keine Nachrichten senden oder von ihm empfangen!';
+$txt['msg_blocked_you'] = 'Du hast diesen Trainer blockiert und kannst ihm daher keine Nachrichten senden oder von ihm empfangen!';
+$txt['om_title'] = 'Offizielle Nachrichten';
+$txt['om_posted_in'] = 'Gepostet am: %s';
+$txt['om_no_messages'] = 'Keine offiziellen Nachrichten zum Anzeigen';
+$txt['friends_request_event'] = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player=%s">%s</a> möchte dein Freund werden. Besuche die <a href="./friends">Freundesliste</a> für <b>weitere Details</b>.';
+$txt['captcha_box_title'] = 'SICHERHEITSTEST';
+$txt['captcha_box_text'] = ' Um Probleme mit BOTS und MACROS zu vermeiden, mussten wir diese Sicherheitsmaßnahme ergreifen.';
+$txt['captcha_incorrect'] = 'Falsch, du hast noch %s Versuch(e)!';
+$txt['captcha_correct'] = 'Code richtig, du kannst fortfahren!';
+$txt['captcha_not_premium'] = 'Du bist kein Premium. Werde Premium, indem du <a href="./gold-market">HIER</a> klickst und genieße Vorteile.';
+$txt['captcha_click_on'] = 'Klicke unten auf <b><font color="#d25757">%s</font></b>.';
+$txt['pokedex_rarity_1']        = 'Häufig';
+$txt['pokedex_rarity_2']        = 'Ungewöhnlich';
+$txt['pokedex_rarity_3']        = 'Selten';
+$txt['pokedex_rarity_4']        = 'Legendär';
+$txt['pokedex_rarity_5']        = 'Starter';
+$txt['pokedex_rarity_6']        = 'Mythisch';
+$txt['pokedex_rarity_7']        = 'Mega';
+$txt['pokedex_rarity_8']        = 'Speziell';
+# popup (HUD / pokemon-info)
+$txt['popup_level'] = 'Lv.';
+$txt['popup_attack'] = 'Angriff';
+$txt['popup_defense'] = 'Verteidigung';
+$txt['popup_sp_attack'] = 'Sp.-Angriff';
+$txt['popup_sp_defense'] = 'Sp.-Verteidigung';
+$txt['popup_speed'] = 'Tempo';
+$txt['popup_capture_chance'] = 'Chance auf Fang:';
+$txt['popup_ability'] = 'Fähigkeit:';
+$txt['popup_total_power'] = 'Gesamtstärke:';
+$txt['popup_rarity_is'] = 'Dieses Pokémon ist <u>%s</u>.';
+$txt['popup_top'] = 'Top %s Pokémon';
+$txt['popup_view_profile'] = 'Pokémon-Profil ansehen';
+$txt['popup_nickname'] = 'Spitzname:';
+$txt['popup_mood'] = 'Wesen:';
+$txt['popup_tradable'] = 'Handelbar:';
+$txt['popup_tradable_yes'] = 'Handelbar';
+$txt['popup_tradable_no'] = 'Nicht handelbar';
+$txt['popup_initial'] = 'Starter';
+$txt['popup_egg_hatch'] = 'Das Ei schlüpft in:';
 /* === end externalized strings === */
 ?>

@@ -207,13 +207,13 @@ if (!empty($message))	echo $message;
 	var $carousel = $('.main-carousel');
     var regiao = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola'];
     var regiao_text = {
-        0 : 'A região de Kanto é o lar de muitos Pokémon e tem uma rica história de criação de Pokémon com tecnologia. Os pesquisadores do Kanto foram excelentes em seu trabalho. Um pesquisador que trabalha para a organização maligna Team Rocket clonou Mew através de seus genes e criou o Pokémon Genético Mewtwo. Porygon, o Pokémon virtual, também foi criado por seres humanos em Kanto.',
-        1 : '1500 anos antes dos tempos modernos, o lugar agora conhecido como Ruínas de Alfa foi construído em Johto, e o mais antigo sistema conhecido de escrita - o alfabeto latino moderno - foi desenvolvido. Embora ninguém saiba exatamente quem construiu as ruínas de Alph, as pesquisas indicam que as pessoas em questão eram uma civilização antiga que desejava coexistir com o enigmático Unown que tem grande semelhança com as letras do alfabeto. Não só essa tribo transmitia mensagens nas paredes das ruínas descrevendo o Unown, mas também ergueram uma estátua de Pokémon por uma razão desconhecida.',
-        2 : 'Hoenn foi criado depois que Primal Groudon e Primal Kyogre foram formados. Primal Groudon levantou as massas terrestres e Primal Kyogre encheu os mares que mais tarde se tornariam Hoenn. O encontro destes dois criou uma grande batalha pela supremacia até que foi reprimida por Mega Rayquaza, enviando Primal Groudon e Primal Kyogre para cavernas onde descansaram.',
-        3 : 'De acordo com vários mitos de Sinnoh, esta região foi a primeira de todas as regiões do mundo dos Pokémon a terem sido criadas. Em um vazio de nada, surgiu um único ovo, que então entrou em Arceus, o primeiro Pokémon a existir.',
-        4 : 'Na mitologia, a Unova foi criada unindo os povos guerreiros da terra por heróis gêmeos. Eles usaram um único dragão há mais de 2500 anos atrás. Os irmãos começaram a argumentar sobre suas crenças; O irmão mais velho buscava a verdade e o irmão mais novo buscava ideais. Seus argumentos dividiram o dragão único em Reshiram, que compareceu com o irmão mais velho, e Zekrom, que compareceu com o irmão mais novo. Uma vez que ambos nasceram do mesmo dragão, nenhum deles poderia derrotar o outro e os irmãos declararam que não havia um lado direito.',
-        5 : 'Há 3000 anos, uma guerra aconteceu em Kalos, e com isso, foi criada a Ultimate Weapon, uma arma que concedia a imortalidade. 2200 anos após o fim da guerra o Pokémon lendário Xerneas liberou energia vital em toda a região ao chegar ao fim de seu ciclo de vida. O pokémon lendário Yvetal, por sua vez, absorveu a energia vital e ambos entraram em estado de hibernação profunda, trazendo um estado de equilíbrio para a região.',
-        6 : 'Alola é formada por quatro ilhas naturais e uma artificial, dizem as lendas que os guardiões das ilhas, os Tapu, enfrentaram Solgaleo e Lunala, expulsando-os. Muitos anos se passaram e apareceu um misterioso portal ligado à uma dimensão, onde nele surgiram algumas criaturas novas que foram apelidadas de Ultra Beasts.'
+        0 : '<?=addslashes($txt['travel_region_0'])?>',
+        1 : '<?=addslashes($txt['travel_region_1'])?>',
+        2 : '<?=addslashes($txt['travel_region_2'])?>',
+        3 : '<?=addslashes($txt['travel_region_3'])?>',
+        4 : '<?=addslashes($txt['travel_region_4'])?>',
+        5 : '<?=addslashes($txt['travel_region_5'])?>',
+        6 : '<?=addslashes($txt['travel_region_6'])?>'
     };
 
     $('#text_travel').text(regiao_text[<?=$rand?>]);

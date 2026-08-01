@@ -50,17 +50,16 @@ echo '<div class="red">'.$txt['pokedex_buy'].'</div>';
 					$poke = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `zeldzaamheid`='".$z['id']."' AND `aparece`='sim' ORDER BY real_id");
 					if ($i == 0) echo '<tr>';
 					echo '<td><select style="width:200px" onchange="window.location = \'./pokedex&poke=\'+$(this).val()">';
-					echo '<option selected disabled>'.$z['nome'].'</option>';
-					while ($p = $poke->fetch_assoc()) {
-						if (isset($_GET['poke'])) {
-							if ($p['wild_id'] == ($_GET['poke'] ?? '')) {
-								$selected = ' selected';
-							} else {
-								$selected = '';
-							}
+					echo '<option selected disabled>'.($txt['pokedex_rarity_'.$z['id']] ?? $z['nome']).'</option>';
+				while ($p = $poke->fetch_assoc()) {
+					$selected = '';
+					if (isset($_GET['poke'])) {
+						if ($p['wild_id'] == ($_GET['poke'] ?? '')) {
+							$selected = ' selected';
 						}
-						echo '<option value="'.$p['wild_id'].'"'.$selected.'>'.$p['naam'].'</option>';
 					}
+					echo '<option value="'.$p['wild_id'].'"'.$selected.'>'.$p['naam'].'</option>';
+				}
 					echo '</select></td>';
 					$i++;
 					if ($i == 4) {

@@ -26,7 +26,7 @@ if (isset($_POST['submit']) && isset($_POST['gym_leader'])) {
     if (possible($gebruiker['rank'], $gebruiker[$gebruiker['wereld'].'_gym'], $gym_info['progress'])) {
       $pokesvivos = DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND `leven`>'0'")->num_rows;  
       if (empty($gym_info['badge']))
-        echo "<div class='red'>Isto não é um ginásio!</div>";
+        echo "<div class='red'>".$txt['gym_not_gym']."</div>";
       else if ($gebruiker['rank'] < $gym_info['rank'])
         echo "<div class='blue'>".$txt['alert_rank_too_less']."</div>";
       else if ($gebruiker['wereld'] != $gym_info['wereld'])
@@ -45,19 +45,19 @@ if (isset($_POST['submit']) && isset($_POST['gym_leader'])) {
         #Make Fight
         $info5 = create_new_trainer_attack(($_POST['gym_leader'] ?? ''),$trainer_ave_level,($_POST['gebied'] ?? ''));
         if (empty($info5['bericht'])) header("Location: ./gyms");
-        else echo '<div class="red"> '.$txt[$info['bericht']].'</div>';
+        else echo '<div class="red"> '.$txt[$info5['bericht']].'</div>';
       }
     } else {
-      echo '<div class="red">ERROR 230</div>';
+      echo '<div class="red">'.$txt['gym_err_230'].'</div>';
     }
   }
 }
-echo addNPCBox(11, 'Ginásios', 'Seja bem vindo, treinador! <br>Aqui você poderá desafiar líderes de ginásios de determinadas regiões e com isso, você conseguirá vantagens ao ganhar deles, como por exemplo as <b>Insígnias</b>. Treine bastante seus Pokémons, porque aqui, nenhum líder de ginásio terá piedade de você!');
+echo addNPCBox(11, $txt['gym_npc_title'], $txt['gym_npc_text']);
 
 if ($gebruiker['rank'] < 3) {
 ?>
 
-<div class="red">RANK MÍNIMO PARA ENFRENTAR OS GINÁSIOS: 3 - COACH. CONTINUE UPANDO PARA LIBERAR!</div>
+<div class="red"><?=$txt['gym_rank_required']?></div>
 
 <?php } ?>
 <center>
@@ -93,7 +93,7 @@ if ($gebruiker['rank'] < 3) {
 <div class="box-content" style="display: inline-block; width: 100%;">
 	<table class="general" width="100%">
 		<thead>
-			<tr><th colspan="6">Ginásios da Região de <?=$gebruiker['wereld']?></th></tr>
+			<tr><th colspan="6"><?=sprintf($txt['gym_region_title'], $gebruiker['wereld'])?></th></tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -114,18 +114,18 @@ if ($gebruiker['rank'] < 3) {
               $complete = '';
               $lock = '';
               $name = $gym['naam'];
-              $badge = $gym['badge'].' Badge';
+              $badge = $gym['badge'].' '.$txt['gym_badge_label'];
               if (strpos($gym['badge'], 'Elite') !== false) { 
-                $gym['descr'] = $name.' é um membro da ELITE DOS 4 de '.$gym['wereld'].'!';
+                $gym['descr'] = sprintf($txt['gym_elite_member'], $name, $gym['wereld']);
                 $badge = $gym['badge'];
               }
 
               if (!possible($gebruiker['rank'], $next, $i) && $trainer[$gym['badge']] == 0) {
                 $blocked = 'class="blocked"';
                 if ($i > 0) {
-                  $gym['descr'] = '[GINÁSIO BLOQUEADO!] <BR> [GANHE DO ANTERIOR PARA CONSEGUIR DESAFIAR LÍDER DE GINÁSIO!]';
+                  $gym['descr'] = $txt['gym_blocked_prev'];
                 } else {
-                  $gym['descr'] = '[GINÁSIO BLOQUEADO!] <BR> [SUBA DE RANK PARA CONSEGUIR DESAFIAR ESTE LÍDER DE GINÁSIO!]';
+                  $gym['descr'] = $txt['gym_blocked_rank'];
                 }
                 $name = '???';
                 $badge = '???';
@@ -137,7 +137,7 @@ if ($gebruiker['rank'] < 3) {
               }              
 
               if (empty($gym['descr'])) {
-                $gym['descr'] = 'Não há descrição disponível para este treinador!';
+                $gym['descr'] = $txt['gym_no_description'];
               }
 
               array_push($descr, $gym['descr']);
@@ -172,7 +172,7 @@ if ($gebruiker['rank'] < 3) {
 			<tr>
 				<td align="right">
           <div style="border-radius: 4px; width: 97%; padding: 12px; margin-top: 10px; text-align: justify; height: 130px; font-size: 13px">
-            <h3 style="margin: 0;"><b>Descrição:</b></h3><br>
+            <h3 style="margin: 0;"><b><?=$txt['gym_description_label']?></b></h3><br>
             <p id="text_descr"></p>
           </div>
 				</td>
@@ -181,13 +181,20 @@ if ($gebruiker['rank'] < 3) {
           <td>
             <form method="post" action="./attack/gyms">
                 <input type="hidden" id="gym_leader" name="gym_leader" value="">
-                <center><input type="submit" name="submit" value="Desafiar " id="battle" style="margin: 6px;"></center>
+                <center><input type="submit" name="submit" value="<?=$txt['gym_challenge']?>" id="battle" style="margin: 6px;"></center>
             </form>
           </td>
       </tr>
 		</tfoot>
 	</table>
 </div>
+<?php
+$js_challenge_btn = addslashes($txt['gym_challenge']);
+$js_challenge_trainer = addslashes(sprintf($txt['gym_challenge_trainer'], '{T}'));
+$js_win_prev = addslashes($txt['gym_win_prev']);
+$js_already_fought = addslashes(sprintf($txt['gym_already_fought'], '{T}'));
+$js_up_rank = addslashes($txt['gym_up_rank']);
+?>
 <script>
   var $carousel = $('.main-carousel');
   var $trainer = $('#trainer_name');
@@ -223,36 +230,36 @@ if ($gebruiker['rank'] < 3) {
     if ($rank >= 3) {
       if (flkty.selectedIndex > $next) {
         $submit.attr('disabled', 'disabled');
-        $submit.val('GANHE DO TREINADOR ANTERIOR PARA ENFRENTÁ-LO!');
+        $submit.val('<?=$js_win_prev?>');
       } else if (flkty.selectedIndex == $next) {
         $submit.removeAttr('disabled');
-        $submit.val('DESAFIAR '+trainer);
+        $submit.val('<?=$js_challenge_trainer?>'.replace('{T}', trainer));
         $gym_leader.val(trainer);
       } else {
         $submit.attr('disabled', 'disabled');
-        $submit.val('VOCÊ JÁ ENFRENTOU '+trainer+'!');
+        $submit.val('<?=$js_already_fought?>'.replace('{T}', trainer));
       }
     } else {
       $submit.attr('disabled', 'disabled');
-      $submit.val('SUBA DE RANK PARA ENFRENTÁ-LO!');
+      $submit.val('<?=$js_up_rank?>');
     }
   });
 
   <?php if($gebruiker['rank'] >= 3) { ?>
   if ($next <= (flkty.slides.length - 1)) {
     $submit.removeAttr('disabled');
-    $submit.val('Desafiar '+$trainer_array_name[$next]);
+    $submit.val('<?=$js_challenge_btn?>'+$trainer_array_name[$next]);
     $gym_leader.val($trainer_array_name[$next]);
   } else {
     let next = $next - 1;
     $carousel.flickity( 'select', next );
     $submit.attr('disabled', 'disabled');
-    $submit.val('VOCÊ JÁ ENFRENTOU '+$trainer_array_name[next]+'!');
+    $submit.val('<?=$js_already_fought?>'.replace('{T}', $trainer_array_name[next]));
   }
   
   <?php } else { ?>
   $submit.attr('disabled', 'disabled');
-  $submit.val('SUBA DE RANK PARA ENFRENTÁ-LO!');
+  $submit.val('<?=$js_up_rank?>');
   <?php } ?>
 
   $('#text_descr').html($desc[$next]);

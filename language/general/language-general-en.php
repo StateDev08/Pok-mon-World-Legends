@@ -4,6 +4,7 @@ $txt['footer_made_by']   = 'Pokémon and all respective names are trademark &amp
 $txt['footer_copyright'] = 'Copyright &copy;' . date('Y') . '- World Legends - All rights reserved.';
 
 $txt['logo_text']             = 'World Legends | Become a Pokémon Master!';
+$txt['site_description']      = 'Become a Pokémon Trainer for free here at Pokémon World Legends! Count on 900+ different Pokémon species, battle other Trainers and much more! And best of all, no download required! Register now and take part in this incredible Pokémon journey!';
 $txt['login_username']        = 'User';
 $txt['login_password']        = 'Password';
 $txt['login_activation']      = 'Activate your account';
@@ -181,14 +182,31 @@ $txt['alert_trys_left_2'] = '2 attempts remaining.';
 $txt['popup_pokemon']      = 'Name:';
 $txt['popup_clamour_name'] = 'Surname:';
 $txt['popup_type']         = 'Type:';
-$txt['popup_level']        = 'Level:';
-$txt['popup_mood']         = 'Humor:';
+$txt['popup_level']        = 'Lv.';
+$txt['popup_mood']         = 'Nature:';
 $txt['pop_up_powertotal']  = 'Full power:';
 $txt['popup_ball']         = 'Pokeball:';
 $txt['popup_attacks']      = 'Attacks:';
 $txt['popup_hp']           = 'HP:';
 $txt['popup_exp']          = 'Exp:';
 $txt['popup_begin']        = 'Starter Pokémon:';
+$txt['popup_attack']       = 'Attack';
+$txt['popup_defense']      = 'Defense';
+$txt['popup_sp_attack']    = 'Sp. Attack';
+$txt['popup_sp_defense']   = 'Sp. Defense';
+$txt['popup_speed']        = 'Speed';
+$txt['popup_capture_chance'] = 'Capture chance:';
+$txt['popup_ability']      = 'Ability:';
+$txt['popup_total_power']  = 'Total power:';
+$txt['popup_rarity_is']    = 'This Pokémon is <u>%s</u>.';
+$txt['popup_top']          = 'Top %s Pokémon';
+$txt['popup_view_profile'] = 'View Pokémon profile';
+$txt['popup_nickname']     = 'Nickname:';
+$txt['popup_tradable']     = 'Tradable:';
+$txt['popup_tradable_yes'] = 'Tradable';
+$txt['popup_tradable_no']  = 'Not tradable';
+$txt['popup_initial']      = 'Starter';
+$txt['popup_egg_hatch']    = 'The egg will hatch in:';
 
 //Users online page
 $txt['online_users'] = 'Online Trainers';
@@ -200,7 +218,7 @@ $txt['online_elite_four']   = 'Elite Four';
 $txt['online_premium']      = 'Premium';
 
 // Egg
-$txt['pokemonei_egg'] = 'Nog %s tot het ei uitkomt.';
+$txt['pokemonei_egg'] = 'The egg will hatch in %s.';
 $txt['pokemonei_level'] = 'Lv.';
 
 // New user

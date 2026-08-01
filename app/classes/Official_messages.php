@@ -20,8 +20,10 @@ class Official {
     }
 
     public function include_list () {
+        global $txt;
+
         $i = 0;
-        $this->text_modify ('#title', 'Mensagens Oficiais');
+        $this->text_modify ('#title', $txt['om_title']);
 
         while ( $rel = $this->messages->fetch_assoc () ) {
             $this->id = $rel['id'];
@@ -36,16 +38,18 @@ class Official {
         }
 
         if ( $i == 0 ) {
-            echo '<li style="text-align: center">Não há Mensagens Oficiais para serem listadas</li>';
+            echo '<li style="text-align: center">'.$txt['om_no_messages'].'</li>';
         }
     }
 
     public function include_by_id () {
+        global $txt;
+
         if ( $this->messages->num_rows > 0 ) {
             $var = $this->messages->fetch_assoc();
             if ( $var['hidden'] == 0 ) {
                 $this->set_read();
-                $this->text_modify('#title', $var['title'].'<br>Postado em: '.$var['date']);
+                $this->text_modify('#title', $var['title'].'<br>'.sprintf($txt['om_posted_in'], $var['date']));
             
                 echo htmlspecialchars_decode($var['message']);
             } else {

@@ -7,7 +7,7 @@ function redirect($location) {
 	die();
 }
 
-echo addNPCBox(19, 'Zona do Safari', 'Procure e capture por Pokémons exóticos de todas as Regiões aqui na <b>Zona do Safari</b>! <br>O Safari abre todas as <b>Terças</b>, <b>Quintas</b> e <b>Sábados</b> de 00:00 às 02:00, 11:00 às 13:00 e 18:00 às 20:00!');
+echo addNPCBox(19, $txt['safari_npc_title'], $txt['safari_npc_text']);
 if(!empty($Saffari) || $gebruiker['admin'] >= 3) {
 
 
@@ -77,7 +77,7 @@ elseif($map == 7) $gebied = 'Vechtschool';
 
 if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 	if(DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='{$_SESSION['id']}' AND opzak='ja'")->num_rows == 0)
-		echo '<div class="red">Todos seus Pokémon estão desmaiados.</div>';
+		echo '<div class="red">' . $txt['safari_all_fainted'] . '</div>';
 	else {
 		$wid = ($_POST['goid'] ?? '');
         $leveltegenstander = ($_POST['level'] ?? '');
@@ -89,9 +89,9 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 		elseif($map == 6) $gebied = 'Strand';
 		elseif($map == 7) $gebied = 'Vechtschool';
 		if ($wid !== ($gebruiker['map_wild'] ?? '')) {
-			echo "<div class='red'>Você não achou este Pokémon, ou então você já batalhou com ele!</div>";
+			echo "<div class='red'>" . $txt['safari_not_found'] . "</div>";
 		} elseif ($leveltegenstander !== ($gebruiker['pokemon_level'] ?? '')) {
-			echo "<div class='red'>Não é este o level do pokemon que você encontrou!</div>";
+			echo "<div class='red'>" . $txt['safari_wrong_level'] . "</div>";
 		} else {
 			include("attack/wild/wild-start.php");
 			$info = create_new_attack($wid, $leveltegenstander, $gebied);
@@ -117,7 +117,7 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 
 if(isset($_POST['trainer'])){
 	if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `leven`>'0' AND `user_id`='{$_SESSION['id']}' AND opzak='ja'")->num_rows == 0)
-		echo '<div class="red">Todos seus pokemon estão desmaiados.</div>';
+		echo '<div class="red">' . $txt['safari_all_fainted'] . '</div>';
 	else {
 		$query = DB::exQuery("SELECT `naam` FROM `trainer` WHERE `badge`='' AND (`gebied`='{$gebied}' OR `gebied`='All') AND (`evento`=0 || (NOW() BETWEEN `inicio` AND `fim`)) ORDER BY rand() limit 1")->fetch_assoc();
 		$pokemon_sql->data_seek(0);
@@ -140,6 +140,13 @@ if(isset($_POST['trainer'])){
 			echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
 	}
 }
+$js_safari_wait         = addslashes($txt['safari_wait']);
+$js_safari_found_wild   = addslashes(sprintf($txt['safari_found_wild'], '{T}'));
+$js_safari_level_label  = addslashes(sprintf($txt['safari_level_label'], '{T}'));
+$js_safari_attack_btn   = addslashes($txt['safari_attack_btn']);
+$js_safari_see_trainer  = addslashes($txt['safari_see_trainer']);
+$js_safari_duel_ask     = addslashes($txt['safari_duel_ask']);
+$js_safari_battle_btn   = addslashes($txt['safari_battle_btn']);
 ?>
 <script>
 	var movements = {
@@ -171,7 +178,7 @@ if(isset($_POST['trainer'])){
 			sprite.style.left = x*16 + 'px';
 			sprite.style.top = (y*16)-4 + 'px';
 
-			$("#result").html('<img src="public/images/loading.gif" /></br>Aguarde...');
+			$("#result").html('<img src="public/images/loading.gif" /></br>'+js_safari_wait);
 			$.get('ajax.php?act=map_ajax&<?=$li?>map=<?php echo $map; ?>&x='+x+'&y='+y, function(result) {
 				var res = jQuery.parseJSON(result);
 				if ( typeof res.name !== "undefined" ) {
@@ -181,15 +188,15 @@ if(isset($_POST['trainer'])){
 					html += '<span>';
 					html += '<div style="margin-left: auto; margin-right: auto; background-image: url(\'public/images/maps/<?php echo $gebied; ?>.png\'); position: relative; background-position: center bottom; background-repeat:no-repeat;">';
 					html += '<img src="public/images/pokemon/'+res.id+'.gif" /><br />';
-					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>Você encontrou um '+res.name+'!</b></font><br />';
+					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>'+js_safari_found_wild.replace('{T}', res.name)+'</b></font><br />';
 					html += '</div>';
-					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>Nível: '+res.level+'</b></font><br />';
+					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>'+js_safari_level_label.replace('{T}', res.level)+'</b></font><br />';
 					html += '</span>';
 					html += '</p>';
 					html += '<form action="./safari&map=<?php echo $map; ?>" method="post">';
 					html += '    <input type="hidden" value="'+res.id+'" name="goid" required />';
 					html += '    <input type="hidden" value="'+res.level+'" name="level" required />';
-					html += '    <input type="submit" value="Atacar!" name="start" class="button"/>';
+					html += '    <input type="submit" value="'+js_safari_attack_btn+'" name="start" class="button"/>';
 					html += '</form>';
 
 					$("#result").html(html);
@@ -199,13 +206,13 @@ if(isset($_POST['trainer'])){
 					html += '<span>';
 					html += '<div style="margin-left: auto; margin-right: auto; background-image: url(\'public/images/maps/<?php echo $gebied; ?>.png\'); position: relative; background-position: center bottom; background-repeat:no-repeat;">';
 					html += '<img src="public/images/maps/pokemon_trainer.png" /><br />';
-					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>Veja, um treinador!</b></font><br />';
+					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>'+js_safari_see_trainer+'</b></font><br />';
 					html += '</div>';
-					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>Duelar com ele?</b></font><br />';
+					html += '<font style="text-shadow: 0 0 0.4em #000, 0 0 0.4em #000;color:#fff;"><b>'+js_safari_duel_ask+'</b></font><br />';
 					html += '</span>';
 					html += '</p>';
 					html += '<form method="post">';
-					html += '    <input type="submit" value="Batalhar!" name="trainer" class="button"/>';
+					html += '    <input type="submit" value="'+js_safari_battle_btn+'" name="trainer" class="button"/>';
 					html += '</form>';
 					$("#result").html(html);
 				} else {
@@ -351,7 +358,7 @@ $(window).on('keyup', function (e) {
 <center><div class="box-content" style="width: 100%;"><table class="general" style="width: 100%" cellpadding="0" cellspacing="0">
 	<thead><tr>
 		<th colspan="3">
-			Mapa - <?php echo $mapTitle; ?>
+			<?php echo sprintf($txt['safari_map_label'], $mapTitle); ?>
 		</th>
 	</tr>
 	<tr>
@@ -361,28 +368,28 @@ $(window).on('keyup', function (e) {
     text-transform: uppercase;
     box-shadow: 0 -2px 3px rgba(0, 0, 0, .05);
     text-align: center;">
-		Treinadores na área: <?php echo $numUsersOnMap; ?>
+		<?php echo sprintf($txt['safari_trainers_area'], $numUsersOnMap); ?>
 		</th>
 	</tr>
 	</thead>
     <tr><td style="padding: 1px;border-right: 1px solid #577599;">
 			<center><div style="background-image: url('public/images/maps/kanto/map<?php echo $map; ?>.png'); width: 400px; height: 560px;position: relative;border: 1px solid;border-radius: 5px;margin:10px" id="map">
-				<img src="public/images/sprites/<?php if($map == 2){ echo 'water/'.$mySprite.''; }else{ echo $mySprite; }?>.png" id="mySprite" title="Você" style="position: absolute; top: <?php echo (($startY*16)-4); ?>px; left: <?php echo ($startX*16); ?>px; z-index: 2;" />
+				<img src="public/images/sprites/<?php if($map == 2){ echo 'water/'.$mySprite.''; }else{ echo $mySprite; }?>.png" id="mySprite" title="<?php echo $txt['safari_you']; ?>" style="position: absolute; top: <?php echo (($startY*16)-4); ?>px; left: <?php echo ($startX*16); ?>px; z-index: 2;" />
 			</div></center>
 		</td>
 		<td style="width: 87px;padding: 2px;vertical-align: middle;"><center>
 				
 				
 <div class="menuu" style="width: 87px;margin-top: auto;"><center>
-			<a class="map1" title="Mapa Grama" href="./safari&amp;map=1"><img src="public/images/animation.gif"></a>
-			<a class="map2" title="Mapa Agua" href="./safari&amp;map=2"><img src="public/images/animation.gif"></a>
-			<a class="map3" title="Mapa Gruta" href="./safari&amp;map=3"><img src="public/images/animation.gif"></a>
-			<a class="map4" title="Mapa Torre" href="./safari&amp;map=4"><img src="public/images/animation.gif"></a>
-			<a class="map5" title="Mapa Lava" href="./safari&amp;map=5"><img src="public/images/animation.gif"></a>
-			<a class="map6" title="Mapa Praia" href="./safari&amp;map=6"><img src="public/images/animation.gif"></a>
-			<a class="map7" title="Mapa Dojô" href="./safari&amp;map=7"><img src="public/images/animation.gif"></a>
-			<a class="map8" title="Centro Pokémon" href="./pokemoncenter"><img src="public/images/animation.gif"></a>
-			<a class="map9" title="Mercado" href="./market&shopitem=balls"><img src="public/images/animation.gif"></a>
+			<a class="map1" title="<?php echo $txt['safari_map_grass']; ?>" href="./safari&amp;map=1"><img src="public/images/animation.gif"></a>
+			<a class="map2" title="<?php echo $txt['safari_map_water']; ?>" href="./safari&amp;map=2"><img src="public/images/animation.gif"></a>
+			<a class="map3" title="<?php echo $txt['safari_map_cave']; ?>" href="./safari&amp;map=3"><img src="public/images/animation.gif"></a>
+			<a class="map4" title="<?php echo $txt['safari_map_tower']; ?>" href="./safari&amp;map=4"><img src="public/images/animation.gif"></a>
+			<a class="map5" title="<?php echo $txt['safari_map_lava']; ?>" href="./safari&amp;map=5"><img src="public/images/animation.gif"></a>
+			<a class="map6" title="<?php echo $txt['safari_map_beach']; ?>" href="./safari&amp;map=6"><img src="public/images/animation.gif"></a>
+			<a class="map7" title="<?php echo $txt['safari_map_dojo']; ?>" href="./safari&amp;map=7"><img src="public/images/animation.gif"></a>
+			<a class="map8" title="<?php echo $txt['safari_map_center']; ?>" href="./pokemoncenter"><img src="public/images/animation.gif"></a>
+			<a class="map9" title="<?php echo $txt['safari_map_market']; ?>" href="./market&shopitem=balls"><img src="public/images/animation.gif"></a>
 		</center></div>
 		
 		</a></center></td>
@@ -398,7 +405,7 @@ $(window).on('keyup', function (e) {
 				</tr>
 			</table>
 			
-			<div id="result" style="height:160px;margin: 15px;"><font class="wrappers"><span><b><a style="color: #ff0000;" href="./profile&amp;player=<?=$gebruiker['username']?>"><?=$gebruiker['username']?></a>: Utilize os botões acima ou as setas do teclado para se movimentar!</b></span></font></div>
+			<div id="result" style="height:160px;margin: 15px;"><font class="wrappers"><span><b><a style="color: #ff0000;" href="./profile&amp;player=<?=$gebruiker['username']?>"><?=$gebruiker['username']?></a>: <?php echo $txt['safari_move_hint']; ?></b></span></font></div>
 			
 			<tr id="pInfo" style="display: none;">
 				<td colspan="3">
@@ -429,5 +436,5 @@ $(document).ready(function() {
 </script>
 
 <?php } else { ?>
-<div class="red">A Zona do Safari está fechada no momento.</div>
+<div class="red"><?php echo $txt['safari_closed']; ?></div>
 <?php } ?>
