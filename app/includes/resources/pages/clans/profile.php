@@ -43,8 +43,8 @@ if (empty($infos)) {
             <td colspan="2" style="text-align: center"><h3 class="title" style="font-size: 17px; margin-top: -13px; margin-bottom: 3px"><?=$infos['name']?> - <?=$infos['sigla']?></h3></td>
         </tr>
 	<tr>
-		<td height="20" style="width: 48%"><b>Data de Criação:</b> <?=$infos['date'];?></td>
-		<td><b>Membros: </b> <?=$infos['num_members']?>/<?=$infos['max_members']?></td>
+		<td height="20" style="width: 48%"><b><?=$txt['clan_profile_created_at']?></b> <?=$infos['date'];?></td>
+		<td><b><?=$txt['clan_profile_members']?> </b> <?=$infos['num_members']?>/<?=$infos['max_members']?></td>
 	</tr>
     <?php if ($your_clan) { ?>
     <tr>
@@ -54,11 +54,11 @@ if (empty($infos)) {
     <?php } ?>
 	<tr>
 		<td height="20"><b>Level: </b> <?=$infos['level'];?>/10</td>
-		<td><b>Ranking:</b> <?=$infos['rank_name']?></td>
+		<td><b><?=$txt['clan_profile_ranking']?></b> <?=$infos['rank_name']?></td>
 	</tr>
 	<tr>
-		<td height="20"><b>Missões Concluídas: </b> <?=$infos['missoes_concluidas'];?></td>
-		<td><b>Prêmios: </b> <?=highamount($infos['premios']);?> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers"></td>
+		<td height="20"><b><?=$txt['clan_profile_quests_done']?> </b> <?=$infos['missoes_concluidas'];?></td>
+		<td><b><?=$txt['clan_profile_prizes']?> </b> <?=highamount($infos['premios']);?> <img src="<?=$static_url?>/images/icons/silver.png" title="Silvers"></td>
 	</tr>
     
     </table></div>
@@ -67,12 +67,12 @@ if (empty($infos)) {
 </table>
 
 <div class="box-content" style="margin-top: 7px">
-    <table class="general" width="100%"><thead><tr><th>APRESENTAÇÃO</th></tr></thead>
+    <table class="general" width="100%"><thead><tr><th><?=$txt['clan_profile_presentation']?></th></tr></thead>
         <tr>
             <td style="text-align: center">
                 <?php
                     if (!empty($infos['descr'])) echo '<div id="apresentacao">'.ubbcode($infos['descr']).'</div>';
-		            else echo '<div id="apresentacao">ESTE CLÃ NÃO TEM APRESENTAÇÃO!</div>';
+		            else echo '<div id="apresentacao">'.$txt['clan_profile_no_presentation'].'</div>';
                 ?>
             </td>
         </tr>
@@ -80,21 +80,21 @@ if (empty($infos)) {
 </div>
 
 <div class="box-content" style="margin-top: 7px">
-    <table class="general" width="100%"><thead><tr><th>MEMBROS (<?=$infos['num_members']?>/<?=$infos['max_members']?>)</th></tr></thead>
+    <table class="general" width="100%"><thead><tr><th><?=$txt['clan_profile_members_title']?> (<?=$infos['num_members']?>/<?=$infos['max_members']?>)</th></tr></thead>
         <tr>
             <td style="text-align: center; padding:0">
                 <table class="general blue" id="example">
                     <thead>
                         <tr>
-                            <td><strong>Treinador</strong></td>
-                            <td class="no-sort"><strong>Cargo</strong></td>
+                            <td><strong><?=$txt['clan_profile_trainer']?></strong></td>
+                            <td class="no-sort"><strong><?=$txt['clan_profile_role']?></strong></td>
                             <?php 
                                 if ($your_clan) {
-                                    echo '<td style="width:150px"><strong>Contribuição em Silvers<strong></td>';
-                                    echo '<td><strong>Contribuição em Golds<strong></td>';
+                                    echo '<td style="width:150px"><strong>'.$txt['clan_profile_contrib_silver'].'<strong></td>';
+                                    echo '<td><strong>'.$txt['clan_profile_contrib_gold'].'<strong></td>';
                                 }
                             ?>
-                            <td><strong>Membro desde</strong></td>
+                            <td><strong><?=$txt['clan_profile_member_since']?></strong></td>
                             <td class="no-sort" style="width: 50px"><strong>Status</strong></td>
                         </tr>
                     </thead>
@@ -114,7 +114,7 @@ if (empty($infos)) {
                                     $plaatje = '<img src="'.$static_url.'/images/icons/status_offline.png" title="Offline">';
                                 }
 
-                                $priori = array('Dono', 'Moderador', 'Membro');
+                                $priori = array($txt['clan_role_owner'], $txt['clan_role_mod'], $txt['clan_role_member']);
                                 $q['prioridade'] = '<b>'.$priori[$q['prioridade']].'</b>';
 
                                 $q['silvers_contribuicao'] = balance_converter($q['silvers_contribuicao']);

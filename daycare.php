@@ -8,7 +8,7 @@ if ($gebruiker['rank'] <= 3) header("Location: ./home");
 $eicheck_sql = DB::exQuery("SELECT * FROM `daycare` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `ei`='1'");
 $eicheck = $eicheck_sql->fetch_assoc();
 
-echo addNPCBox(35, 'Jardim de Infância', $txt['title_text'].'<br>'.$hoeveel);
+echo addNPCBox(35, $txt['daycare_npc_title'], $txt['title_text'].'<br>'.$hoeveel);
 #-----------------------EI
 if (isset($_POST['accept'])) {
 	$hoeveelinhand = $gebruiker['in_hand'] + 1;

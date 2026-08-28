@@ -105,5 +105,65 @@ $txt['league_not_created_5min'] = 'A batalha não foi criada em 5 minutos';
 $txt['league_lost_not_created'] = 'Você perdeu!<br/>A batalha não foi criada!';
 $txt['league_won_not_created'] = 'Você ganhou!<br/>A batalha não foi criada!';
 $txt['league_not_time_yet'] = 'Ainda não é hora para sua batalha!';
+
+# map
+$txt['map_search_1'] = 'Não há nada aqui!';
+$txt['map_search_2'] = 'Quase achei uma lenda, mas ele sumiu!';
+$txt['map_search_3'] = 'Não irei desistir!';
+$txt['map_search_4'] = 'Tenho certeza que encontrei um Pokémon por aqui...';
+$txt['map_search_5'] = 'Achei! Ah não, é apenas uma pedra!';
+$txt['map_search_6'] = 'Aaa... não consigo encontrar nada!';
+$txt['map_search_7'] = 'Vamos lá, apareçam!';
+$txt['map_search_8'] = 'Tem algum Pokémon aqui!?';
+$txt['map_search_9'] = 'O que está atrás de mim?! Ufa, é apenas minha sombra!';
+$txt['map_search_10'] = 'Tem um Pokémon no céu?! Ah, é só uma núvem.';
+$txt['map_search_11'] = 'Acho que esses Pokémon tem medo de mim.';
+$txt['map_search_12'] = 'Encontrei algumas pegadas! Poxa, são minhas...';
+$txt['map_safari_closed'] = 'A Zona do Safari está fechada!';
+
+# use-items
+$txt['use_choose_pokemon'] = 'Você deve escolher um pokémon!';
+$txt['use_choose_for_item'] = 'Escolha o pokémon para qual você vai usar %s.';
+$txt['use_level'] = 'Nível';
+$txt['use_next'] = 'Avançar';
+$txt['use_cannot_learn'] = 'Seu pokémon não pode aprender este ataque!';
+$txt['use_not_your_pokemon'] = 'Este pokémon não é seu!';
+$txt['use_already_learned'] = '%1$s já aprendeu o ataque %2$s!';
+$txt['use_learning'] = '%1$s está aprendendo %2$s - %3$s.';
+$txt['use_item_missing'] = 'Você não possui este item!';
+$txt['use_item_not_equippable'] = 'Este item não pode ser equipado neste Pokémon!';
+$txt['use_item_already_equipped'] = 'O Pokémon já tem este item equipado!';
+$txt['use_item_egg'] = 'Este item não pode ser equipado em Ovo Pokémon!';
+$txt['use_choose_receive_item'] = 'Escolha qual pokémon irá receber o item %s.';
+$txt['use_old_item_destroyed'] = 'Se este Pokémon já tiver um item equipado, o item antigo será destruído!';
+$txt['use_not_equipped'] = 'Não equipado';
+$txt['use_no_items_to_equip'] = 'Você não tem nenhum item para equipar em seus Pokémon!';
+$txt['use_cannot_equip_egg'] = 'Você não pode equipar este item em um Ovo Pokémon!';
+$txt['use_cannot_heal'] = 'Você não pode curar %s.';
+$txt['use_only_fainted'] = 'Somente funciona em pokémons que estão totalmente sem vida.';
+$txt['use_not_that_amount'] = 'Você não possui está quantidade!';
+$txt['use_amount_too_high'] = 'Você não pode usar esta quantidade';
+$txt['use_choose_receive_candy'] = 'Escolha qual pokémon irá receber a %s.';
+$txt['use_spc_limit_25'] = ' Você já usou 25x %1$s em %2$s.';
+$txt['use_spc_max'] = ' Máximo a ser usado de %1$sx %2$s.';
+$txt['use_dont_have_amount'] = 'Você não possui %1$s %2$s!';
+$txt['use_choose_with_amount'] = 'Escolha o pokémon que você vai usar %1$s.<br> (Você tem %2$s %1$s)';
+$txt['use_choose_stone'] = 'Escolha o pokémon no qual você vai usar %s.';
+$txt['use_evolved'] = 'Parabéns, seu <strong>%1$s</strong> evoluiu para <strong>%2$s</strong>!';
+$txt['use_choose_for_stone_post'] = 'Escolha um pokémon para usar %s.';
+$txt['use_stone_not_usable'] = 'O pokémon %1$s não pode ter %2$s usada nele.';
+$txt['use_yes'] = 'Sim';
+$txt['use_no'] = 'Não';
+$txt['use_not_usable'] = 'Não usável';
+$txt['use_usable'] = 'Usável';
+$txt['use_pokemon_label'] = 'Pokémon';
+$txt['use_quantity'] = 'Quantidade';
+$txt['use_equipped_col'] = 'Equipado';
+$txt['use_equipped_with'] = 'Equipado com %s';
+$txt['use_check'] = 'Check:';
+$txt['use_name_col'] = 'Nome:';
+$txt['use_evolves_col'] = 'Evolui:';
+$txt['use_confirm_evolve'] = 'Tem certeza que deseja evoluir %s?';
+$txt['use_stone_evolved'] = 'Parabéns, seu <strong>%1$s</strong> evoluiu para <strong>%2$s</strong> com %3$s!';
 /* === end externalized strings === */
 ?>

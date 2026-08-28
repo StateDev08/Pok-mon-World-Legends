@@ -77,11 +77,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
   //Pokemon has full life
 
-  else if (in_array($item_info['naam'], array('Revive', 'Max revive')) && $pokemon_info['leven'] > 0) $message = $pokemon_info['naam'].' não pode ser revivido pois ainda tem HP!';
+  else if (in_array($item_info['naam'], array('Revive', 'Max revive')) && $pokemon_info['leven'] > 0) $message = sprintf($txt['battle_potion_cannot_revive'], $pokemon_info['naam']);
   
-  else if ($pokemon_info['leven'] <= 0 && !in_array($item_info['naam'], array('Revive', 'Max revive'))) $message = $pokemon_info['naam_goed'].' não tem HP para receber Poções!';
+  else if ($pokemon_info['leven'] <= 0 && !in_array($item_info['naam'], array('Revive', 'Max revive'))) $message = sprintf($txt['battle_potion_no_hp'], $pokemon_info['naam_goed']);
 
-  else if ($pokemon_info['leven'] >= $pokemon_info['levenmax']) $message = $pokemon_info['naam_goed'].' está com HP cheio!';
+  else if ($pokemon_info['leven'] >= $pokemon_info['levenmax']) $message = sprintf($txt['battle_potion_full_hp'], $pokemon_info['naam_goed']);
 
   //Check if the fight is finished yet
 
@@ -111,7 +111,7 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
         //Pokemon is dead, potions don't work
 
-        if ($pokemon_info['leven'] <= 0) $message = $pokemon_info['naam_goed'].' não tem HP para usar Poções!';
+        if ($pokemon_info['leven'] <= 0) $message = sprintf($txt['battle_potion_fainted'], $pokemon_info['naam_goed']);
 
         //pokemon is not dead
 

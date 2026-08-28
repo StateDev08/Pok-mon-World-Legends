@@ -1,6 +1,7 @@
 <?php
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 #Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -50,10 +51,10 @@ if (isset($_POST['create'])) {
 
 <form method="post" enctype="multipart/form-data">
 <center>
-<p>Criar itens!</p>
+<p><?=$txt['adm_item_create']?></p>
 <table width="600">
 	<tr>
-    	<td width="150">Nome:</td>
+    	<td width="150"><?=$txt['adm_item_name']?></td>
         <td width="200"><input type="text" name="naam" class="text_long"></td>
     </tr>
     <!-- <tr>
@@ -61,43 +62,43 @@ if (isset($_POST['create'])) {
         <td><input type="file" name="sprite" id="sprite"></td>
     </tr> -->
     <tr>
-    	<td>Tipo:</td>
+    	<td><?=$txt['adm_item_type']?></td>
         <td>
             <select name="soort" class="text_select" required>
-				<option value="none">Escolha</option>
-				<option value="balls">Pokéball</option>
+				<option value="none"><?=$txt['adm_choose']?></option>
+				<option value="balls"><?=$txt['adm_item_balls']?></option>
                 <option value="hm">HM</option>
-                <option value="items">Itens</option>
-                <option value="potions">Poções</option>
-                <option value="special_items">Itens Especiais</option>
-                <option value="stones" selected>Pedras Evolutivas</option>
+                <option value="items"><?=$txt['adm_item_items']?></option>
+                <option value="potions"><?=$txt['adm_item_potions']?></option>
+                <option value="special_items"><?=$txt['adm_item_special']?></option>
+                <option value="stones" selected><?=$txt['adm_item_stones']?></option>
                 <option value="tm">TM</option>
 			</select>
         </td>
     </tr>
     <tr>
-    	<td>Ativo?</td>
-        <td><input type="checkbox" value="1" name="beschikbaar" class="text_long"/> (Marcado para sim, desmarcado para não)</td>
+    	<td><?=$txt['adm_item_active']?></td>
+        <td><input type="checkbox" value="1" name="beschikbaar" class="text_long"/> <?=$txt['adm_item_checkbox_hint']?></td>
     </tr>
     <tr>
-    	<td>Preço:</td>
+    	<td><?=$txt['adm_item_price']?></td>
         <td>Silver: &nbsp;<input type="number" name="silver" min="0" value="0"><br>Gold: &nbsp;&nbsp;&nbsp;<input type="number" name="gold" min="0" value="0"></td>
     </tr>
     <tr>
-      <td>Aparece na Roleta?</td>
-      <td><input type="checkbox" value="sim" name="roleta" class="text_long"/> (Marcado para sim, desmarcado para não)</td>
+      <td><?=$txt['adm_item_roulette']?></td>
+      <td><input type="checkbox" value="sim" name="roleta" class="text_long"/> <?=$txt['adm_item_checkbox_hint']?></td>
     </tr>
     <tr>
-      <td>É Equipável?</td>
-      <td><input type="checkbox" value="1" name="equip" class="text_long"/> (Marcado para sim, desmarcado para não)</td>
+      <td><?=$txt['adm_item_equip']?></td>
+      <td><input type="checkbox" value="1" name="equip" class="text_long"/> <?=$txt['adm_item_checkbox_hint']?></td>
     </tr>
     <tr>
-      <td>Descrição:</td>
+      <td><?=$txt['adm_item_description']?></td>
       <td><textarea name="descr" id="" cols="30" rows="5"></textarea></td>
     </tr>
     <tr>
     	<td>&nbsp;</td>
-        <td><input type="submit" name="create" value="Criar!" class="button" style="width: 60%"/></td>
+        <td><input type="submit" name="create" value="<?=htmlspecialchars($txt['adm_item_create_btn'], ENT_QUOTES)?>" class="button" style="width: 60%"/></td>
     </tr>
 </table>
 </center>

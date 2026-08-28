@@ -11,7 +11,7 @@ if ($manutencao == 0) {
     echo '<script>window.location = "./";</script>';
 }
 
-echo addNPCBox(11, 'EM MANUNTENÇÃO!', 'POKÉMON WORLD LEGENDS ESTÁ EM MANUNTENÇÃO, VOLTAREMOS ÀS 00:00!');
+echo addNPCBox(11, $txt['maintenance_title'], $txt['maintenance_text']);
 
 ?>
 

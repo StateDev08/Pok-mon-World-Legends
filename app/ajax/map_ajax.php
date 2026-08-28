@@ -107,18 +107,18 @@ if($random <= 8) {
 				echo json_encode($json);
 			} else {
 				$where = rand(1,12);
-				if ($where == "1"){$whereone = "Não há nada aqui!";}
-				if ($where == "2"){$whereone = "Quase achei uma lenda, mas ele sumiu!";}
-				if ($where == "3"){$whereone = "Não irei desistir!";}
-				if ($where == "4"){$whereone = "Tenho certeza que encontrei um Pokémon por aqui...";}
-				if ($where == "5"){$whereone = "Achei! Ah não, é apenas uma pedra!";}
-				if ($where == "6"){$whereone = "Aaa... não consigo encontrar nada!";}
-				if ($where == "7"){$whereone = "Vamos lá, apareçam!";}
-				if ($where == "8"){$whereone = "Tem algum Pokémon aqui!?";}
-				if ($where == "9"){$whereone = "O que está atrás de mim?! Ufa, é apenas minha sombra!";}
-				if ($where == "10"){$whereone = "Tem um Pokémon no céu?! Ah, é só uma núvem.";}
-				if ($where == "11"){$whereone = "Acho que esses Pokémon tem medo de mim.";}
-				if ($where == "12"){$whereone = "Encontrei algumas pegadas! Poxa, são minhas...";}
+				if ($where == "1"){$whereone = $txt['map_search_1'];}
+				if ($where == "2"){$whereone = $txt['map_search_2'];}
+				if ($where == "3"){$whereone = $txt['map_search_3'];}
+				if ($where == "4"){$whereone = $txt['map_search_4'];}
+				if ($where == "5"){$whereone = $txt['map_search_5'];}
+				if ($where == "6"){$whereone = $txt['map_search_6'];}
+				if ($where == "7"){$whereone = $txt['map_search_7'];}
+				if ($where == "8"){$whereone = $txt['map_search_8'];}
+				if ($where == "9"){$whereone = $txt['map_search_9'];}
+				if ($where == "10"){$whereone = $txt['map_search_10'];}
+				if ($where == "11"){$whereone = $txt['map_search_11'];}
+				if ($where == "12"){$whereone = $txt['map_search_12'];}
 				
 				$json = array('msg'=>$whereone);
 				echo json_encode($json);
@@ -127,25 +127,25 @@ if($random <= 8) {
 
 	
 	} else{
-		$whereone = "A Zona do Safari está fechada!";
+		$whereone = $txt['map_safari_closed'];
 			
 		$json = array('msg'=>$whereone);
 		echo json_encode($json);
 	}
 } else { 
 	$where = rand(1,12);
-	if ($where == "1"){$whereone = "Não há nada aqui!";}
-	if ($where == "2"){$whereone = "Quase achei uma lenda, mas ele sumiu!";}
-	if ($where == "3"){$whereone = "Não irei desistir!";}
-	if ($where == "4"){$whereone = "Tenho certeza que encontrei um Pokémon por aqui...";}
-	if ($where == "5"){$whereone = "Achei! Ah não, é apenas uma pedra!";}
-	if ($where == "6"){$whereone = "Aaa... não consigo encontrar nada!";}
-	if ($where == "7"){$whereone = "Vamos lá, apareçam!";}
-	if ($where == "8"){$whereone = "Tem algum Pokémon aqui!?";}
-	if ($where == "9"){$whereone = "O que está atrás de mim?! Ufa, é apenas minha sombra!";}
-	if ($where == "10"){$whereone = "Tem um Pokémon no céu?! Ah, é só uma núvem.";}
-	if ($where == "11"){$whereone = "Acho que esses Pokémon tem medo de mim.";}
-	if ($where == "12"){$whereone = "Encontrei algumas pegadas! Poxa, são minhas...";}
+	if ($where == "1"){$whereone = $txt['map_search_1'];}
+	if ($where == "2"){$whereone = $txt['map_search_2'];}
+	if ($where == "3"){$whereone = $txt['map_search_3'];}
+	if ($where == "4"){$whereone = $txt['map_search_4'];}
+	if ($where == "5"){$whereone = $txt['map_search_5'];}
+	if ($where == "6"){$whereone = $txt['map_search_6'];}
+	if ($where == "7"){$whereone = $txt['map_search_7'];}
+	if ($where == "8"){$whereone = $txt['map_search_8'];}
+	if ($where == "9"){$whereone = $txt['map_search_9'];}
+	if ($where == "10"){$whereone = $txt['map_search_10'];}
+	if ($where == "11"){$whereone = $txt['map_search_11'];}
+	if ($where == "12"){$whereone = $txt['map_search_12'];}
 	
 	$json = array('msg'=>$whereone);
 	echo json_encode($json);

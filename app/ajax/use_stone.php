@@ -1,5 +1,5 @@
 <?php
-$error = "<center><div style='padding-bottom:10px;'>Escolha o pokémon no qual você vai usar ".($_GET['name'] ?? '').".</div></center>"; 
+$error = "<center><div style='padding-bottom:10px;'>".sprintf($txt['use_choose_stone'], ($_GET['name'] ?? ''))."</div></center>"; 
 $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 	?>
@@ -69,7 +69,7 @@ if (isset($_POST['zeker'])) {
     //Post leeg maken.
     unset($_POST['zeker']);
     
-    $error = '<div class="green"><img src="' . $static_url . '/images/icons/green.png"> Parabéns, seu  <strong>'.$pokemon['naam'].'</strong> evoluiu para <strong>'.$update['naam'].'</strong> com '.($_POST['item'] ?? '').'!</div>';
+    $error = '<div class="green"><img src="' . $static_url . '/images/icons/green.png"> ' . sprintf($txt['use_stone_evolved'], $pokemon['naam'], $update['naam'], ($_POST['item'] ?? '')) . '</div>';
      
   }
   else{
@@ -112,20 +112,20 @@ else{
 	if (isset($_POST['evolve'])) {
   	list ($pokemonid, $levelenid, $pokemonnaam, $wildid) = explode('/', ($_POST['pokemonid'] ?? ''));
   	if (empty($pokemonid))
-		  echo '<div class="red">Escolha um pokémon para usar '.($_POST['item'] ?? '').'.';
+		  echo '<div class="red">'.sprintf($txt['use_choose_for_stone_post'], ($_POST['item'] ?? ''));
 		else if (empty($levelenid))
       echo '<div class="red">FOUT!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br />';
   	else if (DB::exQuery("SELECT `id` FROM `levelen` WHERE `wild_id`='".$wildid."' AND `wat`='evo' AND `stone`='".($_POST['item'] ?? '')."'")->num_rows == 0)
-		  echo '<div class="red">O pokémon '.$pokemonnaam.' não pode ter '.($_POST['item'] ?? '').' usada nele.';  
+		  echo '<div class="red">'.sprintf($txt['use_stone_not_usable'], $pokemonnaam, ($_POST['item'] ?? ''));  
   	else if (DB::exQuery("SELECT `id` FROM `levelen` WHERE `id`='".$levelenid."'")->num_rows == 0)
 		  echo '<div class="red">Fout!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br>';  
    	else{
-			echo '<center><div class="blue">Tem certeza que deseja evoluir '.$pokemonnaam.'?<br />';
+			echo '<center><div class="blue">'.sprintf($txt['use_confirm_evolve'], $pokemonnaam).'<br />';
 			echo '<form method="post">
         <input type="hidden" Value="'.($_POST['item'] ?? '').'" name="item">
         <input type="hidden" Value="'.$pokemonid.'" name="pokemonid">
         <input type="hidden" Value="'.$levelenid.'" name="levelenid">   
-				<input type="submit" Value="Sim" name="zeker" class="button"> | <input type="submit" Value="Não" name="nee" class="button">
+				<input type="submit" Value="'.htmlspecialchars($txt['use_yes'], ENT_QUOTES).'" name="zeker" class="button"> | <input type="submit" Value="'.htmlspecialchars($txt['use_no'], ENT_QUOTES).'" name="nee" class="button">
 				</form></div></center>';
     }
   }
@@ -139,10 +139,10 @@ else{
 			<tr><th colspan="10"><?php if ($error) echo $error; else echo "&nbsp"; ?></th></tr>
 			<tr>
     		<th width="50"><center><strong>#</strong></center></th>
-    		<th width="100"><strong>Pokémon:</strong></th>
-    		<th width="150"><strong>Nome:</strong></th>
-    		<th width="100" align="center"><strong>Nível:</strong></th>
-    		<th width="100" align="center"><strong>Evolui:</strong></th>
+    		<th width="100"><strong><?=$txt['use_pokemon_label']?>:</strong></th>
+    		<th width="150"><strong><?=$txt['use_name_col']?></strong></th>
+    		<th width="100" align="center"><strong><?=$txt['use_level']?>:</strong></th>
+    		<th width="100" align="center"><strong><?=$txt['use_evolves_col']?></strong></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -154,7 +154,7 @@ else{
     //Pokemons die hij opzak heeft weergeven  
     for($teller=0; $pokemon = $poke->fetch_assoc(); $teller++) {
       if ($pokemon['ei'] != 1) {
-        $kan = "<img src='".$static_url."/images/icons/red.png' alt='Não usável'>";
+        $kan = "<img src='".$static_url."/images/icons/red.png' alt='".$txt['use_not_usable']."'>";
         $disabled = 'disabled';   
         //Als er een result is kan pokemon evolueren.
         $stoneevolvesql = DB::exQuery("SELECT `id`, `stone`, `nieuw_id` FROM `levelen` WHERE `wild_id`='".$pokemon['wild_id']."' AND `stone`='".($_GET['name'] ?? '')."'");
@@ -162,7 +162,7 @@ else{
         
         //Heeft de stone werking?
         if ($stoneevolvesql->num_rows >= 1) {
-        	$kan = "<img src='".$static_url."/images/icons/green.png' alt='Usável'>";
+        	$kan = "<img src='".$static_url."/images/icons/green.png' alt='".$txt['use_usable']."'>";
         	$disabled = '';
         }
                 echo '<tr>';

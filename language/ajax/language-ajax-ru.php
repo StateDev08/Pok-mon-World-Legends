@@ -105,5 +105,65 @@ $txt['league_not_created_5min'] = 'Бой не был создан в течен
 $txt['league_lost_not_created'] = 'Вы проиграли!<br/>Бой не был создан!';
 $txt['league_won_not_created'] = 'Вы победили!<br/>Бой не был создан!';
 $txt['league_not_time_yet'] = 'Время вашего боя ещё не наступило!';
+
+# map
+$txt['map_search_1'] = 'Здесь ничего нет!';
+$txt['map_search_2'] = 'Я почти нашёл легендарного, но он исчез!';
+$txt['map_search_3'] = 'Я не сдамся!';
+$txt['map_search_4'] = 'Я уверен, где-то здесь был покемон...';
+$txt['map_search_5'] = 'Нашёл! О нет, это просто камень!';
+$txt['map_search_6'] = 'Ааа... я ничего не могу найти!';
+$txt['map_search_7'] = 'Ну же, покажитесь!';
+$txt['map_search_8'] = 'Здесь есть хоть какой-то покемон!?';
+$txt['map_search_9'] = 'Что там позади?! Фух, это всего лишь моя тень!';
+$txt['map_search_10'] = 'В небе покемон?! А, это просто облако.';
+$txt['map_search_11'] = 'Кажется, эти покемоны меня боятся.';
+$txt['map_search_12'] = 'Я нашёл следы! Эх, они мои...';
+$txt['map_safari_closed'] = 'Сафари-зона закрыта!';
+
+# use-items
+$txt['use_choose_pokemon'] = 'Нужно выбрать покемона!';
+$txt['use_choose_for_item'] = 'Выберите покемона, на котором хотите использовать %s.';
+$txt['use_level'] = 'Уровень';
+$txt['use_next'] = 'Далее';
+$txt['use_cannot_learn'] = 'Ваш покемон не может выучить эту атаку!';
+$txt['use_not_your_pokemon'] = 'Этот покемон не ваш!';
+$txt['use_already_learned'] = '%1$s уже выучил атаку %2$s!';
+$txt['use_learning'] = '%1$s изучает %2$s - %3$s.';
+$txt['use_item_missing'] = 'У вас нет этого предмета!';
+$txt['use_item_not_equippable'] = 'Этот предмет нельзя надеть на этого покемона!';
+$txt['use_item_already_equipped'] = 'У покемона уже надет этот предмет!';
+$txt['use_item_egg'] = 'Этот предмет нельзя надеть на яйцо покемона!';
+$txt['use_choose_receive_item'] = 'Выберите, какой покемон получит предмет %s.';
+$txt['use_old_item_destroyed'] = 'Если у покемона уже есть предмет, старый предмет будет уничтожен!';
+$txt['use_not_equipped'] = 'Не надет';
+$txt['use_no_items_to_equip'] = 'У вас нет предметов, которые можно надеть на покемонов!';
+$txt['use_cannot_equip_egg'] = 'Нельзя надеть этот предмет на яйцо покемона!';
+$txt['use_cannot_heal'] = 'Вы не можете вылечить %s.';
+$txt['use_only_fainted'] = 'Работает только на покемонах, полностью потерявших сознание.';
+$txt['use_not_that_amount'] = 'У вас нет такого количества!';
+$txt['use_amount_too_high'] = 'Нельзя использовать такое количество';
+$txt['use_choose_receive_candy'] = 'Выберите, какой покемон получит %s.';
+$txt['use_spc_limit_25'] = ' Вы уже использовали %1$s 25 раз на %2$s.';
+$txt['use_spc_max'] = ' Максимум можно использовать %1$sx %2$s.';
+$txt['use_dont_have_amount'] = 'У вас нет %1$s %2$s!';
+$txt['use_choose_with_amount'] = 'Выберите покемона, на котором использовать %1$s.<br> (У вас %2$s %1$s)';
+$txt['use_choose_stone'] = 'Выберите покемона, на котором использовать %s.';
+$txt['use_evolved'] = 'Поздравляем, ваш <strong>%1$s</strong> эволюционировал в <strong>%2$s</strong>!';
+$txt['use_choose_for_stone_post'] = 'Выберите покемона для использования %s.';
+$txt['use_stone_not_usable'] = 'На покемоне %1$s нельзя использовать %2$s.';
+$txt['use_yes'] = 'Да';
+$txt['use_no'] = 'Нет';
+$txt['use_not_usable'] = 'Нельзя использовать';
+$txt['use_usable'] = 'Можно использовать';
+$txt['use_pokemon_label'] = 'Покемон';
+$txt['use_quantity'] = 'Количество';
+$txt['use_equipped_col'] = 'Надет';
+$txt['use_equipped_with'] = 'Надет предмет: %s';
+$txt['use_check'] = 'Выбор:';
+$txt['use_name_col'] = 'Имя:';
+$txt['use_evolves_col'] = 'Эволюция:';
+$txt['use_confirm_evolve'] = 'Вы уверены, что хотите эволюционировать %s?';
+$txt['use_stone_evolved'] = 'Поздравляем, ваш <strong>%1$s</strong> эволюционировал в <strong>%2$s</strong> с помощью %3$s!';
 /* === end externalized strings === */
 ?>

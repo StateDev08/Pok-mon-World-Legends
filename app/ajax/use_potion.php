@@ -1,5 +1,5 @@
 <?php
-$error = "Escolha o pokémon para qual você vai usar ".($_GET['name'] ?? '').".";
+$error = sprintf($txt['use_choose_for_item'], ($_GET['name'] ?? ''));
 $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 ?>
@@ -52,7 +52,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 				//Save new life
 				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."' WHERE `id`='".($_POST['pokemonid'] ?? '')."'");
 				$finish = true;
-			}else	$error = '<div class="red">Você não pode curar '.$pokemon['naam'].'.</div>';
+			}else	$error = '<div class="red">'.sprintf($txt['use_cannot_heal'], $pokemon['naam']).'</div>';
 		} else if ($status) {	//Is er een aparte potion gebruikt?
 			if ($itemgegevens['naam'] == "Full heal")	$effect = '';
 			else if ($pokemon['leven'] == 0) {
@@ -60,7 +60,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 				else if ($itemgegevens['naam'] == "Max revive")	$newlife = $pokemon['levenmax'];
 				DB::exQuery("UPDATE `pokemon_speler` SET `leven`='".$newlife."',`effect`='".$effect."' WHERE `id`='".($_POST['pokemonid'] ?? '')."' LIMIT 1");
 				$finish = true;
-			} else	$error = '<div class="red">Somente funciona em pokémons que estão totalmente sem vida.</div>';
+			} else	$error = '<div class="red">'.$txt['use_only_fainted'].'</div>';
 		}
 		if ($finish)	DB::exQuery("UPDATE `gebruikers_item` SET `".$name."`=`".$name."`-'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
 	}
@@ -74,7 +74,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 			<tr> 
 				<th width="40">#</td>
 				<th width="200" colspan="2">Pokemon:</td>
-				<th width="50">Nível</td>
+				<th width="50"><?=$txt['use_level']?></td>
 				<th width="300">HP</td>
 			</tr>
 		</thead>

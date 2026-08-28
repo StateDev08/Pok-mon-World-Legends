@@ -28,16 +28,25 @@ while ($buy = $req->fetch_assoc()) {
 
         $buyer = DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `user_id`='$buyer'")->fetch_assoc()['username'];
         
-        $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$buyer.'">'.$buyer.'</a> comprou seu <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a> por: '.highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />!';
+        $price = highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />';
+        $pokemon_link = '<a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a>';
+
+        $seller_txt = user_txt($buy['user_id']);
+        $event = DB::real_escape_string('<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+            . sprintf($seller_txt['event_pokemon_sold'], '<a href="./profile&player='.$buyer.'">'.$buyer.'</a>', $pokemon_link, $price));
         DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['user_id'] . "', '" . $event . "', '0')");
 
-        $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> Você comprou <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a> por: '.highamount($buy['silver']).' <img src="' . $static_url . '/images/icons/silver.png" title="Silver" width="16" height="16" /> e '.highamount($buy['gold']).'<img src="' . $static_url . '/images/icons/gold.png" title="Gold" width="16" height="16" />, e ele já está em sua BOX!';
+        $buyer_txt = user_txt($buy['big_blind']);
+        $event = DB::real_escape_string('<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+            . sprintf($buyer_txt['event_auction_bought'], $pokemon_link, $price));
         DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['big_blind'] . "', '" . $event . "', '0')");
     } else {
         DB::exQuery("UPDATE `pokemon_speler` SET `trade`='1.0',`opzak`='nee' WHERE `id`='".$buy['pokemon_id']."'");
         DB::exQuery("DELETE FROM `transferlijst` WHERE `id`='".$tid."'");
         
-        $event = '<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> Ninguém deu lance em seu <a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a>, portanto, seu Pokémon voltou para sua casa!';
+        $seller_txt = user_txt($buy['user_id']);
+        $event = DB::real_escape_string('<img src="' . $static_url . '/images/icons/blue.png" width="16" height="16" class="imglower" /> '
+            . sprintf($seller_txt['event_auction_no_bids'], '<a href="./pokemon-profile&id='.$buy['pokemon_id'].'">'.$tl['naam'].'</a>'));
         DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['user_id'] . "', '" . $event . "', '0')");
     }
 }

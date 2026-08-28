@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/resources/config.php');
+require_once(__DIR__ . '/../../language/language-user.php');
 	
 /*	SCRIPT QUE LIMPA AS CONTAS INATIVAS A MAIS DE 1 MÊS
 	
@@ -20,6 +21,16 @@ require_once('../includes/resources/config.php');
 */
 
 
+  #Het bericht wordt in de taal van de ontvanger opgeslagen, niet in die van de cron
+  function fishing_prize_event($user_id, $position, $silver) {
+    global $static_url;
+
+    $txt = user_txt($user_id);
+
+    return DB::real_escape_string('<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" />'
+      . sprintf($txt['event_fishing_prize'], $position, $silver, '<img src="'.$static_url.'/images/icons/silver.png">'));
+  }
+
   $i = 0;
   $profiles1=DB::exQuery("SELECT user_id,acc_id FROM `gebruikers` WHERE `banned` != 'Y' ORDER BY `fishing` DESC LIMIT 3");
   while($profiles=$profiles1->fetch_assoc()) {
@@ -28,7 +39,7 @@ require_once('../includes/resources/config.php');
       DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'20000' WHERE `user_id`='".$profiles['user_id']."'");
       DB::exQuery("UPDATE `fishs` SET `fish`='".$profiles['user_id']."'  WHERE `id`='1'");
       #Bericht opstellen na wat de language van de user is
-      $event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" />Você ficou em 1 lugar no torneio de pesca. Ganhou 20000<img src="'.$static_url.'/images/icons/silver.png">.';
+      $event = fishing_prize_event($profiles['user_id'], 1, 20000);
             
       #Melding geven aan de uitdager
       DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen) VALUES (NULL, NOW(), '".$profiles['user_id']."', '".$event."', '0')");
@@ -37,7 +48,7 @@ require_once('../includes/resources/config.php');
       DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'10000' WHERE `user_id`='".$profiles['user_id']."'");
       DB::exQuery("UPDATE `fishs` SET `fish2`='".$profiles['user_id']."'  WHERE `id`='1'");
       #Bericht opstellen na wat de language van de user is
-      $event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" />Você ficou em 2 lugar no torneio de pesca. Ganhou 10000<img src="'.$static_url.'/images/icons/silver.png">.';
+      $event = fishing_prize_event($profiles['user_id'], 2, 10000);
             
       #Melding geven aan de uitdager
       DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)   VALUES (NULL, NOW(), '".$profiles['user_id']."', '".$event."', '0')");
@@ -46,7 +57,7 @@ require_once('../includes/resources/config.php');
       DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'5000' WHERE `user_id`='".$profiles['user_id']."'");
       DB::exQuery("UPDATE `fishs` SET `fish3`='".$profiles['user_id']."'  WHERE `id`='1'");
       #Bericht opstellen na wat de language van de user is
-      $event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" />Você ficou em 3 lugar no torneio de pesca. Ganhou 5000<img src="'.$static_url.'/images/icons/silver.png">.';
+      $event = fishing_prize_event($profiles['user_id'], 3, 5000);
             
       #Melding geven aan de uitdager
       DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)   VALUES (NULL, NOW(), '".$profiles['user_id']."', '".$event."', '0')");

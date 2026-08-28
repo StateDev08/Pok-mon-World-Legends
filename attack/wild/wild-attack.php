@@ -91,8 +91,8 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
           }      
         } else if (1 == "<?= $player_hand['ei']; ?>") {
           $("div[id='change_pokemon'][name='<?= $inhand; ?>']").css({ backgroundImage : "url(<?=$static_url?>/images/icons/egg.gif)" });
-          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").html("Egg Pokémon");
-          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").attr("data-original-title", "Egg Pokémon");
+          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").html(<?=json_encode($txt['battle_egg_pokemon'])?>);
+          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").attr("data-original-title", <?=json_encode($txt['battle_egg_pokemon'])?>);
           $("div[id='change_pokemon'][name='<?= $inhand; ?>']").show();
         }
         //Pokemon is not in fight, show.
@@ -167,14 +167,14 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
       ?>
             if (request[2] != 0) {
                 let msg = request[2].split(',');
-                $("#message").append("<p style='margin:0'>Você conseguiu <b>"+msg[1]+"x</b> <img src='<?=$static_url?>/images/layout/events/drops/"+msg[0]+".png' title='"+msg[0]+"' style='width: 16px'/>!</p>");
+                $("#message").append("<p style='margin:0'>" + <?=json_encode($txt['battle_you_got_item'])?>.replace('%1$s', msg[1]).replace('%2$s', "<img src='<?=$static_url?>/images/layout/events/drops/"+msg[0]+".png' title='"+msg[0]+"' style='width: 16px'/>") + "</p>");
             }
 	<?php
 		} else if ($evento_atual['name_id'] == 'pikachu_festival') {
 	?>
 		if (request[2] != 0) {
 			let msg = request[2].split(',');
-			$("#message").append("<p style='margin:0'>Você conseguiu <b>"+msg[1]+"x</b> <img src='<?=$static_url?>/images/poke_icons/pikachu_festival.png' title='"+msg[0]+"' style='width: 16px'/>!</p>");
+			$("#message").append("<p style='margin:0'>" + <?=json_encode($txt['battle_you_got_item'])?>.replace('%1$s', msg[1]).replace('%2$s', "<img src='<?=$static_url?>/images/poke_icons/pikachu_festival.png' title='"+msg[0]+"' style='width: 16px'/>") + "</p>");
 		}
 	<?php
 		}
@@ -226,7 +226,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "wissel") {
       speler_attack = 0
       speler_wissel = 1
-      $("#message").html("<?= $pokemon_info['naam_goed']; ?> não pode entrar na batalha.")
+      $("#message").html(<?= json_encode(sprintf($txt['battle_cannot_enter'], $pokemon_info['naam_goed'])); ?>)
     }
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "end_screen") {
       speler_attack = 0
@@ -243,7 +243,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
       $("#message").html("<?= $txt['success_catched_1'].' '.$computer_info['naam_goed'].' '.$txt['success_catched_2']; ?>")
       setTimeout(redirect, 2000)
     }
-    else $("#message").html("Error: 0001 \n Atualize a página \n Info:<?= $aanval_log['laatste_aanval']; ?>");
+    else $("#message").html(<?= json_encode($txt['battle_error_reload'].$aanval_log['laatste_aanval']); ?>);
 
     if (weather.indexOf('<?=$aanval_log['weather']?>') != -1) {
       	$('#weather').addClass('weather <?=$aanval_log['weather']?>');
@@ -634,7 +634,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
 			?>
 					if (request[6] != 0) {
 						let msg = request[6].split(',');
-						$("#message").append("<p style='margin:0'>Você conseguiu <b>"+msg[1]+"x</b> <img src='<?=$static_url?>/images/poke_icons/pikachu_festival.png' title='"+msg[0]+"' style='width: 16px'/>!</p>");
+						$("#message").append("<p style='margin:0'>" + <?=json_encode($txt['battle_you_got_item'])?>.replace('%1$s', msg[1]).replace('%2$s', "<img src='<?=$static_url?>/images/poke_icons/pikachu_festival.png' title='"+msg[0]+"' style='width: 16px'/>") + "</p>");
 					}
 			<?php
 					}
@@ -720,7 +720,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   	//Player Make Change Pokemon
   	$("div[id='change_pokemon']").click(function() {
   		if (speler_wissel == 1) {
-  			if (($(this).attr("name") != "") && ($(this).attr("data-original-title")) != "Egg Pokémon") {
+  			if (($(this).attr("name") != "") && ($(this).attr("data-original-title")) != <?=json_encode($txt['battle_egg_pokemon'])?>) {
   				document.getElementById('hit').style.display = "none";
   				document.getElementById('hit2').style.display = "none";
   				$("#potion_screen").hide()
@@ -960,7 +960,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
       </tr>
 	</table></div>
   	<span id="potion_screen" style="display:none;">
-        <h3 class="title">Escolha o Pokémon que irá receber <span id="item_name"></span>:</h3>
+        <h3 class="title"><?=$txt['battle_choose_item_target']?> <span id="item_name"></span>:</h3>
             <?php
 
           //Show all pokemon inhand

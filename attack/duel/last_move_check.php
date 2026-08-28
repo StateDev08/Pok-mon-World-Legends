@@ -57,11 +57,11 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             $effect = $pokemon_info['effect'];
             if ($duel_info['volgende_beurt'] == $duel_info['uitdager']) {
               $refresh = 1;
-              $mes = "Seu oponente trocou de Pokémon. Seu turno.";
+              $mes = $txt['duel_opponent_switched_your_turn'];
             }
             else{
               $refresh = 3;
-              $mes = "Seu oponente trocou de Pokémon. Turno do oponente.";
+              $mes = $txt['duel_opponent_switched_opp_turn'];
             }
           }
 
@@ -78,7 +78,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             $effect = $pokemon_info['effect'];
             $effect2 = $opponent_info['effect'];
             if ($pokemon_info['leven'] <= 0) {                                                      
-              $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].'. Seu Pokémon foi derrotado. <br>Você deve trocar de Pokémon!';
+              $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].$txt['duel_your_pokemon_defeated_switch'];
               $refresh = 4;
             }
             else{
@@ -97,7 +97,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             $info2 = $pokemon_info['levenmax'];
             $effect2 = $opponent_info['effect'];
             $refresh = 5;
-            $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].'<br> Você foi derrotado.';
+            $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].$txt['duel_you_were_defeated'];
           }
           else{
             $mes = "Error: 1101<br />Info: ".$duel_info['volgende_beurt'];
@@ -120,11 +120,11 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
 
             if ($duel_info['volgende_beurt'] == $duel_info['tegenstander']) {
               $refresh = 1;
-              $mes = "Seu oponente trocou de Pokémon. Seu turno.";
+              $mes = $txt['duel_opponent_switched_your_turn'];
             }
             else{
               $refresh = 3;
-              $mes = "Seu oponente trocou de Pokémon. Turno do oponente.";
+              $mes = $txt['duel_opponent_switched_opp_turn'];
             }
           }
           else if ($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) {
@@ -141,7 +141,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             $effect2 = $opponent_info['effect'];
             
             if ($pokemon_info['leven'] <= 0) {
-              $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].'. Seu Pokémon foi derrotado. <br>Você deve trocar de Pokémon!';
+              $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].$txt['duel_your_pokemon_defeated_switch'];
               $refresh = 4;
             }
             else{
@@ -158,7 +158,7 @@ if ((isset($_GET['duel_id'])) AND (isset($_GET['sid']))) {
             $info1 = $pokemon_info['leven'];
             $info2 = $pokemon_info['levenmax'];
             $effect2 = $opponent_info['effect'];
-            $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].'.<br> Você foi derrotado.';
+            $mes = $opponent_info['naam_goed']." ".$txt['did']." ".$duel_info['laatste_aanval'].'.'.$txt['duel_you_were_defeated'];
           }
           else{
             $mes = "Error: 1101<br />Info: ".$duel_info['volgende_beurt']."/".$duel_info['id'];

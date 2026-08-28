@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/resources/config.php');
+require_once(__DIR__ . '/../../language/language-user.php');
 
 // DB::exQuery("UPDATE markt SET beschikbaar = '0' WHERE soort = 'pokemon'");
 
@@ -15,46 +16,35 @@ require_once('../includes/resources/config.php');
 	if ($newinfo['zeldzaamheid'] == 1) {
 		$silver_price = rand(1250, 3500);
 		$gold_price = 0;
-		$omschrijving_nl = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_en = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_es = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_de = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pl = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pt = 'Um ovo de Pokémon Comum. Este é um Pokémon tipo '.$newinfo['type1'].'.';
+		$omschrijving_key = 'event_egg_desc_common';
 	}
 	else if ($newinfo['zeldzaamheid'] == 2) {
 		$silver_price = rand(4000, 7300);
 		$gold_price = 0;
-		$omschrijving_nl = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_en = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_es = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_de = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pl = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pt = 'Um ovo de Pokémon Incomum. Aparenta ser um Pokémon tipo '.$newinfo['type1'].'.';
+		$omschrijving_key = 'event_egg_desc_uncommon';
 	}
 	else if ($newinfo['zeldzaamheid'] == 3) {
 		$silver_price = rand(7500, 11000);
 		$gold_price = 0;
-		$omschrijving_nl = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_en = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_es = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_de = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pl = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pt = 'Um ovo de Pokémon Raro. Tem altas chances de ser um Pokémon tipo '.$newinfo['type1'].'.';
+		$omschrijving_key = 'event_egg_desc_rare';
 	}
 	else{
 		$silver_price = 0;
 		$gold_price = rand(200, 423);
-		$omschrijving_nl = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_en = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_es = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_de = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pl = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
-		$omschrijving_pt = 'Um ovo de Pokémon Lendário ou será que é de um Inicial? Cientistas acham que é um ovo de Pokémon tipo '.$newinfo['type1'].'.';
+		$omschrijving_key = 'event_egg_desc_legendary';
 	}
-	
+
+	#De omschrijving in elke taal opslaan, de speler ziet de kolom van zijn eigen taal
+	$omschrijving = array();
+	foreach (array('pt', 'de', 'en', 'pl', 'ru', 'zh') as $egg_lang) {
+		$egg_txt = language_txt('events', $egg_lang);
+		$omschrijving[$egg_lang] = DB::real_escape_string(sprintf($egg_txt[$omschrijving_key], $newinfo['type1']));
+	}
+	$omschrijving['nl'] = $omschrijving['en'];
+	$omschrijving['es'] = $omschrijving['pt'];
+
 	#Product opslaan in database
-	DB::exQuery("UPDATE markt SET beschikbaar = '1', pokemonid = '".$newinfo['wild_id']."', naam = '".$newinfo['naam']."', silver = '".$silver_price."', gold = '".$gold_price."', omschrijving_nl = '".$omschrijving_nl."', omschrijving_en = '".$omschrijving_en."', omschrijving_es = '".$omschrijving_es."', omschrijving_de = '".$omschrijving_de."', omschrijving_pl = '".$omschrijving_pl."', omschrijving_pt = '".$omschrijving_pt."' WHERE id = '".$select['id']."'");
+	DB::exQuery("UPDATE markt SET beschikbaar = '1', pokemonid = '".$newinfo['wild_id']."', naam = '".$newinfo['naam']."', silver = '".$silver_price."', gold = '".$gold_price."', omschrijving_nl = '".$omschrijving['nl']."', omschrijving_en = '".$omschrijving['en']."', omschrijving_es = '".$omschrijving['es']."', omschrijving_de = '".$omschrijving['de']."', omschrijving_pl = '".$omschrijving['pl']."', omschrijving_pt = '".$omschrijving['pt']."', omschrijving_ru = '".$omschrijving['ru']."', omschrijving_zh = '".$omschrijving['zh']."' WHERE id = '".$select['id']."'");
  }
   
   #Tijd opslaan van wanneer deze file is uitgevoerd

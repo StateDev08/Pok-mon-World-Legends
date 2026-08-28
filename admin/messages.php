@@ -1,6 +1,7 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) { header('location: ./home'); exit; }
@@ -36,10 +37,10 @@ $messagesquery = DB::exQuery("SELECT berichten.afzender_id, berichten.ontvanger_
 	  //Scherm weergave
   	echo '<table width=600" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="100"><b>De</b></td>
-				<td width="100"><b>Para</b></td>
-				<td width="100"><b>Assunto</b></td>
-				<td width="300"><b>Texto</b></td>
+				<td width="100"><b>'.$txt['adm_msg_from'].'</b></td>
+				<td width="100"><b>'.$txt['adm_msg_to'].'</b></td>
+				<td width="100"><b>'.$txt['adm_msg_subject'].'</b></td>
+				<td width="300"><b>'.$txt['adm_msg_text'].'</b></td>
 			</tr>
 			<tr>
 				<td colspan="4"><HR></td>

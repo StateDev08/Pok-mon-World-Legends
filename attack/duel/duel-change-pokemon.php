@@ -23,7 +23,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     //Goeie taal erbij laden voor de page
     include_once('../../language/language-pages.php');
     if (empty($duel_info['id']))
-        $message = "Este duelo não existe.";
+        $message = $txt['duel_not_exists'];
     if (($duel_info['u_klaar'] != 1) OR ($duel_info['t_klaar'] != 1))
         $message = $txt['opponent_not_ready'];
     else if ((strtotime(date("Y-m-d H:i:s")) - $duel_info['laatste_beurt_tijd'] > 180) AND (($duel_info['volgende_beurt'] == ($_SESSION['naam'] ?? '')) OR (!strpos($duel_info['laaste_beurt'], ($_SESSION['naam'] ?? '')))))
@@ -33,7 +33,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     else if ($duel_info['volgende_beurt'] == "end_screen")
         $message = $txt['fight_over'];
     else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND ($duel_info['volgende_zet'] == "wisselen"))
-        $message = "O oponente precisa trocar de Pokémon!";
+        $message = $txt['duel_opponent_must_switch'];
     else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND (!empty($duel_info['volgende_beurt'])))
         $message = "O oponente deve atacar!";
     else {
@@ -54,7 +54,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
             if ($change_pokemon['leven'] <= 0) {
                 $message = $txt['pokemon_is_ko'];
             } else if ($league_battle && count($pokemon_used) >= $league_battle->getN_pokemons() && !in_array($change_pokemon['id'], $pokemon_used)) {
-                $message = "Você não pode mais adicionar pokémon nesta batalha!";
+                $message = $txt['duel_no_more_pokemon'];
             } else {
                 if ($duel_info['uitdager'] == ($_SESSION['naam'] ?? '')) {
                     $duel_info['you'] = "u";
@@ -125,9 +125,9 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
                 }
 
                 if ($vol_be == ($_SESSION['naam'] ?? ''))
-                    $message = "Você traz " . $change_pokemon['naam'] . "<br />" . $txt['your_turn'];
+                    $message = sprintf($txt['duel_you_send_out'], $change_pokemon['naam']) . "<br />" . $txt['your_turn'];
                 else
-                    $message = "Você traz " . $change_pokemon['naam'] . "<br />" . $vol_be . " " . $txt['opponents_turn'];
+                    $message = sprintf($txt['duel_you_send_out'], $change_pokemon['naam']) . "<br />" . $vol_be . " " . $txt['opponents_turn'];
 
                 $good = 1;
             }

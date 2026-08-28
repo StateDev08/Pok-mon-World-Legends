@@ -28,15 +28,15 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 	$error = "<div class='red'>Digite um valor.</div></center>";
 	} 
  else if ($real[$wat.'_up'] >= 75) {
-    $error = "<div class='red'> Você já usou 25x ".($_POST['item'] ?? '')." em ".$real['naam'].".</div>";
+    $error = "<div class='red'>".sprintf($txt['use_spc_limit_25'], ($_POST['item'] ?? ''), $real['naam'])."</div>";
 	}
   else if ($real[$wat.'_up']+$add_points > 75) {
   $valorupok = $real[$wat.'_up']/3;
   $somatoria = 25 - $valorupok;
- 	$error = "<div class='red'> Máximo a ser usado de ".$somatoria."x ".($_GET['name'] ?? '').".</div>";  
+ 	$error = "<div class='red'>".sprintf($txt['use_spc_max'], $somatoria, ($_GET['name'] ?? ''))."</div>";  
  }		
 		else if ($num_ <= 0) { $error = '<div class="red">A quantidade deve ser maior que zero!</div>'; }
-		else if ($gebruiker_item[($_POST['item'] ?? '')] < $num_) { $error = '<div class="red">Você não possui ' . $num_ . ' ' . ($_POST['item'] ?? '') . '!</div>'; }
+		else if ($gebruiker_item[($_POST['item'] ?? '')] < $num_) { $error = '<div class="red">' . sprintf($txt['use_dont_have_amount'], $num_, ($_POST['item'] ?? '')) . '</div>'; }
 		else {
 			# Get infos
 			$info = DB::exQuery("SELECT * FROM `karakters` WHERE `karakter_naam`='" . $real['karakter'] . "' LIMIT 1")->fetch_assoc();
@@ -84,12 +84,12 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 <form action="./ajax.php?act=<?=($_GET['act'] ?? '');?>&amp;name=<?=($_GET['name'] ?? '');?>" method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="10">Escolha o pokémon que você vai usar <?=($_GET['name'] ?? '')?>.<br> (Você tem <?=$gebruiker_item[($_GET['name'] ?? '')]?> <?=($_GET['name'] ?? '')?>)</th></tr>
+			<tr><th colspan="10"><?=sprintf($txt['use_choose_with_amount'], htmlspecialchars(($_GET['name'] ?? '')), $gebruiker_item[($_GET['name'] ?? '')])?></th></tr>
 			<tr>
 				<th width="20">#</th>
-				<th width="80">Quantidade</th>
+				<th width="80"><?=$txt['use_quantity']?></th>
 				<th width="200" colspan="2">Pokemon</th>
-				<th width="50">Nível</th>
+				<th width="50"><?=$txt['use_level']?></th>
 				<th width="30"><img src="<?=$static_url;?>/images/items/Protein.png" title="Protein" /></th>
 				<th width="30"><img src="<?=$static_url;?>/images/items/Iron.png" title="Iron" /></th>
 				<th width="30"><img src="<?=$static_url;?>/images/items/Carbos.png" title="Carbos" /></th>

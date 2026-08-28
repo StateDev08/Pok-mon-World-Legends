@@ -1,6 +1,7 @@
 <?php
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 #Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -101,7 +102,7 @@ if (($_POST['lvlupatk20'] ?? '') != "" AND ($_POST['upatk20'] ?? '') != "") DB::
  
 ?>
 
-<h3>Inclusão de Pokémon</h3>
+<h3><?=$txt['adm_pk_title']?></h3>
 
 
 <form method="post">
@@ -112,15 +113,15 @@ if (($_POST['lvlupatk20'] ?? '') != "" AND ($_POST['upatk20'] ?? '') != "") DB::
 <tr><td>ID</td> <td><input type="number" value="<?php echo ($_POST['id'] ?? ''); ?>" id="id" name="id" required></td></tr>
 
 
-<tr><td>Zona</td> <td><select name="zona"><option value="Kanto">Kanto</option><option value="Johto">Johto</option><option value="Hoenn">Hoenn</option><option value="Sinnoh">Sinnoh</option><option value="Unova">Unova</option><option value="Kalos">Kalos</option><option value="Alola">Alola</option> </select></td></tr>
+<tr><td><?=$txt['adm_pk_zone']?></td> <td><select name="zona"><option value="Kanto">Kanto</option><option value="Johto">Johto</option><option value="Hoenn">Hoenn</option><option value="Sinnoh">Sinnoh</option><option value="Unova">Unova</option><option value="Kalos">Kalos</option><option value="Alola">Alola</option> </select></td></tr>
 
 
-<tr><td>Nome</td> <td><input type="text" value="<?php echo ($_POST['nome'] ?? ''); ?>" id="nome" name="nome" required></td></tr>
+<tr><td><?=$txt['adm_pk_name']?></td> <td><input type="text" value="<?php echo ($_POST['nome'] ?? ''); ?>" id="nome" name="nome" required></td></tr>
 
-<tr><td>Raridade</td> <td><select name="raridade"><option value="1">Comum</option><option value="2">Incomum</option><option value="3">Raro</option> </select></td></tr>
+<tr><td><?=$txt['adm_pk_rarity']?></td> <td><select name="raridade"><option value="1"><?=$txt['adm_common']?></option><option value="2"><?=$txt['adm_uncommon']?></option><option value="3"><?=$txt['adm_rare']?></option> </select></td></tr>
 
 
-<tr><td>N. Linha Ev.</td> <td><input type="number" value="<?php echo ($_POST['evolutie'] ?? ''); ?>" id="evolutie" name="evolutie" required> Número na linha evolutiva do pokémon</td></tr>
+<tr><td><?=$txt['adm_pk_evline']?></td> <td><input type="number" value="<?php echo ($_POST['evolutie'] ?? ''); ?>" id="evolutie" name="evolutie" required> <?=$txt['adm_pk_evline_hint']?></td></tr>
 
 
 
@@ -182,7 +183,7 @@ if (($_POST['lvlupatk20'] ?? '') != "" AND ($_POST['upatk20'] ?? '') != "") DB::
 
 
 
-<tr><td>Local</td> <td>
+<tr><td><?=$txt['adm_pk_local']?></td> <td>
 <select name="local">
 <option value=""></option>
 <option value="Gras">Grama</option>
@@ -240,9 +241,9 @@ if (($_POST['lvlupatk20'] ?? '') != "" AND ($_POST['upatk20'] ?? '') != "") DB::
 <tr><td>Effort HP</td> <td><input type="number" value="<?php echo ($_POST['efforthp'] ?? ''); ?>" id="efforthp" name="efforthp" required></td></tr>
 
 
-<tr><td>Aparece nas infos?</td> <td><select name="aparece"><option value="sim">Sim</option><option value="nao">Não</option> </select></td></tr>
-<tr><td>Lendario/Raro?</td> <td><select name="lendario"><option value="1">Sim</option><option value="0">Não</option> </select></td></tr>
-<tr><td>Comerciantes?</td> <td><select name="comerciantes"><option value="sim">Sim</option><option value="nao">Não</option> </select></td></tr>
+<tr><td><?=$txt['adm_pk_infos']?></td> <td><select name="aparece"><option value="sim"><?=$txt['adm_yes']?></option><option value="nao"><?=$txt['adm_no']?></option> </select></td></tr>
+<tr><td><?=$txt['adm_pk_legendary']?></td> <td><select name="lendario"><option value="1"><?=$txt['adm_yes']?></option><option value="0"><?=$txt['adm_no']?></option> </select></td></tr>
+<tr><td><?=$txt['adm_pk_traders']?></td> <td><select name="comerciantes"><option value="sim"><?=$txt['adm_yes']?></option><option value="nao"><?=$txt['adm_no']?></option> </select></td></tr>
 
 
 
@@ -368,7 +369,7 @@ while($mt = $movetutor->fetch_assoc()) {
 </table>
 
 <br><br>
-<input type="submit" value="OK">Certifique-se de que tudo está OK!
+<input type="submit" value="OK"><?=$txt['adm_pk_check']?>
 
 
 

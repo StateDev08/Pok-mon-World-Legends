@@ -2,6 +2,7 @@
 header('Content-Type: text/html; charset=utf-8'); 	
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -28,9 +29,9 @@ if (isset($_POST['text']) && isset($_POST['title'])) {
 </style>
 
 <form method="post">
-    <input type="text" name="title" style="width: 100%; padding: 5px; margin: 7px 0" placeholder="Assunto da Mensagem" required>
+    <input type="text" name="title" style="width: 100%; padding: 5px; margin: 7px 0" placeholder="<?=htmlspecialchars($txt['adm_mail_subject_placeholder'], ENT_QUOTES)?>" required>
 	<textarea id="text" name="text"></textarea>
-	<input type="submit" value="Mandar Mensagem" class="button" style="margin: 7px 0;">
+	<input type="submit" value="<?=htmlspecialchars($txt['adm_official_send'], ENT_QUOTES)?>" class="button" style="margin: 7px 0;">
 
 	<script>
 		$(document).ready(function() {

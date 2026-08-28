@@ -1,34 +1,36 @@
 <?php
 include('app/includes/resources/security.php');
 
-echo addNPCBox(24, 'Criar Clã', 'Crie seu Clã e chame seu Amigos ou Outros Treinadores para serem membros e jogarem em conjunto! <br> Para criar um Clã, você deverá ter 7 dias de <b>PREMIUM</b> <img src="'.$static_url.'/images/icons/vip.gif"> e <img src="'.$static_url.'/images/icons/gold.png" title="Golds"> 100 <b>Golds</b>!');
+echo addNPCBox(24, $txt['clan_create_npc_title'], sprintf($txt['clan_create_npc_text'],
+    '<img src="'.$static_url.'/images/icons/vip.gif">',
+    '<img src="'.$static_url.'/images/icons/gold.png" title="Golds">'));
 
 if (!empty($gebruiker['clan'])) { 
-    echo '<div class="red">Você faz parte de um CLÃ! CLIQUE <a href="./clans&action=profile&id='.$gebruiker['clan'].'">AQUI</a> PARA VÊ-LO!</div>';
+    echo '<div class="red">'.sprintf($txt['clan_in_clan_link'], '<a href="./clans&action=profile&id='.$gebruiker['clan'].'">'.$txt['clan_here'].'</a>').'</div>';
 } else if ($gebruiker['premiumaccount'] < (time() + 86400 * 7)) {
-    echo '<div class="red"><a href="./gold-market">Compre PREMIUM CLICANDO AQUI!</div></a>';
+    echo '<div class="red"><a href="./gold-market">'.$txt['clan_buy_premium'].'</a></div>';
 } else {
 if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) && isset($_POST['name']) && isset($_POST['submit'])) {
-    if (!empty($gebruiker['clan'])) echo '<div class="red">Você já faz parte de um CLÃ!</div>';
-    else if ($gebruiker['rank'] < 5) echo '<div class="red">VOCÊ PRECISA TER NO MÍNIMO RANK 5 - FIRST COACH PARA TER ACESSO AOS CLÃS!</div>';
-    else if ($gebruiker['premiumaccount'] < (time() + 86400 * 7)) echo '<div class="red">VOCÊ PRECISA TER PREMIUM!</div>';
-    else if ($rekening['gold'] < 100) echo '<div class="red">VOCÊ PRECISA TER NO MÍNIMO <img src="'.$static_url.'/images/icons/gold.png" title="Golds"> 100 <b>Golds</b>!</div>';
+    if (!empty($gebruiker['clan'])) echo '<div class="red">'.$txt['clan_already_member'].'</div>';
+    else if ($gebruiker['rank'] < 5) echo '<div class="red">'.$txt['clan_need_rank'].'</div>';
+    else if ($gebruiker['premiumaccount'] < (time() + 86400 * 7)) echo '<div class="red">'.$txt['clan_need_premium'].'</div>';
+    else if ($rekening['gold'] < 100) echo '<div class="red">'.sprintf($txt['clan_need_gold'], '<img src="'.$static_url.'/images/icons/gold.png" title="Golds">').'</div>';
     else {
         $icon = ($_POST['icon'] ?? '');
         $descr = ($_POST['descr'] ?? '');
         $sigla = strtolower(($_POST['sigla'] ?? ''));
         $name = ($_POST['name'] ?? '');
 
-        if ($icon > 14 || $icon <= 0) echo '<div class="red">ÍCONE DE CLÃ INVÁLIDO!</div>';
-        else if (strlen($descr) > 500) echo '<div class="red">A APRESENTAÇÃO DO CLÃ NÃO PODE TER MAIS DE 500 CARACTERES!</div>';
-        else if (strlen($name) < 5 || strlen($name) > 20) echo '<div class="red">O NOME DO CLÃ NÃO PODE CONTER MENOS QUE 5 OU MAIS QUE 20 CARACTERES!</div>';
-        else if (strlen($sigla) < 5 || strlen($sigla) > 5) echo '<div class="red">A SIGLA DO CLÃ NÃO PODE CONTER MENOS OU MAIS QUE 5 CARACTERES!</div>';
+        if ($icon > 14 || $icon <= 0) echo '<div class="red">'.$txt['clan_invalid_icon'].'</div>';
+        else if (strlen($descr) > 500) echo '<div class="red">'.$txt['clan_descr_too_long'].'</div>';
+        else if (strlen($name) < 5 || strlen($name) > 20) echo '<div class="red">'.$txt['clan_name_length'].'</div>';
+        else if (strlen($sigla) < 5 || strlen($sigla) > 5) echo '<div class="red">'.$txt['clan_tag_length'].'</div>';
         else {
             $name_verify = strtolower($name);
             $verify = DB::exQuery("SELECT `id` FROM `clans` WHERE `name`='$name_verify' OR `sigla`='$sigla'")->num_rows;
 
             if ($verify >= 1) {
-                echo '<div class="red">JÁ EXISTE UM CLÃ COM ESTE NOME OU SIGLA!</div>';
+                echo '<div class="red">'.$txt['clan_name_taken'].'</div>';
             } else {
                 $sigla = strtoupper($sigla);
 
@@ -42,7 +44,7 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
 
                 $clan->create($infos);
                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'100' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
-                echo '<div class="green">SEU CLÃ <a href="./clans&action=profile">'.$name.' ('.$sigla.')</a> FOI CRIADO COM SUCESSO!</div>';
+                echo '<div class="green">'.sprintf($txt['clan_created'], '<a href="./clans&action=profile">'.$name.' ('.$sigla.')</a>').'</div>';
             }
         }
     }
@@ -64,13 +66,13 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
     }
 </style>
 
-<form method="post" autocomplete="off" onsubmit="return confirm('Deseja realmente criar este Clã?');">
+<form method="post" autocomplete="off" onsubmit="return confirm(<?=json_encode($txt['clan_confirm_create'])?>);">
     <input type="hidden" id="icon" name="icon" value="1">
 
 	<div class="box-content">
         <table class="general" width="100%">
                 <thead>
-                    <tr><th colspan="9">Escolha o Ícone de seu Clã</th></tr>
+                    <tr><th colspan="9"><?=$txt['clan_choose_icon']?></th></tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -92,7 +94,7 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
     <div class="box-content" style="margin-top: 7px">
         <table class="general" width="100%">
                 <thead>
-                    <tr><th>Informações do Clã</th></tr>
+                    <tr><th><?=$txt['clan_infos']?></th></tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -100,12 +102,12 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
                             <center>
                             <table width="37%" border="0" style="margin: 10px; text-align: center; padding: 10px">
                                 <tbody><tr>
-                                    <td><b style="color: #9eadcd; font-size: 12px">Nome do Clã:</b><br><input type="text" name="name" value="" id="player" class="input-blue" required minlength="5" maxlength="20" style="margin-top: 5px"></td>
-                                    <td><b style="color: #9eadcd; font-size: 12px">Sigla do Clã:</b><br><input type="text" name="sigla" value="" id="send_amount" class="input-blue" required maxlength="5" minlength="5" style="margin-top: 5px; text-transform: uppercase;"></td>
+                                    <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['clan_name_label']?></b><br><input type="text" name="name" value="" id="player" class="input-blue" required minlength="5" maxlength="20" style="margin-top: 5px"></td>
+                                    <td><b style="color: #9eadcd; font-size: 12px"><?=$txt['clan_tag_label']?></b><br><input type="text" name="sigla" value="" id="send_amount" class="input-blue" required maxlength="5" minlength="5" style="margin-top: 5px; text-transform: uppercase;"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <textarea name="descr" cols="25" rows="10" style="margin-top: 7px;width: 100%" maxlength="500" placeholder="Apresentação do Clã"></textarea>
+                                        <textarea name="descr" cols="25" rows="10" style="margin-top: 7px;width: 100%" maxlength="500" placeholder="<?=htmlspecialchars($txt['clan_descr_placeholder'], ENT_QUOTES)?>"></textarea>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -117,7 +119,7 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
                 <tfoot>
                     <tr style="text-align: center; font-size: 13px">
                         <td>
-                            <input type="submit" id="submit" name="submit" style="margin: 6px" value="CRIAR CLÃ" class="button">
+                            <input type="submit" id="submit" name="submit" style="margin: 6px" value="<?=htmlspecialchars($txt['clan_create_button'], ENT_QUOTES)?>" class="button">
                         </td>
                     </tr>
                 </tfoot>

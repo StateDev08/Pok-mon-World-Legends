@@ -1,6 +1,7 @@
 <?php
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
+include_once("language/language-admin.php");
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
         $bedrag = ($_POST['bedrag'] ?? '');
@@ -13,7 +14,7 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
             $endPremium2 = time() + (86400 * $bedrag);
             
 
-                $melding = '<font color="green">Todos receberam '.$bedrag.' dias de premium!</font>';
+                $melding = '<font color="green">'.sprintf($txt['adm_premium_all_ok'], $bedrag).'</font>';
                 
                 DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`=`premiumaccount`+'$endPremium1' WHERE `premiumaccount`>='$timexx'");
                 //COLOCA PRA QUEM TEM PREMIUM ATIVO
@@ -25,16 +26,16 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
 				DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)
 	VALUES (NULL, NOW(), '".($_SESSION['id'] ?? '')."', '".$event."', '0')");
             }else{
-                $melding = '<font color="red">O número deve ser maior do que 0!</font>';
+                $melding = '<font color="red">'.$txt['adm_number_gt_zero'].'</font>';
             }
         }else{
-            $melding = '<font color="red">Digite um número.</font>';
+            $melding = '<font color="red">'.$txt['adm_enter_number'].'</font>';
         }
     }
 ?>
 <?php echo $melding; ?>
 <form method="post">
-    <label>Quantos dias você deseja dar de bônus?</label>
+    <label><?=$txt['adm_premium_all_question']?></label>
     <input type="text" name="bedrag" /><br/><br/>
-    <input type="submit" value="Dar premium" name="doneren" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_premium_btn'], ENT_QUOTES)?>" name="doneren" class="button">
 </form>

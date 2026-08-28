@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
 						$share = true;
 						$typppass = $rekening['wachtwoord'];
 					} else {
-						$inlog_error = 'Este usuário já está logado!';
+						$inlog_error = $txt['login_already_logged'];
 						$continue = false;
 					}
 				}

@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 					' . $txt['mail_body'] . '
 				</div></td></tr>
 				<tr><td align="center"><div style="padding: 5px; font-size: 12px; font-family: Arial, Helvetica, sans-serif;border-top: 1px solid #577599;">
-					<b style="color: #eeeeee;">&copy;' . date("Y"). ' - Pokémon World Legends | Todos os direitos reservados.</b>
+					<b style="color: #eeeeee;">' . sprintf($txt['auth_copyright'], date("Y")) . '</b>
 				</div></td></tr>
 			</table>
 		</div>');

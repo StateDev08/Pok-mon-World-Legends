@@ -12,14 +12,14 @@ else {
 
 		#Is er de afgelopen week al een account gemaakt?
 		if (empty($inlognaam))	$alert = '<div class="red">'.$txt['alert_no_username'].'</div>';
-		else if (strlen(trim($inlognaam)) < 4)	$alert = '<div class="red">O USUÁRIO DEVE CONTER AO MENOS 4 CARACTERES!</div>';
-	else if (strlen(trim($inlognaam)) > 12)	$alert = '<div class="red">O USUÁRIO NÃO DEVE CONTER MAIS DE 12 CARACTERES!</div>';
+		else if (strlen(trim($inlognaam)) < 4)	$alert = '<div class="red">'.$txt['newchar_username_short'].'</div>';
+	else if (strlen(trim($inlognaam)) > 12)	$alert = '<div class="red">'.$txt['newchar_username_long'].'</div>';
 		else if (!preg_match('/^([a-zA-Z0-9]+)$/is', $inlognaam))	$alert = '<div class="red">'.$txt['alert_username_incorrect_signs'].'</div>';
 		else if (DB::exQuery("SELECT `username` FROM `gebruikers` WHERE `username`='" . $inlognaam . "' LIMIT 1")->num_rows != 0)	$alert = '<div class="red">'.$txt['alert_username_exists'].'</div>';
 		else if (DB::exQuery("SELECT `id` FROM `characters` WHERE `naam`='" . $character . "' LIMIT 1")->num_rows != 1)	$alert = '<div class="red">'.$txt['alert_character_invalid'].'</div>';
 		else if (!isset($wereld))	$alert = '<div class="red">'.$txt['alert_no_beginworld'].'</div>';
 		else if ($wereld != 'Kanto' && $wereld != 'Johto' && $wereld != 'Hoenn' && $wereld != 'Sinnoh' && $wereld != 'Unova' && $wereld != 'Kalos' && $wereld != 'Alola')	$alert = '<div class="red">'.$txt['alert_world_invalid'].'</div>';
-		else if ($sql->num_rows >= 2 AND $rekening['gold'] < 10)	$alert = '<div class="red">Você não tem golds suficientes!</div>';
+		else if ($sql->num_rows >= 2 AND $rekening['gold'] < 10)	$alert = '<div class="red">'.$txt['newchar_no_gold'].'</div>';
 		else {
 			#Gebruiker in de database
 			$date_lo = date('d/m/Y');
@@ -45,7 +45,7 @@ else {
 	}
 ?>
 
-<div class="blue">Para voltar à seleção de Personagens é só clicar <a href="./my_characters">AQUI</a>.</div>
+<div class="blue"><?=sprintf($txt['newchar_back_selection'], '<a href="./my_characters">'.$txt['chars_here'].'</a>')?></div>
 
 <style>
 	.carousel-cell {
@@ -66,7 +66,7 @@ else {
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
 			<tr><th colspan="9"><?=$txt['title_text'];?></th></tr>
-			<tr><th colspan="9">Você pode criar 2 personagem gratuitamente, após será cobrado uma taxa de <img src="<?=$static_url;?>/images/icons/gold.png" width="14" /> 10 por cada novo personagem!!!</th></tr>
+			<tr><th colspan="9"><?=sprintf($txt['newchar_fee_note'], '<img src="'.$static_url.'/images/icons/gold.png" width="14" />')?></th></tr>
 		</thead>
 		<tbody>
 			<tr>

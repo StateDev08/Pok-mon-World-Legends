@@ -869,4 +869,79 @@ $txt['region_sinnoh']         = 'Синно';
 $txt['region_unova']          = 'Юнова';
 $txt['region_kalos']          = 'Калос';
 $txt['region_alola']          = 'Алола';
+
+/* === externalized strings (generated) === */
+
+# index
+$txt['idx_mails_many'] = 'У вас %s новых сообщений!';
+$txt['idx_mails_one'] = 'У вас %s новое сообщение!';
+$txt['idx_events_many'] = 'У вас %s новых уведомлений!';
+$txt['idx_events_one'] = 'У вас %s новое уведомление!';
+$txt['idx_safari_today'] = 'СЕГОДНЯ В %s!';
+$txt['idx_percent_all_pokemon'] = '%s%% всех покемонов';
+$txt['idx_season_title'] = 'В этом месяце сезон: %s!';
+$txt['idx_daily_bonus_hint'] = 'Нажмите здесь, чтобы получить ежедневный бонус.';
+$txt['idx_sharing_account'] = 'Вы находитесь в аккаунте %s через совместный доступ.';
+$txt['idx_menu_home'] = 'Главная';
+$txt['idx_menu_register'] = 'Регистрация';
+$txt['idx_menu_recover'] = 'Восстановить';
+$txt['idx_footer_trademark'] = '<b>Pokémon</b> — зарегистрированная торговая марка <b>Nintendo</b>. Используется исключительно в рамках этой <b>фанатской игры</b>.';
+$txt['idx_footer_not_affiliated'] = 'Мы не связаны с <b>Nintendo</b>, <b>Pokémon Company Creatures Inc.</b> или <b>Game Freak</b>.';
+$txt['idx_footer_no_violation'] = 'Мы не намерены нарушать авторские права или права на товарные знаки.';
+$txt['idx_footer_privacy'] = 'Политика конфиденциальности';
+$txt['idx_footer_terms'] = 'Условия использования';
+$txt['idx_footer_rules'] = 'Правила и наказания';
+$txt['idx_footer_times'] = 'Всё игровое время указано по UTC (0:00), кроме анонсов событий и уведомлений о техработах (-3:00).';
+$txt['idx_footer_follow'] = 'Новости, события и обновления — подписывайтесь на нас в %s / %s.';
+$txt['idx_safari_zone'] = 'САФАРИ-ЗОНА';
+$txt['idx_quests_hint'] = 'Нажмите здесь, чтобы посмотреть ежедневные задания.';
+$txt['idx_time_until'] = 'ДО';
+$txt['idx_hub_user'] = 'Пользователь';
+
+# ingame
+$txt['ig_reward'] = ' И в <b>награду</b> получил: ';
+$txt['ig_and_egg'] = ' и <b>яйцо покемона</b>';
+$txt['ig_season_spring'] = 'Весна';
+$txt['ig_season_summer'] = 'Лето';
+$txt['ig_season_autumn'] = 'Осень';
+$txt['ig_season_winter'] = 'Зима';
+$txt['ig_region'] = 'Регион';
+$txt['ig_days'] = 'Дней';
+$txt['ig_top_pokemon'] = 'Топ-%s покемон';
+$txt['ig_catch_chance'] = 'Шанс поимки:';
+$txt['ig_rarity_line'] = 'Этот покемон — <u>%s</u>.';
+$txt['ig_view_profile'] = 'Открыть профиль покемона';
+$txt['ig_mood'] = 'Характер:';
+$txt['ig_tradeable_label'] = 'Обмен:';
+$txt['ig_tradeable_yes'] = 'Возможен';
+$txt['ig_tradeable_no'] = 'Невозможен';
+$txt['ig_sp_attack'] = 'Спец. атака';
+$txt['ig_sp_defence'] = 'Спец. защита';
+$txt['ig_egg_hatch_in'] = 'Яйцо вылупится через:';
+$txt['ig_month_01'] = 'января';
+$txt['ig_month_02'] = 'февраля';
+$txt['ig_month_03'] = 'марта';
+$txt['ig_month_04'] = 'апреля';
+$txt['ig_month_05'] = 'мая';
+$txt['ig_month_06'] = 'июня';
+$txt['ig_month_07'] = 'июля';
+$txt['ig_month_08'] = 'августа';
+$txt['ig_month_09'] = 'сентября';
+$txt['ig_month_10'] = 'октября';
+$txt['ig_month_11'] = 'ноября';
+$txt['ig_month_12'] = 'декабря';
+$txt['ig_date_format'] = '%1$s %2$s %3$s г.';
+$txt['ig_pokedex'] = 'Покедекс';
+$txt['ig_seniority'] = 'Стаж';
+$txt['ig_days_suffix'] = 'дн.';
+$txt['ig_and'] = ' и ';
+
+# league-bracket
+$txt['bracket_round_of_16'] = '1/8 финала';
+$txt['bracket_quarter'] = 'Четвертьфинал';
+$txt['bracket_semi'] = 'Полуфинал';
+$txt['bracket_final'] = 'Финал';
+$txt['bracket_champions'] = 'Чемпионы';
+$txt['bracket_third_place'] = 'Матч за 3-е место';
+/* === end externalized strings === */
 ?>

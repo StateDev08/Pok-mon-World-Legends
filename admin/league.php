@@ -1,6 +1,7 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) {
@@ -35,13 +36,13 @@ if (isset($_POST['new'])) {
     if ($league->insert()) {
         ?>
         <div style="float: left; width: auto; height: auto; font-weight: bold; color: lime;">
-            Liga id:<?= $league->getId() ?> criada!
+            <?= sprintf($txt['adm_lg_created'], $league->getId()) ?>
         </div>
         <?php
     } else {
         ?>
         <div style="float: left; width: auto; height: auto; font-weight: bold; color: red;">
-            Erro ao criar liga!
+            <?=$txt['adm_lg_create_error']?>
         </div>
         <?php
     }
@@ -59,13 +60,13 @@ if (isset($_POST['new'])) {
     if ($league_award->insert()) {
         ?>
         <div style="float: left; width: auto; height: auto; font-weight: bold; color: lime;">
-            Premiação criada na liga id:<?= $league_award->getLeague_id() ?>!
+            <?= sprintf($txt['adm_award_created_lg'], $league_award->getLeague_id()) ?>
         </div>
         <?php
     } else {
         ?>
         <div style="float: left; width: auto; height: auto; font-weight: bold; color: red;">
-            Erro ao criar premiação!
+            <?=$txt['adm_award_error']?>
         </div>
         <?php
     }
@@ -100,14 +101,14 @@ if (isset($_GET['new'])) {
     <div style="float: left; width: auto; height: auto;">
         <hr/>
         <form method="post" action="./admin/league">
-            <h2>Criar nova Liga Pokémon:</h2><br/>
-            <label>Região: 
+            <h2><?=$txt['adm_lg_new_title']?></h2><br/>
+            <label><?=$txt['adm_region']?> 
                 <select name="regiao">
                     <option value="Kanto">Kanto</option>
                 </select>
             </label>
             <br/><br/>
-            <label>Total de participantes: 
+            <label><?=$txt['adm_total_participants']?> 
                 <select name="total_participantes">
                     <option value="64">64</option>
                     <option value="128">128</option>
@@ -115,77 +116,77 @@ if (isset($_GET['new'])) {
                 </select>
             </label>
             <br/><br/>
-            <label>Início das inscrições: 
+            <label><?=$txt['adm_signup_start']?> 
                 <input type="text" name="inicio_inscricoes" class="text_long" value="<?= date("Y-m-d H:i:s", time() + League::$ajuste_tempo_int) ?>" maxlength="19"/>
                 <br/>
-                <small>Modelo: Y-m-d H:i:s, Exemplo: 2014-01-04 14:30:00</small>
+                <small><?=$txt['adm_format_hint']?></small>
             </label>
             <br/><br/>
-            <label>Fim das inscrições: 
+            <label><?=$txt['adm_signup_end']?> 
                 <input type="text" name="fim_inscricoes" class="text_long" value="<?= date("Y-m-d H:i:s", time() + League::$ajuste_tempo_int + 86400) ?>" maxlength="19"/>
                 <br/>
-                <small>Modelo: Y-m-d H:i:s, Exemplo: 2014-01-04 14:30:00</small>
+                <small><?=$txt['adm_format_hint']?></small>
             </label>
             <br/><br/>
-            <label>Início das batalhas: 
+            <label><?=$txt['adm_battles_start']?> 
                 <input type="text" name="inicio" class="text_long" value="<?= date("Y-m-d H:i:s", time() + League::$ajuste_tempo_int + 86400 + 3600) ?>" maxlength="19"/>
                 <br/>
-                <small>Modelo: Y-m-d H:i:s, Exemplo: 2014-01-04 14:30:00</small>
+                <small><?=$txt['adm_format_hint']?></small>
             </label>
             <br/><br/>
-            <label>Intervalo de tempo entre as fases: 
+            <label><?=$txt['adm_phase_interval']?> 
                 <input type="text" name="intervalo_fase" class="text_long" value="1800"/>
                 <br/>
-                <small>em segundos, Exemplo: 1800 | 1800 segundos = 30 minutos</small>
+                <small><?=$txt['adm_seconds_hint']?></small>
             </label>
             <br/><br/>
-            <label>Preço de inscrição em silvers: 
+            <label><?=$txt['adm_price_silvers']?> 
                 <input type="text" name="preco_silvers" class="text_long" value="0"/>
             </label>
             <br/><br/>
-            <label>Preço de inscrição em golds: 
+            <label><?=$txt['adm_price_golds']?> 
                 <input type="text" name="preco_golds" class="text_long" value="0"/>
             </label>
             <br/><br/>
             <label>VIP: &nbsp;
-                <input type="radio" name="vip" value="1"> Sim&nbsp;
-                <input type="radio" name="vip" value="0" checked="true"> Não
+                <input type="radio" name="vip" value="1"> <?=$txt['adm_yes']?>&nbsp;
+                <input type="radio" name="vip" value="0" checked="true"> <?=$txt['adm_no']?>
             </label>
             <br/>
-            <label>Moderadores podem participar: &nbsp;
-                <input type="radio" name="mods" value="1"> Sim&nbsp;
-                <input type="radio" name="mods" value="0" checked="true"> Não
+            <label><?=$txt['adm_mods_can_join']?> &nbsp;
+                <input type="radio" name="mods" value="1"> <?=$txt['adm_yes']?>&nbsp;
+                <input type="radio" name="mods" value="0" checked="true"> <?=$txt['adm_no']?>
             </label>
             <br/>
-            <label>Administradores podem participar: &nbsp;
-                <input type="radio" name="adms" value="1"> Sim&nbsp;
-                <input type="radio" name="adms" value="0" checked="true"> Não
+            <label><?=$txt['adm_admins_can_join']?> &nbsp;
+                <input type="radio" name="adms" value="1"> <?=$txt['adm_yes']?>&nbsp;
+                <input type="radio" name="adms" value="0" checked="true"> <?=$txt['adm_no']?>
             </label>
             <br/>
-            <label>Donos podem participar: &nbsp;
-                <input type="radio" name="donos" value="1"> Sim&nbsp;
-                <input type="radio" name="donos" value="0" checked="true"> Não
+            <label><?=$txt['adm_owners_can_join']?> &nbsp;
+                <input type="radio" name="donos" value="1"> <?=$txt['adm_yes']?>&nbsp;
+                <input type="radio" name="donos" value="0" checked="true"> <?=$txt['adm_no']?>
             </label>
             <br/><br/>
-            <label>Número máximo de pokémon shinys por batalha: 
+            <label><?=$txt['adm_max_shinys']?> 
                 <input type="text" name="n_shinys" class="text_long" value="6"/>
             </label>
             <br/><br/>
-            <label>Número máximo de pokémon lendários por batalha: 
+            <label><?=$txt['adm_max_legends']?> 
                 <input type="text" name="n_lendas" class="text_long" value="6"/>
             </label>
             <br/><br/>
-            <label>Número máximo de pokémon mega evoluidos por batalha: 
+            <label><?=$txt['adm_max_megas']?> 
                 <input type="text" name="n_megas" class="text_long" value="6"/>
             </label>
             <br/><br/>
-            <label>Nível maxímo dos pokémon: 
+            <label><?=$txt['adm_max_level']?> 
                 <input type="text" name="lv_max_pokemon" class="text_long" value="100"/>
             </label>
             <br/><br/>
 
-            <input type="submit" name="new" value="Criar liga" class="button">
-            <input type="button" value="Cancelar" onclick="location.href = '/admin/league'" class="button"/>
+            <input type="submit" name="new" value="<?=htmlspecialchars($txt['adm_create_league'], ENT_QUOTES)?>" class="button">
+            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = '/admin/league'" class="button"/>
         </form>
     </div>
     <?php
@@ -194,13 +195,13 @@ if (isset($_GET['new'])) {
     <div style="float: left; width: auto; height: auto;">
         <hr/>
         <form method="post">
-            <h2>Criar nova premiação:</h2><br/>
+            <h2><?=$txt['adm_new_award_title']?></h2><br/>
 
-            <label>Id da liga: 
+            <label><?=$txt['adm_league_id']?> 
                 <input type="text" name="league_id" class="text_long" value="<?= (isset($_GET['league_id']) ? ($_GET['league_id'] ?? '') : "1")?>"/>
             </label>
             <br/><br/>
-            <label>Colocação: 
+            <label><?=$txt['adm_placement']?> 
                 <input type="text" name="colocacao" class="text_long" value="1"/>
             </label>
             <br/><br/>
@@ -216,17 +217,17 @@ if (isset($_GET['new'])) {
                 <input type="text" name="vip" class="text_long" value="0"/>
             </label>
             <br/><br/>
-            <label>Id do pokémon: 
+            <label><?=$txt['adm_pokemon_id']?> 
                 <input type="text" name="pokemon_id" class="text_long" value="0"/>
             </label>
             <br/><br/>
-            <label>Lv do pokémon: 
+            <label><?=$txt['adm_pokemon_lv']?> 
                 <input type="text" name="lv_pokemon" class="text_long" value="1"/>
             </label>
             <br/><br/>
 
-            <input type="submit" name="new_award" value="Criar premiaçao" class="button">
-            <input type="button" value="Cancelar" onclick="location.href = '/admin/league'" class="button"/>
+            <input type="submit" name="new_award" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" class="button">
+            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = '/admin/league'" class="button"/>
         </form>
     </div>
     <?php
@@ -235,11 +236,11 @@ if (isset($_GET['new'])) {
     $ligas_terminadas = League::select_terminadas();
     ?>
     <div style="float: left; width: auto; height: auto; margin: 10px;">
-        <input type="button" value="Criar nova liga" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
-        <input type="button" value="Criar premiação" onclick="location.href = '/admin/league&new_award'" class="button"/>
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award'" class="button"/>
     </div>
     <div style="float: left; width: auto; height: auto;">
-        <h2>Ligas com inscrições abertas:</h2><br/>
+        <h2><?=$txt['adm_open_leagues']?></h2><br/>
         <ul style="list-style-type: none;">
             <?php
             foreach ($ligas_atuais as $liga) {
@@ -248,32 +249,32 @@ if (isset($_GET['new'])) {
                     <div style="float: left; width: auto; height: auto;">
                         <div style="float: left; width: auto; height: auto;">
                             Id: <?= $liga->getId() ?><br/>
-                            Região: <?= $liga->getRegiao() ?><br/>
-                            Total de participantes: <?= $liga->getTotal_participantes() ?><br/>
-                            Atual número de participantes: <?= $liga->getParticipantes() ?><br/>
-                            Inicio das inscrições: <?= $liga->getInicio_inscricoes() ?><br/>
-                            Fim das inscricões: <?= $liga->getFim_inscricoes() ?><br/>
-                            Início das batalhas: <?= $liga->getInicio() ?><br/>
-                            Intervalo entre as fases: <?= $liga->getIntervalo_fase() ?><br/>
-                            Round atual: <?= $liga->getRound_atual() ?><br/>
-                            Premiação entrengue: <?= ($liga->getPremiacao_entregue() ? "sim" : "não") ?><br/>
+                            <?=$txt['adm_region']?> <?= $liga->getRegiao() ?><br/>
+                            <?=$txt['adm_total_participants']?> <?= $liga->getTotal_participantes() ?><br/>
+                            <?=$txt['adm_current_participants']?> <?= $liga->getParticipantes() ?><br/>
+                            <?=$txt['adm_signup_start']?> <?= $liga->getInicio_inscricoes() ?><br/>
+                            <?=$txt['adm_signup_end']?> <?= $liga->getFim_inscricoes() ?><br/>
+                            <?=$txt['adm_battles_start']?> <?= $liga->getInicio() ?><br/>
+                            <?=$txt['adm_phase_interval_short']?> <?= $liga->getIntervalo_fase() ?><br/>
+                            <?=$txt['adm_current_round']?> <?= $liga->getRound_atual() ?><br/>
+                            <?=$txt['adm_award_delivered']?> <?= ($liga->getPremiacao_entregue() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
                             <br/>
-                            Regras de participação:<br/>
-                            Preço em silvers: <?= $liga->getPreco_silvers() ?><br/>
-                            Preço em golds: <?= $liga->getPreco_golds() ?><br/>
-                            Moderadores participando: <?= ($liga->getMods() ? "sim" : "não") ?><br/>
-                            Administradores participando: <?= ($liga->getAdmins() ? "sim" : "não") ?><br/>
-                            Donos participando: <?= ($liga->getDonos() ? "sim" : "não") ?><br/>
-                            Nescessário ser VIP: <?= ($liga->getVip() ? "sim" : "não") ?><br/>
+                            <?=$txt['adm_participation_rules']?><br/>
+                            <?=$txt['adm_price_in_silvers']?> <?= $liga->getPreco_silvers() ?><br/>
+                            <?=$txt['adm_price_in_golds']?> <?= $liga->getPreco_golds() ?><br/>
+                            <?=$txt['adm_mods_joining']?> <?= ($liga->getMods() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
+                            <?=$txt['adm_admins_joining']?> <?= ($liga->getAdmins() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
+                            <?=$txt['adm_owners_joining']?> <?= ($liga->getDonos() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
+                            <?=$txt['adm_vip_required']?> <?= ($liga->getVip() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
                         </div>
                         <div style="float: left; width: auto; height: auto; margin-left: 50px;">
-                            Regras:<br/>
-                            Número de lendas: <?= $liga->getN_lendas() ?><br/>
-                            Número de shinys: <?= $liga->getN_shinys() ?><br/>
-                            Número de megas: <?= $liga->getN_megas() ?><br/>
-                            Lv maxímo dos pokémon: <?= $liga->getLv_max_pokemon() ?><br/>
+                            <?=$txt['adm_rules']?><br/>
+                            <?=$txt['adm_n_legends']?> <?= $liga->getN_lendas() ?><br/>
+                            <?=$txt['adm_n_shinys']?> <?= $liga->getN_shinys() ?><br/>
+                            <?=$txt['adm_n_megas']?> <?= $liga->getN_megas() ?><br/>
+                            <?=$txt['adm_lv_max']?> <?= $liga->getLv_max_pokemon() ?><br/>
                             <br/>
-                            Premiações: <input type="button" value="Criar" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
+                            <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
                             <ul>
                                 <?php
                                 foreach (League_award::select_league($liga->getId()) as $premio) {
@@ -309,7 +310,7 @@ if (isset($_GET['new'])) {
                                             echo ", ";
                                         }
                                         echo '<img src="'.$static_url.'/images/icons/star.png" alt="vip"/> ';
-                                        echo $premio->getVip() . "dias de VIP";
+                                        echo sprintf($txt['adm_days_vip'], $premio->getVip());
                                     }
                                     echo "</li>";
                                 }
@@ -327,7 +328,7 @@ if (isset($_GET['new'])) {
     </div>
     <div style="float: left; width: auto; height: auto;">
         <hr/>
-        <h2>Ligas com inscrições encerradas:</h2><br/>
+        <h2><?=$txt['adm_closed_leagues']?></h2><br/>
         <div style="width: auto; height: auto;">
             <ul style="list-style-type: none;">
                 <?php
@@ -338,31 +339,31 @@ if (isset($_GET['new'])) {
                             <!--div style="width: auto; height: auto;"-->
                             <div style="float: left; width: auto; height: auto;">
                                 Id: <?= $liga->getId() ?><br/>
-                                Região: <?= $liga->getRegiao() ?><br/>
-                                Total de participantes: <?= $liga->getTotal_participantes() ?><br/>
-                                Atual número de participantes: <?= $liga->getParticipantes() ?><br/>
-                                Inicio das inscrições: <?= $liga->getInicio_inscricoes() ?><br/>
-                                Fim das inscricões: <?= $liga->getFim_inscricoes() ?><br/>
-                                Início das batalhas: <?= $liga->getInicio() ?><br/>
-                                Intervalo entre as fases: <?= $liga->getIntervalo_fase() ?><br/>
-                                Round atual: <?= $liga->getRound_atual() ?><br/>
-                                Premiação entrengue: <?= ($liga->getPremiacao_entregue() ? "sim" : "não") ?><br/>
+                                <?=$txt['adm_region']?> <?= $liga->getRegiao() ?><br/>
+                                <?=$txt['adm_total_participants']?> <?= $liga->getTotal_participantes() ?><br/>
+                                <?=$txt['adm_current_participants']?> <?= $liga->getParticipantes() ?><br/>
+                                <?=$txt['adm_signup_start']?> <?= $liga->getInicio_inscricoes() ?><br/>
+                                <?=$txt['adm_signup_end']?> <?= $liga->getFim_inscricoes() ?><br/>
+                                <?=$txt['adm_battles_start']?> <?= $liga->getInicio() ?><br/>
+                                <?=$txt['adm_phase_interval_short']?> <?= $liga->getIntervalo_fase() ?><br/>
+                                <?=$txt['adm_current_round']?> <?= $liga->getRound_atual() ?><br/>
+                                <?=$txt['adm_award_delivered']?> <?= ($liga->getPremiacao_entregue() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
                                 <br/>
-                                Regras de participação:<br/>
-                                Preço em silvers: <?= $liga->getPreco_silvers() ?><br/>
-                                Preço em golds: <?= $liga->getPreco_golds() ?><br/>
-                                Moderadores participando: <?= ($liga->getMods() ? "sim" : "não") ?><br/>
-                                Administradores participando: <?= ($liga->getAdmins() ? "sim" : "não") ?><br/>
-                                Donos participando: <?= ($liga->getDonos() ? "sim" : "não") ?><br/>
+                                <?=$txt['adm_participation_rules']?><br/>
+                                <?=$txt['adm_price_in_silvers']?> <?= $liga->getPreco_silvers() ?><br/>
+                                <?=$txt['adm_price_in_golds']?> <?= $liga->getPreco_golds() ?><br/>
+                                <?=$txt['adm_mods_joining']?> <?= ($liga->getMods() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
+                                <?=$txt['adm_admins_joining']?> <?= ($liga->getAdmins() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
+                                <?=$txt['adm_owners_joining']?> <?= ($liga->getDonos() ? $txt['adm_yes'] : $txt['adm_no']) ?><br/>
                             </div>
                             <div style="float: left; width: auto; height: auto; margin-left: 50px;">
                                 Regras de batalha:<br/>
-                                Número de lendas: <?= $liga->getN_lendas() ?><br/>
-                                Número de shinys: <?= $liga->getN_shinys() ?><br/>
-                                Número de megas: <?= $liga->getN_megas() ?><br/>
-                                Lv maxímo dos pokémon: <?= $liga->getLv_max_pokemon() ?><br/>
+                                <?=$txt['adm_n_legends']?> <?= $liga->getN_lendas() ?><br/>
+                                <?=$txt['adm_n_shinys']?> <?= $liga->getN_shinys() ?><br/>
+                                <?=$txt['adm_n_megas']?> <?= $liga->getN_megas() ?><br/>
+                                <?=$txt['adm_lv_max']?> <?= $liga->getLv_max_pokemon() ?><br/>
                                 <br/>
-                                Premiações: <input type="button" value="Criar" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
+                                <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
                                 <ul>
                                     <?php
                                     foreach (League_award::select_league($liga->getId()) as $premio) {
@@ -398,7 +399,7 @@ if (isset($_GET['new'])) {
                                                 echo ", ";
                                             }
                                             echo '<img src="'.$static_url.'/images/icons/star.png" alt="vip"/> ';
-                                            echo $premio->getVip() . "dias de VIP";
+                                            echo sprintf($txt['adm_days_vip'], $premio->getVip());
                                         }
                                         echo "</li>";
                                     }
@@ -414,16 +415,16 @@ if (isset($_GET['new'])) {
                           <?php
                           if ($liga->finalizada() && !$liga->getPremiacao_entregue()) {
                           ?>
-                          <input type="submit" class="button" name="entregar_premiacao" value="Entregar Premiação"/><br/>
+                          <input type="submit" class="button" name="entregar_premiacao" value="<?=htmlspecialchars($txt['adm_deliver_award'], ENT_QUOTES)?>"/><br/>
                           <?php
                           } else if (!$liga->finalizada()) {
                           if ($liga->batalhas_criadas()) {
                           ?>
-                          <input type="submit" class="button" name="criar_duelos" value="Criar Duelos"/><br/>
+                          <input type="submit" class="button" name="criar_duelos" value="<?=htmlspecialchars($txt['adm_create_duels'], ENT_QUOTES)?>"/><br/>
                           <?php
                           } else {
                           ?>
-                          <input type="submit" class="button" name="passar_round" value="Passar round"/><br/>
+                          <input type="submit" class="button" name="passar_round" value="<?=htmlspecialchars($txt['adm_next_round'], ENT_QUOTES)?>"/><br/>
                           <?php
                           }
                           }
@@ -443,8 +444,8 @@ if (isset($_GET['new'])) {
         </div><br/>
     </div>
     <div style="float: left; width: auto; height: auto; margin: 10px;">
-        <input type="button" value="Criar nova liga" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
-        <input type="button" value="Criar premiação" onclick="location.href = '/admin/league&new_award'" class="button"/>
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award'" class="button"/>
     </div>
     <?php
 }

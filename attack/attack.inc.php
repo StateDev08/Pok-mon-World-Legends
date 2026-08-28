@@ -516,7 +516,7 @@ function damage_controller($attacker_info, $opponent_info, $attack_info, $weathe
     } else if ($ability2 == 'Water Absorb' && $golpe_type == 'Water') {
       $dano = 0;
     } else if ($ability2 == 'Disguise' && rand(1, 16) == 1) {
-      echo 'Mimikyu não tomou dano por causa de sua Ability, Disguise!<br>';
+      echo $GLOBALS['txt']['battle_disguise'].'<br>';
       $dano = 0;
     } else if ($ability2 == 'Bulletproof' && $based == 'ball, bomb') {
       $dano = 0;
@@ -533,10 +533,10 @@ function damage_controller($attacker_info, $opponent_info, $attack_info, $weathe
     }
 
     if ($weather == 'extremely_harsh_sunlight' && $golpe_type == 'Water') {
-      echo 'Ataques tipo água evaporam por conta desse calor!<br>';
+      echo $GLOBALS['txt']['weather_extremely_harsh_sunlight_negative'].'<br>';
       $dano = 0;
     } else if ($weather == 'heavy_rain' && $golpe_type == 'Fire') {
-      echo 'Ataques tipo fogo dispersam-se por conta dessa chuva pesada!<br>';
+      echo $GLOBALS['txt']['weather_heavy_rain_negative'].'<br>';
       $dano = 0;
     }
   
@@ -611,35 +611,9 @@ class Weather {
 
   public function weather_text ( $txt = '', $suffix = '', $priority = false ) {
       if ( !$this->txt_controller || $priority ) {
-        $text = array ();
+        $text = $GLOBALS['txt'];
 
-        $text['weather_harsh_sunlight'] = 'Os raios de sol estão fortes.';
-        $text['weather_harsh_sunlight_ended'] = 'Os fortes raios solares desapareceram.';
-        
-        $text['weather_extremely_harsh_sunlight'] = 'Os raios de sol estão extremamente fortes!';
-        $text['weather_extremely_harsh_sunlight_negative'] = 'Ataques tipo Água evaporam por conta desse calor!';
-        $text['weather_extremely_harsh_sunlight_ended'] = 'Os extremos raios de sol desapareceram!';
-
-        $text['weather_rain'] = 'Está chovendo.';
-        $text['weather_rain_ended'] = 'A chuva parou.';
-
-        $text['weather_heavy_rain'] = 'A chuva começou a ficar densa!';
-        $text['weather_heavy_rain_negative'] = 'Ataques tipo Fogo dispersam-se por conta dessa chuva pesada!';
-        $text['weather_heavy_rain_ended'] = 'A chuva pesada foi suprimida!';
-
-        $text['weather_sandstorm'] = 'Está acontecendo uma tempestade de areia.';
-        $text['weather_sandstorm_negative'] = '%pokemon foi golpeado pela tempestade de areia!';
-        $text['weather_sandstorm_ended'] = 'A tempestade de areia diminuiu a intensidade.';
-
-        $text['weather_hail'] = 'Está chovendo granizo.';
-        $text['weather_hail_negative'] = '%pokemon foi golpeado pelo granizo!';
-        $text['weather_hail_ended'] = 'A chuva de granizo parou.';
-
-        $text['weather_mysterious_air_current'] = 'Os ventos misteriosos estão causando turbulências!';
-        $text['weather_mysterious_air_current_negative'] = 'Os ventos misteriosos enfraqueceram o golpe!';
-        $text['weather_mysterious_air_current_ended'] = 'Os ventos misteriosos foram dissipados!';
-
-        return $text['weather_'.$this->clima.$txt].$suffix;
+        return ($text['weather_'.$this->clima.$txt] ?? '').$suffix;
       } else {
         return '';
       }

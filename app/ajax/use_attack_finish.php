@@ -46,13 +46,13 @@ if (empty($_GET['pokemonid']) || !is_numeric(($_GET['pokemonid'] ?? ''))) {
 	echo '<div class="red">Escolha um pokemon!</div>';
 	$foutje = 1;
 } else if ($aprende == 0) {
-	echo '<div class="red">Seu pokémon não pode aprender este ataque!</div>';
+	echo '<div class="red">'.$txt['use_cannot_learn'].'</div>';
 	$foutje = 1;
 } else if ($pokemoninfo['user_id'] != ($_SESSION['id'] ?? '')) {
-	echo '<div class="red">Este pokémon não é seu!</div>';
+	echo '<div class="red">'.$txt['use_not_your_pokemon'].'</div>';
 	$foutje = 1;
 } else if ($pokemoninfo['aanval_1'] == $check['omschrijving'] OR $pokemoninfo['aanval_2'] == $check['omschrijving'] OR $pokemoninfo['aanval_3'] == $check['omschrijving'] OR $pokemoninfo['aanval_4'] == $check['omschrijving']) {
-	echo '<div class="red">' . $pokemoninfo['naam'] . ' já aprendeu o ataque ' . $tmhm['omschrijving'] . '!</div>';
+	echo '<div class="red">' . sprintf($txt['use_already_learned'], $pokemoninfo['naam'], $tmhm['omschrijving']) . '</div>';
 	$foutje = 1;
 } else {
 	if (isset($_POST['attack'])) {
@@ -78,7 +78,7 @@ else {
 ?>
 <div class="box-content"><table width="100%" class="general">
 	<thead>
-		<tr><th colspan="3"><?=$pokemoninfo['naam'];?> está aprendendo <?=($_GET['name'] ?? '');?> - <?=$attacknaam['omschrijving'];?>.</th></tr>
+		<tr><th colspan="3"><?=sprintf($txt['use_learning'], $pokemoninfo['naam'], htmlspecialchars(($_GET['name'] ?? '')), $attacknaam['omschrijving'])?></th></tr>
 	</thead>
 	<tbody>
 		<tr>

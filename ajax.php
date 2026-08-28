@@ -2,6 +2,7 @@
 ob_start();
 require_once('app/includes/resources/config.php');
 require_once('language/language-general.php');
+require_once('language/language-user.php');
 require_once('app/includes/resources/ingame.inc.php');
 
 if (isset($_GET['act'])) {

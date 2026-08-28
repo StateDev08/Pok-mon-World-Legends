@@ -2,6 +2,7 @@
 header('Content-Type: text/html; charset=utf-8'); 
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) {
@@ -13,16 +14,16 @@ if ($gebruiker['admin'] < 2) {
 if (isset($_POST['give'])) {
 	
 	if (empty($_POST['exp'])) {
-		echo '<div class="red"> Escolha uma exp.</div>';
+		echo '<div class="red"> '.$txt['adm_exp_choose'].'</div>';
 	}
 	else if (($_POST['exp'] ?? '') != 1 AND ($_POST['exp'] ?? '') != 2 AND ($_POST['exp'] ?? '') != 3) {
-		echo '<div class="red"> Escolha uma exp.</div>';
+		echo '<div class="red"> '.$txt['adm_exp_choose'].'</div>';
 	}
 	else{
 		
   		  DB::exQuery("UPDATE `configs` SET `valor`='".($_POST['exp'] ?? '')."' WHERE `config`='exp'");
 		  #Error tonen
-		  echo '<div class="green"> Exp modificada com sucesso.</div>';
+		  echo '<div class="green"> '.$txt['adm_exp_changed'].'</div>';
 
 
 	}
@@ -59,7 +60,7 @@ $t3 = "checked";
 
     <tr>
     	<td>&nbsp;</td>
-        <td><input type="submit" name="give" value="Alterar!" class="button" /></td>
+        <td><input type="submit" name="give" value="<?=htmlspecialchars($txt['adm_change_btn'], ENT_QUOTES)?>" class="button" /></td>
     </tr>
 </table>
 </form>

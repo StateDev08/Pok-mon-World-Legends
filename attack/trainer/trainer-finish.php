@@ -103,7 +103,8 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
           $unlock_w2 = $unlock_w.'_block';
           DB::exQuery("UPDATE gebruikers SET badges = badges + '1', $gym_w = $gym_w + '1', $unlock_w2 = '1' WHERE user_id = '".($_SESSION['id'] ?? '')."'");
 
-          $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> Você conseguiu <b>todas</b> as Insíginias de <b>'.$gebruiker['wereld'].'</b> e desbloqueou o acesso à uma <b>NOVA REGIÃO</b>: '.$unlock_w.'!';
+          $finish_txt = user_txt(($_SESSION['id'] ?? 0));
+          $event = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> '.sprintf($finish_txt['event_all_badges'], $gebruiker['wereld'], $unlock_w);
 
           DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . ($_SESSION['id'] ?? '') . "', '" . $event . "', '0')");
         } else {

@@ -5,6 +5,7 @@
 
 	//Script laden zodat je nooit pagina buiten de index om kan laden
 	include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 	
 	if ($gebruiker['admin'] < 2) { header("Location: ./home"); exit; }
 	
@@ -12,9 +13,9 @@
 	
 	if (isset($_POST['ban'])) {
 		if (empty($_POST['player']))
-			echo '<div class="red"> Digite o nome de um treinador.</div>';
+			echo '<div class="red"> '.$txt['adm_enter_trainer'].'</div>';
 		else if (empty($_POST['reden']))
-			echo '<div class="red"> Digite uma razão.</div>';
+			echo '<div class="red"> '.$txt['adm_enter_reason'].'</div>';
 		else{
 		
 		if (($_POST['tot'] ?? '') == "") {
@@ -23,13 +24,13 @@
 			
 			DB::exQuery("UPDATE gebruikers SET banned='Y', bloqueado='sim', bloqueado_tempo='".($_POST['tot'] ?? '')."', razaobloqueado='".($_POST['reden'] ?? '')."' WHERE username = '".($_POST['player'] ?? '')."'");
 			
-			echo '<div class="green"> O Treinador '.($_POST['player'] ?? '').' foi bloqueado com sucesso até '.($_POST['tot'] ?? '').'.</div>';
+			echo '<div class="green"> '.sprintf($txt['adm_trainer_blocked_ok'], ($_POST['player'] ?? ''), ($_POST['tot'] ?? '')).'</div>';
 		}
 	}
 	if (isset($_POST['take'])) {
 	
 		DB::exQuery("UPDATE gebruikers SET banned='N', bloqueado='nao', bloqueado_tempo='0000-00-00', razaobloqueado='' WHERE username = '".($_POST['who'] ?? '')."'");
-		echo '<div class="green"> O treinador foi desbloqueado.</div>';
+		echo '<div class="green"> '.$txt['adm_trainer_unblocked'].'</div>';
 	}
 
 ?>
@@ -37,25 +38,25 @@
 <center>
 	<table width="400px" style="border: 1px solid #000;">
     	<tr>
-        	<td colspan="2" height="40"><center><strong>Bloquear Treinadores</strong></center></td>
+        	<td colspan="2" height="40"><center><strong><?=$txt['adm_block_trainers']?></strong></center></td>
         </tr>
   
         <tr>
-        	<td>Treinador:</td>
+        	<td><?=$txt['adm_trainer_label']?></td>
             <td><input type="text" name="player" class="text_long" value="<?php if (($_POST['player'] ?? '') != '') echo ($_POST['player'] ?? ''); else echo ($_GET['player'] ?? ''); ?>" maxlength="10" /></td>
         </tr>
         <tr>
-        	<td>Tempo:</td>
-            <td><input type="text" name="tot" class="text_long" value="<?php if (($_POST['tot'] ?? '') != '') echo ($_POST['tot'] ?? ''); else echo "AAAA-MM-DD";?>" maxlength="10"/><br/>(Deixar tempo em branco para permanente)
+        	<td><?=$txt['adm_time_label']?></td>
+            <td><input type="text" name="tot" class="text_long" value="<?php if (($_POST['tot'] ?? '') != '') echo ($_POST['tot'] ?? ''); else echo $txt['adm_date_placeholder'];?>" maxlength="10"/><br/><?=$txt['adm_permanent_hint']?>
 		</td>
         </tr>
         <tr>
-        	<td>Razão:</td>
+        	<td><?=$txt['adm_reason_label']?></td>
             <td><input type="text" name="reden" class="text_long" value="<?php if (($_POST['reden'] ?? '') != '') echo ($_POST['reden'] ?? ''); ?>" maxlength="30" /></td>
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td><input type="submit" name="ban" class="button" value="Bloquear" /></td>
+            <td><input type="submit" name="ban" class="button" value="<?=htmlspecialchars($txt['adm_block'], ENT_QUOTES)?>" /></td>
         </tr>
     </table>
 </center>
@@ -66,20 +67,20 @@
 <center>
 	<table width="650px" style="border: 1px solid #000;">
     	<tr>
-        	<td colspan="4" height="40"><center><strong>Lista de treinadores bloqueados</strong></center></td>
+        	<td colspan="4" height="40"><center><strong><?=$txt['adm_blocked_trainers_list']?></strong></center></td>
         </tr>
         <tr>
-        	<td width="120"><strong>Treinador:</strong></td>
-            <td width="110"><strong>Bloqueado até:</strong></td>
-            <td width="200"><strong>Razão:</strong></td>
-            <td width="50"><strong>Remover:</strong></td>
+        	<td width="120"><strong><?=$txt['adm_trainer_label']?></strong></td>
+            <td width="110"><strong><?=$txt['adm_blocked_until']?></strong></td>
+            <td width="200"><strong><?=$txt['adm_reason_label']?></strong></td>
+            <td width="50"><strong><?=$txt['adm_remove']?></strong></td>
         </tr>
         <?php
         $query = DB::exQuery("SELECT * FROM gebruikers WHERE banned='Y' or bloqueado='sim' ORDER BY bloqueado_tempo DESC");
 		  for($j=$page+1; $ban = $query->fetch_assoc(); $j++)
 		  { 
 		  if ($ban['bloqueado_tempo'] == "0000-00-00") {
-		  $tempoo = "Permanente";
+		  $tempoo = $txt['adm_permanent'];
 		  }else {
 		  $tempoo = implode("/",array_reverse(explode("-",$ban['bloqueado_tempo'])));
 		  }

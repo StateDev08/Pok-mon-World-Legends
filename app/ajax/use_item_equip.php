@@ -51,7 +51,7 @@ require_once 'app/includes/resources/ingame.inc.php';
                                 <th width="15%">QNTD.</th>
                                 <th width="20%">USAR</th>
                             </tr>
-                            <tr><th colspan="3">Se este Pokémon já tiver um item equipado, o item antigo será destruído!</th></tr>
+                            <tr><th colspan="3">'.$txt['use_old_item_destroyed'].'</th></tr>
                         </thead>
                         <tbody>';
                 if ($pokemon['ei'] == 0) {
@@ -60,7 +60,7 @@ require_once 'app/includes/resources/ingame.inc.php';
                             if (pokemon_equip($pokemon['wild_id'], $q['naam'])) {
                                 echo '<tr>
                                     <td>
-                                        <div style="margin-left: 10px" title="'.nl2br($q['omschrijving_' . ($_COOKIE['pa_language'] ?? 'pt')]).'">
+                                        <div style="margin-left: 10px" title="'.nl2br($q[description_column()]).'">
                                             <img src="'.$static_url.'/images/items/'.$q['naam'].'.png" style="vertical-align: middle"> '.$q['naam'].'
                                         </div>
                                     </td>
@@ -77,10 +77,10 @@ require_once 'app/includes/resources/ingame.inc.php';
                             }
                         }
                     } else {
-                        echo '<tr><td colspan="3"><div class="red">Você não tem nenhum item para equipar em seus Pokémon!</div></td></tr>';
+                        echo '<tr><td colspan="3"><div class="red">'.$txt['use_no_items_to_equip'].'</div></td></tr>';
                     }
                 } else {
-                    echo '<tr><td colspan="3"><div class="red">Você não pode equipar este item em um Ovo Pokémon!</div></td></tr>';
+                    echo '<tr><td colspan="3"><div class="red">'.$txt['use_cannot_equip_egg'].'</div></td></tr>';
                 }
                 echo '</tbody></table></div>';
             }

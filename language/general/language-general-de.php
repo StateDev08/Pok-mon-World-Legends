@@ -869,4 +869,79 @@ $txt['region_sinnoh']         = 'Sinnoh';
 $txt['region_unova']          = 'Einall';
 $txt['region_kalos']          = 'Kalos';
 $txt['region_alola']          = 'Alola';
+
+/* === externalized strings (generated) === */
+
+# index
+$txt['idx_mails_many'] = 'Du hast %s neue Nachrichten!';
+$txt['idx_mails_one'] = 'Du hast %s neue Nachricht!';
+$txt['idx_events_many'] = 'Du hast %s neue Benachrichtigungen!';
+$txt['idx_events_one'] = 'Du hast %s neue Benachrichtigung!';
+$txt['idx_safari_today'] = 'HEUTE UM %s!';
+$txt['idx_percent_all_pokemon'] = '%s%% aller Pokémon';
+$txt['idx_season_title'] = 'In diesem Monat befinden wir uns in der Jahreszeit: %s!';
+$txt['idx_daily_bonus_hint'] = 'Klicke hier, um deinen Tagesbonus zu erhalten.';
+$txt['idx_sharing_account'] = 'Du bist über die Kontofreigabe im Konto von %s.';
+$txt['idx_menu_home'] = 'Startseite';
+$txt['idx_menu_register'] = 'Registrieren';
+$txt['idx_menu_recover'] = 'Wiederherstellen';
+$txt['idx_footer_trademark'] = '<b>Pokémon</b> ist eine eingetragene Marke von <b>Nintendo</b>. Die Verwendung erfolgt ausschließlich im Rahmen dieses <b>Fangames</b>.';
+$txt['idx_footer_not_affiliated'] = 'Wir sind weder mit <b>Nintendo</b> noch mit <b>Pokémon Company Creatures Inc.</b> oder <b>Game Freak</b> verbunden.';
+$txt['idx_footer_no_violation'] = 'Eine Verletzung von Urheber- oder Markenrechten ist nicht beabsichtigt.';
+$txt['idx_footer_privacy'] = 'Datenschutzerklärung';
+$txt['idx_footer_terms'] = 'Nutzungsbedingungen';
+$txt['idx_footer_rules'] = 'Regeln und Strafen';
+$txt['idx_footer_times'] = 'Alle Spielzeiten basieren auf UTC (0:00), ausgenommen Event-Ankündigungen und Wartungshinweise (-3:00).';
+$txt['idx_footer_follow'] = 'Für News, Events und Updates folge uns auf %s / %s.';
+$txt['idx_safari_zone'] = 'SAFARI-ZONE';
+$txt['idx_quests_hint'] = 'Klicke hier, um deine Tagesmissionen zu sehen.';
+$txt['idx_time_until'] = 'BIS';
+$txt['idx_hub_user'] = 'Benutzer';
+
+# ingame
+$txt['ig_reward'] = ' Als <b>Belohnung</b> erhielt er: ';
+$txt['ig_and_egg'] = ' und <b>ein Pokémon-Ei</b>';
+$txt['ig_season_spring'] = 'Frühling';
+$txt['ig_season_summer'] = 'Sommer';
+$txt['ig_season_autumn'] = 'Herbst';
+$txt['ig_season_winter'] = 'Winter';
+$txt['ig_region'] = 'Region';
+$txt['ig_days'] = 'Tage';
+$txt['ig_top_pokemon'] = 'Top-%s-Pokémon';
+$txt['ig_catch_chance'] = 'Fangchance:';
+$txt['ig_rarity_line'] = 'Dieses Pokémon ist <u>%s</u>.';
+$txt['ig_view_profile'] = 'Pokémon-Profil ansehen';
+$txt['ig_mood'] = 'Wesen:';
+$txt['ig_tradeable_label'] = 'Handelbar:';
+$txt['ig_tradeable_yes'] = 'Handelbar';
+$txt['ig_tradeable_no'] = 'Nicht handelbar';
+$txt['ig_sp_attack'] = 'Spez.-Angriff';
+$txt['ig_sp_defence'] = 'Spez.-Verteidigung';
+$txt['ig_egg_hatch_in'] = 'Das Ei schlüpft in:';
+$txt['ig_month_01'] = 'Januar';
+$txt['ig_month_02'] = 'Februar';
+$txt['ig_month_03'] = 'März';
+$txt['ig_month_04'] = 'April';
+$txt['ig_month_05'] = 'Mai';
+$txt['ig_month_06'] = 'Juni';
+$txt['ig_month_07'] = 'Juli';
+$txt['ig_month_08'] = 'August';
+$txt['ig_month_09'] = 'September';
+$txt['ig_month_10'] = 'Oktober';
+$txt['ig_month_11'] = 'November';
+$txt['ig_month_12'] = 'Dezember';
+$txt['ig_date_format'] = '%1$s. %2$s %3$s';
+$txt['ig_pokedex'] = 'Pokédex';
+$txt['ig_seniority'] = 'Mitgliedsdauer';
+$txt['ig_days_suffix'] = 'Tage';
+$txt['ig_and'] = ' und ';
+
+# league-bracket
+$txt['bracket_round_of_16'] = 'Achtelfinale';
+$txt['bracket_quarter'] = 'Viertelfinale';
+$txt['bracket_semi'] = 'Halbfinale';
+$txt['bracket_final'] = 'Finale';
+$txt['bracket_champions'] = 'Champions';
+$txt['bracket_third_place'] = 'Spiel um Platz 3';
+/* === end externalized strings === */
 ?>

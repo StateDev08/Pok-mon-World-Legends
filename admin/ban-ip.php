@@ -5,6 +5,7 @@
 
 	//Script laden zodat je nooit pagina buiten de index om kan laden
 	include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 	
 	if ($gebruiker['admin'] < 2) { header("Location: ./home"); exit; }
 	
@@ -12,21 +13,21 @@
 	
 	if (isset($_POST['ban'])) {
 		if (empty($_POST['ip']))
-			echo '<div class="red"> Digite um ip válido.</div>';
+			echo '<div class="red"> '.$txt['adm_ip_enter'].'</div>';
 		else if (empty($_POST['tot']))
-			echo '<div class="red"> Digite um tempo.</div>';
+			echo '<div class="red"> '.$txt['adm_time_enter'].'</div>';
 		else if (empty($_POST['reden']))
-			echo '<div class="red"> Digite uma razão.</div>';
+			echo '<div class="red"> '.$txt['adm_enter_reason'].'</div>';
 		else{
 			DB::ExQuery("INSERT INTO ban (ip, user_id, tot, reden)
 						VALUES ('".($_POST['ip'] ?? '')."', '".($_POST['player'] ?? '')."', '".($_POST['tot'] ?? '')."', '".($_POST['reden'] ?? '')."')");
 			
-			echo '<div class="green"> O IP '.($_POST['ip'] ?? '').' foi banido com sucesso até '.($_POST['tot'] ?? '').'.</div>';
+			echo '<div class="green"> '.sprintf($txt['adm_ip_banned_ok'], ($_POST['ip'] ?? ''), ($_POST['tot'] ?? '')).'</div>';
 		}
 	}
 	if (isset($_POST['take'])) {
 		DB::ExQuery("DELETE FROM ban WHERE ip = '".($_POST['who'] ?? '')."'");
-		echo '<div class="green"> O ip foi desbanido.</div>';
+		echo '<div class="green"> '.$txt['adm_ip_unbanned'].'</div>';
 	}
 
 ?>
@@ -34,7 +35,7 @@
 <center>
 	<table width="300" style="border: 1px solid #000;">
     	<tr>
-        	<td colspan="2" height="40"><center><strong>Banir IP</strong></center></td>
+        	<td colspan="2" height="40"><center><strong><?=$txt['adm_ban_ip_title']?></strong></center></td>
         </tr>
         <tr>
         	<td>IP:</td>
@@ -43,7 +44,7 @@
 
 
         <tr>
-        	<td>Tempo:</td>
+        	<td><?=$txt['adm_time_label']?></td>
             <td><input type="text" name="tot" class="text_long" value="<?php if (($_POST['tot'] ?? '') != '') echo ($_POST['tot'] ?? ''); ?>" maxlength="10"/>
 			<script language="JavaScript">
 				new tcal ({
@@ -55,12 +56,12 @@
 			</script></td>
         </tr>
         <tr>
-        	<td>Razão:</td>
+        	<td><?=$txt['adm_reason_label']?></td>
             <td><input type="text" name="reden" class="text_long" value="<?php if (($_POST['reden'] ?? '') != '') echo ($_POST['reden'] ?? ''); ?>" maxlength="30" /></td>
         </tr>
         <tr>
         	<td>&nbsp;</td>
-            <td><input type="submit" name="ban" class="button" value="Banir IP" /><br>Lembre-se que serve apenas para bloquear um IP especifico, sem banir contas/chars envolvidos.</td>
+            <td><input type="submit" name="ban" class="button" value="<?=htmlspecialchars($txt['adm_ban_ip_title'], ENT_QUOTES)?>" /><br><?=$txt['adm_ban_ip_hint']?></td>
         </tr>
     </table>
 </center>
@@ -71,13 +72,13 @@
 <center>
 	<table width="600" style="border: 1px solid #000;">
     	<tr>
-        	<td colspan="4" height="40"><center><strong>Lista de IPS banidos</strong></center></td>
+        	<td colspan="4" height="40"><center><strong><?=$txt['adm_ban_ip_list']?></strong></center></td>
         </tr>
         <tr>
             <td width="120"><strong>IP:</strong></td>
-            <td width="110"><strong>Banido até:</strong></td>
-            <td width="200"><strong>Razão:</strong></td>
-            <td width="50"><strong>Remover:</strong></td>
+            <td width="110"><strong><?=$txt['adm_blocked_until']?></strong></td>
+            <td width="200"><strong><?=$txt['adm_reason_label']?></strong></td>
+            <td width="50"><strong><?=$txt['adm_remove']?></strong></td>
         </tr>
         <?php
         $query = DB::ExQuery("SELECT * FROM ban ORDER BY tot DESC");

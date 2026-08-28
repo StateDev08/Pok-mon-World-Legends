@@ -1,6 +1,7 @@
 <?php
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
+include_once("language/language-admin.php");
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
         $bedrag = ($_POST['bedrag'] ?? '');
@@ -8,21 +9,21 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
             if ($bedrag > 0) {
-                $melding = '<font color="green">Realizado com sucesso!</font>';
+                $melding = '<font color="green">'.$txt['adm_done_ok'].'</font>';
                 DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+ ".$bedrag." WHERE `user_id` > 0");
             }else{
                 $melding = '<font color="red">A quantia deve ser maior do que 0!</font>';
             }
         }else{
-            $melding = '<font color="red">Você deve digitar um número!</font>';
+            $melding = '<font color="red">'.$txt['adm_must_enter_number'].'</font>';
         }
     }
 ?>
 <?php echo $melding; ?>
 <form method="post">
-    <label>Quanto silver no banco você deseja dar aos treinadores?</label>
+    <label><?=$txt['adm_bank_question']?></label>
     <input type="text" name="bedrag" /><br/>
-    <input type="submit" value="Dar banco" name="doneren" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_bank_btn'], ENT_QUOTES)?>" name="doneren" class="button">
 </form><br><br>
 <?php
     //Als de knop is aangeklikt
@@ -32,21 +33,21 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
             if ($bedrag > 0) {
-                $melding = '<font color="green">Realizado com sucesso!</font>';
+                $melding = '<font color="green">'.$txt['adm_done_ok'].'</font>';
                 DB::exQuery("UPDATE `gebruikers` SET `gold`=`gold`+ ".$bedrag." WHERE `user_id` > 0");
             }else{
                 $melding = '<font color="red">A quantia deve ser maior do que 0!</font>';
             }
         }else{
-            $melding = '<font color="red">Você deve digitar um número!</font>';
+            $melding = '<font color="red">'.$txt['adm_must_enter_number'].'</font>';
         }
     }
 ?>
 <?php echo $melding; ?>
 <form method="post">
-    <label>Quanto gold você deseja dar?</label>
+    <label><?=$txt['adm_gold_question2']?></label>
     <input type="text" name="bedrag" /><br/>
-    <input type="submit" value="Dar gold" name="Dar gold" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_gold_btn'], ENT_QUOTES)?>" name="Dar gold" class="button">
 </form><br><br>
 <?php
     //Als de knop is aangeklikt
@@ -59,7 +60,7 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
             $timexx = time();
             $endPremium1 = (86400 * $bedrag);
             $endPremium2 = time() + (86400 * $bedrag);
-            $melding = '<font color="green">Realizado com sucesso!</font>';
+            $melding = '<font color="green">'.$txt['adm_done_ok'].'</font>';
             DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`=`premiumaccount`+'$endPremium1' WHERE `premiumaccount`>'$timexx'");
             //COLOCA PRA QUEM TEM PREMIUM ATIVO
             DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`='$endPremium2' WHERE `premiumaccount`<'$timexx'");
@@ -69,14 +70,14 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
                 $melding = '<font color="red">A quantia deve ser maior do que 0!</font>';
             }
         }else{
-            $melding = '<font color="red">Você deve digitar um número!</font>';
+            $melding = '<font color="red">'.$txt['adm_must_enter_number'].'</font>';
         }
     }
 ?>
 <?php echo $melding; ?>
 <form method="post">
-    <label>Quantos dias de premium você quer dar?</label>
+    <label><?=$txt['adm_premium_days_question']?></label>
     <input type="text" name="bedrag" /><br/>
-    <input type="submit" value="Dar premium" name="Dar premium" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_premium_btn'], ENT_QUOTES)?>" name="Dar premium" class="button">
 </form>
 

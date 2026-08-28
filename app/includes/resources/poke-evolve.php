@@ -131,8 +131,8 @@ if (isset($_POST['acceptevolutie'])) {
 } else $button = true;
 
 
-$title = 'Seu pokémon está evoluindo!';
-$text = 'Seu pokémon chegou em um novo estágio, ele agora irá evoluir para ' . $update['naam'] . '. Caso não queira que está evolução aconteça clique em <b>"PARAR EVOLUÇÂO"</b>, caso contrário clique em <b>"EVOLUIR!"</b>.';
+$title = $txt['evolve_title'];
+$text = sprintf($txt['evolve_text'], $update['naam']);
 echo addNPCBox(2, $title, $text);
 
 if (!empty($message))	echo $message;

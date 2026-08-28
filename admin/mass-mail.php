@@ -2,6 +2,8 @@
 header('Content-Type: text/html; charset=utf-8'); 	
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
+require_once("language/language-user.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -15,11 +17,11 @@ if (isset($_POST['verstuur'])) {
     $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
-      echo '<div class="red">Digite algum texto.</div>';
+      echo '<div class="red">'.$txt['adm_mail_enter_text'].'</div>';
     }
     //Als alles is ingevuld het bericht versturen
     else{
-      $speler = DB::exQuery("SELECT `username`, `email` FROM `gebruikers`"); #between '1900' and '4000'
+      $speler = DB::exQuery("SELECT `user_id`, `username`, `email` FROM `gebruikers`"); #between '1900' and '4000'
       $aantal = 0;
       while($spelers = ($speler)->fetch_assoc()) {
         $aantal++;
@@ -64,7 +66,7 @@ if (isset($_POST['verstuur'])) {
       <td width="11" rowspan="2" background="http://www.simbolarena.com.brimages/mail/rechtsbalk.gif"></td>
     </tr>
     <tr>
-      <td align="left" valign="top" bgcolor="#D3E9F5">Olá '.$spelers['username'].'!<br /><br />
+      <td align="left" valign="top" bgcolor="#D3E9F5">'.sprintf(user_txt($spelers['user_id'], 'admin')['adm_mail_hello'], $spelers['username']).'<br /><br />
         '.nl2br(($_POST['tekst'] ?? '')).'
       </td>
     </tr>
@@ -82,7 +84,7 @@ if (isset($_POST['verstuur'])) {
           ); 
 
         }
-        echo '<div class="green">Mensagem enviada '.$aantal.'x vezes!</div>'; 
+        echo '<div class="green">'.sprintf($txt['adm_mail_sent'], $aantal).'</div>'; 
   }
 
 }
@@ -91,14 +93,14 @@ if (isset($_POST['verstuur'])) {
 <form method="post">
 <table width="660" cellpadding="0" cellspacing="0">
 	<tr>
-        <td width="110">Assunto:</td>
+        <td width="110"><?=$txt['adm_subject']?></td>
         <td width="550"><input type="text" name="onderwerp" class="text_long" value="<?php if (($_POST['onderwerp'] ?? '') != '') echo ($_POST['onderwerp'] ?? ''); ?>"></td>
     </tr>
     <tr>
     	<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst"><?php if (($_POST['tekst'] ?? '') != '') echo ($_POST['tekst'] ?? ''); ?></textarea></td>
     </tr>
     <tr>
-        <td colspan="2"><input type="submit" value="Enviar!" name="verstuur" class="button"></td>
+        <td colspan="2"><input type="submit" value="<?=htmlspecialchars($txt['adm_send_btn'], ENT_QUOTES)?>" name="verstuur" class="button"></td>
     </tr>
 </table>
 </form>

@@ -872,7 +872,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
                 } else if ($select['zeldzaamheid'] == 3) {
                     $name = 'Raro';
                 } else {
-                    $name = 'Lendário';
+                    $name = $txt['market_legendary'];
                 }
 ?>
 				<div class="greyborder">

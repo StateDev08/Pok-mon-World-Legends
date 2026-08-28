@@ -869,4 +869,79 @@ $txt['region_sinnoh']         = '神奥';
 $txt['region_unova']          = '合众';
 $txt['region_kalos']          = '卡洛斯';
 $txt['region_alola']          = '阿罗拉';
+
+/* === externalized strings (generated) === */
+
+# index
+$txt['idx_mails_many'] = '你有 %s 条新消息！';
+$txt['idx_mails_one'] = '你有 %s 条新消息！';
+$txt['idx_events_many'] = '你有 %s 条新通知！';
+$txt['idx_events_one'] = '你有 %s 条新通知！';
+$txt['idx_safari_today'] = '今天 %s！';
+$txt['idx_percent_all_pokemon'] = '全部宝可梦的 %s%%';
+$txt['idx_season_title'] = '本月的季节是：%s！';
+$txt['idx_daily_bonus_hint'] = '点击这里领取每日奖励。';
+$txt['idx_sharing_account'] = '你正通过账号共享使用 %s 的账号。';
+$txt['idx_menu_home'] = '首页';
+$txt['idx_menu_register'] = '注册';
+$txt['idx_menu_recover'] = '找回账号';
+$txt['idx_footer_trademark'] = '<b>Pokémon</b> 是 <b>Nintendo</b> 的注册商标，仅用于本<b>同人游戏</b>。';
+$txt['idx_footer_not_affiliated'] = '我们与 <b>Nintendo</b>、<b>Pokémon Company Creatures Inc.</b> 或 <b>Game Freak</b> 无关联。';
+$txt['idx_footer_no_violation'] = '无意侵犯任何版权或商标。';
+$txt['idx_footer_privacy'] = '隐私政策';
+$txt['idx_footer_terms'] = '服务条款';
+$txt['idx_footer_rules'] = '规则与处罚';
+$txt['idx_footer_times'] = '游戏内所有时间基于 UTC (0:00)，活动公告与维护提醒除外（-3:00）。';
+$txt['idx_footer_follow'] = '关注我们的 %s / %s 获取新闻、活动与更新。';
+$txt['idx_safari_zone'] = '狩猎地带';
+$txt['idx_quests_hint'] = '点击这里查看每日任务。';
+$txt['idx_time_until'] = '至';
+$txt['idx_hub_user'] = '用户';
+
+# ingame
+$txt['ig_reward'] = ' 并获得<b>奖励</b>：';
+$txt['ig_and_egg'] = ' 以及<b>一颗宝可梦蛋</b>';
+$txt['ig_season_spring'] = '春季';
+$txt['ig_season_summer'] = '夏季';
+$txt['ig_season_autumn'] = '秋季';
+$txt['ig_season_winter'] = '冬季';
+$txt['ig_region'] = '地区';
+$txt['ig_days'] = '天数';
+$txt['ig_top_pokemon'] = '第 %s 名宝可梦';
+$txt['ig_catch_chance'] = '捕获几率：';
+$txt['ig_rarity_line'] = '这只宝可梦是<u>%s</u>。';
+$txt['ig_view_profile'] = '查看宝可梦资料';
+$txt['ig_mood'] = '性格：';
+$txt['ig_tradeable_label'] = '可交易：';
+$txt['ig_tradeable_yes'] = '可交易';
+$txt['ig_tradeable_no'] = '不可交易';
+$txt['ig_sp_attack'] = '特攻';
+$txt['ig_sp_defence'] = '特防';
+$txt['ig_egg_hatch_in'] = '蛋将在以下时间孵化：';
+$txt['ig_month_01'] = '1 月';
+$txt['ig_month_02'] = '2 月';
+$txt['ig_month_03'] = '3 月';
+$txt['ig_month_04'] = '4 月';
+$txt['ig_month_05'] = '5 月';
+$txt['ig_month_06'] = '6 月';
+$txt['ig_month_07'] = '7 月';
+$txt['ig_month_08'] = '8 月';
+$txt['ig_month_09'] = '9 月';
+$txt['ig_month_10'] = '10 月';
+$txt['ig_month_11'] = '11 月';
+$txt['ig_month_12'] = '12 月';
+$txt['ig_date_format'] = '%3$s 年 %2$s %1$s 日';
+$txt['ig_pokedex'] = '图鉴';
+$txt['ig_seniority'] = '账号年资';
+$txt['ig_days_suffix'] = '天';
+$txt['ig_and'] = ' 和 ';
+
+# league-bracket
+$txt['bracket_round_of_16'] = '16强';
+$txt['bracket_quarter'] = '四分之一决赛';
+$txt['bracket_semi'] = '半决赛';
+$txt['bracket_final'] = '决赛';
+$txt['bracket_champions'] = '冠军';
+$txt['bracket_third_place'] = '季军赛';
+/* === end externalized strings === */
 ?>

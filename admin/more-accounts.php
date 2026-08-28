@@ -1,6 +1,7 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -8,7 +9,7 @@ if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
 ?>
 
 <form method="post">
-  <center><a href="#"><input type="submit" name="aanmeld" value="IP Cadastrado" class="button"></a> - <input type="submit" name="login" value="IP Logado" class="button"><br /><br /></center>
+  <center><a href="#"><input type="submit" name="aanmeld" value="<?=htmlspecialchars($txt['adm_ip_registered'], ENT_QUOTES)?>" class="button"></a> - <input type="submit" name="login" value="<?=htmlspecialchars($txt['adm_ip_logged'], ENT_QUOTES)?>" class="button"><br /><br /></center>
 </form>
 <?php
 //Als er op 1 van de 2 word gedrukt

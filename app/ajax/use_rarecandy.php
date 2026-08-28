@@ -1,5 +1,5 @@
 <?php
-$txt['event_is_level_up'] = '<b>%s</b> passou de nível!';
+$event_txt = user_txt(($_SESSION['id'] ?? 0));
 $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 $continue = false;
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
@@ -15,8 +15,8 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 		//Pokemon gegevens laden
 		$pokemon = DB::exQuery("SELECT pokemon_wild.*,pokemon_speler.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id WHERE pokemon_speler.id='".($_POST['pokemonid'] ?? '')."'")->fetch_assoc();
 
-		if ($gebruiker_item[($_GET['name'] ?? '')] < $num_)	$error = 'Você não possui está quantidade!';
-		else if ($pokemon['level'] + $num_ > 100)	$error = 'Você não pode usar esta quantidade';
+		if ($gebruiker_item[($_GET['name'] ?? '')] < $num_)	$error = $txt['use_not_that_amount'];
+		else if ($pokemon['level'] + $num_ > 100)	$error = $txt['use_amount_too_high'];
 		else if ($num_ < 0.9) $error = "Digite um valor.";
 		else {
 			$levelnieuw = $pokemon['level'];
@@ -37,7 +37,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 			#Event taal pack includen
 			$eventlanguage = GetEventLanguage();
 			require_once('language/events/language-events-'.$eventlanguage.'.php');
-			$textoeventrare = sprintf($txt['event_is_level_up'], $pokemonnaam);
+			$textoeventrare = sprintf($event_txt['event_is_level_up'], $pokemonnaam);
 			$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> '.$textoeventrare.'';
 
 			$continue = true;
@@ -61,12 +61,12 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 <form action="./ajax.php?act=<?=($_GET['act'] ?? '');?>&amp;name=<?=($_GET['name'] ?? '');?>" method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="5">Escolha qual pokémon irá receber a <?=($_GET['name'] ?? '');?>.</th></tr>
+			<tr><th colspan="5"><?=sprintf($txt['use_choose_receive_candy'], htmlspecialchars(($_GET['name'] ?? '')))?></th></tr>
 			<tr>
 				<th style="max-width: 10px;">#</th>
-				<th style="max-width: 80px;">Quantidade</th>
-				<th colspan="2">Pokémon</th>
-				<th style="max-width: 50px;">Nível</th>
+				<th style="max-width: 80px;"><?=$txt['use_quantity']?></th>
+				<th colspan="2"><?=$txt['use_pokemon_label']?></th>
+				<th style="max-width: 50px;"><?=$txt['use_level']?></th>
 			</tr>
 		</thead>
 		<tbody>

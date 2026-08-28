@@ -4,7 +4,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0)	echo '<script>parent.$.colorbox
 
 #Als er een result is kan pokemon evolueren.
 if (isset($_POST['kies']) && is_numeric(($_POST['pokemonid'] ?? ''))) {
-	if (empty($_POST['pokemonid']))	$message =  '<div class="red">Você deve escolher um pokémon!</div>';
+	if (empty($_POST['pokemonid']))	$message =  '<div class="red">'.$txt['use_choose_pokemon'].'</div>';
 	else	exit(header('Location: ./ajax.php?act=use_attack_finish&name=' . ($_GET['name'] ?? '') . '&pokemonid=' . ($_POST['pokemonid'] ?? '')));
 }
 ?>
@@ -27,12 +27,12 @@ $poke = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`type1`,`pok
 <form method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="10">Escolha o pokémon para qual você vai usar <?=($_GET['name'] ?? '');?>.</th></tr>
+			<tr><th colspan="10"><?=sprintf($txt['use_choose_for_item'], htmlspecialchars(($_GET['name'] ?? '')))?></th></tr>
 			<tr>
 				<th width="20">#</th>
 				<th width="200" colspan="2">Pokemon</th>
-				<th width="50">Nível</th>
-				<th width="100">Check:</th>
+				<th width="50"><?=$txt['use_level']?></th>
+				<th width="100"><?=$txt['use_check']?></th>
 			</tr>
 		</thead>
 		<tbody><?php
@@ -75,7 +75,7 @@ $poke = DB::exQuery("SELECT `pokemon_wild`.`wild_id`,`pokemon_wild`.`type1`,`pok
 			}
 		}
 		?></tbody>
-		<tfoot><tr><td colspan="5" align="right"><input type="submit" name="kies" value="Avançar" class="button" /></td></tr></tfoot>
+		<tfoot><tr><td colspan="5" align="right"><input type="submit" name="kies" value="<?=htmlspecialchars($txt['use_next'], ENT_QUOTES)?>" class="button" /></td></tr></tfoot>
 	</table></div>
 </form>
 </body>

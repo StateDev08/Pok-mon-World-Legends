@@ -1,10 +1,10 @@
 <?php
 
-echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO <b>DROPS ELEMENTAIS</b> ESTÁ DISPONÍVEL!
-<br>• Nesse atual evento contamos com 7 tipos de DROPS, dentre eles: <img src="'.$static_url.'/images/layout/events/drops/Fire.png" title="DROP FIRE" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Fighting.png" title="DROP FIGHTING" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Grass.png" title="DROP GRASS" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Ice.png" title="DROP ICE" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Ground.png" title="DROP GROUND" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Water.png" title="DROP WATER" style="width: 16px"/> e o mais <b>difícil</b> e <b>valioso</b>: <img src="'.$static_url.'/images/layout/events/drops/Ghost.png" title="DROP GHOST" style="width: 16px"/>!
-<br>• Consiga eles em suas determinadas áreas <a href="./eventos&actual=drops_elementais#encontrar"><b>[?]</b></a>;
-<br>• Haverão dias em que alguns DROPS terão mais chances de se obter <a href="./eventos&actual=drops_elementais#dias"><b>[?]</b></a>;
-<br>• Eles podem variar a quantidade, entre 1x à 3x DROPS!');
+echo addNPCBox(24, $txt['drop_npc_title'], $txt['drop_npc_intro']
+    . sprintf($txt['drop_npc_types'], '<img src="'.$static_url.'/images/layout/events/drops/Fire.png" title="DROP FIRE" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Fighting.png" title="DROP FIGHTING" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Grass.png" title="DROP GRASS" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Ice.png" title="DROP ICE" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Ground.png" title="DROP GROUND" style="width: 16px"/>, <img src="'.$static_url.'/images/layout/events/drops/Water.png" title="DROP WATER" style="width: 16px"/>', '<img src="'.$static_url.'/images/layout/events/drops/Ghost.png" title="DROP GHOST" style="width: 16px"/>')
+    . $txt['drop_npc_where']
+    . $txt['drop_npc_days']
+    . $txt['drop_npc_qty']);
 
 ?>
 
@@ -27,7 +27,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 	                        if ($lock != 'false') $lock = 'true';
 	                    } else {
 	                        $lock = 'false';
-	                        echo '<div class="red">Faltam '.($drop - $g_drop).'x DROP '.$type[$i].' <img src="'.$static_url.'/images/layout/events/drops/'.$type[$i].'.png" style="margin-right:0;width:16px"/>! </div>';
+	                        echo '<div class="red">'.sprintf($txt['drop_missing'], ($drop - $g_drop), $type[$i], '<img src="'.$static_url.'/images/layout/events/drops/'.$type[$i].'.png" style="margin-right:0;width:16px"/>').'</div>';
 	                    }
 	                }
 	            }
@@ -36,16 +36,16 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 	                if ($query['type'] == '0') {
 	                    //ITENS
                         if ($gebruiker['item_over'] < 1) {
-                            echo '<div class="red">VOCÊ NÃO TEM ESPAÇOS DISPONÍVEIS NA SUA MOCHILA!</div>';
+                            echo '<div class="red">'.$txt['drop_no_bag_space'].'</div>';
                         } else {
                             DB::exQuery("UPDATE `gebruikers_item` SET `".$query['name']."` = `".$query['name']."` + '1' WHERE `user_id` = '$_SESSION[id]';");
-                            echo '<div class="green">Você comprou 1x '.$query['name'].'!</div>';
+                            echo '<div class="green">'.sprintf($txt['drop_bought_1x'], $query['name']).'</div>';
                             DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'".$query['1_drop']."', `2_drop`=`2_drop`-'".$query['2_drop']."', `3_drop`=`3_drop`-'".$query['3_drop']."', `4_drop`=`4_drop`-'".$query['4_drop']."', `5_drop`=`5_drop`-'".$query['5_drop']."', `6_drop`=`6_drop`-'".$query['6_drop']."', `7_drop`=`7_drop`-'".$query['7_drop']."' WHERE `user_id`='$_SESSION[id]'");
                         }
                     } else if ($query['type'] == '1') {
                         //POKEMON
                         if ($gebruiker['in_hand'] >= 6) {
-                            echo '<div class="red">VOCÊ JA POSSUI 6 POKÉMONS COM VOCÊ!</div>';
+                            echo '<div class="red">'.$txt['drop_team_full'].'</div>';
                         } else {
                             $opzak_nummer = $gebruiker['in_hand'] + 1;
         
@@ -87,7 +87,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                             #Alle gegevens van de pokemon opslaan
                         DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='4' WHERE `id`='".$pokeid."' LIMIT 1");
                         
-                        echo '<div class="green">Você comprou 1x '.$query['name'].'!</div>';
+                        echo '<div class="green">'.sprintf($txt['drop_bought_1x'], $query['name']).'</div>';
                         DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'".$query['1_drop']."', `2_drop`=`2_drop`-'".$query['2_drop']."', `3_drop`=`3_drop`-'".$query['3_drop']."', `4_drop`=`4_drop`-'".$query['4_drop']."', `5_drop`=`5_drop`-'".$query['5_drop']."', `6_drop`=`6_drop`-'".$query['6_drop']."', `7_drop`=`7_drop`-'".$query['7_drop']."' WHERE `user_id`='$_SESSION[id]'");
                         }
                     } else if ($query['type'] == '3') {
@@ -97,13 +97,13 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                         else $premium += $gebruiker['premiumaccount'];
     
                         DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$premium} WHERE `user_id`={$_SESSION['id']} LIMIT 1");
-                        echo '<div class="green">Você comprou '.$query['name'].'!</div>';
+                        echo '<div class="green">'.sprintf($txt['drop_bought'], $query['name']).'</div>';
                         DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'".$query['1_drop']."', `2_drop`=`2_drop`-'".$query['2_drop']."', `3_drop`=`3_drop`-'".$query['3_drop']."', `4_drop`=`4_drop`-'".$query['4_drop']."', `5_drop`=`5_drop`-'".$query['5_drop']."', `6_drop`=`6_drop`-'".$query['6_drop']."', `7_drop`=`7_drop`-'".$query['7_drop']."' WHERE `user_id`='$_SESSION[id]'");
                     }
 	            }
 	            
             } else {
-                echo '<div class="red">Essa opção não existe!</div>';
+                echo '<div class="red">'.$txt['drop_option_missing'].'</div>';
             }
         }
 ?>
@@ -111,7 +111,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
     if (true) {
         if (isset($_POST['conjunto_evento'])) {
             if ($rekening['gold'] < 50) {
-                echo '<div class="red">Você não tem Golds suficientes!</div>';
+                echo '<div class="red">'.$txt['drop_not_enough_gold'].'</div>';
             } else {
                 $arr = array('Fire', 'Fighting', 'Grass', 'Ground', 'Water', 'Ice');
                 $choosen = array();
@@ -191,13 +191,13 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 
                 DB::exQuery("UPDATE `gebruikers` SET ".$insql." WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'50' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
-                echo '<div class="green">Você recebeu: '.rtrim($drops, ', ').'!</div>';
+                echo '<div class="green">'.sprintf($txt['drop_received'], rtrim($drops, ', ')).'</div>';
             }
         }
 ?>
     <div class="row">
     <div class="box-content col" style="margin-bottom: 7px; width: 50%; margin-right: 7px">
-    <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0">QUANTIDADE DE DROPS NO INVENTÁRIO:</h3>
+    <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0"><?=$txt['drop_inventory_title']?></h3>
 <?php 
     $arrays = array('Fire', 'Fighting', 'Grass', 'Ghost', 'Ground', 'Water', 'Ice');
     
@@ -224,15 +224,15 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                 <img src="<?=$static_url?>/images/layout/events/store/Drops.png" style="padding:10px;margin-top:10px">
             </div>
             <div class="col" style="margin-left: 10px">
-                <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0">CONJUNTO DE DROPS!</h3>
-                <p style="color: #fff;font-weight: bold;font-size:13px; margin:0; text-align: left">Até dia 19/05, você poderá comprar por apenas <b><img src="<?=$static_url?>/images/icons/gold.png"> 50 GOLDS</b>, <br>um Conjunto que vêm 3 DROPS aleatórios, podendo vir um 4º Ghost!<br>
-                <center><form method="post" onsubmit="return confirm('Deseja realmente comprar o Conjunto de DROPS por 50 Golds?')"><button value="conjunto_evento" name="conjunto_evento" type="submit" style="margin-top: 5px">COMPRAR CONJUNTO?</button></form></center></p>
+                <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0"><?=$txt['drop_set_title']?></h3>
+                <p style="color: #fff;font-weight: bold;font-size:13px; margin:0; text-align: left"><?=sprintf($txt['drop_set_text'], '<img src="'.$static_url.'/images/icons/gold.png">')?>
+                <center><form method="post" onsubmit="return confirm('<?=addslashes($txt['drop_set_confirm'])?>')"><button value="conjunto_evento" name="conjunto_evento" type="submit" style="margin-top: 5px"><?=$txt['drop_set_button']?></button></form></center></p>
             </div>
         </div>
         <div class="box-content" style="margin-top: 3px; height: 151px">
             <table class="bordered general u-infos" width="100%">
                 <thead>
-                    <tr><th colspan="9">Quantidade de DROPS que podem vir no Conjunto <span style="cursor:pointer" title="Os valores de cima correspondem aos DROPS normais, enquanto os de baixo correspondem apenas aos DROPS GHOST!">[?]</span></th></tr>
+                    <tr><th colspan="9"><?=$txt['drop_set_table_title']?> <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_set_table_hint'], ENT_QUOTES)?>">[?]</span></th></tr>
                 </thead>
                 <tbody style="color:#9eadcd;font-weight:bold;font-size:12px">
                     <tr></tr>
@@ -248,14 +248,14 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
                         <td>40</td>
                     </tr>
                     <tr>
-                        <td>2500 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>1215 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>700 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>405 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>135 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>45 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>25 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
-                        <td>10 <span style="cursor:pointer" title="Valor correspondente aos DROPS GHOST!">[?]</span></td>
+                        <td>2500 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>1215 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>700 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>405 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>135 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>45 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>25 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
+                        <td>10 <span style="cursor:pointer" title="<?=htmlspecialchars($txt['drop_ghost_value_hint'], ENT_QUOTES)?>">[?]</span></td>
                     </tr>
                     <tr></tr>
                 </tbody>
@@ -265,9 +265,9 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
     </div>
 <?php } ?>
 
-<div class="box-content" style="background:#2e3d53"><h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0;background: none;border-bottom: 2px solid #6ac7ee;">LOJA DO EVENTO:</h3>
+<div class="box-content" style="background:#2e3d53"><h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0;background: none;border-bottom: 2px solid #6ac7ee;"><?=$txt['drop_store_title']?></h3>
 <div id="store_biggest" class="box-content">
-    <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0">PRÊMIO MAIOR <span style="cursor: pointer; font-weight:bold" title="Spooky Plate">[?]</span>:</h3>
+    <h3 class="title" style="font-size: 13px;padding: 10px;padding-left: 4px;font-weight: bold;text-transform: uppercase;color: #9eadcd;margin:0"><?=$txt['drop_biggest_title']?> <span style="cursor: pointer; font-weight:bold" title="Spooky Plate">[?]</span>:</h3>
     <div id="container-biggest" style="margin: 10px;">
         <div style="display:inline-block">
             <div style="background: url(<?=$static_url?>/images/layout/events/store/Fire.png) no-repeat; background-size: 100% 100%; width: 76px; height: 82px; margin-right: 29px"><p style="color: #9eadcd;font-weight: bold;font-size:14px; margin:0; padding-top:50px;">1.800</p></div>
@@ -288,7 +288,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
     </div>
 </div>
 
-<div class="box-content" style="padding: 10px;"><form method="post" onsubmit="return confirm('Deseja realmente realizar esta compra?')"><input type="hidden" name="buy-store" value="1"><button type="submit">COMPRAR SPOOKY PLATE?</button></form></div>
+<div class="box-content" style="padding: 10px;"><form method="post" onsubmit="return confirm('<?=addslashes($txt['drop_buy_confirm'])?>')"><input type="hidden" name="buy-store" value="1"><button type="submit"><?=$txt['drop_buy_spooky']?></button></form></div>
 
 <style>
 .carousel-cell {
@@ -305,7 +305,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 <div class="box-content" style="margin-top:7px;display: inline-block; width: 100%;">
     <table class="general bordered" width="100%">
 		<thead>
-			<tr><th colspan="6">Itens</th></tr>
+			<tr><th colspan="6"><?=$txt['drop_items']?></th></tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -355,7 +355,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 		<tfoot>
 			<tr>
 				<td>
-					<center><form method="post" onsubmit="return confirm('Deseja realmente realizar esta compra?')"><input type="hidden" id="item-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;">COMPRAR <span id="item-name">item</span></button></form></center>
+					<center><form method="post" onsubmit="return confirm('<?=addslashes($txt['drop_buy_confirm'])?>')"><input type="hidden" id="item-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;"><?=$txt['drop_buy']?> <span id="item-name">item</span></button></form></center>
 				</td>
 			</tr>
 		</tfoot>
@@ -386,7 +386,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 <div class="box-content" style="margin-top:7px;display: inline-block; width: 100%;">
 	<table class="general bordered" width="100%">
 		<thead>
-			<tr><th colspan="6">Pokémons</th></tr>
+			<tr><th colspan="6"><?=$txt['drop_pokemons']?></th></tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -436,7 +436,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 		<tfoot>
 			<tr>
 				<td>
-					<center><form method="post" onsubmit="return confirm('Deseja realmente realizar esta compra?')"><input type="hidden" id="pokemon-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;">COMPRAR <span id="pokemon-name">pokémon</span></button></form></center>
+					<center><form method="post" onsubmit="return confirm('<?=addslashes($txt['drop_buy_confirm'])?>')"><input type="hidden" id="pokemon-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;"><?=$txt['drop_buy']?> <span id="pokemon-name">pokémon</span></button></form></center>
 				</td>
 			</tr>
 		</tfoot>
@@ -518,7 +518,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 		<tfoot>
 			<tr>
 				<td>
-					<center><form method="post" onsubmit="return confirm('Deseja realmente realizar esta compra?')"><input type="hidden" id="vip-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;">COMPRAR <span id="vip-name">pokémon</span></button></form></center>
+					<center><form method="post" onsubmit="return confirm('<?=addslashes($txt['drop_buy_confirm'])?>')"><input type="hidden" id="vip-store" name="buy-store" value="0"><button type="submit" style="margin: 10px;"><?=$txt['drop_buy']?> <span id="vip-name">pokémon</span></button></form></center>
 				</td>
 			</tr>
 		</tfoot>
@@ -553,11 +553,11 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
 
 <div id="encontrar" class="box-content" style="margin-top: 7px">
     <table class="bordered general u-infos" width="100%">
-        <thead><tr><th colspan="4">ONDE ENCONTRAR?</th></tr></thead>
+        <thead><tr><th colspan="4"><?=$txt['drop_where_title']?></th></tr></thead>
         <tbody style="font-weight: bold;text-align:center;font-size: 13px; text-transform:uppercase">
             <tr>
                 <td colspan="2">
-                    Torre Fantasma:
+                    <?=$txt['map_alt_tower']?>:
                 </td>
                 <td colspan="2">
                     <img src="<?=$static_url?>/images/layout/events/drops/Ghost.png" title="DROP GHOST" style="width: 24px"/>
@@ -565,13 +565,13 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
             </tr>
             <tr>
                 <td>
-                    Água:
+                    <?=$txt['map_alt_water']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Water.png" title="DROP WATER" style="width: 24px"/>
                 </td>
                 <td>
-                    Praia:
+                    <?=$txt['map_alt_beach']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Ice.png" title="DROP ICE" style="width: 24px"/>
@@ -579,13 +579,13 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
             </tr>
             <tr>
                 <td>
-                    Grama:
+                    <?=$txt['map_alt_grass']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Grass.png" title="DROP GRASS" style="width: 24px"/>
                 </td>
                 <td>
-                    Dojô:
+                    <?=$txt['map_alt_dojo']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Fighting.png" title="DROP FIGHTING" style="width: 24px"/>
@@ -593,13 +593,13 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
             </tr>
             <tr>
                 <td>
-                    Gruta:
+                    <?=$txt['map_alt_cave']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Ground.png" title="DROP GROUND" style="width: 24px"/>
                 </td>
                 <td>
-                    Lava:
+                    <?=$txt['map_alt_lava']?>:
                 </td>
                 <td>
                     <img src="<?=$static_url?>/images/layout/events/drops/Fire.png" title="DROP FIRE" style="width: 24px"/>
@@ -616,7 +616,7 @@ echo addNPCBox(24, 'DROPS ELEMENTAIS - DISPONÍVEL ATÉ 19/05/2019!', 'O EVENTO 
     padding-left: 4px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #9eadcd;margin:0">INCIDÊNCIA</h3>
+    color: #9eadcd;margin:0"><?=$txt['drop_incidence']?></h3>
     <table class="bordered general u-infos" width="100%">
         <thead><tr><th>DROP</th>
         <?php

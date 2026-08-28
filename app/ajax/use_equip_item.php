@@ -1,7 +1,6 @@
 <?php
 require_once 'app/includes/resources/ingame.inc.php';
 
-$txt['event_is_level_up'] = '<b>%s</b> passou de nível!';
 $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_item` WHERE `user_id`='".($_SESSION['id'] ?? '')."'")->fetch_assoc();
 $continue = false;
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
@@ -16,13 +15,13 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 		$item = ($_POST['item'] ?? '');
 
 		if ($gebruiker_item[$item] < 0) {
-			$error = "<div class='red'>Você não possui este item!</div>";
+			$error = "<div class='red'>".$txt['use_item_missing']."</div>";
 		} else if (!pokemon_equip($pokemon['wild_id'], $item)) {
-			$error = "<div class='red'>Este item não pode ser equipado neste Pokémon!</div>";
+			$error = "<div class='red'>".$txt['use_item_not_equippable']."</div>";
 		} else if (($_POST['spcitem'] ?? '') == $pokemon['item']) {
-			$error = "<div class='red'>O Pokémon já tem este item equipado!</div>";
+			$error = "<div class='red'>".$txt['use_item_already_equipped']."</div>";
 		} else if ($pokemon['ei'] != 0) {
-			$error = "<div class='red'>Este item não pode ser equipado em Ovo Pokémon!</div>";
+			$error = "<div class='red'>".$txt['use_item_egg']."</div>";
 		} else {
 			DB::exQuery("UPDATE `gebruikers_item` SET `$item`=`$item`-1 WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 			DB::exQuery("UPDATE `pokemon_speler` SET `item`='$item' WHERE id='$_POST[pokemonid]'");
@@ -62,13 +61,13 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 <form action="./ajax.php?act=<?=($_GET['act'] ?? '');?>&amp;name=<?=($_GET['name'] ?? '');?>" method="post">
 	<div class="box-content"><table class="general" width="100%">
 		<thead>
-			<tr><th colspan="5">Escolha qual pokémon irá receber o item <?=($_GET['name'] ?? '');?>.</th></tr>
+			<tr><th colspan="5"><?=sprintf($txt['use_choose_receive_item'], htmlspecialchars(($_GET['name'] ?? '')))?></th></tr>
 			<tr>
 				<th style="max-width: 10px;">#</th>
-				<th colspan="2">Pokémon</th>
-				<th style="max-width: 50px;">Equipado</th>
+				<th colspan="2"><?=$txt['use_pokemon_label']?></th>
+				<th style="max-width: 50px;"><?=$txt['use_equipped_col']?></th>
 			</tr>
-			<tr><th colspan="5">Se este Pokémon já tiver um item equipado, o item antigo será destruído!</th></tr>
+			<tr><th colspan="5"><?=$txt['use_old_item_destroyed']?></th></tr>
 		</thead>
 		<tbody>
 		<?php if (!empty($error)) { echo '<tr><td colspan="10">' . $error . '</td></tr>'; } ?>
@@ -86,9 +85,9 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 			
 			$icon = '';
 			if (isset($pokemon['item']))
-				$icon = '<img src="'.$static_url.'/images/icons/blue.png" title="Equipado com '.$pokemon['item'].'"> + <img src="'.$static_url.'/images/items/'.$pokemon['item'].'.png" title="'.$pokemon['item'].'">';
+				$icon = '<img src="'.$static_url.'/images/icons/blue.png" title="'.sprintf($txt['use_equipped_with'], $pokemon['item']).'"> + <img src="'.$static_url.'/images/items/'.$pokemon['item'].'.png" title="'.$pokemon['item'].'">';
 			else
-				$icon = '<img src="'.$static_url.'/images/icons/green.png" title="Não equipado">';
+				$icon = '<img src="'.$static_url.'/images/icons/green.png" title="'.$txt['use_not_equipped'].'">';
 									
 			echo '<td align="center" width="32"><img src="' . $static_url . '/' . $pokemon['animatie'] . '" width="32" height="32" /></td>
 				<td width="168">'.$pokemon['naam'].'</td>

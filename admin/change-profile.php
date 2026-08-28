@@ -1,6 +1,7 @@
 <?php		
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -45,7 +46,7 @@ if (isset($_GET['player'])) {
 		  else if ($voortgang > '30' && $voortgang <= '50')
 		    $medaille = "<img src='images/icons/bronze.png'>";
 		else if ($voortgang =='')
-			$voortgangplaats = "<b>Admin.</b>";
+			$voortgangplaats = "<b>".$txt['adm_profile_admin']."</b>";
 			
 		  //Tijd voor plaatje
 		  $tijd = time();
@@ -67,7 +68,7 @@ if (isset($_GET['player'])) {
 	  	    salvaLogAdmin($quem,$acao,$mensagem);
 		    DB::exQuery("UPDATE `gebruikers` SET `character`='".($_POST['character'] ?? '')."', `username`='".($_POST['username'] ?? '')."', `premiumaccount`='".($_POST['premiumaccount'] ?? '')."', `voornaam`='".($_POST['voornaam'] ?? '')."', `achternaam`='".($_POST['achternaam'] ?? '')."', `wereld`='".($_POST['wereld'] ?? '')."', `datum`='".($_POST['datum'] ?? '')."', `rank`='".($_POST['rank'] ?? '')."', `aantalpokemon`='".($_POST['aantalpokemon'] ?? '')."', `gewonnen`='".($_POST['gewonnen'] ?? '')."', `verloren`='".($_POST['verloren'] ?? '')."', `email`='".($_POST['email'] ?? '')."', `ip_aangemeld`='".($_POST['ip_aangemeld'] ?? '')."' , `ip_ingelogd`='".($_POST['ip_ingelogd'] ?? '')."', `teamzien`='".($_POST['teamzien'] ?? '')."', `silver`='".($_POST['silver'] ?? '')."', `gold`='".($_POST['gold'] ?? '')."', `profiel`='".($_POST['profiel'] ?? '')."' WHERE `username`='".($_GET['player'] ?? '')."'");
 	  
-	  		echo '<div class="green">Treinador '.($_GET['player'] ?? '').' atualizado!</div>';
+	  		echo '<div class="green">'.sprintf($txt['adm_profile_updated'], ($_GET['player'] ?? '')).'</div>';
 	  }
 ?>
 <form method="post">
@@ -99,23 +100,23 @@ if (isset($_GET['player'])) {
       </select></td>
         </tr>
         <tr>
-          <td height="20"><strong>Usuário:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_user']?></strong></td>
           <td><input name="username" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['username']; else echo ($_POST['username'] ?? ''); ?>" maxlength="10" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Dias premium:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_premium_days']?></strong></td>
           <td><input name="premiumaccount" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['premiumaccount']; else echo ($_POST['premiumaccount'] ?? ''); ?>" maxlength="4" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Nome:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_name']?></strong></td>
           <td><input name="voornaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['voornaam']; else echo ($_POST['voornaam'] ?? ''); ?>" maxlength="12" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Sobrenome:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_surname']?></strong></td>
           <td><input name="achternaam" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['achternaam']; else echo ($_POST['achternaam'] ?? ''); ?>" maxlength="12" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Inicio:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_start']?></strong></td>
           <td><input type="text" name="datum" value="<?php if (!isset($_POST['change'])) echo $profiel['datum']; else echo ($_POST['datum'] ?? ''); ?>" class="text_long" /></td>
         </tr>
         <tr>
@@ -151,7 +152,7 @@ if (isset($_GET['player'])) {
 		?>
         
         <tr>
-          <td height="20"><strong>Zona:</strong></td>
+          <td height="20"><strong><?=$txt['adm_zone']?></strong></td>
           <td height="20"><select name="wereld" class="text_select">
           					<option value="Kanto" <?php echo $kantoselected; ?>>Kanto</option>
                             <option value="Johto" <?php echo $johtoselected; ?>>Johto</option>
@@ -162,7 +163,7 @@ if (isset($_GET['player'])) {
                           </select></td>
         </tr>
         <tr>
-          <td height="20"><strong>Silvers:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_silvers']?></strong></td>
           <td height="20"><input type="text" name="silver" value="<?php if (!isset($_POST['change'])) echo $profiel['silver']; else echo ($_POST['silver'] ?? ''); ?>" class="text_long" /></td>
         </tr>
         
@@ -170,7 +171,7 @@ if (isset($_GET['player'])) {
           <td height="20" colspan="2">&nbsp;</td>
         </tr>
         <tr>
-          <td height="20"><strong>Rank:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_rank']?></strong></td>
           <td><select name="rank" class="text_select">
     <?php
     $ranksql = DB::exQuery("SELECT naam, ranknummer FROM rank ORDER BY ranknummer DESC"); 
@@ -191,34 +192,34 @@ if (isset($_GET['player'])) {
     </select></td>
         </tr>
         <tr>
-          <td height="20"><strong>Rank:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_rank']?></strong></td>
           <td><?php echo $medaille; ?> <?php echo $voortgangplaats; ?></td>
         </tr>
         <tr>
-          <td height="20"><strong>Pokemons:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_pokemons']?></strong></td>
           <td><input name="aantalpokemon" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['aantalpokemon']; else echo ($_POST['aantalpokemon'] ?? ''); ?>" maxlength="3" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Batalhas Ganhas:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_wins']?></strong></td>
           <td><input name="gewonnen" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['gewonnen']; else echo ($_POST['gewonnen'] ?? ''); ?>" maxlength="9" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Batalhas Perdidas:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_losses']?></strong></td>
           <td><input name="verloren" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['verloren']; else echo ($_POST['verloren'] ?? ''); ?>" maxlength="9" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Status:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_status']?></strong></td>
           <td><img src="<?php echo $plaatje; ?>" /> <?php echo $online; ?></td>
         </tr>
         <tr>
           <td height="20" colspan="2">&nbsp;</td>
         </tr>
         <tr>
-          <td height="20"><strong>Ip logado:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_ip_logged']?></strong></td>
           <td><input name="ip_aangemeld" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_aangemeld']; else echo ($_POST['ip_aangemeld'] ?? ''); ?>" maxlength="15" /></td>
         </tr>
         <tr>
-          <td height="20"><strong>Ip login:</strong></td>
+          <td height="20"><strong><?=$txt['adm_profile_ip_login']?></strong></td>
           <td><input name="ip_ingelogd" type="text" class="text_long" value="<?php if (!isset($_POST['change'])) echo $profiel['ip_ingelogd']; else echo ($_POST['ip_ingelogd'] ?? ''); ?>" maxlength="15" /></td>
         </tr>
 	</table>
@@ -226,25 +227,25 @@ if (isset($_GET['player'])) {
 
             <hr />
             <center>
-              <strong>Mostrar o time:</strong><br />
+              <strong><?=$txt['adm_profile_show_team']?></strong><br />
 			  <?php 
               if ($teamzien == 1) {
-              echo'	<input type="radio" name="teamzien" value="1" id="ja" checked /><label for="ja" style="padding-right:17px"> Sim</label>
-                    <input type="radio" name="teamzien" value="0" id="nee" /><label for="nee"> Não</label>';
+              echo'	<input type="radio" name="teamzien" value="1" id="ja" checked /><label for="ja" style="padding-right:17px"> '.$txt['adm_yes'].'</label>
+                    <input type="radio" name="teamzien" value="0" id="nee" /><label for="nee"> '.$txt['adm_no'].'</label>';
               }
               else if ($teamzien == 0) {
-              echo'	<input type="radio" name="teamzien" value="1" id="ja" /><label for="ja" style="padding-right:17px"> Sim</label>
-                    <input type="radio" name="teamzien" value="0" id="nee" checked /><label for="nee"> Não</label>';
+              echo'	<input type="radio" name="teamzien" value="1" id="ja" /><label for="ja" style="padding-right:17px"> '.$txt['adm_yes'].'</label>
+                    <input type="radio" name="teamzien" value="0" id="nee" checked /><label for="nee"> '.$txt['adm_no'].'</label>';
               }
               else{
-              echo'	<input type="radio" name="teamzien" value="1" id="ja" /><label for="ja" style="padding-right:17px"> Sim</label>
-                    <input type="radio" name="teamzien" value="0" id="nee" /><label for="nee"> Não</label>';
+              echo'	<input type="radio" name="teamzien" value="1" id="ja" /><label for="ja" style="padding-right:17px"> '.$txt['adm_yes'].'</label>
+                    <input type="radio" name="teamzien" value="0" id="nee" /><label for="nee"> '.$txt['adm_no'].'</label>';
               }?>
 </center>
             <hr />
 			<textarea style="width:580px;" class="text_area" rows="15" name="profiel" ><?php if (!isset($_POST['change'])) echo $profiel['profiel']; else echo ($_POST['profiel'] ?? ''); ?></textarea>
             <br />
-			<input type="submit" name="change" value="Atualizar!" class="button" /><br />
+			<input type="submit" name="change" value="<?=htmlspecialchars($txt['adm_update_btn'], ENT_QUOTES)?>" class="button" /><br />
 
 <?php
   }

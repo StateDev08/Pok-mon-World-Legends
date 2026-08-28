@@ -96,7 +96,7 @@ if (isset($_POST['resend'])) {
 					' . $txt['mail_body_resend'] . '
 				</div></td></tr>
 				<tr><td align="center"><div style="padding: 5px; font-size: 12px; font-family: Arial, Helvetica, sans-serif;border-top: 1px solid #577599;">
-					<b style="color: #eeeeee;">&copy;' . date("Y"). ' - Pokémon World Legends | Todos os direitos reservados.</b>
+					<b style="color: #eeeeee;">' . sprintf($txt['auth_copyright'], date("Y")) . '</b>
 				</div></td></tr>
 			</table>
 		</div>');
@@ -138,7 +138,7 @@ if (!empty($message))	echo $message;
 			</tr>
 			<tr>
 				<td colspan="2" style="font-style: italic; text-align: center; padding-top: 5px">
-					Já tem uma conta? <a href="./" style="color: #6ac7ee; font-weight: bold">LOGUE-SE</a> agora mesmo!
+					<?=$txt['auth_have_account']?>
 				</td>
 			</tr>
 			<?php } else { 
@@ -167,7 +167,7 @@ if (!empty($message))	echo $message;
 			</tr>
 			<tr>
 				<td colspan="2" style="font-style: italic; text-align: center; padding-top: 5px">
-					Já tem uma conta? <a href="./" style="color: #6ac7ee; font-weight: bold">LOGUE-SE</a> agora mesmo!
+					<?=$txt['auth_have_account']?>
 				</td>
 			</tr>
 			<?php } ?>

@@ -105,5 +105,65 @@ $txt['league_not_created_5min'] = 'Der Kampf wurde nicht innerhalb von 5 Minuten
 $txt['league_lost_not_created'] = 'Du hast verloren!<br/>Der Kampf wurde nicht erstellt!';
 $txt['league_won_not_created'] = 'Du hast gewonnen!<br/>Der Kampf wurde nicht erstellt!';
 $txt['league_not_time_yet'] = 'Es ist noch nicht Zeit für deinen Kampf!';
+
+# map
+$txt['map_search_1'] = 'Hier ist nichts!';
+$txt['map_search_2'] = 'Fast hätte ich ein legendäres Pokémon gefunden, aber es ist verschwunden!';
+$txt['map_search_3'] = 'Ich gebe nicht auf!';
+$txt['map_search_4'] = 'Ich bin sicher, hier war irgendwo ein Pokémon...';
+$txt['map_search_5'] = 'Gefunden! Oh nein, das ist nur ein Stein!';
+$txt['map_search_6'] = 'Aaah... ich finde einfach nichts!';
+$txt['map_search_7'] = 'Los, zeigt euch!';
+$txt['map_search_8'] = 'Ist hier irgendein Pokémon!?';
+$txt['map_search_9'] = 'Was ist hinter mir?! Puh, nur mein Schatten!';
+$txt['map_search_10'] = 'Ist da ein Pokémon am Himmel?! Ach, nur eine Wolke.';
+$txt['map_search_11'] = 'Ich glaube, diese Pokémon haben Angst vor mir.';
+$txt['map_search_12'] = 'Ich habe Fußspuren gefunden! Mist, das sind meine...';
+$txt['map_safari_closed'] = 'Die Safari-Zone ist geschlossen!';
+
+# use-items
+$txt['use_choose_pokemon'] = 'Du musst ein Pokémon auswählen!';
+$txt['use_choose_for_item'] = 'Wähle das Pokémon, bei dem du %s einsetzen willst.';
+$txt['use_level'] = 'Level';
+$txt['use_next'] = 'Weiter';
+$txt['use_cannot_learn'] = 'Dein Pokémon kann diese Attacke nicht erlernen!';
+$txt['use_not_your_pokemon'] = 'Dieses Pokémon gehört dir nicht!';
+$txt['use_already_learned'] = '%1$s hat die Attacke %2$s bereits gelernt!';
+$txt['use_learning'] = '%1$s erlernt gerade %2$s - %3$s.';
+$txt['use_item_missing'] = 'Du besitzt dieses Item nicht!';
+$txt['use_item_not_equippable'] = 'Dieses Item kann diesem Pokémon nicht angelegt werden!';
+$txt['use_item_already_equipped'] = 'Das Pokémon trägt dieses Item bereits!';
+$txt['use_item_egg'] = 'Dieses Item kann keinem Pokémon-Ei angelegt werden!';
+$txt['use_choose_receive_item'] = 'Wähle, welches Pokémon das Item %s erhalten soll.';
+$txt['use_old_item_destroyed'] = 'Trägt dieses Pokémon bereits ein Item, wird das alte Item zerstört!';
+$txt['use_not_equipped'] = 'Nicht ausgerüstet';
+$txt['use_no_items_to_equip'] = 'Du hast keine Items, die du deinen Pokémon anlegen kannst!';
+$txt['use_cannot_equip_egg'] = 'Du kannst dieses Item keinem Pokémon-Ei anlegen!';
+$txt['use_cannot_heal'] = 'Du kannst %s nicht heilen.';
+$txt['use_only_fainted'] = 'Funktioniert nur bei Pokémon, die vollständig kampfunfähig sind.';
+$txt['use_not_that_amount'] = 'Du besitzt diese Menge nicht!';
+$txt['use_amount_too_high'] = 'Du kannst diese Menge nicht verwenden';
+$txt['use_choose_receive_candy'] = 'Wähle, welches Pokémon %s erhalten soll.';
+$txt['use_spc_limit_25'] = ' Du hast %1$s bereits 25x bei %2$s eingesetzt.';
+$txt['use_spc_max'] = ' Maximal %1$sx %2$s einsetzbar.';
+$txt['use_dont_have_amount'] = 'Du besitzt keine %1$s %2$s!';
+$txt['use_choose_with_amount'] = 'Wähle das Pokémon, bei dem du %1$s einsetzen willst.<br> (Du hast %2$s %1$s)';
+$txt['use_choose_stone'] = 'Wähle das Pokémon, bei dem du %s einsetzen willst.';
+$txt['use_evolved'] = 'Glückwunsch, dein <strong>%1$s</strong> hat sich zu <strong>%2$s</strong> entwickelt!';
+$txt['use_choose_for_stone_post'] = 'Wähle ein Pokémon, um %s einzusetzen.';
+$txt['use_stone_not_usable'] = 'Bei dem Pokémon %1$s kann %2$s nicht eingesetzt werden.';
+$txt['use_yes'] = 'Ja';
+$txt['use_no'] = 'Nein';
+$txt['use_not_usable'] = 'Nicht verwendbar';
+$txt['use_usable'] = 'Verwendbar';
+$txt['use_pokemon_label'] = 'Pokémon';
+$txt['use_quantity'] = 'Menge';
+$txt['use_equipped_col'] = 'Ausgerüstet';
+$txt['use_equipped_with'] = 'Ausgerüstet mit %s';
+$txt['use_check'] = 'Auswahl:';
+$txt['use_name_col'] = 'Name:';
+$txt['use_evolves_col'] = 'Entwickelt sich:';
+$txt['use_confirm_evolve'] = 'Willst du %s wirklich entwickeln?';
+$txt['use_stone_evolved'] = 'Glückwunsch, dein <strong>%1$s</strong> hat sich mit %3$s zu <strong>%2$s</strong> entwickelt!';
 /* === end externalized strings === */
 ?>

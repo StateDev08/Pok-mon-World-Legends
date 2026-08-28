@@ -115,7 +115,7 @@
 		</div>
 		<div class="box-content">
 			<h3 class="title"><?=$txt['home_news']?></h3>
-			<p><?=sprintf($txt['home_news_text'], 'VERSÃO 1.4')?></p>
+			<p><?=sprintf($txt['home_news_text'], $txt['home_news_version'])?></p>
 		</div>
 </div>
 <?php } else {

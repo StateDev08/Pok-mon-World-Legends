@@ -4,7 +4,7 @@
 ?>
 
 <div class="box-content msg-container" style="margin-top: 7px; float: left; width: 100%;">
-    <div class="title"><p>CHAT - POKÉMON WORLD LEGENDS</p></div>
+    <div class="title"><p><?=$txt['chat_title']?></p></div>
     <div id="div-container" style="max-height: 250px; overflow-y: auto;">
         <ul class="ul" style="margin: 0">
             <div id="message-container">

@@ -2446,32 +2446,6 @@ $txt['alert_no_amount']               = 'Enter a quantity!';
 
 /* === externalized strings (generated) === */
 
-	$txt['nature_hardy']         = 'Hardy';
-	$txt['nature_lonely']        = 'Lonely';
-	$txt['nature_adamant']       = 'Adamant';
-	$txt['nature_naughty']       = 'Naughty';
-	$txt['nature_brave']         = 'Brave';
-	$txt['nature_bold']          = 'Bold';
-	$txt['nature_docile']        = 'Docile';
-	$txt['nature_impish']        = 'Impish';
-	$txt['nature_lax']           = 'Lax';
-	$txt['nature_relaxed']       = 'Relaxed';
-	$txt['nature_modest']        = 'Modest';
-	$txt['nature_mild']          = 'Mild';
-	$txt['nature_bashful']       = 'Bashful';
-	$txt['nature_rash']          = 'Rash';
-	$txt['nature_quiet']         = 'Quiet';
-	$txt['nature_calm']          = 'Calm';
-	$txt['nature_gentle']        = 'Gentle';
-	$txt['nature_careful']       = 'Careful';
-	$txt['nature_quirky']        = 'Quirky';
-	$txt['nature_sassy']         = 'Sassy';
-	$txt['nature_timid']         = 'Timid';
-	$txt['nature_hasty']         = 'Hasty';
-	$txt['nature_jolly']         = 'Jolly';
-	$txt['nature_naive']         = 'Naive';
-	$txt['nature_serious']       = 'Serious';
-
 # common
 $txt['common_yes'] = 'Yes';
 $txt['common_no'] = 'No';
@@ -2490,6 +2464,7 @@ $txt['common_cannot_afford'] = 'You cannot afford this!';
 $txt['common_buy_button'] = 'Buy';
 $txt['common_change_button'] = 'Change';
 $txt['common_confirm_purchase_2'] = 'Do you really want to make this purchase?';
+$txt['home_news_version'] = 'VERSION 1.4';
 
 # account-options
 $txt['acc_npc_title'] = 'Account Settings';
@@ -2643,6 +2618,66 @@ $txt['battle_status_poisoned'] = '%s is poisoned.';
 $txt['battle_status_sleeping'] = '%s is sleeping.';
 $txt['battle_status_flinching'] = '%s is flinching.';
 $txt['battle_stat_speed_up_atk_down'] = '%s now has raised Speed but lowered Attack.';
+$txt['weather_harsh_sunlight'] = 'The sunlight is strong.';
+$txt['weather_harsh_sunlight_ended'] = 'The strong sunlight faded.';
+$txt['weather_extremely_harsh_sunlight'] = 'The sunlight is extremely harsh!';
+$txt['weather_extremely_harsh_sunlight_negative'] = 'Water-type moves evaporate in this heat!';
+$txt['weather_extremely_harsh_sunlight_ended'] = 'The extremely harsh sunlight faded!';
+$txt['weather_rain'] = 'It is raining.';
+$txt['weather_rain_ended'] = 'The rain stopped.';
+$txt['weather_heavy_rain'] = 'The rain started to pour down heavily!';
+$txt['weather_heavy_rain_negative'] = 'Fire-type moves fizzle out in this heavy rain!';
+$txt['weather_heavy_rain_ended'] = 'The heavy rain has lifted!';
+$txt['weather_sandstorm'] = 'A sandstorm is raging.';
+$txt['weather_sandstorm_negative'] = '%pokemon was buffeted by the sandstorm!';
+$txt['weather_sandstorm_ended'] = 'The sandstorm subsided.';
+$txt['weather_hail'] = 'It is hailing.';
+$txt['weather_hail_negative'] = '%pokemon was pelted by hail!';
+$txt['weather_hail_ended'] = 'The hail stopped.';
+$txt['weather_mysterious_air_current'] = 'Mysterious air currents are causing turbulence!';
+$txt['weather_mysterious_air_current_negative'] = 'The mysterious air currents weakened the move!';
+$txt['weather_mysterious_air_current_ended'] = 'The mysterious air currents dissipated!';
+$txt['battle_disguise'] = 'Mimikyu took no damage thanks to its Disguise ability!';
+$txt['battle_egg_pokemon'] = 'Egg Pokémon';
+$txt['battle_you_got_item'] = 'You got <b>%1$sx</b> %2$s!';
+$txt['battle_cannot_enter'] = '%s cannot enter the battle.';
+$txt['battle_error_reload'] = 'Error: 0001 \n Please reload the page \n Info:';
+$txt['battle_choose_item_target'] = 'Choose the Pokémon that will receive';
+$txt['duel_you_duel_against'] = 'You are dueling against %s.';
+$txt['duel_accepted_your_duel'] = '%s accepted your duel.';
+$txt['duel_replace_pokemon'] = 'Switch out this Pokémon!';
+$txt['duel_starts_attacking'] = '%s attacks first.';
+$txt['duel_you_won_against'] = 'You won the duel against %s';
+$txt['duel_you_lost_against'] = 'You were defeated by %s';
+$txt['duel_won_silvers'] = ', winning %s Silvers.';
+$txt['duel_lost_silvers'] = ', losing %s Silvers.';
+$txt['duel_opponent_switched_your_turn'] = 'Your opponent switched Pokémon. Your turn.';
+$txt['duel_opponent_switched_opp_turn'] = 'Your opponent switched Pokémon. Opponent\'s turn.';
+$txt['duel_your_pokemon_defeated_switch'] = '. Your Pokémon was defeated. <br>You must switch Pokémon!';
+$txt['duel_you_were_defeated'] = '<br> You were defeated.';
+$txt['duel_opponent_offline_win'] = 'Your opponent is probably offline, you won!';
+$txt['duel_not_exists'] = 'This duel does not exist.';
+$txt['duel_opponent_must_switch'] = 'The opponent has to switch Pokémon!';
+$txt['duel_no_more_pokemon'] = 'You cannot add any more Pokémon to this battle!';
+$txt['duel_you_send_out'] = 'You send out %s';
+$txt['battle_no_pokemon_to_fight'] = 'You have no Pokémon able to battle!';
+$txt['tour_opponent_no_answer'] = 'The opponent did not respond. You won.';
+$txt['tour_started'] = 'The tournament has started.';
+$txt['tour_fight_button'] = 'Battle!';
+$txt['duel_rank_insufficient'] = 'Your RANK IS TOO LOW TO DUEL!';
+$txt['duel_opponent_rank_insufficient'] = '%s does not have a HIGH ENOUGH RANK!';
+$txt['duel_opponent_in_league'] = '%s Your opponent is preparing for a Pokémon League battle';
+$txt['duel_opponent_offline'] = '%s is <b>OFFLINE</b>!';
+$txt['duel_already_challenged'] = 'You have already challenged a trainer! Please wait for the answer!';
+$txt['duel_you_blocked'] = 'You have blocked this trainer!';
+$txt['duel_you_are_blocked'] = 'You have been blocked by this trainer!';
+$txt['duel_rank_locked'] = 'MINIMUM RANK TO CHALLENGE OTHER TRAINERS: 4 - TRAINER. KEEP LEVELING UP TO UNLOCK!';
+$txt['battle_potion_cannot_revive'] = '%s cannot be revived because it still has HP!';
+$txt['battle_potion_no_hp'] = '%s has no HP to receive this item!';
+$txt['battle_potion_full_hp'] = '%s already has full HP!';
+$txt['battle_potion_fainted'] = '%s has no HP to use potions!';
+$txt['battle_all_badges_event'] = 'You obtained <b>all</b> badges of <b>%s</b>!';
+$txt['battle_ended_inactivity'] = 'The battle was ended due to inactivity!';
 
 # league-tour
 $txt['liga_open_heading'] = 'Leagues with open registration';
@@ -2658,8 +2693,6 @@ $txt['liga_confirm_unregister'] = 'Are you sure you want to cancel your registra
 $txt['tour_next_heading'] = 'Next tournament:';
 $txt['tour_last_heading'] = 'Latest tournaments:';
 $txt['tour_none_history'] = 'No tournament history!';
-$txt['tour_none_scheduled'] = 'No tournament scheduled!';
-$txt['tour_round_interval'] = 'Interval between rounds: %s minutes';
 $txt['tour_region'] = 'Tournament in the %s region';
 $txt['tour_not_in_region'] = 'You are not in this tournament\'s region!';
 $txt['tour_registered'] = 'You are registered for this tournament!';
@@ -2762,98 +2795,396 @@ $txt['liga_err_already_in'] = 'You are already taking part!';
 $txt['liga_err_register_failed'] = 'Your registration could not be completed! #%s';
 $txt['liga_err_unregister_failed'] = 'Your registration could not be cancelled!';
 
-# league-page
-$txt['liga_travel'] = 'Travel';
-$txt['liga_follow'] = 'Follow league';
-$txt['liga_logo_alt'] = 'Pokémon League';
-$txt['liga_currency_silvers'] = 'silvers';
-$txt['liga_currency_golds'] = 'golds';
-$txt['liga_currency_vip'] = 'VIP';
-$txt['liga_placement'] = '%s - ';
-$txt['liga_level'] = 'lvl %s';
-$txt['liga_icon_confirm'] = 'Confirmed';
-$txt['liga_icon_no_confirm'] = 'Not confirmed';
+# league-duel
+$txt['liga_duel_ready'] = 'Everything is ready for the battle!';
+$txt['liga_duel_offline'] = 'You are not online!';
+$txt['liga_duel_offline_op'] = 'Your opponent was not online!';
+$txt['liga_duel_region'] = 'You need to be in the %s region!';
+$txt['liga_duel_region_op'] = 'Your opponent was not in the %s region!';
+$txt['liga_duel_six'] = 'You do not have 6 Pokémon in your party!';
+$txt['liga_duel_six_op'] = 'Your opponent did not have 6 Pokémon in his party!';
+$txt['liga_duel_fainted'] = 'All of your Pokémon have fainted!';
+$txt['liga_duel_fainted_op'] = 'All of your opponent\'s Pokémon had fainted!';
+$txt['liga_duel_level'] = 'One of the Pokémon in your party is above level %s!';
+$txt['liga_duel_level_op'] = 'Your opponent had a Pokémon above level %s in his party!';
+$txt['liga_duel_shiny'] = 'You have more than %s shiny Pokémon in your party!';
+$txt['liga_duel_shiny_op'] = 'Your opponent had more than %s shiny Pokémon in his party!';
+$txt['liga_duel_legendary'] = 'You have more than %s legendary Pokémon in your party!';
+$txt['liga_duel_legendary_op'] = 'Your opponent had more than %s legendary Pokémon in his party!';
+$txt['liga_duel_mega'] = 'You have more than %s mega evolved Pokémon in your party!';
+$txt['liga_duel_mega_op'] = 'Your opponent had more than %s mega evolved Pokémon in his party!';
+$txt['liga_ad_minimize'] = 'MINIMIZE';
+$txt['liga_ad_close'] = 'CLOSE';
+$txt['liga_ad_slots'] = 'Slots';
+$txt['liga_prep_title'] = 'Preparation phase for the battle %s.';
+$txt['liga_prep_in_league'] = 'in the League';
+$txt['liga_prep_in_tour'] = 'in the Tournament';
+$txt['liga_prep_text'] = 'During the preparation phase edit your team and travel to the region where %s is taking place; during this time you cannot battle or work.';
+$txt['liga_prep_the_league'] = 'the league';
+$txt['liga_prep_the_tour'] = 'the tournament';
+$txt['liga_countdown_left'] = 'Remaining:';
+$txt['liga_creating_battle'] = 'Creating battle...';
+
+# attack-map
+$txt['map_npc_title'] = 'Map of %s';
+$txt['map_npc_text'] = 'Hello, trainer! Welcome to the <b>MAP</b> of the %s region.<br>Keep making progress by defeating and catching lots of Pokémon. Always carry Poké Balls with you – you never know which Pokémon you will run into!';
+$txt['map_need_items'] = 'To access the sea/lake buy the %s and to access the cave get the %s in the %s!';
+$txt['map_market_link'] = 'MARKET';
+$txt['map_alt_dojo'] = 'Dojo';
+$txt['map_alt_grass'] = 'Grass';
+$txt['map_alt_cave'] = 'Cave';
+$txt['map_alt_lava'] = 'Lava';
+$txt['map_alt_beach'] = 'Beach';
+$txt['map_alt_tower'] = 'Haunted Tower';
+$txt['map_alt_water'] = 'Water';
+
+# clans-create
+$txt['clan_create_npc_title'] = 'Create Clan';
+$txt['clan_create_npc_text'] = 'Create your Clan and invite your friends or other trainers to play together! <br> To create a Clan you need 7 days of <b>PREMIUM</b> %1$s and %2$s 100 <b>Gold</b>!';
+$txt['clan_in_clan_link'] = 'You are already in a CLAN! CLICK %s TO VIEW IT!';
+$txt['clan_here'] = 'HERE';
+$txt['clan_buy_premium'] = 'Buy PREMIUM by clicking here!';
+$txt['clan_already_member'] = 'You are already a member of a CLAN!';
+$txt['clan_need_rank'] = 'YOU NEED AT LEAST RANK 5 - FIRST COACH TO ACCESS CLANS!';
+$txt['clan_need_premium'] = 'YOU NEED PREMIUM!';
+$txt['clan_need_gold'] = 'YOU NEED AT LEAST %s 100 <b>Gold</b>!';
+$txt['clan_invalid_icon'] = 'INVALID CLAN ICON!';
+$txt['clan_descr_too_long'] = 'THE CLAN DESCRIPTION CANNOT EXCEED 500 CHARACTERS!';
+$txt['clan_name_length'] = 'THE CLAN NAME MUST BE BETWEEN 5 AND 20 CHARACTERS!';
+$txt['clan_tag_length'] = 'THE CLAN TAG MUST BE EXACTLY 5 CHARACTERS!';
+$txt['clan_name_taken'] = 'A CLAN WITH THIS NAME OR TAG ALREADY EXISTS!';
+$txt['clan_created'] = 'YOUR CLAN %s WAS CREATED SUCCESSFULLY!';
+$txt['clan_confirm_create'] = 'Do you really want to create this Clan?';
+$txt['clan_choose_icon'] = 'Choose your Clan\'s icon';
+$txt['clan_infos'] = 'Clan information';
+$txt['clan_name_label'] = 'Clan name:';
+$txt['clan_tag_label'] = 'Clan tag:';
+$txt['clan_descr_placeholder'] = 'Clan description';
+$txt['clan_create_button'] = 'CREATE CLAN';
+
+# clans-profile
+$txt['clan_central_title'] = 'Clan Central';
+$txt['clan_central_text'] = 'Here you can see all clan actions, such as <b>VIEW ALL CLANS</b>, <b>CREATE CLAN</b>, <b>MANAGE YOUR CLAN</b>, etc.';
+$txt['clan_profile_created_at'] = 'Created on:';
+$txt['clan_profile_members'] = 'Members:';
+$txt['clan_profile_ranking'] = 'Ranking:';
+$txt['clan_profile_quests_done'] = 'Completed quests:';
+$txt['clan_profile_prizes'] = 'Prizes:';
+$txt['clan_profile_presentation'] = 'PRESENTATION';
+$txt['clan_profile_no_presentation'] = 'THIS CLAN HAS NO PRESENTATION!';
+$txt['clan_profile_members_title'] = 'MEMBERS';
+$txt['clan_profile_trainer'] = 'Trainer';
+$txt['clan_profile_role'] = 'Role';
+$txt['clan_profile_contrib_silver'] = 'Silver contribution';
+$txt['clan_profile_contrib_gold'] = 'Gold contribution';
+$txt['clan_profile_member_since'] = 'Member since';
+$txt['clan_role_owner'] = 'Owner';
+$txt['clan_role_mod'] = 'Moderator';
+$txt['clan_role_member'] = 'Member';
+$txt['clan_rank_locked'] = 'MINIMUM RANK TO ACCESS CLANS: 5 - FIRST COACH. KEEP LEVELING UP TO UNLOCK!';
+
+# gyms
+$txt['gym_not_a_gym'] = 'This is not a gym!';
+$txt['gym_npc_title'] = 'Gyms';
+$txt['gym_npc_text'] = 'Welcome, trainer! <br>Here you can challenge gym leaders of certain regions and earn rewards such as <b>Badges</b> for beating them. Train your Pokémon well, because no gym leader here will show mercy!';
+$txt['gym_rank_locked'] = 'MINIMUM RANK TO CHALLENGE GYMS: 3 - COACH. KEEP LEVELING UP TO UNLOCK!';
+$txt['gym_region_title'] = 'Gyms of the %s region';
+$txt['gym_elite_four'] = '%1$s is a member of the ELITE FOUR of %2$s!';
+$txt['gym_locked_previous'] = '[GYM LOCKED!] <BR> [BEAT THE PREVIOUS LEADER TO CHALLENGE THIS GYM LEADER!]';
+$txt['gym_locked_rank'] = '[GYM LOCKED!] <BR> [RANK UP TO CHALLENGE THIS GYM LEADER!]';
+$txt['gym_no_description'] = 'No description available for this trainer!';
+$txt['gym_description_label'] = 'Description:';
+$txt['gym_challenge'] = 'Challenge';
+$txt['gym_challenge_name'] = 'CHALLENGE %s';
+$txt['gym_beat_previous'] = 'BEAT THE PREVIOUS TRAINER TO FACE HIM!';
+$txt['gym_already_beaten'] = 'YOU HAVE ALREADY FACED %s!';
+$txt['gym_rank_up_to_face'] = 'RANK UP TO FACE HIM!';
+
+# friends-add
+$txt['fa_no_trainer'] = 'This trainer does not exist!';
+$txt['fa_not_yourself'] = 'You cannot add yourself!';
+$txt['fa_already_friends'] = 'You are already friends or a request is pending!';
+$txt['fa_you_blocked'] = 'You have blocked this trainer!';
+$txt['fa_you_are_blocked'] = 'You have been blocked by this trainer!';
+$txt['fa_request_sent'] = 'Friend request sent!';
+$txt['fa_npc_title'] = 'Add friends';
+$txt['fa_npc_text'] = 'Nothing is more fun than playing with <b>friends</b>! <br>Here you can search for trainers in every region and add them as friends. <br>Requests older than one week are deleted automatically!';
+$txt['fa_trainer_label'] = 'Trainer:';
+$txt['fa_trainer_placeholder'] = 'Trainer';
+$txt['fa_fuzzy_search'] = 'Use approximate search?';
+$txt['fa_search'] = 'Search';
+$txt['fa_col_trainer'] = 'Trainer';
+$txt['fa_col_age'] = 'Seniority';
+$txt['fa_col_last_visit'] = 'Last visit';
+$txt['fa_col_ranking'] = 'Ranking';
+$txt['fa_col_add_friend'] = 'Add friend';
+$txt['fa_admin'] = 'Administrator';
+$txt['fa_already_friends_btn'] = 'You are already friends!';
+$txt['fa_waiting'] = 'Pending...';
+$txt['fa_add'] = 'Add';
+$txt['fa_days'] = 'days';
+
+# slots
+$txt['slots_npc_title'] = 'Slot Machine';
+$txt['slots_npc_text'] = 'Bet 150 tickets on the slot machine, hit the combinations and win more tickets! <br> Click %s to go <b>back</b> to the casino.';
+$txt['slots_here'] = 'HERE';
+$txt['slots_no_tickets'] = 'You don\'t have enough tickets! Buy some at the %1$s or %2$s!';
+$txt['slots_casino_store'] = 'CASINO STORE';
+$txt['slots_other_minigames'] = 'PLAY OTHER MINIGAMES';
+$txt['slots_win'] = 'You hit a combination and won %s TICKETS!';
+$txt['slots_lose'] = 'You did not hit any combination.';
+$txt['slots_inventory_tickets'] = 'Tickets in inventory:';
+$txt['slots_play'] = 'PLAY';
+$txt['slots_combos_collapse'] = 'Combinations (click to collapse):';
+$txt['slots_combos_expand'] = 'Combinations (click to expand):';
+$txt['slots_combos'] = 'Combinations:';
+$txt['slots_prize'] = 'Prize:';
+
+# safari
+$txt['safari_npc_title'] = 'Safari Zone';
+$txt['safari_npc_text'] = 'Search for and catch exotic Pokémon from every region here in the <b>Safari Zone</b>! <br>The Safari opens every <b>Tuesday</b>, <b>Thursday</b> and <b>Saturday</b> from 00:00 to 02:00, 11:00 to 13:00 and 18:00 to 20:00!';
+$txt['safari_all_fainted'] = 'All of your Pokémon have fainted.';
+$txt['safari_wrong_pokemon'] = 'You did not find this Pokémon, or you have already battled it!';
+$txt['safari_wrong_level'] = 'That is not the level of the Pokémon you found!';
+$txt['safari_found'] = 'You found a %s!';
+$txt['safari_level'] = 'Level: %s';
+$txt['safari_attack'] = 'Attack!';
+$txt['safari_trainers_here'] = 'Trainers in the area: %s';
+$txt['safari_you'] = 'You';
+$txt['safari_map_grass'] = 'Grass map';
+$txt['safari_map_water'] = 'Water map';
+$txt['safari_map_cave'] = 'Cave map';
+$txt['safari_map_tower'] = 'Tower map';
+$txt['safari_map_lava'] = 'Lava map';
+$txt['safari_map_beach'] = 'Beach map';
+$txt['safari_map_dojo'] = 'Dojo map';
+$txt['safari_pokecenter'] = 'Pokémon Center';
+$txt['safari_market'] = 'Market';
+$txt['safari_move_hint'] = 'Use the buttons above or the arrow keys to move around!';
+$txt['safari_closed_now'] = 'The Safari Zone is currently closed.';
+
+# kluis
+$txt['kluis_npc_title'] = 'Crack the code';
+$txt['kluis_npc_text'] = 'Try to crack the safe\'s code – if you succeed, all the <b>TICKETS</b> inside are yours! <br>Each attempt adds <b>200 tickets</b> to the current prize.<br> Click %s to go <b>back</b> to the casino.';
+$txt['kluis_here'] = 'HERE';
+$txt['kluis_not_enough'] = 'You don\'t have enough tickets.';
+$txt['kluis_win'] = 'Congratulations! The code is correct! <b>You won the prize of %s!<br/>The code was reset, the prize is back to 200 TICKETS!';
+$txt['kluis_wrong'] = 'Unfortunately the code is wrong.';
+$txt['kluis_tickets_inventory'] = 'Tickets in inventory:';
+$txt['kluis_current_prize'] = 'Current prize:';
+$txt['kluis_code'] = 'Code %s';
+$txt['kluis_try'] = 'Try!';
+
+# donate
+$txt['donate_npc_text'] = 'Every purchase on this page supports the development of the game. All money raised here goes into improving and promoting the game.';
+$txt['donate_pack_not_exists'] = 'This package does not exist!';
+$txt['donate_featured_packs'] = 'Featured packages';
+$txt['donate_more_content'] = '+Content';
+$txt['donate_confirm_buy'] = 'Are you sure you want to buy %1$s for R$ %2$s?';
+$txt['donate_buy_pack'] = 'Buy package';
+$txt['donate_no_featured'] = 'There are no featured packages at the moment.';
+$txt['donate_packs'] = 'Packages';
+$txt['donate_pack_prefix'] = 'Package %s';
+$txt['donate_last_transfers'] = 'Last 10 transactions';
+$txt['donate_col_pack'] = 'Package';
+$txt['donate_col_price'] = 'Price';
+$txt['donate_col_date'] = 'Date';
+$txt['donate_status_waiting'] = 'Awaiting payment';
+$txt['donate_status_review'] = 'Under review';
+$txt['donate_status_paid'] = 'Paid';
+$txt['donate_status_available'] = 'Available';
+$txt['donate_status_dispute'] = 'In dispute';
+$txt['donate_status_refunded'] = 'Refunded';
+$txt['donate_status_cancelled'] = 'Cancelled';
+$txt['donate_no_transfers'] = 'There are no transactions to list!';
+
+# travel
+$txt['travel_lore_kanto'] = 'The Kanto region is home to many Pokémon and has a rich history of creating Pokémon with technology. Kanto\'s researchers excelled at their work. A researcher working for the criminal organisation Team Rocket cloned Mew from its genes and created the Genetic Pokémon Mewtwo. Porygon, the virtual Pokémon, was also created by humans in Kanto.';
+$txt['travel_lore_johto'] = '1500 years before modern times, the place now known as the Ruins of Alph was built in Johto, and the oldest known writing system was developed there. Although nobody knows exactly who built the Ruins of Alph, research suggests it was an ancient civilisation that wished to coexist with the enigmatic Unown, which closely resemble the letters of the alphabet. This tribe not only left messages describing Unown on the walls of the ruins, but also erected a Pokémon statue for an unknown reason.';
+$txt['travel_lore_hoenn'] = 'Hoenn was created after Primal Groudon and Primal Kyogre were formed. Primal Groudon raised the landmasses and Primal Kyogre filled the seas that would later become Hoenn. Their encounter sparked a great battle for supremacy until Mega Rayquaza put it down, sending both to caves where they came to rest.';
+$txt['travel_lore_sinnoh'] = 'According to several Sinnoh myths, this region was the first of all regions in the Pokémon world to be created. Out of a void of nothingness came a single egg, which became Arceus, the first Pokémon to exist.';
+$txt['travel_lore_unova'] = 'In mythology, Unova was created when twin heroes united the warring peoples of the land more than 2500 years ago, using a single dragon. Later the brothers began to argue about their beliefs: the elder sought truth, the younger sought ideals. Their argument split the single dragon into Reshiram, who sided with the elder brother, and Zekrom, who sided with the younger. Since both came from the same dragon, neither could defeat the other, and the brothers declared that neither side was right.';
+$txt['travel_lore_kalos'] = '3000 years ago a war took place in Kalos, during which the Ultimate Weapon was created, a weapon that granted immortality. 2200 years after the war ended, the legendary Pokémon Xerneas released life energy across the whole region as its life cycle came to an end. The legendary Pokémon Yveltal in turn absorbed that life energy, and both fell into a deep slumber, bringing balance to the region.';
+$txt['travel_lore_alola'] = 'Alola consists of four natural islands and one artificial one. Legends say that the island guardians, the Tapu, faced Solgaleo and Lunala and drove them away. Many years later a mysterious portal to another dimension appeared, out of which strange new creatures emerged, nicknamed Ultra Beasts.';
+
+# fountain
+$txt['fountain_uses_tooltip'] = 'Number of uses of the basic fountain';
+
+# pokemon-info
+$txt['pki_choose_pokemon'] = 'Choose a Pokémon.';
+$txt['pki_no_species'] = 'There are no Pokémon of this species!';
+$txt['pki_rarity_common'] = 'Common';
+$txt['pki_rarity_uncommon'] = 'Uncommon';
+$txt['pki_rarity_rare'] = 'Rare';
+$txt['pki_rarity_legendary'] = 'Legendary/Starter';
+$txt['pki_yes_with_rarity'] = 'Yes [%s]';
+$txt['pki_no'] = 'No';
+$txt['pki_abilities'] = 'Possible ability/abilities';
+$txt['pki_in_pokemart'] = 'Can appear in the PokéMart?';
+$txt['pki_level_100_count'] = 'There are <b>%s</b> at level 100.';
+$txt['pki_top3_species'] = 'TOP 3 of the species';
+$txt['pki_eff_none'] = 'No effect.';
+$txt['pki_eff_normal'] = 'Normal effectiveness.';
+$txt['pki_eff_super'] = 'Super effective.';
+$txt['pki_eff_not_very'] = 'Not very effective.';
+
+# information
+$txt['inf_applies_effect'] = 'Applies an effect';
+$txt['inf_no_effect'] = 'Does not apply an effect';
+$txt['inf_makes_contact'] = 'Makes contact';
+$txt['inf_no_contact'] = 'Does not make contact';
+$txt['inf_name'] = 'Name';
+$txt['inf_description'] = 'Description';
+$txt['inf_item_list'] = 'Item list';
+$txt['inf_category'] = 'Category';
+$txt['inf_in_pokemarket'] = 'Available in the PokéMarket?';
+$txt['inf_wheel'] = 'Wheel of Fortune?';
+$txt['inf_equippable'] = 'Equippable?';
+$txt['inf_cat_balls'] = 'Poké Balls';
+$txt['inf_cat_items'] = 'Key items';
+$txt['inf_cat_potions'] = 'Potions';
+$txt['inf_cat_stones'] = 'Stones';
+$txt['inf_cat_special'] = 'Special items';
+$txt['inf_equip_yes'] = 'This item can be equipped on a Pokémon!';
+$txt['inf_equip_no'] = 'This item cannot be equipped on a Pokémon!';
+$txt['inf_wheel_yes'] = 'This item is available on the Wheel of Fortune!';
+$txt['inf_wheel_no'] = 'This item is not available on the Wheel of Fortune!';
+$txt['inf_market_yes'] = 'This item is available in the PokéMarket!';
+$txt['inf_market_no'] = 'This item is not available in the PokéMarket!';
+
+# box
+$txt['box_top3_medal'] = 'Top 3 Pokémon';
+$txt['box_top2_medal'] = 'Top 2 Pokémon';
+$txt['box_top1_medal'] = 'Top 1 Pokémon';
+$txt['box_pokemon_word'] = 'Pokémon';
+$txt['box_lvl100'] = 'Lv. 100 Pokémon:';
+$txt['box_top3_label'] = 'TOP 3 Pokémon:';
+
+# my-characters
+$txt['chars_not_found'] = 'Character not found!';
+$txt['chars_not_yours'] = 'This character does not belong to you!';
+$txt['chars_blocked'] = 'This character is blocked!';
+$txt['chars_npc_title'] = 'My characters';
+$txt['chars_npc_text'] = 'Here is the list of your characters. Choose which one you want to play.';
+$txt['chars_create_new'] = 'To create a new character just click %s.';
+$txt['chars_here'] = 'HERE';
+
+# new-character
+$txt['newchar_username_short'] = 'THE USERNAME MUST HAVE AT LEAST 4 CHARACTERS!';
+$txt['newchar_username_long'] = 'THE USERNAME MUST NOT EXCEED 12 CHARACTERS!';
+$txt['newchar_no_gold'] = 'You do not have enough gold!';
+$txt['newchar_back_selection'] = 'To return to the character selection just click %s.';
+$txt['newchar_fee_note'] = 'You can create 2 characters for free, after that a fee of %s 10 is charged for each new character!!!';
+
+# events-page
+$txt['evp_intro'] = 'Here you can follow all the things that happen in your game. <br>';
+$txt['evp_limit_free'] = 'Normal users are limited to the 30 most recent notifications.<br><br>&mdash; Become VIP by clicking %s and raise the limit to 60!';
+$txt['evp_limit_vip'] = '<br><br>You have access to the 60 most recent notifications.';
+$txt['evp_npc_title'] = 'My notifications';
+$txt['evp_empty'] = 'THERE ARE NO NOTIFICATIONS TO LIST!';
+$txt['evp_here'] = 'HERE';
+
+# captcha
+$txt['cap_npc_title'] = 'SECURITY CHECK';
+$txt['cap_npc_text'] = ' To prevent problems with BOTS AND MACROS we had to introduce this security measure.';
+$txt['cap_wrong'] = 'Wrong, you have %s attempt(s) left!';
+$txt['cap_correct'] = 'Correct code, you may continue!';
+$txt['cap_not_premium'] = 'You are not premium. Become premium by clicking %s and enjoy the benefits.';
+
+# wheel
+$txt['wof_npc_title'] = 'Wheel of Fortune';
+$txt['wof_npc_text'] = 'Every day you get a few free spins on the WHEEL OF FORTUNE to win rewards!<br> Click %s to go <b>back</b> to the casino.';
+$txt['wof_here'] = 'HERE';
+$txt['wof_win_tickets'] = 'YOU WON %1$s %2$s TICKETS!';
+$txt['wof_slice_tickets'] = '%s TICKETS';
+$txt['wof_slice_pokeball'] = 'POKÉ BALL';
+$txt['wof_slice_special'] = 'SPECIAL ITEM';
+$txt['wof_slice_stone'] = 'EVOLUTION STONE';
+
+# quiz
+$txt['quiz_npc_title'] = 'Who\'s that Pokémon?';
+$txt['quiz_npc_text'] = 'Are you a walking PokéDex? That\'s what it takes to win here! <br>You can guess this Pokémon\'s name <b>once per hour</b> for <b>50 TICKETS</b>. <br>If you get it right, you win <b>100 TICKETS!</b><br> Click %s to go <b>back</b> to the casino.';
+$txt['quiz_tickets_inventory'] = 'Tickets in inventory:';
+$txt['quiz_question'] = 'Who\'s that Pokémon?';
 
 # league-status
-$txt['liga_status_ranking'] = 'Ranking';
-$txt['liga_status_pos'] = 'Pos.';
-$txt['liga_status_name'] = 'Name';
-$txt['liga_status_points'] = 'Points';
-$txt['liga_status_rank'] = '%s';
-$txt['liga_status_bracket'] = 'Knockout stage';
-$txt['liga_status_round'] = 'Round %s';
-$txt['liga_status_start_at'] = 'Starts at %s';
-$txt['liga_status_arena_water'] = 'Water arena';
-$txt['liga_status_arena_ice'] = 'Ice arena';
-$txt['liga_status_arena_rock'] = 'Rock arena';
-$txt['liga_status_arena_grass'] = 'Grass arena';
-$txt['liga_status_no_opponent'] = 'No opponent';
-$txt['league_err_online_op'] = 'Your opponent was not online!';
-$txt['league_err_online_you'] = 'You are not online!';
-$txt['league_err_region_op'] = 'Your opponent was not in the region %s!';
-$txt['league_err_region_you'] = 'You need to be in the region %s!';
-$txt['league_err_six_op'] = 'Your opponent did not have 6 Pokémon in their party!';
-$txt['league_err_six_you'] = 'You do not have 6 Pokémon in your party!';
-$txt['league_err_allko_op'] = 'All Pokémon of your opponent were fainted!';
-$txt['league_err_allko_you'] = 'All your Pokémon are fainted!';
-$txt['league_err_lvmax_op'] = 'Your opponent had a Pokémon with a level higher than %s in their party!';
-$txt['league_err_lvmax_you'] = 'One of your Pokémon in your party has a level higher than %s!';
-$txt['league_err_shinys_op'] = 'Your opponent had more than %s shiny Pokémon in their party!';
-$txt['league_err_shinys_you'] = 'You have more than %s shiny Pokémon in your party!';
-$txt['league_err_lendas_op'] = 'Your opponent had more than %s legendary Pokémon in their party!';
-$txt['league_err_lendas_you'] = 'You have more than %s legendary Pokémon in your party!';
-$txt['league_err_megas_op'] = 'Your opponent had more than %s mega evolved Pokémon in their party!';
-$txt['league_err_megas_you'] = 'You have more than %s mega evolved Pokémon in your party!';
-$txt['msg_title_conversas'] = 'Conversations';
-$txt['msg_you'] = 'You';
-$txt['msg_no_conversas'] = 'There are no conversations to be listed';
-$txt['msg_select_actions'] = 'With the selected:';
-$txt['msg_delete'] = 'Delete';
-$txt['msg_delete_confirm'] = 'Do you really want to delete this/these message(s)?';
-$txt['msg_same_title'] = 'You already have a conversation with this trainer with the same title!';
-$txt['msg_sent'] = 'Message sent to %s!';
-$txt['msg_self'] = 'You cannot send messages to yourself!';
-$txt['msg_user_not_exists'] = 'This user does not exist!';
-$txt['msg_deleted'] = '%s conversations have been deleted!';
-$txt['msg_blocked_by'] = 'You were blocked by this trainer, therefore you cannot send or receive messages from them!';
-$txt['msg_blocked_you'] = 'You blocked this trainer, therefore you cannot send or receive messages from them!';
-$txt['om_title'] = 'Official Messages';
-$txt['om_posted_in'] = 'Posted on: %s';
-$txt['om_no_messages'] = 'There are no official messages to be listed';
-$txt['friends_request_event'] = '<img src="public/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player=%s">%s</a> wants to be your friend. Visit the <a href="./friends">Friends Page</a> for <b>more details</b>.';
-$txt['captcha_box_title'] = 'SECURITY CHECK';
-$txt['captcha_box_text'] = ' To avoid problems with BOTS and MACROS, we had to adopt this security measure.';
-$txt['captcha_incorrect'] = 'Incorrect, you have %s more chance(s)!';
-$txt['captcha_correct'] = 'Correct code, you can continue!';
-$txt['captcha_not_premium'] = 'You are not premium. Become Premium by clicking <a href="./gold-market">HERE</a> and enjoy advantages.';
-$txt['captcha_click_on'] = 'Click on <b><font color="#d25757">%s</font></b> below.';
-$txt['pokedex_rarity_1']        = 'Common';
-$txt['pokedex_rarity_2']        = 'Uncommon';
-$txt['pokedex_rarity_3']        = 'Rare';
-$txt['pokedex_rarity_4']        = 'Legendary';
-$txt['pokedex_rarity_5']        = 'Starter';
-$txt['pokedex_rarity_6']        = 'Mythical';
-$txt['pokedex_rarity_7']        = 'Mega';
-$txt['pokedex_rarity_8']        = 'Special';
-# popup (HUD / pokemon-info)
-$txt['popup_level'] = 'Lv.';
-$txt['popup_attack'] = 'Attack';
-$txt['popup_defense'] = 'Defense';
-$txt['popup_sp_attack'] = 'Sp. Attack';
-$txt['popup_sp_defense'] = 'Sp. Defense';
-$txt['popup_speed'] = 'Speed';
-$txt['popup_capture_chance'] = 'Capture chance:';
-$txt['popup_ability'] = 'Ability:';
-$txt['popup_total_power'] = 'Total power:';
-$txt['popup_rarity_is'] = 'This Pokémon is <u>%s</u>.';
-$txt['popup_top'] = 'Top %s Pokémon';
-$txt['popup_view_profile'] = 'View Pokémon profile';
-$txt['popup_nickname'] = 'Nickname:';
-$txt['popup_mood'] = 'Nature:';
-$txt['popup_tradable'] = 'Tradable:';
-$txt['popup_tradable_yes'] = 'Tradable';
-$txt['popup_tradable_no'] = 'Not tradable';
-$txt['popup_initial'] = 'Starter';
-$txt['popup_egg_hatch'] = 'The egg will hatch in:';
+$txt['ls_league_alt'] = 'Pokémon League';
+$txt['ls_round'] = 'Round %s';
+$txt['ls_start_at'] = 'Starts at %s';
+$txt['ls_arena_water'] = 'Water arena';
+$txt['ls_arena_ice'] = 'Ice arena';
+$txt['ls_arena_rock'] = 'Rock arena';
+$txt['ls_arena_grass'] = 'Grass arena';
+$txt['ls_no_opponent'] = 'No opponent';
+
+# drops-event
+$txt['drop_npc_title'] = 'ELEMENTAL DROPS - AVAILABLE UNTIL 19/05/2019!';
+$txt['drop_npc_intro'] = 'THE <b>ELEMENTAL DROPS</b> EVENT IS AVAILABLE!';
+$txt['drop_npc_types'] = '<br>• This event features 7 types of DROPS, among them: %s and the most <b>difficult</b> and <b>valuable</b> one: %s!';
+$txt['drop_npc_where'] = '<br>• Get them in their respective areas <a href="./eventos&actual=drops_elementais#encontrar"><b>[?]</b></a>;';
+$txt['drop_npc_days'] = '<br>• On some days certain DROPS are more likely <a href="./eventos&actual=drops_elementais#dias"><b>[?]</b></a>;';
+$txt['drop_npc_qty'] = '<br>• The amount varies between 1x and 3x DROPS!';
+$txt['drop_missing'] = 'You still need %1$sx DROP %2$s %3$s!';
+$txt['drop_no_bag_space'] = 'YOU HAVE NO FREE SPACE IN YOUR BAG!';
+$txt['drop_bought_1x'] = 'You bought 1x %s!';
+$txt['drop_bought'] = 'You bought %s!';
+$txt['drop_team_full'] = 'YOU ALREADY HAVE 6 POKÉMON WITH YOU!';
+$txt['drop_option_missing'] = 'That option does not exist!';
+$txt['drop_not_enough_gold'] = 'You do not have enough Golds!';
+$txt['drop_received'] = 'You received: %s!';
+$txt['drop_inventory_title'] = 'NUMBER OF DROPS IN INVENTORY:';
+$txt['drop_set_title'] = 'DROP SET!';
+$txt['drop_set_text'] = 'Until 19/05 you can buy a set with 3 random DROPS for only <b>%s 50 GOLDS</b>, <br>with a chance of a 4th Ghost drop!<br>';
+$txt['drop_set_confirm'] = 'Do you really want to buy the DROP set for 50 Golds?';
+$txt['drop_set_button'] = 'BUY SET?';
+$txt['drop_set_table_title'] = 'Amount of DROPS the set can contain';
+$txt['drop_set_table_hint'] = 'The top values are for normal DROPS, the bottom ones only for GHOST DROPS!';
+$txt['drop_ghost_value_hint'] = 'Value for GHOST DROPS!';
+$txt['drop_store_title'] = 'EVENT STORE:';
+$txt['drop_biggest_title'] = 'GRAND PRIZE';
+$txt['drop_buy_confirm'] = 'Do you really want to make this purchase?';
+$txt['drop_buy_spooky'] = 'BUY SPOOKY PLATE?';
+$txt['drop_buy'] = 'BUY';
+$txt['drop_pokemons'] = 'Pokémon';
+$txt['drop_items'] = 'Items';
+$txt['drop_where_title'] = 'WHERE TO FIND?';
+$txt['drop_incidence'] = 'FREQUENCY';
+
+# pikachu-event
+$txt['pika_npc_title'] = 'Pikachu Festival!';
+$txt['pika_npc_text'] = 'From <b>16/07/2019</b> to <b>23/07/2019</b> the Cosplay Pikachu forms <a href="./pokedex&poke=966">RockStar</a>, <a href="./pokedex&poke=967">PopStar</a> and <a href="./pokedex&poke=968">Ph.D</a> can be caught in the Grass area of the <a href="./attack/attack_map">MAP</a> in any REGION! <br><br> For every Pikachu you catch or defeat you get 1x <b>PIKACHU TOKEN</b>%1$s, which you can trade for <b>REWARDS</b>! <br>Note: Shiny Pikachu give +2x <b>PIKACHU TOKEN</b> %1$s and Cosplay Pikachu give 3x <b>PIKACHU TOKEN</b>%1$s';
+$txt['pika_won_item'] = 'You received 1x %1$s %2$s!';
+$txt['pika_no_space'] = 'You have no space in your BAG!';
+$txt['pika_no_tokens'] = 'You do not have enough PIKACHU TOKENS for this purchase!';
+$txt['pika_bought'] = 'You bought 1x %s!';
+$txt['pika_you_have'] = 'You have %1$sx <b>PIKACHU TOKEN</b> %2$s';
+$txt['pika_cosplays'] = 'COSPLAYS AVAILABLE DURING THE EVENT:';
+$txt['pika_buy'] = 'Buy?';
+
+# misc-pages
+$txt['noscript_title'] = 'JAVASCRIPT DISABLED';
+$txt['noscript_text'] = 'FOR THE BEST POKÉMON WORLD LEGENDS EXPERIENCE WE RECOMMEND ENABLING JAVASCRIPT IN YOUR BROWSER!';
+$txt['auth_copyright'] = '&copy;%s - Pokémon World Legends | All rights reserved.';
+$txt['auth_have_account'] = 'Already have an account? <a href="./" style="color: #6ac7ee; font-weight: bold">LOG IN</a> now!';
+$txt['team_pass_wrong'] = 'The team security password is wrong!';
+$txt['team_pass_ok'] = 'Security password correct, you may continue!';
+$txt['team_pass_empty'] = 'Please enter the team security password!';
+$txt['team_pass_header'] = 'Security password - World Legends Team.';
+$txt['team_pass_label'] = 'Security password:';
+$txt['goldmarket_exchange_hint'] = 'You can also exchange your golds for silvers.';
+$txt['banned_title'] = 'You have been banned from Pokémon World Legends.';
+$txt['evolve_title'] = 'Your Pokémon is evolving!';
+$txt['statistics_collectors'] = 'Pokémon collectors';
+$txt['market_legendary'] = 'Legendary';
+$txt['daycare_npc_title'] = 'Daycare';
+$txt['maintenance_title'] = 'UNDER MAINTENANCE!';
+$txt['maintenance_text'] = 'POKÉMON WORLD LEGENDS IS UNDER MAINTENANCE, WE WILL BE BACK AT 00:00!';
+$txt['countdown_title'] = 'ONLY %s LEFT UNTIL LAUNCH';
+$txt['countdown_text'] = 'STAY TUNED ON OUR SOCIAL MEDIA! @pkworldlegends';
+$txt['login_already_logged'] = 'This user is already logged in!';
+$txt['chat_title'] = 'CHAT - POKÉMON WORLD LEGENDS';
+$txt['league_champions'] = 'Champions';
+$txt['fountain_use_count'] = 'Number of basic fountain uses';
+$txt['evolve_text'] = 'Your Pokémon reached a new stage and will now evolve into %s. If you do not want this evolution, click <b>"STOP EVOLUTION"</b>, otherwise click <b>"EVOLVE!"</b>.';
 /* === end externalized strings === */
 ?>

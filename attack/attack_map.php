@@ -231,31 +231,31 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='236' height='228'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/kanto/grot.gif' alt='Gruta' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='354' height='228'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/kanto/grasveld.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='236' height='228'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/kanto/grot.gif' alt='" . $txt['map_alt_cave'] . "' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='354' height='228'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/kanto/grasveld.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='236' height='185'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/kanto/lavagrot.gif' alt='Lava' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='354' height='185'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/kanto/vechtschool.gif'  alt='Dojô' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='236' height='185'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/kanto/lavagrot.gif' alt='" . $txt['map_alt_lava'] . "' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='354' height='185'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/kanto/vechtschool.gif'  alt='" . $txt['map_alt_dojo'] . "' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='131'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/kanto/strand.gif' alt='Praia'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='131'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/kanto/strand.gif' alt='" . $txt['map_alt_beach'] . "'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='371' height='256'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/kanto/water.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='219' height='256'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/kanto/spookhuis.gif'  alt='Torre Assombrada' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='371' height='256'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/kanto/water.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='219' height='256'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/kanto/spookhuis.gif'  alt='" . $txt['map_alt_tower'] . "' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -267,31 +267,31 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='351' height='239'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/johto/vechtschool.gif' alt='Dojô' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='239' height='239'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/johto/grot.gif' alt='Gruta' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='351' height='239'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/johto/vechtschool.gif' alt='" . $txt['map_alt_dojo'] . "' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='239' height='239'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/johto/grot.gif' alt='" . $txt['map_alt_cave'] . "' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='348' height='255'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/johto/grasveld.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='242' height='255'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/johto/lavagrot.gif' alt='Lava' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='348' height='255'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/johto/grasveld.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='242' height='255'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/johto/lavagrot.gif' alt='" . $txt['map_alt_lava'] . "' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='304' height='149'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/johto/spookhuis.gif' alt='Torre Assombrada' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='286' height='149'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/johto/strand.gif' alt='Praia'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='304' height='149'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/johto/spookhuis.gif' alt='" . $txt['map_alt_tower'] . "' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='286' height='149'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/johto/strand.gif' alt='" . $txt['map_alt_beach'] . "'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='157'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/johto/water.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='157'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/johto/water.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -303,8 +303,8 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='351' height='208'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/lavagrot.gif' alt='Lava' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='239' height='208'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/spookhuis.gif' alt='Torre Assombrada' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='351' height='208'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/lavagrot.gif' alt='" . $txt['map_alt_lava'] . "' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='239' height='208'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/spookhuis.gif' alt='" . $txt['map_alt_tower'] . "' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -312,7 +312,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
             <td width='267' height='129'><img src='" . $static_url . "/images/attackmap/hoenn/area_01.gif'></td>
-            <td width='323' height='129'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grasveld_01.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='323' height='129'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grasveld_01.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -326,16 +326,16 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='255' height='154'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/vechtschool.gif' alt='Dojô' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='335' height='154'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grasveld.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='255' height='154'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/vechtschool.gif' alt='" . $txt['map_alt_dojo'] . "' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='335' height='154'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grasveld.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
         </tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='127' height='172'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grot.gif' alt='Gruta' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='297' height='172'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/strand.gif' alt='Praia'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='166' height='172'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/water.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='127' height='172'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/grot.gif' alt='" . $txt['map_alt_cave'] . "' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='297' height='172'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/strand.gif' alt='" . $txt['map_alt_beach'] . "'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='166' height='172'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/hoenn/water.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -350,32 +350,32 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
             
-            <td width='192' height='112'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/spookhuis.gif' alt='Torre Assombrada' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='257' height='112'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/grot.gif' alt='Gruta' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='141' height='112'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/water.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='192' height='112'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/spookhuis.gif' alt='" . $txt['map_alt_tower'] . "' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='257' height='112'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/grot.gif' alt='" . $txt['map_alt_cave'] . "' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='141' height='112'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/water.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='142'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/water2.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='142'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/water2.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='379' height='264'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/strand.gif' alt='Praia'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='211' height='264'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/vechtschool.gif' alt='Dojô' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='379' height='264'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/strand.gif' alt='" . $txt['map_alt_beach'] . "'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='211' height='264'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/vechtschool.gif' alt='" . $txt['map_alt_dojo'] . "' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='385' height='273'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/grasveld.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='205' height='273'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/lavagrot.gif' alt='Lava' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='385' height='273'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/grasveld.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='205' height='273'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/sinnoh/lavagrot.gif' alt='" . $txt['map_alt_lava'] . "' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -387,38 +387,38 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='126'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/unova/lavagrot.gif' alt='Lava' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='126'><form method='post' name='Lavagrot'><input type='image' src='" . $static_url . "/images/attackmap/unova/lavagrot.gif' alt='" . $txt['map_alt_lava'] . "' /><input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='145'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/unova/grot.gif' alt='Gruta' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='145'><form method='post' name='Grot'><input type='image' src='" . $static_url . "/images/attackmap/unova/grot.gif' alt='" . $txt['map_alt_cave'] . "' /><input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='160' height='211'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/unova/vechtschool.gif' alt='Dojô' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='254' height='211'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/unova/grasveld.gif' alt='Grama' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='176' height='211'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/unova/spookhuis.gif' alt='Torre Assombrada' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='160' height='211'><form method='post' name='Vechtschool'><input type='image' src='" . $static_url . "/images/attackmap/unova/vechtschool.gif' alt='" . $txt['map_alt_dojo'] . "' /><input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='254' height='211'><form method='post' name='Gras'><input type='image' src='" . $static_url . "/images/attackmap/unova/grasveld.gif' alt='" . $txt['map_alt_grass'] . "' /><input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='176' height='211'><form method='post' name='Spookhuis'><input type='image' src='" . $static_url . "/images/attackmap/unova/spookhuis.gif' alt='" . $txt['map_alt_tower'] . "' /><input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='379' height='204'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/unova/strand.gif' alt='Praia'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
-            <td width='211' height='204'><img src='" . $static_url . "/images/attackmap/unova/port.gif' alt='Praia'/></td>
+            <td width='379' height='204'><form method='post' name='Strand'><input type='image' src='" . $static_url . "/images/attackmap/unova/strand.gif' alt='" . $txt['map_alt_beach'] . "'/><input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='211' height='204'><img src='" . $static_url . "/images/attackmap/unova/port.gif' alt='" . $txt['map_alt_beach'] . "'/></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table width='590' border='0' cellspacing='0' cellpadding='0'>
           <tr>
-            <td width='590' height='114'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/unova/water.gif' alt='Água' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
+            <td width='590' height='114'><form method='post' name='Water'><input type='image' src='" . $static_url . "/images/attackmap/unova/water.gif' alt='" . $txt['map_alt_water'] . "' /><input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'></form></td>
           </tr>
         </table></td>
       </tr>
@@ -430,40 +430,40 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
 <map name='kalos' id='kalos'>
 <form method='post' name='Spookhuis'>
 <input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='300,101,399,314' alt='Torre Assombrada'  onClick='Spookhuis.submit();' href='javascript:void(0)'  />
+<area shape='rect' coords='300,101,399,314' alt='" . $txt['map_alt_tower'] . "'  onClick='Spookhuis.submit();' href='javascript:void(0)'  />
 </form>
 <form method='post' name='Gras'>
 <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='0,194,302,332' alt='Grama'   onClick='Gras.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='149,550,496,664' alt='Grama'   onClick='Gras.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='150,429,476,550' alt='Grama'   onClick='Gras.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='244,312,474,429' alt='Grama'   onClick='Gras.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='398,224,474,313' alt='Grama'   onClick='Gras.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='0,194,302,332' alt='" . $txt['map_alt_grass'] . "'   onClick='Gras.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='149,550,496,664' alt='" . $txt['map_alt_grass'] . "'   onClick='Gras.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='150,429,476,550' alt='" . $txt['map_alt_grass'] . "'   onClick='Gras.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='244,312,474,429' alt='" . $txt['map_alt_grass'] . "'   onClick='Gras.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='398,224,474,313' alt='" . $txt['map_alt_grass'] . "'   onClick='Gras.submit();' href='javascript:void(0)'     />
 </form>
 <form method='post' name='Lavagrot'>
 <input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='0,0,593,104' alt='Lava' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='395,99,593,225' alt='Lava' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='0,0,302,217' alt='Lava' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='0,0,593,104' alt='" . $txt['map_alt_lava'] . "' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='395,99,593,225' alt='" . $txt['map_alt_lava'] . "' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='0,0,302,217' alt='" . $txt['map_alt_lava'] . "' onClick='Lavagrot.submit();' href='javascript:void(0)'     />
 </form>
 <form method='post' name='Water'>
 <input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='0,327,100,487' alt='Água'  onClick='Water.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='67,402,153,487' alt='Água'  onClick='Water.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='0,327,100,487' alt='" . $txt['map_alt_water'] . "'  onClick='Water.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='67,402,153,487' alt='" . $txt['map_alt_water'] . "'  onClick='Water.submit();' href='javascript:void(0)'     />
 </form>
 <form method='post' name='Grot'>
 <input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='473,222,593,807' alt='Gruta'  onClick='Grot.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='0,661,593,807' alt='Gruta'  onClick='Grot.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='473,222,593,807' alt='" . $txt['map_alt_cave'] . "'  onClick='Grot.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='0,661,593,807' alt='" . $txt['map_alt_cave'] . "'  onClick='Grot.submit();' href='javascript:void(0)'     />
 </form>
 <form method='post' name='Vechtschool'>
 <input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='1,485,150,662' alt='Dojô'  onClick='Vechtschool.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='1,485,150,662' alt='" . $txt['map_alt_dojo'] . "'  onClick='Vechtschool.submit();' href='javascript:void(0)'     />
 </form>
 <form method='post' name='Strand'>
 <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'><input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
-<area shape='rect' coords='95,329,253,404' alt='Praia'  onClick='Strand.submit();' href='javascript:void(0)'     />
-<area shape='rect' coords='152,346,244,430' alt='Praia'  onClick='Strand.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='95,329,253,404' alt='" . $txt['map_alt_beach'] . "'  onClick='Strand.submit();' href='javascript:void(0)'     />
+<area shape='rect' coords='152,346,244,430' alt='" . $txt['map_alt_beach'] . "'  onClick='Strand.submit();' href='javascript:void(0)'     />
 </form>
 </map>
 </center>";
@@ -473,7 +473,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                     <div style='float: left; width: 209px; height: 227px;'>
                         <div style='float: left; width: 144px; height: 64px;'>
                             <form method='post' name='Gras'>
-                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta.gif' alt='Grama' />
+                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta.gif' alt='" . $txt['map_alt_grass'] . "' />
                                 <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                             </form>
@@ -481,14 +481,14 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                         <div style='float: left; width: 65px; height: 64px;'>
                             <div style='float: left; width: 65px; height: 48px;'>
                                 <form method='post' name='Gras'>
-                                    <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama2.gif' alt='Grama' />
+                                    <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama2.gif' alt='" . $txt['map_alt_grass'] . "' />
                                     <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                                 </form>
                             </div>
                             <div style='float: left; width: 65px; height: 16px;'>
                                 <form method='post' name='Gras'>
-                                    <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama.gif' alt='Grama' />
+                                    <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama.gif' alt='" . $txt['map_alt_grass'] . "' />
                                     <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                                 </form>
@@ -496,7 +496,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                         </div>
                         <div style='float: left; width: 209px; height: 163px;'>
                             <form method='post' name='Gras'>
-                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama2.gif' alt='Grama' />
+                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Grama2.gif' alt='" . $txt['map_alt_grass'] . "' />
                                 <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                             </form>
@@ -505,7 +505,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                     <div style='float: left; width: 176px; height: 227px;'>
                         <div style='float: left; width: 176px; height: 160px;'>
                             <form method='post' name='Grot'>
-                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Gruta.gif' alt='Gruta' style='margin-top: 0px;'/>
+                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Gruta.gif' alt='" . $txt['map_alt_cave'] . "' style='margin-top: 0px;'/>
                                 <input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                             </form>
@@ -514,7 +514,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                         <img style='float: left; width: 126px; height: 67px;' src='" . $static_url . "/images/attackmap/alola/Caminho2.gif' alt='Road'/>
                         <div style='float: left; width: 16px; height: 67px;'>
                             <form method='post' name='Gras'>
-                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta3.gif?n' alt='Grama' />
+                                <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta3.gif?n' alt='" . $txt['map_alt_grass'] . "' />
                                 <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                                 <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                             </form>
@@ -522,35 +522,35 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                     </div>
                     <div style='float: left; width: 205px; height: 160px;'>
                         <form method='post' name='Lavagrot'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Lava.gif' alt='Lava' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Lava.gif' alt='" . $txt['map_alt_lava'] . "' />
                             <input type='hidden' value='1' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 205px; height: 67px;'>
                         <form method='post' name='Gras'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta4.gif' alt='Grama' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta4.gif' alt='" . $txt['map_alt_grass'] . "' />
                             <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                              <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 243px; height: 238px;'>
                         <form method='post' name='Spookhuis'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Torre.gif' alt='Torre Fantasma' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Torre.gif' alt='" . $txt['map_alt_tower'] . "' />
                             <input type='hidden' value='4' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 126px; height: 238px;'>
                         <form method='post' name='Vechtschool'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Dojo.gif' alt='Dojô' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Dojo.gif' alt='" . $txt['map_alt_dojo'] . "' />
                             <input type='hidden' value='2' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 221px; height: 125px;'>
                         <form method='post' name='Gras'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta5.gif' alt='Grama' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Floresta5.gif' alt='" . $txt['map_alt_grass'] . "' />
                             <input type='hidden' value='3' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                              <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
@@ -558,63 +558,63 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                     <img style='float: left; width: 221px; height: 113px; margin-top: -2px;' src='" . $static_url . "/images/attackmap/alola/Caminho3.gif' alt='Road'/>
                     <div style='float: left; width: 590px; height: 45px;'>
                         <form method='post' name='Strand'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia.gif' alt='Praia'/>
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia.gif' alt='" . $txt['map_alt_beach'] . "'/>
                             <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 332px; height: 45px;'>
                         <form method='post' name='Strand'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia2.gif' alt='Praia'/>
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia2.gif' alt='" . $txt['map_alt_beach'] . "'/>
                             <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 45px; height: 45px;'>
                         <form method='post' name='Grot'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Gruta2.gif' alt='Gruta' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Gruta2.gif' alt='" . $txt['map_alt_cave'] . "' />
                             <input type='hidden' value='5' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 213px; height: 45px;'>
                         <form method='post' name='Strand'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia3.gif' alt='Praia'/>
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia3.gif' alt='" . $txt['map_alt_beach'] . "'/>
                             <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 590px; height: 36px;'>
                         <form method='post' name='Strand'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia4.gif' alt='Praia'/>
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia4.gif' alt='" . $txt['map_alt_beach'] . "'/>
                             <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 89px; height: 79px;'>
                         <form method='post' name='Water'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua.gif' alt='Água' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua.gif' alt='" . $txt['map_alt_water'] . "' />
                             <input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 132px; height: 79px;'>
                         <form method='post' name='Strand'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia5.gif' alt='Praia'/>
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Praia5.gif' alt='" . $txt['map_alt_beach'] . "'/>
                             <input type='hidden' value='7' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 369px; height: 79px;'>
                         <form method='post' name='Water'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua2.gif' alt='Água' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua2.gif' alt='" . $txt['map_alt_water'] . "' />
                             <input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>
                     </div>
                     <div style='float: left; width: 590px; height: 130px;'>
                         <form method='post' name='Water'>
-                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua3.gif' alt='Água' />
+                            <input type='image' src='" . $static_url . "/images/attackmap/alola/Agua3.gif' alt='" . $txt['map_alt_water'] . "' />
                             <input type='hidden' value='6' name='" . ($_SESSION['attak_map_id'] ?? '') . "'>
                             <input type='hidden' value='" . ($_SESSION['map_uniqid'] ?? '') . "' name='uid'>
                         </form>

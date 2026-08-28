@@ -148,8 +148,8 @@ for($inhand = 1; $player_hand = $pokemon_sql->fetch_assoc(); $inhand++) {
           }      
         } else if (1 == "<?= $player_hand['ei']; ?>") {
           $("div[id='change_pokemon'][name='<?= $inhand; ?>']").css({ backgroundImage : "url(<?=$static_url?>/images/icons/egg.gif)" });
-          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").html("Egg Pokémon");
-          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").attr("data-original-title", "Egg Pokémon");
+          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").html(<?=json_encode($txt['battle_egg_pokemon'])?>);
+          $("div[id='change_pokemon'][name='<?= $inhand; ?>']").attr("data-original-title", <?=json_encode($txt['battle_egg_pokemon'])?>);
           $("div[id='change_pokemon'][name='<?= $inhand; ?>']").show();
         }
         //Pokemon is not in fight, show.
@@ -260,10 +260,10 @@ $("#message").ready(function() {
   if ("<?= $_SESSION['duel']['begin_zien']; ?>" == 1) {
     $("#you_text").hide()
     if (you == "<?= $duel_info['tegenstander']; ?>") {
-      $("#message").html("<?= 'Você está duelando contra '.$duel_info['uitdager'].'.' ?>")
+      $("#message").html(<?= json_encode(sprintf($txt['duel_you_duel_against'], $duel_info['uitdager'])) ?>)
       $("#opponent_naam").html("<?= $duel_info['opponent_name']; ?>.")    
     } else if (you == "<?= $duel_info['uitdager']; ?>") {
-      $("#message").html("<?= $duel_info['tegenstander'].' aceitou seu duelo.' ?>")
+      $("#message").html(<?= json_encode(sprintf($txt['duel_accepted_your_duel'], $duel_info['tegenstander'])) ?>)
       $("#opponent_naam").html("<?= $duel_info['opponent_name']; ?>.")
     }
     //Set Images
@@ -291,7 +291,7 @@ $("#message").ready(function() {
   } else if ("<?= $duel_info['volgende_zet']; ?>" == "end_screen") {
     end = show_end_screen()
   } else if (("<?= $duel_info['volgende_beurt']; ?>" == you) && ("<?= $duel_info['volgende_zet']; ?>" == "wisselen")) {
-    $("#message").html("Substitua este Pokémon!")
+    $("#message").html(<?=json_encode($txt['duel_replace_pokemon'])?>)
     attack = 0
     wissel = 1
     you_time_used = <?= $time_left; ?>;
@@ -534,7 +534,7 @@ function show_start_text(begin,your,opp,opp_life,you_link,opp_link,you_life,you_
     you_time_used = 0
     you_check_to_late()
   } else {
-    $("#message").html(begin.replace('_begin', '') + " começa atacando.")
+    $("#message").html(<?=json_encode($txt['duel_starts_attacking'])?>.replace('%s', begin.replace('_begin', '')))
     attack = 0
     wissel = 0
     last_move_check()
@@ -571,15 +571,15 @@ function show_end_screen() {
     document.getElementById('dame').style.display = "none";
     document.getElementById('dame2').style.display = "none";
     if (request[0] == 1) {
-      $("#message").html("Você venceu o duelo contra <?=$duel_info['opponent_name'];?>")
-      if (request[1] > 0) $("#message").append(", ganhando "+request[1]+" Silvers.") 
+      $("#message").html(<?=json_encode(sprintf($txt['duel_you_won_against'], $duel_info['opponent_name']));?>)
+      if (request[1] > 0) $("#message").append(<?=json_encode($txt['duel_won_silvers'])?>.replace('%s', request[1])) 
       
       sound_base.stop();
       wlSound('player-victory', <?=$gebruiker['volume']?>, false);
     }
     else if (request[0] == 2) {
-      $("#message").html("Você foi derrotado por <?=$duel_info['opponent_name'];?>")
-      if (request[1] > 0) $("#message").append(", perdendo "+request[1]+" Silvers.") 
+      $("#message").html(<?=json_encode(sprintf($txt['duel_you_lost_against'], $duel_info['opponent_name']));?>)
+      if (request[1] > 0) $("#message").append(<?=json_encode($txt['duel_lost_silvers'])?>.replace('%s', request[1])) 
     }
     $("#pokemon_text").hide()
     $("#trainer_naam").html(request[3])

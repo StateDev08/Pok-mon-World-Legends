@@ -1,3 +1,7 @@
+<?php
+require_once(__DIR__ . '/app/includes/resources/config.php');
+require_once(__DIR__ . '/language/language-general.php');
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,7 +13,7 @@
 <body>
 
 <center>
-<div style="padding-top:190px;"><h1>Você foi banido do Pokémon World Legends.</h1>
+<div style="padding-top:190px;"><h1><?=$txt['banned_title']?></h1>
 </div>
 </center>
 

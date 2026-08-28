@@ -1,5 +1,5 @@
 <?php 
-echo addNPCBox(37, 'Festival Pikachu!', 'A partir do dia <b>16/07/2019</b> até <b>23/07/2019</b> as formas Cosplay Pikachu: <a href="./pokedex&poke=966">RockStar</a>, <a href="./pokedex&poke=967">PopStar</a> e <a href="./pokedex&poke=968">Ph.D</a>, estarão disponíveis para captura na área de Grama do <a href="./attack/attack_map">MAPA</a> em qualquer REGIÃO! <br><br> Cada Pikachu que você capturar ou derrotar, você ganhará 1x <b>TOKEN PIKACHU</b><img src="'.$static_url.'/images/poke_icons/pikachu_festival.png" title="Token Pikachu"> o qual poderá trocá-los por algumas <b>RECOMPENSAS</b>! <br>OBS.: Pikachu Shiny dão +2x <b>TOKEN PIKACHU</b> <img src="'.$static_url.'/images/poke_icons/pikachu_festival.png" title="Token Pikachu"> e Cosplay Pikachu dão 3x <b>TOKEN PIKACHU</b><img src="'.$static_url.'/images/poke_icons/pikachu_festival.png" title="Token Pikachu">');
+echo addNPCBox(37, $txt['pika_npc_title'], sprintf($txt['pika_npc_text'], '<img src="'.$static_url.'/images/poke_icons/pikachu_festival.png" title="Token Pikachu">'));
 
 if ($gebruiker['itembox'] == 'Bag')				$gebruiker['item_over'] = 20   - $gebruiker['items'];
 else if ($gebruiker['itembox'] == 'Yellow box')	$gebruiker['item_over'] = 50   - $gebruiker['items'];
@@ -13,19 +13,19 @@ if (isset($_POST['buy-ball'])) {
         if ($gebruiker['item_over'] > 0) {
             DB::exQuery("UPDATE `gebruikers_item` SET `Master ball`=`Master ball`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
             DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'100' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
-            echo '<div class="green">Você ganhou 1x <img src="'.$static_url.'/images/items/Master ball.png" style="vertical-align: middle"> Master Ball!</div>';
+            echo '<div class="green">'.sprintf($txt['pika_won_item'], '<img src="'.$static_url.'/images/items/Master ball.png" style="vertical-align: middle">', 'Master Ball').'</div>';
         } else {
-            echo '<div class="red">Você não tem espaço em sua MOCHILA!</div>';
+            echo '<div class="red">'.$txt['pika_no_space'].'</div>';
         }
     } else {
-        echo '<div class="red">Você não tem TOKEN PIKACHU suficientes para efetuar a compra!</div>';
+        echo '<div class="red">'.$txt['pika_no_tokens'].'</div>';
     }
 }
 
 if (isset($_POST['buy-pikachu'])) {
     if ($gebruiker['1_drop'] >= 250) {
         if ($gebruiker['in_hand'] >= 6) {
-            echo '<div class="red">VOCÊ JA POSSUI 6 POKÉMONS COM VOCÊ!</div>';
+            echo '<div class="red">'.$txt['drop_team_full'].'</div>';
         } else {
             $opzak_nummer = $gebruiker['in_hand'] + 1;
 
@@ -66,7 +66,7 @@ if (isset($_POST['buy-pikachu'])) {
             #Alle gegevens van de pokemon opslaan
             DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='".$opzak_nummer."',`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."',`icon`='7' WHERE `id`='".$pokeid."' LIMIT 1");
             
-            echo '<div class="green">Você comprou 1x '.$pkm['naam'].'!</div>';
+            echo '<div class="green">'.sprintf($txt['pika_bought'], $pkm['naam']).'</div>';
             DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'200' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
         }
     } else {
@@ -79,12 +79,12 @@ if (isset($_POST['buy-zmove'])) {
         if ($gebruiker['item_over'] > 0) {
             DB::exQuery("UPDATE `gebruikers_item` SET `Pikanium Z`=`Pikanium Z`+'1' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
             DB::exQuery("UPDATE `gebruikers` SET `1_drop`=`1_drop`-'350' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
-            echo '<div class="green">Você ganhou 1x <img src="'.$static_url.'/images/items/Pikanium Z.png" style="vertical-align: middle"> Pikanium Z!</div>';
+            echo '<div class="green">'.sprintf($txt['pika_won_item'], '<img src="'.$static_url.'/images/items/Pikanium Z.png" style="vertical-align: middle">', 'Pikanium Z').'</div>';
         } else {
-            echo '<div class="red">Você não tem espaço em sua MOCHILA!</div>';
+            echo '<div class="red">'.$txt['pika_no_space'].'</div>';
         }
     } else {
-        echo '<div class="red">Você não tem TOKEN PIKACHU suficientes para efetuar a compra!</div>';
+        echo '<div class="red">'.$txt['pika_no_tokens'].'</div>';
     }
 }
 
@@ -92,10 +92,10 @@ if (isset($_POST['buy-zmove'])) {
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
 
-<div class="blue">Você tem <?=$gebruiker['1_drop']?>x <b>TOKEN PIKACHU</b> <img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="Token Pikachu" style="vertical-align:middle"></div>
+<div class="blue"><?=sprintf($txt['pika_you_have'], $gebruiker['1_drop'], '<img src="'.$static_url.'/images/poke_icons/pikachu_festival.png" title="Token Pikachu" style="vertical-align:middle">')?></div>
 
 <div class="box-content">
-    <h3 class="title">COSPLAYS DISPONÍVEIS DURANTE O EVENTO:</h3>
+    <h3 class="title"><?=$txt['pika_cosplays']?></h3>
     <p>
         <img src="<?=$static_url?>/images/pokemon/966.gif" alt="Pikachu (RockStar)" title="Pikachu (RockStar)" class="animated delay-1s bounceIn">
         <img src="<?=$static_url?>/images/pokemon/967.gif" alt="Pikachu (PopStar)" title="Pikachu (PopStar)" style="margin: 0 3%;" class="animated delay-2s bounceIn">
@@ -104,16 +104,16 @@ if (isset($_POST['buy-zmove'])) {
 </div>
 
 <div class="box-content" style="margin-top: 7px">
-    <h3 class="title">LOJA DO EVENTO:</h3>
+    <h3 class="title"><?=$txt['drop_store_title']?></h3>
     <div class="row">
          <div class="col" style="width: 33%; border-right: 1px solid #577599; padding: 30px 0">
-            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Master Ball</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/items/Master ball.png" class="elipse" style="margin-top: 13px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">150x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="Comprar?" name="buy-ball"></form></td></tr></tbody></table></div>
+            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Master Ball</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/items/Master ball.png" class="elipse" style="margin-top: 13px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">150x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="<?=htmlspecialchars($txt['pika_buy'], ENT_QUOTES)?>" name="buy-ball"></form></td></tr></tbody></table></div>
         </div>
         <div class="col" style="width: 33%; border-right: 1px solid #577599; padding-top: 30px">
-            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Pikachu (Libre)</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/pokemon/icon/965.gif" class="elipse" style="margin-top: 13px;width: 24px; height:24px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">250x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="Comprar?" name="buy-pikachu"></form></td></tr></tbody></table></div>
+            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Pikachu (Libre)</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/pokemon/icon/965.gif" class="elipse" style="margin-top: 13px;width: 24px; height:24px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">250x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="<?=htmlspecialchars($txt['pika_buy'], ENT_QUOTES)?>" name="buy-pikachu"></form></td></tr></tbody></table></div>
         </div>
         <div class="col" style="width: 33%; padding-top: 30px">
-            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Pikanium Z</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/items/Pikanium Z.png" class="elipse" style="margin-top: 13px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">400x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="Comprar?" name="buy-zmove"></form></td></tr></tbody></table></div>
+            <div style="background: url(<?=$static_url?>/images/layout/events/store/prizes.png) no-repeat; background-size: 100% 100%; width: 170px; height: 180px; text-align:center"><table width="99%"><tbody><tr><th colspan="2"><h3 class="title" style="text-align: center; margin: 10px 0 0;">Pikanium Z</h3></th></tr><tr><td colspan="2"><img src="<?=$static_url?>/images/items/Pikanium Z.png" class="elipse" style="margin-top: 13px;margin-right:0;"></td></tr><tr><td style="padding-top: 7px;"><img src="<?=$static_url?>/images/poke_icons/pikachu_festival.png" title="TOKEN PIKACHU" style="width: 16px"/> <span style="color:#9eadcd;font-weight:bold;font-size:12px">400x</span><br></td></tr><tr><td style="padding-top: 21px;"><form method="post"><input type="submit" value="<?=htmlspecialchars($txt['pika_buy'], ENT_QUOTES)?>" name="buy-zmove"></form></td></tr></tbody></table></div>
         </div>
     </div>
 </div>

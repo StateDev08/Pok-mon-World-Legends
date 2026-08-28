@@ -1,6 +1,7 @@
 <?php	
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 #Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -48,11 +49,11 @@ $messagesquery = DB::exQuery("SELECT * FROM battle_logs
 	  //Scherm weergave
   	echo '<center><table width=700" border="0" cellspacing="0" cellpadding="0" style="text-align:center;">
 			<tr>
-				<td width="140" class="top"><b>Treinador</b></td>
-				<td width="140" class="top"><b>Pokémon</b></td>
+				<td width="140" class="top"><b>'.$txt['adm_trainer'].'</b></td>
+				<td width="140" class="top"><b>'.$txt['adm_pokemon_col'].'</b></td>
 				<td width="50" class="top"><b>Level</b></td>
-				<td width="200" class="top"><b>Quando</b></td>
-				<td width="200" class="top"><b>Raridade</b></td>
+				<td width="200" class="top"><b>'.$txt['adm_when'].'</b></td>
+				<td width="200" class="top"><b>'.$txt['adm_rarity'].'</b></td>
 			</tr>
 			<tr>
 				<td colspan="4"></td>
@@ -64,9 +65,9 @@ $messagesquery = DB::exQuery("SELECT * FROM battle_logs
 	$pokemon = DB::exQuery("SELECT * FROM pokemon_wild WHERE wild_id = '".$row['pokemon']."'")->fetch_assoc();
 	$player = DB::exQuery("SELECT * FROM gebruikers WHERE user_id = '".$row['player']."'")->fetch_assoc();
 
-  if ($pokemon['zeldzaamheid'] == 1) $zeldzaam = '<b>Comum</b>';
-  else if ($pokemon['zeldzaamheid'] == 2) $zeldzaam = '<font color=red><b>Incomum</b></font>';
-  else $zeldzaam = '<font color=gold><b>Raro</b></font>';
+  if ($pokemon['zeldzaamheid'] == 1) $zeldzaam = '<b>'.$txt['adm_common'].'</b>';
+  else if ($pokemon['zeldzaamheid'] == 2) $zeldzaam = '<font color=red><b>'.$txt['adm_uncommon'].'</b></font>';
+  else $zeldzaam = '<font color=gold><b>'.$txt['adm_rare'].'</b></font>';
  
 			 $j++;
 			//Enters in de textarea ook weergeven als een enter

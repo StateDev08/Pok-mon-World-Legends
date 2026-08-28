@@ -1,6 +1,7 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -12,7 +13,7 @@ if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
         <tr>
           <td><strong>IP:</strong></td>
           <td><input name="ip" type="text" value="<?php if (($_POST['ip'] ?? '') != '') echo ($_GET['ip'] ?? ''); else echo ($_POST['ip'] ?? ''); ?>" class="text_long" maxlength="15"></td>
-          <td><input name="submit1" type="submit" value="Procurar!" class="button_mini"></td>
+          <td><input name="submit1" type="submit" value="<?=htmlspecialchars($txt['adm_search_btn'], ENT_QUOTES)?>" class="button_mini"></td>
         </tr>
      </table>
 </form>
@@ -38,10 +39,10 @@ if (isset($_POST['ip'])) {
   	echo '<center><br /><table width="500">
     		<tr>
     			<td width="50">#</td>
-   				<td width="120"><strong>Conta:</strong></td>
-    			<td width="120"><strong>IP Registro:</strong></td>
-    			<td width="120"><strong>IP Login:</strong></td>
-    			<td width="90"><strong>Banir:</strong></td>
+   				<td width="120"><strong>'.$txt['adm_account'].'</strong></td>
+    			<td width="120"><strong>'.$txt['adm_ip_register_col'].'</strong></td>
+    			<td width="120"><strong>'.$txt['adm_ip_login_col'].'</strong></td>
+    			<td width="90"><strong>'.$txt['adm_ban_label'].'</strong></td>
     		</tr>';
   	
   	//Lijst opbouwen per speler gaat vanzelf
@@ -53,10 +54,10 @@ if (isset($_POST['ip'])) {
       				<td>'.$gegevens['ip_aangemeld'].'</td>
       				<td>'.$gegevens['ip_ingelogd'].'</td>';
 					if (($_GET['which'] ?? '') == 'aangemeld') {
-  						echo '<td><a href="./admin/ban-ip&ip='.$gegevens['ip_aangemeld'].'&player='.$gegevens['acc_id'].'"><img src="../images/icons/user_ban.png" alt="Banir" title="Banir IP Registro."></a></td>';
+  						echo '<td><a href="./admin/ban-ip&ip='.$gegevens['ip_aangemeld'].'&player='.$gegevens['acc_id'].'"><img src="../images/icons/user_ban.png" alt="'.htmlspecialchars($txt['adm_ban'], ENT_QUOTES).'" title="'.htmlspecialchars($txt['adm_ip_register_col'], ENT_QUOTES).'"></a></td>';
 					}
 					else{
-						echo '<td><a href="./admin/ban-ip&ip='.$gegevens['ip_ingelogd'].'&player='.$gegevens['acc_id'].'"><img src="../images/icons/user_ban.png" alt="Banir" title="Banir IP Login."></a></td>';
+						echo '<td><a href="./admin/ban-ip&ip='.$gegevens['ip_ingelogd'].'&player='.$gegevens['acc_id'].'"><img src="../images/icons/user_ban.png" alt="'.htmlspecialchars($txt['adm_ban'], ENT_QUOTES).'" title="'.htmlspecialchars($txt['adm_ip_login_col'], ENT_QUOTES).'"></a></td>';
 					}
       			echo '</tr>';
     }

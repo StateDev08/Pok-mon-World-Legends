@@ -347,7 +347,7 @@ if(isset($success)) echo '<div class="green">'.$success.'</div>';
                                                     $poke_array_id.push("<?=$pokemon_profile['wild_id']?>");
                                                     $poke_array_iid.push("<?=$pokemon_profile['id']?>");
                                                     $poke_array_name.push("<?=$of_name?>");
-                                                    $poke_array_spe.push("<?=$pokemon_profile['naam'].'<sup title=\"Quantidade de Usos da Fonte Básica\">('.$pokemon_profile['poke_reset'].'x)</sup>'?>");
+                                                    $poke_array_spe.push("<?=$pokemon_profile['naam'].'<sup title=\"'.htmlspecialchars($txt['fountain_use_count'], ENT_QUOTES).'\">('.$pokemon_profile['poke_reset'].'x)</sup>'?>");
 													$poke_array_price.push("<?=$price?>");
 
                                                     document.querySelector('#remove').outerHTML = '';

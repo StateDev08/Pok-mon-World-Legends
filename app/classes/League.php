@@ -869,31 +869,31 @@ class League {
 
                 $('#gracket_$this->id').gracket({src: win.data_$this->id, canvasLineColor : '#000', roundLabels: [";
         if ($n_rounds == 8 || $n_rounds == 4) {
-            $tabela .= "'Oitavas de final";
+            $tabela .= "'" . $GLOBALS['txt']['bracket_round_of_16'];
             if ($this->round_atual >= ($n_rounds - 3)) {
                 $tabela .= "<br/><small>" . $this->inicio_round($n_rounds - 3) . "</small>";
             }
             $tabela .="', ";
         }
         if ($n_rounds >= 7 || ($n_rounds >= 3 && $n_rounds <= 4)) {
-            $tabela .= "'Quartas de final";
+            $tabela .= "'" . $GLOBALS['txt']['bracket_quarter'];
             if ($this->round_atual >= ($n_rounds - 2)) {
                 $tabela .= "<br/><small>" . $this->inicio_round($n_rounds - 2) . "</small>";
             }
             $tabela .="', ";
         }
 
-        $tabela .= "'Semifinais";
+        $tabela .= "'" . $GLOBALS['txt']['bracket_semi'];
         if ($this->round_atual >= ($n_rounds - 1)) {
             $tabela .= "<br/><small>" . $this->inicio_round($n_rounds - 1) . "</small>";
         }
-        $tabela .="', 'Final";
+        $tabela .="', '" . $GLOBALS['txt']['bracket_final'];
         if ($this->round_atual >= $n_rounds) {
             $tabela .= "<br/><small>" . $this->inicio_round($n_rounds) . "</small>";
         }
-        $tabela .="', 'Campeões']" 
+        $tabela .="', '" . $GLOBALS['txt']['bracket_champions'] . "']" 
                 . ($n_rounds == 8 || $n_rounds == 4 ? ", gracketClass : 'g_gracket2', roundClass : 'g_round2'" : "") . "});
-                $('#gracket2_$this->id').gracket({src: win.data2_$this->id, canvasLineColor : '#000', roundLabels: ['Disputa pelo 3º lugar'], winnerClass : 'g_winner g_3rd_place'" 
+                $('#gracket2_$this->id').gracket({src: win.data2_$this->id, canvasLineColor : '#000', roundLabels: ['" . $GLOBALS['txt']['bracket_third_place'] . "'], winnerClass : 'g_winner g_3rd_place'" 
                 . ($n_rounds == 8 || $n_rounds == 4 ? ", gracketClass : 'g_gracket2', roundClass : 'g_round2'" : "") . "});
                 $('#gracket2_$this->id')\n
                 \t\t.css('left', $('#gracket_$this->id > div:last').prev().offset().left - 475)

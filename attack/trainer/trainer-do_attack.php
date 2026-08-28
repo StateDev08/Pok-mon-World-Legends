@@ -14,7 +14,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
     //Load Attack Info
     $aanval_log = aanval_log(($_GET['aanval_log_id'] ?? ''));
     //Check if the right aanval_log is choosen
-    if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit('A batalha foi encerrada por inatividade!');
+    if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '')) exit($txt['battle_ended_inactivity']);
     if (($_SESSION['sec_key'] ?? '') != ($_GET['_h'] ?? '')) exit;
 
 

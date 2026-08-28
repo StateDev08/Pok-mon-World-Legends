@@ -4346,7 +4346,8 @@ CREATE TABLE `gebruikers` (
   `quest_2` int(1) NOT NULL,
   `quest_1_req` int(255) NOT NULL,
   `quest_2_req` int(255) NOT NULL,
-  `streak` tinyint(11) NOT NULL
+  `streak` tinyint(11) NOT NULL,
+  `language` varchar(2) NOT NULL DEFAULT 'pt'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -15810,6 +15811,8 @@ CREATE TABLE `markt` (
   `omschrijving_es` mediumtext NOT NULL,
   `omschrijving_pl` mediumtext NOT NULL,
   `omschrijving_pt` mediumtext NOT NULL,
+  `omschrijving_ru` mediumtext NOT NULL,
+  `omschrijving_zh` mediumtext NOT NULL,
   `roleta` set('sim','nao') NOT NULL DEFAULT 'sim',
   `desconto` varchar(255) NOT NULL,
   `equip` bit(1) NOT NULL DEFAULT b'0'
@@ -16267,6 +16270,8 @@ CREATE TABLE `marktespecial` (
   `omschrijving_de` mediumtext NOT NULL,
   `omschrijving_es` mediumtext NOT NULL,
   `omschrijving_pl` mediumtext NOT NULL,
+  `omschrijving_ru` mediumtext NOT NULL,
+  `omschrijving_zh` mediumtext NOT NULL,
   `epoca` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

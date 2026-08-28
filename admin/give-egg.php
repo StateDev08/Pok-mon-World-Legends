@@ -1,6 +1,7 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -24,7 +25,7 @@ if (isset($_POST['submit'])) {
   else if ($ei == '')
   	echo '<div class="red"> Escolha um ovo.</div>';
   else if ($aantal == 6)
-    echo '<div class="red"> O treinador tem 6 pokémons com ele.</div>';
+    echo '<div class="red"> '.$txt['adm_egg_six'].'</div>';
   else{
     //1 bij aantal op doen, omdat je anders 2x opzak nummer 1 hebt bijv.
     $opzak_nummer = $aantal+1;
@@ -167,7 +168,7 @@ if (isset($_POST['submit'])) {
       //Alle gegevens van de pokemon opslaan
       DB::exQuery("UPDATE `pokemon_speler` SET `level`='5', `karakter`='".$karakter['karakter_naam']."', `expnodig`='".$experience['punten']."', `user_id`='".$user_id."', `opzak`='ja', `opzak_nummer`='".$opzak_nummer."', `ei`='1', `baby_tijd`='".$tijd."', `attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."', `speed_iv`='".$speed_iv."', `spc.attack_iv`='".$spcattack_iv."', `spc.defence_iv`='".$spcdefence_iv."', `hp_iv`='".$hp_iv."', `attack`='".$attackstat."', `defence`='".$defencestat."', `speed`='".$speedstat."', `spc.attack`='".$spcattackstat."', `spc.defence`='".$spcdefencestat."', `levenmax`='".$hpstat."', `leven`='".$hpstat."', `ability`='".$ability."', `capture_date`='".$tijd."' WHERE `id`='".$pokeid."'");
     }
-   echo '<div class="green"> O ovo pokémon foi enviado com sucesso.</div>';      
+   echo '<div class="green"> '.$txt['adm_egg_sent'].'</div>';      
   }
 }
 ?>
@@ -177,28 +178,28 @@ if (isset($_POST['submit'])) {
 <center>
 <form method="post">
 
-<p>Você pode dar a alguém um ovo Pokémon.<br />
-*Atenção, caso o treinador já tenha 6 pokémons com ele não será póssivel enviar o ovo!</p>
+<p><?=$txt['adm_egg_intro']?><br />
+<?=$txt['adm_egg_warning']?></p>
 <table width="250">
   <tr>
-    	<td width="100"><strong>ID Treinador:</strong></td>
+    	<td width="100"><strong><?=$txt['adm_trainer_id']?></strong></td>
     <td width="150"><input name="user_id" class="text_long" type="text" value="<?php if (($_GET['player'] ?? '') == '') echo ($_POST['user_id'] ?? ''); else echo ($_GET['player'] ?? ''); ?>"></td>
     </tr>
   <tr>
     <td rowspan="10">&nbsp;</td>
-    <td height="40"><strong>Escolha:</strong></td>
+    <td height="40"><strong><?=$txt['adm_choose_label']?></strong></td>
     </tr>
   <tr>
-    <td><input type="radio" name="ei" value="1" id="starter" /> <label for="starter">Ovo inicial</label></td>
+    <td><input type="radio" name="ei" value="1" id="starter" /> <label for="starter"><?=$txt['adm_egg_starter']?></label></td>
     </tr>
   <tr>
-    <td><input type="radio" name="ei" value="2" id="gewoon" /> <label for="gewoon">Ovo simples</label></td>
+    <td><input type="radio" name="ei" value="2" id="gewoon" /> <label for="gewoon"><?=$txt['adm_egg_simple']?></label></td>
     </tr>
   <tr>
-    <td><input type="radio" name="ei" value="3" id="baby" /> <label for="baby">Ovo baby</label></td>
+    <td><input type="radio" name="ei" value="3" id="baby" /> <label for="baby"><?=$txt['adm_egg_baby']?></label></td>
     </tr>
   <tr>
-    <td height="40"><strong>Zona:</strong></td>
+    <td height="40"><strong><?=$txt['adm_zone']?></strong></td>
     </tr>
   <tr>
     <td><input type="radio" name="wereld" value="Kanto" id="kanto" /> <label for="kanto">Kanto</label></td>
@@ -213,7 +214,7 @@ if (isset($_POST['submit'])) {
     <td><input type="radio" name="wereld" value="Sinnoh" id="sinnoh" /> <label for="sinnoh">Sinnoh</label></td>
     </tr>
   <tr>
-    <td><input name="submit" type="submit" value="Dar!" class="button"></td>
+    <td><input name="submit" type="submit" value="<?=htmlspecialchars($txt['adm_give_btn'], ENT_QUOTES)?>" class="button"></td>
     </tr>
 </table>
 </form>

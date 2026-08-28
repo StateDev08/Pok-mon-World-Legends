@@ -1,6 +1,7 @@
 <?php	
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 #Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -46,10 +47,10 @@ $messagesquery = DB::exQuery("SELECT * FROM release_log
 	  //Scherm weergave
   	echo '<center><table width=670" border="0" cellspacing="0" cellpadding="0" style="text-align:center;">
 			<tr>
-				<td width="130" class="top"><b>Quem</b></td>
-				<td width="150" class="top"><b>Quando</b></td>
-				<td width="230" class="top"><b>Pokémon</b></td>
-				<td width="200" class="top"><b>Pokébola</b></td>
+				<td width="130" class="top"><b>'.$txt['adm_who'].'</b></td>
+				<td width="150" class="top"><b>'.$txt['adm_when'].'</b></td>
+				<td width="230" class="top"><b>'.$txt['adm_pokemon_col'].'</b></td>
+				<td width="200" class="top"><b>'.$txt['adm_pokeball'].'</b></td>
 			</tr>
 			<tr>
 				<td colspan="4"></td>

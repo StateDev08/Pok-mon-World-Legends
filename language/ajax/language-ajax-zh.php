@@ -105,5 +105,65 @@ $txt['league_not_created_5min'] = '对战未在 5 分钟内创建';
 $txt['league_lost_not_created'] = '你输了！<br/>对战未被创建！';
 $txt['league_won_not_created'] = '你赢了！<br/>对战未被创建！';
 $txt['league_not_time_yet'] = '还没到你的对战时间！';
+
+# map
+$txt['map_search_1'] = '这里什么都没有！';
+$txt['map_search_2'] = '我差点找到了传说宝可梦，但它消失了！';
+$txt['map_search_3'] = '我不会放弃！';
+$txt['map_search_4'] = '我确定在这附近见过宝可梦……';
+$txt['map_search_5'] = '找到了！不对，只是一块石头！';
+$txt['map_search_6'] = '啊……我什么都找不到！';
+$txt['map_search_7'] = '快出来吧！';
+$txt['map_search_8'] = '这里有宝可梦吗！？';
+$txt['map_search_9'] = '我背后是什么？！呼，只是我的影子！';
+$txt['map_search_10'] = '天上有宝可梦？！哦，只是一朵云。';
+$txt['map_search_11'] = '我觉得这些宝可梦怕我。';
+$txt['map_search_12'] = '我发现了脚印！唉，是我自己的……';
+$txt['map_safari_closed'] = '狩猎地带已关闭！';
+
+# use-items
+$txt['use_choose_pokemon'] = '你必须选择一只宝可梦！';
+$txt['use_choose_for_item'] = '请选择要使用 %s 的宝可梦。';
+$txt['use_level'] = '等级';
+$txt['use_next'] = '继续';
+$txt['use_cannot_learn'] = '你的宝可梦无法学会这个招式！';
+$txt['use_not_your_pokemon'] = '这只宝可梦不是你的！';
+$txt['use_already_learned'] = '%1$s 已经学会了招式 %2$s！';
+$txt['use_learning'] = '%1$s 正在学习 %2$s - %3$s。';
+$txt['use_item_missing'] = '你没有该道具！';
+$txt['use_item_not_equippable'] = '该道具无法装备到这只宝可梦身上！';
+$txt['use_item_already_equipped'] = '该宝可梦已经装备了这个道具！';
+$txt['use_item_egg'] = '该道具无法装备到宝可梦蛋上！';
+$txt['use_choose_receive_item'] = '请选择哪只宝可梦获得道具 %s。';
+$txt['use_old_item_destroyed'] = '如果这只宝可梦已装备道具，旧道具将被销毁！';
+$txt['use_not_equipped'] = '未装备';
+$txt['use_no_items_to_equip'] = '你没有可以让宝可梦装备的道具！';
+$txt['use_cannot_equip_egg'] = '你无法把该道具装备到宝可梦蛋上！';
+$txt['use_cannot_heal'] = '你无法治疗 %s。';
+$txt['use_only_fainted'] = '只能对完全失去战斗能力的宝可梦使用。';
+$txt['use_not_that_amount'] = '你没有这么多数量！';
+$txt['use_amount_too_high'] = '你无法使用这个数量';
+$txt['use_choose_receive_candy'] = '请选择哪只宝可梦获得 %s。';
+$txt['use_spc_limit_25'] = ' 你已经在 %2$s 身上使用过 25 次 %1$s。';
+$txt['use_spc_max'] = ' 最多可使用 %1$s 次 %2$s。';
+$txt['use_dont_have_amount'] = '你没有 %1$s 个 %2$s！';
+$txt['use_choose_with_amount'] = '请选择要使用 %1$s 的宝可梦。<br>（你拥有 %2$s 个 %1$s）';
+$txt['use_choose_stone'] = '请选择要使用 %s 的宝可梦。';
+$txt['use_evolved'] = '恭喜，你的 <strong>%1$s</strong> 进化成了 <strong>%2$s</strong>！';
+$txt['use_choose_for_stone_post'] = '请选择要使用 %s 的宝可梦。';
+$txt['use_stone_not_usable'] = '无法对宝可梦 %1$s 使用 %2$s。';
+$txt['use_yes'] = '是';
+$txt['use_no'] = '否';
+$txt['use_not_usable'] = '不可使用';
+$txt['use_usable'] = '可使用';
+$txt['use_pokemon_label'] = '宝可梦';
+$txt['use_quantity'] = '数量';
+$txt['use_equipped_col'] = '已装备';
+$txt['use_equipped_with'] = '已装备 %s';
+$txt['use_check'] = '选择：';
+$txt['use_name_col'] = '名称：';
+$txt['use_evolves_col'] = '进化：';
+$txt['use_confirm_evolve'] = '确定要让 %s 进化吗？';
+$txt['use_stone_evolved'] = '恭喜，你的<strong>%1$s</strong>使用%3$s进化成了<strong>%2$s</strong>！';
 /* === end externalized strings === */
 ?>

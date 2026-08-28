@@ -68,7 +68,7 @@ foreach ($records as $id=>$gebruikers ) {
 </table></div>
 <div class="separator"></div>
 <?php /*<div class="box-content"><table class="general" width="100%">
-	<thead><tr><th colspan="6" style="text-align: center;">Colecionadores de pokémons</th></tr></thead>
+	<thead><tr><th colspan="6" style="text-align: center;"><?=$txt['statistics_collectors']?></th></tr></thead>
 	<tbody><tr>
 <?php
 $sql = "SELECT `user_id`,`username`,`character`,`aantalpokemon` FROM `gebruikers` WHERE `banned`='N' AND `admin`='0' ORDER BY `aantalpokemon` DESC LIMIT 5";

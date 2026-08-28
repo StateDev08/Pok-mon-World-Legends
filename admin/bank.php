@@ -1,6 +1,7 @@
 <?php	
 #Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 #Admin controle
 if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
@@ -46,10 +47,10 @@ $messagesquery = DB::exQuery("SELECT * FROM bank_logs
 	  //Scherm weergave
   	echo '<table width=670" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="130" class="top"><b>De</b></td>
-				<td width="110" class="top"><b>Para</b></td>
-				<td width="150" class="top"><b>Quando</b></td>
-				<td width="280" class="top"><b>Quanto</b></td>
+				<td width="130" class="top"><b>'.$txt['adm_from'].'</b></td>
+				<td width="110" class="top"><b>'.$txt['adm_to'].'</b></td>
+				<td width="150" class="top"><b>'.$txt['adm_when'].'</b></td>
+				<td width="280" class="top"><b>'.$txt['adm_how_much'].'</b></td>
 			</tr>
 			<tr>
 				<td colspan="4"></td>

@@ -158,7 +158,7 @@ if (!empty($message))	echo $message;
 				<td class="shadow" width="16" align="center"><img src="<?=$static_url;?>/images/icons/.png" /></td>
 				<td>
 					<h3 style="margin: 0;">&raquo; Comprar <img src="<?=$static_url;?>/images/icons/silver.png"/>100k</h3>
-					<p style="margin: 3px; font-size: x-small;">Você também pode trocar seus golds por silvers.</p>
+					<p style="margin: 3px; font-size: x-small;"><?=$txt['goldmarket_exchange_hint']?></p>
 				</td>
 				<td align="center"><img src="<?=$static_url;?>/images/icons/gold.png"/> 5</td>
 				<td align="center"><input type="submit" name="buy_silver100" class="button" value="<?=$txt['common_buy_button']?>" /></td>
@@ -167,7 +167,7 @@ if (!empty($message))	echo $message;
 				<td class="shadow" width="16" align="center"><img src="<?=$static_url;?>/images/icons/.png" /></td>
 				<td>
 					<h3 style="margin: 0;">&raquo; Comprar <img src="<?=$static_url;?>/images/icons/silver.png"/>240k</h3>
-					<p style="margin: 3px; font-size: x-small;">Você também pode trocar seus golds por silvers.</p>
+					<p style="margin: 3px; font-size: x-small;"><?=$txt['goldmarket_exchange_hint']?></p>
 				</td>
 				<td align="center"><img src="<?=$static_url;?>/images/icons/gold.png"/> 12</td>
 				<td align="center"><input type="submit" name="buy_silver240" class="button" value="<?=$txt['common_buy_button']?>" /></td>
@@ -176,7 +176,7 @@ if (!empty($message))	echo $message;
 				<td class="shadow" width="16" align="center"><img src="<?=$static_url;?>/images/icons/.png" /></td>
 				<td>
 					<h3 style="margin: 0;">&raquo; Comprar <img src="<?=$static_url;?>/images/icons/silver.png"/>500k</h3>
-					<p style="margin: 3px; font-size: x-small;">Você também pode trocar seus golds por silvers.</p>
+					<p style="margin: 3px; font-size: x-small;"><?=$txt['goldmarket_exchange_hint']?></p>
 				</td>
 				<td align="center"><img src="<?=$static_url;?>/images/icons/gold.png"/> 25</td>
 				<td align="center"><input type="submit" name="buy_silver500" class="button" value="<?=$txt['common_buy_button']?>" /></td>

@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/resources/config.php');
+require_once(__DIR__ . '/../../language/language-user.php');
 
 $daycare_sql = DB::exQuery("SELECT pokemonid, level, levelup FROM daycare WHERE ei='0' AND levelup<'15' ORDER BY id");
 while ($daycare = $daycare_sql->fetch_assoc()) {
@@ -17,7 +18,8 @@ while ($daycare = $sql->fetch_assoc()) {
   $random = mt_rand(1, 4);
   $usr = DB::exQuery("SELECT premiumaccount FROM gebruikers WHERE user_id='".$daycare['user_id']."'")->fetch_assoc();
   if ($usr['premiumaccount'] < time()) {
-DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen) VALUES (NOW(), '".$daycare['user_id']."', 'Você não é Premium! Seu ovo foi perdido no jardim de infância.', '0')");
+$daycare_txt = user_txt($daycare['user_id']);
+DB::exQuery("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen) VALUES (NOW(), '".$daycare['user_id']."', '".DB::real_escape_string($daycare_txt['event_daycare_egg_lost'])."', '0')");
 DB::exQuery("DELETE FROM `daycare` WHERE `user_id`=".$daycare['user_id']." AND `ei`='1'");        
   } else {
   if ($random == 1) {

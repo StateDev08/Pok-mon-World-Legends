@@ -1,6 +1,7 @@
 <?php		
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) { header('location: ./home'); exit; }
@@ -10,10 +11,10 @@ if ($gebruiker['admin'] < 2) { header('location: ./home'); exit; }
 <table width="600">
 	<tr>
 		<td width="50">#</td>
-		<td width="150"><strong>Treinador:</strong></td>
-		<td width="150"><strong>Senha incorreta:</strong></td>
+		<td width="150"><strong><?=$txt['adm_trainer_label']?></strong></td>
+		<td width="150"><strong><?=$txt['adm_wrong_password']?></strong></td>
 		<td width="150"><strong>IP:</strong></td>
-		<td width="100"><strong>Banir:</strong></td>
+		<td width="100"><strong><?=$txt['adm_ban_label']?></strong></td>
 	</tr>
 
 <?php
@@ -43,7 +44,7 @@ for($j=$pagina+1; $foutgegevens = $fout->fetch_assoc(); $j++) {
   				<td><a href="./profile&player='.$foutgegevens['spelernaam'].'">'.$foutgegevens['spelernaam'].'</a></td>
   				<td>****</a></td>
   				<td>'.$foutgegevens['ip'].'</a></td>
-  				<td><a href="./admin/ban-user&ip='.$foutgegevens['ip'].'">Banir IP</a></td>
+  				<td><a href="./admin/ban-user&ip='.$foutgegevens['ip'].'">'.$txt['adm_ban_ip_title'].'</a></td>
   			</tr>';
 }
 

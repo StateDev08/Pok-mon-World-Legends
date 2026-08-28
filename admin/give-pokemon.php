@@ -1,6 +1,8 @@
 <?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
+	include_once("language/language-admin.php");
+require_once("language/language-user.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
@@ -11,9 +13,9 @@ if (isset($_POST['geef'])) {
 	//$aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$_POST['user_id']."' AND `opzak`='ja'")->num_rows;
 
 	if (($_POST['user_id'] ?? '') == '') echo '<div class="red"> Digite o ID de algum treinador.</div>';
-	else if (($_POST['wild_id'] ?? '') == 'none') echo '<div class="red"> Selecione algum pokémon.</div>';
+	else if (($_POST['wild_id'] ?? '') == 'none') echo '<div class="red"> '.$txt['adm_select_pokemon'].'</div>';
 	//else if ($aantal == 6) echo '<div class="red"> O treinador já tem 6 pokémons com ele.</div>';
-	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE user_id='".($_POST['user_id'] ?? '')."'")->num_rows == 0) echo '<div class="red"> O treinador não existe.</div>';
+	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE user_id='".($_POST['user_id'] ?? '')."'")->num_rows == 0) echo '<div class="red"> '.$txt['adm_trainer_not_exist'].'</div>';
 	else if ((($_POST['level'] ?? '') > 100) OR (($_POST['level'] ?? '') < 5)) echo '<div class="red"> Level muito baixo ou muito alto.</div>';
 	else{
     //Load pokemon basis
@@ -141,12 +143,12 @@ if (isset($_POST['geef'])) {
     VALUES ('".$new_computer['id']."', '".($_POST['user_id'] ?? '')."', 'nee', '', '".$karakter['karakter_naam']."', '".($_POST['level'] ?? '')."', '".$new_computer['hpstat'] ."', '".$new_computer['hpstat'] ."', '".$experience['punten']."', '".$experience['punten']."', '".$new_computer['attackstat']."', '".$new_computer['defencestat']."', '".$new_computer['speedstat']."', '".$new_computer['spcattackstat']."', '".$new_computer['spcdefencestat']."', '".$attack_iv."', '".$defence_iv."', '".$speed_iv."', '".$spcattack_iv."', '".$spcdefence_iv."', '".$hp_iv."', '".$new_computer_sql['effort_attack']."', '".$new_computer_sql['effort_defence']."', '".$new_computer_sql['effort_spc.attack']."', '".$new_computer_sql['effort_spc.defence']."', '".$new_computer_sql['effort_speed']."', '".$new_computer_sql['effort_hp']."', '".$new_computer['aanval1']."', '".$new_computer['aanval2']."', '".$new_computer['aanval3']."', '".$new_computer['aanval4']."', '".$new_computer_sql['effect']."', '".$egg."', '".$tijd."', '".$ability."', '".$date."')");
 	
 	
-	$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> <a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a> transferiu um pokémon para sua casa.';
+	$event = '<img src="'.$static_url.'/images/icons/blue.png" width="16" height="16" class="imglower" /> ' . sprintf(user_txt(($_POST['user_id'] ?? 0), 'admin')['adm_event_transfer_house'], '<a href="./profile&player='.$gebruiker['username'].'">'.$gebruiker['username'].'</a>');
 				DB::exQuery("INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)
 	VALUES (NULL, NOW(), '".($_POST['user_id'] ?? '')."', '".$event."', '0')");
 	
 	
-	echo '<div class="green"> Pokémon entregue na casa com sucesso.</div>';
+	echo '<div class="green"> '.$txt['adm_pokemon_given_house'].'</div>';
 
   }
 }
@@ -154,16 +156,16 @@ if (isset($_POST['geef'])) {
 
 <form method="post" id="form">
 <center>
-<p>De pokémons, o level minimo do pokémon para ser enviado é 5.<br>O Pokémon é enviado para a casa do trainer.</p>
+<p><?=$txt['adm_give_pokemon_intro']?><br><?=$txt['adm_give_pokemon_house']?></p>
 <table width="600">
 	<tr>
     	<td width="150">ID do treinador:</td>
         <td width="200"><input type="text" name="user_id" class="text_long" value="<?php if (($_GET['player'] ?? '') != '') echo ($_GET['player'] ?? ''); ?>"></td>
     </tr>
     <tr>
-    	<td>Pokémon:</td>
+    	<td><?=$txt['adm_pokemon_label']?></td>
         <td><select id="poke" name="wild_id" class="text_select">
-				<option value="none">Escolha</option>
+				<option value="none"><?=$txt['adm_choose']?></option>
 				<?php 
                   $allpokemonsql = DB::exQuery("SELECT wild_id, naam, type1 FROM pokemon_wild ORDER BY naam ASC");
                   while($allpokemon = $allpokemonsql->fetch_assoc()) {
@@ -183,11 +185,11 @@ if (isset($_POST['geef'])) {
     </tr>
     <tr>
       <td>EGG:</td>
-      <td><input type="radio" name="egg" value="n" selected="selected"> Sem egg || <input type="radio" name="egg" value="y"> Com egg</td>
+      <td><input type="radio" name="egg" value="n" selected="selected"> <?=$txt['adm_without_egg']?> || <input type="radio" name="egg" value="y"> <?=$txt['adm_with_egg']?></td>
     </tr>
     <tr>
                   <td></td>
-        <td><input type="submit" name="geef" value="Dar!" class="button" /></td>
+        <td><input type="submit" name="geef" value="<?=htmlspecialchars($txt['adm_give_btn'], ENT_QUOTES)?>" class="button" /></td>
     </tr>
 </table>
 

@@ -292,17 +292,17 @@ function rankerbij($soort, $txt) {
 		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+'" . $rank_up['silvers'] . "', `points`=`points`+'" . $rank_up['extra_points'] . "' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' LIMIT 1");
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'" . $rank_up['golds'] . "' WHERE `acc_id`='" . ($_SESSION['acc_id'] ?? '') . "' LIMIT 1");
 		
-		$msg = ' E de <b>Recompensa</b> ganhou: <b>'.highamount($rank_up['silvers']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="" width="16" height="16" title="Silver">';
+		$msg = $GLOBALS['txt']['ig_reward'].'<b>'.highamount($rank_up['silvers']).'</b> <img src="'.$static_url.'/images/icons/silver.png" title="" width="16" height="16" title="Silver">';
 		if ($rank_up['golds'] > 0) {
-			$msg .= ' e <b>'.highamount($rank_up['golds']).'</b> <img src="'.$static_url.'/images/icons/gold.png" title="" width="16" height="16" title="Gold">';
+			$msg .= $GLOBALS['txt']['ig_and'].'<b>'.highamount($rank_up['golds']).'</b> <img src="'.$static_url.'/images/icons/gold.png" title="" width="16" height="16" title="Gold">';
 		}
 
 		if (!empty($rank_up['wild_id'])) {
-			$msg .= ' e <b>um ovo Pokémon</b>';
+			$msg .= $GLOBALS['txt']['ig_and_egg'];
 		}
 
 		if (!empty($rank_up['message'])) {
-			$msg .= ' e '.$rank_up['message'];
+			$msg .= $GLOBALS['txt']['ig_and'].$rank_up['message'];
 		}
 
 		$msg .= '!';
@@ -347,16 +347,16 @@ function isDay() {
 
 function isSeason () {
 	if (in_array(date("n"), array(1, 5, 9))) {
-		$season_act = "Primavera";
+		$season_act = $GLOBALS['txt']['ig_season_spring'];
 		$season_number = 1;
 	} else if (in_array(date("n"), array(2, 6, 10))) {
-		$season_act = "Verão";
+		$season_act = $GLOBALS['txt']['ig_season_summer'];
 		$season_number = 2;
 	} else if (in_array(date("n"), array(3, 7, 11))) {
-		$season_act = "Outono";
+		$season_act = $GLOBALS['txt']['ig_season_autumn'];
 		$season_number = 3;
 	} else if (in_array(date("n"), array(4, 8, 12))) {
-		$season_act = "Inverno";
+		$season_act = $GLOBALS['txt']['ig_season_winter'];
 		$season_number = 4;
 	} 
 
@@ -702,8 +702,8 @@ function gebruiker_popup($gebruiker, $txt) {
 		<thead><tr><th colspan=\'3\' style=\'text-align:center;\'>' . $gebruiker['username'] . ' '.$premium.'</th></tr></thead>
 		<tbody>
 			<tr>
-				<td width=\'118\'><b>&raquo; Região</b></td>
-				<td width=\'10\'><img src=\'' . $static_url . '/images/icons/wereld.png\' title=\'Região\' /></td>
+				<td width=\'118\'><b>&raquo; ' . $GLOBALS['txt']['ig_region'] . '</b></td>
+				<td width=\'10\'><img src=\'' . $static_url . '/images/icons/wereld.png\' title=\'' . $GLOBALS['txt']['ig_region'] . '\' /></td>
 				<td style=\'min-width: 192px;\'>' . $gebruiker['wereld'] . '</td>
 			</tr>
 			<tr>
@@ -714,7 +714,7 @@ function gebruiker_popup($gebruiker, $txt) {
 				</div></td>
 			</tr>
 			<tr>
-				<td><b>&raquo; Pokédex</b></td>
+				<td><b>&raquo; ' . $GLOBALS['txt']['ig_pokedex'] . '</b></td>
 				<td><img src=\'' . $static_url . '/images/icons/statistieken_online.png\' /></td>
 				<td><div class=\'stats-container\'>
 					<div class=\'bluepr\' style=\'width:' . $gebruiker_pokemon['procent'] . '%;max-width:100%;\'><span style=\'position:absolute;\'>' . $gebruiker_pokemon['procent'] . '%</span></div>
@@ -726,9 +726,9 @@ function gebruiker_popup($gebruiker, $txt) {
 				<td>' . highamount($gebruiker['silver']) . '</td>
 			</tr>
 			<tr>
-				<td><b>&raquo; Dias</b></td>
-				<td><img src=\'' . $static_url . '/images/icons/calendar.png\' title=\'Antiguidade\' /></td>
-				<td>' . ($gebruiker['antiguidade']) . ' dias</td>
+				<td><b>&raquo; ' . $GLOBALS['txt']['ig_days'] . '</b></td>
+				<td><img src=\'' . $static_url . '/images/icons/calendar.png\' title=\'' . $GLOBALS['txt']['ig_seniority'] . '\' /></td>
+				<td>' . ($gebruiker['antiguidade']) . ' ' . $GLOBALS['txt']['ig_days_suffix'] . '</td>
 			</tr>';
     if ($gebruiker['in_hand'] > 0) {
         $return .= '<tr>
@@ -1301,22 +1301,9 @@ function freeSlots () {
 
 function date_show($date) {
 	$dt = explode('-', $date);
-	$arr = [
-		'01' => 'Janeiro',
-		'02' => 'Fevereiro',
-		'03' => 'Março',
-		'04' => 'Abril',
-		'05' => 'Maio',
-		'06' => 'Junho',
-		'07' => 'Julho',
-		'08' => 'Agosto',
-		'09' => 'Setembro',
-		'10' => 'Outubro',
-		'11' => 'Novembro',
-		'12' => 'Dezembro'
-	];
+	$month = $GLOBALS['txt']['ig_month_'.$dt[1]] ?? $dt[1];
 
-	$string = $dt[2].' de '.$arr[$dt[1]].' de '.$dt[0];
+	$string = sprintf($GLOBALS['txt']['ig_date_format'], $dt[2], $month, $dt[0]);
 	return $string;
 }
 

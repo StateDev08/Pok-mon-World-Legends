@@ -91,12 +91,12 @@ if ((isset($_GET['duel_id'])) AND ( isset($_GET['sid']))) {
             if ($duel['u_klaar'] == 1) {
                 $winner = $duel['uitdager'];
                 if ($duel['uitdager'] == ($_SESSION['naam'] ?? '')) {
-                    $mes = "#1-  O seu oponente provavelmente está offline, você venceu!";
+                    $mes = "#1-  ".$txt['duel_opponent_offline_win'];
                 }
             } else {
                 $winner = $duel['tegenstander'];
                 if ($duel['tegenstander'] == ($_SESSION['naam'] ?? '')) {
-                    $mes = "#2-  O seu oponente provavelmente está offline, você venceu!";
+                    $mes = "#2-  ".$txt['duel_opponent_offline_win'];
                 }
             }
             DB::exQuery("UPDATE `duel` SET `winner`='$winner' WHERE `id`='" . $duel['id'] . "'");

@@ -1,5 +1,6 @@
 <?php
     require_once('app/includes/resources/config.php');
+    require_once('language/language-general.php');
     require_once('app/includes/resources/ingame.inc.php');
 ?>
 <!DOCTYPE html>
@@ -28,7 +29,7 @@
                         <div id="logo_login" class="logo_<?=rand(1, 5)?>"></div>
                     </a>
                     <?php
-                        echo addNPCBox(11, 'JAVASCRIPT DESABILITADO', 'PARA A MELHOR EXPERIÊNCIA E APROVEITAMENTO POSSÍVEL DO POKÉMON WORLD LEGENDS, RECOMENDAMOS VOCÊ HABILITAR O JAVASCRIPT DE SEU NAVEGADOR!');
+                        echo addNPCBox(11, $txt['noscript_title'], $txt['noscript_text']);
                     ?>
                 </div>
             </div>
@@ -67,11 +68,11 @@
 								<a href="./"><img src="<?=$static_url?>/images/layout/logo_footer.png" alt="Logo Pokémon World Legends"></a>
 							</td>
 							<td id="footer-right">
-								<b>Pokémon</b> é uma marca registrada da <b>Nintendo</b>. Sua utilização é de caráter exclusivo ao <b>fã game</b>. <br>
-								<p style="font-size: 13px">Nós não somos afiliados da <b>Nintendo</b>, da <b>Pokémon Company Creatures Inc.</b> ou da <b>Game Freak</b>.</p>
+								<?=$txt['footer_trademark']?> <br>
+								<p style="font-size: 13px"><?=$txt['footer_not_affiliated']?></p>
 
-								<p style="font-size: 13px">Não há intenção de violação de direitos autorais ou marcas registradas. </p>
-								Para notícias, eventos e atualizações, siga-nos no <a href="https://www.facebook.com/pkworldlegends/" target="_blank">Facebook</a> / <a href="https://twitter.com/pkworldlegends/" target="_blank">Twitter</a>.
+								<p style="font-size: 13px"><?=$txt['footer_no_intent']?></p>
+								<?=$txt['footer_follow_us']?> <a href="https://www.facebook.com/pkworldlegends/" target="_blank">Facebook</a> / <a href="https://twitter.com/pkworldlegends/" target="_blank">Twitter</a>.
 							</td>
 						</tr>
 					</table>

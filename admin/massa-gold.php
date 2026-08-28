@@ -1,6 +1,7 @@
 <?php
 //Admin controle
 if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
+include_once("language/language-admin.php");
     //Als de knop is aangeklikt
     if (isset($_POST['doneren'])) {
         $bedrag = ($_POST['bedrag'] ?? '');
@@ -8,13 +9,13 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
             if ($bedrag > 0) {
-                $melding = '<font color="green">Todos receberam golds!</font>';
+                $melding = '<font color="green">'.$txt['adm_gold_all_ok'].'</font>';
                DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+ ".$bedrag." WHERE `user_id` > 0");
             }else{
-                $melding = '<font color="red">A quantia deve ser maior do que 0!</font>';
+                $melding = '<font color="red">'.$txt['adm_amount_gt_zero'].'</font>';
             }
         }else{
-            $melding = '<font color="red">Digite uma quantia.</font>';
+            $melding = '<font color="red">'.$txt['adm_enter_amount'].'</font>';
         }
     }
 	//Als de knop is aangeklikt
@@ -24,26 +25,26 @@ if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
         if (ctype_digit($bedrag)) {
             //Is het bedrag groter dan 0?
             if ($bedrag > 0) {
-                $melding2 = '<font color="green">Todos receberam silvers!</font>';
+                $melding2 = '<font color="green">'.$txt['adm_silver_all_ok'].'</font>';
                 DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+ ".$bedrag." WHERE `user_id` > 0");
             }else{
-                $melding2 = '<font color="red">A quantia deve ser maior do que 0!</font>';
+                $melding2 = '<font color="red">'.$txt['adm_amount_gt_zero'].'</font>';
             }
         }else{
-            $melding2 = '<font color="red">Digite uma quantia.</font>';
+            $melding2 = '<font color="red">'.$txt['adm_enter_amount'].'</font>';
         }
     }
 ?>
 <?php echo $melding; ?>
 <form method="post">
-    <label>Quanto golds você quer dar?</label>
+    <label><?=$txt['adm_gold_question']?></label>
     <input type="text" name="bedrag" /><br/><br/>
-    <input type="submit" value="Dar!" name="doneren" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_give_btn'], ENT_QUOTES)?>" name="doneren" class="button">
 </form>
 <hr>
 <?php echo $melding2; ?>
 <form method="post">
-    <label>Quantos silver você quer dar?</label>
+    <label><?=$txt['adm_silver_question']?></label>
     <input type="text" name="bedrag" /><br/><br/>
-    <input type="submit" value="Dar!" name="doneren2" class="button">
+    <input type="submit" value="<?=htmlspecialchars($txt['adm_give_btn'], ENT_QUOTES)?>" name="doneren2" class="button">
 </form>
