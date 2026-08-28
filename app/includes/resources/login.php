@@ -7,22 +7,25 @@ if (isset($_POST['login'])) {
     else {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
         $ip_sql = DB::real_escape_string($ip);
-        $sql = DB::exQuery("SELECT * FROM `rekeningen` WHERE `username`='" . ($_POST['username'] ?? '') . "' LIMIT 1");
+        $username_sql = DB::real_escape_string((string) ($_POST['username'] ?? ''));
+        $sql = DB::exQuery("SELECT * FROM `rekeningen` WHERE `username`='" . $username_sql . "' LIMIT 1");
         if ($sql->num_rows != 1)
             $inlog_error = $txt['alert_unknown_username'];
         else {
 			$rekening = $sql->fetch_assoc();
 			$share = false;
 			$continue = true;
+			$speler_sql = DB::real_escape_string((string) ($rekening['username'] ?? ''));
 			
 			$typppass = password(($_POST['password'] ?? ''));
+			$typppass_sql = DB::real_escape_string((string) $typppass);
 			
 			if (!empty($rekening['shared']) && $rekening['shared'] != '') {
 				$shared = implode(',', array_map('intval', explode(',', $rekening['shared'])));
-				$sql2 = DB::exQuery ("SELECT * FROM `rekeningen` WHERE `wachtwoord`='$typppass' AND acc_id IN ($shared)");
+				$sql2 = DB::exQuery ("SELECT * FROM `rekeningen` WHERE `wachtwoord`='$typppass_sql' AND acc_id IN ($shared)");
 
 				if ($sql2->num_rows > 0) {
-					if ($rekening['locked'] < 1) {
+					if ((int) $rekening['locked'] < 1) {
 						$share = true;
 						$typppass = $rekening['wachtwoord'];
 					} else {
@@ -35,19 +38,22 @@ if (isset($_POST['login'])) {
 			if ($continue) {
 				$inlog_foutx = DB::exQuery("SELECT `datum`, `ip`, `spelernaam` FROM `inlog_fout` WHERE `ip`='" . $ip_sql . "' ORDER BY `id` DESC");
 				$inlog_fout  = $inlog_foutx->fetch_assoc();
-				$cntglogins  = $inlog_foutx->num_rows;
-				$aftellen    = 1200 - (time() - strtotime($inlog_fout['datum']));
+				$cntglogins  = (int) $inlog_foutx->num_rows;
+				$aftellen    = 0;
+				if ($inlog_fout && !empty($inlog_fout['datum'])) {
+					$aftellen = 1200 - (time() - strtotime($inlog_fout['datum']));
+				}
 				
-				$banned_sql = DB::exQuery("SELECT user_id FROM ban WHERE user_id = '" . $rekening['acc_id'] . "'");
+				$banned_sql = DB::exQuery("SELECT user_id FROM ban WHERE user_id = '" . (int) $rekening['acc_id'] . "'");
 				$banned     = $banned_sql->num_rows;
 				if ($rekening['bloqueado_tempo'] == "0000-00-00") {
 					$desblo = "Permanente";
 				} else {
-					$data   = implode("/", array_reverse(explode("-", $gegeven['bloqueado_tempo'])));
+					$data   = implode("/", array_reverse(explode("-", $rekening['bloqueado_tempo'])));
 					$desblo = $data;
 				}
 				
-				if (($cntglogins >= 3) AND ($inlog_fout['ip'] === $ip) AND ($aftellen > 0)) {
+				if (($cntglogins >= 3) AND $inlog_fout AND ($inlog_fout['ip'] === $ip) AND ($aftellen > 0)) {
 					$inlog_error = "" . $txt['alert_time_sentence'] . " " . (round($aftellen / 60)) . "min</script>";
 					$msgbuglogin = "USER_ID: " . $rekening['username'] . " = Contagem: " . $cntglogins . " - IP: " . $inlog_fout['ip'] . " === " . $ip . " - AFTELLEN: " . $aftellen . "";
 				} else {
@@ -57,7 +63,7 @@ if (isset($_POST['login'])) {
 					
 					if ($rekening['wachtwoord'] != $typppass) {
 						$datum = date("Y-m-d H:i:s");
-						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $rekening['username'] . "', '" . ($_POST['password'] ?? '') . "')");
+						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $speler_sql . "', '" . DB::real_escape_string((string) ($_POST['password'] ?? '')) . "')");
 					}
 					
 					//if ($rekening['wachtwoord'] != $typppass) $inlog_error = 'Senha incorreta!';
@@ -85,21 +91,21 @@ if (isset($_POST['login'])) {
 						$keylog = md5(microtime());
 						
 						setcookie('pa_lang', $pa_lang, time() + (86400 * 7), '/');
-						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='".($_COOKIE['pa_lang'] ?? '')."',`locked`='1',`ip_ingelogd`='" . $ip_sql . "',`session`='" . (session_id() ?? '') . "',`last_login`=NOW(), `keylog`='" . $keylog . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
+						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='".DB::real_escape_string((string) ($_COOKIE['pa_lang'] ?? ''))."',`locked`=1,`ip_ingelogd`='" . $ip_sql . "',`session`='" . DB::real_escape_string((string) (session_id() ?? '')) . "',`last_login`=NOW(), `keylog`='" . DB::real_escape_string($keylog) . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
 						
 						$_SESSION['share_acc'] = 0;
 
 						if ($share) {
-							DB::exQuery ("UPDATE `rekeningen` SET `locked`='0' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "'");
+							DB::exQuery ("UPDATE `rekeningen` SET `locked`=0 WHERE `acc_id`='" . (int) $rekening['acc_id'] . "'");
 							$_SESSION['share_acc'] = 1;
 						}
 						
-						$queryloginlogs = DB::exQuery("SELECT `id` FROM `inlog_logs` WHERE `ip`='" . $ip_sql . "' AND `speler`='" . $rekening['username'] . "' LIMIT 1");
+						$queryloginlogs = DB::exQuery("SELECT `id` FROM `inlog_logs` WHERE `ip`='" . $ip_sql . "' AND `speler`='" . $speler_sql . "' LIMIT 1");
 						
 						if ($queryloginlogs->num_rows == 0)
-							DB::exQuery("INSERT INTO `inlog_logs` (`ip`, `datum`, `speler`) VALUES ('" . $ip_sql . "', NOW(), '" . $rekening['username'] . "')");
+							DB::exQuery("INSERT INTO `inlog_logs` (`ip`, `datum`, `speler`) VALUES ('" . $ip_sql . "', NOW(), '" . $speler_sql . "')");
 						else
-							DB::exQuery("UPDATE `inlog_logs` SET `datum`=NOW() WHERE `speler`='" . $rekening['username'] . "' AND `ip`='" . $ip_sql . "' LIMIT 1");
+							DB::exQuery("UPDATE `inlog_logs` SET `datum`=NOW() WHERE `speler`='" . $speler_sql . "' AND `ip`='" . $ip_sql . "' LIMIT 1");
 						
 						
 						$_SESSION['acc_id']   = $rekening['acc_id'];

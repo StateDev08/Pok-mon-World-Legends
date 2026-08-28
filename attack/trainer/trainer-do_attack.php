@@ -270,7 +270,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                     $message .= $txt['your_attack_turn'];
                 else
                     $message .= "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
-                DB::exQuery("UPDATE " . $attacker_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . $new_attacker_info['hoelang'] . "' WHERE id='" . $attacker_info['id'] . "'");
+                DB::exQuery("UPDATE " . $attacker_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . sql_int($new_attacker_info['hoelang'] ?? 0) . "' WHERE id='" . $attacker_info['id'] . "'");
                 DB::exQuery("UPDATE `aanval_log` SET `laatste_aanval`='" . $attack_status['last_attack'] . "', `beurten`=`beurten`+'1' WHERE id='" . $aanval_log['id'] . "'");
 
                 echo ($message ?? '') . " | " . ($next_turn ?? 0) . " | " . ($opponent_info['leven'] ?? 0) . " | " . ($opponent_info['levenmax'] ?? 1) . " | " . ($attack_status['opponent'] ?? '') . " | 0 | 0 | 0 | " . ($opponent_info['id'] ?? 0) . " | " . ($pokemon_info['opzak_nummer'] ?? 0) . " | " . ($new_exp ?? 0) . " | " . ($pokemon_info['expnodig'] ?? 1) . " | " . ($recoil_d ?? 0) . " | " . ($rec_left ?? 0) . " | " . ($attacker_info['levenmax'] ?? 1) . " | " . ($attack_status['you'] ?? '') . " | " . ($stappen ?? '') . " | " . ($attacker_info['leven'] ?? 0) . " | " . ($attack_info['soort'] ?? '') . " | " . ($pokemon_info['effect'] ?? '') . " | " . ($computer_info['effect'] ?? '') . " | " . ($transform ?? 0) . " | " . ($weather->clima ?? '');

@@ -37,10 +37,7 @@ if (isset($_POST['buy-pikachu'])) {
             $ability = $ability[rand(0, (sizeof($ability) - 1))];
 
             #De willekeurige pokemon in de pokemon_speler tabel zetten
-            DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4`) SELECT `wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_wild` WHERE `wild_id`='" . $pkm['wild_id'] . "'");
-
-            #id opvragen van de insert hierboven
-            $pokeid	= DB::insertID();
+            $pokeid = pokemon_speler_insert_from_wild($pkm['wild_id']);
 
             #Karakter kiezen 
             $karakter  = DB::exQuery("SELECT * FROM `karakters` ORDER BY RAND() LIMIT 1")->fetch_assoc();

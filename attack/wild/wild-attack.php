@@ -1,6 +1,4 @@
 <?php 
-DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
-
 #Load Safety Script
 include("app/includes/resources/security.php");
 
@@ -10,23 +8,33 @@ include("attack/attack.inc.php");
 $aanval_log = aanval_log($_SESSION['attack']['aanval_log_id'] ?? 0) ?: [];
 
 #Player in log is diffirent then loggedin
-if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
-  #End Attack
-  remove_attack($aanval_log['id']);
-  #Send back to home
-  header("Location: ../../home");
-  unset($_SESSION['attack']['duel_id']);
+if (empty($aanval_log['user_id']) || $aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
+  if (!empty($aanval_log['id'])) {
+    remove_attack($aanval_log['id']);
+  } else {
+    DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($_SESSION['id'] ?? 0)."' LIMIT 1");
+  }
+  unset($_SESSION['attack']['aanval_log_id'], $_SESSION['attack']['duel_id']);
+  header("Location: /home");
   exit;
-} else {
-  #Load All Openent Info
-  $computer_info = computer_data($aanval_log['tegenstanderid']);
+}
+
+DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
+
+$computer_info = computer_data($aanval_log['tegenstanderid']);
+if (!is_array($computer_info)) {
+  remove_attack($aanval_log['id'] ?? 0);
+  unset($_SESSION['attack']['aanval_log_id']);
+  header("Location: /home");
+  exit;
+}
+
+{
   #Make all letters small
   $computer_info['naam_klein'] = strtolower($computer_info['naam']);
   #Change name for male and female
   $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
-  #Check if Player Has a Pokedex Chip
-  if ((($gebruiker['Pokedex chip'] ?? 0) == 1) AND (($gebruiker['Pokedex'] ?? 0) == 1)) $computer_info['level'] = $computer_info['level'];
-  else $computer_info['level'] = "??";
+  $computer_info['level'] = (int) ($computer_info['level'] ?? 0);
   #Shiny
   if ($computer_info['shiny'] == 1) {
     $computer_info['map'] = "shiny";
@@ -138,13 +146,15 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   <?php
         if (empty($_SESSION['map_live'])) {
       ?>
-        var redirect = "location.href='./attack/<?= $gebruiker['voltaredirect'] ?? ''; ?>&map=<?= $gebruiker['map'] ?? ''; ?>'";
+        var redirectUrl = <?= json_encode('/attack/' . (($gebruiker['voltaredirect'] ?? '') !== '' ? $gebruiker['voltaredirect'] : 'attack_map')) ?>;
+        function goAfterBattle() { window.location.href = redirectUrl; }
       <?php
         } else {
             $m = ($_SESSION['map_live'] ?? '');
             $_SESSION['map_live'] = '';
        ?>
-       var redirect = "location.href='./safari&map=<?=$m?>'";
+       var redirectUrl = <?= json_encode('/safari&map=' . ($m ?? '')) ?>;
+       function goAfterBattle() { window.location.href = redirectUrl; }
        <?php
         }
       ?>
@@ -154,7 +164,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
       request = data.split(" | ");
       document.getElementById('hit').style.display = "none";
 	    document.getElementById('hit2').style.display = "none";
-      if (request[0] == 1) $("#message").html("<?= $txt['you_won']; ?> "+text);
+      if (request[0] == 1) $("#message").html("<?= addslashes($txt['you_won']); ?> " + (text || ''));
       else if (request[0] == 0) {
         $("#message").html("<?= $txt['you_lost']; ?> ");
         if (request[1] > 0) $("#message").append("<?= $txt['you_lost_1']; ?>"+request[1]+" Silvers. ");
@@ -182,7 +192,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
       ?>
       
       
-      setTimeout(redirect, 4000);
+      setTimeout(goAfterBattle, 4000);
     });
   }
   
@@ -231,17 +241,17 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "end_screen") {
       speler_attack = 0
       speler_wissel = 0
-      show_end_screen("<?= $txt['next_time_wait']; ?>")
+      show_end_screen("")
     }
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "klaar") {
       speler_attack = 1
       $("#message").html("<?= $txt['fight_finished']; ?>")
-      setTimeout(redirect, 3000)
+      setTimeout(goAfterBattle, 3000)
     }
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "gevongen") {
       speler_attack = 1
       $("#message").html("<?= $txt['success_catched_1'].' '.$computer_info['naam_goed'].' '.$txt['success_catched_2']; ?>")
-      setTimeout(redirect, 2000)
+      setTimeout(goAfterBattle, 2000)
     }
     else $("#message").html(<?= json_encode($txt['battle_error_reload'].$aanval_log['laatste_aanval']); ?>);
 
@@ -643,7 +653,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   			$('#img_pokemon_en').wlAnimate('catch', '<?=$static_url?>/images/items/' + request[4] + '.png');
   			wlSound('caught', <?=$gebruiker['volume'] ?? 0?>, false);
   			sound_base.stop();
-  			setTimeout(redirect, 4000);
+  			setTimeout(goAfterBattle, 4000);
   		}
   	}
   }
@@ -654,7 +664,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   	request = msg.split(" | ")
   	//Send message	
   	$("#message").html(request[0])
-  	if (request[1] == 1) setTimeout(redirect, 3000)
+  	if (request[1] == 1) setTimeout(goAfterBattle, 3000)
   	//Computer make next turn
   	if (request[1] == 0) {
   		speler_attack = 0

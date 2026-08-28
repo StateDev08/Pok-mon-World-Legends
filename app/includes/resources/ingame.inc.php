@@ -46,6 +46,99 @@ function GetColorName($user_id) {
 	else											return $gebruiker['username'];
 }
 
+function pokemon_speler_insert_from_wild($wild_id) {
+	$wild_id = (int) $wild_id;
+	if ($wild_id < 1) {
+		return 0;
+	}
+	DB::exQuery("INSERT INTO `pokemon_speler` (
+		`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `roepnaam`, `karakter`, `shiny`,
+		`level`, `levenmax`, `leven`, `exp`, `totalexp`, `expnodig`,
+		`attack`, `defence`, `speed`, `spc.attack`, `spc.defence`,
+		`attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`,
+		`attack_ev`, `defence_ev`, `speed_ev`, `spc.attack_ev`, `spc.defence_ev`, `hp_ev`,
+		`attack_up`, `defence_up`, `speed_up`, `spc_up`, `hp_up`,
+		`aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `hoelang`,
+		`ei_tijd`, `release_user`, `release_date`, `top3`, `ability`, `happy`, `capture_date`, `poke_reset`
+	) SELECT
+		`wild_id`, 0, 'nee', '', '', '', 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		`aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, '', 0,
+		NOW(), 0, '0000-00-00 00:00:00', '', 0, 0, NOW(), 0
+	FROM `pokemon_wild` WHERE `wild_id`='" . $wild_id . "' LIMIT 1");
+	return (int) DB::insertID();
+}
+
+function sql_int($v) {
+	if ($v === '' || $v === null || $v === false) {
+		return 0;
+	}
+	return (int) $v;
+}
+
+function pokemon_speler_gevecht_copy($row, $aanval_log_id, $duel_id = 0) {
+	$effect = preg_replace('/[^A-Za-z]/', '', (string) ($row['effect'] ?? ''));
+	$effect = substr($effect, 0, 12);
+	$effect = DB::real_escape_string($effect);
+	DB::exQuery("INSERT INTO `pokemon_speler_gevecht` SET
+		`id`=".sql_int($row['id'] ?? 0).",
+		`user_id`=".sql_int($row['user_id'] ?? 0).",
+		`aanval_log_id`=".sql_int($aanval_log_id).",
+		`duel_id`=".sql_int($duel_id).",
+		`levenmax`=".sql_int($row['levenmax'] ?? 0).",
+		`leven`=".sql_int($row['leven'] ?? 0).",
+		`attack`=".sql_int($row['attack'] ?? 0).",
+		`defence`=".sql_int($row['defence'] ?? 0).",
+		`speed`=".sql_int($row['speed'] ?? 0).",
+		`spc.attack`=".sql_int($row['spc.attack'] ?? 0).",
+		`spc.defence`=".sql_int($row['spc.defence'] ?? 0).",
+		`exp`=".sql_int($row['exp'] ?? 0).",
+		`totalexp`=".sql_int($row['totalexp'] ?? 0).",
+		`effect`='".$effect."',
+		`hoelang`=".sql_int($row['hoelang'] ?? 0).",
+		`hit_ratio_down`=0,
+		`attack_ev`=".sql_int($row['attack_ev'] ?? 0).",
+		`defence_ev`=".sql_int($row['defence_ev'] ?? 0).",
+		`speed_ev`=".sql_int($row['speed_ev'] ?? 0).",
+		`spc.attack_ev`=".sql_int($row['spc.attack_ev'] ?? 0).",
+		`spc.defence_ev`=".sql_int($row['spc.defence_ev'] ?? 0).",
+		`hp_ev`=".sql_int($row['hp_ev'] ?? 0).",
+		`copiaid`=0,
+		`poison`=1");
+}
+
+function duel_create($uitdager, $tegenstander, $u_character, $t_character, $bedrag, $status, $laatste_beurt_tijd, $laatste_beurt, $ronde_id = 0) {
+	$uitdager = DB::real_escape_string((string) $uitdager);
+	$tegenstander = DB::real_escape_string((string) $tegenstander);
+	$u_character = DB::real_escape_string((string) $u_character);
+	$t_character = DB::real_escape_string((string) $t_character);
+	$status = DB::real_escape_string((string) $status);
+	$laatste_beurt = DB::real_escape_string((string) $laatste_beurt);
+	$laatste_beurt_tijd = DB::real_escape_string((string) $laatste_beurt_tijd);
+	DB::exQuery("INSERT INTO `duel` (`ronde_id`, `datum`, `uitdager`, `tegenstander`, `u_klaar`, `t_klaar`, `u_character`, `t_character`, `u_pokemonid`, `t_pokemonid`, `u_used_id`, `t_used_id`, `bedrag`, `silver`, `status`, `winner`, `laatste_beurt_tijd`, `laatste_beurt`, `laatste_aanval`, `laatste_aanval2`, `schade`, `volgende_beurt`, `volgende_zet`, `last_pokemon_id`, `aanval_bezig_u`, `aanval_bezig_t`, `zmove_u`, `zmove_t`, `beurten`, `request`) VALUES (
+		'".(int) $ronde_id."',
+		'".$laatste_beurt_tijd."',
+		'".$uitdager."',
+		'".$tegenstander."',
+		'0', '0',
+		'".$u_character."',
+		'".$t_character."',
+		0, 0, '', '',
+		'".(int) $bedrag."',
+		0,
+		'".$status."',
+		'',
+		'".$laatste_beurt_tijd."',
+		'".$laatste_beurt."',
+		'', '', 0, '', '', 0, '', '', 0, 0, 0, ''
+	)");
+	return (int) DB::insertID();
+}
+
 function ubbcode($tekst) {
 	global $static_url;
 
@@ -258,10 +351,7 @@ function rankerbij($soort, $txt) {
 				$ability = $ability[rand(0, (sizeof($ability) - 1))];
 
 				#De willekeurige pokemon in de pokemon_speler tabel zetten
-				DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4`) SELECT `wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_wild` WHERE `wild_id`='" . $query['wild_id'] . "'");
-
-				#id opvragen van de insert hierboven
-				$pokeid	= DB::insertID();
+				$pokeid = pokemon_speler_insert_from_wild($query['wild_id']);
 
 				#Karakter kiezen 
 				$karakter  = DB::exQuery("SELECT * FROM `karakters` ORDER BY RAND() LIMIT 1")->fetch_assoc();
@@ -587,7 +677,7 @@ function nieuwestats($pokemon, $levelnieuw, $nieuwexp) {
 	}
 
 	//Stats opslaan
-	DB::exQuery("UPDATE `pokemon_speler` SET `level`='" . $levelnieuw . "',`levenmax`='" . $hpstat . "',`leven`='" . $hpstat . "',`exp`='" . $expover . "',`expnodig`='" . $info['punten'] . "',`attack`='" . $attackstat . "',`defence`='" . $defencestat . "',`speed`='" . $speedstat . "', `spc.attack`='" . $spcattackstat . "', `spc.defence`='" . $spcdefencestat . "', `effect`='', `hoelang`='' WHERE `id`='" . $pokemon['id'] . "' LIMIT 1");
+	DB::exQuery("UPDATE `pokemon_speler` SET `level`='" . $levelnieuw . "',`levenmax`='" . $hpstat . "',`leven`='" . $hpstat . "',`exp`='" . $expover . "',`expnodig`='" . $info['punten'] . "',`attack`='" . $attackstat . "',`defence`='" . $defencestat . "',`speed`='" . $speedstat . "', `spc.attack`='" . $spcattackstat . "', `spc.defence`='" . $spcdefencestat . "', `effect`='', `hoelang`=0 WHERE `id`='" . $pokemon['id'] . "' LIMIT 1");
 	return $info['punten'];
 }
 

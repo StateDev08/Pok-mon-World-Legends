@@ -147,7 +147,7 @@ function pokemon_player_hand_update() {
 #Remove All Attack Data
 function remove_attack($aanval_log_id) {
   #Remove Attack
-  DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack_start' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
+  DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
   DB::exQuery("DELETE FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`='".$aanval_log_id."'");
   DB::exQuery("DELETE FROM `pokemon_speler_gevecht` WHERE `aanval_log_id`='".$aanval_log_id."'");
   DB::exQuery("DELETE FROM `aanval_log` WHERE `id`='".$aanval_log_id."'");

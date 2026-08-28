@@ -17,12 +17,13 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   //Load User Information
   $gebruiker = DB::exQuery("SELECT * FROM `gebruikers`, `gebruikers_item` WHERE ((`gebruikers`.`user_id`='".($_SESSION['id'] ?? '')."') AND (`gebruikers_item`.`user_id`='".($_SESSION['id'] ?? '')."'))")->fetch_assoc();
   //Load computer info
-  $computer_info = computer_data($aanval_log['tegenstanderid']);
+  $computer_info = $aanval_log ? computer_data($aanval_log['tegenstanderid']) : null;
   //Test if fight is over
   $drp = 0;
+  $computer_leven = is_array($computer_info) ? (int) ($computer_info['leven'] ?? 0) : 0;
 
-  if ($aanval_log['laatste_aanval'] == "end_screen") {
-		if ($computer_info['leven'] <= 0) {
+  if (($aanval_log['laatste_aanval'] ?? '') == "end_screen" || $computer_leven <= 0) {
+		if ($computer_leven <= 0) {
       rankerbij('attack',$txt);  
       //Update User
       DB::exQuery("UPDATE `gebruikers` SET `gewonnen`=`gewonnen`+'1',`in_battle`=0,`map_wild`=0,`points`=(`points` + 50),`points_temp`=(`points_temp` + 50) WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
@@ -39,7 +40,7 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
                 DB::exQuery("UPDATE `gebruikers` SET `$name`=`$name`+'$qtd' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
               }
             }
-          } else if ($evento_atual['name_id'] == 'pikachu_festival') {
+          } else if ($evento_atual['name_id'] == 'pikachu_festival' && is_array($computer_info)) {
             $drop = drops($computer_info['wild_id'], $computer_info['shiny']);
             if ($drop > 0) {
                 $qtd = $drop;
@@ -74,7 +75,7 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   }
   else
   {
-    header("Location: ./map");
+    echo "1 | 0 | 0";
   }
 }
 ?>

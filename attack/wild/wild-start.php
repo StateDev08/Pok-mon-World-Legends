@@ -46,8 +46,9 @@ function create_new_attack($computer_id,$computer_level,$gebied) {
 }
 
 function create_aanval_log($gebied) {
-  DB::exQuery("INSERT INTO `aanval_log` (`user_id`, `gebied`)
-    VALUES ('".($_SESSION['id'] ?? '')."', '".$gebied."')");
+  $gebied_sql = DB::real_escape_string((string) $gebied);
+  DB::exQuery("INSERT INTO `aanval_log` (`user_id`, `gebied`, `trainer`, `laatste_aanval`, `beurten`, `tegenstanderid`, `pokemonid`, `gedaan`, `aanval_bezig_speler`, `aanval_bezig_computer`, `schadeaantegenstander`, `schadeaanspeler`, `gebruikt_id`, `effect_speler`, `effect_computer`, `laatste_aanval_speler`, `laatste_aanval_computer`, `zmove`)
+    VALUES ('".(int) ($_SESSION['id'] ?? 0)."', '".$gebied_sql."', '', '', 0, '', '', '', '', '', 0, 0, '', '', '', '', '', 0)");
     
   $_SESSION['attack']['aanval_log_id'] = DB::insertID();
 }
@@ -102,9 +103,7 @@ function create_player($attack_info) {
   $pokemonopzaksql = DB::exQuery("SELECT * FROM pokemon_speler WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' ORDER BY opzak_nummer ASC");
   //Nieuwe stats berekenen aan de hand van karakter, en opslaan
   while($pokemonopzak = $pokemonopzaksql->fetch_assoc()) {
-    //Alle gegevens opslaan, incl nieuwe stats
-    DB::exQuery("INSERT INTO `pokemon_speler_gevecht` (`id`, `user_id`, `aanval_log_id`, `levenmax`, `leven`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `exp`, `totalexp`, `effect`, `hoelang`) 
-      VALUES ('".$pokemonopzak['id']."', '".($_SESSION['id'] ?? '')."', '".$_SESSION['attack']['aanval_log_id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['attack']."', '".$pokemonopzak['defence']."', '".$pokemonopzak['speed']."', '".$pokemonopzak['spc.attack']."', '".$pokemonopzak['spc.defence']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')"); 
+    pokemon_speler_gevecht_copy($pokemonopzak, $_SESSION['attack']['aanval_log_id'] ?? 0, 0);
   }
 }
 
@@ -131,8 +130,14 @@ function save_new_computer($new_computer,$new_computer_sql,$computer_level,$gebi
   else $shiny = 0;
  
   //Save Computer
-  DB::exQuery("INSERT INTO `pokemon_wild_gevecht` (`wildid`, `aanval_log_id`, `shiny`, `level`, `levenmax`, `leven`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`,`local`,`ability`) 
-    VALUES ('".$new_computer['id']."', '".$_SESSION['attack']['aanval_log_id']."', '".$shiny."', '".$computer_level."', '".$new_computer['hpstat'] ."', '".$new_computer['hpstat'] ."', '".$new_computer['attackstat']."', '".$new_computer['defencestat']."', '".$new_computer['speedstat']."', '".$new_computer['spcattackstat']."', '".$new_computer['spcdefencestat']."', '".$new_computer['aanval1']."', '".$new_computer['aanval2']."', '".$new_computer['aanval3']."', '".$new_computer['aanval4']."', '".$new_computer_sql['effect']."', '".$gebied."', '".$new_computer['ability']."')");
+  $effect = DB::real_escape_string((string) ($new_computer_sql['effect'] ?? ''));
+  $local = DB::real_escape_string((string) $gebied);
+  $aanval1 = DB::real_escape_string((string) ($new_computer['aanval1'] ?? ''));
+  $aanval2 = DB::real_escape_string((string) ($new_computer['aanval2'] ?? ''));
+  $aanval3 = DB::real_escape_string((string) ($new_computer['aanval3'] ?? ''));
+  $aanval4 = DB::real_escape_string((string) ($new_computer['aanval4'] ?? ''));
+  DB::exQuery("INSERT INTO `pokemon_wild_gevecht` (`wildid`, `aanval_log_id`, `shiny`, `level`, `levenmax`, `leven`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `hit_ratio_down`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `hoelang`, `local`, `copiaid`, `ability`) 
+    VALUES ('".(int) $new_computer['id']."', '".(int) $_SESSION['attack']['aanval_log_id']."', '".(int) $shiny."', '".(int) $computer_level."', '".(int) $new_computer['hpstat'] ."', '".(int) $new_computer['hpstat'] ."', '".(int) $new_computer['attackstat']."', '".(int) $new_computer['defencestat']."', '".(int) $new_computer['speedstat']."', '".(int) $new_computer['spcattackstat']."', '".(int) $new_computer['spcdefencestat']."', 0, '".$aanval1."', '".$aanval2."', '".$aanval3."', '".$aanval4."', '".$effect."', 0, '".$local."', 0, '".(int) $new_computer['ability']."')");
   
   //Get Computer Id
   $attack_info['computer_id'] = DB::insertID();

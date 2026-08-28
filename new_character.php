@@ -26,7 +26,33 @@ else {
 			$date_loh = date('H:i:s');
 			$unlock = $wereld.'_block';
 
-			DB::exQuery("INSERT INTO `gebruikers` (`ultimo_login`, `ultimo_login_hour`, `acc_id`,`character`,`username`,`datum`,`aanmeld_datum`,`ip_aangemeld`,`wereld`, `$unlock`) VALUES ('".$date_lo."', '".$date_loh."', " . (int) $rekening['acc_id'] . ",'" . $character . "','" . $inlognaam . "', NOW(), NOW(),'" . $ip . "','" . $wereld . "', '1')");
+			$zero_dt = '0000-00-00 00:00:00';
+			$blocks = ['Kanto_block','Johto_block','Hoenn_block','Sinnoh_block','Unova_block','Kalos_block','Alola_block'];
+			$block_cols = '`' . implode('`,`', $blocks) . '`';
+			$block_vals = [];
+			foreach ($blocks as $b) {
+				$block_vals[] = ($b === $unlock) ? '1' : '0';
+			}
+
+			DB::exQuery("INSERT INTO `gebruikers` (
+				`ultimo_login`, `ultimo_login_hour`, `acc_id`, `character`, `username`, `datum`, `aanmeld_datum`, `ip_aangemeld`, `ip_ingelogd`, `wereld`,
+				`werkervaring`, `profiel`, `buddy`, `blocklist`, `clan`, `wiequiz`, `soortwerk`, `werktijd`, `werktijdbegin`,
+				`pokecentertijd`, `pokecentertijdbegin`, `gevangenistijd`, `gevangenistijdbegin`, `traveltijd`, `traveltijdbegin`,
+				`captcha_time`, `captcha_tevaak_fout`, `aantalpokemon`, `badges`, `pagina`, `gewonnen`, `verloren`, `lvl_choose`,
+				`pok_gezien`, `pok_bezit`, `pok_gehad`, `session`, `hkey`, `token`, `bloqueado_tempo`, `razaobloqueado`,
+				`sec_key`, `background`, `chat_key`, `tickets`, `Kanto_gym`, `Johto_gym`, `Hoenn_gym`, `Sinnoh_gym`, `Unova_gym`, `Kalos_gym`, `Alola_gym`,
+				`1_drop`, `2_drop`, `3_drop`, `4_drop`, `5_drop`, `6_drop`, `7_drop`, `quest_1`, `quest_2`, `quest_1_req`, `quest_2_req`, `streak`,
+				$block_cols
+			) VALUES (
+				'".$date_lo."', '".$date_loh."', ".(int)$rekening['acc_id'].", '".DB::real_escape_string($character)."', '".DB::real_escape_string($inlognaam)."', NOW(), NOW(), '".$ip."', '', '".DB::real_escape_string($wereld)."',
+				0, '', '', '', '', '".$zero_dt."', 0, 0, '".$zero_dt."',
+				0, '".$zero_dt."', 0, '".$zero_dt."', 0, '".$zero_dt."',
+				0, 0, 0, 0, 'home', 0, 0, '',
+				'', '', '', '', '', '', '0000-00-00', '',
+				'', '', '', 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				".implode(',', $block_vals)."
+			)");
 			if ($sql->num_rows >= 2) DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-10 WHERE `acc_id`=" . (int) $rekening['acc_id']);
 			
 			#id opvragen van de gebruiker tabel van de gebruiker

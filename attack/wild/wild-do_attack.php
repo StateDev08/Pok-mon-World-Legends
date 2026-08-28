@@ -250,7 +250,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                     $message .= "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
                 }
                 
-                DB::exQuery("UPDATE " . $attacker_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . $new_attacker_info['hoelang'] . "' WHERE id='" . $attacker_info['id'] . "'");
+                DB::exQuery("UPDATE " . $attacker_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . sql_int($new_attacker_info['hoelang'] ?? 0) . "' WHERE id='" . $attacker_info['id'] . "'");
                 DB::exQuery("UPDATE `aanval_log` SET `laatste_aanval`='" . $attack_status['last_attack'] . "', `beurten`=`beurten`+'1' WHERE id='" . $aanval_log['id'] . "'");
                 
                 //Return Method (JS)  

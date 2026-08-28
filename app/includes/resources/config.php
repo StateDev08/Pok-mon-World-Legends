@@ -70,8 +70,8 @@ if (!empty($evento_atual)) {
 
 $quests = new Quests();
 $quest = $quests->getActualQuests();
-$quest_1 = $quests->getQuest($quest[0])->fetch_assoc();
-$quest_2 = $quests->getQuest($quest[1])->fetch_assoc();
+$quest_1 = $quests->getQuest($quest[0])->fetch_assoc() ?: [];
+$quest_2 = $quests->getQuest($quest[1])->fetch_assoc() ?: [];
 
 //Dias do Safari (Terça, Quinta e Sábado) 2, 4, 6
 

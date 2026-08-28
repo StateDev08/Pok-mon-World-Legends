@@ -64,10 +64,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                     echo '<div class="red">' . $txt['duel_blocked_by'] . '</div>';
                 else {
                     $date = strtotime(date("Y-m-d H:i:s"));
-                    DB::exQuery("INSERT INTO duel (datum, uitdager, tegenstander, u_character, t_character, bedrag, status, laatste_beurt_tijd, laatste_beurt)
-                                 VALUES ('" . $date . "', '" . ($_SESSION['naam'] ?? '') . "', '" . $select['username'] . "', '" . $gebruiker['character'] . "', '" . $select['character'] . "', '" . ($_POST['bedrag'] ?? '') . "', 'wait', '" . $date . "', '" . ($_SESSION['naam'] ?? '') . "')");
-
-                    $duel_id = DB::insertID();
+                    $duel_id = duel_create($_SESSION['naam'] ?? '', $select['username'], $gebruiker['character'], $select['character'], $_POST['bedrag'] ?? 0, 'wait', $date, $_SESSION['naam'] ?? '');
                     $_SESSION['duel']['duel_id'] = $duel_id;
 
                     #Include Duel Functions

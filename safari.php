@@ -107,7 +107,7 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 				}
 				
 				DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
-				header("Location: ./attack/wild/wild-attack");
+				header("Location: /attack/wild/wild-attack");
 				exit;
             } else
                 echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
@@ -120,24 +120,27 @@ if(isset($_POST['trainer'])){
 		echo '<div class="red">' . $txt['safari_all_fainted'] . '</div>';
 	else {
 		$query = DB::exQuery("SELECT `naam` FROM `trainer` WHERE `badge`='' AND (`gebied`='{$gebied}' OR `gebied`='All') AND (`evento`=0 || (NOW() BETWEEN `inicio` AND `fim`)) ORDER BY rand() limit 1")->fetch_assoc();
-		$pokemon_sql->data_seek(0);
+		$pokemon_sql = DB::exQuery("SELECT `level` FROM `pokemon_speler` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `opzak`='ja' AND `ei`='0'");
 		$opzak = $pokemon_sql->num_rows;
 
 		$level = 0;
 		while($pokemon = $pokemon_sql->fetch_assoc())
 			$level += $pokemon['level'];
-		$trainer_ave_level = $level/$opzak;
+		$trainer_ave_level = $opzak > 0 ? $level/$opzak : 5;
 
-		//Make Fight
+		if (empty($query['naam'])) {
+			echo '<div class="red">' . $txt['safari_all_fainted'] . '</div>';
+		} else {
 		include('attack/trainer/trainer-start.php');
 		$info = create_new_trainer_attack($query['naam'], $trainer_ave_level, $gebied);
 		if (empty($info['bericht'])) {
 			$_SESSION['map_live'] = $map;
 			$_SESSION['battle'] = true;
-			header("Location: ./trainer/trainer-attack");
+			header("Location: /attack/trainer/trainer-attack");
 			exit;
 		} else
 			echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
+		}
 	}
 }
 $js_safari_wait         = addslashes($txt['safari_wait']);

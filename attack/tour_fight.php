@@ -26,9 +26,7 @@ if (isset($_POST['here'])) {
       }
       $date = date("Y-m-d H:i:s");
       $time = strtotime($date);
-      DB::exQuery("INSERT INTO duel (datum, ronde_id, uitdager, tegenstander, u_character, t_character, status, laatste_beurt_tijd, laatste_beurt)
-        VALUES ('".$date."', '".$round_info['ronde']."', '".$u['username']."', '".$t['username']."',  '".$u['character']."', '".$t['character']."',  'wait', '".$time."', '".$starter."')");
-      $duel_id = DB::insertID();
+      $duel_id = duel_create($u['username'], $t['username'], $u['character'], $t['character'], 0, 'wait', $time, $starter, $round_info['ronde'] ?? 0);
       $_SESSION['duel']['duel_id'] = $duel_id;
       
       //Start Duel
@@ -43,8 +41,7 @@ if (isset($_POST['here'])) {
       //Nieuwe stats berekenen aan de hand van karakter, en opslaan
       while($pokemonopzak = $pokemonopzaksql->fetch_assoc()) {
         //Alle gegevens opslaan, incl nieuwe stats
-        DB::exQuery("INSERT INTO `pokemon_speler_gevecht` (`id`, `user_id`, `aanval_log_id`, `duel_id`, `levenmax`, `leven`, `exp`, `totalexp`, `effect`, `hoelang`) 
-          VALUES ('".$pokemonopzak['id']."', '".($_SESSION['id'] ?? '')."', '-1', '".$excist['id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')");  
+        pokemon_speler_gevecht_copy($pokemonopzak, -1, $excist['id']);  
       }
       ?>
         <span id="status"><?= $txt['tour_wait'] ?></span>
@@ -91,8 +88,7 @@ if (isset($_POST['here'])) {
       //Nieuwe stats berekenen aan de hand van karakter, en opslaan
       while($pokemonopzak = $pokemonopzaksql->fetch_assoc()) {
         //Alle gegevens opslaan, incl nieuwe stats
-        DB::exQuery("INSERT INTO `pokemon_speler_gevecht` (`id`, `user_id`, `aanval_log_id`, `duel_id`, `levenmax`, `leven`, `exp`, `totalexp`, `effect`, `hoelang`) 
-          VALUES ('".$pokemonopzak['id']."', '".($_SESSION['id'] ?? '')."', '-1', '".$excist['id']."', '".$pokemonopzak['levenmax']."', '".$pokemonopzak['leven']."', '".$pokemonopzak['exp']."', '".$pokemonopzak['totalexp']."', '".$pokemonopzak['effect']."', '".$pokemonopzak['hoelang']."')");
+        pokemon_speler_gevecht_copy($pokemonopzak, -1, $excist['id']);
         if (($count == 0) AND ($pokemonopzak['leven'] > 0) AND ($pokemonopzak['ei'] == 0)) {
           $count++;
           DB::exQuery("UPDATE `duel` SET `".$wat."_pokemonid`='".$pokemonopzak['id']."', `".$wat."_used_id`=',".$pokemonopzak['id'].",' WHERE `id`='".$excist['id']."'");

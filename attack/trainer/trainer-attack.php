@@ -18,11 +18,13 @@ if (empty($trainer['badge'])) {
 
 //Player in log is diffirent then loggedin
 if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_key'])) {
-  //End Attack
-  remove_attack($aanval_log['id']);
-  //Send back to home
-  header("Location: ../../home");
-  unset($_SESSION['trainer']['duel_id']);
+  if (!empty($aanval_log['id'])) {
+    remove_attack($aanval_log['id']);
+  } else {
+    DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($_SESSION['id'] ?? 0)."' LIMIT 1");
+  }
+  unset($_SESSION['trainer']['aanval_log_id'], $_SESSION['trainer']['duel_id']);
+  header("Location: /home");
   exit;
 } else {
   //Load All Openent Info
@@ -30,7 +32,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   if ($computer_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);
-    header("Location: ../../home");
+    header("Location: /home");
     exit;
   }
   //Make all letters small
@@ -57,7 +59,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   if ($pokemon_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);
-    header("Location: ../../home");
+    header("Location: /home");
     exit;
   }
   $pokemon_info['naam_klein'] = strtolower($pokemon_info['naam'] ?? '');
@@ -863,7 +865,7 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
    ?>
   		<tr><td>
 			<div style="padding:0px 0 100px 0px;"><div class="new_bar2">
-			<div style='padding: 15px 0 0 120px;'><strong><font size='3' style='text-shadow:1px 1px 1px #fff;'><i><img src='<?=$static_url?>/images/lvl.png' style='padding:0 0 0 30px;'> ?? </i></strong></font></div>			<div style="padding:0px 0 0 43px;"><div class="hp_red">
+			<div style='padding: 15px 0 0 120px;'><strong><font size='3' style='text-shadow:1px 1px 1px #fff;'><i><img src='<?=$static_url?>/images/lvl.png' style='padding:0 0 0 30px;'> <?= (int) ($computer_info['level'] ?? 0); ?> </i></strong></font></div>			<div style="padding:0px 0 0 43px;"><div class="hp_red">
 			<div class="progress" id="computer_life" title="<?= $computer_info['leven']."/".$computer_info['levenmax']; ?>" style="width: <?= $computer_life_procent; ?>%"></div>
 			</div><div id="computer_effect" style="margin: -10px 2px 0px 151px;  display: <?= ($computer_info['effect'] ?? '') ? "block" : "none" ?>;"><img src="<?=$static_url?>/images/effects/<?= ($computer_info['effect'] ?? '') ? $computer_info['effect'] : 'none' ?>.png" alt="<?= $computer_info['effect'] ?? '' ?>" title="<?= $computer_info['effect'] ?? '' ?>"/> </div></div>
 			<div align="left" style="padding: 5px 0px 0px 10px;"><font style="text-shadow:1px 1px 1px #fff;" size="3">

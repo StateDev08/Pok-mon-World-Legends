@@ -184,11 +184,7 @@ class League_battle {
                     . "lb.user_id1 = us1.user_id AND lb.user_id2 = us2.user_id";
             $batalha = DB::exQuery($sql)->fetch_assoc();
 
-            DB::exQuery("INSERT INTO duel (datum, uitdager, tegenstander, u_character, t_character, "
-                    . "bedrag, status, laatste_beurt_tijd, laatste_beurt) "
-                    . "VALUES (NOW(), '" . $batalha['username1'] . "', '" . $batalha['username2'] . "', '" . $batalha['character1'] . "', '" . $batalha['character2'] . "', '0', 'wait', 'NOW()', '" . $batalha['username1'] . "')");
-
-            $this->duel_id = DB::insertID();
+            $this->duel_id = duel_create($batalha['username1'], $batalha['username2'], $batalha['character1'], $batalha['character2'], 0, 'wait', time(), $batalha['username1']);
 
             $league->start_duel($this->duel_id, 'uitdager', $this->user_id1);
             DB::exQuery("UPDATE duel SET status='accept', laatste_beurt_tijd=NOW() WHERE id='" . $this->duel_id . "'");

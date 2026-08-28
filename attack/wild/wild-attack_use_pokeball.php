@@ -287,19 +287,56 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
       $good = 0;
 
       $date = date('Y-m-d H:i:s');
-      
-      //Check if Player hand is full
-      if ($player_handn > 6) {
-        //Save New Pokemon
-        DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`, `ability`, `capture_date`) 
-          SELECT `wildid`, '".($_SESSION['id'] ?? '')."', 'nee', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."'  FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
+      $to_hand = $player_handn <= 6;
+      $wild_id = (int) ($computer_info['wildid'] ?? $computer_info['wild_id'] ?? 0);
+      $pokeid = pokemon_speler_insert_from_wild($wild_id);
+      $karakter_sql = DB::real_escape_string((string) ($new_pokemon['karakter'] ?? ''));
+      $a1 = DB::real_escape_string((string) ($computer_info['aanval_1'] ?? ''));
+      $a2 = DB::real_escape_string((string) ($computer_info['aanval_2'] ?? ''));
+      $a3 = DB::real_escape_string((string) ($computer_info['aanval_3'] ?? ''));
+      $a4 = DB::real_escape_string((string) ($computer_info['aanval_4'] ?? ''));
+      $item_sql = DB::real_escape_string((string) ($item_info['naam'] ?? ''));
+      $effect_sql = DB::real_escape_string((string) ($computer_info['effect'] ?? ''));
+      $leven = max(1, (int) ($computer_info['leven'] ?? 1));
+      $levenmax = max($leven, (int) ($new_pokemon['hpstat'] ?? $leven));
+      $ability = (int) ($computer_info['ability'] ?? 0);
+      $expnodig = (int) ($experience_info['punten'] ?? $new_pokemon['expnodig'] ?? 0);
+
+      if ($pokeid > 0) {
+        DB::exQuery("UPDATE `pokemon_speler` SET
+          `user_id`='".(int) ($_SESSION['id'] ?? 0)."',
+          `opzak`='".($to_hand ? 'ja' : 'nee')."',
+          `opzak_nummer`='".($to_hand ? (int) $player_handn : '')."',
+          `karakter`='".$karakter_sql."',
+          `shiny`='".(int) ($computer_info['shiny'] ?? 0)."',
+          `level`='".(int) ($computer_info['level'] ?? 1)."',
+          `levenmax`='".$levenmax."',
+          `leven`='".$leven."',
+          `exp`=0,
+          `totalexp`=0,
+          `expnodig`='".$expnodig."',
+          `attack`='".(int) $new_pokemon['attackstat']."',
+          `defence`='".(int) $new_pokemon['defencestat']."',
+          `speed`='".(int) $new_pokemon['speedstat']."',
+          `spc.attack`='".(int) $new_pokemon['spcattackstat']."',
+          `spc.defence`='".(int) $new_pokemon['spcdefencestat']."',
+          `attack_iv`='".(int) $new_pokemon['attack_iv']."',
+          `defence_iv`='".(int) $new_pokemon['defence_iv']."',
+          `speed_iv`='".(int) $new_pokemon['speed_iv']."',
+          `spc.attack_iv`='".(int) $new_pokemon['spcattack_iv']."',
+          `spc.defence_iv`='".(int) $new_pokemon['spcdefence_iv']."',
+          `hp_iv`='".(int) $new_pokemon['hp_iv']."',
+          `attack_ev`=0, `defence_ev`=0, `speed_ev`=0, `spc.attack_ev`=0, `spc.defence_ev`=0, `hp_ev`=0,
+          `aanval_1`='".$a1."', `aanval_2`='".$a2."', `aanval_3`='".$a3."', `aanval_4`='".$a4."',
+          `effect`='".$effect_sql."',
+          `gevongenmet`='".$item_sql."',
+          `ability`='".$ability."',
+          `capture_date`='".$date."'
+          WHERE `id`='".$pokeid."' LIMIT 1");
+      }
+
+      if (!$to_hand) {
         $message .= $computer_info['naam_goed'].$txt['ball_success_2'];
-     }
-      //Player hand is not full
-      else{
-        //Save New pokemon
-        DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`, `ability`, `capture_date`) 
-          SELECT `wildid`, '".($_SESSION['id'] ?? '')."', 'ja', '".$player_handn."', '".$new_pokemon['karakter']."', '".$computer_info['shiny']."', '".$computer_info['level']."', '".$new_pokemon['hpstat']."', '".$computer_info['leven']."', '".$new_pokemon['expnodig']."', '".$new_pokemon['attackstat']."', '".$new_pokemon['defencestat']."', '".$new_pokemon['speedstat']."', '".$new_pokemon['spcattackstat']."', '".$new_pokemon['spcdefencestat']."', '".$new_pokemon['attack_iv']."', '".$new_pokemon['defence_iv']."', '".$new_pokemon['speed_iv']."', '".$new_pokemon['spcattack_iv']."', '".$new_pokemon['spcdefence_iv']."', '".$new_pokemon['hp_iv']."', '".$computer_info['aanval_1']."', '".$computer_info['aanval_2']."', '".$computer_info['aanval_3']."', '".$computer_info['aanval_4']."', `effect`, '".$item_info['naam']."', '".$computer_info['ability']."', '".$date."' FROM `pokemon_wild_gevecht` WHERE `id`='".$computer_info['id']."'");
       }
       
       //Increase pokemon amount of player, make last visited page empty

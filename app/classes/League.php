@@ -1243,13 +1243,7 @@ class League {
                         . "uitdager='" . $batalha['username2'] . "' OR tegenstander='" . $batalha['username1'] . "' "
                         . "OR tegenstander='" . $batalha['username2'] . "'");
 
-                DB::exQuery("INSERT INTO duel (datum, uitdager, tegenstander, u_character, t_character, "
-                        . "bedrag, status, laatste_beurt_tijd, laatste_beurt) "
-                        . "VALUES ('$date', '" . $batalha['username1'] . "', '" . $batalha['username2'] . "', "
-                        . "'" . $batalha['character1'] . "', '" . $batalha['character2'] . "', '0', 'accept', "//wait
-                        . "'$date', '" . $batalha['username1'] . "')");
-
-                $l_batlle->setDuel_id(DB::insertID());
+                $l_batlle->setDuel_id(duel_create($batalha['username1'], $batalha['username2'], $batalha['character1'], $batalha['character2'], 0, 'accept', $date, $batalha['username1']));
 
                 $this->start_duel($l_batlle->getDuel_id(), 'uitdager', $l_batlle->getUser_id1());
                 //DB::exQuery("UPDATE duel SET status='accept', laatste_beurt_tijd=" . strtotime(date("Y-m-d H:i:s")) . " WHERE id='" . $l_batlle->getDuel_id() . "'");
@@ -1275,8 +1269,7 @@ class League {
         //Nieuwe stats berekenen aan de hand van karakter, en opslaan
         while ($pokemonopzak = $pokemonopzaksql->fetch_assoc()) {
             //Alle gegevens opslaan, incl nieuwe stats
-            DB::exQuery("INSERT INTO `pokemon_speler_gevecht` (`id`, `user_id`, `aanval_log_id`, `duel_id`, `levenmax`, `leven`, `exp`, `totalexp`, `effect`, `hoelang`) 
-      VALUES ('" . $pokemonopzak['id'] . "', '$user_id', '-1', '" . $duel_id . "', '" . $pokemonopzak['levenmax'] . "', '" . $pokemonopzak['leven'] . "', '" . $pokemonopzak['exp'] . "', '" . $pokemonopzak['totalexp'] . "', '" . $pokemonopzak['effect'] . "', '" . $pokemonopzak['hoelang'] . "')");
+            pokemon_speler_gevecht_copy($pokemonopzak, -1, $duel_id);
             if (($count == 0) AND ( $wat == 'tegenstander') AND ( $pokemonopzak['leven'] > 0) AND ( $pokemonopzak['ei'] == 0)) {
                 $count++;
                 DB::exQuery("UPDATE `duel` SET `t_pokemonid`='" . $pokemonopzak['id'] . "', `t_used_id`='," . $pokemonopzak['id'] . ",' WHERE `id`='" . $duel_id . "'");

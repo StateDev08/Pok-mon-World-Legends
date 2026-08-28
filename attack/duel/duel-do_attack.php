@@ -259,7 +259,7 @@ if ((isset($_GET['attack_name'])) AND ( isset($_GET['duel_id'])) AND ( isset($_G
                         if (!isset($rec_left) || (isset($rec_left) && $rec_left > 0)) {
                             $message .= "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
                         }
-                        DB::exQuery("UPDATE " . $pokemon_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . $new_attacker_info['hoelang'] . "' WHERE id='" . $pokemon_info['id'] . "'");
+                        DB::exQuery("UPDATE " . $pokemon_info['table']['fight'] . " SET `effect`='" . $new_attacker_info['effect'] . "', `hoelang`='" . sql_int($new_attacker_info['hoelang'] ?? 0) . "' WHERE id='" . $pokemon_info['id'] . "'");
 
                         $pokemon_info['effect'] = $new_attacker_info['effect'];
 

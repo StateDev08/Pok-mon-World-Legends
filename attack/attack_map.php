@@ -8,8 +8,7 @@ if ($gebruiker['in_hand'] == 0)
 
 
 if (isset($_SESSION['battle_map'])) {
-    header("Location: ./attack/attack_map");
-    exit();
+    unset($_SESSION['battle_map']);
 }
 
 
@@ -20,7 +19,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
             fwrite($ar, date("d-m-Y H:i:s") . ' - ' . ($_SESSION['naam'] ?? '') . ' ' . ($_SESSION['id'] ?? '') . "\n");
             fclose($ar);
             
-            header("Location: ../error");
+            header("Location: /error");
             exit("<script>location.href='../error'</script>");
         }
         unset($_SESSION['map_uniqid']);
@@ -116,6 +115,12 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
             
             if ($trainer == 1) {
                 $query = DB::exQuery("SELECT `naam` FROM `trainer` WHERE `badge`='' AND (`gebied`='" . $gebied . "' OR `gebied`='All') ORDER BY rand() limit 1")->fetch_assoc();
+                if (empty($query['naam'])) {
+                    $trainer = 0;
+                }
+            }
+
+            if ($trainer == 1) {
                 include('attack/trainer/trainer-start.php');
                 $pokemon_sql = DB::exQuery("SELECT `level` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "' AND `opzak`='ja' AND `ei`='0'");
                 $pokemon_sql->data_seek(0);
@@ -123,12 +128,11 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                 $level = 0;
                 while ($pokemon = $pokemon_sql->fetch_assoc())
                     $level += $pokemon['level'];
-                $trainer_ave_level = $level / $opzak;
-                //Make Fight
+                $trainer_ave_level = $opzak > 0 ? $level / $opzak : 5;
                 $info              = create_new_trainer_attack($query['naam'], $trainer_ave_level, $gebied);
                 DB::exQuery("UPDATE `gebruikers` SET `pagina`='trainer-attack' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
                 if (empty($info['bericht'])) {
-                    header("Location: ../attack/trainer/trainer-attack");
+                    header("Location: /attack/trainer/trainer-attack");
                     exit;
                 } else
                     echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
@@ -197,7 +201,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                         include("attack/wild/wild-start.php");
                         $info = create_new_attack($query['wild_id'], $leveltegenstander, $gebied);
                         DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
-                        header("Location: ../attack/wild/wild-attack");
+                        header("Location: /attack/wild/wild-attack");
                         exit;
                     } else {
                         echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";

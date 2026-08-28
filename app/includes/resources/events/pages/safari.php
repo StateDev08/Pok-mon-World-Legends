@@ -107,7 +107,7 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 				}
 				
 				DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
-				header("Location: ./attack/wild/wild-attack");
+				header("Location: /attack/wild/wild-attack");
 				exit;
             } else
                 echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";

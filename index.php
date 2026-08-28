@@ -352,8 +352,26 @@ else if (!file_exists($page . '.php')) $page = 'notfound';
 else if (empty($_SESSION['id']))	$page = $page;
 else if (in_array($page, $pagesAllowerGlobal)) $page = $page;
 else if ((($gebruiker['captcha_time'] ?? 0) + $captcha_time) < time() && in_array($page, $captcha_page_check))	$page = 'captcha';
-else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') $page = 'attack/trainer/trainer-attack';
-else if (($gebruiker['pagina'] ?? '') == 'attack') $page = 'attack/wild/wild-attack';
+else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') {
+	$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . (int) ($gebruiker['user_id'] ?? 0) . " AND `trainer`!='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
+	if ($res) {
+		$page = 'attack/trainer/trainer-attack';
+		$_SESSION['trainer']['aanval_log_id'] = $res['id'];
+	} else {
+		DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($gebruiker['user_id'] ?? 0)."' LIMIT 1");
+		$gebruiker['pagina'] = 'home';
+	}
+}
+else if (($gebruiker['pagina'] ?? '') == 'attack') {
+	$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . (int) ($gebruiker['user_id'] ?? 0) . " AND `trainer`='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
+	if ($res) {
+		$page = 'attack/wild/wild-attack';
+		$_SESSION['attack']['aanval_log_id'] = $res['id'];
+	} else {
+		DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($gebruiker['user_id'] ?? 0)."' LIMIT 1");
+		$gebruiker['pagina'] = 'home';
+	}
+}
 else if (DB::exQuery("SELECT * FROM `duel` WHERE `uitdager`='" . ($gebruiker['username'] ?? '') . "' AND (`status`='wait') ORDER BY `id` DESC LIMIT 1")->num_rows == 1) $page = 'attack/duel/invite';
 else {
 	$duel_test = DB::exQuery("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`='" . ($_SESSION['naam'] ?? '') . "'");
@@ -363,19 +381,11 @@ else {
 	} else if (!empty($_SESSION['evolueren']) && $page != 'information') {
 		list($evolueren['pokemonid'], $evolueren['nieuw_id']) = explode('/', base64_decode(($_SESSION['evolueren'] ?? '')));
 		$page = "app/includes/resources/poke-evolve";
-	} else if (($gebruiker['pagina'] ?? '') == 'attack') {
-			$page = "attack/wild/wild-attack";
-			$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . ($gebruiker['user_id'] ?? 0) . " AND `trainer`='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
-			$_SESSION['attack']['aanval_log_id'] = $res['id'];
-	} else if (($gebruiker['pagina'] ?? '') == 'trainer-attack') {
-		$page = "attack/trainer/trainer-attack";
-		$res = DB::exQuery("SELECT `id` FROM `aanval_log` WHERE `user_id`=" . ($gebruiker['user_id'] ?? 0) . " AND `trainer`!='' AND `laatste_aanval`!='end_screen' LIMIT 1")->fetch_assoc();
-		$_SESSION['attack']['aanval_log_id'] = $res['id'];
 	} else if (($gebruiker['pagina'] ?? '') == 'duel' && $duel_test->num_rows > 0)	$page = $page;
 	else if (($gebruiker['pagina'] ?? '') == 'duel') {
 		$page = "attack/duel/duel-attack";
 		$res = DB::exQuery("SELECT `id` FROM `duel` WHERE (`tegenstander`='" . ($gebruiker['username'] ?? '') . "' OR `uitdager`='" . ($gebruiker['username'] ?? '') . "') AND `status`='accept' LIMIT 1")->fetch_assoc();
-		$_SESSION['duel']['duel_id'] = $res['id'];
+		if ($res) $_SESSION['duel']['duel_id'] = $res['id'];
 	} else if ($duel_sql->num_rows == 1) {
 		$page = "attack/duel/invited";
 	}
@@ -400,8 +410,14 @@ if (($gebruiker['admin'] ?? 0) >= 3 && (isset($_GET['sair']) && ($_GET['sair'] ?
     DB::exQuery("DELETE FROM `duel` WHERE `uitdager`='" . ($_SESSION['naam'] ?? '') . "' OR `tegenstander`='" . ($_SESSION['naam'] ?? '') . "'");
 }
 
-$pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin'] ?? '') + ($gebruiker['pokecentertijd'] ?? 0)) - time();
-$travel_tijd = (strtotime($gebruiker['traveltijdbegin'] ?? '') + ($gebruiker['traveltijd'] ?? 0)) - time();
+$poke_begin = $gebruiker['pokecentertijdbegin'] ?? '';
+$travel_begin = $gebruiker['traveltijdbegin'] ?? '';
+$pokecen_tijd = ($poke_begin !== '' && $poke_begin !== '0000-00-00 00:00:00')
+	? (strtotime($poke_begin) + (int) ($gebruiker['pokecentertijd'] ?? 0)) - time()
+	: 0;
+$travel_tijd = ($travel_begin !== '' && $travel_begin !== '0000-00-00 00:00:00')
+	? (strtotime($travel_begin) + (int) ($gebruiker['traveltijd'] ?? 0)) - time()
+	: 0;
 
 if ($pokecen_tijd > 0) {
 	#Tijd die overblijft

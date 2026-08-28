@@ -141,7 +141,7 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   }
   else
   {
-    header("Location: ./attack/trainer/trainer-attack");
+    header("Location: /attack/trainer/trainer-attack");
   }
 }
 ?>

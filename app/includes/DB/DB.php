@@ -27,8 +27,11 @@ class DB {
 	}
 	public static function exQuery($sql) {
 		$connection = self::getInstance();
-		if (!($result = $connection->query($sql)))
-			exit(sprintf("Error: %s", $connection->error));
+		if (!($result = $connection->query($sql))) {
+			$log = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR . 'sql_error.log';
+			@file_put_contents($log, date('c') . "\n" . $connection->error . "\n" . $sql . "\n\n", FILE_APPEND);
+			exit(sprintf("Error: %s | Query: %s", $connection->error, $sql));
+		}
 		return $result;
 	}
 	public static function insertID() {

@@ -20,12 +20,7 @@ if (isset($_POST['accept'])) {
 	else {
 		# pokemon geven
 		$query = DB::exQuery("SELECT `wild_id`,`naam`,`groei`,`attack_base`,`defence_base`,`speed_base`,`spc.attack_base`,`spc.defence_base`,`hp_base`, `ability` FROM `pokemon_wild` WHERE `naam`='" . $eicheck['naam'] . "' LIMIT 1")->fetch_assoc();
-
-		# De willekeurige pokemon in de pokemon_speler tabel zetten
-		DB::exQuery("INSERT INTO `pokemon_speler` (`wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4`) SELECT `wild_id`,`aanval_1`,`aanval_2`,`aanval_3`,`aanval_4` FROM `pokemon_wild` WHERE `wild_id`=" . $query['wild_id'] . "");
-
-		#id opvragen van de insert hierboven
-		$pokeid	= DB::insertID();
+		$pokeid = $query ? pokemon_speler_insert_from_wild($query['wild_id']) : 0;
 
 		#Baby pokemon timer starten
 		$tijd = date('Y-m-d H:i:s');

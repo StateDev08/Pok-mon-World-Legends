@@ -58,6 +58,50 @@ PHP 8 throws a fatal `Error: array_push(): Argument #1 ($array) cannot be passed
 ## [Unreleased]
 
 ### Fixed
+#### PHP 8 / MySQL Strict Mode — Login, Kampf, Routing (2026-08-28)
+
+MySQL läuft mit `STRICT_TRANS_TABLES`: `INSERT`/`UPDATE` scheitern, wenn `NOT NULL`-Spalten ohne Default fehlen oder einen leeren String `''` statt einer Zahl bekommen. Zusätzlich sind PHP-8-Nullzugriffe, BIT-Spalten und relative Redirects (`<base href>` gilt nicht für `Location`) behoben.
+
+##### Login
+- `app/includes/resources/login.php` — kein `strtotime(null)` mehr, wenn `inlog_fout` leer ist (`Warning` + `Deprecated`).
+- `rekeningen.locked` ist `BIT(1)`: Schreiben als `0`/`1` ohne Anführungszeichen statt `'1'` (`Data too long for column 'locked'`). Vergleich über `(int) $rekening['locked']`.
+- Sperrdatum nutzt `$rekening['bloqueado_tempo']` statt der undefinierten Variable `$gegeven`.
+- Benutzername und Login-Daten werden vor SQL escaped.
+- `logout.php` — `locked=0` analog zur BIT-Spalte.
+
+##### Kampfstart (Karte / Trainer / Safari)
+- `aanval_log`-INSERT setzt alle Pflichtfelder ohne Default (`trainer`, `laatste_aanval`, `beurten`, `zmove=0`, leere String-/0-Werte).
+- `pokemon_wild` hat keine Spalte `effect` — kein Undefined-Array-Key mehr beim Wildkampf-Start.
+- `pokemon_wild_gevecht` / `pokemon_speler_gevecht`: Pflichtfelder `hit_ratio_down`, `hoelang`, `copiaid`, `duel_id`, EVs, `shiny`/`local` werden mitgeschrieben.
+- Kampfkopie läuft über `pokemon_speler_gevecht_copy()` (Wild, Trainer, Duell, Turnier, Liga) mit `sql_int()` — leere Strings werden zu `0`.
+- `pokemon_speler_gevecht.hoelang` ist `tinyint NOT NULL`: Level-up schreibt `hoelang=0` statt `''`; INSERT nutzt `SET`-Syntax; Spalte hat Default `0`.
+- Status-Updates in `wild-do_attack.php` / `trainer-do_attack.php` / `duel-do_attack.php` schreiben `hoelang` nur noch als Integer.
+
+##### Kampf-UI und Ablauf
+- Wild- und Trainer-Gegner zeigten Level `??` (Pokedex-Chip-Gate + hartes `??` im Trainer-HTML) — Level wird angezeigt.
+- Gewinnbildschirm blieb stehen („Du hast gewonnen. Warten Sie, während Ihr Gegner angreift.“): `setTimeout(redirect)` mit String-Argument und `header("Location: …")` in AJAX-`wild-finish.php`. Jetzt `goAfterBattle()`, AJAX antwortet immer `text | money | drp`, Sieg wenn `end_screen` oder Gegner-HP ≤ 0.
+- Endlos-Reload: `wild-attack.php` setzte `pagina='attack'` vor der Kampfprüfung; `remove_attack()` setzte `pagina='attack_start'`; `attack_map.php` leitete über `$_SESSION['battle_map']` auf sich selbst um. `pagina` wird erst bei gültigem Kampf gesetzt, `remove_attack()` setzt `pagina='home', in_battle=0`.
+- `index.php` erzwingt die Kampfseite nur noch, wenn ein `aanval_log` existiert, sonst `pagina='home'`. Leere/`0000-00-00`-Zeiten sind `strtotime`-sicher.
+- 404 ` /attack/attack/wild/wild-attack `: relative `./attack/...`-Links von `/attack/attack_map` verdoppelten das erste Segment. Redirects sind wurzelabsolut (`/attack/wild/wild-attack`, `/attack/attack_map`, `/home`). PHP-`Location` ignoriert `<base href>`.
+
+##### Fangen (Pokéball)
+- Catch-INSERT ließ `roepnaam` weg (`doesn't have a default value`).
+- Stats landeten in EV-Spalten (`spc.defence_ev` Out of range, `TINYINT UNSIGNED` 0–255). Fang über `pokemon_speler_insert_from_wild()` und anschließendes `UPDATE`.
+
+##### Weitere Kernpfade (Strict-Mode / PHP 8)
+- Hilfsfunktionen in `app/includes/resources/ingame.inc.php`: `pokemon_speler_insert_from_wild()`, `pokemon_speler_gevecht_copy()`, `duel_create()`, `sql_int()`.
+- Starter, Rank-up, Daycare, Markt, Casino-Store, Events legen Pokémon über den vollständigen INSERT an.
+- `new_character.php` — `gebruikers`-INSERT inkl. Welt-`BIT`-Blöcke als `0`/`1`.
+- Duelle / Turnier / Liga: vollständige `duel`-INSERTs und Kampfkopien.
+- Safari: `$pokemon_sql` war undefiniert (Fatal Error); Redirects ebenfalls absolut.
+- `app/includes/resources/config.php` / `Quests.php` — null-sicheres Quest-Laden.
+- `app/includes/DB/DB.php` — SQL-Fehler werden nach `sql_error.log` geschrieben und in der Meldung um `Query: …` ergänzt.
+
+##### Offene / weniger getestete Stellen
+- `traders.php`, `admin/give-pokemon.php`, `payment/notify.php` — teilweise noch unvollständige `pokemon_speler`-INSERTs.
+- Fishing: `fetch_assoc` ohne Null-Check möglich.
+- Liga/Turnier nach den Helper-Umstellungen weniger im Browser geprüft.
+
 #### Hardcoded secrets removed / installer creates admin + team passwords
 - `app/includes/resources/ingame.inc.php` — the hardcoded password salt `$keyzitapass = "SENHAENCRYPTSIMBOLSPASSWORD2016"` (used by the `password()` hash for every account) was removed from the source. It is now read from the environment: `$keyzitapass = (string) Env::get('KEYZITAPASS', '');`. The `KEYZITAPASS` value is generated randomly and stored in `.env` during installation.
 - `app/includes/resources/pages/equipe-check.php` — the hardcoded team security password `$senha = "egvwl2018"` (and the commented-out legacy passwords) was removed. The page now reads the shared staff password from the environment: `$senha = (string) Env::get('TEAM_PASSWORD', '');`. Without a matching `TEAM_PASSWORD` in `.env`, admins cannot pass the team security check.
@@ -125,6 +169,5 @@ Verified via headless Chrome (CDP, viewport 1268×900, `home` and `town`): logo 
 - Planned / open items (tracked during maintenance):
 
 - **Ability edge case:** if a Pokémon's `ability` column is empty, `explode(',', '')` yields a single empty string and the ability is stored empty. Consider a fallback when the ability list is blank.
-- **`wild-start.php` / `trainer-start.php`:** notices about undefined `effect` array keys are observed during battle setup; the guards prevent output corruption, but the underlying data source should be audited.
 - **Captcha behavior:** captcha sessions variables (`pkmon`, `emqual`) persist in the session after the captcha page renders; harmless but worth cleaning up.
 - Consider removing the now-unused `install.php`/`install.lock` guidance after production deployment and auditing `hack_exp_uid.log` / `liga.log` for bot-detection noise.

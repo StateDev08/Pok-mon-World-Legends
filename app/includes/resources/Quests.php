@@ -95,10 +95,9 @@ class Quests {
     }
 
     public function getActualQuests () {
-        $quest_1 = DB::exQuery("SELECT * FROM `configs` WHERE id='6'")->fetch_assoc()['valor'];
-        $quest_2 = DB::exQuery("SELECT * FROM `configs` WHERE id='7'")->fetch_assoc()['valor'];
-
-        return array($quest_1, $quest_2);
+        $q1 = DB::exQuery("SELECT * FROM `configs` WHERE id='6'")->fetch_assoc();
+        $q2 = DB::exQuery("SELECT * FROM `configs` WHERE id='7'")->fetch_assoc();
+        return array($q1['valor'] ?? 0, $q2['valor'] ?? 0);
     }
 
     public function getItem ($id) {
