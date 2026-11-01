@@ -1,10 +1,11 @@
 <table>
     <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
     include("app/includes/resources/security.php");
 
     if (!isset($_GET['league_id']) || ($_GET['league_id'] ?? '') <= 0) {
-        header("Location: ./league");
-        exit("<script>location.href='./league'</script>");
+        game_redirect_header("Location: ./league");
+        exit("<script>location.href=document.baseURI + 'league'</script>");
     }
 
     include_once './app/classes/League.php';
@@ -16,8 +17,8 @@
     $liga->select(($_GET['league_id'] ?? ''));
 
     if ($liga->getTotal_participantes() <= 16) {
-        header("Location: ./tour");
-        exit("<script>location.href='./tour'</script>");
+        game_redirect_header("Location: ./tour");
+        exit("<script>location.href=document.baseURI + 'tour'</script>");
     }
     ?>
     <tr>

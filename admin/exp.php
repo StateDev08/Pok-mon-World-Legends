@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 header('Content-Type: text/html; charset=utf-8'); 
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
@@ -6,7 +7,7 @@ include("app/includes/resources/security.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) {
- header('location: ./home');
+ game_redirect_header('location: ./home');
  exit;
  }
 

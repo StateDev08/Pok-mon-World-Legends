@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
 //Load Safety Script
 include("app/includes/resources/security.php");
 //Include Attack Functions
@@ -24,7 +25,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
     DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($_SESSION['id'] ?? 0)."' LIMIT 1");
   }
   unset($_SESSION['trainer']['aanval_log_id'], $_SESSION['trainer']['duel_id']);
-  header("Location: /home");
+  game_redirect_header("Location: /home");
   exit;
 } else {
   //Load All Openent Info
@@ -32,7 +33,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   if ($computer_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);
-    header("Location: /home");
+    game_redirect_header("Location: /home");
     exit;
   }
   //Make all letters small
@@ -59,7 +60,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
   if ($pokemon_info === null) {
     remove_attack($aanval_log['id']);
     unset($_SESSION['trainer']['duel_id']);
-    header("Location: /home");
+    game_redirect_header("Location: /home");
     exit;
   }
   $pokemon_info['naam_klein'] = strtolower($pokemon_info['naam'] ?? '');
@@ -224,7 +225,7 @@ if ($aanval_log['user_id'] != ($_SESSION['id'] ?? '') || !isset($_SESSION['sec_k
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "klaar") {
       speler_attack = 1
       $("#message").html("<?= $txt['fight_finished']; ?>")
-      setTimeout(function () { location.href = './<?= $return_link; ?>' }, 3000)
+      setTimeout(function () { location.href = document.baseURI + '<?= $return_link; ?>' }, 3000)
     }
     else if ("<?= $aanval_log['laatste_aanval']; ?>" == "end_screen")
 	{
@@ -301,7 +302,7 @@ function show_end_screen(id) {
 		$("#img_pokemon").attr("src", "<?=$static_url?>/images/characters/<?= $gebruiker['character'] ?? ''; ?>/Thumb.png")
 		$("#img_trainer").attr("src", "<?=$static_url?>/images/trainers/<?= $aanval_log['trainer']; ?>.png")
 
-		setTimeout(function () { location.href = './<?= $return_link; ?>' }, 7500)
+		setTimeout(function () { location.href = document.baseURI + '<?= $return_link; ?>' }, 7500)
 	});
 }
 
@@ -670,7 +671,7 @@ function attack_run_status(msg) {
 	request = msg.split(" | ")
 	//Send message
 	$("#message").html(request[0])
-	if (request[1] == 1) setTimeout(function () { location.href = './<?= $return_link; ?>' }, 3000)
+	if (request[1] == 1) setTimeout(function () { location.href = document.baseURI + '<?= $return_link; ?>' }, 3000)
 	//Computer make next turn
 	if (request[1] == 0) {
 		speler_attack = 0

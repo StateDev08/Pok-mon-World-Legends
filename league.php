@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 if ($gebruiker['rank'] < 5)
-    header('Location: index.php');
+    game_redirect_header('Location: index.php');
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 

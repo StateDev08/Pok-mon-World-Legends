@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #Security laden
 include('app/includes/resources/security.php');
 
 #Je moet rank 4 zijn om deze pagina te kunnen zien
-if ($gebruiker['rank'] <= 3) header("Location: ./home");
+if ($gebruiker['rank'] <= 3) game_redirect_header("Location: ./home");
 	
 $eicheck_sql = DB::exQuery("SELECT * FROM `daycare` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " AND `ei`='1'");
 $eicheck = $eicheck_sql->fetch_assoc();

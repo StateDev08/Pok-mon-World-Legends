@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(__DIR__);
+
 require_once('../includes/resources/config.php');
 require_once(__DIR__ . '/../../language/language-user.php');
 	

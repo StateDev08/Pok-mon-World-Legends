@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
 #Load Safety Script
 include("app/includes/resources/security.php");
 
@@ -15,7 +16,7 @@ $duel_info = duel_info($_SESSION['duel']['duel_id']);
 if (($duel_info['uitdager'] != ($_SESSION['naam'] ?? '')) AND ($duel_info['tegenstander'] != ($_SESSION['naam'] ?? ''))) {
   remove_duel($duel_info['id']);
   #Send back to home
-  header("Location: ./home");
+  game_redirect_header("Location: ./home");
   #Delete Cookie
   unset($_SESSION['duel']['duel_id']);
 } 
@@ -586,7 +587,7 @@ function show_end_screen() {
     //Set Images
     $("#img_you").attr("src","<?= $static_url?>/images/characters/<?= $gebruiker['character']; ?>/Thumb.png")
     $("#img_opponent").attr("src","<?= $static_url?>/images/characters/<?= $duel_info['opponent_sex']; ?>/Thumb.png")
-    setTimeout(function () { location.href = './home' }, 7500)
+    setTimeout(function () { location.href = document.baseURI + 'home' }, 7500)
   });
 }
 

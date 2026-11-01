@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(dirname(__DIR__, 2));
+
 include_once '../includes/resources/config.php';
 
 #bora gerar uns player online fantasma ai

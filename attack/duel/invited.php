@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
 $duel = $duel_sql->fetch_assoc();
-if (empty($duel)) header('location: ./invite');
+if (empty($duel)) game_redirect_header('location: ./invite');
 
 if (isset($_POST['accept'])) {
   if ($gebruiker['silver'] < $duel['bedrag']) {
@@ -27,7 +28,7 @@ if (isset($_POST['accept'])) {
     $_SESSION['duel']['begin_zien'] = true;
     start_attack($duel);
     // sleep(1);
-    header("location: ./attack/duel/duel-attack");
+    game_redirect_header("location: ./attack/duel/duel-attack");
   }
 }
 else if (isset($_POST['cancel'])) {

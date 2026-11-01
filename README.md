@@ -65,7 +65,7 @@ Two ways to install the game.
 1. Upload the repository to your web server and point the document root to the repository root.
 2. Open `install.php` in your browser.
 3. Follow the assistant: it creates your `.env` file, connects to the database, imports the bundled schema, creates the **admin account** (username, e-mail and password you choose, with full admin rights) and generates the random **team password** (`KEYZITAPASS` password-salt and the `TEAM_PASSWORD` staff security password).
-4. After installation, **delete `install.php` and `install.lock`** from the document root for security.
+4. After installation, **delete `install.php` and retain `install.lock`** from the document root for security.
 
 ### Option 2: Manual setup
 
@@ -90,6 +90,16 @@ Two ways to install the game.
 
 ---
 
+## Updating existing databases
+
+Apply `app/includes/install/migrations/2026-11-01_widen_login_account_names.sql` to the selected game database to support account names up to 25 characters in both successful and failed login logs:
+
+```bash
+mysql -u <user> -p <database> --execute="SOURCE app/includes/install/migrations/2026-11-01_widen_login_account_names.sql"
+```
+
+This migration preserves existing log records, can be run repeatedly, and retains customized columns already wider than 25 characters. Fresh installations already include these widths in the main database dump.
+
 ## Configuration
 
 All environment-specific settings live in `.env` (the template is `.env.example`). Never commit `.env` to version control.
@@ -105,6 +115,8 @@ All environment-specific settings live in `.env` (the template is `.env.example`
 | `SMTP_MAIL`     | "From" address for system e-mails              | `noreply@yourdomain.com` |
 | `SMTP_PASS`     | SMTP password                                  |                        |
 | `KEYZITAPASS`   | Password-hash salt (auto-generated on install) | auto-generated         |
+| `PAGSEGURO_EMAIL` | PagSeguro merchant e-mail (required for payments) | |
+| `PAGSEGURO_TOKEN` | PagSeguro API token (required for payments) | |
 | `TEAM_PASSWORD` | Shared staff security password (team area)     | auto-generated         |
 
 The `.env` file is loaded by `app/includes/Env.php`. `KEYZITAPASS` is the salt for the `password()` hash; `TEAM_PASSWORD` is the shared security password for the team area (`equipe-check`). The web installer generates both on install (the team password can also be chosen in the installer form). Existing installations must keep their original `KEYZITAPASS`, otherwise stored account passwords no longer match. The schema also ships a number of in-code feature toggles (e.g. weekend triple XP, double silver days, seasonal shops) in `app/includes/resources/config.php`.
@@ -208,6 +220,8 @@ Language packs live under `language/` (e.g. `language/general/language-general-e
 
 ## Cron Jobs
 
+Cron scripts now reject all HTTP requests. Run them with PHP CLI, for example `php /absolute/path/to/game/app/cron/cron_day.php`; replace any existing curl/wget schedules. Each script sets its working directory before loading dependencies.
+
 `app/cron/` contains the scheduled maintenance scripts. Wire them to your system cron / task scheduler; timings are conventions and should be chosen to match the game's balance:
 
 | Script             | Purpose                                      |
@@ -241,13 +255,19 @@ The `admin/` directory contains the complete administration suite, protected by 
 ## Security Notes
 
 - **Never commit `.env`** to version control — it contains database and SMTP credentials.
-- After installation, **delete `install.php` and `install.lock`**.
-- The shipped `.htaccess` blocks `.env`/`.lock` files and only permits SVG uploads. If you use Nginx, replicate those rules.
+- After installation, **delete `install.php` and retain `install.lock`**.
+- Apache must honor the shipped `.htaccess` files. They deny direct HTTP access to `app/`, `language/`, `audit/`, environment files, dumps, logs and debugging helpers. For Nginx/IIS, configure equivalent server rules; PHP includes remain available internally. These rules do not provide an upload validator.
 - Battle start requests on the attack map are validated against a per-session unique id; mismatches are logged and bounced (anti-bot measure).
 - The session cookie name is derived from the client IP and User-Agent, which makes cross-device session reuse harder (note: changing UA or IP produces a new cookie name for the same session id).
 - `isAllowedPage()` in `index.php` restricts which internal files can be routed as pages (path traversal / arbitrary-include protection).
 
 ---
+
+## Payment security configuration
+
+Payments require `PAGSEGURO_EMAIL` and `PAGSEGURO_TOKEN` in the environment, PHP curl/SimpleXML, and a working CA trust configuration. Rotate the credentials previously embedded in source before enabling payments. TLS verification is mandatory. Missing credentials or provider failures stop payment processing.
+
+Notifications validate invoice reference, BRL currency, exact gross amount and recipient. A MySQL named lock serializes each invoice. The persistent `security_processing` status is written before rewards, so a crash cannot automatically replay a partially paid invoice on legacy MyISAM tables. Such invoices require manual reconciliation of already granted rewards before any status change. This is an at-most-once safety measure; full atomic settlement still requires the planned database migration.
 
 ## Troubleshooting
 

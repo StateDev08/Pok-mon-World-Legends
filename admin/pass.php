@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 include("app/includes/resources/security.php");
 	include_once("language/language-admin.php");
 
 //Admin controle
-if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
+if ($gebruiker['admin'] < 1) { game_redirect_header('location: ./home'); exit; }
 
 
 ?>

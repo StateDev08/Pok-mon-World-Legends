@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
 #Load Safety Script
 include("app/includes/resources/security.php");
 
@@ -15,7 +16,7 @@ if (empty($aanval_log['user_id']) || $aanval_log['user_id'] != ($_SESSION['id'] 
     DB::exQuery("UPDATE `gebruikers` SET `pagina`='home',`in_battle`=0 WHERE `user_id`='".(int) ($_SESSION['id'] ?? 0)."' LIMIT 1");
   }
   unset($_SESSION['attack']['aanval_log_id'], $_SESSION['attack']['duel_id']);
-  header("Location: /home");
+  game_redirect_header("Location: /home");
   exit;
 }
 
@@ -25,7 +26,7 @@ $computer_info = computer_data($aanval_log['tegenstanderid']);
 if (!is_array($computer_info)) {
   remove_attack($aanval_log['id'] ?? 0);
   unset($_SESSION['attack']['aanval_log_id']);
-  header("Location: /home");
+  game_redirect_header("Location: /home");
   exit;
 }
 
@@ -146,14 +147,14 @@ if (!is_array($computer_info)) {
   <?php
         if (empty($_SESSION['map_live'])) {
       ?>
-        var redirectUrl = <?= json_encode('/attack/' . (($gebruiker['voltaredirect'] ?? '') !== '' ? $gebruiker['voltaredirect'] : 'attack_map')) ?>;
+        var redirectUrl = <?= json_encode(game_url('attack/' . (($gebruiker['voltaredirect'] ?? '') !== '' ? $gebruiker['voltaredirect'] : 'attack_map'))) ?>;
         function goAfterBattle() { window.location.href = redirectUrl; }
       <?php
         } else {
             $m = ($_SESSION['map_live'] ?? '');
             $_SESSION['map_live'] = '';
        ?>
-       var redirectUrl = <?= json_encode('/safari&map=' . ($m ?? '')) ?>;
+       var redirectUrl = <?= json_encode(game_url('safari&map=' . ($m ?? ''))) ?>;
        function goAfterBattle() { window.location.href = redirectUrl; }
        <?php
         }

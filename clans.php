@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 
 include('app/includes/resources/security.php');
 
@@ -14,5 +15,5 @@ if (isset($_GET['action']) && in_array(($_GET['action'] ?? ''), $actions)) {
 	if ($valid) include('app/includes/resources/pages/clans/'.$action.'.php');	
 	else echo '<div class="red">'.$txt['clans_rank_min'].'</div>';	
 } else {
-	header('location: ./clans&action=central');
+	game_redirect_header('location: ./clans&action=central');
 }

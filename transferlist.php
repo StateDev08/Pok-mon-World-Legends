@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #include dit script als je de pagina alleen kunt zien als je ingelogd bent.
 require_once('app/includes/resources/security.php');
 
@@ -64,7 +65,7 @@ if (isset($_POST['buy']) && $mine == 'false') {
 
 			DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $buy['user_id'] . "', '" . $event . "', '0')");
 
-			header('location: ./pokemon-profile&id='.$buy['pokemon_id']);
+			game_redirect_header('location: ./pokemon-profile&id='.$buy['pokemon_id']);
 
 		}
 	} else {
@@ -366,9 +367,9 @@ $base_url = getUrl('/(&type=[a-z]+)/', '/(&subpage=[0-9]+)/');
 			$remove = '<button type="button" onclick="delete_from(\'' . $tl['id'] . '\',\'' . $tid . '\');">'.$txt['transfer_remove'].'</button>';
 			if ($type == 'auction') {
 				if ($lances > 0) {
-					$remove = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_view'].'</button>';
+					$remove = '<button type="button" onclick="window.location = document.baseURI + \'pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_view'].'</button>';
 				}
-				$btn = '<button type="button" onclick="window.location = \'./pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_bid'].'</button>';
+				$btn = '<button type="button" onclick="window.location = document.baseURI + \'pokemon-profile&id='.$tl['id'].'\'">'.$txt['transfer_bid'].'</button>';
 			} else {
 				$btn = '<button type="button" class="buy-pokemon" data-buy="'.base64_encode($tid).'">'.$txt['transfer_buy'].'</button>';
 			}

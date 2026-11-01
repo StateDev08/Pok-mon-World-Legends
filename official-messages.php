@@ -9,22 +9,22 @@ echo addNPCBox(14, $txt['inbox_title'], $txt['inbox_npc_msg']);
 <div style="width: 100%; display: flex" class="box-content">
     <table style="flex: 0 0 17%;" class="msg-table">
         <tr>
-            <td class="selected" onclick="window.location = './official-messages'">
+            <td class="selected" onclick="window.location = document.baseURI + 'official-messages'">
                 <i class="material-icons" style="font-size: 30px">email</i> <br><?=$txt['inbox_official']?> <span class="badges" id="official-badges">0</span>
             </td>
         </tr>
         <tr>
-            <td onclick="window.location = './inbox'">
+            <td onclick="window.location = document.baseURI + 'inbox'">
                 <i class="material-icons" style="font-size: 30px">people</i> <br><?=$txt['inbox_conversations']?> <span class="badges" id="mail-badges">0</span>
             </td>
         </tr>
         <tr>
-            <td onclick="window.location = './inbox&action=send'" id="new_msg">
+            <td onclick="window.location = document.baseURI + 'inbox&action=send'" id="new_msg">
                 <i class="material-icons" style="font-size: 30px">message</i> <br><?=$txt['inbox_new_conv']?>
             </td>
         </tr>
         <tr>
-            <td onclick="window.location = './blocklist'">
+            <td onclick="window.location = document.baseURI + 'blocklist'">
                 <i class="material-icons" style="font-size: 30px">block</i> <br><?=$txt['inbox_blocked']?> (<span id="block-badges">0</span>)
             </td>
         </tr>

@@ -49,7 +49,7 @@ echo '<div class="red">'.$txt['pokedex_buy'].'</div>';
 				while ($z = $zh->fetch_assoc()) {
 					$poke = DB::exQuery("SELECT * FROM `pokemon_wild` WHERE `zeldzaamheid`='".$z['id']."' AND `aparece`='sim' ORDER BY real_id");
 					if ($i == 0) echo '<tr>';
-					echo '<td><select style="width:200px" onchange="window.location = \'./pokedex&poke=\'+$(this).val()">';
+					echo '<td><select style="width:200px" onchange="window.location = document.baseURI + \'pokedex&poke=\'+$(this).val()">';
 					echo '<option selected disabled>'.($txt['pokedex_rarity_'.$z['id']] ?? $z['nome']).'</option>';
 				while ($p = $poke->fetch_assoc()) {
 					$selected = '';

@@ -4941,7 +4941,7 @@ CREATE TABLE `inlog_fout` (
   `id` int(9) NOT NULL,
   `datum` datetime NOT NULL,
   `ip` varchar(15) NOT NULL,
-  `spelernaam` varchar(10) NOT NULL,
+  `spelernaam` varchar(25) NOT NULL,
   `wachtwoord` varchar(32) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -4954,7 +4954,7 @@ CREATE TABLE `inlog_fout` (
 CREATE TABLE `inlog_logs` (
   `id` int(9) NOT NULL,
   `datum` datetime NOT NULL,
-  `speler` varchar(10) NOT NULL,
+  `speler` varchar(25) NOT NULL,
   `ip` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

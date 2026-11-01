@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 header('Content-Type: text/html; charset=utf-8'); 	
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 include_once("language/language-admin.php");
 
 //Admin controle
-if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
+if ($gebruiker['admin'] < 3) { game_redirect_header('location: ./home'); exit; }
 
 if (isset($_POST['text']) && isset($_POST['title'])) {
 	$text = htmlspecialchars(($_POST['text'] ?? ''));

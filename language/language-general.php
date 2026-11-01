@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 ob_start();
 
 $language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
@@ -14,7 +15,7 @@ if (isset($_GET['language']) && in_array(($_GET['language'] ?? ''), $language_ar
 	$page = str_replace('..', '', $page);
 	$page = ltrim($page, '/');
 	$page = preg_replace('#/{2,}#', '/', $page);
-	exit(header('Location: ./' . urlencode($page)));
+	exit(game_redirect_header('Location: ./' . urlencode($page)));
 }
 
 $lang = $_COOKIE['pa_language'] ?? $_SESSION['pa_language'] ?? null;

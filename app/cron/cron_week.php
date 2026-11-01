@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(__DIR__);
+
 require_once('../includes/resources/config.php');
 	
 $calculo = 60 * 60 * 24 * 30; //2592000 = 30 dias

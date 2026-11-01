@@ -1,5 +1,6 @@
 <?php
-if ($gebruiker['in_hand'] == 0) header('Location: index.php');
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
+if ($gebruiker['in_hand'] == 0) game_redirect_header('Location: index.php');
 	
     include_once './app/classes/League.php';
     $button = '';
@@ -141,7 +142,7 @@ if ($gebruiker['in_hand'] == 0) header('Location: index.php');
                                 else if (data == 3) {
                                     $("#status").html("<?php echo $txt['duel_status_accepted']; ?>")
                                     clearTimeout(t)
-                                    setTimeout(function () { location.href = './attack/duel/duel-attack' }, 0)
+                                    setTimeout(function () { location.href = document.baseURI + 'attack/duel/duel-attack' }, 0)
                                 }
                                 else if (data == 4) {
                                     $("#status").html("<?php echo $txt['alert_opponent_no_silver']; ?>")

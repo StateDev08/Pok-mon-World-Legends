@@ -1,10 +1,11 @@
-<?php		
+<?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 include_once("language/language-admin.php");
 
 //Admin controle
-if ($gebruiker['admin'] < 1) { header('location: ./home'); exit; }
+if ($gebruiker['admin'] < 1) { game_redirect_header('location: ./home'); exit; }
 
 ###################################################################
 
@@ -15,7 +16,7 @@ if (isset($_GET['player'])) {
 	  $profiel = (DB::exQuery("SELECT `username`, `datum`, `ip_aangemeld`, `ip_ingelogd`, `premiumaccount`, `silver`, `admin`, `wereld`, `online`, `voornaam`, `achternaam`, `character`, `profiel`, `teamzien`, `rank`, `aantalpokemon`, `gewonnen`, `verloren`, COUNT(DISTINCT `user_id`) AS `aantal` FROM `gebruikers` WHERE `username`='".($_GET['player'] ?? '')."' GROUP BY `user_id`"))->fetch_assoc();
 	  
 	  //is er geen player ingevuld dan terug naar home
-	  if ($profiel['aantal'] != 1) header("Location: ./home");
+	  if ($profiel['aantal'] != 1) game_redirect_header("Location: ./home");
     //Anders de pagina
     else{
 		

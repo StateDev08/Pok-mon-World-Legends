@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/GameUrl.php';
 
 class Official {
 
@@ -81,7 +82,7 @@ class Official {
     }
 
     protected function home_page () {
-        header('Location: ./official-messages'); 
+        game_redirect_header('Location: ./official-messages');
         exit;
     }
 

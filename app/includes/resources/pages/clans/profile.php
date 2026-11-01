@@ -1,13 +1,14 @@
 <?php
+require_once __DIR__ . '/../../../GameUrl.php';
 include('app/includes/resources/security.php');
 
 $id = ($_GET['id'] ?? '');
-if (empty($id) && !is_numeric($id)) header('location: ./clans&action=central');
+if (empty($id) && !is_numeric($id)) game_redirect_header('location: ./clans&action=central');
 
 $infos = $clan->get($id);
 
 if (empty($infos)) {
-    header('location: ./clans&action=central');
+    game_redirect_header('location: ./clans&action=central');
 } else {
     $your_clan = false;
     if (!empty($gebruiker['clan']) && $id == $gebruiker['clan']) $your_clan = true;

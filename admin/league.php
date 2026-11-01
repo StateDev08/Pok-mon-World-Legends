@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 include_once("language/language-admin.php");
 
 //Admin controle
 if ($gebruiker['admin'] < 2) {
-    header('location: ./home');
+    game_redirect_header('location: ./home');
     exit;
     } 
 
@@ -186,7 +187,7 @@ if (isset($_GET['new'])) {
             <br/><br/>
 
             <input type="submit" name="new" value="<?=htmlspecialchars($txt['adm_create_league'], ENT_QUOTES)?>" class="button">
-            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = '/admin/league'" class="button"/>
+            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league'" class="button"/>
         </form>
     </div>
     <?php
@@ -227,7 +228,7 @@ if (isset($_GET['new'])) {
             <br/><br/>
 
             <input type="submit" name="new_award" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" class="button">
-            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = '/admin/league'" class="button"/>
+            <input type="button" value="<?=htmlspecialchars($txt['adm_cancel'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league'" class="button"/>
         </form>
     </div>
     <?php
@@ -236,8 +237,8 @@ if (isset($_GET['new'])) {
     $ligas_terminadas = League::select_terminadas();
     ?>
     <div style="float: left; width: auto; height: auto; margin: 10px;">
-        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
-        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award'" class="button"/>
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new'" class="button"/> &nbsp;
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new_award'" class="button"/>
     </div>
     <div style="float: left; width: auto; height: auto;">
         <h2><?=$txt['adm_open_leagues']?></h2><br/>
@@ -274,7 +275,7 @@ if (isset($_GET['new'])) {
                             <?=$txt['adm_n_megas']?> <?= $liga->getN_megas() ?><br/>
                             <?=$txt['adm_lv_max']?> <?= $liga->getLv_max_pokemon() ?><br/>
                             <br/>
-                            <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
+                            <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
                             <ul>
                                 <?php
                                 foreach (League_award::select_league($liga->getId()) as $premio) {
@@ -363,7 +364,7 @@ if (isset($_GET['new'])) {
                                 <?=$txt['adm_n_megas']?> <?= $liga->getN_megas() ?><br/>
                                 <?=$txt['adm_lv_max']?> <?= $liga->getLv_max_pokemon() ?><br/>
                                 <br/>
-                                <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
+                                <?=$txt['adm_awards']?> <input type="button" value="<?=htmlspecialchars($txt['adm_create'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new_award&league_id=<?= $liga->getId() ?>'" class="button_mini"/>
                                 <ul>
                                     <?php
                                     foreach (League_award::select_league($liga->getId()) as $premio) {
@@ -444,8 +445,8 @@ if (isset($_GET['new'])) {
         </div><br/>
     </div>
     <div style="float: left; width: auto; height: auto; margin: 10px;">
-        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new'" class="button"/> &nbsp;
-        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = '/admin/league&new_award'" class="button"/>
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_new_league'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new'" class="button"/> &nbsp;
+        <input type="button" value="<?=htmlspecialchars($txt['adm_create_award_btn'], ENT_QUOTES)?>" onclick="location.href = document.baseURI + 'admin/league&new_award'" class="button"/>
     </div>
     <?php
 }

@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/../includes/GameUrl.php';
 $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_tmhm` WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " LIMIT 1")->fetch_assoc();
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0)	echo '<script>parent.$.colorbox.close();</script>';
 
 #Als er een result is kan pokemon evolueren.
 if (isset($_POST['kies']) && is_numeric(($_POST['pokemonid'] ?? ''))) {
 	if (empty($_POST['pokemonid']))	$message =  '<div class="red">'.$txt['use_choose_pokemon'].'</div>';
-	else	exit(header('Location: ./ajax.php?act=use_attack_finish&name=' . ($_GET['name'] ?? '') . '&pokemonid=' . ($_POST['pokemonid'] ?? '')));
+	else	exit(game_redirect_header('Location: ./ajax.php?act=use_attack_finish&name=' . ($_GET['name'] ?? '') . '&pokemonid=' . ($_POST['pokemonid'] ?? '')));
 }
 ?>
 <!DOCTYPE html>

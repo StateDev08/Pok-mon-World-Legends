@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 	error_reporting(0);
 	#Script laden zodat je nooit pagina buiten de index om kan laden
 	include("app/includes/resources/security.php");
@@ -157,7 +158,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                <form>
                   <input type="hidden" name="page" value="box"/>
                   <a href="./box&box=<?= $anter?>" class="noanimate"><img src="<?= $static_url?>/images/icons/arrow_left_25.png" style="vertical-align: unset;"/></a>
-                  <select class="text_select" name="box" onchange="window.location = './box&box='+$(this).val()" style="padding-left: 45px;">
+                  <select class="text_select" name="box" onchange="window.location = document.baseURI + 'box&box='+$(this).val()" style="padding-left: 45px;">
                   <?php
                      $calc1 = $huis['ruimte'] / 50;
                      if ($calc1 < 1) $calc1 = 1;
@@ -180,7 +181,7 @@ if ($over <= 5 && strtolower($gebruiker['huis']) != "villa") {
                      if ($calcbox > ($_GET['box'] ?? '')) $prox = ($_GET['box'] ?? '') + 1;
                      else $prox = ($_GET['box'] ?? '');
                      
-                     if (($_GET['box'] ?? '') > $calcbox) exit(header("Location: ./box&box=1"));
+                     if (($_GET['box'] ?? '') > $calcbox) exit(game_redirect_header("Location: ./box&box=1"));
                      
                      ?>
                   <a href="./box&box=<?= $prox?>" class="noanimate"><img src="<?= $static_url?>/images/icons/arrow_right_25.png" style="vertical-align: unset;"/></a>

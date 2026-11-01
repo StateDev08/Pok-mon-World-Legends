@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 require_once('./app/includes/resources/security.php');
 
 /*if (isset($_POST['buy_vip3'])) {
@@ -8,7 +9,7 @@ require_once('./app/includes/resources/security.php');
 		$new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * 3)) : (time() + (86400 * 3));
 		DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 3 dias de vip.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }*/
 if (isset($_POST['buy_vip7'])) {
@@ -18,7 +19,7 @@ if (isset($_POST['buy_vip7'])) {
 		$new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * 7)) : (time() + (86400 * 7));
 		DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 7 dias de vip.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 if (isset($_POST['buy_vip15'])) {
@@ -28,7 +29,7 @@ if (isset($_POST['buy_vip15'])) {
 		$new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * 15)) : (time() + (86400 * 15));
 		DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 15 dias de vip.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 if (isset($_POST['buy_vip30'])) {
@@ -38,7 +39,7 @@ if (isset($_POST['buy_vip30'])) {
 		$new_vip = ($gebruiker['premiumaccount'] > time()) ? ($gebruiker['premiumaccount'] + (86400 * 30)) : (time() + (86400 * 30));
 		DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`={$new_vip} WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 30 dias de vip.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 /*
@@ -48,7 +49,7 @@ if (isset($_POST['buy_silver100'])) {
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-5 WHERE `acc_id`={$rekening['acc_id']}");
 		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+100000 WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 100k de silvers.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 if (isset($_POST['buy_silver240'])) {
@@ -57,7 +58,7 @@ if (isset($_POST['buy_silver240'])) {
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-12 WHERE `acc_id`={$rekening['acc_id']}");
 		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+240000 WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 240k de silvers.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 if (isset($_POST['buy_silver500'])) {
@@ -66,7 +67,7 @@ if (isset($_POST['buy_silver500'])) {
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-25 WHERE `acc_id`={$rekening['acc_id']}");
 		DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`+500000 WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Comprou 500k de silvers.')");
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 */
@@ -82,7 +83,7 @@ if (isset($_POST['change_name'])) {
 		DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-20 WHERE `acc_id`={$rekening['acc_id']}");
 		DB::exQuery("UPDATE `gebruikers` SET `username`='{$_POST['geb_name']}' WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Trocou de nome.')");	
-		exit(header("LOCATION: ./logout"));
+		exit(game_redirect_header("LOCATION: ./logout"));
 	}
 }
 if (isset($_POST['change_perso'])) {
@@ -95,7 +96,7 @@ if (isset($_POST['change_perso'])) {
 		
 		DB::exQuery("UPDATE `gebruikers` SET `character`='{$_POST['perso']}', `character_num`=1 WHERE `user_id`={$_SESSION['id']}");
 		DB::exQuery("INSERT INTO `logs_gold_market` (`date`,`user_id`,`text`) VALUES (NOW(),{$gebruiker['user_id']},'Trocou de personagem.')");	
-		exit(header("LOCATION: ./gold-market"));
+		exit(game_redirect_header("LOCATION: ./gold-market"));
 	}
 }
 

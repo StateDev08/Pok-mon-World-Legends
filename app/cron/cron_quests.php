@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(__DIR__);
+
 require_once('../includes/resources/config.php');
 
 $all_quest = DB::exQuery("SELECT * FROM `daily_quest`");

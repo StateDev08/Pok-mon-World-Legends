@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 require_once('app/includes/resources/security-account.php');
 
 $sql = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`=" . (int) ($_SESSION['acc_id'] ?? ''));
-if ($sql->num_rows >= 7)	exit(header("LOCATION: ./my_characters"));
+if ($sql->num_rows >= 7)	exit(game_redirect_header("LOCATION: ./my_characters"));
 else {
 	if (isset($_POST['submit'])) {
 		$inlognaam = ($_POST['inlognaam'] ?? '');
@@ -66,7 +67,7 @@ else {
 			DB::exQuery("INSERT INTO `gebruikers_tmhm` (`user_id`) VALUES (" . $user_id . ")");
 
 			#Bericht opstellen
-			exit(header("LOCATION: ./my_characters"));
+			exit(game_redirect_header("LOCATION: ./my_characters"));
 		}
 	}
 ?>

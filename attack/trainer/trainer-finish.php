@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../app/includes/GameUrl.php';
 //Is all the information send
 if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   //Connect With Database
@@ -141,7 +142,7 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
   }
   else
   {
-    header("Location: /attack/trainer/trainer-attack");
+    game_redirect_header("Location: /attack/trainer/trainer-attack");
   }
 }
 ?>

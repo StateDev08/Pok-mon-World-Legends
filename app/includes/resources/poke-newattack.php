@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../GameUrl.php';
 #Script laden zodat je nooit pagina buiten de index om kan laden
 require_once("app/includes/resources/security.php");
 
@@ -64,7 +65,7 @@ if ($finish) {
 		}
 	}
 	if ($count == 0)	unset($_SESSION['aanvalnieuw']);
-	exit(header("LOCATION: ./home"));
+	exit(game_redirect_header("LOCATION: ./home"));
 }
 ?>
 <div class="box-content" style="width: 100%;"><table class="general" width="100%">

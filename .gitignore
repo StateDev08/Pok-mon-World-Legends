@@ -1,5 +1,7 @@
 .env
 .env.local
+.env.*
+!.env.example
 .env.*.local
 *.log
 *.swp
@@ -7,3 +9,7 @@
 Thumbs.db
 install.lock
 tools/translation_input.json
+audit/*.jpg
+audit/*.png
+audit/*results.json
+audit/*backup*.txt

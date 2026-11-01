@@ -1,5 +1,6 @@
 <?php
-if (isset($_SESSION['acc_id'])) header ('Location: ./notfound');
+require_once __DIR__ . '/app/includes/GameUrl.php';
+if (isset($_SESSION['acc_id'])) game_redirect_header ('Location: ./notfound');
 
 if (isset($_POST['activate'])) {
 	$inlognaam	=	($_POST['username'] ?? '');

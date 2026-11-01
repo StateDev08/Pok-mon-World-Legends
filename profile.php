@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 
 include('app/includes/resources/security.php');
 
@@ -6,7 +7,7 @@ if (isset($_GET['player'])) {
 
 $profiel = DB::exQuery("SELECT `r`.`karma`,`g`.`ultimo_login`,`g`.`antiguidade`,`g`.`user_id`,`g`.`username`,`r`.`datum`,`g`.`clan`,`g`.`rang`,`g`.`rang_temp`,`r`.`email`,`r`.`ip_aangemeld`,`r`.`ip_ingelogd`,`g`.`silver`,`r`.`gold`,`g`.`premiumaccount`,`g`.`admin`,`g`.`wereld`,`g`.`online`,`g`.`character`,`g`.`character_num`,`g`.`profiel`,`g`.`teamzien`,`g`.`badgeszien`,`g`.`rank`,`g`.`wereld`,`g`.`aantalpokemon`,`g`.`badges`,`g`.`gewonnen`,`g`.`verloren`,COUNT(DISTINCT `g`.`user_id`) AS `check`,`gi`.`Badge case` FROM `gebruikers` AS `g` INNER JOIN `rekeningen` AS `r` ON `g`.`acc_id`=`r`.`acc_id` INNER JOIN `gebruikers_item` AS `gi` ON `g`.`user_id`=`gi`.`user_id` WHERE `g`.`username`='" .($_GET['player'] ?? '')."' AND `g`.`banned`!='Y' GROUP BY `g`.`user_id` LIMIT 1")->fetch_assoc();
 
-if ($profiel['check'] != 1)	exit(header("LOCATION: ./"));
+if ($profiel['check'] != 1)	exit(game_redirect_header("LOCATION: ./"));
 else {
 	$plaatje = $static_url . "/images/icons/status_offline.png";
 	$online  = $txt['offline'];
@@ -663,6 +664,6 @@ echo '</table></div>';
 ?>
 <?php
 	} else {
-		header('location: ./notfound');
+		game_redirect_header('location: ./notfound');
 	}
 ?>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../GameUrl.php';
 include("app/includes/resources/security.php");
 
 $senha = (string) Env::get('TEAM_PASSWORD', '');
@@ -12,7 +13,7 @@ if (($captcha) != $senha) {
 	
 	} else {		
 	$_SESSION['equipe'] = 1;
-	Header("Location: ./home");
+	game_redirect_header("Location: ./home");
 		echo '<div class="green">'.$txt['team_pass_ok'].'</div>';
    }
    

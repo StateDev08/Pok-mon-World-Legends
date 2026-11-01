@@ -1,14 +1,15 @@
 <?php
+require_once __DIR__ . '/../../../GameUrl.php';
 //Security laden
 include('app/includes/resources/security.php');
 
 function redirect($location) {
-	header('Location: '.$location.'');
+	game_redirect_header('Location: '.$location.'');
 	die();
 }
 
 echo addNPCBox(19, $txt['safari_npc_title'], $txt['safari_event_npc_text']);
-if(empty($Saffari)) exit(header("Location: ./home"));
+if(empty($Saffari)) exit(game_redirect_header("Location: ./home"));
 
 
 $map = (int)($_GET['map'] ?? '');
@@ -22,11 +23,11 @@ if (isset($_GET['map'], $_GET['x'], $_GET['y'])) {
 	$x = (int) ($_GET['x'] ?? '');
 	$y = (int) ($_GET['y'] ?? '');
 	DB::exQuery("UPDATE `gebruikers` SET `map_num`='{$map}',`map_x`='{$x}',`map_y`='{$y}',`map_lastseen`='{$time}',`captcha_time`='{$time}' WHERE `user_id`='{$_SESSION['id']}'");
-	header('Location: ./eventos&actual=safari&map=' . $map);
+	game_redirect_header('Location: ./eventos&actual=safari&map=' . $map);
 }
 
 if (empty($map)) {
-	header('Location: ./eventos&actual=safari&map=1');
+	game_redirect_header('Location: ./eventos&actual=safari&map=1');
 	exit;
 } else {
 	$startX = $map_info['start_x'];
@@ -107,7 +108,7 @@ if(($_POST['goid'] ?? '') != "" && ($_POST['level'] ?? '') != "") {
 				}
 				
 				DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
-				header("Location: /attack/wild/wild-attack");
+				game_redirect_header("Location: /attack/wild/wild-attack");
 				exit;
             } else
                 echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
@@ -134,7 +135,7 @@ if(isset($_POST['trainer'])){
 		if (empty($info['bericht'])) {
 			$_SESSION['map_live'] = $map;
 			$_SESSION['battle'] = true;
-			header("Location: ./trainer/trainer-attack");
+			game_redirect_header("Location: ./attack/trainer/trainer-attack");
 			exit;
 		} else
 			echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
@@ -223,7 +224,7 @@ $js_safari_battle_btn   = addslashes($txt['safari_battle_btn']);
 			var nMap = Math.floor(map[y][x] / 10000);
 			var nX   = Math.floor((map[y][x] % 10000) / 100);
 			var nY   = Math.floor((map[y][x] % 100));
-			window.location = './eventos&actual=safari&map='+nMap+'&x='+nX+'&y='+nY;
+			window.location = document.baseURI + 'eventos&actual=safari&map='+nMap+'&x='+nX+'&y='+nY;
 		}
 		
 	}

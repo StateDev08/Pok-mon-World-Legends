@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 //Admin controle
-if ($gebruiker['admin'] < 3) { header('location: ./home'); exit; }
+if ($gebruiker['admin'] < 3) { game_redirect_header('location: ./home'); exit; }
 include_once("language/language-admin.php");
 require_once("language/language-user.php");
     //Als de knop is aangeklikt

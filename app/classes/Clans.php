@@ -28,9 +28,10 @@ class Clans extends Gebruikers {
 
     public function create ($infos) {
         $date = date('d/m/Y');
-        DB::exQuery("INSERT INTO `clans` (`name`, `sigla`, `descr`, `silvers`, `golds`, `level`, `exp`, `ranking`, `owner`, `image`, `date`) VALUES ('$infos[name]', '$infos[sigla]', '$infos[descr]', 0, 0, 1, 0, 0, '$infos[user]', '$infos[image]', '$date');");  
+        DB::exQuery("INSERT INTO `clans` (`name`, `sigla`, `descr`, `silvers`, `golds`, `level`, `exp`, `ranking`, `owner`, `image`, `date`, `missoes_concluidas`, `premios`) VALUES ('$infos[name]', '$infos[sigla]', '$infos[descr]', 0, 0, 1, 0, 0, '$infos[user]', '$infos[image]', '$date', 0, 0);");
         $clan_id = DB::insertID();
         DB::exQuery("INSERT INTO `clans_member`(`user_id`, `silvers_contribuicao`, `golds_contribuicao`, `prioridade`, `cla`, `date`) VALUES ('$infos[user]', 0, 0, 0, '$clan_id', NOW());");   
+        return $clan_id;
     }
 
     public function getUserClan ($user_id) {

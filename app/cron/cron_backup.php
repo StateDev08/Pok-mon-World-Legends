@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(__DIR__);
+
 ini_set('max_execution_time', 300);
 require_once('../includes/resources/config.php');
 

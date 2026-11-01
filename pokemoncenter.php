@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #Script laden zodat je nooit pagina buiten de index om kan laden
 require_once("app/includes/resources/security.php");
 
 #Als je geen pokemon bij je hebt, terug naar index.
-if ($gebruiker['in_hand'] == 0)	exit(header('LOCATION: ./'));
+if ($gebruiker['in_hand'] == 0)	exit(game_redirect_header('LOCATION: ./'));
 
 #Als er op de heal knop gedrukt word
 if (isset($_POST['heal']) && is_array($_POST['pokemon'] ?? []) && count($_POST['pokemon'] ?? []) != 0) {
@@ -37,7 +38,7 @@ if (isset($_POST['heal']) && is_array($_POST['pokemon'] ?? []) && count($_POST['
     
 	if (empty($message)) {
 		DB::exQuery("UPDATE `gebruikers` SET `pokecentertijdbegin`= NOW(), `pokecentertijd`='".$count_time."' WHERE `user_id`='" . $gebruiker['user_id'] . "'");
-	    header("LOCATION: ./pokemoncenter");
+	    game_redirect_header("LOCATION: ./pokemoncenter");
 	}
 }
 $title = $txt['pokecenter_title'];

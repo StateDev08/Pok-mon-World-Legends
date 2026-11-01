@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../GameUrl.php';
+
 // Load environment variables from a .env file in the project root.
 require_once(__DIR__ . '/../Env.php');
 Env::load();
@@ -8,10 +10,20 @@ Env::load();
 $session_ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 $session_ua = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
 session_name('__' . sha1(md5('secure' . $session_ip . $session_ua)));
+ini_set('session.use_strict_mode', '1');
+ini_set('session.use_only_cookies', '1');
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+    'samesite' => 'Lax',
+    'path' => '/',
+]);
 session_start();
 
 ob_start();
 error_reporting(E_ALL ^ E_NOTICE);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 // date_default_timezone_set('America/Sao_Paulo');
 ini_set('default_charset', 'UTF-8');
 
@@ -25,15 +37,16 @@ $dbdatabase = Env::get('DB_NAME', '');
 
 require_once(PATH.'/DB/DB.php');
 
-foreach($_GET as $key=>$value) if (!is_array($value)) $_GET[$key] = DB::real_escape_string($value);
-foreach($_POST as $key=> $value) if (!is_array($value)) $_POST[$key] = DB::real_escape_string($value);
-foreach($_COOKIE as $key=>$value) if (!is_array($value)) $_COOKIE[$key] = DB::real_escape_string($value);
+require_once(__DIR__ . '/../Security.php');
+$_GET = array_map([Security::class, 'escapeInput'], $_GET);
+$_POST = array_map([Security::class, 'escapeInput'], $_POST);
+$_COOKIE = array_map([Security::class, 'escapeInput'], $_COOKIE);
 
 // Load PHPMailer 7 autoloader and alias for legacy `new PHPMailer()` calls.
 require_once(PATH.'/PHPMailer/autoload.php');
 
 require_once(PATH.'/resources/site_names.php');
-$static_url = 'public'; # sem "/" no final da pasta/url
+$static_url = game_url('public'); # sem "/" no final da pasta/url
 
 $smtp = [
 	'host' => Env::get('SMTP_HOST', 'smtp.yourhost.com'),

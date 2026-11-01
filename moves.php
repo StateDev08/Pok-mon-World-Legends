@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
     #include dit script als je de pagina alleen kunt zien als je ingelogd bent.
     include('app/includes/resources/security.php');
 
     #Als je geen pokemon bij je hebt, terug naar index.
-    if ($gebruiker['in_hand'] == 0) header('Location: index.php');
+    if ($gebruiker['in_hand'] == 0) game_redirect_header('Location: index.php');
 
     $sucesso = false;
 
@@ -72,7 +73,7 @@
                 }
 
             } else {
-                header ('Location: ./moves');
+                game_redirect_header ('Location: ./moves');
             }
         } else {
             $verify = 0;
@@ -101,7 +102,7 @@
                 }
 
                 if ($dadosataque['naam'] == "Sketch") {
-                    header ('Location: ./moves');
+                    game_redirect_header ('Location: ./moves');
                 }
 
                 if ($gebruiker['silver'] >= $ataque['silver']) {
@@ -122,7 +123,7 @@
                 }
 
             } else {
-                header ('Location: ./moves');
+                game_redirect_header ('Location: ./moves');
             }
         }
 
@@ -148,7 +149,7 @@
 
                         $category = 'moves-learn-nomove';
                     } else {
-                        header ('Location: ./moves');
+                        game_redirect_header ('Location: ./moves');
                     }
                 }
             } else {
@@ -608,7 +609,7 @@
                 <?php
                     echo '<center><button type="button" class="button" style="background-color: #d25757" onclick="window.location = window.location.href">'.$txt['moves_back_selection'].'</button></center>';
                 } else {
-                    header ('Location: ./moves');
+                    game_redirect_header ('Location: ./moves');
                 }
         ?>
 

@@ -1,8 +1,9 @@
-<?php 
+<?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #Script laden zodat je nooit pagina buiten de index om kan laden
 require_once("app/includes/resources/security.php");
 
-if (!isset($_GET['category'])) exit(header("LOCATION: ./items&category=balls"));
+if (!isset($_GET['category'])) exit(game_redirect_header("LOCATION: ./items&category=balls"));
 echo addNPCBox(10, $txt['items_title'], $txt['items_npc_text']);
 ?>
 <div class="blue"><div align="center">

@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 include('app/includes/resources/security.php');
 
 #Kijken of je wel pokemon bij je hebt
-if ($gebruiker['in_hand'] == 0) header('location: index.php');
+if ($gebruiker['in_hand'] == 0) game_redirect_header('location: index.php');
 
 if ($gebruiker['item_over'] < 1)
 	echo '<div class="blue">'.$txt['alert_itemplace'].'</div>';
@@ -44,7 +45,7 @@ if (isset($_POST['submit']) && isset($_POST['gym_leader'])) {
         $trainer_ave_level = $level/$opzak;
         #Make Fight
         $info5 = create_new_trainer_attack(($_POST['gym_leader'] ?? ''),$trainer_ave_level,($_POST['gebied'] ?? ''));
-        if (empty($info5['bericht'])) header("Location: ./gyms");
+        if (empty($info5['bericht'])) game_redirect_header("Location: ./attack/gyms");
         else echo '<div class="red"> '.$txt[$info5['bericht']].'</div>';
       }
     } else {

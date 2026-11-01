@@ -20,7 +20,7 @@
 
     </head>
     <body>
-        <script>window.location = './home';</script>
+        <script>window.location = document.baseURI + 'home';</script>
         <audio src="<?=$static_url?>/sounds/select-player.mp3" autoplay loop volume="0.3" style="display: none"></audio>
         <div id="wrap">
             <div id="container_wrap">

@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [Unreleased]
+
+### Changed
+- Retain the original game layout and artwork with a separate dark grey theme. Original town and attack maps scale up to 125%, constrained by available space.
+- Resolve game URLs from the installation directory, including nested battle redirects, JavaScript navigation and static assets, without fixed hosts, ports or deployment folder names.
+
+### Security
+- Restrict direct access to internal code, debug helpers and cron scripts; validate AJAX actions and trainer ownership.
+- Harden sessions, remove plaintext failed-password logging and suppress public database diagnostics.
+- Read payment credentials from the environment, verify TLS and guard invoice processing against duplicate fulfillment.
+
+### Fixed
+- Clan creation initializes both required counters under SQL strict mode and links to the newly created clan's profile.
+- Daily quests distinguish specific-species captures from event counts, including species ID 1. Progress increments are capped atomically, completed quests stay unchanged, and integer trainer IDs are handled correctly.
+- Successful and failed login logs now support the full 25-character account name. Previously, names longer than ten characters could cause database error 1406 and an HTTP 500 response with either a correct or incorrect password.
+- Updated the fresh-install schema and added the repeatable `2026-11-01_widen_login_account_names.sql` upgrade for existing databases. Existing log records and customized wider columns are preserved.
+
 ## [1.0.0] - 2026-07-31
 
 ### Added

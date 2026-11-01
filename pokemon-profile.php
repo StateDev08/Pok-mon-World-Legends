@@ -1,10 +1,11 @@
 <script src="<?=$static_url?>/javascripts/timeago/jquery.timeago.js"></script>
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 //DB::exQuery("UPDATE `gebruikers` SET `pokecentertijdbegin`=NOW(),`pokecentertijd`='0' WHERE `user_id`='" . $gebruiker['user_id'] . "' LIMIT 1");
 #Inclua este script se você puder ver apenas a página quando estiver logado.
 require_once('app/includes/resources/security.php');
 #Se você não tiver um Pokemon com você, volte ao índice.
-if ($gebruiker['in_hand'] == 0 ) exit ( header('LOCATION: ./') );
+if ($gebruiker['in_hand'] == 0 ) exit ( game_redirect_header('LOCATION: ./') );
 
 if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) { 
     require_once('notfound.php'); 
@@ -16,7 +17,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
         $pokemon = pokemonei($pokemon, $txt);
 
         if ($pokemon['ei'] > 0) {
-            header('Location: ./home');
+            game_redirect_header('Location: ./home');
         }
 
         function wild ($id) {
@@ -175,7 +176,7 @@ if (empty($_GET['id']) || !is_numeric(($_GET['id'] ?? ''))) {
                         <table style="width: 100%">
                             <tr style="text-align: center; font-size: 13px">
                                 <td class="row" style="height: 90px">
-                                    <div style="width: 108px; border-right: 1px solid #577599; padding-top: 33px; margin-left: -6px;"><button title="<?=$txt['prof_back_to_sales']?>" onclick="window.location = './transferlist&type=<?=$transferlist['type']?>'">&lt;&lt;</button></div>
+                                    <div style="width: 108px; border-right: 1px solid #577599; padding-top: 33px; margin-left: -6px;"><button title="<?=$txt['prof_back_to_sales']?>" onclick="window.location = document.baseURI + 'transferlist&type=<?=$transferlist['type']?>'">&lt;&lt;</button></div>
                                     <div class="col-f" style="border-right: 1px solid #577599;">
                                         <div style="padding: 10px; padding-bottom: 0; text-align: left;">
                                             <?=$part[0];?>

@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
     #include dit script als je de pagina alleen kunt zien als je ingelogd bent.
     include('app/includes/resources/security.php');
      
     #Als je geen pokemon bij je hebt, terug naar index.
-    if ($gebruiker['in_hand'] == 0) header('Location: index.php');
+    if ($gebruiker['in_hand'] == 0) game_redirect_header('Location: index.php');
 
     echo addNPCBox(30, $txt['calc_npc_title'], $txt['calc_npc_text']);
 
@@ -329,6 +330,6 @@
             </script>
         </div>
             
-        <center><button class="btn" style="margin-top: 7px" onclick="window.location = './calculator'"><?php echo $txt['calc_more_ivs_btn']; ?></button></center>
+        <center><button class="btn" style="margin-top: 7px" onclick="window.location = document.baseURI + 'calculator'"><?php echo $txt['calc_more_ivs_btn']; ?></button></center>
 
         <?php } ?>

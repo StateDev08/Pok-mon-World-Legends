@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 require_once('app/includes/resources/security-account.php');
 
 $sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `acc_id`=" . (int) ($_SESSION['acc_id'] ?? '') . " ORDER BY `rank` DESC,`user_id` ASC");
-if ($sql->num_rows < 1)	exit(header("LOCATION: ./new_character"));
+if ($sql->num_rows < 1)	exit(game_redirect_header("LOCATION: ./new_character"));
 else {
 	if (isset($_POST['submit']) && is_numeric(($_POST['user_id'] ?? ''))) {
 		$geb_sql = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`=" . (int) ($_POST['user_id'] ?? '') . " LIMIT 1");
@@ -32,7 +33,7 @@ else {
 					DB::exQuery("UPDATE `gebruikers` SET `ultimo_login`='{$date_lo}', `ultimo_login_hour`='{$date_loh}', `sec_key`='{$sec_key}', `session`='" . (session_id() ?? '') . "', chat_key = '" . md5(time()) . "' WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				}
 
-				exit(header("LOCATION: ./home"));
+				exit(game_redirect_header("LOCATION: ./home"));
 			}
 		}
 	}

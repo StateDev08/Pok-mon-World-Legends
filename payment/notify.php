@@ -1,44 +1,33 @@
 <?php
-require_once('../app/includes/resources/config.php');
+// Validate the envelope before bootstrapping a database connection.
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    header('Allow: POST');
+    exit;
+}
+$notificationCode = $_POST['notificationCode'] ?? null;
+if (!is_string($notificationCode) || !preg_match('/^[a-zA-Z0-9-]{6,128}$/D', $notificationCode)) {
+    http_response_code(400);
+    exit;
+}
+require_once(__DIR__ . '/../app/includes/resources/config.php');
 require_once(__DIR__ . '/../language/language-user.php');
-
-if (isset($_POST['notificationCode'])) {
-    $notificationCode = preg_replace('/[^[:alnum:]-]/','',($_POST['notificationCode'] ?? ''));
-    
-    //SANDBOX
-    // $data['token'] = '95C7BFB7BA5E4E1CA6A6D0A70752D5B3';
-    $data['token'] = '736AFAF9FD8944F29DB2068DA881985F';
-    $data['email'] = 'guigirao@hotmail.com';
-
-    //REMOVER SANDBOX;
-    // $url = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'.$notificationCode.'?email='.$data['email'].'&token='.$data['token'];
-    $url = 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/'.$notificationCode.'?email='.$data['email'].'&token='.$data['token'];
-    
-    $data = http_build_query($data);
-    
-    $curl = curl_init($url);
-    
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-    $xml = curl_exec($curl);
-    
-    curl_close($curl);
-    
-    $xml = simplexml_load_string($xml);
-    $reference = $xml->reference;
-    $status = $xml->status;
-    $method = $xml->paymentMethod->type;
-    
-    if (isset($reference) && isset($status)) {
-        $exist = DB::exQuery("SELECT `ref`, `id_user`, `pack_id`, `id`, `user_id` FROM `fatura` WHERE `id`='".$reference."'");
-        if ($exist->num_rows > 0) {
-            $exist = $exist->fetch_assoc();
-            
-            DB::exQuery("UPDATE `fatura` SET `status` = '".$status."' WHERE `id` = '$reference';");
-            
-            if ($status == 3) {
-                $get_pack = DB::exQuery("SELECT * FROM `donate_packs` WHERE `id`='$exist[pack_id]'")->fetch_assoc();
+require_once(__DIR__ . '/../app/includes/PaymentSecurity.php');
+$email = Env::get('PAGSEGURO_EMAIL', '');
+$token = Env::get('PAGSEGURO_TOKEN', '');
+if ($email === '' || $token === '') {
+    http_response_code(503);
+    exit('Payment configuration required.');
+}
+try {
+    $query = http_build_query(['email' => $email, 'token' => $token]);
+    $xml = PaymentSecurity::request('https://ws.pagseguro.uol.com.br/v3/transactions/notifications/' . rawurlencode($notificationCode) . '?' . $query);
+    $reference = (string) $xml->reference;
+    if (!preg_match('/^[1-9][0-9]{0,9}$/D', $reference)) {
+        http_response_code(400);
+        exit;
+    }
+    $response = PaymentSecurity::processInvoice((int) $reference, $xml, function ($exist, $get_pack) use ($static_url) {
                 if ($get_pack['starter'] != 1) {
                     if ($get_pack['silvers'] <= 0) {
                         if ($get_pack['premium'] > 0) {
@@ -202,7 +191,9 @@ if (isset($_POST['notificationCode'])) {
 
                 DB::exQuery("INSERT INTO gebeurtenis (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(), '" . $exist['user_id'] . "', '" . DB::real_escape_string($event) . "', '0')");
                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`+'".$get_pack['golds']."' WHERE `acc_id`='".$exist['id_user']."'");
-            }
-        }
-    }
+    });
+    http_response_code($response);
+} catch (Throwable $error) {
+    error_log('Payment notification failed; invoice reconciliation may be required.');
+    http_response_code(503);
 }

@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Internal code is included by PHP, never requested directly.
+    RewriteRule ^(?:app|language|audit)(?:/|$) - [F,L,NC]
+    RewriteRule ^_(?:sess_build|layout_probe)\.php$ - [F,L,NC]
+
     # Do not expose .env or install.lock files through the web server
     RewriteRule \.(env|lock)$ - [F,L]
 
@@ -28,6 +32,17 @@ AddType image/svg+xml .svg
 
 # Additional protection for .env files
 <FilesMatch "\.env$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Deny sensitive files even when mod_rewrite is unavailable.
+<FilesMatch "(?i)(^\.env(?:\..*)?$|\.(?:sql|log|lock|bak|ini)$|^_(?:sess_build|layout_probe)\.php$)">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

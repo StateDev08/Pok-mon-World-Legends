@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/GameUrl.php';
 if ($_POST OR $_GET) {
 
 $tipo = ($_GET['option'] ?? '');
@@ -22,16 +23,40 @@ if ($tipo == "more-info") {
 
 else if ($tipo == "order") {
 
-$array = ($_POST['pkm'] ?? '');
-
-$count = 1;
-    foreach ($array as $idval) {
-	 if ($count <= 6) DB::exQuery("UPDATE `pokemon_speler` SET `opzak_nummer`='".$count."',`opzak`='ja' WHERE `id`='".$idval."' and `user_id`='".($_SESSION['id'] ?? '')."'");
-        $count++;
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    http_response_code(405);
+    header('Allow: POST');
+    exit('0');
+}
+$ids = Security::teamIds($_POST['pkm'] ?? null);
+$userId = Security::positiveId($_SESSION['id'] ?? null);
+if ($ids === null || $userId === null) {
+    http_response_code(400);
+    exit('0');
+}
+// Validate ownership of the complete list before changing any team slot.
+$idList = implode(',', $ids);
+$owned = DB::exQuery("SELECT id FROM pokemon_speler WHERE user_id={$userId} AND id IN ({$idList})");
+if ($owned->num_rows !== count($ids)) {
+    http_response_code(403);
+    exit('0');
+}
+$statement = DB::getInstance()->prepare("UPDATE pokemon_speler SET opzak_nummer=?, opzak='ja' WHERE id=? AND user_id=?");
+if (!$statement) {
+    http_response_code(500);
+    exit('0');
+}
+foreach ($ids as $offset => $pokemonId) {
+    $slot = $offset + 1;
+    $statement->bind_param('iii', $slot, $pokemonId, $userId);
+    if (!$statement->execute()) {
+        $statement->close();
+        http_response_code(500);
+        exit('0');
     }
-
- if ($count <= 6) echo 1;
- else echo 0;
+}
+$statement->close();
+echo '1';
 
 }
 
@@ -97,11 +122,11 @@ if ($nmrfundo == 0) exit;
     if ($verifybox->num_rows > 0) {
         #UPDATE BOX
         DB::exQuery("UPDATE `boxes` SET `fundo`='".($_POST['box-bg'] ?? '')."',`nome`='".($_POST['box_name'] ?? '')."' WHERE `id`='".$verifyboxx['id']."'");
-        exit(header("Location: ./box&box=".($_POST['box'] ?? '').""));
+        exit(game_redirect_header("Location: ./box&box=".($_POST['box'] ?? '').""));
     } else {
         #INSERT BOX
         DB::exQuery("INSERT INTO `boxes`(`user_id`, `box_id`, `fundo`, `nome`) VALUES ('".($_SESSION['id'] ?? '')."','".($_POST['box'] ?? '')."','".($_POST['box-bg'] ?? '')."','".($_POST['box_name'] ?? '')."')");
-        exit(header("Location: ./box&box=".($_POST['box'] ?? '').""));
+        exit(game_redirect_header("Location: ./box&box=".($_POST['box'] ?? '').""));
     }
 }
 

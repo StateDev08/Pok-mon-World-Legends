@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #Script laden zodat je nooit pagina buiten de index om kan laden
 require_once("app/includes/resources/security.php");
 
-// if ($gebruiker['rank'] < 5 && $_GET['shopitem'] == 'attacks')  exit(header('LOCATION: ./market'));
+// if ($gebruiker['rank'] < 5 && $_GET['shopitem'] == 'attacks')  exit(game_redirect_header('LOCATION: ./market'));
 
-if ($gebruiker['pagina'] == 'attack' && ($_COOKIE['market_battle_used'] ?? '') == '1') exit(header("LOCATION: ./attack/wild/wild-attack"));
+if ($gebruiker['pagina'] == 'attack' && ($_COOKIE['market_battle_used'] ?? '') == '1') exit(game_redirect_header("LOCATION: ./attack/wild/wild-attack"));
 
 #Kijken of je nog wel een itemplek overhebt
 if ($gebruiker['item_over'] < 1) echo '<div class="blue">'.$txt['alert_itemplace'].'</div>';
@@ -783,7 +784,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 <?php
 		break;
 	case "pokemon":
-	   // header('location: ./market');
+	   // game_redirect_header('location: ./market');
 		$sql  = "SELECT `markt`.`id`,`markt`.`pokemonid`,`markt`.`silver`,`markt`.`gold`,`markt`.`omschrijving_".$omschrijving_lang."`,`pokemon_wild`.`zeldzaamheid` FROM `markt` INNER JOIN `pokemon_wild` ON `markt`.`pokemonid`=`pokemon_wild`.`wild_id` WHERE `markt`.`soort`='pokemon' AND `markt`.`beschikbaar`='1' AND `pokemon_wild`.`wereld`='" . $gebruiker['wereld'] . "'";
 		$result = query_cache(($_GET['page'] ?? '') . '_' . ($_GET['shopitem'] ?? ''), $sql, $att_time);
 
@@ -894,7 +895,7 @@ if ($j == 1) echo '<div class="red">'.$txt['market_all_key_items'].'</div>';
 </form>
 <?php
 		break;
-	default:	exit(header("LOCATION: ./market&shopitem=balls"));  break;
+	default:	exit(game_redirect_header("LOCATION: ./market&shopitem=balls"));  break;
 }
 ?>
 

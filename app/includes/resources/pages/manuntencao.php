@@ -8,7 +8,7 @@ session_unset();
 session_destroy();
 
 if ($manutencao == 0) {
-    echo '<script>window.location = "./";</script>';
+    echo '<script>window.location = document.baseURI + "";</script>';
 }
 
 echo addNPCBox(11, $txt['maintenance_title'], $txt['maintenance_text']);

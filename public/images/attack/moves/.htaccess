@@ -1,1 +1,15 @@
-Deny from all
+# Only static image files may be requested from this tree.
+<IfModule mod_authz_core.c>
+    Require all denied
+    <FilesMatch "(?i)\.(?:gif|png|jpe?g|svg|webp|avif|ico)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+    <FilesMatch "(?i)\.(?:gif|png|jpe?g|svg|webp|avif|ico)$">
+        Order allow,deny
+        Allow from all
+    </FilesMatch>
+</IfModule>

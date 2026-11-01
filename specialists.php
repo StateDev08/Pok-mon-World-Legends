@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #include dit script als je de pagina alleen kunt zien als je ingelogd bent.
 require_once('app/includes/resources/security.php');
 
 #Als je geen pokemon bij je hebt, terug naar index.
-if ($gebruiker['in_hand'] == 0)	exit(header('LOCATION: ./'));
+if ($gebruiker['in_hand'] == 0)	exit(game_redirect_header('LOCATION: ./'));
 
 echo addNPCBox(5, $txt['titlenpc'], $txt['textnpc']);
 
@@ -45,7 +46,7 @@ if (isset($_POST['shiny']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($
 				DB::exQuery("UPDATE `pokemon_speler` SET `shiny`='1' WHERE `id`={$value} AND `user_id`={$_SESSION['id']} LIMIT 1");
 			}
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$goldneed} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
-			exit(header("LOCATION: ./specialists"));
+			exit(game_redirect_header("LOCATION: ./specialists"));
 		}
 	}
 }
@@ -103,7 +104,7 @@ if (isset($_POST['mood']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_
 				DB::exQuery("UPDATE `pokemon_speler` SET `humor_change`=`humor_change`+1,`karakter`='{$karakter['karakter_naam']}',`levenmax`={$hpstat},`leven`={$hpstat},`attack`={$attackstat},`defence`={$defencestat},`speed`={$speedstat},`spc.attack`={$spcattackstat},`spc.defence`={$spcdefencestat} WHERE `id`={$value} AND `user_id`={$_SESSION['id']} LIMIT 1");
 			}
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$goldneed} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
-			exit(header("LOCATION: ./specialists"));
+			exit(game_redirect_header("LOCATION: ./specialists"));
 		}
 	}
 }
@@ -241,7 +242,7 @@ if (isset($_POST['mood2']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($
 				DB::exQuery("UPDATE `pokemon_speler` SET `humor_change`=`humor_change`+1,`karakter`='{$karakter['karakter_naam']}',`levenmax`={$hpstat},`leven`={$hpstat},`attack`={$attackstat},`defence`={$defencestat},`speed`={$speedstat},`spc.attack`={$spcattackstat},`spc.defence`={$spcdefencestat} WHERE `id`={$value} AND `user_id`={$_SESSION['id']} LIMIT 1");
 			}
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$goldneed} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
-			exit(header("LOCATION: ./specialists"));
+			exit(game_redirect_header("LOCATION: ./specialists"));
 		}
 	}
 }
@@ -293,7 +294,7 @@ if (isset($_POST['mood3']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($
 				DB::exQuery("UPDATE `pokemon_speler` SET `humor_change`=`humor_change`+3,`karakter`='{$karakter['karakter_naam']}',`levenmax`={$hpstat},`leven`={$hpstat},`attack`={$attackstat},`defence`={$defencestat},`speed`={$speedstat},`spc.attack`={$spcattackstat},`spc.defence`={$spcdefencestat} WHERE `id`={$value} AND `user_id`={$_SESSION['id']} LIMIT 1");
 			}
 			DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-{$goldneed} WHERE `acc_id`={$_SESSION['acc_id']} LIMIT 1");
-			exit(header("LOCATION: ./specialists"));
+			exit(game_redirect_header("LOCATION: ./specialists"));
 		}
 	}
 }
@@ -359,7 +360,7 @@ if (isset($_POST['naam']) && count(($_POST['pokes'] ?? [])) != 0 && is_array(($_
       	
 			}
 			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver`-{$silverneed} WHERE `user_id`={$_SESSION['id']} LIMIT 1");
-			exit(header("LOCATION: ./specialists"));
+			exit(game_redirect_header("LOCATION: ./specialists"));
 		}
 	}
 }

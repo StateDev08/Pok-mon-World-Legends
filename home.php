@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 	if (!empty($_SESSION['id'])) {
 		$user = DB::exQuery("SELECT * FROM `gebruikers` WHERE `user_id`='".($_SESSION["id"] ?? '')."'")->fetch_assoc();
 ?>
@@ -119,7 +120,7 @@
 		</div>
 </div>
 <?php } else {
-	if (!empty($_SESSION['acc_id'])) header('location: ./my_characters');
+	if (!empty($_SESSION['acc_id'])) game_redirect_header('location: ./my_characters');
 } 
 ?>
 

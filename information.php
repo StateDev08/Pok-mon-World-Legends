@@ -6,6 +6,7 @@
 	<a href="./information&category=items-info" data-orientation="items-info" class="noanimate"><button type="button"><?= $txt['info_tab_items'] ?></button></a>
 </div>
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 switch(($_GET['category'] ?? '')) {
 	case "game-info":
 		echo $txt['informationpage'];
@@ -473,7 +474,7 @@ if ($aantal_paginas > 1) {
 </div>
 <?php
 	break;
-	default:	exit(header("LOCATION: ./information&category=attack-info"));	break;
+	default:	exit(game_redirect_header("LOCATION: ./information&category=attack-info"));	break;
 }
 ?>
 

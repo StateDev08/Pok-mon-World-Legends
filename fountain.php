@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 echo addNPCBox(30, $txt['fountain_npc_title'], $txt['fountain_npc_text']);
 
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include('app/includes/resources/security.php');
 
-// if($gebruiker['rank'] < 4)	exit(header("LOCATION: ./"));
+// if($gebruiker['rank'] < 4)	exit(game_redirect_header("LOCATION: ./"));
 
 $page = 'wondertrade';
 //Goeie taal erbij laden voor de page

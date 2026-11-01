@@ -62,7 +62,7 @@ if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack
 				else if (request[0] === '1')
 					location.reload();
 				else if (request[0] === '2')
-					location.href = './attack/duel/duel-attack';
+					location.href = document.baseURI + 'attack/duel/duel-attack';
 				else if (request[0] === '3') {
 					$("#league_ad > a").text("MAXIMIZAR");
 					minimize_league_ad();

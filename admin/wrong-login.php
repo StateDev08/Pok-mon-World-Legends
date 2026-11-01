@@ -1,10 +1,11 @@
-<?php		
+<?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 	include_once("language/language-admin.php");
 
 //Admin controle
-if ($gebruiker['admin'] < 2) { header('location: ./home'); exit; }
+if ($gebruiker['admin'] < 2) { game_redirect_header('location: ./home'); exit; }
 ?>
 
 

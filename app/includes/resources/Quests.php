@@ -5,42 +5,36 @@ class Quests {
     public function allowedQuest ($uid) {
         $user = $this->getInfos($uid)->fetch_assoc();
 
-        if ($user['rank'] >= 4) return true;
-        else return false;
+        return (int) ($user['rank'] ?? 0) >= 4;
     }
 
     public function setStatus ($type, $uid, $force = 1) {
-        if ($this->allowedQuest($uid)) {
-            $user = $this->getInfos($uid)->fetch_assoc();
-            $quest_act = $this->getActualQuests();
+        $amount = filter_var($force, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if ($amount === false) return;
+        $user = $this->getInfos($uid)->fetch_assoc();
+        if (!$user || (int) $user['rank'] < 4) return;
+        $userId = (int) $user['user_id'];
+        $active = array_values(array_slice($this->getActualQuests(), 0, 2));
 
-            for ($i = 0; $i < sizeof($quest_act); $i++) {
-                $getQuest = $this->getQuest($quest_act[$i])->fetch_assoc();
+        foreach ($active as $index => $questId) {
+            $definition = $this->getQuest($questId)->fetch_assoc();
+            if (!$definition || $type !== $definition['type']) continue;
+            $target = (int) $definition['quant_wid'];
+            if ($target < 1) continue;
+            $slot = $index + 1;
+            $column = 'quest_' . $slot . '_req';
+            $completed = 'quest_' . $slot;
 
-                if ($type == $getQuest['type']) {
-                    $quest .= 'quest_'.($i+1).'_req';
-
-                    if ($force == 1) {
-                        if ($user[$quest] < $getQuest['quant_wid']) {
-                            DB::exQuery("UPDATE `gebruikers` SET `".$quest."`=`".$quest."`+'".$force."' WHERE `user_id`='".$uid."'");
-                        }
-                    } else {
-                        if ($type == 'heal') {
-                            if ($user[$quest] < $getQuest['quant_wid']) {
-                                if (($user[$quest]+$force) <= $getQuest['quant_wid']) {
-                                    DB::exQuery("UPDATE `gebruikers` SET `".$quest."`=`".$quest."`+'".$force."' WHERE `user_id`='".$uid."'");
-                                } else {
-                                    DB::exQuery("UPDATE `gebruikers` SET `".$quest."`='".$getQuest['quant_wid']."' WHERE `user_id`='".$uid."'");
-                                }
-                            }
-                        } else {
-                            if ($force == $getQuest['quant_wid']) {
-                                DB::exQuery("UPDATE `gebruikers` SET `".$quest."`='".$force."' WHERE `user_id`='".$uid."'");
-                            }
-                        }
-                    }
-                }
+            if ($type === 'catch_single') {
+                // Here force is a species ID, including ID 1, rather than a count.
+                if ($amount !== $target) continue;
+                $value = (string) $target;
+            } else {
+                $step = min($amount, $target);
+                // Clamp in the same statement that increments to handle concurrent events.
+                $value = "LEAST({$target}, `{$column}` + {$step})";
             }
+            DB::exQuery("UPDATE `gebruikers` SET `{$column}`={$value} WHERE `user_id`={$userId} AND `rank`>=4 AND `{$completed}`=0");
         }
     }
 
@@ -105,6 +99,7 @@ class Quests {
     }
 
     public function getInfos ($id, $get = '*') {
+        $id = DB::real_escape_string((string) $id);
         if (ctype_digit($id)) {
             return DB::exQuery("SELECT $get FROM `gebruikers` WHERE user_id='$id'");
         } else {

@@ -1,4 +1,5 @@
-<?php if ($gebruiker['sound'] == 'on') { ?>
+<?php
+require_once __DIR__ . '/app/includes/GameUrl.php'; if ($gebruiker['sound'] == 'on') { ?>
 
 <?php
 }
@@ -62,7 +63,7 @@ if ($gebruiker['eigekregen'] == 0) {
 			DB::exQuery("UPDATE `pokemon_speler` SET `level`='5',`karakter`='".$karakter['karakter_naam']."',`expnodig`='".$experience['punten']."',`user_id`='".($_SESSION['id'] ?? '')."',`opzak`='ja',`opzak_nummer`='1',`gehecht`='1',`ei`='0',`ei_tijd`= NOW(),`attack_iv`='".$attack_iv."',`defence_iv`='".$defence_iv."',`speed_iv`='".$speed_iv."',`spc.attack_iv`='".$spcattack_iv."',`spc.defence_iv`='".$spcdefence_iv."',`hp_iv`='".$hp_iv."',`attack`='".$attackstat."',`defence`='".$defencestat."',`speed`='".$speedstat."',`spc.attack`='".$spcattackstat."',`spc.defence`='".$spcdefencestat."',`levenmax`='".$hpstat."',`leven`='".$hpstat."',`ability`='".$ability."',`capture_date`='".$date."' WHERE `id`='".$pokeid."' LIMIT 1");
 
 			#Tekst laten zien
-			exit(header("LOCATION: ./home"));
+			exit(game_redirect_header("LOCATION: ./home"));
 			}
 		}
 	}
@@ -177,4 +178,4 @@ if ($gebruiker['eigekregen'] == 0) {
 	
 	wlSound('professor-oak', <?=$gebruiker['volume']?>, true);
 </script>
-<?php } else	exit(header("LOCATION: ./home")); ?>
+<?php } else	exit(game_redirect_header("LOCATION: ./home")); ?>

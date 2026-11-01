@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(dirname(__DIR__, 2));
+
 require_once('../includes/resources/config.php');
 	
 	$winnaar = DB::exQuery("SELECT uid FROM `loterij_kaarten` ORDER BY rand() limit 1")->fetch_assoc();

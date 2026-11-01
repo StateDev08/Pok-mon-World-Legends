@@ -1,5 +1,6 @@
 <?php
-if (isset($_SESSION['id']))	exit(header('LOCATION: ./'));
+require_once __DIR__ . '/app/includes/GameUrl.php';
+if (isset($_SESSION['id']))	exit(game_redirect_header('LOCATION: ./'));
 
 function createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer) {
 	DB::exQuery("INSERT INTO `rekeningen` (
@@ -82,12 +83,12 @@ if (isset($_POST['registreer'])) {
 
 			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
 			$_SESSION['act_msg'] = '<div class="green">'.$txt['register_success'].'</div>';
-			header('location: ./activate');
+			game_redirect_header('location: ./activate');
 		} else if (isSmtpPlaceholder($smtp['host'])) {
 			// No real SMTP configured; still create the account and show the activation code.
 			createRegistration($activatiecode, $inlognaam, $wachtwoordmd5, $email, $ip, $referer);
 			$_SESSION['act_msg'] = '<div class="green">'.sprintf($txt['register_success_code'], $activatiecode).'</div>';
-			header('location: ./activate');
+			game_redirect_header('location: ./activate');
 		} else {
 			$message = '<div class="red">' . $mail->ErrorInfo . '</div>';
 		}

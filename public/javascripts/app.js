@@ -59,5 +59,5 @@ $(document).ready (function () {
 
 	if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
 
-    refresh = setTimeout(function () { location.href = './'; }, 1200000);
+    refresh = setTimeout(function () { location.href = document.baseURI; }, 1200000);
 });

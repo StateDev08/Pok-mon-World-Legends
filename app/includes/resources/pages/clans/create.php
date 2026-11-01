@@ -42,9 +42,9 @@ if (isset($_POST['icon']) && isset($_POST['descr']) && isset($_POST['sigla']) &&
                     'user' => ($_SESSION['id'] ?? '')
                 );
 
-                $clan->create($infos);
+                $clan_id = (int) $clan->create($infos);
                 DB::exQuery("UPDATE `rekeningen` SET `gold`=`gold`-'100' WHERE `acc_id`='".($_SESSION['acc_id'] ?? '')."'");
-                echo '<div class="green">'.sprintf($txt['clan_created'], '<a href="./clans&action=profile">'.$name.' ('.$sigla.')</a>').'</div>';
+                echo '<div class="green">'.sprintf($txt['clan_created'], '<a href="./clans&action=profile&id='.$clan_id.'">'.$name.' ('.$sigla.')</a>').'</div>';
             }
         }
     }

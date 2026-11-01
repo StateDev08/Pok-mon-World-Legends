@@ -30,7 +30,7 @@ var Game = {
     prograssBars: [],
     serverTimesnow: 0,
     goPage: function(link) {
-        return document.location.href = link;
+        return document.location.href = new URL(link.replace(/^(?:\.\/|\/(?!\/))/, ''), document.baseURI).href;
     },
     setImageTitles: function() {
         $('img').each(function() {

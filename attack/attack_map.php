@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("app/includes/resources/security.php");
 
 //Kijken of je wel pokemon bij je hebt
 if ($gebruiker['in_hand'] == 0)
-    header('location: index.php');
+    game_redirect_header('location: index.php');
 
 
 if (isset($_SESSION['battle_map'])) {
@@ -19,8 +20,8 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
             fwrite($ar, date("d-m-Y H:i:s") . ' - ' . ($_SESSION['naam'] ?? '') . ' ' . ($_SESSION['id'] ?? '') . "\n");
             fclose($ar);
             
-            header("Location: /error");
-            exit("<script>location.href='../error'</script>");
+            game_redirect_header("Location: /error");
+            exit("<script>location.href=document.baseURI + 'error'</script>");
         }
         unset($_SESSION['map_uniqid']);
         
@@ -132,7 +133,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                 $info              = create_new_trainer_attack($query['naam'], $trainer_ave_level, $gebied);
                 DB::exQuery("UPDATE `gebruikers` SET `pagina`='trainer-attack' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
                 if (empty($info['bericht'])) {
-                    header("Location: /attack/trainer/trainer-attack");
+                    game_redirect_header("Location: /attack/trainer/trainer-attack");
                     exit;
                 } else
                     echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
@@ -201,7 +202,7 @@ if (DB::exQuery("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . ($_SESSI
                         include("attack/wild/wild-start.php");
                         $info = create_new_attack($query['wild_id'], $leveltegenstander, $gebied);
                         DB::exQuery("UPDATE `gebruikers` SET `pagina`='attack',`background`='$background' WHERE `user_id`='" . ($_SESSION['id'] ?? '') . "'");
-                        header("Location: /attack/wild/wild-attack");
+                        game_redirect_header("Location: /attack/wild/wild-attack");
                         exit;
                     } else {
                         echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";

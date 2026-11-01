@@ -1,4 +1,10 @@
 <?php
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+chdir(__DIR__);
+
 set_time_limit(0);
 ini_set('memory_limit', '-1');
 ob_start();

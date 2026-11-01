@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 include("app/includes/resources/security.php");
 
 echo addNPCBox(11, $txt['captcha_box_title'] ?? 'SECURITY CHECK', $txt['captcha_box_text'] ?? ' To avoid problems with BOTS and MACROS, we had to adopt this security measure.');
@@ -18,9 +19,9 @@ if($_POST) {
 		$tempook = time();
 		DB::exQuery("UPDATE `gebruikers` SET `captcha_time`=UNIX_TIMESTAMP() WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
 		if (strpos(($_GET['page'] ?? ''), '/') !== false) {
-		 	header("Location: ../" . ($_GET['page'] ?? ''));
+			game_redirect_header("Location: ../" . ($_GET['page'] ?? ''));
 		} else {
-			header("Location: ./" . ($_GET['page'] ?? ''));
+			game_redirect_header("Location: ./" . ($_GET['page'] ?? ''));
 		}
 		$_SESSION['captchaincorreto'] = 0;
 		echo '<div class="green">'.($txt['captcha_correct'] ?? 'Correct code, you can continue!').'</div>';
@@ -30,9 +31,9 @@ if($_POST) {
 		 
 	if(($_SESSION['captchaincorreto'] ?? 0) > 3){
 		if (strpos(($_GET['page'] ?? ''), '/') !== false) {
-		 	header("Location: ../logout");
+			game_redirect_header("Location: ../logout");
 		} else {
-			header("Location: ./logout");
+			game_redirect_header("Location: ./logout");
 		}
  		$_SESSION['captchaincorreto'] = 0;
  	}

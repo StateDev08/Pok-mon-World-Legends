@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../app/includes/GameUrl.php';
 
 if (isset($_POST['here'])) {
   //Check alive pokemon.
@@ -55,7 +56,7 @@ if (isset($_POST['here'])) {
             } 
             else if (data == 1) {
               clearTimeout(t) 
-              setTimeout(function () { location.href = './attack/duel/duel-attack' }, 0)
+              setTimeout(function () { location.href = document.baseURI + 'attack/duel/duel-attack' }, 0)
             }
             else if (data == 2) {
               clearTimeout(t) 
@@ -96,7 +97,7 @@ if (isset($_POST['here'])) {
       }
       
       $_SESSION['duel']['begin_zien'] = true;
-      header("Location: ./attack/duel/duel-attack");
+      game_redirect_header("Location: ./attack/duel/duel-attack");
     }
   }
 }

@@ -1,0 +1,43 @@
+/* Colour-only layer over the unchanged original style.css + style_override.css. */
+:root{color-scheme:dark;--original-dark-surface:#252525;--original-dark-border:#444;--original-dark-text:#e5e5e5}
+body{background-color:#0c0c0c!important;background-image:linear-gradient(#101010ed,#0b0b0bef),url('../images/layout/background-ingame.png')!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;color:var(--original-dark-text)}
+#content{background:rgba(24,24,24,.96)!important;border-color:#3d3d3d!important}
+.box-content,div#npc-section,.login-content{background-color:var(--original-dark-surface)!important;border-color:var(--original-dark-border)!important;color:var(--original-dark-text)}
+.box-content h3.title,div#npc-section div#npc-content h3{color:#e1e1e1!important;background-image:none!important;border-bottom:1px solid #444}
+.box-content p,div#npc-section div#npc-content p{color:#d0d0d0!important}
+#navbar .menu{background-color:#262626!important;background-image:linear-gradient(#0007,#0007),url('../images/layout/navbar_menu.png')!important;background-blend-mode:normal,luminosity}
+#navbar .content{background-color:#262626!important;background-image:linear-gradient(#0007,#0007),url('../images/layout/navbar.png')!important;background-blend-mode:normal,luminosity}
+#navbar ul li a:hover,.navbar-language__option:hover,.navbar-language__option.is-active{background-color:#4a4a4a!important;color:#fff!important}
+.navbar-language__dropdown{background:#262626!important;border-color:#555!important}
+input:not([type=image]):not([type=radio]):not([type=checkbox]),select,textarea{background-color:#171717!important;border-color:#4a4a4a!important;color:#eee!important}
+input::placeholder,textarea::placeholder{color:#999!important}
+input[type=submit],button,#button,.button,a.paginate_button,.button-rounded{background-color:#393939!important;background-image:none!important;border-color:#5a5a5a!important;box-shadow:0 2px 0 #111!important;color:#eee!important}
+input[type=submit]:hover,button:hover,#button:hover,.button:hover,.button-rounded:hover{background-color:#505050!important}
+input[type=image]{background:none!important;box-shadow:none!important}
+table.general thead,table.general th,table.general .title{background-color:#303030!important;color:#e1e1e1!important;border-color:#494949!important}
+table.general tbody,table.general td{border-color:#3b3b3b!important}
+.blue{background-color:#2b2b2b!important;border-color:#555!important;color:#ddd!important}
+.in_menu{background:#242424!important}.in_menu .menu_title{color:#eee!important;border-color:#555!important}.in_menu a{color:#d0d0d0!important}.in_menu a:hover{color:white!important}
+.tipped-tooltip .tipped-background,.tipped-tooltip .tipped-content{background-color:#282828!important;color:#eee!important}
+.tooltip-inner,.popover,.popover-content{background-color:#262626!important;color:#eee!important;border-color:#505050!important}
+.user_hover div{color:#d0d0d0!important}.user_hover div:hover{background:#414141!important}
+.ui-widget-content,.ui-dialog,.ui-dialog-content{background:#252525!important;color:#eee!important;border-color:#555!important}.ui-widget-header{background:#383838!important;color:white!important;border-color:#555!important}
+#cboxContent,#cboxLoadedContent{background-color:#252525!important;color:#eee!important}
+#container_login{background-color:#202020!important;background-image:linear-gradient(#0007,#0007),url('../images/layout/login.png')!important;background-blend-mode:normal,luminosity}
+#container_login a{color:#ccc!important}
+#container_menu{background-color:#1d1d1d!important;background-image:none!important;border:1px solid #414141}
+#container_menu ul li{background-color:#292929!important}#container_menu li:hover{background-color:#424242!important}
+#footer,#footer-container{background-color:#141414!important;background-image:none!important;color:#aaa!important}#footer-right{border-color:#3d3d3d!important}#footer a{color:#ccc!important}
+.stats-container{background-color:#151515!important;border-color:#444!important}
+.box-content .triangle:before{border-left-color:#252525!important}
+/* The original map artwork stays coloured; forms/hotspots scale as one unit. */
+.original-map-viewport{margin:8px auto;max-width:100%;position:relative;overflow:hidden;text-align:left}
+.original-map-surface{position:relative;transform-origin:top left;max-width:none!important}
+.original-map-surface table{border-collapse:collapse;border-spacing:0}
+.original-map-surface input[type=image]{display:block!important;margin:0!important;padding:0!important;border:0!important;max-width:none;cursor:pointer}
+.original-map-surface img[usemap]{max-width:none}
+.original-town-surface{position:relative;display:block;text-align:left}
+.original-town-surface>img{display:block!important;margin:0!important;max-width:none!important}
+.original-town-surface>.tag{float:none!important;position:absolute!important;z-index:2}
+.original-map-host{overflow:visible!important}
+@media(prefers-reduced-motion:reduce){.original-map-surface{transition:none!important}}

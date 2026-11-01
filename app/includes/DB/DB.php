@@ -1,7 +1,9 @@
 <?php
 // PHP 8 enables mysqli exceptions by default; disable them so the code can
 // handle errors with its own exit() messages.
-mysqli_report(MYSQLI_REPORT_OFF);
+if (extension_loaded('mysqli')) {
+    mysqli_report(MYSQLI_REPORT_OFF);
+}
 
 class DB {
 	private static $instance;
@@ -9,11 +11,11 @@ class DB {
 	private function __construct() {
 		global $dbhost, $dblogin, $dbpassword, $dbdatabase;
 		if (!extension_loaded("mysqli"))
-			trigger_error("You must have the mysqli extension installed.", E_USER_ERROR);
+			self::fail('initialization', 'mysqli extension unavailable');
 		else {
 			$mysqli = @new MySQLi($dbhost, $dblogin, $dbpassword, $dbdatabase);
 			if ($mysqli->connect_errno)
-				die(sprintf("Connect Error (%s): %s", $mysqli->connect_errno, $mysqli->connect_error));
+				self::fail('connection', $mysqli->connect_error);
 
 			$mysqli->set_charset('utf8');
 			self::$instance = $mysqli;
@@ -28,13 +30,17 @@ class DB {
 	public static function exQuery($sql) {
 		$connection = self::getInstance();
 		if (!($result = $connection->query($sql))) {
-			$log = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR . 'sql_error.log';
-			@file_put_contents($log, date('c') . "\n" . $connection->error . "\n" . $sql . "\n\n", FILE_APPEND);
-			exit(sprintf("Error: %s | Query: %s", $connection->error, $sql));
+			self::fail('query', (string) $connection->errno);
 		}
 		return $result;
 	}
-	public static function insertID() {
+	private static function fail($operation, $detail) {
+        // Do not log SQL statements, credentials, or user-submitted values.
+        error_log('Database ' . $operation . ' failed: ' . $detail);
+        http_response_code(500);
+        exit('Database operation failed.');
+    }
+    public static function insertID() {
 		return self::$instance->insert_id;
 	}
 	public static function affectedRows() {

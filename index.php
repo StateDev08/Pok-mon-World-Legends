@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 
 // Basic validation for the ?page= route. Prevents path traversal and blocks
 // arbitrary include files in app/includes/resources that are not real pages.
@@ -17,7 +18,7 @@ function isAllowedPage($page) {
     }
 
     // The router entry point itself must not be included as a page.
-    if ($page === 'index' || $page === 'install' || $page === 'tools') {
+    if ($page === 'index' || $page === 'install' || $page === 'tools' || $page === 'ajax' || strpos($page, '_') === 0) {
         return false;
     }
 
@@ -140,7 +141,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 	if ($rekening['account_code'] == 0 OR ($gebruiker['bloqueado'] ?? '') == "sim") {
 		session_unset();
 		session_destroy();
-		exit(header('Location: ./banned.php'));
+		exit(game_redirect_header('Location: ./banned.php'));
 	}
 
 	$gold = highamount($rekening['gold']);
@@ -155,7 +156,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		#Is de has niet goed dan uitloggen en inloggen opnieuw laden
 		if (($_SESSION['hash'] ?? '') != $md5hash) {
 			unset($_SESSION['hash'], $_SESSION['id'], $_SESSION['naam']);
-			exit(header("Location: ./my_characters"));
+			exit(game_redirect_header("Location: ./my_characters"));
 		}
 
 		#Load User Information
@@ -168,7 +169,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 
 		if (!is_array($gebruiker) || $gebruiker['acc_id'] != $rekening['acc_id'] || $gebruiker['session'] != (session_id() ?? '') || $gebruiker['banned'] == 'Y') {
 			unset($_SESSION['hash'], $_SESSION['id'], $_SESSION['naam']);
-			exit(header("Location: ./my_characters"));
+			exit(game_redirect_header("Location: ./my_characters"));
 		}
 
 		$pagesAllowerGlobal = array('logout','my_characters','new_character','information','privacy','terms','rules');
@@ -190,7 +191,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		$vvloginaberto	= DB::exQuery("SELECT valor FROM configs WHERE config='login_aberto' LIMIT 1")->fetch_assoc();
 		$fecharlogin	= $vvloginaberto['valor'];	# 1 para fechado 0 para aberto
 		if ($gebruiker['admin'] == 0 && $fecharlogin == 1) {
-			echo "<script>alert('Fechado para manutencao, aguarde!');window.location.href='./';</SCRIPT>";
+			game_redirect_header('Location: ./');
 			require_once('logout.php');
 			exit;
 		}
@@ -208,7 +209,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         $_SESSION['duel']['begin_zien'] = true;
         //$gebruiker['pagina'] = 'duel';
         //$page = "attack/duel/duel-attack";
-        header("Location: ./attack/duel/duel-attack");
+        game_redirect_header("Location: ./attack/duel/duel-attack");
         exit();
     } else if (DB::exQuery("SELECT * FROM league_battle WHERE "
                     . "(user_id1 = '" . ($_SESSION['id'] ?? '') . "' OR user_id2 = '" . ($_SESSION['id'] ?? '') . "') AND "
@@ -225,7 +226,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
         $league_battle = $result_leaguex;
 
         if ($page == "attack/attack_map" || $page == "trainer" || $page == "attack/gyms" || $page == "attack/duel/invite") {
-            header("Location: index.php/league");
+            game_redirect_header("Location: ./league");
             exit();
         }
     }
@@ -278,7 +279,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 
 		if ($page != 'choose-pokemon' && $gebruiker['eigekregen'] == 0) {
 			if (!in_array($page, $pagesAllowerGlobal))
-				exit(header("LOCATION: ./choose-pokemon"));
+				exit(game_redirect_header("LOCATION: ./choose-pokemon"));
 		}
 
 		#Load User Pokemon
@@ -286,7 +287,7 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 		$pokemon_sql = DB::exQuery("SELECT `pw`.`naam`,`pw`.`type1`,`pw`.`type2`,`pw`.`zeldzaamheid`,`pw`.`groei`,`pw`.`aanval_1`,`ps`.`humor_change`,`pw`.`aanval_2`,`pw`.`aanval_3`,`pw`.`aanval_4`,`ps`.* FROM `pokemon_wild` AS `pw` INNER JOIN `pokemon_speler` AS `ps` ON `ps`.`wild_id`=`pw`.`wild_id` WHERE `ps`.`user_id`='" . $user_id . "' AND `ps`.`opzak`='ja' ORDER BY `ps`.`opzak_nummer` ASC");
 		$gebruiker['in_hand'] = $pokemon_sql->num_rows;
 		if ($gebruiker['in_hand'] == 0 AND $page != "beginning" AND $page != "choose-pokemon"  AND $page != "box")
-			exit(header("Location: ./box"));
+			exit(game_redirect_header("Location: ./box"));
 
 		# Check new Mails
 		
@@ -336,9 +337,9 @@ if (isset($_POST['login']) && empty($_SESSION['acc_id'])) {
 if (!in_array($page, array('my_characters', 'new_character', 'logout')) && empty($_SESSION['id']) && isset($_SESSION['acc_id'])) {
 	$characters = DB::exQuery("SELECT `user_id` FROM `gebruikers` WHERE `acc_id`='$_SESSION[acc_id]'")->num_rows;
 	if ($characters > 0) {
-		echo("<script>window.location = './my_characters';</script>");
+		game_redirect_header('Location: ./my_characters'); exit;
 	} else {
-		echo("<script>window.location = './new_character';</script>");
+		game_redirect_header('Location: ./new_character'); exit;
 	}
 }
 
@@ -444,6 +445,7 @@ if ($pokecen_tijd > 0) {
 <html lang="pt-br">
 	<head>
 	    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	    
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<title><?=$site_title;?></title>
@@ -461,7 +463,7 @@ if ($pokecen_tijd > 0) {
         <meta http-equiv="expires" content ="-1" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.datatables.net; font-src 'self' fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.datatables.net pagead2.googlesyndication.com"> 
 
-		<base href="//<?=($_SERVER['SERVER_NAME'] ?? '')?>">
+		<base href="<?=htmlspecialchars(game_base_path(), ENT_QUOTES, 'UTF-8')?>">
 
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="<?=$static_url;?>/stylesheets/colorbox.css" />
@@ -484,7 +486,7 @@ if ($pokecen_tijd > 0) {
 		<script type="text/javascript" src="<?=$static_url?>/javascripts/flickity/flickity.pkgd.min.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jq-timer.js"></script>
-		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery.pokemon.js"></script>
+		<script type="text/javascript" src="<?=$static_url;?>/javascripts/jquery.pokemon.js?v=2"></script>
 		<script type="text/javascript" src="<?=$static_url?>/javascripts/wl.orientation.js"></script>
 		<script type="text/javascript" src="<?=$static_url;?>/javascripts/howler.min.js"></script>
 		<!--<script type="text/javascript" src="<?=$static_url?>/javascripts/socket.io.js"></script>-->
@@ -495,6 +497,8 @@ if ($pokecen_tijd > 0) {
 		<?php if (isset($league_battle) && $league_battle && $page != "attack/duel/duel-attack") { echo 'a'; }?>
 
 		<?php if ($page == "league_status" || $page == "tour") { echo '<script type="text/javascript" src="'.$static_url.'/javascripts/jquery.gracket.js-master/jquery.gracket.min.js"></script> <link type="text/css" rel="stylesheet" href="'.$static_url.'/stylesheets/gracket.css"/>'; } ?>
+		<link rel="stylesheet" href="<?=$static_url?>/stylesheets/original-dark.css?v=1" />
+		<script src="<?=$static_url?>/javascripts/original-map-size.js?v=1" defer></script>
 	</head>
 	<body <?=(isset($_SESSION['acc_id']))? 'style="background: url('.$static_url.'/images/layout/background-ingame.png) no-repeat center; background-size: cover;"' : ''?>>
 
@@ -562,7 +566,7 @@ if ($pokecen_tijd > 0) {
 							<li class="header-events">
 								<div id="events">
 									<img src="<?=$static_url?>/images/icons/avatar/<?=$season[1]?>-season.png" title="<?=sprintf($txt['hud_season'], $season[0])?>" style="width: 49px;margin-top: -3px;margin-right: -3px;">
-									<?php if (($gebruiker['quest_1']+$gebruiker['quest_2']) < 2) { ?><span class="badges" style="float: right; margin-left: -20px; margin-top: 23px; z-index: 100; position: relative; cursor:pointer; width: 13px; height:13px; line-height: 14px; font-size:8px;" onclick="window.location = './daily_quests'"><?=(2-($gebruiker['quest_1']+$gebruiker['quest_2']))?></span><?php } ?><a href="./daily_quests" class="noanimate" style="display:block"><img src="<?=$static_url?>/images/icons/avatar/quests.png" title="<?=$txt['hud_daily_quests_tip']?>" style="margin-right: -3px;"></a>
+									<?php if (($gebruiker['quest_1']+$gebruiker['quest_2']) < 2) { ?><span class="badges" style="float: right; margin-left: -20px; margin-top: 23px; z-index: 100; position: relative; cursor:pointer; width: 13px; height:13px; line-height: 14px; font-size:8px;" onclick="window.location = document.baseURI + 'daily_quests'"><?=(2-($gebruiker['quest_1']+$gebruiker['quest_2']))?></span><?php } ?><a href="./daily_quests" class="noanimate" style="display:block"><img src="<?=$static_url?>/images/icons/avatar/quests.png" title="<?=$txt['hud_daily_quests_tip']?>" style="margin-right: -3px;"></a>
 									<?php if ($gebruiker['daily_bonus']+86400 < time() && isset($_SESSION['id'])) { ?><img src="<?=$static_url?>/images/icons/avatar/pokeball.png" title="<?=$txt['hud_daily_bonus_tip']?>" onclick="Game.getDailyBonus(this);"><?php } ?>
 									<?php
 										$bonus_exp = DB::exQuery("SELECT `id`, `config`, `valor` FROM configs WHERE config='exp'")->fetch_assoc()['valor'];
@@ -779,7 +783,7 @@ if ($pokecen_tijd > 0) {
 		</div>
 
 		<script src="<?=$static_url?>/javascripts/wl.tabs.js"></script>
-		<script src="<?=$static_url?>/javascripts/app.js"></script>
+		<script src="<?=$static_url?>/javascripts/app.js?v=2"></script>
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({

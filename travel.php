@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app/includes/GameUrl.php';
 #Script laden zodat je nooit pagina buiten de index om kan laden
 require_once("app/includes/resources/security.php");
 
@@ -69,7 +70,7 @@ if (isset($_POST['travel'])) {
 		else { #Speler heeft genoeg silver.
 			#silver minderen en nieuwe wereld opslaan
 			DB::exQuery("UPDATE `gebruikers` SET `silver`=`silver` - '".$prijss."',`wereld`='" . $wereld . "',`traveltijdbegin`=NOW(),`traveltijd`='" . $count_time . "' WHERE `user_id`=" . ($_SESSION['id'] ?? '') . " LIMIT 1");
-			exit(header("LOCATION: ./travel"));
+			exit(game_redirect_header("LOCATION: ./travel"));
 		}
 	}
 }
@@ -97,7 +98,7 @@ if (isset($_POST['surf'])) {
 		#Alles goed:	
 		else {
 			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".($_SESSION['id'] ?? '')."'");
-			exit(header("LOCATION: ./travel"));
+			exit(game_redirect_header("LOCATION: ./travel"));
 		}
 	}
 }
@@ -125,7 +126,7 @@ if (isset($_POST['fly'])) {
 		#Alles goed:	
 		else {
 			DB::exQuery("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".($_SESSION['id'] ?? '')."' LIMIT 1");
-			exit(header("LOCATION: ./travel"));
+			exit(game_redirect_header("LOCATION: ./travel"));
 		}
 	}
 }

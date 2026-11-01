@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/GameUrl.php';
 
 class Messages {
 
@@ -298,7 +299,7 @@ class Messages {
     }
 
     protected function home_page () {
-        header('Location: ./inbox'); 
+        game_redirect_header('Location: ./inbox');
         exit;
     }
 

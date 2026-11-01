@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../GameUrl.php';
 if (isset($_POST['login'])) {
     if (empty($_POST['username']))
         $inlog_error = $txt['alert_no_username'];
@@ -63,7 +64,7 @@ if (isset($_POST['login'])) {
 					
 					if ($rekening['wachtwoord'] != $typppass) {
 						$datum = date("Y-m-d H:i:s");
-						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $speler_sql . "', '" . DB::real_escape_string((string) ($_POST['password'] ?? '')) . "')");
+						DB::exQuery("INSERT INTO `inlog_fout` (`datum`, `ip`, `spelernaam`, `wachtwoord`) VALUES ('" . $datum . "', '" . $ip_sql . "', '" . $speler_sql . "', '" . "[redacted]" . "')");
 					}
 					
 					//if ($rekening['wachtwoord'] != $typppass) $inlog_error = 'Senha incorreta!';
@@ -88,7 +89,8 @@ if (isset($_POST['login'])) {
 						
 						$pa_lang = md5($ip);
 						
-						$keylog = md5(microtime());
+						session_regenerate_id(true);
+                        $keylog = bin2hex(random_bytes(16));
 						
 						setcookie('pa_lang', $pa_lang, time() + (86400 * 7), '/');
 						DB::exQuery("UPDATE `rekeningen` SET `ban_cookie`='".DB::real_escape_string((string) ($_COOKIE['pa_lang'] ?? ''))."',`locked`=1,`ip_ingelogd`='" . $ip_sql . "',`session`='" . DB::real_escape_string((string) (session_id() ?? '')) . "',`last_login`=NOW(), `keylog`='" . DB::real_escape_string($keylog) . "' WHERE `acc_id`='" . (int) $rekening['acc_id'] . "' LIMIT 1");
@@ -113,7 +115,7 @@ if (isset($_POST['login'])) {
 						$_SESSION['keylog']   = $keylog;
 						$_SESSION['acc_hash'] = md5($rekening['acc_id'] . "," . $rekening['username']);
 
-						header('location: ./my_characters');
+						game_redirect_header('location: ./my_characters');
 					}
 				}
 			}
