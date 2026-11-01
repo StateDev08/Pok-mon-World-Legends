@@ -29,10 +29,10 @@ if (isset($_SESSION['id']) && isset($_POST['message']) && isset($_POST['id']) &&
                     }
                 }
             } else {
-                echo 'Falha ao enviar';
+                echo $txt['chat_send_failed'];
             }
         } else {
-            echo 'Falha ao enviar!';
+            echo $txt['chat_send_failed'];
         }
     }
 }

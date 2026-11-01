@@ -17,7 +17,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 
 		if ($gebruiker_item[($_GET['name'] ?? '')] < $num_)	$error = $txt['use_not_that_amount'];
 		else if ($pokemon['level'] + $num_ > 100)	$error = $txt['use_amount_too_high'];
-		else if ($num_ < 0.9) $error = "Digite um valor.";
+		else if ($num_ < 0.9) $error = "".$txt['enter_quantity']."";
 		else {
 			$levelnieuw = $pokemon['level'];
 			for($evo=$pokemon['level'];$evo<($pokemon['level'] + $num_);++$evo) {
@@ -49,7 +49,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 	}
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>

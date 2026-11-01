@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>

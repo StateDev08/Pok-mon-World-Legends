@@ -1,0 +1,22 @@
+/* Keep the original button artwork; replace its baked-in captions with text. */
+.text-box .selector{position:relative}
+.text-box .selector .battle-control-label{
+ position:absolute;left:26px;right:25px;top:18px;height:32px;
+ display:flex;align-items:center;justify-content:center;
+ background:linear-gradient(#304d74,#273d60);color:#fff;
+ font:700 14px 'Exo 2',sans-serif;text-transform:uppercase;
+ text-shadow:0 1px 2px #000;pointer-events:none;
+}
+.text-box .selector.bag .battle-control-label{background:linear-gradient(#3d806f,#346e5d)}
+.text-box .selector.pokemon .battle-control-label{background:linear-gradient(#63517c,#554568)}
+.text-box .selector.run .battle-control-label{background:linear-gradient(#9b626c,#82515b)}
+.text-box .selector:hover .battle-control-label{filter:brightness(1.18)}
+.text-box .selector.blocked .battle-control-label{filter:grayscale(1);color:#bcbcbc}
+
+/* Translatable captions over the original player-card artwork. */
+.header-player-labels{position:absolute;inset:0;pointer-events:none;color:#fff;font:700 12px Arial,sans-serif;letter-spacing:.2px}
+.header-player-labels span{position:absolute;display:block;background:#064582;height:17px;line-height:17px;text-align:left;white-space:nowrap}
+.header-player-labels span:nth-child(1){left:82px;top:15px;width:61px}
+.header-player-labels span:nth-child(2){left:69px;top:35px;width:55px}
+.header-player-labels span:nth-child(3){left:61px;top:55px;width:63px}
+.header-player-labels span:nth-child(4){left:49px;top:75px;width:75px}

@@ -3,16 +3,16 @@
 $txt['footer_made_by']   = 'Pokémon 和所有相应名称均为 Nintendo 1996 年的商标 &amp; &copy;' . date('Y');
 $txt['footer_copyright'] = '版权所有&copy;' . date('Y') . '- 世界传奇 - 保留所有权利。';
 
-$txt['logo_text']             = '世界传奇|成为神奇宝贝大师！';
+$txt['logo_text']             = '世界传奇|成为宝可梦大师！';
 $txt['site_description']      = '在Pokémon World Legends免费成为一名宝可梦训练家！拥有900多种不同的宝可梦物种，与其他训练家对战以及更多精彩内容！最棒的是，无需下载！立即注册，加入这段不可思议的宝可梦旅程！';
-$txt['login_username']        = '用户';
+$txt['login_username']        = '用户名';
 $txt['login_password']        = '密码';
-$txt['login_activation']      = '激活您的帐户';
-$txt['login_forgot']          = '恢复帐户';
-$txt['login_button']          = '进入';
+$txt['login_activation']      = '激活账号';
+$txt['login_forgot']          = '找回账号';
+$txt['login_button']          = '登录';
 
-$txt['login_no_account'] = '没有帐户？%s 现在！';
-$txt['login_register_now'] = '登记';
+$txt['login_no_account'] = '没有账号？%s！';
+$txt['login_register_now'] = '立即注册';
 
 #Stats
 $txt['stats_premiumtext']     = '天';
@@ -24,7 +24,7 @@ $txt['stats_servertime']      = '服务器时间';
 $txt['stats_username']        = '训练师';
 $txt['stats_world']           = '地区';
 $txt['stats_rank_progress']   = '秩';
-$txt['stats_all_pokemon']     = '神奇宝贝';
+$txt['stats_all_pokemon']     = '宝可梦';
 $txt['stats_premium']         = '优质的';
 $txt['stats_silver']          = '银';
 $txt['stats_gold']            = '金子';
@@ -36,7 +36,7 @@ $txt['stats_event']           = '活动';
 #Menu titles
 $txt['title_options']       = '选项';
 $txt['title_general']       = '主要的';
-$txt['title_my_pokemon']    = '我的神奇宝贝';
+$txt['title_my_pokemon']    = '我的宝可梦';
 $txt['title_my_items']      = '我的物品';
 $txt['title_linkpartners']  = '合作伙伴';
 $txt['title_communication'] = '沟通';
@@ -44,10 +44,10 @@ $txt['title_actions']       = '行动';
 $txt['title_buildings']     = '城市';
 
 #Menu items
-$txt['menu_home']                     = '家';
-$txt['menu_register']                 = '登记';
+$txt['menu_home']                     = '首页';
+$txt['menu_register']                 = '注册';
 $txt['menu_information']              = '信息';
-$txt['menu_pokemon_info']             = '信息。口袋妖怪';
+$txt['menu_pokemon_info']             = '信息。宝可梦';
 $txt['menu_attack_info']              = '信息。攻击';
 $txt['menu_game_info']		          = '常问问题';
 $txt['menu_characters']               = '教练';
@@ -65,35 +65,35 @@ $txt['menu_account_options_profile']  = '修改个人资料';
 $txt['menu_modify_order']             = '修改队伍';
 $txt['menu_extended']                 = '详细信息';
 $txt['menu_sell']                     = '卖';
-$txt['menu_release']                  = '免费的口袋妖怪';
+$txt['menu_release']                  = '免费的宝可梦';
 $txt['menu_items']                    = '背包';
 $txt['menu_badge_box']                = '我的徽章';
 $txt['menu_house']                    = '我的房子';
-$txt['menu_box']                      = '神奇宝贝盒子';
-$txt['menu_house_bringaway']          = '拯救神奇宝贝';
-$txt['menu_house_take']               = '捕捉神奇宝贝';
+$txt['menu_box']                      = '宝可梦盒子';
+$txt['menu_house_bringaway']          = '拯救宝可梦';
+$txt['menu_house_take']               = '捕捉宝可梦';
 $txt['menu_pokedex']                  = '图鉴';
 $txt['menu_events']                   = '通知';
 $txt['menu_buddies']                  = '我的朋友';
 $txt['menu_blocklist']                = '被阻止';
 $txt['menu_attack']                   = '打猎';
-$txt['menu_trainerson']               = '在线培训师';
+$txt['menu_trainerson']               = '在线训练家';
 $txt['menu_gyms']                     = '健身房';
 $txt['menu_work']                     = '工作';
 $txt['menu_duel']                     = '决斗';
 $txt['menu_traders']                  = '招商';
-$txt['menu_pokemoncenter']            = '口袋妖怪中心';
+$txt['menu_pokemoncenter']            = '宝可梦中心';
 $txt['menu_market']                   = '宝可梦超市';
 $txt['menu_market_balls']             = '精灵球';
 $txt['menu_market_potions']           = '药水';
 $txt['menu_market_items']             = '项目';
 $txt['menu_market_specialitems']      = '特殊物品';
 $txt['menu_market_stones']            = '石头';
-$txt['menu_market_pokemon']           = '神奇宝贝';
+$txt['menu_market_pokemon']           = '宝可梦';
 $txt['menu_market_attacks']           = '攻击';
 $txt['menu_bank']                     = '银行';
 $txt['menu_travel']                   = '行程';
-$txt['menu_transferlist']             = '下载口袋妖怪';
+$txt['menu_transferlist']             = '下载宝可梦';
 $txt['menu_daycare']                  = '幼儿园';
 $txt['menu_specialists']              = '专家';
 $txt['menu_jail']                     = '监狱';
@@ -109,7 +109,7 @@ $txt['menu_highlow'] = '更大或更小';
 $txt['menu_slots'] = '老虎机';
 $txt['menu_pokemon_scrambler'] = '口袋混合';
 $txt['chat'] = '聊天';
-$txt['search-user'] = '寻找培训师';
+$txt['search-user'] = '寻找训练家';
 $txt['menu_msgs'] = '留言';
 $txt['menu_msgs2'] = '我的留言';
 $txt['menu_sendmessage'] = '发送消息';
@@ -159,7 +159,7 @@ $txt['hmenu_accessible'] = '无障碍';
 
 #Home page
 $txt['home_welcome'] = '欢迎，%s！';
-$txt['home_days_connected'] = '今天是您连接的第 %s 天！';
+$txt['home_days_connected'] = '你已累计游玩%s天！';
 $txt['home_events'] = '活动';
 $txt['home_no_events'] = '没有可用的活动！';
 $txt['home_my_team'] = '我的团队';
@@ -189,7 +189,7 @@ $txt['popup_ball']         = '精灵球：';
 $txt['popup_attacks']      = '攻击：';
 $txt['popup_hp']           = '生命值：';
 $txt['popup_exp']          = '经验：';
-$txt['popup_begin']        = '入门神奇宝贝：';
+$txt['popup_begin']        = '入门宝可梦：';
 $txt['popup_attack']       = '攻击';
 $txt['popup_defense']      = '防御';
 $txt['popup_sp_attack']    = '特攻';
@@ -209,7 +209,7 @@ $txt['popup_initial']      = '初始';
 $txt['popup_egg_hatch']    = '蛋将在：';
 
 //Users online page
-$txt['online_users'] = '在线培训师';
+$txt['online_users'] = '在线训练家';
 $txt['nobody_online'] = '无人在线';
 $txt['online_moderator']    = '版主';
 $txt['online_supervisor']   = '监督员';
@@ -222,7 +222,7 @@ $txt['pokemonei_egg'] = '蛋将在 %s 后孵化。';
 $txt['pokemonei_level'] = 'LV。';
 
 // New user
-$txt['after_register']		= '您好%s，您的注册成功！要开始您的神奇宝贝之旅，您必须激活您的帐户！';
+$txt['after_register']		= '您好%s，您的注册成功！要开始您的宝可梦之旅，您必须激活您的帐户！';
 
 // Profile page
 $txt['profile_title'] = '个人资料 - %s';
@@ -944,4 +944,37 @@ $txt['bracket_final'] = '决赛';
 $txt['bracket_champions'] = '冠军';
 $txt['bracket_third_place'] = '季军赛';
 /* === end externalized strings === */
+
+// Shared battle and dialog labels.
+$txt['battle_heading'] = '对战！';
+$txt['battle_against'] = '对战对手：';
+$txt['duel_against'] = '决斗对手：';
+$txt['battle_time_remaining'] = '剩余时间';
+$txt['battle_seconds'] = '秒';
+$txt['caught_label'] = '已捕获';
+$txt['no_results'] = '没有结果';
+$txt['captured_count_label'] = '已捕获';
+$txt['enter_quantity'] = '请输入有效数量。';
+$txt['choose_pokemon_label'] = '请选择一只宝可梦！';
+$txt['cancel_label'] = '取消';
+$txt['none_label'] = '无';
+$txt['chat_wait_message'] = '请等待5秒后再发送消息。';
+
+$txt['battle_item_target'] = '对%s使用道具？';
+$txt['chat_send_failed'] = '消息发送失败。';
+$txt['item_equipped_message'] = '已携带道具%s。';
+$txt['pokemon_full_hp'] = '%s的HP已满。';
+$txt['quantity_positive'] = '数量必须大于零。';
+
+$txt['battle_action_attack'] = '战斗';
+$txt['battle_action_bag'] = '背包';
+$txt['battle_action_pokemon'] = '宝可梦';
+$txt['battle_action_run'] = '逃跑';
+$txt['unknown_trainer'] = '未知';
+
+$txt['navbar_language'] = '语言';
+
+$txt['hud_region_label'] = '地区';
+$txt['hud_rank_label'] = '级别';
+$txt['hud_pokemon_label'] = '宝可梦';
 ?>

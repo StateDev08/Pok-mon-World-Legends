@@ -1,11 +1,11 @@
 <?php
 if ($page == 'home' || empty($page)) {
 	$txt['home_news_text'] = '[16/07/2019] - <b>%s</b>已发布！请在<a href="./official-messages">官方消息</a>中查看<b>更新说明</b>！';
-	$txt['pagetitle']			= '家';
+	$txt['pagetitle']			= '首页';
 	$txt['news_empty']			= '暂时没有消息！';
-	$txt['poke_stats']			= '口袋妖怪统计';
+	$txt['poke_stats']			= '宝可梦统计';
 	$txt['loading']				= '加载中...';
-	$txt['pokes_ammunt']		= '神奇宝贝有 %s 种。';
+	$txt['pokes_ammunt']		= '宝可梦有 %s 种。';
 	$txt['top_gebruikers']		= '最佳教练';
 } else if ($page == 'disclaimer') {
 	$txt['pagetitle']	= '法律声明';
@@ -13,7 +13,7 @@ if ($page == 'home' || empty($page)) {
 		网站上提及的内容，以及不参与该系列的任何制作或营销阶段。<br />
 		<br/>
 		<em>World Legends</em>基于网络的游戏系统是由一群游戏迷开发的
-		神奇宝贝是免费且非营利的，可能随时发生变化
+		宝可梦是免费且非营利的，可能随时发生变化
 		恕不另行通知。与<em>World Legends</em>基于网络的游戏系统相关的所有权利，
 		以及该软件及其数据库的使用，均属于
 		团队说，根据艺术。巴西软件保护法 &ndash; 法的 1&ordm; 和 2&ordm;
@@ -183,7 +183,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_server_invalid']			= '您必须选择一个有效的服务器！';
 
 	$txt['pagetitle']		= '创建新角色';
-	$txt['title_text']		= '在这里你可以创建一个新角色，这样你就可以在神奇宝贝世界中享受乐趣。';
+	$txt['title_text']		= '在这里你可以创建一个新角色，这样你就可以在宝可梦世界中享受乐趣。';
 	$txt['username']		= '用户：';
 	$txt['beginworld']		= '地区';
 	$txt['select_server']	= '服务器';
@@ -220,12 +220,12 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_no_email']                 = '您必须填写所有字段！';
 	$txt['alert_email_incorrect_signs']    = '您必须输入有效的电子邮件！';
 	$txt['alert_email_exists']             = '该电子邮件已被其他玩家使用！';
-	$txt['trainer_invalid']				   = '我们没有找到指定的培训师！';
+	$txt['trainer_invalid']				   = '我们没有找到指定的训练家！';
 	$txt['success_register']               = '您的帐户已创建成功！';
 
 	$txt['titlenpc']			= '立即注册！！！';
-	$txt['textnpc']				= '使用下面的表格在神奇宝贝世界中注册，在<b>世界传奇</b>中您将参与激动人心的冒险和战斗。<br />
-		&mdash; 寻找朋友并树敌，证明你的实力并成为一名伟大的神奇宝贝大师！';
+	$txt['textnpc']				= '使用下面的表格在宝可梦世界中注册，在<b>世界传奇</b>中您将参与激动人心的冒险和战斗。<br />
+		&mdash; 寻找朋友并树敌，证明你的实力并成为一名伟大的宝可梦大师！';
 
 	$txt['pagetitle']              = '登记';
 	$txt['country']                = '国家：';
@@ -237,7 +237,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['button']                 = '登记！';
 } else if ($page == 'information') {
 	$txt['pagetitle']                 = '信息';
-	$txt['link_subpage_pokemon_info'] = '信息。口袋妖怪';
+	$txt['link_subpage_pokemon_info'] = '信息。宝可梦';
 	$txt['link_subpage_attack_info']  = '信息。攻击';
 	$txt['link_subpage_game_info'] = '常问问题';
 
@@ -295,13 +295,13 @@ if ($page == 'home' || empty($page)) {
 			$txt['informationpage'] = '<h2>常见问题解答</h2><br>';
 		}
 	else if (($_GET['category'] ?? '') == 'pokemon-info') {
-		$txt['titlenpc']		= 'PokePédia（神奇宝贝百科全书）';
-		$txt['textnpc']			= '您可以在此区域找到有关<b>世界传奇</b>中所有神奇宝贝的所有信息。在这里您可以提出有关统计、进化等方面的问题。';
+		$txt['titlenpc']		= 'PokePédia（宝可梦百科全书）';
+		$txt['textnpc']			= '您可以在此区域找到有关<b>世界传奇</b>中所有宝可梦的所有信息。在这里您可以提出有关统计、进化等方面的问题。';
 
 		$txt['pagetitle']             .= ' - Pokémons';
 		$txt['choosepokemon']         = '选择';
-		$txt['poke_list']             = '神奇宝贝列表';
-		$txt['choose_a_pokemon']      = '选择下面的神奇宝贝来访问其信息！';
+		$txt['poke_list']             = '宝可梦列表';
+		$txt['choose_a_pokemon']      = '选择下面的宝可梦来访问其信息！';
 		$txt['not_rare']              = '常见的';
 		$txt['a_bit_rare']            = '异常';
 		$txt['very_rare']             = '稀有的';
@@ -351,7 +351,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['info_area_Spookhuis']           = '幽灵屋';
 	} else if (($_GET['category'] ?? '') == 'attack-info') {
 		$txt['titlenpc']		= '宝可梦攻击';
-		$txt['textnpc']			= '您是否正在寻找有关特定移动/攻击的信息？您来对地方了，在这里您可以找到有关您的神奇宝贝攻击的所有内容。';
+		$txt['textnpc']			= '您是否正在寻找有关特定移动/攻击的信息？您来对地方了，在这里您可以找到有关您的宝可梦攻击的所有内容。';
 
 		$txt['pagetitle'] .= ' - Ataques';
 		$txt['#']      = '#';
@@ -365,11 +365,11 @@ if ($page == 'home' || empty($page)) {
 	}
 } else if ($page == 'statistics') {
 	$txt['pagetitle']           = '统计数据';
-	$txt['top6_pokemon_title']  = '最好的口袋妖怪';
+	$txt['top6_pokemon_title']  = '最好的宝可梦';
 	$txt['game_data']           = '游戏资讯';
 	$txt['users_total']         = '教练：';
 	$txt['silver_in_game']      = '总银：';
-	$txt['pokemon_total']       = '神奇宝贝：';
+	$txt['pokemon_total']       = '宝可梦：';
 	$txt['matches_played']      = '总战斗数：';
 	$txt['top5_silver_users']   = '5位最富有的人';
 	$txt['#']                   = '#';
@@ -463,8 +463,8 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['titlenpc']	= '头像变更';
 	$txt['textnpc']		= "在这里您可以更改您的头像。";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Nem todos os personagens possuem a mesma quantidade de avatares.</span>";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Novos avatares são adicioadas em algumas das atualizações do jogo.</span>";
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>并非每个角色都有相同数量的可选头像。</span>';
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>部分游戏更新会添加新的头像。</span>';
 
 	$txt['pagetitle']	= '更改我的头像';
 	$txt['pagetext']	= '单击可用的头像之一，以便您可以查看它并更改您的头像。';
@@ -522,7 +522,7 @@ if ($page == 'home' || empty($page)) {
 		}
 		else if (($_GET['category'] ?? '') == 'email') {
 
-			$txt['pagetitle'] .= ' - Alterar E-mail';
+			$txt['pagetitle'] .= ' - 修改电子邮箱';
 		}
 		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
@@ -534,7 +534,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_password'] = '密码修改成功！';
 			
 			#Screen password
-			$txt['pagetitle'] .= ' - Alterar Senha';
+			$txt['pagetitle'] .= ' - 修改密码';
 			$txt['new_password'] = '新密码：';
 			$txt['new_password_again'] = '重复您的新密码：';
 			$txt['password_now'] = '当前密码：';
@@ -545,7 +545,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_profile'] = '您的个人资料已成功更新。';
 			
 			#Screen profile
-			$txt['pagetitle'] .= ' - Atualizar Perfil';
+			$txt['pagetitle'] .= ' - 更新个人资料';
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="配置文件效果"><b>在这里</b></a></u>您可以看到一些自定义配置文件的提示！';
 			$txt['button_profile'] = '更新个人资料！';
 		}
@@ -563,10 +563,10 @@ if ($page == 'home' || empty($page)) {
 										  <strong><span id=seconden3></span>&nbsp;seconden</strong>。';
 			
 			#Screen restart
-			$txt['pagetitle'] .= ' - Recomeçar';
+			$txt['pagetitle'] .= ' - 重新开始';
 			$txt['restart_title_text'] = '<center>填写您的密码并选择您要转移到的地区。<br /><br />
 										
-										您所有的神奇宝贝、物品、银币和排名积分在转移后都会被删除。<br />
+										您所有的宝可梦、物品、银币和排名积分在转移后都会被删除。<br />
 										<strong>这是不可逆的！</strong></center>';
 			$txt['password_security'] = '密码：';
 			$txt['button_restart'] = '开始新的旅程！';
@@ -574,7 +574,7 @@ if ($page == 'home' || empty($page)) {
 	} else if ($page == 'extended') {
 	$txt['pagetitle']          = '我的团队';
 	$txt['catched_with']       = '与 %s 一起捕获！';
-	$txt['pokemon']            = '神奇宝贝：';
+	$txt['pokemon']            = '宝可梦：';
 	$txt['attack_points']      = '攻击：';
 	$txt['clamour_name']       = '姓名：';
 	$txt['defence_points']     = '防御：';
@@ -586,52 +586,52 @@ if ($page == 'home' || empty($page)) {
 	$txt['spc_defence_points'] = '特别是。防御：';
 	$txt['attacks']            = '攻击：';
 	$txt['egg_will_hatch_in']  = '蛋将在以下时间孵化：';
-	$txt['begin_pokemon']      = '入门神奇宝贝';
+	$txt['begin_pokemon']      = '入门宝可梦';
 	$txt['pottions_used']      = '维生素：';
 	$txt['change_attacks']     = '改变攻击方式';
-	$txt['msgfaq']			   = '<div class="blue">现在你是一名神奇宝贝训练师了！出色的！准备好你的神奇宝贝之旅了吗？！ <BR>教授建议您访问“常见问题解答”，了解更多关于神奇宝贝世界传奇的世界。<br><a href="./information&category=game-info">>>点击此处访问常见问题解答。</a></div>';
+	$txt['msgfaq']			   = '<div class="blue">现在你是一名宝可梦训练师了！出色的！准备好你的宝可梦之旅了吗？！ <BR>教授建议您访问“常见问题解答”，了解更多关于宝可梦世界传奇的世界。<br><a href="./information&category=game-info">>>点击此处访问常见问题解答。</a></div>';
 } else if ($page == 'sell') {
 	$txt['pagetitle']           = '卖';
 	$txt['colorbox_text']       = "再次打开这个窗口。";
 	$txt['title_text_1']        = '您最多可以放置';
-	$txt['title_text_2']        = '出售神奇宝贝。<br />你有吗';
-	$txt['title_text_3']        = '出售宠物小精灵。';
-	$txt['no_pokemon_in_house'] = '您家里没有神奇宝贝。';
+	$txt['title_text_2']        = '出售宝可梦。<br />你有吗';
+	$txt['title_text_3']        = '出售宝可梦。';
+	$txt['no_pokemon_in_house'] = '您家里没有宝可梦。';
 	$txt['#']                   = '#';
-	$txt['pokemon']             = '神奇宝贝';
+	$txt['pokemon']             = '宝可梦';
 	$txt['clamour_name']        = '姓名';
 	$txt['level']               = '等级';
 	$txt['sell']                = '卖';
 	$txt['go_to_transferlist']  = '去宝可梦市场';
 } else if ($page == 'poke-event') {
 	$txt['pagetitle']           = '活动宝可梦';
-	$txt['title_text_1']        = '这些是参加活动的神奇宝贝。';
+	$txt['title_text_1']        = '这些是参加活动的宝可梦。';
 	$txt['#']                   = '#';
-	$txt['pokemon']             = '神奇宝贝';
+	$txt['pokemon']             = '宝可梦';
 	$txt['type']        		= '类型';
 	$txt['regiao']              = '地区';
 	$txt['local']               = '最喜欢的地方';
 } else if ($page == 'release') {
-	$txt['alert_itemplace']           = '注意：您没有足够的插槽来接收返回的神奇宝贝球。';
-	$txt['alert_not_your_pokemon']    = '小心！这个神奇宝贝不属于你！';
-	$txt['alert_beginpokemon']        = '这是你的入门神奇宝贝，你无法释放它！';
-	$txt['alert_no_pokemon_selected'] = '您必须选择一个神奇宝贝！';
-	$txt['success_release']           = '你已经成功释放了你的神奇宝贝！';
+	$txt['alert_itemplace']           = '注意：您没有足够的插槽来接收返回的宝可梦球。';
+	$txt['alert_not_your_pokemon']    = '小心！这个宝可梦不属于你！';
+	$txt['alert_beginpokemon']        = '这是你的入门宝可梦，你无法释放它！';
+	$txt['alert_no_pokemon_selected'] = '您必须选择一个宝可梦！';
+	$txt['success_release']           = '你已经成功释放了你的宝可梦！';
 
-	$txt['pagetitle']                = '免费的口袋妖怪';
-	$txt['title_text']               = '在这里你可以释放你不再想要的神奇宝贝。<br />
-		用于捕获神奇宝贝的神奇宝贝球会返回到您的物品中。<br />
+	$txt['pagetitle']                = '免费的宝可梦';
+	$txt['title_text']               = '在这里你可以释放你不再想要的宝可梦。<br />
+		用于捕获宝可梦的宝可梦球会返回到您的物品中。<br />
 		<strong>注意：</strong>此操作不可逆转！';
-	$txt['pokemon_team']             = '你队伍中的神奇宝贝';
+	$txt['pokemon_team']             = '你队伍中的宝可梦';
 	$txt['#']                        = '#';
-	$txt['pokemon']                  = '神奇宝贝';
+	$txt['pokemon']                  = '宝可梦';
 	$txt['clamour_name']             = '姓名';
 	$txt['level']                    = '等级';
 	$txt['release']                  = '发布';
-	$txt['alert_no_pokemon_in_hand'] = '你的队伍中没有神奇宝贝。';
+	$txt['alert_no_pokemon_in_hand'] = '你的队伍中没有宝可梦。';
 	$txt['button']                   = '发布';
-	$txt['pokemon_at_home']          = '你家里的神奇宝贝';
-	$txt['alert_no_pokemon_at_home'] = '你家里没有神奇宝贝。';
+	$txt['pokemon_at_home']          = '你家里的宝可梦';
+	$txt['alert_no_pokemon_at_home'] = '你家里没有宝可梦。';
 } else if ($page == 'items') {
 	$txt['alert_no_amount']               = '输入数量！';
 	$txt['alert_too_much_items_selected'] = '你没有这个金额！';
@@ -640,9 +640,9 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']        = '我的物品';
 	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
 	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - 特殊道具';
 	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - 进化之石';
 	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
 	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
@@ -670,43 +670,43 @@ if ($page == 'home' || empty($page)) {
 	$txt['badges']         = '徽章';
 	$txt['no_badges_from'] = '无徽章';
 } else if ($page == 'house') {
-	$txt['alert_not_your_pokemon']        = '小心！这个神奇宝贝不属于你！';
+	$txt['alert_not_your_pokemon']        = '小心！这个宝可梦不属于你！';
 	$txt['alert_house_full']              = '你的房子已经满了！';
-	$txt['success_bring']                 = '你拯救了你的神奇宝贝！';
-	$txt['alert_hand_full']               = '您的团队中已有 6 只神奇宝贝！';
-	$txt['alert_pokemon_on_transferlist'] = '该神奇宝贝正在出售！';
-	$txt['success_get']                   = '你抓住了你的神奇宝贝！';
+	$txt['success_bring']                 = '你拯救了你的宝可梦！';
+	$txt['alert_hand_full']               = '您的团队中已有 6 只宝可梦！';
+	$txt['alert_pokemon_on_transferlist'] = '该宝可梦正在出售！';
+	$txt['success_get']                   = '你抓住了你的宝可梦！';
 
 	$txt['pagetitle']          = '我的房子';
 	$txt['title_text_1']       = '目前您有一个';
 	$txt['title_text_2']       = '你可以保存';
-	$txt['title_text_3']       = '神奇宝贝。<br />
-		* 保存神奇宝贝，在这里你可以把你的神奇宝贝留在家里。<br />
-		* 捕捉神奇宝贝，在这里您可以看到并捕捉您保存的神奇宝贝。<br />
-		仅当您在团队中至少拥有 1 个位置时，您才能捕获神奇宝贝。';
-	$txt['pokemon_bring_away'] = '拯救神奇宝贝';
-	$txt['pokemon_pick_up']    = '我的神奇宝贝';
+	$txt['title_text_3']       = '宝可梦。<br />
+		* 保存宝可梦，在这里你可以把你的宝可梦留在家里。<br />
+		* 捕捉宝可梦，在这里您可以看到并捕捉您保存的宝可梦。<br />
+		仅当您在团队中至少拥有 1 个位置时，您才能捕获宝可梦。';
+	$txt['pokemon_bring_away'] = '拯救宝可梦';
+	$txt['pokemon_pick_up']    = '我的宝可梦';
 	$txt['box']                = '纸板箱';
 	$txt['little_house']       = '小房子';
 	$txt['normal_house']       = '大房子';
 	$txt['big_house']          = '大厦';
 	$txt['places_over']        = '可用插槽';
 	$txt['#']                  = '#';
-	$txt['clamour_name']       = '神奇宝贝';
+	$txt['clamour_name']       = '宝可梦';
 	$txt['level']              = '等级';
 	$txt['bring_away']         = '节省';
 	$txt['take']               = '采取';
 	$txt['button_take']        = '好的';
 	$txt['button_bring']       = '好的';
 	$txt['empty']              = '空的';
-	$txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
+	$txt['no_pokemon']	   = '没有发现任何宝可梦。';
 } else if ($page == 'pokedex') {
 	$txt['pagetitle'] = '图鉴';
 	$txt['seen']      = '签证';
 	$txt['had']       = '他有';
 	$txt['have']      = '他有';
 	$txt['#']         = '#';
-	$txt['pokemon']   = '神奇宝贝';
+	$txt['pokemon']   = '宝可梦';
 	$txt['name']      = '姓名';
 	$txt['type']      = '类型';
 	$txt['status']    = '地位';
@@ -746,7 +746,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']         = '轮廓' . ($_GET['player'] ?? '');
 	$txt['offline']           = '离线';
 	$txt['online']            = '在线的';
-	$txt['username']          = '培训师：';
+	$txt['username']          = '训练家：';
 	$txt['name']              = '姓名：';
 	$txt['country']           = '国家：';
 	$txt['date_started']      = '注册于：';
@@ -757,7 +757,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['rank']              = '秩：';
 	$txt['rank_number']       = '总体评价：';
 	$txt['badges_number']     = '徽章：';
-	$txt['pokemon']           = '神奇宝贝：';
+	$txt['pokemon']           = '宝可梦：';
 	$txt['win']               = '获胜：';
 	$txt['lost']              = '失败：';
 	$txt['status']            = '地位：';
@@ -777,7 +777,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['edit_profile']      = '编辑个人资料';
 	$txt['make_admin']        = '设为管理员';
 	$txt['give_egg']          = '送鸡蛋';
-	$txt['give_pokemon']      = '发送神奇宝贝';
+	$txt['give_pokemon']      = '发送宝可梦';
 	$txt['give_pack']         = '发送包裹';
 	$txt['team']              = '团队：';
 	$txt['badges']            = '徽章';
@@ -804,15 +804,15 @@ if ($page == 'home' || empty($page)) {
 	$txt['work_1']  = '卖柠檬水';
 	$txt['work_2']  = '市场帮助';
 	$txt['work_3']  = '递送报纸';
-	$txt['work_4']  = '清理神奇宝贝中心';
+	$txt['work_4']  = '清理宝可梦中心';
 	$txt['work_5']  = '挑战火箭队打一场高尔夫球';
 	$txt['work_6']  = '在城市中寻找贵重物品';
-	$txt['work_7']  = '在广场上与你的神奇宝贝一起展示';
-	$txt['work_8']  = '让你的神奇宝贝成为一个科学实验';
-	$txt['work_9']  = '让你的神奇宝贝在公园里自由活动';
+	$txt['work_7']  = '在广场上与你的宝可梦一起展示';
+	$txt['work_8']  = '让你的宝可梦成为一个科学实验';
+	$txt['work_9']  = '让你的宝可梦在公园里自由活动';
 	$txt['work_10'] = '帮助官珍妮';
-	$txt['work_11'] = '让你的神奇宝贝破坏';
-	$txt['work_12'] = '用你的神奇宝贝抢劫赌场';
+	$txt['work_11'] = '让你的宝可梦破坏';
+	$txt['work_12'] = '用你的宝可梦抢劫赌场';
 } else if ($page == 'traders') {
 	$txt['alert_dont_have_1'] = '你没有任何';
 	$txt['alert_dont_have_2'] = '像你一样！';
@@ -824,9 +824,9 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['pagetitle']       = '招商';
 	$txt['title_text']      = '在这里你可以与凯尔、韦恩和雷米进行交易。<br />
-		将收到的神奇宝贝的等级取决于您在交换中提供的内容。<br />
-		如果您有 2 个相同的神奇宝贝，则第一个将被交易。';
-	$txt['kayl_no_pokemon'] = '抱歉，我想要的神奇宝贝已经全部有了！';
+		将收到的宝可梦的等级取决于您在交换中提供的内容。<br />
+		如果您有 2 个相同的宝可梦，则第一个将被交易。';
+	$txt['kayl_no_pokemon'] = '抱歉，我想要的宝可梦已经全部有了！';
 	$txt['kayl_text_1']     = '嘿！<br />
 		你有一个<strong>';
 	$txt['kayl_text_2']     = '</strong>？<br />
@@ -843,16 +843,16 @@ if ($page == 'home' || empty($page)) {
 	$txt['wayne_text_3']     = '</strong>，你有兴趣吗？<br />
 		如果你和我谈判，作为奖励我会给你一个额外的 <img src="' . $static_url . '/images/icons/silver.png" title="银" style="margin-bottom:-3px;" /> 100 银币。<br />';
 
-	$txt['remy_no_pokemon'] = '抱歉，我目前不想交易任何神奇宝贝！';
+	$txt['remy_no_pokemon'] = '抱歉，我目前不想交易任何宝可梦！';
 	$txt['remy_text_1']     = '你好，我是雷米。<br />
-		我一直在寻找神奇宝贝 <strong>';
+		我一直在寻找宝可梦 <strong>';
 	$txt['remy_text_2']     = '</strong><br/>
 		需要协商吗？<br />
-		我必须交易我的神奇宝贝<strong>';
+		我必须交易我的宝可梦<strong>';
 	$txt['remy_text_3']     = '</strong>。';
 
 	$txt['refresh_pokemon']        = '更新宝可梦';
-	$txt['button_traders_refresh'] = '更新口袋妖怪';
+	$txt['button_traders_refresh'] = '更新宝可梦';
 } else if ($page == 'donate') {
 	$txt['donate_pack_not_exist']    = '此礼包不存在！';
 	$txt['donate_featured_title']    = '精选礼包';
@@ -883,13 +883,13 @@ if ($page == 'home' || empty($page)) {
 } else if ($page == 'pokemoncenter') {
 	$txt['no_silver']          = '您需要更多 <img src="' . $static_url . '/images/icons/silver.png" title="Silver" style="vertical-align: -3px;" /> %s 支付治疗费用！';
 	
-	$txt['pagetitle']          = '口袋妖怪中心';
-	$txt['title_text_admin']   = '管理员无需等待神奇宝贝恢复。';
-	$txt['title_text_premium'] = '每个神奇宝贝恢复的等待时间为20秒。';
-	$txt['title_text_normal']  = '每个神奇宝贝恢复的等待时间为20秒。<br />
-		成为高级培训师并减少等待时间。<br />
+	$txt['pagetitle']          = '宝可梦中心';
+	$txt['title_text_admin']   = '管理员无需等待宝可梦恢复。';
+	$txt['title_text_premium'] = '每个宝可梦恢复的等待时间为20秒。';
+	$txt['title_text_normal']  = '每个宝可梦恢复的等待时间为20秒。<br />
+		成为高级训练家并减少等待时间。<br />
 		立即点击<a href="./gold-market"><b>此处获取高级版！</b></a>';
-	$txt['who']                = '神奇宝贝';
+	$txt['who']                = '宝可梦';
 	$txt['health']             = '惠普';
 	$txt['amount']             = '成本';
 	$txt['nvt']                = '不适用';
@@ -903,7 +903,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_nothing_selected'] = '选择一些东西！';
 	$txt['alert_pokedex_chip']     = '没有图鉴就无法购买图鉴芯片！';
 	$txt['alert_not_enough_place'] = '您的物品箱已满！';
-	$txt['alert_hand_full']        = '您已经拥有 6 只神奇宝贝了！';
+	$txt['alert_hand_full']        = '您已经拥有 6 只宝可梦了！';
 	$txt['alert_not_in_stock']     = '我们目前没有此产品！';
 	
 	$txt['pagetitle'] = '宝可梦超市';
@@ -913,7 +913,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['spc_items'] = '特殊物品';
 	$txt['stones']    = '石头';
 	$txt['attacks']   = '攻击';
-	$txt['pokemon']   = '神奇宝贝';
+	$txt['pokemon']   = '宝可梦';
 	
 	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
@@ -925,7 +925,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - 特殊道具';
 		$txt['button_spc_items'] = '购买特殊物品';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -933,16 +933,16 @@ if ($page == 'home' || empty($page)) {
 	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
-		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
+		$txt['market_attack_types'] = '宝可梦可以学习攻击。';
 	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
-		$txt['button_pokemon']         = '购买口袋妖怪';
+		$txt['button_pokemon']         = '购买宝可梦';
 		$txt['not_rare']               = '常见的';
 		$txt['middle_rare']            = '异常';
 		$txt['rare']                   = '稀有的';
-		$txt['out_of_stock_1']         = '市场上出售的所有神奇宝贝';
+		$txt['out_of_stock_1']         = '市场上出售的所有宝可梦';
 		$txt['out_of_stock_2']         = '';
-		$txt['success_bought_pokemon'] = '1个神奇宝贝蛋！';
+		$txt['success_bought_pokemon'] = '1个宝可梦蛋！';
 	}
 } else if ($page == 'item-market') {
 	$txt['pagetitle']	= '物品市场';
@@ -952,8 +952,8 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']		= '攻击';
 
 	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - 特殊道具';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - 进化之石';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['travel_region_0'] = '关都地区是许多宝可梦的家园，并有着利用科技创造宝可梦的悠久历史。关都的研究人员在他们的工作中表现出色。一位为邪恶组织火箭队工作的研究员通过其基因克隆了梦幻，并创造了基因宝可梦超梦。虚拟宝可梦多边兽也是由人类在关都创造的。';
@@ -968,37 +968,37 @@ if ($page == 'home' || empty($page)) {
 	$txt['alert_world_invalid'] = ($_POST['wereld'] ?? '').'不是有效区域。';
 	$txt['alert_not_enough_money'] = '你没有银子去旅行'.($_POST['wereld'] ?? '').'。';
 	$txt['success_travel'] = '你去了'.($_POST['wereld'] ?? '').'，并花费了';
-	$txt['alert_not_everything_selected'] = '选择神奇宝贝和地区。';
-	$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的！';
-	$txt['alert_no_surf'] = '这个神奇宝贝不会冲浪！';
+	$txt['alert_not_everything_selected'] = '选择宝可梦和地区。';
+	$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的！';
+	$txt['alert_no_surf'] = '这个宝可梦不会冲浪！';
 	$txt['alert_no_fly'] = '这个宝可梦不会飞！';
-	$txt['alert_not_strong_enough'] = '这个神奇宝贝的实力还不够！';
-	$txt['success_surf'] = '你的神奇宝贝冲浪到'.($_POST['wereld'] ?? '').'成功地！';
-	$txt['success_fly'] = '你的神奇宝贝飞走了'.($_POST['wereld'] ?? '').'成功地！';
+	$txt['alert_not_strong_enough'] = '这个宝可梦的实力还不够！';
+	$txt['success_surf'] = '你的宝可梦冲浪到'.($_POST['wereld'] ?? '').'成功地！';
+	$txt['success_fly'] = '你的宝可梦飞走了'.($_POST['wereld'] ?? '').'成功地！';
 	
 	$txt['pagetitle']       = '前往另一个地区';
 	$txt['title_text']      = '在这里您可以前往其他地区';
 	$txt['#']               = '#';
 	$txt['world']           = '地区';
-	$txt['price']           = '每只神奇宝贝的价格';
+	$txt['price']           = '每只宝可梦的价格';
 	$txt['price_total']     = '全部的';
 	$txt['button_travel']   = '旅行';
-	$txt['title_text_surf'] = '如果你的口袋妖怪可以“冲浪”并且你的口袋妖怪等级超过 80...<br />
+	$txt['title_text_surf'] = '如果你的宝可梦可以“冲浪”并且你的宝可梦等级超过 80...<br />
 		还可以免费去其他地区旅游！';
-	$txt['title_text_fly']  = '如果你的神奇宝贝可以“飞”并且你的神奇宝贝等级达到 80+...<br />
+	$txt['title_text_fly']  = '如果你的宝可梦可以“飞”并且你的宝可梦等级达到 80+...<br />
 		还可以免费去其他地区旅游！';
-	$txt['pokemon']         = '神奇宝贝';
+	$txt['pokemon']         = '宝可梦';
 	$txt['button_surf']     = '冲浪';
 	$txt['button_fly']      = '飞翔';
 } else if ($page == 'transferlist') {
-	$txt['alert_no_pokemon'] = '我们目前市场上没有神奇宝贝！';
+	$txt['alert_no_pokemon'] = '我们目前市场上没有宝可梦！';
 
-	$txt['pagetitle']     = '神奇宝贝市场';
+	$txt['pagetitle']     = '宝可梦市场';
 	$txt['colorbox_text'] = '再次打开这个窗口。';
 	$txt['title_text_1']  = '你有：';
-	$txt['title_text_2']  = '<b>提示：</b>还要看看城市的神奇宝贝市场。';
+	$txt['title_text_2']  = '<b>提示：</b>还要看看城市的宝可梦市场。';
 	$txt['#']             = '#';
-	$txt['pokemon']       = '神奇宝贝';
+	$txt['pokemon']       = '宝可梦';
 	$txt['clamour_name']  = '姓名';
 	$txt['level']         = '等级';
 	$txt['price']         = '价值';
@@ -1009,30 +1009,30 @@ $txt['transfer_row_mood']    = '性格：';
 $txt['transfer_row_ability'] = '特性：';
 $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 } else if ($page == 'daycare') {
-	$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的！';
-	$txt['alert_hand_full'] = '您已经拥有 6 只神奇宝贝了！';
+	$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的！';
+	$txt['alert_hand_full'] = '您已经拥有 6 只宝可梦了！';
 	$txt['alert_no_eggs'] = '我们没有鸡蛋给你！';
 	$txt['success_egg'] = '您收到了一个彩蛋！';
-	$txt['alert_already_in_daycare'] = '神奇宝贝已经上幼儿园了！';
-	$txt['alert_already_lvl_100'] = '这只神奇宝贝已经达到100级了！';
-	$txt['alert_daycare_full'] = '幼儿园不能再放更多的神奇宝贝了！';
-	$txt['success_bring'] = '你已经把你的神奇宝贝送到幼儿园了！';
+	$txt['alert_already_in_daycare'] = '宝可梦已经上幼儿园了！';
+	$txt['alert_already_lvl_100'] = '这只宝可梦已经达到100级了！';
+	$txt['alert_daycare_full'] = '幼儿园不能再放更多的宝可梦了！';
+	$txt['success_bring'] = '你已经把你的宝可梦送到幼儿园了！';
 	$txt['alert_not_enough_silver'] = '你的银子还不够！';
 	$txt['success_take'] = '你的宝可梦回来了！';
-	$txt['alert_no_pokemon'] = '您必须拥有一些神奇宝贝才能使用幼儿园！';
+	$txt['alert_no_pokemon'] = '您必须拥有一些宝可梦才能使用幼儿园！';
 	
 	$txt['pagetitle']         = '幼儿园';
 	$txt['egg_text']          = '教练您好！<br /><br />
-		我们找到了你的神奇宝贝的蛋，你想要吗？<br /><br />
+		我们找到了你的宝可梦的蛋，你想要吗？<br /><br />
 		<input type="提交" name="接受" value="是的，请！" class="text_long"><input type="submit" name="dontaccept" value="不，谢谢。"类=“text_long”样式=“margin-left：10px;”>';
-	$txt['normal_user']       = '您可以留下<b>1</b>个神奇宝贝，<b>高级</b>训练师可以留下<b>2</b>个神奇宝贝。';
-	$txt['premium_user']      = '您最多可以在幼儿园留下<b>2</b>只神奇宝贝。';
-	$txt['title_text']        = '我们会照顾您的神奇宝贝，金额为 <img src="' . $static_url . '/images/icons/silver.png" title="Silver" /> 前来领取即可获得 250 银币。<br />
-		我们收取少量费用<img src="' . $static_url . '/images/icons/silver.png" title="Silver" /> 如果您的神奇宝贝升级，可获得 500 银币。<br />
-		你的神奇宝贝不会进化或学习攻击，直到你来把它带走。';
-	$txt['give_pokemon_text'] = '您将把哪只神奇宝贝留在幼儿园？';
+	$txt['normal_user']       = '您可以留下<b>1</b>个宝可梦，<b>高级</b>训练师可以留下<b>2</b>个宝可梦。';
+	$txt['premium_user']      = '您最多可以在幼儿园留下<b>2</b>只宝可梦。';
+	$txt['title_text']        = '我们会照顾您的宝可梦，金额为 <img src="' . $static_url . '/images/icons/silver.png" title="Silver" /> 前来领取即可获得 250 银币。<br />
+		我们收取少量费用<img src="' . $static_url . '/images/icons/silver.png" title="Silver" /> 如果您的宝可梦升级，可获得 500 银币。<br />
+		你的宝可梦不会进化或学习攻击，直到你来把它带走。';
+	$txt['give_pokemon_text'] = '您将把哪只宝可梦留在幼儿园？';
 	$txt['button_bring']      = '离开';
-	$txt['take_pokemon_text'] = '您的幼儿园神奇宝贝：';
+	$txt['take_pokemon_text'] = '您的幼儿园宝可梦：';
 	$txt['#']                 = '#';
 	$txt['name']              = '姓名';
 	$txt['level']             = '等级';
@@ -1041,28 +1041,28 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 	$txt['buy']               = '支付';
 	$txt['button_take']       = '采取';
 } else if ($page == 'specialists') {
-	$txt['alert_nothing_selected']	= '您没有选择任何神奇宝贝！';
+	$txt['alert_nothing_selected']	= '您没有选择任何宝可梦！';
 	$txt['alert_not_enough_money']	= '你买不起这个！';
-	$txt['alert_name_too_long']		= '神奇宝贝的名字长度必须在 4 到 12 个字符之间！';
+	$txt['alert_name_too_long']		= '宝可梦的名字长度必须在 4 到 12 个字符之间！';
 	$txt['alert_name_equal']		= '您必须输入与当前名称不同的名称！';
-	$txt['alert_name_exists']		= '这个名字已经被其他神奇宝贝使用了！';
-	$txt['alert_pokemon_is_shiny']	= '这只神奇宝贝已经闪闪发光了！';
-	$txt['alert_not_your_pokemon']	= '这个神奇宝贝不属于你！';
-	$txt['alert_pokemon_egg']		= '你不能选择神奇宝贝蛋！';
-	$txt['alert_not_your_team']		= '你不能改变不属于你队伍的神奇宝贝！';
+	$txt['alert_name_exists']		= '这个名字已经被其他宝可梦使用了！';
+	$txt['alert_pokemon_is_shiny']	= '这只宝可梦已经闪闪发光了！';
+	$txt['alert_not_your_pokemon']	= '这个宝可梦不属于你！';
+	$txt['alert_pokemon_egg']		= '你不能选择宝可梦蛋！';
+	$txt['alert_not_your_team']		= '你不能改变不属于你队伍的宝可梦！';
 
 	$txt['titlenpc']			= '专家';
-	$txt['textnpc']				= '经过长期的研究，我们的科学家发现，有一些方法可以改变神奇宝贝的某些方面，但这是一个非常微妙的过程，而且是有代价的！<br /><br />
-	<b>闪亮专家：</b>他们能够将任何神奇宝贝变成闪亮神奇宝贝！<br />
-	<b>情绪专家：</b>他们负责照顾你的神奇宝贝的情绪！<br />
-	<b>命名专家：</b>这些专家是为你的神奇宝贝命名的人！';
+	$txt['textnpc']				= '经过长期的研究，我们的科学家发现，有一些方法可以改变宝可梦的某些方面，但这是一个非常微妙的过程，而且是有代价的！<br /><br />
+	<b>闪亮专家：</b>他们能够将任何宝可梦变成闪亮宝可梦！<br />
+	<b>情绪专家：</b>他们负责照顾你的宝可梦的情绪！<br />
+	<b>命名专家：</b>这些专家是为你的宝可梦命名的人！';
 
 	$txt['pagetitle']			= '专家';
 	$txt['shiny_specialist']	= '闪亮专家';
 	$txt['mood_specialist']		= '幽默专家';
 	$txt['naam_specialist']		= '姓名专家';
 	$txt['#']					= '#';
-	$txt['pokemon']				= '神奇宝贝';
+	$txt['pokemon']				= '宝可梦';
 	$txt['level']				= '等级';
 	$txt['amount']				= '价值';
 	$txt['naam']				= '姓名';
@@ -1095,14 +1095,14 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['nobody_injail_1'] = '目前无人被捕';
 		$txt['nobody_injail_2'] = '';
 	} else if ($page == 'choose-pokemon') {
-	$txt['alert_no_pokemon']      = '你没有选择神奇宝贝！';
-	$txt['alert_pokemon_unknown'] = '所选的神奇宝贝不可用。';
+	$txt['alert_no_pokemon']      = '你没有选择宝可梦！';
+	$txt['alert_pokemon_unknown'] = '所选的宝可梦不可用。';
 	
-	$txt['pagetitle']             = '选择一个神奇宝贝';
-	$txt['title_text']            = '选择你的入门神奇宝贝，这样你就可以开始在神奇宝贝世界中冒险了！';
-	$txt['starter_pokemon']       = '可用的入门神奇宝贝';
+	$txt['pagetitle']             = '选择一个宝可梦';
+	$txt['title_text']            = '选择你的入门宝可梦，这样你就可以开始在宝可梦世界中冒险了！';
+	$txt['starter_pokemon']       = '可用的入门宝可梦';
 	$txt['no_pokemon_this_world'] = '没有发现宝可梦。';
-	$txt['poke_selected']		  = '<b>太棒了！现在点击下面的按钮开始你的神奇宝贝之旅！我们建议您首先访问我们的常见问题解答并了解有关神奇宝贝世界传奇世界的更多信息。</b>';
+	$txt['poke_selected']		  = '<b>太棒了！现在点击下面的按钮开始你的宝可梦之旅！我们建议您首先访问我们的常见问题解答并了解有关宝可梦世界传奇世界的更多信息。</b>';
 	$txt['button']                = '来选择';
 } 
 	######################## Attack Map ########################
@@ -1111,13 +1111,13 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['alert_no_fishing_rod'] = '你没有钓鱼竿。';
 		$txt['alert_no_cave_soff'] = '你没有洞穴套装。';
 		$txt['alert_error'] = '发生错误，通知团队成员！';
-		$txt['alert_no_pokemon'] = '你的神奇宝贝没有战斗能力。';
+		$txt['alert_no_pokemon'] = '你的宝可梦没有战斗能力。';
 		
 		#Screen
 		$txt['pagetitle'] = '选择一个区域来探索！';
-		$txt['title_text'] = '选择一个地方寻找神奇宝贝进行战斗！';
+		$txt['title_text'] = '选择一个地方寻找宝可梦进行战斗！';
 		$txt['map_title'] = '%s地图';
-		$txt['map_npc_text'] = '你好，训练师！欢迎来到%s地区<b>地图</b>。<br>始终努力在游戏中进步，为此打败并捕捉各种神奇宝贝。永远记得随身携带精灵球，因为你永远不知道路上会遇到什么神奇宝贝！';
+		$txt['map_npc_text'] = '你好，训练师！欢迎来到%s地区<b>地图</b>。<br>始终努力在游戏中进步，为此打败并捕捉各种宝可梦。永远记得随身携带精灵球，因为你永远不知道路上会遇到什么宝可梦！';
 		$txt['map_shop_hint'] = '要进入大海/湖泊，请购买<a href="./market&shopitem=items">钓鱼竿</a>，要进入洞穴，请到<a href="./market&shopitem=items">市场</a>购买<a href="./market&shopitem=items">洞穴套装</a>！';
 	}
 	######################## Attack Gyms ########################
@@ -1127,8 +1127,8 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['alert_rank_too_less'] = '你的等级还不够高，无法挑战这位领袖';
 		$txt['alert_wrong_world'] = '你在错误的区域。';
 		$txt['alert_gym_finished'] = '你已经打败了这位道馆馆长。';
-		$txt['alert_no_pokemon'] = '你没有任何神奇宝贝。';
-		$txt['begindood'] = "你没有带任何神奇宝贝，或者它们都死了。";
+		$txt['alert_no_pokemon'] = '你没有任何宝可梦。';
+		$txt['begindood'] = "你没有带任何宝可梦，或者它们都死了。";
 		
 		#Screen
 		$txt['pagetitle'] = '健身房';
@@ -1164,7 +1164,7 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['alert_youre_not_premium'] = '你不是高级的，你不能战斗。';
 		$txt['alert_unknown_amount'] = '金额无效。';
 		$txt['alert_not_enough_silver'] = '你没有那个数额。';
-		$txt['alert_all_pokemon_ko'] = '你所有的神奇宝贝都没有生命。';
+		$txt['alert_all_pokemon_ko'] = '你所有的宝可梦都没有生命。';
 		$txt['alert_opponent_not_premium'] = '这不是溢价。';
 		$txt['alert_opponent_not_in'] = '不在';
 		$txt['alert_opponent_not_traveller'] = '没有足够的等级。';
@@ -1172,14 +1172,14 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['alert_opponent_already_fighting'] = '已经在决斗中了。';
 		$txt['waiting_for_accept'] = '正在忙，等待他的回复。';
 		$txt['alert_opponent_no_silver'] = '你的对手没有足够的银币。';
-		$txt['alert_opponent_no_health'] = '你的对手的所有神奇宝贝都死了。';
+		$txt['alert_opponent_no_health'] = '你的对手的所有宝可梦都死了。';
 		$txt['alert_user_unknown'] = '教练不存在。';
 		
 		#Screen
 		$txt['pagetitle'] = '决斗';
 		$txt['title_text'] = '<p><img src="'.$static_url.'/images/icons/duel.png" /> <strong>向训练师发起决斗挑战。</strong> <img src="'.$static_url.'/images/icons/duel.png" /><br />
-                培训师必须在线。</p>';
-		$txt['player'] = '培训师：';
+                训练家必须在线。</p>';
+		$txt['player'] = '训练家：';
 		$txt['money'] = '价值：';
 		$txt['button_duel'] = '挑战';
 		$txt['duel_rank_insufficient'] = '你的等级不足以进行决斗！';
@@ -1203,7 +1203,7 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 	else if ($page == 'attack/duel/invited') {
 		#Alerts
 		$txt['alert_not_enough_silver'] = '你的银子不够。';
-		$txt['alert_all_pokemon_ko'] = '你所有的神奇宝贝都死了。';
+		$txt['alert_all_pokemon_ko'] = '你所有的宝可梦都死了。';
 		$txt['success_accepted'] = '你接受了决斗。';
 		$txt['success_cancelled'] = '你拒绝了决斗。';
 		$txt['alert_too_late'] = '你受到了决斗的挑战，但不幸的是你花了太长时间才做出回应。';
@@ -1222,25 +1222,25 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['you_won'] = '你赢了。';
 		$txt['you_lost'] = '你输了。';
 		$txt['you_lost_1'] = '您错过了 <img src=\''.$static_url.'/images/icons/silver.png\' title=\'银色\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>点击此处前往神奇宝贝中心。</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>点击此处前往宝可梦中心。</a>';
 		$txt['you_first_attack'] = '你开始攻击。';
 		$txt['opponent_first_attack'] = '开始攻击。';
 		$txt['opponents_turn'] = '轮到对手了。';
 		$txt['your_turn'] = '轮到你进攻了！';
 		$txt['have_to_change_1'] = '你的';
-		$txt['have_to_change_2'] = '被击败后，可以选择其他神奇宝贝。';
+		$txt['have_to_change_2'] = '被击败后，可以选择其他宝可梦。';
 		$txt['next_time_wait'] = '等待对手攻击。';
 		$txt['fight_finished'] = '战斗结束了。';
 		$txt['success_catched_1'] = '你刚刚捕捉到';
 		$txt['success_catched_2'] = '成功地！';
 		$txt['no_item_selected'] = '首先选择一个项目！';
-		$txt['potion_no_pokemon_selected'] = '你必须选择一个神奇宝贝！';
+		$txt['potion_no_pokemon_selected'] = '你必须选择一个宝可梦！';
 		$txt['busy_with_attack'] = '战斗加载中..';
 		$txt['have_already'] = '你已经有了';
 		$txt['a_wild'] = '一个野蛮人';
-		$txt['potion_text'] = '选择您想要使用的神奇宝贝';
+		$txt['potion_text'] = '选择您想要使用的宝可梦';
 		$txt['*'] = '*';
-		$txt['pokemon'] = '神奇宝贝';
+		$txt['pokemon'] = '宝可梦';
 		$txt['level'] = '等级';
 		$txt['health'] = '生活';
 		$txt['potion_egg_text'] = '无法使用';
@@ -1259,9 +1259,9 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['not_paralyzed'] = '不再瘫痪了。';
 		$txt['paralyzed'] = '瘫痪了。';
 		$txt['fight_over'] = '战斗结束了。';
-		$txt['choose_another_pokemon'] = '选择另一只神奇宝贝。';
+		$txt['choose_another_pokemon'] = '选择另一只宝可梦。';
 		$txt['use_attack_1'] = '用过的';
-		$txt['use_attack_2'] = '，你的神奇宝贝已被击败。<br />';
+		$txt['use_attack_2'] = '，你的宝可梦已被击败。<br />';
 		$txt['use_attack_2_hit'] = '，直接攻击。';
 		$txt['did'] = '用过的';
 		$txt['hit!'] = '。';
@@ -1279,33 +1279,33 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['has_defeated_you_1'] = '打败了你。';
 		$txt['has_defeated_you_2'] = '你输了';
 		$txt['bringed'] = '带来';
-		$txt['pagetitle'] = '一只神奇宝贝出现了！';
+		$txt['pagetitle'] = '一只宝可梦出现了！';
 		
 		
 		//Start Fight
-		$txt['begindood'] = "你所有的神奇宝贝都被打败了。";
+		$txt['begindood'] = "你所有的宝可梦都被打败了。";
 		$txt['opponent_error'] = "错误：没有对手。";
 		
 		
 		//Attack General
 		$txt['success_catched_1'] = "你捕获了";
 		$txt['success_catched_2'] = "被捕获。战斗结束了。";
-		$txt['new_pokemon_dead']   = "不能再战斗了。你的神奇宝贝被打败了！";
+		$txt['new_pokemon_dead']   = "不能再战斗了。你的宝可梦被打败了！";
 		$txt['not_your_turn'] = "还没轮到你，轮到你了";
 		
 
 		
 		//Change Pokemon
-		$txt['change_block'] = "你无法改变你的神奇宝贝！";
+		$txt['change_block'] = "你无法改变你的宝可梦！";
 		$txt['change_egg']  = "你不能挑鸡蛋！";
-		$txt['success_change_1']  = "你改变了神奇宝贝。";
+		$txt['success_change_1']  = "你改变了宝可梦。";
 		$txt['success_change_2'] = "进入战斗。";
-		$txt['success_change_you_attack'] = "你改变了神奇宝贝，它现在正在战斗。";
+		$txt['success_change_you_attack'] = "你改变了宝可梦，它现在正在战斗。";
 		$txt['now_pokemon_dead_2'] = "太弱了，无法进入战斗。";
 		
 		//Use Pokeball
 		$txt['ball_choose'] = "选择您拥有或战斗的物品。";
-		$txt['hand_house_full'] = "你没有空间容纳新的口袋妖怪";  
+		$txt['hand_house_full'] = "你没有空间容纳新的宝可梦";
 		$txt['ball_have'] = "你有一个精灵球。";
 		$txt['ball_amount'] = "你没有";
 		$txt['ball_throw_1'] = "你玩了一个";
@@ -1339,7 +1339,7 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['failure_run'] = "你试图逃跑失败";
 		
 		$txt['opponent_choose_attack'] = '正在选择攻击';
-		$txt['opponent_choose_pokemon'] = '您正在选择一个神奇宝贝。';
+		$txt['opponent_choose_pokemon'] = '您正在选择一个宝可梦。';
 		
 
 	} 
@@ -1351,25 +1351,25 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['you_won'] = '你赢了。';
 		$txt['you_lost'] = '你输了。';
 		$txt['you_lost_1'] = '您错过了 <img src=\''.$static_url.'/images/icons/silver.png\' title=\'银色\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>点击此处前往神奇宝贝中心。</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>点击此处前往宝可梦中心。</a>';
 		$txt['you_first_attack'] = '你开始攻击。';
 		$txt['opponent_first_attack'] = '开始攻击。';
 		$txt['opponents_turn'] = '轮到对手了。';
 		$txt['your_turn'] = '轮到你进攻了！';
 		$txt['have_to_change_1'] = '你的';
-		$txt['have_to_change_2'] = '被击败后，可以选择其他神奇宝贝。';
+		$txt['have_to_change_2'] = '被击败后，可以选择其他宝可梦。';
 		$txt['next_time_wait'] = '等待对手攻击。';
 		$txt['fight_finished'] = '战斗结束了。';
 		$txt['success_catched_1'] = '你刚刚捕捉到';
 		$txt['success_catched_2'] = '成功地！';
 		$txt['no_item_selected'] = '首先选择一个项目！';
-		$txt['potion_no_pokemon_selected'] = '你必须选择一个神奇宝贝！';
+		$txt['potion_no_pokemon_selected'] = '你必须选择一个宝可梦！';
 		$txt['busy_with_attack'] = '战斗加载中..';
 		$txt['have_already'] = '你已经有了';
 		$txt['a_wild'] = '一个野蛮人';
-		$txt['potion_text'] = '选择您想要使用的神奇宝贝';
+		$txt['potion_text'] = '选择您想要使用的宝可梦';
 		$txt['*'] = '*';
-		$txt['pokemon'] = '神奇宝贝';
+		$txt['pokemon'] = '宝可梦';
 		$txt['level'] = '等级';
 		$txt['health'] = '生活';
 		$txt['potion_egg_text'] = '无法使用';
@@ -1388,9 +1388,9 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['not_paralyzed'] = '不再瘫痪了。';
 		$txt['paralyzed'] = '瘫痪了。';
 		$txt['fight_over'] = '战斗结束了。';
-		$txt['choose_another_pokemon'] = '选择另一只神奇宝贝。';
+		$txt['choose_another_pokemon'] = '选择另一只宝可梦。';
 		$txt['use_attack_1'] = '用过的';
-		$txt['use_attack_2'] = '，你的神奇宝贝已被击败。<br />';
+		$txt['use_attack_2'] = '，你的宝可梦已被击败。<br />';
 		$txt['use_attack_2_hit'] = '，直接攻击。';
 		$txt['did'] = '用过的';
 		$txt['hit!'] = '。';
@@ -1412,19 +1412,19 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['pagetitle'] = '与训练家对战';
 		
 		//Start Fight
-		$txt['begindood'] = "你所有的神奇宝贝都被打败了。";
+		$txt['begindood'] = "你所有的宝可梦都被打败了。";
 		$txt['opponent_error'] = "错误：没有对手。";
 		
 		//Attack General
-		$txt['new_pokemon_dead']   = "不能再战斗了。你的神奇宝贝被打败了！";
+		$txt['new_pokemon_dead']   = "不能再战斗了。你的宝可梦被打败了！";
 		$txt['not_your_turn'] = "还没轮到你，轮到你了";
 		
 		//Change Pokemon
-		$txt['change_block'] = "你无法改变你的神奇宝贝！";
+		$txt['change_block'] = "你无法改变你的宝可梦！";
 		$txt['change_egg']  = "你不能挑鸡蛋！";
-		$txt['success_change_1']  = "你改变了神奇宝贝。";
+		$txt['success_change_1']  = "你改变了宝可梦。";
 		$txt['success_change_2'] = "进入战斗。";
-		$txt['success_change_you_attack'] = "你改变了神奇宝贝，它现在正在战斗。";
+		$txt['success_change_you_attack'] = "你改变了宝可梦，它现在正在战斗。";
 		$txt['now_pokemon_dead_2'] = "太弱了，无法进入战斗。";
 			
 		//Use potion
@@ -1447,11 +1447,11 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['exp_points'] = "的经验。";
 		
 		$txt['opponent_choose_attack'] = '正在选择攻击';
-		$txt['opponent_choose_pokemon'] = '您正在选择一个神奇宝贝。';
+		$txt['opponent_choose_pokemon'] = '您正在选择一个宝可梦。';
 		$txt['trainer_fighting'] = '与 %s 战斗';
 		$txt['trainer_willing'] = '已准备';
 		$txt['trainer_defeated'] = '已战败';
-		$txt['trainer_choose_pokemon'] = '选择将要获得 %s 的神奇宝贝：';
+		$txt['trainer_choose_pokemon'] = '选择将要获得 %s 的宝可梦：';
   }
 
  ######################## Attack Duel ########################
@@ -1467,26 +1467,26 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['you_won'] = '你赢了。';
 		$txt['you_lost'] = '你输了。';
 		$txt['you_lost_1'] = '您错过了 <img src=\''.$static_url.'/images/icons/silver.png\' title=\'银色\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>点击此处前往神奇宝贝中心。</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>点击此处前往宝可梦中心。</a>';
 		$txt['you_first_attack'] = '你开始攻击。';
 		$txt['opponent_first_attack'] = '开始攻击。';
 		$txt['opponents_turn'] = '轮到对手了。';
 		$txt['your_turn'] = '轮到你进攻了！';
 		$txt['have_to_change_1'] = '你的';
-		$txt['have_to_change_2'] = '被击败后，可以选择其他神奇宝贝。';
+		$txt['have_to_change_2'] = '被击败后，可以选择其他宝可梦。';
 		$txt['now_pokemon_dead_2'] = "太弱了，无法进入战斗。";
 		$txt['next_time_wait'] = '等待对手攻击。';
 		$txt['fight_finished'] = '战斗结束了。';
 		$txt['success_catched_1'] = '你刚刚捕捉到';
 		$txt['success_catched_2'] = '成功地！';
 		$txt['no_item_selected'] = '首先选择一个项目！';
-		$txt['potion_no_pokemon_selected'] = '你必须选择一个神奇宝贝！';
+		$txt['potion_no_pokemon_selected'] = '你必须选择一个宝可梦！';
 		$txt['busy_with_attack'] = '战斗加载中..';
 		$txt['have_already'] = '你已经有了';
 		$txt['a_wild'] = '一个野蛮人';
-		$txt['potion_text'] = '选择您想要使用的神奇宝贝';
+		$txt['potion_text'] = '选择您想要使用的宝可梦';
 		$txt['*'] = '*';
-		$txt['pokemon'] = '神奇宝贝';
+		$txt['pokemon'] = '宝可梦';
 		$txt['level'] = '等级';
 		$txt['health'] = '生活';
 		$txt['potion_egg_text'] = '无法使用';
@@ -1505,9 +1505,9 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		$txt['not_paralyzed'] = '不再瘫痪了。';
 		$txt['paralyzed'] = '瘫痪了。';
 		$txt['fight_over'] = '战斗结束了。';
-		$txt['choose_another_pokemon'] = '选择另一只神奇宝贝。';
+		$txt['choose_another_pokemon'] = '选择另一只宝可梦。';
 		$txt['use_attack_1'] = '用过的';
-		$txt['use_attack_2'] = '，你的神奇宝贝已被击败。<br />';
+		$txt['use_attack_2'] = '，你的宝可梦已被击败。<br />';
 		$txt['use_attack_2_hit'] = '，直接攻击。';
 		$txt['did'] = '用过的';
 		$txt['hit!'] = '！';
@@ -1529,7 +1529,7 @@ $txt['transfer_bought_your'] = '买走了你的%1$s，花费%2$s和%3$s';
 		
 		
 		$txt['opponent_choose_attack'] = '正在选择攻击';
-		$txt['opponent_choose_pokemon'] = '您正在选择一个神奇宝贝。';
+		$txt['opponent_choose_pokemon'] = '您正在选择一个宝可梦。';
 		
 		
 		$txt['pagetitle'] = '决斗';
@@ -1545,14 +1545,14 @@ else if ($page == 'app/includes/resources/poke-evolve') {
 	$txt['accept'] = '进化！';
 	$txt['stop'] = '停止进化';
 } else if ($page == 'app/includes/resources/poke-newattack') {
-	$txt['annuleer'] = '你的神奇宝贝还没有学会%s。';
-	$txt['attack'] = '你的神奇宝贝学会了 %s，但忘记了 %s。';
+	$txt['annuleer'] = '你的宝可梦还没有学会%s。';
+	$txt['attack'] = '你的宝可梦学会了 %s，但忘记了 %s。';
 
 	$txt['pagetitle'] = '学习新的攻击';
-	$txt['title_txt'] = '在这里，你的神奇宝贝可以学习新的攻击达到一定程度。<br />
+	$txt['title_txt'] = '在这里，你的宝可梦可以学习新的攻击达到一定程度。<br />
 		要学习新的攻击，您必须单击旧的攻击之一。旧的攻击将会被遗忘。<br />
 		如果您不想学习该攻击，请点击【取消】按钮。<br /><br />
-		如果你的攻击次数少于 4 次，你的神奇宝贝将自动接受新的攻击。';
+		如果你的攻击次数少于 4 次，你的宝可梦将自动接受新的攻击。';
 	$txt['page_txt'] = '您的<u>%s</u>正在尝试学习<b><u>%s</u></b>。<br />
 		您想学习<b><u>%s</u></b>吗？';
 	$txt['cancel'] = '取消';
@@ -1561,7 +1561,7 @@ if ($type_timer == 'work')			$txt['pagetitle']	= '在职的';
 else if ($type_timer == 'pokecenter')	$txt['pagetitle']	= '治疗';
 else if ($type_timer == 'travel')		$txt['pagetitle']	= '旅行';
 	$txt['wait_pokecenter_title'] = '治疗进行中';
-	$txt['wait_pokecenter_text'] = '你必须等待乔伊护士照顾你的神奇宝贝。治疗完成后，你就能继续你的旅程。';
+	$txt['wait_pokecenter_text'] = '你必须等待乔伊护士照顾你的宝可梦。治疗完成后，你就能继续你的旅程。';
 	$txt['wait_pokecenter_end'] = '治疗结束：';
 	$txt['wait_travel_title'] = '旅行';
 	$txt['wait_travel_text'] = '你正在前往<b>%s</b>的途中，你需要等待一段旅行时间。';
@@ -1571,7 +1571,7 @@ $txt['pagetitle']	= '监狱';
 }else if ($page == 'gold-market') {
 $txt['pagetitle'] = '黄金市场';
 }else if ($page == 'casino') {
-$txt['pagetitle'] = '神奇宝贝赌场';
+$txt['pagetitle'] = '宝可梦赌场';
 }else if ($page == 'kluis') {
 $txt['pagetitle'] = '打破秘密';
 		$txt['kluis_npc_title'] = '保险库';
@@ -1584,7 +1584,7 @@ $txt['pagetitle'] = '打破秘密';
 		$txt['kluis_try'] = '尝试';
 		$txt['tickets_inventory'] = '你的票：';
 }else if ($page == 'online') {
-$txt['pagetitle'] = '在线培训师';
+$txt['pagetitle'] = '在线训练家';
 }else if ($page == 'town') {
 $txt['pagetitle'] = '城市';
 }else if ($page == 'town2') {
@@ -1612,9 +1612,9 @@ $txt['pagetitle'] = '邀请加入部落';
 }else if ($page == 'clan-make') {
 $txt['pagetitle'] = '创建部落';
 }else if ($page == 'movetutor') {
-$txt['pagetitle'] = '移动导师';
+$txt['pagetitle'] = '招式教学';
 }else if ($page == 'moverecorder') {
-$txt['pagetitle'] = '移动记录器';
+$txt['pagetitle'] = '招式回忆';
 }else if ($page == 'itemmarket') {
 $txt['pagetitle'] = '物品市场';
 }else if ($page == 'clan-profile') {
@@ -1657,11 +1657,11 @@ $txt['trainer_vs'] = '与 %s 对战';
 }else if ($page == 'safari') {
 $txt['pagetitle'] = '狩猎地带';
 $txt['safari_npc_title'] = '狩猎地带';
-$txt['safari_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异神奇宝贝<b>狩猎地带</b>！<br>狩猎地带在每周<b>二</b>、<b>四</b>和<b>六</b>的 00:00-02:00、11:00-13:00 和 18:00-20:00 开放！';
-$txt['safari_event_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异神奇宝贝<b>狩猎地带</b>！<br>活动将于<b>2019年6月28日</b>结束！';
-$txt['safari_all_fainted'] = '您的所有神奇宝贝都已昏倒。';
-$txt['safari_not_found'] = '您没有找到这只神奇宝贝，或者您已经和它战斗过了！';
-$txt['safari_wrong_level'] = '这不是您找到的神奇宝贝的等级！';
+$txt['safari_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异宝可梦<b>狩猎地带</b>！<br>狩猎地带在每周<b>二</b>、<b>四</b>和<b>六</b>的 00:00-02:00、11:00-13:00 和 18:00-20:00 开放！';
+$txt['safari_event_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异宝可梦<b>狩猎地带</b>！<br>活动将于<b>2019年6月28日</b>结束！';
+$txt['safari_all_fainted'] = '您的所有宝可梦都已昏倒。';
+$txt['safari_not_found'] = '您没有找到这只宝可梦，或者您已经和它战斗过了！';
+$txt['safari_wrong_level'] = '这不是您找到的宝可梦的等级！';
 $txt['safari_wait'] = '请稍候...';
 $txt['safari_found_wild'] = '您找到了 %s！';
 $txt['safari_level_label'] = '等级：%s';
@@ -1679,18 +1679,18 @@ $txt['safari_map_tower'] = '塔楼地图';
 $txt['safari_map_lava'] = '熔岩地图';
 $txt['safari_map_beach'] = '海滩地图';
 $txt['safari_map_dojo'] = '格斗道场';
-$txt['safari_map_center'] = '神奇宝贝中心';
+$txt['safari_map_center'] = '宝可梦中心';
 $txt['safari_map_market'] = '市场';
 $txt['safari_move_hint'] = '使用上方按钮或键盘方向键来移动！';
 $txt['safari_closed'] = '狩猎地带目前关闭。';
 }else if ($page == 'eventos') {
 $txt['pagetitle'] = '活动';
 $txt['safari_npc_title'] = '狩猎地带';
-$txt['safari_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异神奇宝贝<b>狩猎地带</b>！<br>狩猎地带在每周<b>二</b>、<b>四</b>和<b>六</b>的 00:00-02:00、11:00-13:00 和 18:00-20:00 开放！';
-$txt['safari_event_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异神奇宝贝<b>狩猎地带</b>！<br>活动将于<b>2019年6月28日</b>结束！';
-$txt['safari_all_fainted'] = '您的所有神奇宝贝都已昏倒。';
-$txt['safari_not_found'] = '您没有找到这只神奇宝贝，或者您已经和它战斗过了！';
-$txt['safari_wrong_level'] = '这不是您找到的神奇宝贝的等级！';
+$txt['safari_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异宝可梦<b>狩猎地带</b>！<br>狩猎地带在每周<b>二</b>、<b>四</b>和<b>六</b>的 00:00-02:00、11:00-13:00 和 18:00-20:00 开放！';
+$txt['safari_event_npc_text'] = '在这里搜索并捕捉来自所有地区的奇异宝可梦<b>狩猎地带</b>！<br>活动将于<b>2019年6月28日</b>结束！';
+$txt['safari_all_fainted'] = '您的所有宝可梦都已昏倒。';
+$txt['safari_not_found'] = '您没有找到这只宝可梦，或者您已经和它战斗过了！';
+$txt['safari_wrong_level'] = '这不是您找到的宝可梦的等级！';
 $txt['safari_wait'] = '请稍候...';
 $txt['safari_found_wild'] = '您找到了 %s！';
 $txt['safari_level_label'] = '等级：%s';
@@ -1708,13 +1708,13 @@ $txt['safari_map_tower'] = '塔楼地图';
 $txt['safari_map_lava'] = '熔岩地图';
 $txt['safari_map_beach'] = '海滩地图';
 $txt['safari_map_dojo'] = '格斗道场';
-$txt['safari_map_center'] = '神奇宝贝中心';
+$txt['safari_map_center'] = '宝可梦中心';
 $txt['safari_map_market'] = '市场';
 $txt['safari_move_hint'] = '使用上方按钮或键盘方向键来移动！';
 $txt['safari_closed'] = '狩猎地带目前关闭。';
 }else if ($page == 'attack/tour_fight') {
 $txt['pagetitle'] = '比赛';
-$txt['tour_no_pokemon'] = '您没有任何可以战斗的神奇宝贝！';
+$txt['tour_no_pokemon'] = '您没有任何可以战斗的宝可梦！';
 $txt['tour_wait'] = '请稍候';
 $txt['tour_opponent_no_answer'] = '对手没有回应。您获胜了。';
 $txt['tour_loading'] = '加载中';
@@ -1725,42 +1725,42 @@ $txt['pagetitle'] = '比赛';
 }else if ($page == 'league') {
 $txt['pagetitle'] = '联盟';
 }else if ($page == 'box') {
-$txt['pagetitle'] = '神奇宝贝盒子';
-$txt['alert_not_your_pokemon']        = '小心！这个神奇宝贝不属于你！';
+$txt['pagetitle'] = '宝可梦盒子';
+$txt['alert_not_your_pokemon']        = '小心！这个宝可梦不属于你！';
 $txt['alert_house_full']              = '你的房子已经满了！';
-$txt['success_bring']                 = '你拯救了你的神奇宝贝！';
-$txt['alert_hand_full']               = '您的团队中已有 6 只神奇宝贝！';
-$txt['alert_pokemon_on_transferlist'] = '该神奇宝贝正在出售！';
-$txt['success_get']                   = '你抓住了你的神奇宝贝！';
+$txt['success_bring']                 = '你拯救了你的宝可梦！';
+$txt['alert_hand_full']               = '您的团队中已有 6 只宝可梦！';
+$txt['alert_pokemon_on_transferlist'] = '该宝可梦正在出售！';
+$txt['success_get']                   = '你抓住了你的宝可梦！';
 
 $txt['title_text_1']       = '目前您有一个';
 $txt['title_text_2']       = '你可以保存';
-$txt['title_text_3']       = '神奇宝贝。<br />
-* 保存神奇宝贝，在这里你可以把你的神奇宝贝留在家里。<br />
-* 捕捉神奇宝贝，在这里您可以看到并捕捉您保存的神奇宝贝。<br />
-仅当您在团队中至少拥有 1 个位置时，您才能捕获神奇宝贝。';
-$txt['pokemon_bring_away'] = '拯救神奇宝贝';
-$txt['pokemon_pick_up']    = '我的神奇宝贝';
+$txt['title_text_3']       = '宝可梦。<br />
+* 保存宝可梦，在这里你可以把你的宝可梦留在家里。<br />
+* 捕捉宝可梦，在这里您可以看到并捕捉您保存的宝可梦。<br />
+仅当您在团队中至少拥有 1 个位置时，您才能捕获宝可梦。';
+$txt['pokemon_bring_away'] = '拯救宝可梦';
+$txt['pokemon_pick_up']    = '我的宝可梦';
 $txt['box']                = '纸板箱';
 $txt['little_house']       = '小房子';
 $txt['normal_house']       = '大房子';
 $txt['big_house']          = '大厦';
 $txt['places_over']        = '可用插槽';
 $txt['#']                  = '#';
-$txt['clamour_name']       = '神奇宝贝';
+$txt['clamour_name']       = '宝可梦';
 $txt['level']              = '等级';
 $txt['bring_away']         = '节省';
 $txt['take']               = '采取';
 $txt['button_take']        = '好的';
 $txt['button_bring']       = '好的';
 $txt['empty']              = '空的';
-$txt['no_pokemon']	   = '没有发现任何神奇宝贝。';
-$txt['box_pokemons_word']  = '神奇宝贝。';
-$txt['box_lv100']          = '100级神奇宝贝：';
-$txt['box_top3']           = '前3名神奇宝贝：';
-$txt['box_medal_top1']     = '前1名神奇宝贝';
-$txt['box_medal_top2']     = '前2名神奇宝贝';
-$txt['box_medal_top3']     = '前3名神奇宝贝';
+$txt['no_pokemon']	   = '没有发现任何宝可梦。';
+$txt['box_pokemons_word']  = '宝可梦。';
+$txt['box_lv100']          = '100级宝可梦：';
+$txt['box_top3']           = '前3名宝可梦：';
+$txt['box_medal_top1']     = '前1名宝可梦';
+$txt['box_medal_top2']     = '前2名宝可梦';
+$txt['box_medal_top3']     = '前3名宝可梦';
 }
 ######################## FLIP A COIN ########################
 	else if ($page == 'flip-a-coin') {
@@ -1785,7 +1785,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 							  <strong><span id=uur3></span></strong> 小时
 							  <strong><span id=minn3> </span>&nbsp;分钟</strong> 和 
 							  <strong><span id=seconden3></span>&nbsp;seconds</strong> 再次回答测验。';
-		$txt['alert_choose_a_pokemon'] = '选择一只神奇宝贝。';
+		$txt['alert_choose_a_pokemon'] = '选择一只宝可梦。';
 		$txt['alert_no_answer'] = '这不是答案。';
 		$txt['success_win'] = '你答对了！赢得<img src=”'.$static_url.'/images/icons/ticket.png" title="Ticket"> 100。您可以在一小时后重试。';
 		$txt['success_lose_1'] = '错误答案正确答案是';
@@ -1795,7 +1795,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['pagetitle'] = '这是哪只宝可梦？';
 		$txt['who_is_it'] = '这是哪只宝可梦？';
 		$txt['title_text'] = '<strong>你是行走图鉴吗？要在这里获胜，您必须这样做！</strong><br />
-							  你可以每小时尝试一次猜测这只神奇宝贝的名字。<br />
+							  你可以每小时尝试一次猜测这只宝可梦的名字。<br />
 							  如果你答对了，你就赢了 <img src="'.$static_url.'/images/icons/ticket.png" title="Ticket"> 100！';
 		$txt['choose_a_pokemon'] = '选择';
 		$txt['button'] = '好的！';
@@ -1843,7 +1843,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	######################## WHEEL OF FORTUNE ########################
 	else if ($page == 'lottery') {
 		#Alerts
-		$txt['alert_premium_only'] = '仅适用于高级培训师。';
+		$txt['alert_premium_only'] = '仅适用于高级训练家。';
 		$txt['alert_no_amount'] = '输入金额。';
 		$txt['alert_unknown_amount'] = '数量无效。';
 		$txt['alert_max_10_tickets'] = '只能买10张票！';
@@ -1855,7 +1855,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		
 		#Screen
 		$txt['pagetitle'] = '彩票';
-		$txt['title_text'] = '在这里您可以购买神奇宝贝彩票。<br />
+		$txt['title_text'] = '在这里您可以购买宝可梦彩票。<br />
 								中奖彩票是随机抽取的。<br />
 								购买的门票越多，中奖的机会就越大！';
 		$txt['lottery'] = '彩票';
@@ -1873,7 +1873,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	else if ($page == 'steal') {
 		#Alerts
 		$txt['alert_no_more_steal'] = '你不能再破坏了。';
-		$txt['alert_no_username'] = '输入培训师的姓名。';
+		$txt['alert_no_username'] = '输入训练家的姓名。';
 		$txt['alert_steal_from_yourself'] = '你不能破坏自己。';
 		$txt['alert_username_dont_exist'] = '教练不存在。';
 		$txt['alert_username_incorrect_signs'] = '训练器包含无效字符。';
@@ -1894,21 +1894,21 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		
 		//Sreen
 		$txt['pagetitle'] = '破坏';
-		$txt['title_text'] = '你可以让你的神奇宝贝破坏对手。<br />如果你成功了，你将有机会获得大量的银子！ 	 										 								  
+		$txt['title_text'] = '你可以让你的宝可梦破坏对手。<br />如果你成功了，你将有机会获得大量的银子！
 		如果你失败了，你可能会被逮捕。<br />
 									  最多比您高或低一（一）级。被破坏的最低等级是初级。<br /><br />';
 		
 		//$txt['steal_premium_text'] = 'Premiumaccount leden mogen 3 keer per dag iemand beroven. <a href="./area-market"><strong>Word hier premium!</strong></a><br><br>';
-		$txt['steal_how_much_1'] = '你可以通过<strong>命令你的神奇宝贝进行破坏';
+		$txt['steal_how_much_1'] = '你可以通过<strong>命令你的宝可梦进行破坏';
 		$txt['steal_how_much_2'] = '</strong>今天。';
-		$txt['username'] = '培训师：';
+		$txt['username'] = '训练家：';
 		$txt['button'] = '破坏！';
 	}
 	
 	######################## SPY ########################
 	else if ($page == 'spy') {
 		#Alerts
-		$txt['alert_no_username'] = '输入培训师的姓名。';
+		$txt['alert_no_username'] = '输入训练家的姓名。';
 		$txt['alert_spy_yourself'] = '你无法监视自己。';
 		$txt['alert_username_dont_exist'] = '教练不存在。';
 		$txt['alert_not_enough_silver'] = '你的银子不够。';
@@ -1921,7 +1921,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		
 		#Screen
 		$txt['pagetitle'] = '间谍';
-		$txt['username'] = '培训师：';
+		$txt['username'] = '训练家：';
 		$txt['button'] = '间谍！';
 		$txt['world'] = '区：';
 		$txt['silver_in_hand'] = '银牌：';
@@ -1929,17 +1929,17 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['title_text'] = '在这里你可以雇佣火箭队进行间谍活动。<br />
 								  如果成功，您将获得有关训练师所在区域的信息、训练师拥有的银币数量以及有关团队的信息。<br />
 								 但如果你失败了，火箭队就会被捕，而你最终也会跟着走。<br /><br />
-								 火箭队通过 <img src=" 执行服务'.$static_url.'/images/icons/silver.png" title="银" style="margin-bottom:-3px;" /> 100 银。<br><br>';
+								 火箭队执行服务的费用为 <img src="'.$static_url.'/images/icons/silver.png" title="银" style="margin-bottom:-3px;" /> 100 银。<br><br>';
 	}
 	
 	######################## LVL CHOOSE ########################
 	else if ($page == 'lvl-choose') {
 		#Alerts
-		$txt['success_lvl_choose'] = '现在你会在关卡之间找到神奇宝贝'.($_POST['lvl'] ?? '').'。';
+		$txt['success_lvl_choose'] = '现在你会在关卡之间找到宝可梦'.($_POST['lvl'] ?? '').'。';
 		
 		#Screen
 		$txt['pagetitle'] = '选择级别';
-		$txt['title_text'] = '在这里你可以控制你将遇到的神奇宝贝的等级。<br />
+		$txt['title_text'] = '在这里你可以控制你将遇到的宝可梦的等级。<br />
   								您只能在 16 级或更高级别使用等级选择。';
   		$txt['#'] = '#';
 		$txt['level'] = '等级';
@@ -1954,7 +1954,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	else if ($page == 'race-invite') {
 		#Alerts
 		$txt['alert_no_races_today'] = '今天没有比赛。';
-		$txt['alert_no_player'] = '输入培训师的姓名。';
+		$txt['alert_no_player'] = '输入训练家的姓名。';
 		$txt['alert_not_yourself'] = '你无法与自己对抗。';
 		$txt['alert_unknown_amount'] = '无效值。';
 		$txt['alert_no_amount'] = '输入一个值。';
@@ -1971,7 +1971,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['title_text'] = '<img src="'.$static_url.'/images/icons/vlag.png" width="16" height="16" alt="Race" /> <strong>挑战教练跑 5 公里！</strong> <img src="'.$static_url.'/images/icons/vlag.png" width="16" height="16" alt="Race" />';
 		$txt['races_left_today'] = '今日剩余比赛：';
 		//$txt['premium_10_times'] = 'Premium Members can challenge someone 10 times a day, <a href="./area-market">word premium hier!</a>.';
-		$txt['player'] = '培训师：';
+		$txt['player'] = '训练家：';
 		$txt['silver_or_gold'] = '银或金：';
 		$txt['amount'] = '价值：';
 		$txt['button'] = '跑步！';
@@ -1989,7 +1989,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		#Alerts
 		$txt['pagetitle'] = '种族';
 		$txt['alert_to_low_rank'] = '您没有足够的排名来参加比赛。';
-		$txt['alert_no_pokemon_in_hand'] = '你的队伍中没有任何神奇宝贝。';
+		$txt['alert_no_pokemon_in_hand'] = '你的队伍中没有任何宝可梦。';
 		$txt['alert_link_invalid'] = '链接无效。';
 		$txt['alert_race_invalid'] = '比赛不可用。';
 		$txt['alert_not_enough_money'] = '你没有银子或金子。';
@@ -2000,16 +2000,16 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	######################## NAME SPECIALIST ########################
 	else if ($page == 'name-specialist') {
 		#Alerts
-		$txt['alert_nothing_selected'] = '你必须选择一个神奇宝贝。';
+		$txt['alert_nothing_selected'] = '你必须选择一个宝可梦。';
 		$txt['alert_not_enough_silver'] = '你的银子不够';
 		$txt['alert_name_too_long'] = '该名称不能包含超过 12 个字符。';
-		$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的。';
-		$txt['success_namespecialist'] = '恭喜，神奇宝贝的名字已更改为：';
+		$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的。';
+		$txt['success_namespecialist'] = '恭喜，宝可梦的名字已更改为：';
 		
 		#Screen
 		$txt['pagetitle'] = '更名者';
-		$txt['title_text'] = '在这里您可以更改您的神奇宝贝的名称！<br />
-							更改神奇宝贝的名称需要花费很少的费用。';
+		$txt['title_text'] = '在这里您可以更改您的宝可梦的名称！<br />
+							更改宝可梦的名称需要花费很少的费用。';
 		$txt['#'] = '#';
 		$txt['name_now'] = '姓名';
 		$txt['button'] = '更改名称！';
@@ -2018,20 +2018,20 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	######################## SHINY SPECIALIST ########################
 	else if ($page == 'shiny-specialist') {
 		#Alerts
-		$txt['alert_no_pokemon_selected'] = '选择一只神奇宝贝。';
-		$txt['alert_pokemon_is_egg'] = '这只神奇宝贝是一颗蛋。';
-		$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的。';
-		$txt['alert_already_shiny'] = '这只神奇宝贝已经闪闪发光了！';
-		$txt['alert_pokemon_not_in_hand'] = '该神奇宝贝不在您的队伍中。';
+		$txt['alert_no_pokemon_selected'] = '选择一只宝可梦。';
+		$txt['alert_pokemon_is_egg'] = '这只宝可梦是一颗蛋。';
+		$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的。';
+		$txt['alert_already_shiny'] = '这只宝可梦已经闪闪发光了！';
+		$txt['alert_pokemon_not_in_hand'] = '该宝可梦不在您的队伍中。';
 		$txt['alert_not_enough_gold'] = '你没有足够的金币。';
-		$txt['success'] = '恭喜，神奇宝贝现在闪亮了！';
+		$txt['success'] = '恭喜，宝可梦现在闪亮了！';
 		
 		#Screen
 		$txt['pagetitle'] = '闪亮专家';
 		$txt['title_text'] = '科学家们有一些消息：<br />
-                他们发现了一种让任何神奇宝贝变得闪亮的方法！<br />
+                他们发现了一种让任何宝可梦变得闪亮的方法！<br />
                该过程非常微妙，重现成本很高。<br />
-                我们只需支付少量费用即可让您的神奇宝贝闪闪发光。<br><br>';
+                我们只需支付少量费用即可让您的宝可梦闪闪发光。<br><br>';
 		$txt['#'] = '#';
 		$txt['gold_need'] = '价值';
 		$txt['button'] = '好的！';
@@ -2040,12 +2040,12 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		######################## MYSTERIOUS SPECIALIST ########################
 	else if ($page == 'mysterious-specialist') {
 		#Alerts
-		$txt['alert_no_pokemon_selected'] = '选择一只神奇宝贝。';
-		$txt['alert_pokemon_is_egg'] = '这只神奇宝贝是一颗蛋。';
-		$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的。';
-		$txt['alert_not_arceus'] = '这只神奇宝贝不是阿尔宙斯！';
+		$txt['alert_no_pokemon_selected'] = '选择一只宝可梦。';
+		$txt['alert_pokemon_is_egg'] = '这只宝可梦是一颗蛋。';
+		$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的。';
+		$txt['alert_not_arceus'] = '这只宝可梦不是阿尔宙斯！';
 		$txt['alert_not_chances'] = '这个阿尔宙斯不再对盘子有反应！';
-		$txt['alert_pokemon_not_in_hand'] = '该神奇宝贝不在您的队伍中。';
+		$txt['alert_pokemon_not_in_hand'] = '该宝可梦不在您的队伍中。';
 		$txt['alert_not_enough_gold'] = '你的金币不够。';
 		//$txt['success'] = 'Parabéns, o pokémon agora é shiny!';
 		
@@ -2061,33 +2061,33 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	        ######################## MUSEU ########################
 	else if ($page == 'mysterious-specialist2') {
 		#Alerts
-		$txt['alert_no_pokemon_selected'] = '选择一只神奇宝贝。';
-		$txt['alert_pokemon_is_egg'] = '这只神奇宝贝是一颗蛋。';
-		$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的。';
-		$txt['alert_not_arceus'] = '这只神奇宝贝不是代欧奇希斯！';
+		$txt['alert_no_pokemon_selected'] = '选择一只宝可梦。';
+		$txt['alert_pokemon_is_egg'] = '这只宝可梦是一颗蛋。';
+		$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的。';
+		$txt['alert_not_arceus'] = '这只宝可梦不是代欧奇希斯！';
 		$txt['alert_not_chances'] = '这个代欧奇希斯不再对陨石做出反应！';
 		$txt['alert_lvl100'] = '这个代欧奇希斯是100级的，陨石对它不起作用！';		
-		$txt['alert_pokemon_not_in_hand'] = '该神奇宝贝不在您的队伍中。';
+		$txt['alert_pokemon_not_in_hand'] = '该宝可梦不在您的队伍中。';
 		$txt['alert_not_enough_gold'] = '你的金币不够。';
 		//$txt['success'] = 'Parabéns, o pokémon agora é shiny!';
 		
 		#Screen
 		$txt['pagetitle'] = '博物馆';
 		$txt['title_text'] = '考古学家有了重大发现：<br>
-		 他们发现了一块巨大的陨石，似乎具有特殊的<br>特征......它被认为能够使神奇宝贝<br>代欧奇希斯改变形态。你想尝试一下吗？<br><font color="red">注意：</font>代欧奇希斯有 5% 的几率会恢复到普通形态。<br><br>';
+		 他们发现了一块巨大的陨石，似乎具有特殊的<br>特征......它被认为能够使宝可梦<br>代欧奇希斯改变形态。你想尝试一下吗？<br><font color="red">注意：</font>代欧奇希斯有 5% 的几率会恢复到普通形态。<br><br>';
 		$txt['#'] = '#';
 		$txt['gold_need'] = '价值';
 		$txt['button'] = '好的！';
 	}
 	else if ($page == 'mysterious-specialist3') {
 		#Alerts
-		$txt['alert_no_pokemon_selected'] = '选择一只神奇宝贝。';
-		$txt['alert_pokemon_is_egg'] = '这只神奇宝贝是一颗蛋。';
-		$txt['alert_not_your_pokemon'] = '这个神奇宝贝不是你的。';
-		$txt['alert_not_arceus'] = '这个神奇宝贝不是皮卡丘 Cosplay！';
+		$txt['alert_no_pokemon_selected'] = '选择一只宝可梦。';
+		$txt['alert_pokemon_is_egg'] = '这只宝可梦是一颗蛋。';
+		$txt['alert_not_your_pokemon'] = '这个宝可梦不是你的。';
+		$txt['alert_not_arceus'] = '这个宝可梦不是皮卡丘 Cosplay！';
 		$txt['alert_not_chances'] = '这个皮卡丘 Cosplay 不再对陨石有反应！';
 		$txt['alert_lvl100'] = '这个皮卡丘Cosplay等级是100级，陨石对它不起作用！';		
-		$txt['alert_pokemon_not_in_hand'] = '该神奇宝贝不在您的队伍中。';
+		$txt['alert_pokemon_not_in_hand'] = '该宝可梦不在您的队伍中。';
 		$txt['alert_not_enough_gold'] = '你的银子不够。';
 		//$txt['success'] = 'Parabéns, o pokémon agora é shiny!';
 		
@@ -2100,7 +2100,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	}
 		else if ($page == 'trainer') {
 		$txt['pagetitle'] = '战斗训练师';
-		$txt['alert_no_pokemon'] = "你没有愿意战斗的神奇宝贝。";
+		$txt['alert_no_pokemon'] = "你没有愿意战斗的宝可梦。";
 	}
 	else if ($page == 'clans') {
 		$txt['clans_rank_min'] = '访问部族所需的最低等级：5 - FIRST COACH。继续升级以解锁！';
@@ -2111,8 +2111,8 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 	######################## SEARCH USER ########################
 	else if ($page == 'search-user') {
 		#Screen
-		$txt['pagetitle'] = '寻找培训师';
-		$txt['title_text'] = '<img src="'.$static_url.'/images/icons/groep_magnify.png" border="0" /> <strong>搜索培训师。</strong>';
+		$txt['pagetitle'] = '寻找训练家';
+		$txt['title_text'] = '<img src="'.$static_url.'/images/icons/groep_magnify.png" border="0" /> <strong>搜索训练家。</strong>';
 		$txt['username'] = '训练师';
 		$txt['#'] = '#';
 		$txt['country'] = '国家';
@@ -2159,9 +2159,9 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['success_stort'] = ($_POST['stort'] ?? '').'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 存款成功。';
 		$txt['alert_too_less_bank'] = '你银行里没有这笔钱。';
 		$txt['success_take'] = ($_POST['ophaal'] ?? '').'<img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 已成功删除。';
-		$txt['alert_no_receiver'] = '输入金额将转移给的培训师。';
+		$txt['alert_no_receiver'] = '输入金额将转移给的训练家。';
 		$txt['alert_send_to_yourself'] = '您不能将其发送给自己。';
-		$txt['alert_receiver_dont_exist'] = '接收培训师不存在。';
+		$txt['alert_receiver_dont_exist'] = '接收训练家不存在。';
 		$txt['alert_more_than_10silver'] = '该值必须大于 <img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 10 个待转移。';
 		$txt['alert_too_less_money'] = '你没有那么多银子。';
 		$txt['alert_too_less_gold'] = '你没有那么多金子。';
@@ -2180,7 +2180,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['button_take'] = '从银行取款';
 		$txt['title_text_send'] = '<font size="4"><hr>下载</font><br>
 										<font size="2">最小 <img src="'.$static_url.'/images/icons/silver.png" title="Silver" style="margin-bottom:-3px;" /> 每笔交易 10 个。<br>转移金币所需的最低等级：8-Macho。</font>';
-		$txt['username'] = '培训师：';
+		$txt['username'] = '训练家：';
 		$txt['button_send'] = '发送！';
 	}
 ######################## SEND MESSAGE ########################
@@ -2233,8 +2233,8 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		$txt['alert_link_incorrect'] = '链接无效。';
 		$txt['alert_not_your_message'] = '此消息不适合您。';
 		$txt['alert_inbox_full'] = '满箱。';
-		$txt['alert_receiver_blocked'] = '您无法回复此消息，您已屏蔽该培训师。';
-		$txt['alert_has_blocked_you'] = '您无法回复此消息，您已被该培训师屏蔽。';
+		$txt['alert_receiver_blocked'] = '您无法回复此消息，您已屏蔽该训练家。';
+		$txt['alert_has_blocked_you'] = '您无法回复此消息，您已被该训练家屏蔽。';
 		$txt['alert_text_wrong_signs'] = '消息不能包含<。';
 		$txt['alert_no_message'] = '输入消息。';
 		$txt['success_send_message'] = '消息已成功发送至';
@@ -2263,7 +2263,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		#Screen
 		$txt['pagetitle'] = '朋友们';
 		$txt['title_text'] = '<img src="'.$static_url.'/images/icons/groep.png" width="16" height="16" /> <strong>添加好友</strong>';
-		$txt['username'] = '培训师：';
+		$txt['username'] = '训练家：';
 		$txt['#'] = '#';
 		$txt['country'] = '国家';
 		$txt['status'] = '地位';
@@ -2291,7 +2291,7 @@ $txt['box_medal_top3']     = '前3名神奇宝贝';
 		#Screen
 		$txt['pagetitle'] = '被阻止';
 		$txt['title_text'] = '<img src="'.$static_url.'/images/icons/blokkeer.png" border="0" /> <strong>屏蔽训练师</strong><br />如果您屏蔽训练师，您将不会收到任何消息，也无法向他发送消息。';
-		$txt['username'] = '培训师：';
+		$txt['username'] = '训练家：';
 		$txt['button'] = '堵塞！';
 		$txt['*'] = '*';
 		$txt['#'] = '#';
@@ -2347,7 +2347,7 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['alert_nothing_selected'] = '选择一些东西！';
 	$txt['alert_pokedex_chip']     = '没有图鉴就无法购买图鉴芯片！';
 	$txt['alert_not_enough_place'] = '您的物品箱已满！';
-	$txt['alert_hand_full']        = '您已经拥有 6 只神奇宝贝了！';
+	$txt['alert_hand_full']        = '您已经拥有 6 只宝可梦了！';
 	$txt['alert_not_in_stock']     = '我们目前没有此产品！';
 	
 	$txt['pagetitle'] = $event_n_loja;
@@ -2357,7 +2357,7 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['spc_items'] = '特殊物品';
 	$txt['stones']    = '石头';
 	$txt['attacks']   = '攻击';
-	$txt['pokemon']   = '神奇宝贝';
+	$txt['pokemon']   = '宝可梦';
 	
 	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
@@ -2369,7 +2369,7 @@ $txt['alert_no_amount']               = '输入数量！';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - 特殊道具';
 		$txt['button_spc_items'] = '购买特殊物品';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2377,16 +2377,16 @@ $txt['alert_no_amount']               = '输入数量！';
 	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
-		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
+		$txt['market_attack_types'] = '宝可梦可以学习攻击。';
 	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
-		$txt['button_pokemon']         = '购买口袋妖怪';
+		$txt['button_pokemon']         = '购买宝可梦';
 		$txt['not_rare']               = '常见的';
 		$txt['middle_rare']            = '异常';
 		$txt['rare']                   = '稀有的';
-		$txt['out_of_stock_1']         = '市场上出售的所有神奇宝贝';
+		$txt['out_of_stock_1']         = '市场上出售的所有宝可梦';
 		$txt['out_of_stock_2']         = '';
-		$txt['success_bought_pokemon'] = '1个神奇宝贝蛋！';
+		$txt['success_bought_pokemon'] = '1个宝可梦蛋！';
 	}
 }  else if ($page == 'market3') {
 	$txt['alert_itemplace']        = '<b>注意：</b>在购买任何物品之前，您需要有空闲插槽。';
@@ -2397,7 +2397,7 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['alert_nothing_selected'] = '选择一些东西！';
 	$txt['alert_pokedex_chip']     = '没有图鉴就无法购买图鉴芯片！';
 	$txt['alert_not_enough_place'] = '您的物品箱已满！';
-	$txt['alert_hand_full']        = '您已经拥有 6 只神奇宝贝了！';
+	$txt['alert_hand_full']        = '您已经拥有 6 只宝可梦了！';
 	$txt['alert_not_in_stock']     = '我们目前没有此产品！';
 	
 	$txt['pagetitle'] = '年货店';
@@ -2407,7 +2407,7 @@ $txt['alert_no_amount']               = '输入数量！';
 	$txt['spc_items'] = '特殊物品';
 	$txt['stones']    = '石头';
 	$txt['attacks']   = '攻击';
-	$txt['pokemon']   = '神奇宝贝';
+	$txt['pokemon']   = '宝可梦';
 	
 	if (($_GET['shopitem'] ?? '') == 'balls') {
 		$txt['pagetitle']    .= ' - Pokébolas';
@@ -2419,7 +2419,7 @@ $txt['alert_no_amount']               = '输入数量！';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = '购买物品';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - 特殊道具';
 		$txt['button_spc_items'] = '购买特殊物品';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2427,21 +2427,21 @@ $txt['alert_no_amount']               = '输入数量！';
 	} else if (($_GET['shopitem'] ?? '') == 'attacks') {
 		$txt['pagetitle']           .= ' - Ataques';
 		$txt['button_attacks']      = '购买攻击';
-		$txt['market_attack_types'] = '神奇宝贝可以学习攻击。';
+		$txt['market_attack_types'] = '宝可梦可以学习攻击。';
 	} else if (($_GET['shopitem'] ?? '') == 'pokemon') {
 		$txt['pagetitle']             .= ' - Pokémons';
-		$txt['button_pokemon']         = '购买口袋妖怪';
+		$txt['button_pokemon']         = '购买宝可梦';
 		$txt['not_rare']               = '常见的';
 		$txt['middle_rare']            = '异常';
 		$txt['rare']                   = '稀有的';
-		$txt['out_of_stock_1']         = '市场上出售的所有神奇宝贝';
+		$txt['out_of_stock_1']         = '市场上出售的所有宝可梦';
 		$txt['out_of_stock_2']         = '';
-		$txt['success_bought_pokemon'] = '1个神奇宝贝蛋！';
+		$txt['success_bought_pokemon'] = '1个宝可梦蛋！';
 	}
 } else if (strstr($page, 'admin/') == true) {
 	$txt['pagetitle'] = '行政小组';
 } else if ($page == 'pokemon-profile') {
-	$txt['pagetitle'] = '口袋妖怪简介';
+	$txt['pagetitle'] = '宝可梦简介';
 }
 
 /* === externalized strings (generated) === */
@@ -3187,4 +3187,13 @@ $txt['league_champions'] = '冠军';
 $txt['fountain_use_count'] = '基础喷泉使用次数';
 $txt['evolve_text'] = '你的宝可梦已达到新阶段，现在将进化为 %s。如果不希望进化，请点击<b>“停止进化”</b>，否则点击<b>“进化！”</b>。';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s命中了%d次。';
+$txt['battle_parental_hit'] = '%s通过亲子爱命中了%d次。';
+$txt['battle_recoil'] = '%s受到了反作用力伤害。';
+$txt['battle_copy_move'] = '%s复制了招式%s！';
+$txt['battle_copy_pokemon'] = '%s复制了%s。';
+$txt['battle_rocket_exit'] = '火箭队又飞走了！';
+$txt['battle_opponent_must_attack'] = '对手必须攻击！';
+$txt['league_battle_created'] = '对战已创建！<br />正在跳转至对战 …';
 ?>

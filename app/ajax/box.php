@@ -213,7 +213,7 @@ if ($verifybox->num_rows > 0) {
                 <form action="ajax.php?act=box&option=options" method="post">
                     <table>
                         <tr>
-                            <td><label for="box_name">Nome:</label></td>
+                            <td><label for="box_name"><?=$txt['popup_pokemon']?></label></td>
                             <td><input type="text" id="box_name" class="text_long" name="box_name" maxlength="20" value="<?=$nomebox?>"/></td>
                         </tr>
                         <tr>

@@ -1,7 +1,7 @@
 <?php
 	######################## Rank up ###################
 	$txt['event_rank_up'] = 'Sie sind im Rang aufgestiegen, Ihr neuer Rang ist: <b>%s</b>.';
-	$txt['event_rank_up_refferal'] = 'Deine Empfehlung, %s, ist ein Rang, den du hier erhalten hast, um 15 Gold zu gewinnen!';
+	$txt['event_rank_up_refferal'] = 'Der von dir geworbene Trainer %s ist im Rang aufgestiegen. Dafür erhältst du 15 Gold!';
 	######################## Evolve ####################
 	$txt['event_is_evolved_in'] = '<b>%s</b> hat sich zu <b>%s</b> entwickelt!';
 	######################## Level up ##################
@@ -9,9 +9,9 @@
 	
 	######################## Work ######################
 	if ($page == 'work' OR $workvs) {
-		$txt['event_work_1_1'] = 'Sie haben die maximale verkaufte Anzahl überschritten! Du hast <img src=" gewonnen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower"> 15!';
-		$txt['event_work_1_2_1'] = 'Du hast gewonnen';
-		$txt['event_work_1_2_2'] = 'Silber verkauft Limonade.';
+		$txt['event_work_1_1'] = 'Du hast besonders viel Limonade verkauft und erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower"> 15!';
+		$txt['event_work_1_2_1'] = 'Du erhältst ';
+		$txt['event_work_1_2_2'] = ' Silber für den Verkauf von Limonade.';
 		$txt['event_work_1_3'] = 'Du hast keine Limonade verkauft.';
 		$txt['event_work_1_4'] = 'Deine Limonade war schrecklich.';
 		
@@ -25,24 +25,24 @@
 		$txt['event_work_3_3'] = 'Sie konnten nicht alle Dokumente zustellen.';
 		$txt['event_work_3_4'] = 'Es regnet! Du liebst die Kälte, oder? Du bist zu faul zum Arbeiten.';
 		
-		$txt['event_work_4_1'] = 'Du hast das Pokémon-Center geräumt und <img src=" gewonnen.' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
+		$txt['event_work_4_1'] = 'Du hast das Pokémon-Center geputzt und erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
 		$txt['event_work_4_2'] = 'Du hast das Pokémon-Center nicht richtig gereinigt.';
 		$txt['event_work_4_3'] = 'Chansey ist mit deiner Faulheit nicht zufrieden, du verdienst nichts!';
 		
-		$txt['event_work_5_1'] = 'Du hast das Golfspiel gegen Team Rocket gewonnen! Du hast <img src=" gewonnen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
+		$txt['event_work_5_1'] = 'Du hast beim Golf gegen Team Rocket gewonnen und erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
 		$txt['event_work_5_2'] = 'Du hast das Golfspiel gegen Team Rocket verloren.';
 		$txt['event_work_5_3'] = 'Du hast das Golfspiel gegen Team Rocket knapp verloren.';
 		
-		$txt['event_work_6_1'] = 'WOW! Du hast eine goldene Uhr gefunden und sie für <img src=" verkauft' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
-		$txt['event_work_6_2'] = 'Du hattest Glück und hast ein Relikt gefunden, das du für <img src=" verkauft hast' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
+		$txt['event_work_6_1'] = 'Du hast eine goldene Uhr gefunden und verkauft. Dein Erlös: <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
+		$txt['event_work_6_2'] = 'Du hast ein wertvolles Relikt gefunden und verkauft. Dein Erlös: <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
 		$txt['event_work_6_3'] = 'Du hast nichts Wertvolles gefunden.';
 		$txt['event_work_6_4'] = 'Du hast nur eine alte Zeitung gefunden.';
 		
-		$txt['event_work_7_1'] = 'Deine Pokémon-Demonstration war ein Erfolg! Du hast <img src=" gewonnen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
+		$txt['event_work_7_1'] = 'Deine Pokémon-Vorführung war ein Erfolg! Du erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
 		$txt['event_work_7_2'] = 'Niemandem hat Ihre Demonstration gefallen.';
 		$txt['event_work_7_3'] = 'Es regnete, niemand blieb stehen, um seiner Demonstration zuzusehen.';
 		
-		$txt['event_work_8_1'] = 'Das Experiment war ein Erfolg! Du hast <img src=" gewonnen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
+		$txt['event_work_8_1'] = 'Das Experiment war ein Erfolg! Du erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
 		$txt['event_work_8_2'] = 'Das Experiment hat nicht funktioniert.';
 		$txt['event_work_8_3'] = 'Dein Pokémon konnte nicht am Experiment teilnehmen, du hast nichts gewonnen.';
 		
@@ -62,9 +62,9 @@
 		$txt['event_work_11_4'] = 'Sie hatten keine Möglichkeit, Silber zu verdienen.';
 		$txt['event_work_11_5'] = 'Sie wurden von Officer Jenny verhaftet.';
 		
-		$txt['event_work_12_1'] = 'Du hast 2 Tüten Silber aus dem Casino gestohlen! Du hast <img src=" gewonnen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
-		$txt['event_work_12_2_1'] = 'Du hast <img src=" gestohlen' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silver" class="imglower">';
-		$txt['event_work_12_2_2'] = 'des Casinos.';
+		$txt['event_work_12_1'] = 'Du hast zwei Beutel Silber aus dem Casino gestohlen! Du erhältst <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
+		$txt['event_work_12_2_1'] = 'Du hast <img src="' . $static_url . '/images/icons/silver.png" width="16" height="16" alt="Silber" class="imglower">';
+		$txt['event_work_12_2_2'] = ' aus dem Casino gestohlen.';
 		$txt['event_work_12_3'] = 'Dein Pokémon hatte zu viel Angst, um das Casino auszurauben.';
 		$txt['event_work_12_4'] = 'Der Casino-Alarm wurde ausgelöst, Sie mussten rennen.';
 		$txt['event_work_12_5'] = 'Sie wurden von Officer Jenny verhaftet.';

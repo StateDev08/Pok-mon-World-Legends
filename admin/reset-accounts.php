@@ -9,16 +9,14 @@ if ($gebruiker['admin'] < 3) { game_redirect_header('location: ./home'); exit; }
 ?>
 <center>
   <table width="500" border="0">
-    <tr><td><center>Aqui você pode resetar todas contas. <br />
-    Você ira resetar as vezes do dia que a pessoa pode jogar na roda da fortuna, fazer depositos e retiradas no banco, corridas e sabotagens diarias.<br /><br />
-    Exemplo: Se Ash já jogou na roda da fortuna as suas 3x diarias, ao resetar ele vai poder jogar +3x ainda hoje.</center></td>
+    <tr><td><center><?=$txt['adm_reset_intro']?></center></td>
     </tr>
   </table>        
 </center> 
 <form method="post">
 <table width="150" border="0">
 	<tr>
-    	<td>Resetar contas</td>
+	<td><?=$txt['adm_reset_label']?></td>
         <td><input type="radio" name="ontvanger" value="allemaal" onChange=this.form.submit();></td>
     </tr>
 </table>	
@@ -35,14 +33,14 @@ if (isset($_POST['verstuur'])) {
     $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
-      echo '<div class="red"> Digite um texto.</div>';
+      echo '<div class="red"> '.$txt['adm_mail_enter_text'].'</div>';
     }
     //Als er geen ontvanger is ingevuld
     else if (empty($ontvanger)) {
-      echo '<div class="red"> Escolha alguém.</div>';
+      echo '<div class="red"> '.$txt['adm_choose_someone'].'</div>';
     }
     else if (!preg_match('/[A-Za-z0-9_]+$/',$onderwerp)) {
-      echo '<div class="red"> O assunto contém caracters inválidos.</div>';
+      echo '<div class="red"> '.$txt['adm_subject_invalid'].'</div>';
     }
     //Als alles is ingevuld het bericht versturen
     else{
@@ -60,7 +58,7 @@ if (isset($_POST['verstuur'])) {
 	  DB::exQuery("Update gebruikers SET geluksrad = 3");
 	  DB::exQuery("Update gebruikers SET storten = 10");
 	  DB::exQuery("Update gebruikers SET stelen = 1");
-      echo '<div class="green"> Todas contas foram resetadas com sucesso.</div>';
+      echo '<div class="green"> '.$txt['adm_reset_done'].'</div>';
     }      
   }
   else{
@@ -69,10 +67,10 @@ if (isset($_POST['verstuur'])) {
     $onderwerp = ($_POST['onderwerp'] ?? '');
     //Als er geen bericht is ingetypt
     if (empty($bericht)) {
-      echo '<div class="red"> Digite algum texto.</div>';
+      echo '<div class="red"> '.$txt['adm_mail_enter_text'].'</div>';
     }
     else if (!preg_match('/[A-Za-z0-9_]+$/',$onderwerp)) {
-      echo '<div class="red"> O assunto não pode conter caracters inválidos.</div>';
+      echo '<div class="red"> '.$txt['adm_subject_invalid'].'</div>';
     }
     //Als alles is ingevuld het bericht versturen
     else{
@@ -91,7 +89,7 @@ if (isset($_POST['verstuur'])) {
 	    DB::exQuery("Update gebruikers SET storten = 10");
 	    DB::exQuery("Update gebruikers SET stelen = 1");
       }
-    echo '<div class="green">Contas resetadas com sucesso.</div>';  
+    echo '<div class="green">'.$txt['adm_reset_done'].'</div>';
     }
   }
 
@@ -103,20 +101,20 @@ if (isset($_POST['ontvanger'])) {
   			<table width="600" border="0">';
     if (($_POST['ontvanger'] ?? '') == "persoon") {
       echo '<tr>
-	  			<td>Treinador:</td>
+				<td>'.$txt['adm_trainer_name'].'</td>
 				<td><input type="text" name="speler" class="text_long" value="'.($_POST['speler'] ?? '').'"></td>
 			</tr>';
     }
       echo '<tr>
-				<td width="110">Assunto:</td>
-				<td width="490"><input type="text" name="onderwerp" class="text_long" value="Reset diario"></td>
+				<td width="110">'.$txt['adm_msg_subject'].'</td>
+				<td width="490"><input type="text" name="onderwerp" class="text_long" value="'.$txt['adm_reset_label'].'"></td>
 			</tr>
     		<tr>
 				<td colspan="2"><textarea style="width:580px;" class="text_area" rows="15"  name="tekst">'.($_POST['tekst'] ?? '').'</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="hidden" value="'.($_POST['ontvanger'] ?? '').'" name="ontvanger">
-					<input type="submit" value="Resetar!" name="verstuur" class="button"></td>
+					<input type="submit" value="'.$txt['adm_reset_btn'].'" name="verstuur" class="button"></td>
 			</tr>
 		</table>
   		</form>';

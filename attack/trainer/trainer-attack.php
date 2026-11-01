@@ -549,7 +549,7 @@ function change_pokemon_status(msg) {
 				let button = $("button:eq("+ i +")");
 
 				if (move != '') {
-					button.html(move);
+					button.attr('data-move', move).text(gameMoveLabel(move));
 					button.css('background-image', "url(<?=$static_url?>/images/attack/moves/" + type + ".png)");
 					button.show();
 				} else {
@@ -559,7 +559,7 @@ function change_pokemon_status(msg) {
 
     if (trainer_zmove == 0 && request[21] != false && request[22] != false) {
   			$('#use-zmove').show();
-  			$('#use-zmove').html(request[21]);
+			$('#use-zmove').attr('data-move', request[21]).text(gameMoveLabel(request[21]));
   			$('#use-zmove').css('background-image', "url(<?=$static_url?>/images/attack/moves/" + request[22] + ".png)");
   	} else {
   			$('#use-zmove').hide();
@@ -723,13 +723,13 @@ $(document).ready(function() {
 				speler_attack = 0
 				document.getElementById('hit').style.display = "";
 				document.getElementById('hit2').style.display = "none";
-				$("#message").html($("#pokemon_naam").html() + " usou " + $(this).html() + ".")
+				$("#message").html($("#pokemon_naam").html() + " <?= $txt['did']; ?> " + $(this).html() + ".")
 				$("#potion_screen").hide()
-				atk = $(this).html();
+				atk = $(this).attr('data-move') || $(this).text();
   			document.getElementById('hit').style.display = "";
         $.ajax({
 					type: "GET",
-					url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
+					url: "attack/trainer/trainer-do_attack.php?attack_name=" + encodeURIComponent($(this).attr('data-move') || $(this).text()) + "&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
 					success: attack_status
 				});
 			}
@@ -744,11 +744,11 @@ $(document).ready(function() {
   					document.getElementById('hit2').style.display = "none";
   					$("#message").html($("#pokemon_naam").html() + " <?= $txt['did']; ?> " + $(this).html() + ".");
   					$("#potion_screen").hide();
-  					atk = $(this).html();
+					atk = $(this).attr('data-move') || $(this).text();
   					document.getElementById('hit').style.display = "";
   					$.ajax({
   						type: "GET",
-  						url: "attack/trainer/trainer-do_attack.php?attack_name=" + $(this).html() + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
+						url: "attack/trainer/trainer-do_attack.php?attack_name=" + encodeURIComponent($(this).attr('data-move') || $(this).text()) + "&zmove=y&wie=pokemon&aanval_log_id=" + <?= $aanval_log['id'] ?? 0; ?> + "&_h=" + <?=$gebruiker['sec_key'] ?? ''?> + "&sid=" + Math.random(),
   						success: attack_status
   					}).done(function() {
   						atk = atk.split(' ').join('_');
@@ -859,9 +859,9 @@ $(document).ready(function() {
 
 $hora_do_dia = date("H");
 if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
-  echo "<div class='box-content'><h3 class='title'>BATALHA CONTRA ".strtoupper($trainer['naam'])."!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='duel_area'>";
+  echo "<div class='box-content'><h3 class='title'>".$txt['battle_against']." ".strtoupper($trainer['naam'])."!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='duel_area'>";
 } else {
-  echo "<div class='box-content'><h3 class='title'>BATALHA CONTRA ".strtoupper($trainer['naam'])."!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='duel_area2'>";
+  echo "<div class='box-content'><h3 class='title'>".$txt['battle_against']." ".strtoupper($trainer['naam'])."!</h3><div id='gif_attack' style='position: absolute;float: right;margin-left: 165px;margin-top: 70px;z-index: 0;width: 700px;'><img src='".$static_url."/images/attacks/_blank.gif' style='float: left;width: 700px;height:323px'/></div><div id='weather'><img id='zmove'><table id='arena' class='duel_area2'>";
 }
    ?>
   		<tr><td>
@@ -920,13 +920,13 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
 													if ($i % 2 == 0) $style .= 'float: left';
 													else $style .= 'float: right';
 											?>
-                          <button id="aanval" style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemon_info['aanval_'.($i+1)], $pokemon_info)['soort']?>.png) no-repeat; <?=$style?>" class="btn-type"><?=$move; ?></button>
+                          <button data-move="<?=htmlspecialchars($move, ENT_QUOTES)?>" id="aanval" style="background: url(<?=$static_url?>/images/attack/moves/<?=atk($pokemon_info['aanval_'.($i+1)], $pokemon_info)['soort']?>.png) no-repeat; <?=$style?>" class="btn-type"><?=htmlspecialchars(move_label($move), ENT_QUOTES)?></button>
                       <?php
                         }
 
                         if (zMoves::valid($pokemon_info)[0] && $aanval_log['zmove'] == 0) {
                           $zmove = zMoves::move($pokemon_info)[0];
-                          echo '<br><button class="zmove btn-type" style="background: url('.$static_url.'/images/attack/moves/'.atk($zmove, $pokemon_info)['soort'].'.png)" id="use-zmove">'.$zmove.'</button>';
+                          echo '<br><button class="zmove btn-type" style="background: url('.$static_url.'/images/attack/moves/'.atk($zmove, $pokemon_info)['soort'].'.png)" data-move="'.htmlspecialchars($zmove, ENT_QUOTES).'" id="use-zmove">'.htmlspecialchars(move_label($zmove), ENT_QUOTES).'</button>';
                         } else {
                           echo '<br><button class="zmove btn-type" style="display: none" id="use-zmove"></button>';
                         }
@@ -996,7 +996,7 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
             $player_hand_good = pokemonei($player_hand, $txt);
             //Als pokemon geen baby is
             if ($player_hand_good['ei'] != 1) { 
-							echo '<div id="use_potion" name="'.$player_hand['id'].'" title="Usar item em '.$player_hand_good['roepnaam'].'?" style="background-image: url('.$static_url.'/'.$player_hand_good['animatie'].');" class="battle-pokemon">
+							echo '<div id="use_potion" name="'.$player_hand['id'].'" title="'.htmlspecialchars(sprintf($txt['battle_item_target'], $player_hand_good['roepnaam']), ENT_QUOTES).'" style="background-image: url('.$static_url.'/'.$player_hand_good['animatie'].');" class="battle-pokemon">
 												'.$player_hand_good['naam'].'
                         <div class="bar_red" style="background: #cccccc;border: #f2f2f2 1px solid;border-radius: 4px;clear: both;height: 8px;margin-left: 10px;margin-top: 1px;overflow: hidden;height: 3px; width: 86%;"><div class="progress" id="'.$player_hand['id'].'_life" style="width: '.$player_hand_good['levenprocent'].'%"></div></div>
                     </div>';           
@@ -1013,10 +1013,10 @@ if (($hora_do_dia >=6) && ($hora_do_dia <18)) {
             <tr style="height: 150px">
 							<td style="width: 41%">
 								<div style="text-align: center;">
-									<div onclick="tab_wl('#atacar'); $('#potion_screen').hide();" class="selector attack"></div>
-									<div onclick="tab_wl('#mochila'); $('#potion_screen').hide(); $car.flickity('resize')" class="selector bag"></div>
-									<div onclick="tab_wl('#pokemon'); $('#potion_screen').hide();" class="selector pokemon"></div>
-									<div onclick="tab_wl(''); $('#potion_screen').hide();" id="run" class="selector run"></div>
+									<div onclick="tab_wl('#atacar'); $('#potion_screen').hide();" class="selector attack" role="button" aria-label="<?=htmlspecialchars($txt['battle_action_attack'], ENT_QUOTES)?>"><span class="battle-control-label"><?=$txt['battle_action_attack']?></span></div>
+									<div onclick="tab_wl('#mochila'); $('#potion_screen').hide(); $car.flickity('resize')" class="selector bag" role="button" aria-label="<?=htmlspecialchars($txt['battle_action_bag'], ENT_QUOTES)?>"><span class="battle-control-label"><?=$txt['battle_action_bag']?></span></div>
+									<div onclick="tab_wl('#pokemon'); $('#potion_screen').hide();" class="selector pokemon" role="button" aria-label="<?=htmlspecialchars($txt['battle_action_pokemon'], ENT_QUOTES)?>"><span class="battle-control-label"><?=$txt['battle_action_pokemon']?></span></div>
+									<div onclick="tab_wl(''); $('#potion_screen').hide();" id="run" class="selector run" role="button" aria-label="<?=htmlspecialchars($txt['battle_action_run'], ENT_QUOTES)?>"><span class="battle-control-label"><?=$txt['battle_action_run']?></span></div>
 								</div>
               </td>
               <td style="width: 53%; background: url(public/images/layout/battle/text-content.png) no-repeat; background-size: 100% 100%">

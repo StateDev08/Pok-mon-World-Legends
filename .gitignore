@@ -13,3 +13,4 @@ audit/*.jpg
 audit/*.png
 audit/*results.json
 audit/*backup*.txt
+audit/locale-*.json

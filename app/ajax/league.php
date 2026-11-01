@@ -30,7 +30,7 @@ if ($result->num_rows>0) {
         $_SESSION['background'] = $background;
         $_SESSION['duel']['duel_id'] = $l_battle->getDuel_id();
         $_SESSION['duel']['begin_zien'] = true;
-        echo "2 | Batalha criada!<br/>Redirecionando para batalha...";
+        echo "2 | ".$txt['league_battle_created'];
         exit();
     }
 

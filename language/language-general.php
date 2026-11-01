@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../app/includes/GameUrl.php';
+require_once __DIR__ . '/resolve.php';
 ob_start();
 
 $language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
@@ -15,24 +16,17 @@ if (isset($_GET['language']) && in_array(($_GET['language'] ?? ''), $language_ar
 	$page = str_replace('..', '', $page);
 	$page = ltrim($page, '/');
 	$page = preg_replace('#/{2,}#', '/', $page);
-	exit(game_redirect_header('Location: ./' . urlencode($page)));
+	exit(game_redirect_header('Location: ./' . implode('/', array_map('rawurlencode', explode('/', $page)))));
 }
 
-$lang = $_COOKIE['pa_language'] ?? $_SESSION['pa_language'] ?? null;
-
-// A returning player without the cookie keeps the language stored on his character.
-if ($lang === null && !empty($_SESSION['id']) && class_exists('DB')) {
-	$lang = (DB::exQuery("SELECT `language` FROM `gebruikers` WHERE `user_id`='" . (int) $_SESSION['id'] . "' LIMIT 1")->fetch_assoc()['language'] ?? null);
-}
-
-if (!in_array($lang, $language_array, true)) $lang = 'pt';
+$lang = resolve_game_language();
 $_COOKIE['pa_language'] = $lang;
 
 set_error_handler(function($severity, $message) {
 	if ($severity === E_WARNING && strpos($message, 'Undefined array key') !== false) return true;
 	return false;
 });
-require_once('general/language-general-' . $lang . '.php');
+require_once(__DIR__ . '/general/language-general-' . $lang . '.php');
 restore_error_handler();
 
 ob_flush();

@@ -17,15 +17,15 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 		$real = DB::exQuery("SELECT `pokemon_wild`.*,`pokemon_speler`.* FROM `pokemon_wild` INNER JOIN `pokemon_speler` ON `pokemon_speler`.`wild_id`=`pokemon_wild`.`wild_id` WHERE `pokemon_speler`.`id`={$_POST['pokemonid']}")->fetch_assoc();
 		
 	if ($num_ == "") {
-	$error = "<div class='red'>Digite um valor.</div></center>";
+	$error = "<div class='red'>".$txt['enter_quantity']."</div></center>";
 	}
 	else if (preg_match('/[A-Za-z_]+$/',$num_)) {
-	$error = "<div class='red'>Digite um valor.</div></center>";
+	$error = "<div class='red'>".$txt['enter_quantity']."</div></center>";
     }
   else if ($num_ < 1) {
-	$error = "<div class='red'>Digite um valor.</div></center>";
+	$error = "<div class='red'>".$txt['enter_quantity']."</div></center>";
   } else if (!is_numeric($num_)) {
-	$error = "<div class='red'>Digite um valor.</div></center>";
+	$error = "<div class='red'>".$txt['enter_quantity']."</div></center>";
 	} 
  else if ($real[$wat.'_up'] >= 75) {
     $error = "<div class='red'>".sprintf($txt['use_spc_limit_25'], ($_POST['item'] ?? ''), $real['naam'])."</div>";
@@ -35,7 +35,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
   $somatoria = 25 - $valorupok;
  	$error = "<div class='red'>".sprintf($txt['use_spc_max'], $somatoria, ($_GET['name'] ?? ''))."</div>";  
  }		
-		else if ($num_ <= 0) { $error = '<div class="red">A quantidade deve ser maior que zero!</div>'; }
+		else if ($num_ <= 0) { $error = '<div class="red">'.$txt['quantity_positive'].'</div>'; }
 		else if ($gebruiker_item[($_POST['item'] ?? '')] < $num_) { $error = '<div class="red">' . sprintf($txt['use_dont_have_amount'], $num_, ($_POST['item'] ?? '')) . '</div>'; }
 		else {
 			# Get infos
@@ -58,7 +58,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 	}
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>

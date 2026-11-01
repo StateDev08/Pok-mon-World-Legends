@@ -1,12 +1,9 @@
 <?php
+require_once __DIR__ . '/../../../language/rank-label.php';
 $captcha_page_check = array('attack/attack_map', 'attack/gyms', 'trainer', 'attack/duel/invite', 'traders', 'race-invite', 'casino-store', 'who-is-it-quiz', 'wheel-of-fortune', 'lottery', 'fishing', 'friend-add', 'inbox', 'blocklist', 'box', 'market', 'transferlist', 'donate', 'calculator', 'juiz', 'account-options');
 
 function GetEventLanguage() {
-	$language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
-	if (isset($_COOKIE['pa_language']) && in_array(($_COOKIE['pa_language'] ?? ''), $language_array, true)) {
-		return ($_COOKIE['pa_language'] ?? '');
-	}
-	return 'pt';
+	return resolve_game_language();
 }
 
 function highamount($amount) {
@@ -31,10 +28,10 @@ function balance_converter ($money) {
 }
 
 function GetColorName($user_id) {
-	global $static_url;
+	global $static_url, $txt;
 
 	$gebruiker = DB::exQuery("SELECT `dv`,`banned`,`premiumaccount`,`admin`,`username`,`posicaorank` FROM `gebruikers` WHERE `user_id`='" . (int)$user_id . "' LIMIT 1")->fetch_assoc();
-	if (!$gebruiker) return '<span style="color: #888">Desconhecido</span>';
+	if (!$gebruiker) return '<span style="color: #888">'.htmlspecialchars($txt['unknown_trainer'] ?? '', ENT_QUOTES).'</span>';
 	if ($gebruiker['admin'] == 1)					return "<span style='color: #A1FF77; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user.png\" style=\"vertical-align:-3px;\" title=\"Moderador\" />";
 	else if ($gebruiker['admin'] == 2)				return "<span style='color: #FF3030; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user_suit.png\" style=\"vertical-align:-3px;\" title=\"Supervisor\" />";
 	else if ($gebruiker['admin'] == 3)				return "<span style='color: yellow; text-shadow:#000 1px -1px 2px, #000 -1px 1px 2px, #000 1px 1px 2px, #000 -1px -1px 2px'><b>" . $gebruiker['username'] . "</b></span> <img src=\"" . $static_url . "/images/icons/user_admin.png\" style=\"vertical-align:-3px;\" title=\"Administrador\" />";
@@ -399,7 +396,7 @@ function rankerbij($soort, $txt) {
 
 		$eventlanguage = GetEventLanguage();
 		require_once('../../language/events/language-events-' . $eventlanguage . '.php');
-		$event = '<img src="' . $static_url . '/images/icons/blue.png" class="imglower" /> ' . sprintf($txt['event_rank_up'], $query['naam']) . $msg;
+		$event = '<img src="' . $static_url . '/images/icons/blue.png" class="imglower" /> ' . sprintf($txt['event_rank_up'], rank_label($query['naam'])) . $msg;
 		DB::exQuery("INSERT INTO `gebeurtenis` (`datum`,`ontvanger_id`,`bericht`,`gelezen`) VALUES (NOW(),'" . ($_SESSION['id'] ?? '') . "','" . $event . "',0)");
 		}
 	}
@@ -409,7 +406,7 @@ function rank($ranknummer) {
 	$query = DB::exQuery("SELECT * FROM `rank` WHERE `ranknummer`='" . $ranknummer . "' LIMIT 1")->fetch_assoc();
 
 	$rank['ranknummer'] = $ranknummer;
-	$rank['ranknaam']   = $ranknummer.' - '.$query['naam'];
+	$rank['ranknaam']   = $ranknummer.' - '.rank_label($query['naam'] ?? '');
 
 	return $rank;
 }

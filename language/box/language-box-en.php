@@ -28,8 +28,8 @@ if ($page == 'codes') {
 	$txt['alert_not_your_pokemon'] = 'This is not your pokemon.';
 	$txt['alert_beginpokemon'] = 'This is your beginning pokemon, you can\'t sell him.';
 	$txt['alert_no_amount'] = 'No amount insert.';
-	$txt['alert_price_too_less'] = 'Pokemon too cheap, minimum is <img src="images/icons/silver.png" title="Silver" />';
-	$txt['alert_price_too_much'] = 'Pokemon too expensive, maximum is <img src="images/icons/silver.png" title="Silver" />';
+	$txt['alert_price_too_less'] = 'Pokemon too cheap, minimum is <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
+	$txt['alert_price_too_much'] = 'Pokemon too expensive, maximum is <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
 	$txt['alert_pokemon_already_for_sale'] = 'This pokemon is already for sale.';
 	$txt['alert_user_dont_exist'] = 'User doesn\'t exist';
 	$txt['alert_success_sell'] = 'Successfully put your pokemon on the transferlist.';

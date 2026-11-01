@@ -5,11 +5,11 @@ $txt['footer_copyright'] = 'Urheberrecht &copy;' . date('Y') . '- World Legends 
 
 $txt['logo_text']             = 'Weltlegenden | Werde ein Pokémon-Meister!';
 $txt['site_description']      = 'Werden Sie hier im Pokémon World Legends kostenlos zum Pokémon-Trainer! Über 900 verschiedene Pokémon-Arten warten auf Sie, kämpfen Sie gegen andere Trainer und vieles mehr! Und das Beste: Kein Download nötig! Registrieren Sie sich jetzt und nehmen Sie an dieser unglaublichen Pokémon-Reise teil!';
-$txt['login_username']        = 'Benutzer';
+$txt['login_username']        = 'Benutzername';
 $txt['login_password']        = 'Passwort';
 $txt['login_activation']      = 'Aktivieren Sie Ihr Konto';
 $txt['login_forgot']          = 'Konto wiederherstellen';
-$txt['login_button']          = 'Eintreten';
+$txt['login_button']          = 'Anmelden';
 
 $txt['login_no_account'] = 'Kein Konto? %s jetzt!';
 $txt['login_register_now'] = 'REGISTRIEREN';
@@ -44,7 +44,7 @@ $txt['title_actions']       = 'Aktionen';
 $txt['title_buildings']     = 'Stadt';
 
 #Menu items
-$txt['menu_home']                     = 'Heim';
+$txt['menu_home']                     = 'Startseite';
 $txt['menu_register']                 = 'Registrieren';
 $txt['menu_information']              = 'Information';
 $txt['menu_pokemon_info']             = 'Info. Pokémon';
@@ -120,7 +120,7 @@ $txt['menu_league'] = 'Liga';
 $txt['menu_spy'] = 'Spion';
 $txt['menu_steal'] = 'Sabotage';
 $txt['menu_race'] = 'Wettrennen';
-$txt['menu_choose_level'] = 'Wählen Sie die Ebene';
+$txt['menu_choose_level'] = 'Level auswählen';
 $txt['menu_clans'] = 'Clans';
 $txt['menu_clans2'] = 'Rangliste der Clans';
 $txt['menu_clanmake'] = 'Erstelle einen Clan';
@@ -159,7 +159,7 @@ $txt['hmenu_accessible'] = 'Zugänglich';
 
 #Home page
 $txt['home_welcome'] = 'Willkommen, %s!';
-$txt['home_days_connected'] = 'Heute ist dein %s. Verbindungstag!';
+$txt['home_days_connected'] = 'Du hast an %s Tagen gespielt!';
 $txt['home_events'] = 'Ereignisse';
 $txt['home_no_events'] = 'KEINE EREIGNISSE VERFÜGBAR!';
 $txt['home_my_team'] = 'Mein Team';
@@ -244,7 +244,7 @@ $txt['profile_friends'] = 'Freunde';
 $txt['profile_no_friends_self'] = 'Finde neue <b>Freunde</b>! Klicke <a href="./friends-add">HIER</a>, um neue Trainer zu suchen!';
 $txt['profile_no_friends_other'] = '<b>%s</b> hat keine Freunde. Sei der <b>Erste</b>, der ihn/sie hinzufügt!';
 $txt['profile_honors'] = 'Ehren';
-$txt['profile_has_honors'] = '<b>%s</b> besitzt <b>%s</b> Ehren, darunter:';
+$txt['profile_has_honors'] = '<b>%s</b> besitzt <b>%s</b> Auszeichnungen, darunter:';
 $txt['profile_be_first_honor'] = 'Sei der Erste, der <b>%s</b> für sein Spiel ehrt.';
 $txt['profile_honor_button'] = 'Ehre %s für sein Spiel.';
 $txt['profile_already_honored'] = 'Du kannst diesen Trainer heute nicht mehr ehren.';
@@ -663,10 +663,10 @@ $txt['moves_error_already_has_move'] = 'Dein Pokémon hat diese Attacke bereits!
 $txt['moves_error_no_gold'] = 'Du hast nicht genug Gold!';
 $txt['moves_error_no_silver'] = 'Du hast nicht genug Silber!';
 $txt['moves_my_team'] = 'Mein Team';
-$txt['moves_tutor_title'] = 'ATTACKEN-LEHRER';
+$txt['moves_tutor_title'] = 'Attacken-Lehrer';
 $txt['moves_tutor_desc'] = 'Hier kannst du deinem Pokémon <b>Attacken</b> gegen eine Gebühr von <b>Silber</b> oder <b>Gold</b> <b>beibringen</b>.';
 $txt['moves_tutor_btn'] = 'ATTACKEN BEIBRINGEN';
-$txt['moves_reminder_title'] = 'ATTACKEN-ERINNERER';
+$txt['moves_reminder_title'] = 'Attacken-Erinnerer';
 $txt['moves_reminder_desc'] = 'Hier kannst du dein Pokémon gegen eine Gebühr von <b>Silber</b> oder <b>Gold</b> an <b>Attacken</b> <b>erinnern</b>.';
 $txt['moves_reminder_btn'] = 'ATTACKEN ERINNERN';
 $txt['moves_view_profile'] = 'Pokémon-Profil ansehen';
@@ -944,4 +944,37 @@ $txt['bracket_final'] = 'Finale';
 $txt['bracket_champions'] = 'Champions';
 $txt['bracket_third_place'] = 'Spiel um Platz 3';
 /* === end externalized strings === */
+
+// Shared battle and dialog labels.
+$txt['battle_heading'] = 'Kampf!';
+$txt['battle_against'] = 'Kampf gegen';
+$txt['duel_against'] = 'Duell gegen';
+$txt['battle_time_remaining'] = 'Verbleibende Zeit';
+$txt['battle_seconds'] = 'Sekunden';
+$txt['caught_label'] = 'Gefangen';
+$txt['no_results'] = 'Keine Ergebnisse';
+$txt['captured_count_label'] = 'gefangen';
+$txt['enter_quantity'] = 'Gib eine gültige Anzahl ein.';
+$txt['choose_pokemon_label'] = 'Wähle ein Pokémon aus!';
+$txt['cancel_label'] = 'Abbrechen';
+$txt['none_label'] = 'Keine';
+$txt['chat_wait_message'] = 'Warte 5 Sekunden, bevor du eine weitere Nachricht sendest.';
+
+$txt['battle_item_target'] = 'Item bei %s einsetzen?';
+$txt['chat_send_failed'] = 'Die Nachricht konnte nicht gesendet werden.';
+$txt['item_equipped_message'] = 'Das Item %s wurde angelegt.';
+$txt['pokemon_full_hp'] = '%s hat bereits volle KP.';
+$txt['quantity_positive'] = 'Die Anzahl muss größer als null sein.';
+
+$txt['battle_action_attack'] = 'Angriff';
+$txt['battle_action_bag'] = 'Beutel';
+$txt['battle_action_pokemon'] = 'Pokémon';
+$txt['battle_action_run'] = 'Flucht';
+$txt['unknown_trainer'] = 'Unbekannt';
+
+$txt['navbar_language'] = 'Sprache';
+
+$txt['hud_region_label'] = 'Region';
+$txt['hud_rank_label'] = 'Rang';
+$txt['hud_pokemon_label'] = 'Pokémon';
 ?>

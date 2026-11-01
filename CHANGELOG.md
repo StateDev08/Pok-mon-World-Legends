@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Changed
+- Correct mixed-language strings across all six locales in account settings, avatar hints, shops, sales dialogs, profile honors and event notifications. Translate table controls and trainer ranks for every supported locale.
+- Preserve format placeholders, interpolation variables and image URLs across translations; add a technical audit of all 48 locale files and live checks of 15 views per locale.
+- German battle captions, action menus, messages, trainer ranks and item dialogs now use localized text. German move display names are bundled locally while canonical battle identifiers remain unchanged.
+- Share language selection across pages, AJAX and dialogs; retain selected languages for new characters. Use `DEFAULT_LANGUAGE` only when no valid preference exists, preserving Portuguese as the original default.
 - Retain the original game layout and artwork with a separate dark grey theme. Original town and attack maps scale up to 125%, constrained by available space.
 - Resolve game URLs from the installation directory, including nested battle redirects, JavaScript navigation and static assets, without fixed hosts, ports or deployment folder names.
 

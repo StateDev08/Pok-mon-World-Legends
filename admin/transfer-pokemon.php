@@ -15,7 +15,7 @@ if (isset($_POST['geef'])) {
 	//Gegevens laden van speler
 	$aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$infoxx['user_id']."' AND `opzak`='ja'")->num_rows;
 
-	if (($_POST['user_id'] ?? '') == '') echo '<div class="red"> Digite o nome de algum treinador.</div>';
+	if (($_POST['user_id'] ?? '') == '') echo '<div class="red"> '.$txt['adm_enter_trainer'].'</div>';
 	else if (($_POST['wild_id'] ?? '') == 'none') echo '<div class="red"> '.$txt['adm_select_pokemon'].'</div>';
 	else if ($aantal == 6) echo '<div class="red"> '.$txt['adm_trainer_has_six'].'</div>';
 	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE user_id='".$infoxx['user_id']."'")->num_rows == 0) echo '<div class="red"> '.$txt['adm_trainer_not_exist'].'</div>';

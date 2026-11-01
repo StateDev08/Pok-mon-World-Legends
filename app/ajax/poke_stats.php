@@ -10,14 +10,14 @@ $start = ceil((($_POST['start'] ?? '') * $max) - $max);
 
 $sql = "SELECT COUNT(`id`) AS `total`,`wild_id` FROM `pokemon_speler` GROUP BY `wild_id` ORDER BY `total` DESC LIMIT {$start},{$max}";
 $records = query_cache(($_GET['act'] ?? '') . '-' . ($_POST['start'] ?? ''), $sql, 600);
-if (count($records) <= 0)	echo "<tr><td colspan=\"4\">Nenhum resultado</td></tr>";
+if (count($records) <= 0)	echo "<tr><td colspan=\"4\">".$txt['no_results']."</td></tr>";
 else {
 	echo "<tr>";
 		$i = 1;
 		foreach($records as $key => $value) {
 			$info = DB::exQuery("SELECT `naam` FROM `pokemon_wild` WHERE `wild_id` = '{$value['wild_id']}'")->fetch_assoc();
 			echo "<td style=\"padding:0; width:10px;\"><img src=\"" . $static_url . "/images/pokemon/icon/" . $value['wild_id'] . ".gif\" /></td>";
-			echo "<td><a href=\"./pokedex&poke=" . $value['wild_id'] . "\">" . $info['naam'] . "</a><br />" . highamount($value['total']) . " capturados</td>";
+			echo "<td><a href=\"./pokedex&poke=" . $value['wild_id'] . "\">" . $info['naam'] . "</a><br />" . highamount($value['total']) . " ".$txt['captured_count_label']."</td>";
 			echo ($i%2 == 0) ? "</tr><tr>" : "";
 			++$i;
 		}

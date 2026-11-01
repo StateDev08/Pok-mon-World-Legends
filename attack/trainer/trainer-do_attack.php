@@ -295,7 +295,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
         $htdown = $attacker_info['hit_ratio_down'] * 2;
         if ($htdown > 0) $attack_info['mis'] + $htdown;
         else if ((($attack_info['mis'] != 0) AND ($aanval_log[$attack_status['table']['you_busy']] == '') AND (rand(0, 100) <= $attack_info['mis'])) OR ($aanval_log[$attack_status['table']['other_busy']] == 'Fly') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Dig') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Sky Attack') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Shadow Force') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Phantom Force') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Dive') OR ($aanval_log[$attack_status['table']['other_busy']] == 'Bounce')) {
-            $message = sprintf($txt['battle_used_but_missed'], $attacker_info['naam_goed'], $attack_info['naam']);
+            $message = sprintf($txt['battle_used_but_missed'], $attacker_info['naam_goed'], move_label($attack_info['naam']));
             $message .= (($_GET['wie'] ?? '') == 'computer')? $txt['your_attack_turn'] : "<br />" . $opponent_info['naam_goed'] . " " . $txt['opponent_choose_attack'];
 
             DB::exQuery("UPDATE `aanval_log` SET `laatste_aanval`='" . $attack_status['last_attack'] . "', `beurten`=`beurten`+'1', `" . $attack_status['table']['you_atack'] . "`='" . $attack_info['naam'] . "' WHERE id='" . $aanval_log['id'] . "'");
@@ -356,7 +356,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                         $turns = 1;
                     //Save to opponent
                     DB::exQuery("UPDATE " . $opponent_info['table']['fight'] . " SET effect='" . $effect_info['actie'] . "', hoelang='" . $turns . "' WHERE id='" . $opponent_info['id'] . "' AND effect=''");
-                    $message = sprintf($txt['battle_used_had_effect'], $attacker_info['naam_goed'], $attack_info['naam']);
+                    $message = sprintf($txt['battle_used_had_effect'], $attacker_info['naam_goed'], move_label($attack_info['naam']));
                     if (empty($opponent_info['effect']))
                         $message .= "<br />" . sprintf($txt['battle_now_status'], $opponent_info['naam_goed'], $effect_info['naam']);
                     if (($_GET['wie'] ?? '') == 'computer')
@@ -565,7 +565,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
             if ($rec_left < 1)
                 $rec_left = 0;
             DB::exQuery("UPDATE `" . $attacker_info['table']['fight'] . "` SET `leven`='" . $rec_left . "' WHERE `id`='" . $attacker_info['id'] . "'");
-            $message_add .= "<br /> " . $attacker_info['naam_goed'] . " atinge-se com recuo. ";
+            $message_add .= "<br />" . sprintf($txt['battle_recoil'], $attacker_info['naam_goed']);
         }
         
         //Hits with burn?
@@ -595,7 +595,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
             if (($attack_info['laden'] == 'voor') AND (empty($aanval_log[$attack_status['table']['you_busy']]))) {
                 if (($_GET['wie'] ?? '') == 'pokemon')
                     $stappen = $attack_info['naam'];
-                $message = sprintf($txt['battle_charging'], $attacker_info['naam_goed'], $attack_info['naam']);
+                $message = sprintf($txt['battle_charging'], $attacker_info['naam_goed'], move_label($attack_info['naam']));
                 if (($_GET['wie'] ?? '') == 'computer')
                     $message .= $txt['your_attack_turn'];
                 else
@@ -609,7 +609,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
             }
             //Attack is recharging afterwards
             if (($attack_info['laden'] == 'na') AND (!empty($aanval_log[$attack_status['table']['you_busy']]))) {
-                $message = sprintf($txt['battle_recharging_from'], $attacker_info['naam_goed'], $attack_info['naam']);
+                $message = sprintf($txt['battle_recharging_from'], $attacker_info['naam_goed'], move_label($attack_info['naam']));
                 if (($_GET['wie'] ?? '') == 'computer')
                     $message .= $txt['your_attack_turn'];
                 else
@@ -719,14 +719,14 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                 DB::exQuery("UPDATE pokemon_speler SET `aanval_4`='" . $aanval_log['laatste_aanval_computer'] . "' WHERE `id`='" . $aanval_log['pokemonid'] . "' and `aanval_4`='Sketch'");
             }
                 
-            $message_add .= "<br /> " . $attacker_info['naam_goed'] . " copiou o ataque " . $aanval_log['laatste_aanval_computer'] . "! <br />";;
+            $message_add .= "<br />" . sprintf($txt['battle_copy_move'], $attacker_info['naam_goed'], move_label($aanval_log['laatste_aanval_computer'])) . "<br />";;
              echo '<script>location.reload()</script>';  
         }
         
         //Transform
         if ($attack_info['naam'] == "Transform") {
             DB::exQuery("UPDATE `".$attacker_info['table']['fight']."` SET `copiaid`='".$opponent_info['wildid']."' WHERE `id`='".$attacker_info['id']."'");
-            $message_add .= "<br /> " . $attacker_info['naam_goed'] . " copiou " . $opponent_info['naam_goed'] . ".";
+            $message_add .= "<br />" . sprintf($txt['battle_copy_pokemon'], $attacker_info['naam_goed'], $opponent_info['naam_goed']);
         }
         
         //Attack Can Continue
@@ -775,7 +775,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                     $attack_status['last_attack'] = "speler_wissel";
                 }
                 
-                $message = $computer_info['naam_goed'] . " " . $txt['use_attack_1'] . "" . $attack_info['naam'] . $txt['use_attack_2'] . $aantalbericht;
+                $message = $computer_info['naam_goed'] . " " . $txt['use_attack_1'] . "" . move_label($attack_info['naam']) . $txt['use_attack_2'] . $aantalbericht;
                 
             } else if ($attack_status['last_attack'] == "pokemon") {
                 //Alle Pokemons van trainer tellen
@@ -790,7 +790,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                     $attack_status['last_attack'] = "trainer_wissel";
                 }
                 
-                $message = $pokemon_info['naam_goed'] . "" . $txt['use_attack_1'] . "" . $attack_info['naam'] . "" . $txt['use_attack_2_hit'] . " " . $computer_info['naam_goed'] . " " . $txt['is_ko'] . $message_add;
+                $message = $pokemon_info['naam_goed'] . "" . $txt['use_attack_1'] . "" . move_label($attack_info['naam']) . "" . $txt['use_attack_2_hit'] . " " . $computer_info['naam_goed'] . " " . $txt['is_ko'] . $message_add;
                 $lala    = time() + 5;
                 if ($lala > ($_SESSION['antbug'] ?? '')) {
                     $return = one_pokemon_exp($aanval_log, $pokemon_info, $computer_info, $txt);
@@ -798,7 +798,7 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
                 $message .= $return['bericht'];
             }
         } else {
-            $message = $attacker_info['naam_goed'] . " " . $txt['did'] . " " . $attack_info['naam'] . "" . $txt['hit!'] . $message_add . $message_burn;
+            $message = $attacker_info['naam_goed'] . " " . $txt['did'] . " " . move_label($attack_info['naam']) . "" . $txt['hit!'] . $message_add . $message_burn;
             if (($_GET['wie'] ?? '') == 'computer')
                 $message .= $txt['your_attack_turn'];
             else

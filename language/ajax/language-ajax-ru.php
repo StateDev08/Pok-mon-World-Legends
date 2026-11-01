@@ -166,4 +166,13 @@ $txt['use_evolves_col'] = 'Эволюция:';
 $txt['use_confirm_evolve'] = 'Вы уверены, что хотите эволюционировать %s?';
 $txt['use_stone_evolved'] = 'Поздравляем, ваш <strong>%1$s</strong> эволюционировал в <strong>%2$s</strong> с помощью %3$s!';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s попадает %d раз.';
+$txt['battle_parental_hit'] = '%s попадает %d раз благодаря Parental Bond.';
+$txt['battle_recoil'] = '%s получает урон от отдачи.';
+$txt['battle_copy_move'] = '%s копирует атаку %s!';
+$txt['battle_copy_pokemon'] = '%s копирует %s.';
+$txt['battle_rocket_exit'] = 'Команда R снова улетает!';
+$txt['battle_opponent_must_attack'] = 'Соперник должен атаковать!';
+$txt['league_battle_created'] = 'Бой создан!<br />Переход к бою …';
 ?>

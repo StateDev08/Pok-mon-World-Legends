@@ -40,7 +40,7 @@ $('#messageFormChat').submit(function () {
             });
         }
     } else {
-        $('#chat-warn').html('<div class="red">Aguarde 5 segundos para enviar outra Mensagem!</div>');
+        $('#chat-warn').empty().append($('<div class="red">').text($('#messageFormChat').attr('data-wait-message')));
     }
 
     return false;

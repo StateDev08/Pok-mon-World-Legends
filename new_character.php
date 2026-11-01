@@ -36,7 +36,7 @@ else {
 			}
 
 			DB::exQuery("INSERT INTO `gebruikers` (
-				`ultimo_login`, `ultimo_login_hour`, `acc_id`, `character`, `username`, `datum`, `aanmeld_datum`, `ip_aangemeld`, `ip_ingelogd`, `wereld`,
+				`ultimo_login`, `ultimo_login_hour`, `acc_id`, `character`, `username`, `datum`, `aanmeld_datum`, `ip_aangemeld`, `ip_ingelogd`, `wereld`, `language`,
 				`werkervaring`, `profiel`, `buddy`, `blocklist`, `clan`, `wiequiz`, `soortwerk`, `werktijd`, `werktijdbegin`,
 				`pokecentertijd`, `pokecentertijdbegin`, `gevangenistijd`, `gevangenistijdbegin`, `traveltijd`, `traveltijdbegin`,
 				`captcha_time`, `captcha_tevaak_fout`, `aantalpokemon`, `badges`, `pagina`, `gewonnen`, `verloren`, `lvl_choose`,
@@ -45,7 +45,7 @@ else {
 				`1_drop`, `2_drop`, `3_drop`, `4_drop`, `5_drop`, `6_drop`, `7_drop`, `quest_1`, `quest_2`, `quest_1_req`, `quest_2_req`, `streak`,
 				$block_cols
 			) VALUES (
-				'".$date_lo."', '".$date_loh."', ".(int)$rekening['acc_id'].", '".DB::real_escape_string($character)."', '".DB::real_escape_string($inlognaam)."', NOW(), NOW(), '".$ip."', '', '".DB::real_escape_string($wereld)."',
+				'".$date_lo."', '".$date_loh."', ".(int)$rekening['acc_id'].", '".DB::real_escape_string($character)."', '".DB::real_escape_string($inlognaam)."', NOW(), NOW(), '".$ip."', '', '".DB::real_escape_string($wereld)."', '".resolve_game_language()."',
 				0, '', '', '', '', '".$zero_dt."', 0, 0, '".$zero_dt."',
 				0, '".$zero_dt."', 0, '".$zero_dt."', 0, '".$zero_dt."',
 				0, 0, 0, 0, 'home', 0, 0, '',

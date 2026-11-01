@@ -463,8 +463,8 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['titlenpc']	= 'Avatar change';
 	$txt['textnpc']		= "Here you can change your avatar.";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Nem todos os personagens possuem a mesma quantidade de avatares.</span>";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Novos avatares são adicioadas em algumas das atualizações do jogo.</span>";
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Not every character has the same number of avatars.</span>';
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Some game updates add new avatars.</span>';
 
 	$txt['pagetitle']	= 'Change my avatar';
 	$txt['pagetext']	= 'Click on one of the available avatars so you can view it and change your avatar.';
@@ -522,7 +522,7 @@ if ($page == 'home' || empty($page)) {
 		}
 		else if (($_GET['category'] ?? '') == 'email') {
 
-			$txt['pagetitle'] .= ' - Alterar E-mail';
+			$txt['pagetitle'] .= ' - Change email';
 		}
 		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
@@ -534,7 +534,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_password'] = 'Password changed successfully!';
 			
 			#Screen password
-			$txt['pagetitle'] .= ' - Alterar Senha';
+			$txt['pagetitle'] .= ' - Change password';
 			$txt['new_password'] = 'New Password:';
 			$txt['new_password_again'] = 'Repeat your new password:';
 			$txt['password_now'] = 'Current password:';
@@ -545,7 +545,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_profile'] = 'Your profile has been updated successfully.';
 			
 			#Screen profile
-			$txt['pagetitle'] .= ' - Atualizar Perfil';
+			$txt['pagetitle'] .= ' - Update profile';
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Profile Effects"><b>Here</b></a></u> you can see some tips for customizing your profile!';
 			$txt['button_profile'] = 'Update Profile!';
 		}
@@ -556,14 +556,11 @@ if ($page == 'home' || empty($page)) {
 			$txt['alert_password_wrong'] = 'Incorrect password entered.';
 			$txt['alert_no_beginworld'] = 'No region has been chosen.';
 			$txt['alert_world_invalid'] = 'Unknown region.';
-			$txt['success_restart'] = 'Successfully restarted on a new region!';
-			$txt['alert_when_restart'] = 'You can transfer in
-										  <strong><span id=uur3></span></strong> hours,
-										  <strong><span id=minuten3> </span>&nbsp;minuten</strong> minutes and
-										  <strong><span id=seconden3></span>&nbsp;seconden</strong>.';
+			$txt['success_restart'] = 'Your journey has successfully restarted in a new region!';
+			$txt['alert_when_restart'] = 'You can move in <strong><span id="uur3"></span></strong> hours, <strong><span id="minuten3"></span></strong> minutes and <strong><span id="seconden3"></span></strong> seconds.';
 			
 			#Screen restart
-			$txt['pagetitle'] .= ' - Recomeçar';
+			$txt['pagetitle'] .= ' - Restart';
 			$txt['restart_title_text'] = '<center>Fill in your password and select the region you wish to transfer to.<br /><br />
 										
 										All your pokemons, items, silver and ranking points are removed upon transfer.<br />
@@ -640,9 +637,9 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']        = 'My items';
 	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
 	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Special items';
 	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Evolution stones';
 	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
 	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
@@ -925,7 +922,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Buy items';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Special items';
 		$txt['button_spc_items'] = 'Buy special items';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -952,8 +949,8 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']		= 'Attacks';
 
 	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Special items';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Evolution stones';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['travel_region_0'] = 'The Kanto region is home to many Pokémon and has a rich history of creating Pokémon through technology. Kanto researchers excelled in their work. A researcher working for the evil organization Team Rocket cloned Mew using its genes and created the genetic Pokémon Mewtwo. Porygon, the virtual Pokémon, was also created by humans in Kanto.';
@@ -1222,7 +1219,7 @@ $txt['transfer_bought_your'] = 'bought your %1$s for %2$s and %3$s';
 		$txt['you_won'] = 'You won.';
 		$txt['you_lost'] = 'You lost.';
 		$txt['you_lost_1'] = 'You missed <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silver\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Click here to go to the pokemon center.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Click here to go to the pokemon center.</a>';
 		$txt['you_first_attack'] = 'You start attacking.';
 		$txt['opponent_first_attack'] = 'starts attacking.';
 		$txt['opponents_turn'] = 'Opponent\'s turn.';
@@ -1351,7 +1348,7 @@ $txt['transfer_bought_your'] = 'bought your %1$s for %2$s and %3$s';
 		$txt['you_won'] = 'You won.';
 		$txt['you_lost'] = 'You lost.';
 		$txt['you_lost_1'] = 'You missed <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silver\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Click here to go to the pokemon center.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Click here to go to the pokemon center.</a>';
 		$txt['you_first_attack'] = 'You start attacking.';
 		$txt['opponent_first_attack'] = 'starts attacking.';
 		$txt['opponents_turn'] = 'Opponent\'s turn.';
@@ -1467,7 +1464,7 @@ $txt['transfer_bought_your'] = 'bought your %1$s for %2$s and %3$s';
 		$txt['you_won'] = 'You won.';
 		$txt['you_lost'] = 'You lost.';
 		$txt['you_lost_1'] = 'You missed <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silver\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Click here to go to the pokemon center.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Click here to go to the pokemon center.</a>';
 		$txt['you_first_attack'] = 'You start attacking.';
 		$txt['opponent_first_attack'] = 'starts attacking.';
 		$txt['opponents_turn'] = 'Opponent\'s turn.';
@@ -1614,7 +1611,7 @@ $txt['pagetitle'] = 'Create Clan';
 }else if ($page == 'movetutor') {
 $txt['pagetitle'] = 'Move Tutor';
 }else if ($page == 'moverecorder') {
-$txt['pagetitle'] = 'Move Recorder';
+$txt['pagetitle'] = 'Move Reminder';
 }else if ($page == 'itemmarket') {
 $txt['pagetitle'] = 'Item Market';
 }else if ($page == 'clan-profile') {
@@ -2369,7 +2366,7 @@ $txt['alert_no_amount']               = 'Enter a quantity!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Buy items';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Special items';
 		$txt['button_spc_items'] = 'Buy special items';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2419,7 +2416,7 @@ $txt['alert_no_amount']               = 'Enter a quantity!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Buy items';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Special items';
 		$txt['button_spc_items'] = 'Buy special items';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -3187,4 +3184,13 @@ $txt['league_champions'] = 'Champions';
 $txt['fountain_use_count'] = 'Number of basic fountain uses';
 $txt['evolve_text'] = 'Your Pokémon reached a new stage and will now evolve into %s. If you do not want this evolution, click <b>"STOP EVOLUTION"</b>, otherwise click <b>"EVOLVE!"</b>.';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s hit %d times.';
+$txt['battle_parental_hit'] = '%s hit %d times thanks to Parental Bond.';
+$txt['battle_recoil'] = '%s is hurt by recoil.';
+$txt['battle_copy_move'] = '%s copied the move %s!';
+$txt['battle_copy_pokemon'] = '%s copied %s.';
+$txt['battle_rocket_exit'] = 'Team Rocket is blasting off again!';
+$txt['battle_opponent_must_attack'] = 'Your opponent must attack!';
+$txt['league_battle_created'] = 'Battle created!<br />Redirecting to the battle …';
 ?>

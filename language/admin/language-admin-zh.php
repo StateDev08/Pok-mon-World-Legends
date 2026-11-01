@@ -323,3 +323,7 @@ $txt['adm_pk_legendary'] = '传说/珍稀？';
 $txt['adm_pk_traders'] = '商人？';
 $txt['adm_pk_check'] = '请确认所有内容无误！';
 /* === end externalized strings === */
+
+$txt['adm_enter_trainer_id'] = '请输入训练家ID。';
+$txt['adm_choose_region'] = '请选择地区。';
+$txt['adm_choose_egg'] = '请选择蛋。';

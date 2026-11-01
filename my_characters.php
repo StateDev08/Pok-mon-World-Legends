@@ -18,6 +18,7 @@ else {
 					$endPremium = time() + (86400 * 3);
 					DB::exQuery("UPDATE `gebruikers` SET `premiumaccount`=" . (int) $endPremium . " WHERE `user_id`=" . (int) $geb_login['user_id'] . " LIMIT 1");
 				}
+				DB::exQuery("UPDATE `gebruikers` SET `language`='".resolve_game_language()."' WHERE `user_id`=".(int)$geb_login['user_id']);
 				$_SESSION['id'] = $geb_login['user_id'];
 				$_SESSION['naam'] = $geb_login['username'];
 				//$_SESSION['hash'] = md5($_SERVER['REMOTE_ADDR'] . "," . $geb_login['username']);

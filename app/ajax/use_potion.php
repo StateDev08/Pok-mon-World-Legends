@@ -41,7 +41,7 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 
 		//Als er een gewone potion gebruikt is
 		if ($life) {
-			if ($pokemon['leven'] == $pokemon['levenmax'])	$error = '<div class="blue">'.$pokemon['naam'].' teve a vida 100% recuperada.</div>';
+			if ($pokemon['leven'] == $pokemon['levenmax'])	$error = '<div class="blue">'.sprintf($txt['pokemon_full_hp'], $pokemon['naam']).'</div>';
 			else if ($pokemon['leven'] != $pokemon['levenmax']) {	//Is het leven 0 dan heeft potions geen nut
 				// Calculate new life
 				$newlife = $pokemon['leven']+$itemgegevens['kracht'];

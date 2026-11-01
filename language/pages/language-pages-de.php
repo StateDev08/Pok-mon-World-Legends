@@ -1,10 +1,10 @@
 <?php
 if ($page == 'home' || empty($page)) {
 	$txt['home_news_text'] = '[16/07/2019] - <b>%s</b> VERÖFFENTLICHT! SEHT EUCH DIE <b>UPDATE-NOTIZEN</b> UNTER DEN <a href="./official-messages">OFFIZIELLEN NACHRICHTEN</a> AN!';
-	$txt['pagetitle']			= 'Heim';
+	$txt['pagetitle']			= 'Startseite';
 	$txt['news_empty']			= 'Im Moment keine Neuigkeiten!';
 	$txt['poke_stats']			= 'Pokemon-Statistiken';
-	$txt['loading']				= 'Laden...';
+	$txt['loading']				= 'Wird geladen …';
 	$txt['pokes_ammunt']		= 'Es gibt %s Arten von Pokémon.';
 	$txt['top_gebruikers']		= 'Beste Trainer';
 } else if ($page == 'disclaimer') {
@@ -314,7 +314,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['how_much']              = 'Es gibt <b>%s</b> %ss im Spiel.';
 		$txt['attack&evolution']      = 'Angriffe und Evolution';
 		$txt['no_attack_or_evolve']   = 'Keine Angriffe und/oder Entwicklungen!';
-		$txt['level']                 = 'Ebene';
+		$txt['level'] = 'Level';
 		$txt['evolution']             = 'Evolution';
 		$txt['unknow']				  = 'Unbekannt';
 		$txt['capture_chance']		  = 'Chance auf Gefangennahme';
@@ -370,7 +370,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['users_total']         = 'Trainer:';
 	$txt['silver_in_game']      = 'Gesamtsilber:';
 	$txt['pokemon_total']       = 'Pokémon:';
-	$txt['matches_played']      = 'Gesamtzahl der Schlachten:';
+	$txt['matches_played']      = 'Kämpfe insgesamt:';
 	$txt['top5_silver_users']   = 'Die 5 reichsten';
 	$txt['#']                   = '#';
 	$txt['who']                 = 'Benutzer';
@@ -378,7 +378,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['top5_pokemon_total']  = 'Die 5 reichsten Triadores';
 	$txt['number']              = '#';
 	$txt['top5_matches_played'] = 'Top 5 Duellanten: <span class="small Text">Siege – Niederlagen</ Span>';
-	$txt['matches']             = 'Schlachten';
+	$txt['matches']             = 'Kämpfe';
 	$txt['top10_new_users']     = 'Letzte 10 Benutzer';
 	$txt['when']                = 'Registriert in';
 } else if ($page == 'rankinglist') {
@@ -463,8 +463,8 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['titlenpc']	= 'Avatar-Änderung';
 	$txt['textnpc']		= "Hier können Sie Ihren Avatar ändern.";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Nem todos os personagens possuem a mesma quantidade de avatares.</span>";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Novos avatares são adicioadas em algumas das atualizações do jogo.</span>";
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Nicht für jeden Charakter stehen gleich viele Avatare zur Verfügung.</span>';
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Mit manchen Spielupdates kommen neue Avatare hinzu.</span>';
 
 	$txt['pagetitle']	= 'Ändere meinen Avatar';
 	$txt['pagetext']	= 'Klicken Sie auf einen der verfügbaren Avatare, um ihn anzuzeigen und Ihren Avatar zu ändern.';
@@ -522,7 +522,7 @@ if ($page == 'home' || empty($page)) {
 		}
 		else if (($_GET['category'] ?? '') == 'email') {
 
-			$txt['pagetitle'] .= ' - Alterar E-mail';
+			$txt['pagetitle'] .= ' - E-Mail ändern';
 		}
 		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
@@ -534,7 +534,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_password'] = 'Passwort erfolgreich geändert!';
 			
 			#Screen password
-			$txt['pagetitle'] .= ' - Alterar Senha';
+			$txt['pagetitle'] .= ' - Passwort ändern';
 			$txt['new_password'] = 'Neues Passwort:';
 			$txt['new_password_again'] = 'Wiederholen Sie Ihr neues Passwort:';
 			$txt['password_now'] = 'Aktuelles Passwort:';
@@ -545,7 +545,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_profile'] = 'Ihr Profil wurde erfolgreich aktualisiert.';
 			
 			#Screen profile
-			$txt['pagetitle'] .= ' - Atualizar Perfil';
+			$txt['pagetitle'] .= ' - Profil aktualisieren';
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Profile Effects"><b>Hier</b></a></u> finden Sie einige Tipps zum Anpassen Ihres Profils!';
 			$txt['button_profile'] = 'Profil aktualisieren!';
 		}
@@ -563,7 +563,7 @@ if ($page == 'home' || empty($page)) {
 										  <strong><span id=seconden3></span>&nbsp;seconden</strong>.';
 			
 			#Screen restart
-			$txt['pagetitle'] .= ' - Recomeçar';
+			$txt['pagetitle'] .= ' - Neu beginnen';
 			$txt['restart_title_text'] = '<center>Geben Sie Ihr Passwort ein und wählen Sie die Region aus, in die Sie übertragen möchten.<br /><br />
 										
 										Alle deine Pokémon, Gegenstände, Silber und Ranglistenpunkte werden bei der Übertragung entfernt.<br />
@@ -579,7 +579,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['clamour_name']       = 'Name:';
 	$txt['defence_points']     = 'Verteidigung:';
 	$txt['type']               = 'Typ:';
-	$txt['level']              = 'Ebene:';
+	$txt['level'] = 'Level';
 	$txt['speed_points']       = 'Geschwindigkeit:';
 	$txt['spc_attack_points']  = 'Insb. Angriff:';
 	$txt['mood']               = 'Humor:';
@@ -600,7 +600,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['#']                   = '#';
 	$txt['pokemon']             = 'Pokémon';
 	$txt['clamour_name']        = 'Name';
-	$txt['level']               = 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['sell']                = 'Verkaufen';
 	$txt['go_to_transferlist']  = 'Gehen Sie zum Pokémon-Markt';
 } else if ($page == 'poke-event') {
@@ -626,7 +626,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['#']                        = '#';
 	$txt['pokemon']                  = 'Pokémon';
 	$txt['clamour_name']             = 'Name';
-	$txt['level']                    = 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['release']                  = 'Freigeben';
 	$txt['alert_no_pokemon_in_hand'] = 'Du hast kein Pokémon in deinem Team.';
 	$txt['button']                   = 'Freigeben';
@@ -640,9 +640,9 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']        = 'Meine Artikel';
 	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
 	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Spezial-Items';
 	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Entwicklungssteine';
 	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
 	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
@@ -655,7 +655,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['use']              = 'Zu verwenden';
 	$txt['balls']            = 'Pokébälle';
 	$txt['potions']          = 'Zaubertränke';
-	$txt['items']            = 'Artikel';
+	$txt['items'] = 'Items';
 	$txt['badge_case_title'] = 'Eine Box für Ihre Abzeichensammlung.';
 	$txt['box_title']        = 'Sie können Ihre Artikel dort abgeben';
 	$txt['spc_items']        = 'Sonderposten';
@@ -693,7 +693,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['places_over']        = 'verfügbare Slots';
 	$txt['#']                  = '#';
 	$txt['clamour_name']       = 'Pokémon';
-	$txt['level']              = 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['bring_away']         = 'Speichern';
 	$txt['take']               = 'Zum Mitnehmen';
 	$txt['button_take']        = 'OK';
@@ -726,7 +726,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['pokedex_rarity_6']        = 'Mythisch';
 	$txt['pokedex_rarity_7']        = 'Mega';
 	$txt['pokedex_rarity_8']        = 'Speziell';
-	$txt['have_already']            = 'Du hast bereits';
+	$txt['have_already'] = 'Bereits gefangen:';
 } else if ($page == 'events') {
 	$txt['events_title']            = 'Meine Benachrichtigungen';
 	$txt['events_npc_text']         = 'Hier können Sie alle Vorgänge in Ihrem Spiel verfolgen.';
@@ -756,7 +756,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['bank']              = 'Bank:';
 	$txt['rank']              = 'Rang:';
 	$txt['rank_number']       = 'Allgemeine Bewertung:';
-	$txt['badges_number']     = 'Insignien:';
+	$txt['badges_number']     = 'Orden:';
 	$txt['pokemon']           = 'Pokémon:';
 	$txt['win']               = 'Siege:';
 	$txt['lost']              = 'Niederlagen:';
@@ -890,7 +890,7 @@ if ($page == 'home' || empty($page)) {
 		Werden Sie Premium-Trainer und verkürzen Sie Wartezeiten.<br />
 		Werden Sie jetzt Premium, indem Sie <a href="./gold-market"><b>hier klicken!</b></a>';
 	$txt['who']                = 'Pokémon';
-	$txt['health']             = 'PS';
+	$txt['health'] = 'KP';
 	$txt['amount']             = 'Kosten';
 	$txt['nvt']                = 'Nicht anwendbar';
 	$txt['button']             = 'Behandeln';
@@ -909,7 +909,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle'] = 'PokéMart';
 	$txt['balls']     = 'Pokébälle';
 	$txt['potions']   = 'Zaubertränke';
-	$txt['items']     = 'Artikel';
+	$txt['items'] = 'Items';
 	$txt['spc_items'] = 'Sonderposten';
 	$txt['stones']    = 'Steine';
 	$txt['attacks']   = 'Angriffe';
@@ -925,7 +925,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Artikel kaufen';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Spezial-Items';
 		$txt['button_spc_items'] = 'Kaufen Sie besondere Artikel';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -952,8 +952,8 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']		= 'Angriffe';
 
 	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Spezial-Items';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Entwicklungssteine';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['travel_region_0'] = 'Die Kanto-Region ist die Heimat vieler Pokémon und hat eine reiche Geschichte der Erschaffung von Pokémon durch Technologie. Die Forscher Kantos waren hervorragend in ihrer Arbeit. Ein Forscher der bösen Organisation Team Rocket klonte Mew mithilfe seiner Gene und erschuf das genetische Pokémon Mewtu. Porygon, das virtuelle Pokémon, wurde in Kanto ebenfalls von Menschen erschaffen.';
@@ -1000,7 +1000,7 @@ if ($page == 'home' || empty($page)) {
 	$txt['#']             = '#';
 	$txt['pokemon']       = 'Pokémon';
 	$txt['clamour_name']  = 'Name';
-	$txt['level']         = 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['price']         = 'Wert';
 	$txt['owner']         = 'Trainer';
 	$txt['buy']           = 'Kaufen';
@@ -1035,7 +1035,7 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 	$txt['take_pokemon_text'] = 'Deine(n) Kindergarten-Pokémon(s):';
 	$txt['#']                 = '#';
 	$txt['name']              = 'Name';
-	$txt['level']             = 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['levelup']           = 'Aktueller Stand';
 	$txt['cost']              = 'Kosten für den Rückzug';
 	$txt['buy']               = 'Zahlen';
@@ -1063,7 +1063,7 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 	$txt['naam_specialist']		= 'Namensspezialist';
 	$txt['#']					= '#';
 	$txt['pokemon']				= 'Pokémon';
-	$txt['level']				= 'Ebene';
+	$txt['level'] = 'Level';
 	$txt['amount']				= 'Wert';
 	$txt['naam']				= 'Name';
 	$txt['buttom']				= 'OK';
@@ -1128,7 +1128,7 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		$txt['alert_wrong_world'] = 'Du bist in der falschen Zone.';
 		$txt['alert_gym_finished'] = 'Du hast diesen Arenaleiter bereits besiegt.';
 		$txt['alert_no_pokemon'] = 'Du hast kein Pokémon.';
-		$txt['begindood'] = "Du hast keine Pokémon bei dir oder sie sind alle tot.";
+		$txt['begindood'] = 'Alle deine Pokémon wurden besiegt.';
 		
 		#Screen
 		$txt['pagetitle'] = 'Fitnessstudios';
@@ -1172,7 +1172,7 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		$txt['alert_opponent_already_fighting'] = 'ist bereits im Duell.';
 		$txt['waiting_for_accept'] = 'beschäftigt ist, warten Sie auf seine Antwort.';
 		$txt['alert_opponent_no_silver'] = 'Dein Gegner hat nicht genug Silber.';
-		$txt['alert_opponent_no_health'] = 'Alle Pokémon deines Gegners sind tot.';
+		$txt['alert_opponent_no_health'] = 'Alle Pokémon deines Gegners wurden besiegt.';
 		$txt['alert_user_unknown'] = 'Der Trainer existiert nicht.';
 		
 		#Screen
@@ -1203,7 +1203,7 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 	else if ($page == 'attack/duel/invited') {
 		#Alerts
 		$txt['alert_not_enough_silver'] = 'Du hast nicht genug Silber.';
-		$txt['alert_all_pokemon_ko'] = 'Alle deine Pokémon sind tot.';
+		$txt['alert_all_pokemon_ko'] = 'Alle deine Pokémon wurden besiegt.';
 		$txt['success_accepted'] = 'Du hast das Duell angenommen.';
 		$txt['success_cancelled'] = 'Du hast das Duell abgelehnt.';
 		$txt['alert_too_late'] = 'Du wurdest zu einem Duell herausgefordert, aber leider hat deine Antwort zu lange gedauert.';
@@ -1221,124 +1221,124 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 		#Screen
 		$txt['you_won'] = 'Du hast gewonnen.';
 		$txt['you_lost'] = 'Du hast verloren.';
-		$txt['you_lost_1'] = 'Du hast <img src=\' verpasst'.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Klicken Sie hier, um zum Pokémon-Center zu gelangen.</a>';
-		$txt['you_first_attack'] = 'Du fängst an anzugreifen.';
-		$txt['opponent_first_attack'] = 'beginnt anzugreifen.';
-		$txt['opponents_turn'] = 'Der Gegner ist an der Reihe.';
-		$txt['your_turn'] = 'Jetzt sind Sie an der Reihe anzugreifen!';
+		$txt['you_lost_1'] = 'Du verlierst <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Zum Pokémon-Center</a>';
+		$txt['you_first_attack'] = 'Du greifst zuerst an.';
+		$txt['opponent_first_attack'] = 'greift zuerst an.';
+		$txt['opponents_turn'] = 'Dein Gegner ist am Zug.';
+		$txt['your_turn'] = 'Du bist am Zug!';
 		$txt['have_to_change_1'] = 'Dein';
 		$txt['have_to_change_2'] = 'Wenn das Pokémon besiegt wurde, kannst du ein anderes Pokémon auswählen.';
-		$txt['next_time_wait'] = 'Warten Sie, während Ihr Gegner angreift.';
+		$txt['next_time_wait'] = 'Warte, bis dein Gegner angegriffen hat.';
 		$txt['fight_finished'] = 'Der Kampf ist vorbei.';
-		$txt['success_catched_1'] = 'Du hast gerade erfasst';
-		$txt['success_catched_2'] = 'erfolgreich!';
-		$txt['no_item_selected'] = 'Wählen Sie zuerst einen Artikel!';
-		$txt['potion_no_pokemon_selected'] = 'Du musst ein Pokémon auswählen!';
-		$txt['busy_with_attack'] = 'Schlacht wird geladen..';
-		$txt['have_already'] = 'Das haben Sie bereits';
-		$txt['a_wild'] = 'Ein Wilder';
-		$txt['potion_text'] = 'Wählen Sie aus, welches Pokémon Sie verwenden möchten';
+		$txt['success_catched_1'] = 'Du hast ';
+		$txt['success_catched_2'] = ' gefangen. Der Kampf ist vorbei.';
+		$txt['no_item_selected'] = 'Wähle zuerst ein Item aus!';
+		$txt['potion_no_pokemon_selected'] = 'Wähle ein Pokémon aus!';
+		$txt['busy_with_attack'] = 'Kampf wird geladen …';
+		$txt['have_already'] = 'Bereits gefangen:';
+		$txt['a_wild'] = 'Ein wildes Pokémon:';
+		$txt['potion_text'] = 'Wähle das Pokémon aus, bei dem du das Item einsetzen möchtest.';
 		$txt['*'] = '*';
 		$txt['pokemon'] = 'Pokémon';
-		$txt['level'] = 'Ebene';
-		$txt['health'] = 'Leben';
-		$txt['potion_egg_text'] = 'Nicht verwendbar';
-		$txt['button_potion'] = 'Zu verwenden';
+		$txt['level'] = 'Level';
+		$txt['health'] = 'KP';
+		$txt['potion_egg_text'] = 'Nicht einsetzbar';
+		$txt['button_potion'] = 'Einsetzen';
 		$txt['attack'] = 'Angriff';
-		$txt['change'] = 'Auswahl';
-		$txt['items'] = 'Artikel';
-		$txt['button_item'] = 'Zu verwenden';
-		$txt['must_attack'] = 'Du musst angreifen';
+		$txt['change'] = 'Wechseln';
+		$txt['items'] = 'Items';
+		$txt['button_item'] = 'Einsetzen';
+		$txt['must_attack'] = 'Wähle eine Attacke aus.';
 		$txt['is_ko'] = 'wurde besiegt.';
-		$txt['flinched'] = 'zögert';
-		$txt['sleeps'] = 'er hat geschlafen.';
-		$txt['awake'] = 'er erinnerte sich.';
-		$txt['frozen'] = 'war eingefroren.';
-		$txt['no_frozen'] = 'es ist nicht mehr gefroren.';
-		$txt['not_paralyzed'] = 'ist nicht mehr gelähmt.';
-		$txt['paralyzed'] = 'ist gelähmt.';
+		$txt['flinched'] = 'schreckt zurück.';
+		$txt['sleeps'] = 'schläft tief und fest.';
+		$txt['awake'] = 'ist aufgewacht.';
+		$txt['frozen'] = 'ist eingefroren.';
+		$txt['no_frozen'] = 'ist aufgetaut.';
+		$txt['not_paralyzed'] = 'ist nicht mehr paralysiert.';
+		$txt['paralyzed'] = 'ist paralysiert.';
 		$txt['fight_over'] = 'Der Kampf ist vorbei.';
-		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon.';
-		$txt['use_attack_1'] = 'gebraucht';
+		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon aus.';
+		$txt['use_attack_1'] = 'verwendet';
 		$txt['use_attack_2'] = ', dein Pokémon wurde besiegt.<br />';
-		$txt['use_attack_2_hit'] = ', direkter Angriff.';
-		$txt['did'] = 'gebraucht';
+		$txt['use_attack_2_hit'] = '. Die Attacke trifft!';
+		$txt['did'] = 'verwendet';
 		$txt['hit!'] = '.';
-		$txt['your_attack_turn'] = '<br />Sie sind an der Reihe anzugreifen.';
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff.';
-		$txt['start_0'] = "Du findest";
-		$txt['start_1'] = "voraus.";
-		$txt['appears'] = "er erschien.";
-		$txt['defeated_1'] = "Du hast besiegt";
-		$txt['defeated_2'] = "und habe es verstanden";
+		$txt['your_attack_turn'] = '<br />Du bist am Zug.';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
+		$txt['start_0'] = 'Du begegnest ';
+		$txt['start_1'] = '.';
+		$txt['appears'] = ' ist aufgetaucht.';
+		$txt['defeated_1'] = 'Du hast ';
+		$txt['defeated_2'] = ' besiegt und erhältst ';
 		$txt['defeated_masterball'] = '';
-		$txt['get_badge_1'] = 'die Insignien';
-		$txt['get_badge_2'] = 'Und';
+		$txt['get_badge_1'] = 'den Orden';
+		$txt['get_badge_2'] = 'und';
 		$txt['no_badgecase'] = '';
-		$txt['has_defeated_you_1'] = 'habe dich besiegt.';
-		$txt['has_defeated_you_2'] = 'Du hast verloren';
-		$txt['bringed'] = 'bringt';
+		$txt['has_defeated_you_1'] = ' hat dich besiegt.';
+		$txt['has_defeated_you_2'] = ' Du verlierst ';
+		$txt['bringed'] = ' setzt ';
 		$txt['pagetitle'] = 'Ein Pokémon ist aufgetaucht!';
 		
 		
 		//Start Fight
-		$txt['begindood'] = "Alle deine Pokémon wurden besiegt.";
-		$txt['opponent_error'] = "Fehler: Keine Gegner.";
+		$txt['begindood'] = 'Alle deine Pokémon wurden besiegt.';
+		$txt['opponent_error'] = 'Kein Gegner gefunden.';
 		
 		
 		//Attack General
-		$txt['success_catched_1'] = "Du hast gefangen genommen";
-		$txt['success_catched_2'] = "gefangen genommen. Der Kampf ist vorbei.";
-		$txt['new_pokemon_dead']   = "kann nicht mehr kämpfen. Dein Pokémon wurde besiegt!";
-		$txt['not_your_turn'] = "Du bist nicht an der Reihe, es liegt an dir";
+		$txt['success_catched_1'] = 'Du hast ';
+		$txt['success_catched_2'] = ' gefangen. Der Kampf ist vorbei.';
+		$txt['new_pokemon_dead'] = 'kann nicht mehr kämpfen. Dein Pokémon wurde besiegt!';
+		$txt['not_your_turn'] = 'Du bist noch nicht am Zug.';
 		
 
 		
 		//Change Pokemon
-		$txt['change_block'] = "Du kannst dein Pokémon nicht ändern!";
-		$txt['change_egg']  = "Du kannst kein Ei pflücken!";
-		$txt['success_change_1']  = "Du hast Pokémon verändert.";
-		$txt['success_change_2'] = "trat in die Schlacht ein.";
-		$txt['success_change_you_attack'] = "Du hast das Pokémon gewechselt, es kämpft jetzt.";
-		$txt['now_pokemon_dead_2'] = "ist zu schwach, um in die Schlacht zu ziehen.";
+		$txt['change_block'] = 'Du kannst dein Pokémon gerade nicht wechseln!';
+		$txt['change_egg'] = 'Ein Ei kann nicht kämpfen!';
+		$txt['success_change_1'] = 'Du hast dein Pokémon gewechselt. ';
+		$txt['success_change_2'] = ' nimmt am Kampf teil.';
+		$txt['success_change_you_attack'] = 'Du hast dein Pokémon gewechselt. Es kämpft jetzt.';
+		$txt['now_pokemon_dead_2'] = ' ist zu schwach zum Kämpfen.';
 		
 		//Use Pokeball
-		$txt['ball_choose'] = "Wähle einen Gegenstand, den du hast, oder kämpfe.";
-		$txt['hand_house_full'] = "Du hast keinen Platz für ein neues Pokémon";  
-		$txt['ball_have'] = "Du hast einen Pokeball.";
-		$txt['ball_amount'] = "Das hast du nicht";
-		$txt['ball_throw_1'] = "Du hast ein gespielt";
-		$txt['ball_throw_2'] = ".";
-		$txt['ball_success'] = "wurde gefangen genommen.";
-		$txt['ball_failure'] = "wurde nicht erfasst.";
-		$txt['ball_success_2'] = "wurde zu ihm nach Hause geschickt.";
+		$txt['ball_choose'] = 'Wähle einen Pokéball aus deinem Beutel aus.';
+		$txt['hand_house_full'] = 'Du hast keinen Platz für ein weiteres Pokémon.';
+		$txt['ball_have'] = 'Du musst einen Pokéball auswählen.';
+		$txt['ball_amount'] = 'Du besitzt keinen ';
+		$txt['ball_throw_1'] = 'Du wirfst einen ';
+		$txt['ball_throw_2'] = '. ';
+		$txt['ball_success'] = ' wurde gefangen.';
+		$txt['ball_failure'] = ' wurde nicht gefangen.';
+		$txt['ball_success_2'] = ' wurde in deine Pokémon-Box geschickt.';
 		
 			
 		//Use potion
-		$txt['potion_choose'] = "Wähle einen Gegenstand, den du hast, oder kämpfe.";  
-		$txt['potion_have'] = "Du hast einen Trank.";
-		$txt['potion_life_full'] = "wurde vollständig wiederhergestellt";
-		$txt['potion_amount'] = "Das hast du nicht";
-		$txt['potion_life_zero_1'] = "du kannst";
-		$txt['potion_life_zero_2'] = "nicht wiederhergestellt";
-		$txt['potion_give_1'] = "Du hast gegeben";
-		$txt['potion_give_2'] = "eins";
-		$txt['potion_give'] = "Hast du ein verwendet?";
-		$txt['potion_give_end_1'] = "wurde regeneriert.";
-		$txt['potion_give_end_2'] = "wurde regeneriert.";
-		$txt['potion_give_end_3'] = "wurde wiederbelebt.";
+		$txt['potion_choose'] = 'Wähle ein Heilitem aus deinem Beutel aus.';
+		$txt['potion_have'] = 'Du musst ein Heilitem auswählen.';
+		$txt['potion_life_full'] = ' hat bereits volle KP.';
+		$txt['potion_amount'] = 'Du besitzt keinen ';
+		$txt['potion_life_zero_1'] = 'Du kannst ';
+		$txt['potion_life_zero_2'] = ' nicht heilen, solange es besiegt ist.';
+		$txt['potion_give_1'] = 'Du gibst ';
+		$txt['potion_give_2'] = ' ein ';
+		$txt['potion_give'] = 'Du setzt ein Heilitem ein.';
+		$txt['potion_give_end_1'] = ' wurde geheilt.';
+		$txt['potion_give_end_2'] = ' wurde geheilt.';
+		$txt['potion_give_end_3'] = ' wurde wiederbelebt.';
 				
 		//Function
-		$txt['recieve'] = "es erhielt";
-		$txt['recieve_boost'] = "es erreicht";
-		$txt['exp_points'] = "der Erfahrung.";
+		$txt['recieve'] = ' erhält ';
+		$txt['recieve_boost'] = ' erhält zusätzlich ';
+		$txt['exp_points'] = ' Erfahrungspunkte.';
 		
 		//Run
-		$txt['success_run'] = "Dir ist die Flucht gelungen.";
-		$txt['failure_run'] = "Ihr Fluchtversuch ist gescheitert";
+		$txt['success_run'] = 'Du bist erfolgreich geflohen.';
+		$txt['failure_run'] = 'Du konntest nicht fliehen vor ';
 		
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
 		$txt['opponent_choose_pokemon'] = 'Du wählst ein Pokémon.';
 		
 
@@ -1350,103 +1350,103 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
   	#Screen
 		$txt['you_won'] = 'Du hast gewonnen.';
 		$txt['you_lost'] = 'Du hast verloren.';
-		$txt['you_lost_1'] = 'Du hast <img src=\' verpasst'.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Klicken Sie hier, um zum Pokémon-Center zu gelangen.</a>';
-		$txt['you_first_attack'] = 'Du fängst an anzugreifen.';
-		$txt['opponent_first_attack'] = 'beginnt anzugreifen.';
-		$txt['opponents_turn'] = 'Der Gegner ist an der Reihe.';
-		$txt['your_turn'] = 'Jetzt sind Sie an der Reihe anzugreifen!';
+		$txt['you_lost_1'] = 'Du verlierst <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Zum Pokémon-Center</a>';
+		$txt['you_first_attack'] = 'Du greifst zuerst an.';
+		$txt['opponent_first_attack'] = 'greift zuerst an.';
+		$txt['opponents_turn'] = 'Dein Gegner ist am Zug.';
+		$txt['your_turn'] = 'Du bist am Zug!';
 		$txt['have_to_change_1'] = 'Dein';
 		$txt['have_to_change_2'] = 'Wenn das Pokémon besiegt wurde, kannst du ein anderes Pokémon auswählen.';
-		$txt['next_time_wait'] = 'Warten Sie, während Ihr Gegner angreift.';
+		$txt['next_time_wait'] = 'Warte, bis dein Gegner angegriffen hat.';
 		$txt['fight_finished'] = 'Der Kampf ist vorbei.';
-		$txt['success_catched_1'] = 'Du hast gerade erfasst';
-		$txt['success_catched_2'] = 'erfolgreich!';
-		$txt['no_item_selected'] = 'Wählen Sie zuerst einen Artikel!';
-		$txt['potion_no_pokemon_selected'] = 'Du musst ein Pokémon auswählen!';
-		$txt['busy_with_attack'] = 'Schlacht wird geladen..';
-		$txt['have_already'] = 'Das haben Sie bereits';
-		$txt['a_wild'] = 'Ein Wilder';
-		$txt['potion_text'] = 'Wählen Sie aus, welches Pokémon Sie verwenden möchten';
+		$txt['success_catched_1'] = 'Du hast ';
+		$txt['success_catched_2'] = ' gefangen. Der Kampf ist vorbei.';
+		$txt['no_item_selected'] = 'Wähle zuerst ein Item aus!';
+		$txt['potion_no_pokemon_selected'] = 'Wähle ein Pokémon aus!';
+		$txt['busy_with_attack'] = 'Kampf wird geladen …';
+		$txt['have_already'] = 'Bereits gefangen:';
+		$txt['a_wild'] = 'Ein wildes Pokémon:';
+		$txt['potion_text'] = 'Wähle das Pokémon aus, bei dem du das Item einsetzen möchtest.';
 		$txt['*'] = '*';
 		$txt['pokemon'] = 'Pokémon';
-		$txt['level'] = 'Ebene';
-		$txt['health'] = 'Leben';
-		$txt['potion_egg_text'] = 'Nicht verwendbar';
-		$txt['button_potion'] = 'Zu verwenden';
+		$txt['level'] = 'Level';
+		$txt['health'] = 'KP';
+		$txt['potion_egg_text'] = 'Nicht einsetzbar';
+		$txt['button_potion'] = 'Einsetzen';
 		$txt['attack'] = 'Angriff';
-		$txt['change'] = 'Auswahl';
-		$txt['items'] = 'Artikel';
-		$txt['button_item'] = 'Zu verwenden';
-		$txt['must_attack'] = 'Du musst angreifen';
+		$txt['change'] = 'Wechseln';
+		$txt['items'] = 'Items';
+		$txt['button_item'] = 'Einsetzen';
+		$txt['must_attack'] = 'Wähle eine Attacke aus.';
 		$txt['is_ko'] = 'wurde besiegt.';
-		$txt['flinched'] = 'zögert';
-		$txt['sleeps'] = 'er hat geschlafen.';
-		$txt['awake'] = 'er erinnerte sich.';
-		$txt['frozen'] = 'war eingefroren.';
-		$txt['no_frozen'] = 'es ist nicht mehr gefroren.';
-		$txt['not_paralyzed'] = 'ist nicht mehr gelähmt.';
-		$txt['paralyzed'] = 'ist gelähmt.';
+		$txt['flinched'] = 'schreckt zurück.';
+		$txt['sleeps'] = 'schläft tief und fest.';
+		$txt['awake'] = 'ist aufgewacht.';
+		$txt['frozen'] = 'ist eingefroren.';
+		$txt['no_frozen'] = 'ist aufgetaut.';
+		$txt['not_paralyzed'] = 'ist nicht mehr paralysiert.';
+		$txt['paralyzed'] = 'ist paralysiert.';
 		$txt['fight_over'] = 'Der Kampf ist vorbei.';
-		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon.';
-		$txt['use_attack_1'] = 'gebraucht';
+		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon aus.';
+		$txt['use_attack_1'] = 'verwendet';
 		$txt['use_attack_2'] = ', dein Pokémon wurde besiegt.<br />';
-		$txt['use_attack_2_hit'] = ', direkter Angriff.';
-		$txt['did'] = 'gebraucht';
+		$txt['use_attack_2_hit'] = '. Die Attacke trifft!';
+		$txt['did'] = 'verwendet';
 		$txt['hit!'] = '.';
-		$txt['your_attack_turn'] = '<br />Sie sind an der Reihe anzugreifen.';
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff.';
-		$txt['start_0'] = "Du findest";
-		$txt['start_1'] = "voraus.";
-		$txt['appears'] = "er erschien.";
-		$txt['defeated_1'] = "Du hast besiegt";
-		$txt['defeated_2'] = "und habe es verstanden";
+		$txt['your_attack_turn'] = '<br />Du bist am Zug.';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
+		$txt['start_0'] = 'Du begegnest ';
+		$txt['start_1'] = '.';
+		$txt['appears'] = ' ist aufgetaucht.';
+		$txt['defeated_1'] = 'Du hast ';
+		$txt['defeated_2'] = ' besiegt und erhältst ';
 		$txt['defeated_masterball'] = '';
-		$txt['get_badge_1'] = 'die Insignien';
-		$txt['get_badge_2'] = 'Und';
+		$txt['get_badge_1'] = 'den Orden';
+		$txt['get_badge_2'] = 'und';
 		$txt['no_badgecase'] = '';
-		$txt['has_defeated_you_1'] = 'habe dich besiegt.';
-		$txt['has_defeated_you_2'] = 'Du hast verloren';
-		$txt['bringed'] = 'bringt';
+		$txt['has_defeated_you_1'] = ' hat dich besiegt.';
+		$txt['has_defeated_you_2'] = ' Du verlierst ';
+		$txt['bringed'] = ' setzt ';
 		                     
 		$txt['pagetitle'] = 'Kämpfe gegen den Trainer';
 		
 		//Start Fight
-		$txt['begindood'] = "Alle deine Pokémon wurden besiegt.";
-		$txt['opponent_error'] = "Fehler: Keine Gegner.";
+		$txt['begindood'] = 'Alle deine Pokémon wurden besiegt.';
+		$txt['opponent_error'] = 'Kein Gegner gefunden.';
 		
 		//Attack General
-		$txt['new_pokemon_dead']   = "kann nicht mehr kämpfen. Dein Pokémon wurde besiegt!";
-		$txt['not_your_turn'] = "Du bist nicht an der Reihe, sondern du bist an der Reihe";
+		$txt['new_pokemon_dead'] = 'kann nicht mehr kämpfen. Dein Pokémon wurde besiegt!';
+		$txt['not_your_turn'] = 'Du bist noch nicht am Zug.';
 		
 		//Change Pokemon
-		$txt['change_block'] = "Du kannst dein Pokémon nicht ändern!";
-		$txt['change_egg']  = "Du kannst kein Ei pflücken!";
-		$txt['success_change_1']  = "Du hast Pokémon verändert.";
-		$txt['success_change_2'] = "trat in die Schlacht ein.";
-		$txt['success_change_you_attack'] = "Du hast das Pokémon gewechselt, es kämpft jetzt.";
-		$txt['now_pokemon_dead_2'] = "ist zu schwach, um in die Schlacht zu ziehen.";
+		$txt['change_block'] = 'Du kannst dein Pokémon gerade nicht wechseln!';
+		$txt['change_egg'] = 'Ein Ei kann nicht kämpfen!';
+		$txt['success_change_1'] = 'Du hast dein Pokémon gewechselt. ';
+		$txt['success_change_2'] = ' nimmt am Kampf teil.';
+		$txt['success_change_you_attack'] = 'Du hast dein Pokémon gewechselt. Es kämpft jetzt.';
+		$txt['now_pokemon_dead_2'] = ' ist zu schwach zum Kämpfen.';
 			
 		//Use potion
-		$txt['potion_choose'] = "Wähle einen Gegenstand, den du hast, oder kämpfe.";  
-		$txt['potion_have'] = "Du hast einen Trank.";
-		$txt['potion_life_full'] = "wurde vollständig wiederhergestellt";
-		$txt['potion_amount'] = "Das hast du nicht";
-		$txt['potion_life_zero_1'] = "du kannst";
-		$txt['potion_life_zero_2'] = "nicht wiederhergestellt";
-		$txt['potion_give_1'] = "Du hast gegeben";
-		$txt['potion_give_2'] = "eins";
-		$txt['potion_give'] = "Hast du ein verwendet?";
-		$txt['potion_give_end_1'] = "wurde regeneriert.";
-		$txt['potion_give_end_2'] = "wurde regeneriert.";
-		$txt['potion_give_end_3'] = "wurde wiederbelebt.";
+		$txt['potion_choose'] = 'Wähle ein Heilitem aus deinem Beutel aus.';
+		$txt['potion_have'] = 'Du musst ein Heilitem auswählen.';
+		$txt['potion_life_full'] = ' hat bereits volle KP.';
+		$txt['potion_amount'] = 'Du besitzt keinen ';
+		$txt['potion_life_zero_1'] = 'Du kannst ';
+		$txt['potion_life_zero_2'] = ' nicht heilen, solange es besiegt ist.';
+		$txt['potion_give_1'] = 'Du gibst ';
+		$txt['potion_give_2'] = ' ein ';
+		$txt['potion_give'] = 'Du setzt ein Heilitem ein.';
+		$txt['potion_give_end_1'] = ' wurde geheilt.';
+		$txt['potion_give_end_2'] = ' wurde geheilt.';
+		$txt['potion_give_end_3'] = ' wurde wiederbelebt.';
 				
 		//Function
-		$txt['recieve'] = "es erhielt";
-		$txt['recieve_boost'] = "es erreicht";
-		$txt['exp_points'] = "der Erfahrung.";
+		$txt['recieve'] = ' erhält ';
+		$txt['recieve_boost'] = ' erhält zusätzlich ';
+		$txt['exp_points'] = ' Erfahrungspunkte.';
 		
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
 		$txt['opponent_choose_pokemon'] = 'Du wählst ein Pokémon.';
 		$txt['trainer_fighting'] = 'Kampf gegen %s';
 		$txt['trainer_willing'] = 'Bereit';
@@ -1458,77 +1458,77 @@ $txt['transfer_bought_your'] = 'kaufte dein %1$s für %2$s und %3$s';
 	else if ($page == 'attack/duel/duel-attack') {
 		#Screen
 		$txt['a_boosted'] = 'es erreicht';
-		$txt['too_late_lost'] = 'Du hast zu lange gebraucht, um anzugreifen! Du hast verloren!';
+		$txt['too_late_lost'] = 'Du hast zu lange gewartet und den Kampf verloren.';
 		$txt['you_won_dus'] = 'Du hast durch Verspätung gewonnen!';
-		$txt['recieve'] = "es erhielt";
-		$txt['recieve_boost'] = "es erreicht";
-		$txt['exp_points'] = "der Erfahrung.";
+		$txt['recieve'] = ' erhält ';
+		$txt['recieve_boost'] = ' erhält zusätzlich ';
+		$txt['exp_points'] = ' Erfahrungspunkte.';
 		
 		$txt['you_won'] = 'Du hast gewonnen.';
 		$txt['you_lost'] = 'Du hast verloren.';
-		$txt['you_lost_1'] = 'Du hast <img src=\' verpasst'.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Klicken Sie hier, um zum Pokémon-Center zu gelangen.</a>';
-		$txt['you_first_attack'] = 'Du fängst an anzugreifen.';
-		$txt['opponent_first_attack'] = 'beginnt anzugreifen.';
-		$txt['opponents_turn'] = 'Der Gegner ist an der Reihe.';
-		$txt['your_turn'] = 'Jetzt sind Sie an der Reihe anzugreifen!';
+		$txt['you_lost_1'] = 'Du verlierst <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Silber\'>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Zum Pokémon-Center</a>';
+		$txt['you_first_attack'] = 'Du greifst zuerst an.';
+		$txt['opponent_first_attack'] = 'greift zuerst an.';
+		$txt['opponents_turn'] = 'Dein Gegner ist am Zug.';
+		$txt['your_turn'] = 'Du bist am Zug!';
 		$txt['have_to_change_1'] = 'Dein';
 		$txt['have_to_change_2'] = 'Wenn das Pokémon besiegt wurde, kannst du ein anderes Pokémon auswählen.';
-		$txt['now_pokemon_dead_2'] = "ist zu schwach, um in die Schlacht zu ziehen.";
-		$txt['next_time_wait'] = 'Warten Sie, während Ihr Gegner angreift.';
+		$txt['now_pokemon_dead_2'] = ' ist zu schwach zum Kämpfen.';
+		$txt['next_time_wait'] = 'Warte, bis dein Gegner angegriffen hat.';
 		$txt['fight_finished'] = 'Der Kampf ist vorbei.';
-		$txt['success_catched_1'] = 'Du hast gerade erfasst';
-		$txt['success_catched_2'] = 'erfolgreich!';
-		$txt['no_item_selected'] = 'Wählen Sie zuerst einen Artikel!';
-		$txt['potion_no_pokemon_selected'] = 'Du musst ein Pokémon auswählen!';
-		$txt['busy_with_attack'] = 'Schlacht wird geladen..';
-		$txt['have_already'] = 'Das haben Sie bereits';
-		$txt['a_wild'] = 'Ein Wilder';
-		$txt['potion_text'] = 'Wählen Sie aus, welches Pokémon Sie verwenden möchten';
+		$txt['success_catched_1'] = 'Du hast ';
+		$txt['success_catched_2'] = ' gefangen. Der Kampf ist vorbei.';
+		$txt['no_item_selected'] = 'Wähle zuerst ein Item aus!';
+		$txt['potion_no_pokemon_selected'] = 'Wähle ein Pokémon aus!';
+		$txt['busy_with_attack'] = 'Kampf wird geladen …';
+		$txt['have_already'] = 'Bereits gefangen:';
+		$txt['a_wild'] = 'Ein wildes Pokémon:';
+		$txt['potion_text'] = 'Wähle das Pokémon aus, bei dem du das Item einsetzen möchtest.';
 		$txt['*'] = '*';
 		$txt['pokemon'] = 'Pokémon';
-		$txt['level'] = 'Ebene';
-		$txt['health'] = 'Leben';
-		$txt['potion_egg_text'] = 'Nicht verwendbar';
-		$txt['button_potion'] = 'Zu verwenden';
+		$txt['level'] = 'Level';
+		$txt['health'] = 'KP';
+		$txt['potion_egg_text'] = 'Nicht einsetzbar';
+		$txt['button_potion'] = 'Einsetzen';
 		$txt['attack'] = 'Angriff';
-		$txt['change'] = 'Auswahl';
-		$txt['items'] = 'Artikel';
-		$txt['button_item'] = 'Zu verwenden';
-		$txt['must_attack'] = 'Du musst angreifen';
+		$txt['change'] = 'Wechseln';
+		$txt['items'] = 'Items';
+		$txt['button_item'] = 'Einsetzen';
+		$txt['must_attack'] = 'Wähle eine Attacke aus.';
 		$txt['is_ko'] = 'wurde besiegt.';
-		$txt['flinched'] = 'zögert';
-		$txt['sleeps'] = 'er hat geschlafen.';
-		$txt['awake'] = 'er erinnerte sich.';
-		$txt['frozen'] = 'war eingefroren.';
-		$txt['no_frozen'] = 'es ist nicht mehr gefroren.';
-		$txt['not_paralyzed'] = 'ist nicht mehr gelähmt.';
-		$txt['paralyzed'] = 'ist gelähmt.';
+		$txt['flinched'] = 'schreckt zurück.';
+		$txt['sleeps'] = 'schläft tief und fest.';
+		$txt['awake'] = 'ist aufgewacht.';
+		$txt['frozen'] = 'ist eingefroren.';
+		$txt['no_frozen'] = 'ist aufgetaut.';
+		$txt['not_paralyzed'] = 'ist nicht mehr paralysiert.';
+		$txt['paralyzed'] = 'ist paralysiert.';
 		$txt['fight_over'] = 'Der Kampf ist vorbei.';
-		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon.';
-		$txt['use_attack_1'] = 'gebraucht';
+		$txt['choose_another_pokemon'] = 'Wähle ein anderes Pokémon aus.';
+		$txt['use_attack_1'] = 'verwendet';
 		$txt['use_attack_2'] = ', dein Pokémon wurde besiegt.<br />';
-		$txt['use_attack_2_hit'] = ', direkter Angriff.';
-		$txt['did'] = 'gebraucht';
+		$txt['use_attack_2_hit'] = '. Die Attacke trifft!';
+		$txt['did'] = 'verwendet';
 		$txt['hit!'] = '!';
-		$txt['your_attack_turn'] = '<br />Sie sind an der Reihe anzugreifen.';
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff.';
-		$txt['start_0'] = "Du findest";
-		$txt['start_1'] = "voraus.";
-		$txt['appears'] = "er erschien.";
-		$txt['defeated_1'] = "Du hast besiegt";
-		$txt['defeated_2'] = "und habe es verstanden";
+		$txt['your_attack_turn'] = '<br />Du bist am Zug.';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
+		$txt['start_0'] = 'Du begegnest ';
+		$txt['start_1'] = '.';
+		$txt['appears'] = ' ist aufgetaucht.';
+		$txt['defeated_1'] = 'Du hast ';
+		$txt['defeated_2'] = ' besiegt und erhältst ';
 		$txt['defeated_masterball'] = '';
-		$txt['get_badge_1'] = 'die Insignien';
-		$txt['get_badge_2'] = 'Und';
+		$txt['get_badge_1'] = 'den Orden';
+		$txt['get_badge_2'] = 'und';
 		$txt['no_badgecase'] = '';
-		$txt['has_defeated_you_1'] = 'habe dich besiegt.';
-		$txt['has_defeated_you_2'] = 'Du hast verloren';
-		$txt['bringed'] = 'bringt';
+		$txt['has_defeated_you_1'] = ' hat dich besiegt.';
+		$txt['has_defeated_you_2'] = ' Du verlierst ';
+		$txt['bringed'] = ' setzt ';
 		
 		
 		
-		$txt['opponent_choose_attack'] = 'wählt einen Angriff';
+		$txt['opponent_choose_attack'] = 'wählt eine Attacke aus.';
 		$txt['opponent_choose_pokemon'] = 'Du wählst ein Pokémon.';
 		
 		
@@ -1612,9 +1612,9 @@ $txt['pagetitle'] = 'In den Clan einladen';
 }else if ($page == 'clan-make') {
 $txt['pagetitle'] = 'Erstelle einen Clan';
 }else if ($page == 'movetutor') {
-$txt['pagetitle'] = 'Tutor verschieben';
+$txt['pagetitle'] = 'Attacken-Lehrer';
 }else if ($page == 'moverecorder') {
-$txt['pagetitle'] = 'Rekorder verschieben';
+$txt['pagetitle'] = 'Attacken-Erinnerer';
 }else if ($page == 'itemmarket') {
 $txt['pagetitle'] = 'Artikelmarkt';
 }else if ($page == 'clan-profile') {
@@ -1748,7 +1748,7 @@ $txt['big_house']          = 'Villa';
 $txt['places_over']        = 'verfügbare Slots';
 $txt['#']                  = '#';
 $txt['clamour_name']       = 'Pokémon';
-$txt['level']              = 'Ebene';
+$txt['level'] = 'Level';
 $txt['bring_away']         = 'Speichern';
 $txt['take']               = 'Zum Mitnehmen';
 $txt['button_take']        = 'OK';
@@ -1811,9 +1811,9 @@ $txt['box_medal_top3']     = 'Top-3-Pokémon';
 		#Alerts
 		$txt['alert_itemplace'] = 'Achtung: Deine Item-Box ist voll, du kannst keine Items verdienen.';
 		$txt['alert_no_more_wof'] = 'Heute kann man das Rad nicht mehr drehen.';
-		$txt['win_100_silver'] = 'Du hast <img src=" gewonnen'.$static_url.'/images/icons/silver.png" title="Silber"> 100 Silber!';
-		$txt['win_250_silver'] = 'Du hast <img src=" gewonnen'.$static_url.'/images/icons/silver.png" title="Silber"> 250 Silber!';
-		$txt['win_5_gold'] = 'Du hast <img src=" gewonnen'.$static_url.'/images/icons/gold.png" title="gold"> 5 Gold!';
+		$txt['win_100_silver'] = 'Du hast <img src="' . $static_url . '/images/icons/silver.png" title="Silber"> 100 Silber gewonnen!';
+		$txt['win_250_silver'] = 'Du hast <img src="' . $static_url . '/images/icons/silver.png" title="Silber"> 250 Silber gewonnen!';
+		$txt['win_5_gold'] = 'Du hast <img src="' . $static_url . '/images/icons/gold.png" title="Gold"> 5 Gold gewonnen!';
 		$txt['win_ball'] = 'Du hast eins gewonnen';
 		$txt['alert_itembox_full'] = 'Ihre Artikelbox ist voll!';
 		$txt['lose_jailzone'] = 'OH! NEIN! Du wurdest verhaftet!';
@@ -1938,11 +1938,11 @@ $txt['box_medal_top3']     = 'Top-3-Pokémon';
 		$txt['success_lvl_choose'] = 'Jetzt finden Sie Pokémon zwischen den Levels'.($_POST['lvl'] ?? '').'.';
 		
 		#Screen
-		$txt['pagetitle'] = 'Wählen Sie die Ebene';
+		$txt['pagetitle'] = 'Level auswählen';
 		$txt['title_text'] = 'Hier kontrollierst du die Stufe des Pokémon, dem du begegnen wirst.<br />
   								Sie können die Levelauswahl erst ab Rang 16 verwenden.';
   		$txt['#'] = '#';
-		$txt['level'] = 'Ebene';
+		$txt['level'] = 'Level';
 		$txt['5-20'] = '5-20';
 		$txt['20-40'] = '20-40';
 		$txt['40-60'] = '40-60';
@@ -2043,8 +2043,8 @@ $txt['box_medal_top3']     = 'Top-3-Pokémon';
 		$txt['alert_no_pokemon_selected'] = 'Wähle ein Pokémon.';
 		$txt['alert_pokemon_is_egg'] = 'Dieses Pokémon ist ein Ei.';
 		$txt['alert_not_your_pokemon'] = 'Dieses Pokémon gehört nicht dir.';
-		$txt['alert_not_arceus'] = 'Este pokémon não é um Arceus!';
-		$txt['alert_not_chances'] = 'Este Arceus já não reage mais a plates!';
+		$txt['alert_not_arceus'] = 'Dieses Pokémon ist kein Arceus!';
+		$txt['alert_not_chances'] = 'Dieses Arceus reagiert nicht mehr auf Tafeln!';
 		$txt['alert_pokemon_not_in_hand'] = 'Das Pokémon ist nicht in deinem Team.';
 		$txt['alert_not_enough_gold'] = 'Du hast nicht genug Gold.';
 		//$txt['success'] = 'Parabéns, o pokémon agora é shiny!';
@@ -2064,8 +2064,8 @@ $txt['box_medal_top3']     = 'Top-3-Pokémon';
 		$txt['alert_no_pokemon_selected'] = 'Wähle ein Pokémon.';
 		$txt['alert_pokemon_is_egg'] = 'Dieses Pokémon ist ein Ei.';
 		$txt['alert_not_your_pokemon'] = 'Dieses Pokémon gehört nicht dir.';
-		$txt['alert_not_arceus'] = 'Dieses Pokémon ist kein Deoxys!';
-		$txt['alert_not_chances'] = 'Dieser Deoxys reagiert nicht mehr auf Meteoriten!';
+		$txt['alert_not_arceus'] = 'Dieses Pokémon ist kein Arceus!';
+		$txt['alert_not_chances'] = 'Dieses Arceus reagiert nicht mehr auf Tafeln!';
 		$txt['alert_lvl100'] = 'Dieser Deoxys hat Level 100, Meteorit funktioniert nicht!';		
 		$txt['alert_pokemon_not_in_hand'] = 'Das Pokémon ist nicht in deinem Team.';
 		$txt['alert_not_enough_gold'] = 'Du hast nicht genug Gold.';
@@ -2084,8 +2084,8 @@ $txt['box_medal_top3']     = 'Top-3-Pokémon';
 		$txt['alert_no_pokemon_selected'] = 'Wähle ein Pokémon.';
 		$txt['alert_pokemon_is_egg'] = 'Dieses Pokémon ist ein Ei.';
 		$txt['alert_not_your_pokemon'] = 'Dieses Pokémon gehört nicht dir.';
-		$txt['alert_not_arceus'] = 'Dieses Pokémon ist kein Pikachu-Cosplay!';
-		$txt['alert_not_chances'] = 'Dieses Pikachu-Cosplay reagiert nicht mehr auf Meteoriten!';
+		$txt['alert_not_arceus'] = 'Dieses Pokémon ist kein Arceus!';
+		$txt['alert_not_chances'] = 'Dieses Arceus reagiert nicht mehr auf Tafeln!';
 		$txt['alert_lvl100'] = 'Dieses Pikachu-Cosplay ist Level 100, Meteorit funktioniert darauf nicht!';		
 		$txt['alert_pokemon_not_in_hand'] = 'Das Pokémon ist nicht in deinem Team.';
 		$txt['alert_not_enough_gold'] = 'Du hast nicht genug Silber.';
@@ -2327,7 +2327,7 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 	$txt['use']              = 'Zu verwenden';
 	$txt['balls']            = 'Pokébälle';
 	$txt['potions']          = 'Zaubertränke';
-	$txt['items']            = 'Artikel';
+	$txt['items'] = 'Items';
 	$txt['badge_case_title'] = 'Eine Box für Ihre Abzeichensammlung.';
 	$txt['box_title']        = 'Sie können Ihre Artikel dort abgeben';
 	$txt['spc_items']        = 'Sonderposten';
@@ -2353,7 +2353,7 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 	$txt['pagetitle'] = $event_n_loja;
 	$txt['balls']     = 'Pokébälle';
 	$txt['potions']   = 'Zaubertränke';
-	$txt['items']     = 'Artikel';
+	$txt['items'] = 'Items';
 	$txt['spc_items'] = 'Sonderposten';
 	$txt['stones']    = 'Steine';
 	$txt['attacks']   = 'Angriffe';
@@ -2369,7 +2369,7 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Artikel kaufen';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Spezial-Items';
 		$txt['button_spc_items'] = 'Kaufen Sie besondere Artikel';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2403,7 +2403,7 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 	$txt['pagetitle'] = 'Neujahrsladen';
 	$txt['balls']     = 'Pokébälle';
 	$txt['potions']   = 'Zaubertränke';
-	$txt['items']     = 'Artikel';
+	$txt['items'] = 'Items';
 	$txt['spc_items'] = 'Sonderposten';
 	$txt['stones']    = 'Steine';
 	$txt['attacks']   = 'Angriffe';
@@ -2419,7 +2419,7 @@ $txt['alert_no_amount']               = 'Geben Sie eine Menge ein!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Artikel kaufen';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Spezial-Items';
 		$txt['button_spc_items'] = 'Kaufen Sie besondere Artikel';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -3187,4 +3187,13 @@ $txt['league_champions'] = 'Champions';
 $txt['fountain_use_count'] = 'Anzahl der Nutzungen des Basisbrunnens';
 $txt['evolve_text'] = 'Dein Pokémon hat eine neue Stufe erreicht und entwickelt sich jetzt zu %s. Wenn du das nicht möchtest, klicke auf <b>"ENTWICKLUNG STOPPEN"</b>, andernfalls auf <b>"ENTWICKELN!"</b>.';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s trifft %d-mal.';
+$txt['battle_parental_hit'] = '%s trifft durch Familienbande %d-mal.';
+$txt['battle_recoil'] = '%s erleidet Rückstoßschaden.';
+$txt['battle_copy_move'] = '%s kopiert die Attacke %s!';
+$txt['battle_copy_pokemon'] = '%s kopiert %s.';
+$txt['battle_rocket_exit'] = 'Team Rocket hebt wieder ab!';
+$txt['battle_opponent_must_attack'] = 'Dein Gegner ist am Zug!';
+$txt['league_battle_created'] = 'Der Kampf wurde erstellt!<br />Du wirst zum Kampf weitergeleitet …';
 ?>

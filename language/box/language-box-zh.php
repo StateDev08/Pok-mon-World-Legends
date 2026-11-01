@@ -14,27 +14,27 @@ if ($page == 'codes') {
 	$txt['hr'] = '人力资源';
 	$txt['image'] = '图像';
 	$txt['video'] = '视频';
-	$txt['poke_image'] = '神奇宝贝';
+	$txt['poke_image'] = '宝可梦';
 	$txt['shiny_image'] = '闪亮的';
-	$txt['poke_back'] = '神奇宝贝回来了';
+	$txt['poke_back'] = '宝可梦回来了';
 	$txt['shiny_back'] = '闪亮的背部';
-	$txt['poke_icon'] = '神奇宝贝图标';
+	$txt['poke_icon'] = '宝可梦图标';
 	$txt['shiny_icon'] = '闪亮的图标';
 
 	$txt['example_text'] = '这是一个例子。';
 	$txt['no_example'] = '没有可用的示例。';
 }else if ($page == 'sell-box') {
 	$txt['alert_too_low_rank'] = '等级太低了。';
-	$txt['alert_not_your_pokemon'] = '这不是你的神奇宝贝。';
-	$txt['alert_beginpokemon'] = '这是你的初级神奇宝贝，你不能卖他。';
+	$txt['alert_not_your_pokemon'] = '这不是你的宝可梦。';
+	$txt['alert_beginpokemon'] = '这是你的初级宝可梦，你不能卖他。';
 	$txt['alert_no_amount'] = '无金额插入。';
-	$txt['alert_price_too_less'] = '口袋妖怪太便宜了，最低为 <img src="images/icons/silver.png" title="Silver" />';
-	$txt['alert_price_too_much'] = '口袋妖怪太贵了，最高为 <img src="images/icons/silver.png" title="Silver" />';
-	$txt['alert_pokemon_already_for_sale'] = '该神奇宝贝已经出售。';
+	$txt['alert_price_too_less'] = '宝可梦太便宜了，最低为 <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
+	$txt['alert_price_too_much'] = '宝可梦太贵了，最高为 <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
+	$txt['alert_pokemon_already_for_sale'] = '该宝可梦已经出售。';
 	$txt['alert_user_dont_exist'] = '用户不存在';
-	$txt['alert_success_sell'] = '成功将你的神奇宝贝放入转移列表中。';
+	$txt['alert_success_sell'] = '成功将你的宝可梦放入转移列表中。';
 	$txt['alert_too_much_on_transfer_1'] = '你已经';
-	$txt['alert_too_much_on_transfer_2'] = '神奇宝贝在传输列表中。<br>从传输列表中获取第一个。';
+	$txt['alert_too_much_on_transfer_2'] = '宝可梦在传输列表中。<br>从传输列表中获取第一个。';
 
 	//Screen
 	$txt['pagetitle'] = '卖';
@@ -45,7 +45,7 @@ if ($page == 'codes') {
 		你要多少银子';
 	$txt['sell_box_title_text_5'] = '出售？';
 	$txt['keep_empty'] = '您可以将其保留为空。';
-	$txt['sell_rules'] = '* 您可以以最高价值1.5倍的价格将您的神奇宝贝放入转移列表。<br />
+	$txt['sell_rules'] = '* 您可以以最高价值1.5倍的价格将您的宝可梦放入转移列表。<br />
 		* 最低价格为价值价格。';
 	$txt['button_sell_box'] = '卖';
 }else if ($page == 'area-box') {
@@ -93,7 +93,7 @@ if ($page == 'codes') {
 }############################## TRANSFERLIST BOX #####################################
 	else if ($page == 'transferlist-box') {
 		//Alerts
-		$txt['alert_sold'] = '该神奇宝贝已被所有者出售或从神奇宝贝市场上移除。';
+		$txt['alert_sold'] = '该宝可梦已被所有者出售或从宝可梦市场上移除。';
 		$txt['alert_too_low_rank_1'] = '这是一个非常高的水平。<br>以你目前的等级';
 		$txt['alert_too_low_rank_2'] = '这是您可以购买的最高级别。';
 		$txt['alert_house_full'] = '你的房子已经满了。';

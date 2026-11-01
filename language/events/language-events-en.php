@@ -1,7 +1,7 @@
 <?php
 	######################## Rank up ###################
 	$txt['event_rank_up'] = 'You have risen in rank, your new rank is: <b>%s</b>.';
-	$txt['event_rank_up_refferal'] = 'Jou refferal, %s, is een rank omhoog gegaan je hebt hiervoor 15 Gold gekregen!';
+	$txt['event_rank_up_refferal'] = 'The trainer you referred, %s, has ranked up. You received 15 Gold!';
 	######################## Evolve ####################
 	$txt['event_is_evolved_in'] = '<b>%s</b> evolved into <b>%s</b>!';
 	######################## Level up ##################

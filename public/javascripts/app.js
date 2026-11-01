@@ -1,4 +1,5 @@
 $(document).ready (function () {
+ const tableLanguage = ['pt','de','en','pl','ru','zh'].includes(document.documentElement.lang) ? document.documentElement.lang : 'pt';
 	$('[title]').tooltip({
 		container: 'body',
 		html: true
@@ -8,8 +9,7 @@ $(document).ready (function () {
 		"bStateSave": true,
 		"paging": false,
 		"oLanguage": {
-			"sUrl": "portugues.txt",
-			"sLoadingRecords": "Carregando..."
+			"sUrl": 'public/translations/datatables-' + tableLanguage + '.json'
 		},
 		searching: false,
 		ordering: true,
@@ -24,8 +24,7 @@ $(document).ready (function () {
 		"bStateSave": true,
 		"paging": true,
 		"oLanguage": {
-			"sUrl": "portugues.txt",
-			"sLoadingRecords": "Carregando..."
+			"sUrl": 'public/translations/datatables-' + tableLanguage + '.json'
 		}
 	});
 	

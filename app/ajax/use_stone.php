@@ -22,7 +22,7 @@ if (isset($_POST['nee'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>
@@ -41,7 +41,7 @@ if (isset($_POST['zeker'])) {
   $levelensql = DB::exQuery("SELECT nieuw_id FROM `levelen` WHERE `id`='".($_POST['levelenid'] ?? '')."'");
   $levelen = $levelensql->fetch_assoc();
   if (empty($_POST['pokemonid']))
-    $error = 'FOUT 2!<br /> Code: '.($_POST['pokemonid'] ?? '').'<br />Como tudo sobre a';
+    $error = $txt['choose_pokemon_label'];
   else if ($levelensql->num_rows == 1) {
     if ($pokemon['wild_id'] == '25' && ($_SESSION['region'] ?? '') == 'Alola') {
         $levelen['nieuw_id'] = '26001';
@@ -73,7 +73,7 @@ if (isset($_POST['zeker'])) {
      
   }
   else{
-    $error = 'FOUT 1!<br /> Code: '.($_POST['levelenid'] ?? '').'<br />Como tudo sobre a';
+    $error = $txt['choose_pokemon_label'];
   }
   ?>
   

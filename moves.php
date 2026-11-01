@@ -300,14 +300,14 @@ require_once __DIR__ . '/app/includes/GameUrl.php';
             var flkty = $carousel.data('flickity');
 
             $carousel.on('select.flickity', function() {
-                $poke_link.attr('href', '/pokedex&poke='+$poke_array_id[flkty.selectedIndex]);
+                $poke_link.attr('href', './pokedex&poke='+$poke_array_id[flkty.selectedIndex]);
                 $poke_link.html($poke_array_name[flkty.selectedIndex]);
                 $poke_name.html($poke_array_spe[flkty.selectedIndex]);
 
                 $poke_id.val ($poke_array_iid[flkty.selectedIndex]);
             });
 
-            $poke_link.attr('href', '/pokedex&poke='+$poke_array_id[0]);
+            $poke_link.attr('href', './pokedex&poke='+$poke_array_id[0]);
             $poke_link.html($poke_array_name[0]);
             $poke_name.html($poke_array_spe[0]);
 

@@ -35,7 +35,7 @@ if ((isset($_GET['opzak_nummer'])) AND (isset($_GET['duel_id'])) AND (isset($_GE
     else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND ($duel_info['volgende_zet'] == "wisselen"))
         $message = $txt['duel_opponent_must_switch'];
     else if (($duel_info['volgende_beurt'] != ($_SESSION['naam'] ?? '')) AND (!empty($duel_info['volgende_beurt'])))
-        $message = "O oponente deve atacar!";
+        $message = $txt['battle_opponent_must_attack'];
     else {
         //Load New Pokemon Data
         $change_pokemon = DB::exQuery("SELECT pokemon_wild.*, pokemon_speler.*, pokemon_speler_gevecht.*, pokemon_speler.wild_id AS wildid FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id  WHERE pokemon_speler.user_id='" . ($_SESSION['id'] ?? '') . "' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='" . ($_GET['opzak_nummer'] ?? '') . "'")->fetch_assoc();

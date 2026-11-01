@@ -21,7 +21,7 @@ if (isset($_SESSION['id']) && isset($_POST['message'])) {
 
             echo 'success | '.$message;
         } else {
-            echo 'error | Falha ao enviar!';   
+            echo 'error | '.$txt['chat_send_failed'];
         }
     }
 }

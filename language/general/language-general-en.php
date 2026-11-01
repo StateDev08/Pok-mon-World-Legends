@@ -1,15 +1,15 @@
 <?php
 //top of the site things & footer text...
-$txt['footer_made_by']   = 'Pokémon and all respective names are trademark &amp; &copy; of Nintendo 1996-' . date('Y');
+$txt['footer_made_by']   = 'Pokémon and all related names are trademarks &amp; &copy; of Nintendo, 1996-' . date('Y');
 $txt['footer_copyright'] = 'Copyright &copy;' . date('Y') . '- World Legends - All rights reserved.';
 
 $txt['logo_text']             = 'World Legends | Become a Pokémon Master!';
 $txt['site_description']      = 'Become a Pokémon Trainer for free here at Pokémon World Legends! Count on 900+ different Pokémon species, battle other Trainers and much more! And best of all, no download required! Register now and take part in this incredible Pokémon journey!';
-$txt['login_username']        = 'User';
+$txt['login_username']        = 'Username';
 $txt['login_password']        = 'Password';
 $txt['login_activation']      = 'Activate your account';
 $txt['login_forgot']          = 'Recover account';
-$txt['login_button']          = 'To enter';
+$txt['login_button']          = 'Log in';
 
 $txt['login_no_account'] = 'Don\'t have an account? %s now!';
 $txt['login_register_now'] = 'REGISTER';
@@ -159,7 +159,7 @@ $txt['hmenu_accessible'] = 'Accessible';
 
 #Home page
 $txt['home_welcome'] = 'Welcome, %s!';
-$txt['home_days_connected'] = 'Today is your %sº day of connection!';
+$txt['home_days_connected'] = 'You have played on %s days!';
 $txt['home_events'] = 'Events';
 $txt['home_no_events'] = 'NO EVENTS AVAILABLE!';
 $txt['home_my_team'] = 'My team';
@@ -663,10 +663,10 @@ $txt['moves_error_already_has_move'] = 'Your Pokémon already has this move!';
 $txt['moves_error_no_gold'] = 'You don\'t have enough Golds!';
 $txt['moves_error_no_silver'] = 'You don\'t have enough Silvers!';
 $txt['moves_my_team'] = 'My team';
-$txt['moves_tutor_title'] = 'MOVE TUTOR';
+$txt['moves_tutor_title'] = 'Move Tutor';
 $txt['moves_tutor_desc'] = 'Here you can <b>teach</b> moves to your Pokémon for a fee of <b>Silvers</b> or <b>Gold</b>.';
 $txt['moves_tutor_btn'] = 'TEACH MOVES';
-$txt['moves_reminder_title'] = 'MOVE REMINDER';
+$txt['moves_reminder_title'] = 'Move Reminder';
 $txt['moves_reminder_desc'] = 'Here you can <b>remind</b> moves of your Pokémon for a fee of <b>Silvers</b> or <b>Gold</b>.';
 $txt['moves_reminder_btn'] = 'REMIND MOVES';
 $txt['moves_view_profile'] = 'View Pokémon Profile';
@@ -944,4 +944,37 @@ $txt['bracket_final'] = 'Final';
 $txt['bracket_champions'] = 'Champions';
 $txt['bracket_third_place'] = 'Third place match';
 /* === end externalized strings === */
+
+// Shared battle and dialog labels.
+$txt['battle_heading'] = 'Battle!';
+$txt['battle_against'] = 'Battle against';
+$txt['duel_against'] = 'Duel against';
+$txt['battle_time_remaining'] = 'Time remaining';
+$txt['battle_seconds'] = 'seconds';
+$txt['caught_label'] = 'Caught';
+$txt['no_results'] = 'No results';
+$txt['captured_count_label'] = 'caught';
+$txt['enter_quantity'] = 'Enter a valid quantity.';
+$txt['choose_pokemon_label'] = 'Choose a Pokémon!';
+$txt['cancel_label'] = 'Cancel';
+$txt['none_label'] = 'None';
+$txt['chat_wait_message'] = 'Wait 5 seconds before sending another message.';
+
+$txt['battle_item_target'] = 'Use an item on %s?';
+$txt['chat_send_failed'] = 'The message could not be sent.';
+$txt['item_equipped_message'] = 'The item %s was equipped.';
+$txt['pokemon_full_hp'] = '%s already has full HP.';
+$txt['quantity_positive'] = 'The quantity must be greater than zero.';
+
+$txt['battle_action_attack'] = 'Fight';
+$txt['battle_action_bag'] = 'Bag';
+$txt['battle_action_pokemon'] = 'Pokémon';
+$txt['battle_action_run'] = 'Run';
+$txt['unknown_trainer'] = 'Unknown';
+
+$txt['navbar_language'] = 'Language';
+
+$txt['hud_region_label'] = 'Region';
+$txt['hud_rank_label'] = 'Rank';
+$txt['hud_pokemon_label'] = 'Pokémon';
 ?>

@@ -1,0 +1,23 @@
+{
+  "sEmptyTable": "Brak danych.",
+  "sInfo": "Pozycje od _START_ do _END_ z _TOTAL_",
+  "sInfoEmpty": "Pozycje od 0 do 0 z 0",
+  "sInfoFiltered": "(filtrowanie spośród _MAX_ pozycji)",
+  "sInfoPostFix": "",
+  "sInfoThousands": ".",
+  "sLengthMenu": "_MENU_ pozycji na stronę",
+  "sLoadingRecords": "Wczytywanie...",
+  "sProcessing": "Przetwarzanie...",
+  "sZeroRecords": "Nie znaleziono pasujących pozycji.",
+  "sSearch": "Szukaj:",
+  "oPaginate": {
+    "sNext": "Dalej",
+    "sPrevious": "Wstecz",
+    "sFirst": "Pierwsza",
+    "sLast": "Ostatnia"
+  },
+  "oAria": {
+    "sSortAscending": ": sortuj rosnąco",
+    "sSortDescending": ": sortuj malejąco"
+  }
+}

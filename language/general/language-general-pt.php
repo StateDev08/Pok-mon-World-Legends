@@ -1,6 +1,6 @@
 <?php
 //top of the site things & footer text...
-$txt['footer_made_by']   = 'Pokémon and all respective names are trademark &amp; &copy; of Nintendo 1996-' . date('Y');
+$txt['footer_made_by']   = 'Pokémon e todos os nomes relacionados são marcas registradas &amp; &copy; da Nintendo, 1996-' . date('Y');
 $txt['footer_copyright'] = 'Copyright &copy; ' . date('Y') . ' - World Legends - Todos os direitos reservados.';
 
 $txt['logo_text']             = 'World Legends | Torne-se um Mestre Pokémon!';
@@ -44,7 +44,7 @@ $txt['title_actions']       = 'Ações';
 $txt['title_buildings']     = 'Cidade';
 
 #Menu items
-$txt['menu_home']                     = 'Home';
+$txt['menu_home']                     = 'Início';
 $txt['menu_register']                 = 'Cadastre-se';
 $txt['menu_information']              = 'Informações';
 $txt['menu_pokemon_info']             = 'Info. pokémons';
@@ -129,7 +129,7 @@ $txt['menu_claninvite'] = 'Convidar Clã';
 
 #Navbar
 $txt['navbar_menu'] = 'MENU';
-$txt['navbar_gold_market'] = 'Gold Market';
+$txt['navbar_gold_market'] = 'Mercado Gold';
 $txt['navbar_city'] = 'Cidade';
 $txt['navbar_ranking'] = 'Classificação';
 $txt['navbar_box'] = 'Box Pokémon';
@@ -159,7 +159,7 @@ $txt['hmenu_accessible'] = 'Acessível';
 
 #Home page
 $txt['home_welcome'] = 'Bem-vindo(a), %s!';
-$txt['home_days_connected'] = 'Hoje é seu %sº dia de conexão!';
+$txt['home_days_connected'] = 'Você já jogou por %s dias!';
 $txt['home_events'] = 'Eventos';
 $txt['home_no_events'] = 'NENHUM EVENTO DISPONÍVEL!';
 $txt['home_my_team'] = 'Minha equipe';
@@ -244,7 +244,7 @@ $txt['profile_friends'] = 'Amigos';
 $txt['profile_no_friends_self'] = 'Faça novos <b>amigos</b>! Clique <a href="./friends-add">AQUI</a> para procurar novos treinadores!';
 $txt['profile_no_friends_other'] = '<b>%s</b> não tem amigos. Seja o <b>primeiro</b> a adicioná-lo!';
 $txt['profile_honors'] = 'Honras';
-$txt['profile_has_honors'] = 'possui <b>%s</b> honras, incluindo:';
+$txt['profile_has_honors'] = '<b>%s</b> possui <b>%s</b> honras, incluindo:';
 $txt['profile_be_first_honor'] = 'Seja o primeiro a honrar <b>%s</b> por seu jogo.';
 $txt['profile_honor_button'] = 'Honrar %s por seu jogo.';
 $txt['profile_already_honored'] = 'Você não pode honrar mais esse treinador por hoje.';
@@ -663,10 +663,10 @@ $txt['moves_error_already_has_move'] = 'Seu Pokémon já tem esse golpe!';
 $txt['moves_error_no_gold'] = 'Você não tem Golds suficientes!';
 $txt['moves_error_no_silver'] = 'Você não tem Silvers suficientes!';
 $txt['moves_my_team'] = 'Minha equipe';
-$txt['moves_tutor_title'] = 'MOVE TUTOR';
+$txt['moves_tutor_title'] = 'Tutor de golpes';
 $txt['moves_tutor_desc'] = 'Aqui você pode <b>ensinar</b> golpes ao seu Pokémon por uma quantia de <b>Silvers</b> ou <b>Gold</b>.';
 $txt['moves_tutor_btn'] = 'ENSINAR GOLPES';
-$txt['moves_reminder_title'] = 'MOVE REMINDER';
+$txt['moves_reminder_title'] = 'Relembrador de golpes';
 $txt['moves_reminder_desc'] = 'Aqui você pode <b>lembrar</b> golpes de seu Pokémon por uma quantia de <b>Silvers</b> ou <b>Gold</b>.';
 $txt['moves_reminder_btn'] = 'LEMBRAR GOLPES';
 $txt['moves_view_profile'] = 'Ver Perfil do Pokémon';
@@ -944,4 +944,37 @@ $txt['bracket_final'] = 'Final';
 $txt['bracket_champions'] = 'Campeões';
 $txt['bracket_third_place'] = 'Disputa pelo 3º lugar';
 /* === end externalized strings === */
+
+// Shared battle and dialog labels.
+$txt['battle_heading'] = 'Batalha!';
+$txt['battle_against'] = 'Batalha contra';
+$txt['duel_against'] = 'Duelo contra';
+$txt['battle_time_remaining'] = 'Tempo restante';
+$txt['battle_seconds'] = 'segundos';
+$txt['caught_label'] = 'Capturado';
+$txt['no_results'] = 'Nenhum resultado';
+$txt['captured_count_label'] = 'capturados';
+$txt['enter_quantity'] = 'Digite um valor válido.';
+$txt['choose_pokemon_label'] = 'Escolha um Pokémon!';
+$txt['cancel_label'] = 'Cancelar';
+$txt['none_label'] = 'Nenhum';
+$txt['chat_wait_message'] = 'Aguarde 5 segundos para enviar outra mensagem.';
+
+$txt['battle_item_target'] = 'Usar item em %s?';
+$txt['chat_send_failed'] = 'Falha ao enviar a mensagem.';
+$txt['item_equipped_message'] = 'O item %s foi equipado.';
+$txt['pokemon_full_hp'] = '%s já tem todos os PS.';
+$txt['quantity_positive'] = 'A quantidade deve ser maior que zero.';
+
+$txt['battle_action_attack'] = 'Atacar';
+$txt['battle_action_bag'] = 'Mochila';
+$txt['battle_action_pokemon'] = 'Pokémon';
+$txt['battle_action_run'] = 'Fugir';
+$txt['unknown_trainer'] = 'Desconhecido';
+
+$txt['navbar_language'] = 'Idioma';
+
+$txt['hud_region_label'] = 'Região';
+$txt['hud_rank_label'] = 'Rank';
+$txt['hud_pokemon_label'] = 'Pokémon';
 ?>

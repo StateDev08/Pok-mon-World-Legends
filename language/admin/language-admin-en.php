@@ -323,3 +323,7 @@ $txt['adm_pk_legendary'] = 'Legendary/rare?';
 $txt['adm_pk_traders'] = 'Traders?';
 $txt['adm_pk_check'] = 'Make sure everything is correct!';
 /* === end externalized strings === */
+
+$txt['adm_enter_trainer_id'] = 'Enter a trainer ID.';
+$txt['adm_choose_region'] = 'Choose a region.';
+$txt['adm_choose_egg'] = 'Choose an egg.';

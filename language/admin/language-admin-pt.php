@@ -323,3 +323,7 @@ $txt['adm_pk_legendary'] = 'Lendario/Raro?';
 $txt['adm_pk_traders'] = 'Comerciantes?';
 $txt['adm_pk_check'] = 'Certifique-se de que tudo está OK!';
 /* === end externalized strings === */
+
+$txt['adm_enter_trainer_id'] = 'Digite o ID de um treinador.';
+$txt['adm_choose_region'] = 'Escolha uma região.';
+$txt['adm_choose_egg'] = 'Escolha um ovo.';

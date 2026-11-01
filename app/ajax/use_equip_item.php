@@ -28,14 +28,14 @@ if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) {
 			
 			//Sucesso!
 			$continue = true;
-			$error = "<div class='green'>O item ".$item." foi equipado com sucesso!</div>";
+			$error = "<div class='green'>".sprintf($txt['item_equipped_message'], $item)."</div>";
 		}
 	}
 }
 
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>

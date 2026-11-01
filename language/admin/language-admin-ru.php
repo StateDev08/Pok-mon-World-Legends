@@ -323,3 +323,7 @@ $txt['adm_pk_legendary'] = 'Легендарный/редкий?';
 $txt['adm_pk_traders'] = 'Торговцы?';
 $txt['adm_pk_check'] = 'Убедитесь, что всё верно!';
 /* === end externalized strings === */
+
+$txt['adm_enter_trainer_id'] = 'Введите ID тренера.';
+$txt['adm_choose_region'] = 'Выберите регион.';
+$txt['adm_choose_egg'] = 'Выберите яйцо.';

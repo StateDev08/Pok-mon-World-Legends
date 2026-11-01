@@ -27,7 +27,7 @@
     <div style="width: 100%;float: left; margin-top: 25px;">
         <div style="background: #34465f; padding: 10px">
             <div id="chat-warn"></div>
-            <form method="post" id="messageFormChat">
+            <form method="post" id="messageFormChat" data-wait-message="<?=htmlspecialchars($txt['chat_wait_message'], ENT_QUOTES)?>">
                 <table style="width: 100%">
                     <tbody><tr>
                         <td style="width: 99%; padding-right: 10px">
@@ -92,6 +92,6 @@
 </script>
 
 <script src="<?=$static_url?>/javascripts/socket.io.js"></script>
-<script src="<?=$static_url?>/javascripts/node/chat/client.js"></script>
+<script src="<?=$static_url?>/javascripts/node/chat/client.js?v=2"></script>
 
 <?php } ?>

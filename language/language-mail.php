@@ -1,12 +1,10 @@
 <?php
-$language_array = array('pt', 'de', 'en', 'pl', 'ru', 'zh');
-if (isset($_COOKIE['pa_language']) && in_array(($_COOKIE['pa_language'] ?? ''), $language_array, true))
-	$_COOKIE['pa_language'] = ($_COOKIE['pa_language'] ?? '');
-else
-	$_COOKIE['pa_language'] = 'pt';
+require_once __DIR__ . '/resolve.php';
+$lang = resolve_game_language();
+$_COOKIE['pa_language'] = $lang;
 set_error_handler(function($severity, $message) {
 	if ($severity === E_WARNING && strpos($message, 'Undefined array key') !== false) return true;
 	return false;
 });
-require_once('mail/language-mail-' . ($_COOKIE['pa_language'] ?? '') . '.php');
+require_once(__DIR__ . '/mail/language-mail-' . $lang . '.php');
 restore_error_handler();

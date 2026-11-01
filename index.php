@@ -442,7 +442,7 @@ if ($pokecen_tijd > 0) {
 <noscript>
     <meta http-equiv="refresh" runat="server" content="0;url=https://<?=($_SERVER['SERVER_NAME'] ?? '')?>/noscript.php" />
 </noscript>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 	<head>
 	    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -499,6 +499,8 @@ if ($pokecen_tijd > 0) {
 		<?php if ($page == "league_status" || $page == "tour") { echo '<script type="text/javascript" src="'.$static_url.'/javascripts/jquery.gracket.js-master/jquery.gracket.min.js"></script> <link type="text/css" rel="stylesheet" href="'.$static_url.'/stylesheets/gracket.css"/>'; } ?>
 		<link rel="stylesheet" href="<?=$static_url?>/stylesheets/original-dark.css?v=1" />
 		<script src="<?=$static_url?>/javascripts/original-map-size.js?v=1" defer></script>
+		<script src="<?=$static_url?>/javascripts/move-labels.js?v=1"></script>
+		<link rel="stylesheet" href="<?=$static_url?>/stylesheets/battle-language.css?v=2" />
 	</head>
 	<body <?=(isset($_SESSION['acc_id']))? 'style="background: url('.$static_url.'/images/layout/background-ingame.png) no-repeat center; background-size: cover;"' : ''?>>
 
@@ -526,6 +528,7 @@ if ($pokecen_tijd > 0) {
 								<div class="header-player__card" style="background-image: url('<?=$static_url?>/images/characters/<?=rawurlencode($header_character)?>/bar.png');">
 									<?php if ($gebruiker['premiumaccount'] > time()) { ?><img src="<?=$static_url?>/images/icons/avatar/clock.png" title="<?=sprintf($txt['hud_premium_ends'], date('d/m/y H:i', $gebruiker['premiumaccount']));?>" style="width: 35px;margin-top: 58px;position: absolute;background: url(public/images/layout/eventos.png) no-repeat;margin-left: 485px;background-size: 50px 50px;border-radius: 5px;cursor: pointer;"><?php } ?>
 									<div style="background: url('<?=$static_url?>/images/layout/player.png') no-repeat; width: 520px; height: 93px">
+ <div class="header-player-labels"><span><?=$txt['ranking_trainer']?></span><span><?=$txt['hud_region_label']?></span><span><?=$txt['hud_rank_label']?></span><span><?=$txt['hud_pokemon_label']?></span></div>
 										<ul style="list-style: none; padding-top: 16px; color: #fff">
 											<li style="padding-left: 103px; width: 124px; text-align: center"><a href="./profile&amp;player=<?=$gebruiker['username'];?>"><?=GetColorName($gebruiker['user_id']);?><?=(!empty($gebruiker['clan']))? '<a href="./clans&action=profile&id='.$gebruiker['clan'].'"> - <b>'.$clan->get($gebruiker['clan'])['sigla'].'</b></a>' : '';?></a></li>
 											<li style="padding-left: 103px; width: 124px; text-align: center; padding-top: 3px"><?=(isset($gebruiker['wereld']))? $gebruiker['wereld'] : $txt['hud_lobby'] ;?></li>
@@ -623,7 +626,7 @@ if ($pokecen_tijd > 0) {
 							<li><a href="./attack/attack_map" class="noanimate"><?=$txt['navbar_map']?> &bull;</a></li>
 							<li><a href="./trainer" class="noanimate"><?=$txt['navbar_npcs']?> &bull;</a></li>
 							<li class="navbar-language">
-								<button type="button" class="navbar-language__toggle" aria-label="Language" aria-haspopup="true">
+								<button type="button" class="navbar-language__toggle" aria-label="<?=htmlspecialchars($txt['navbar_language'], ENT_QUOTES)?>" aria-haspopup="true">
 									<?=$flag_svgs[$flag_current]?>
 									<span class="navbar-language__arrow">&#9662;</span>
 								</button>
@@ -783,7 +786,7 @@ if ($pokecen_tijd > 0) {
 		</div>
 
 		<script src="<?=$static_url?>/javascripts/wl.tabs.js"></script>
-		<script src="<?=$static_url?>/javascripts/app.js?v=2"></script>
+		<script src="<?=$static_url?>/javascripts/app.js?v=4"></script>
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({

@@ -166,4 +166,13 @@ $txt['use_evolves_col'] = 'Ewoluuje:';
 $txt['use_confirm_evolve'] = 'Czy na pewno chcesz ewoluować %s?';
 $txt['use_stone_evolved'] = 'Gratulacje, twój <strong>%1$s</strong> ewoluował w <strong>%2$s</strong> za pomocą %3$s!';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s trafia %d razy.';
+$txt['battle_parental_hit'] = '%s trafia %d razy dzięki Parental Bond.';
+$txt['battle_recoil'] = '%s otrzymuje obrażenia od odrzutu.';
+$txt['battle_copy_move'] = '%s kopiuje ruch %s!';
+$txt['battle_copy_pokemon'] = '%s kopiuje %s.';
+$txt['battle_rocket_exit'] = 'Zespół R znowu odlatuje!';
+$txt['battle_opponent_must_attack'] = 'Przeciwnik musi zaatakować!';
+$txt['league_battle_created'] = 'Walka utworzona!<br />Przekierowanie do walki …';
 ?>

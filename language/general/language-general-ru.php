@@ -5,11 +5,11 @@ $txt['footer_copyright'] = 'Авторские права &copy;' . date('Y') . 
 
 $txt['logo_text']             = 'Легенды мира | Станьте мастером покемонов!';
 $txt['site_description']      = 'Станьте тренером покемонов бесплатно здесь, в Pokémon World Legends! Более 900 различных видов покемонов, сражения с другими тренерами и многое другое! И самое главное — не требуется скачивание! Зарегистрируйтесь сейчас и примите участие в этом невероятном приключении покемонов!';
-$txt['login_username']        = 'Пользователь';
+$txt['login_username']        = 'Логин';
 $txt['login_password']        = 'Пароль';
 $txt['login_activation']      = 'Активируйте свою учетную запись';
 $txt['login_forgot']          = 'Восстановить аккаунт';
-$txt['login_button']          = 'Чтобы войти';
+$txt['login_button']          = 'Войти';
 
 $txt['login_no_account'] = 'Нет аккаунта? %s сейчас!';
 $txt['login_register_now'] = 'ЗАРЕГИСТРИРОВАТЬСЯ';
@@ -44,7 +44,7 @@ $txt['title_actions']       = 'Действия';
 $txt['title_buildings']     = 'Город';
 
 #Menu items
-$txt['menu_home']                     = 'Дом';
+$txt['menu_home']                     = 'Главная';
 $txt['menu_register']                 = 'Зарегистрироваться';
 $txt['menu_information']              = 'Информация';
 $txt['menu_pokemon_info']             = 'Информация. покемон';
@@ -159,7 +159,7 @@ $txt['hmenu_accessible'] = 'Доступный';
 
 #Home page
 $txt['home_welcome'] = 'Добро пожаловать, %s!';
-$txt['home_days_connected'] = 'Сегодня ваш %s-й день подключения!';
+$txt['home_days_connected'] = 'Дней, в которые вы играли: %s!';
 $txt['home_events'] = 'События';
 $txt['home_no_events'] = 'НЕТ ДОСТУПНЫХ СОБЫТИЙ!';
 $txt['home_my_team'] = 'Моя команда';
@@ -663,10 +663,10 @@ $txt['moves_error_already_has_move'] = 'У вашего покемона уже 
 $txt['moves_error_no_gold'] = 'У вас недостаточно Gold!';
 $txt['moves_error_no_silver'] = 'У вас недостаточно Silver!';
 $txt['moves_my_team'] = 'Моя команда';
-$txt['moves_tutor_title'] = 'УЧИТЕЛЬ АТАК';
+$txt['moves_tutor_title'] = 'Наставник приёмов';
 $txt['moves_tutor_desc'] = 'Здесь вы можете <b>научить</b> своего покемона атакам за плату в <b>Silver</b> или <b>Gold</b>.';
 $txt['moves_tutor_btn'] = 'ОБУЧИТЬ АТАКАМ';
-$txt['moves_reminder_title'] = 'НАПОМИНАНИЕ АТАК';
+$txt['moves_reminder_title'] = 'Восстановление приёмов';
 $txt['moves_reminder_desc'] = 'Здесь вы можете <b>напомнить</b> атаки своего покемона за плату в <b>Silver</b> или <b>Gold</b>.';
 $txt['moves_reminder_btn'] = 'НАПОМНИТЬ АТАКИ';
 $txt['moves_view_profile'] = 'Посмотреть профиль покемона';
@@ -944,4 +944,37 @@ $txt['bracket_final'] = 'Финал';
 $txt['bracket_champions'] = 'Чемпионы';
 $txt['bracket_third_place'] = 'Матч за 3-е место';
 /* === end externalized strings === */
+
+// Shared battle and dialog labels.
+$txt['battle_heading'] = 'Бой!';
+$txt['battle_against'] = 'Бой против';
+$txt['duel_against'] = 'Дуэль против';
+$txt['battle_time_remaining'] = 'Осталось времени';
+$txt['battle_seconds'] = 'секунд';
+$txt['caught_label'] = 'Пойман';
+$txt['no_results'] = 'Нет результатов';
+$txt['captured_count_label'] = 'поймано';
+$txt['enter_quantity'] = 'Введите допустимое количество.';
+$txt['choose_pokemon_label'] = 'Выберите покемона!';
+$txt['cancel_label'] = 'Отмена';
+$txt['none_label'] = 'Нет';
+$txt['chat_wait_message'] = 'Подождите 5 секунд перед отправкой следующего сообщения.';
+
+$txt['battle_item_target'] = 'Использовать предмет на %s?';
+$txt['chat_send_failed'] = 'Не удалось отправить сообщение.';
+$txt['item_equipped_message'] = 'Предмет %s экипирован.';
+$txt['pokemon_full_hp'] = 'У %s уже полное здоровье.';
+$txt['quantity_positive'] = 'Количество должно быть больше нуля.';
+
+$txt['battle_action_attack'] = 'Атака';
+$txt['battle_action_bag'] = 'Сумка';
+$txt['battle_action_pokemon'] = 'Покемоны';
+$txt['battle_action_run'] = 'Побег';
+$txt['unknown_trainer'] = 'Неизвестно';
+
+$txt['navbar_language'] = 'Язык';
+
+$txt['hud_region_label'] = 'Регион';
+$txt['hud_rank_label'] = 'Ранг';
+$txt['hud_pokemon_label'] = 'Покемоны';
 ?>

@@ -171,6 +171,7 @@ function attack_to_defender_advantage($soort,$defender) {
 
 #Multiple Hits
 function multiple_hits($attack, $damage) {
+  global $txt;
   #2-5 times?
   if ($attack['aantalkeer'] == "2-5") {
     $kans = rand(1,4);
@@ -178,19 +179,19 @@ function multiple_hits($attack, $damage) {
       $times = rand(2,3);
 
       $multi_hit['damage'] = $damage*$times;
-      $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";
+      $multi_hit['message'] = "<br />".sprintf($txt['battle_multi_hit'], move_label($attack['naam']), $times);
     } else{
       $times = rand(4,5);
 
       $multi_hit['damage'] = $damage*$times;
-      $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";
+      $multi_hit['message'] = "<br />".sprintf($txt['battle_multi_hit'], move_label($attack['naam']), $times);
     }
   } else if ($attack['aantalkeer'] == "1-2") {
       $kans = rand(1,4);
       if ($kans == 4) {
         $times = 2;
         $multi_hit['damage'] = $damage * $times;
-        $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes por causa de sua Ability, Parental Bond!";
+        $multi_hit['message'] = "<br />".sprintf($txt['battle_parental_hit'], move_label($attack['naam']), $times);
       } else {
         $multi_hit['damage'] = $damage;
         $multi_hit['message'] = "";
@@ -200,17 +201,17 @@ function multiple_hits($attack, $damage) {
     $times = rand(1,3);
 
     $multi_hit['damage'] = $damage*$times;
-    $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";
+    $multi_hit['message'] = "<br />".sprintf($txt['battle_multi_hit'], move_label($attack['naam']), $times);
   }
   else if ($attack['aantalkeer'] == "gezond_opzak") {
     $times = DB::exQuery("SELECT `id` FROM `pokemon_speler_gevecht` WHERE `user_id`='".($_SESSION['id'] ?? '')."' AND `effect`='' AND `leven`>'0'")->num_rows;
 
     $multi_hit['damage'] = $damage*$times;
-    $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$times." vezes. ";
+    $multi_hit['message'] = "<br />".sprintf($txt['battle_multi_hit'], move_label($attack['naam']), $times);
   }
   else{
     $multi_hit['damage'] = $damage*$attack['aantalkeer'];
-    $multi_hit['message'] = "<br />".$attack['naam']." atacou ".$attack['aantalkeer']." vezes. ";
+    $multi_hit['message'] = "<br />".sprintf($txt['battle_multi_hit'], move_label($attack['naam']), $attack['aantalkeer']);
   }
   return $multi_hit;
 }

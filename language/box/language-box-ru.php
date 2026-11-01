@@ -28,8 +28,8 @@ if ($page == 'codes') {
 	$txt['alert_not_your_pokemon'] = 'Это не твой покемон.';
 	$txt['alert_beginpokemon'] = 'Это ваш начинающий покемон, продать его нельзя.';
 	$txt['alert_no_amount'] = 'Без указания суммы.';
-	$txt['alert_price_too_less'] = 'Покемоны слишком дешевые, минимум <img src="images/icons/silver.png" title="Silver" />';
-	$txt['alert_price_too_much'] = 'Покемоны слишком дорогие, максимум — <img src="images/icons/silver.png" title="Silver" />';
+	$txt['alert_price_too_less'] = 'Покемоны слишком дешевые, минимум <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
+	$txt['alert_price_too_much'] = 'Покемоны слишком дорогие, максимум — <img src="'.$static_url.'/images/icons/silver.png" title="Silver" />';
 	$txt['alert_pokemon_already_for_sale'] = 'Этот покемон уже продается.';
 	$txt['alert_user_dont_exist'] = 'Пользователь не существует';
 	$txt['alert_success_sell'] = 'Успешно добавьте своего покемона в список трансферов.';

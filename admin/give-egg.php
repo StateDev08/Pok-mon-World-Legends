@@ -20,11 +20,11 @@ if (isset($_POST['submit'])) {
   $aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$user_id."' AND `opzak`='ja'")->num_rows;
 
   if ($user_id == '')
-  	echo '<div class="red"> Digite um id de um treinador.</div>';
+	echo '<div class="red"> '.$txt['adm_enter_trainer_id'].'</div>';
   else if ($wereld == '')
-  	echo '<div class="red"> Escolha uma zona.</div>';
+	echo '<div class="red"> '.$txt['adm_choose_region'].'</div>';
   else if ($ei == '')
-  	echo '<div class="red"> Escolha um ovo.</div>';
+	echo '<div class="red"> '.$txt['adm_choose_egg'].'</div>';
   else if ($aantal == 6)
     echo '<div class="red"> '.$txt['adm_egg_six'].'</div>';
   else{

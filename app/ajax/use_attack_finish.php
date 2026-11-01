@@ -3,7 +3,7 @@ $gebruiker_item = DB::exQuery("SELECT * FROM `gebruikers_tmhm` WHERE `user_id`="
 if ($gebruiker_item[($_GET['name'] ?? '')] <= 0) echo '<script>parent.$.colorbox.close();</script>';
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?=htmlspecialchars(resolve_game_language(), ENT_QUOTES)?>">
 <head>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title><?=$site_title;?></title>
@@ -43,7 +43,7 @@ $pegaidpokes = explode(",", $check2['relacionados']);
   
 
 if (empty($_GET['pokemonid']) || !is_numeric(($_GET['pokemonid'] ?? ''))) {
-	echo '<div class="red">Escolha um pokemon!</div>';
+	echo '<div class="red">'.$txt['choose_pokemon_label'].'</div>';
 	$foutje = 1;
 } else if ($aprende == 0) {
 	echo '<div class="red">'.$txt['use_cannot_learn'].'</div>';
@@ -103,7 +103,7 @@ else {
 			</form>
 		</tr>
 	</tbody>
-	<tfoot><tr><td colspan="3" align="right"><form method="post"><input type="submit" name="annuleer" value="Cancelar" class="button" /></form></td></tr></tfoot>
+	<tfoot><tr><td colspan="3" align="right"><form method="post"><input type="submit" name="annuleer" value="<?=htmlspecialchars($txt['cancel_label'], ENT_QUOTES)?>" class="button" /></form></td></tr></tfoot>
 </table></div>
 <?php } ?>
 </body>

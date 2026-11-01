@@ -1,10 +1,10 @@
 <?php
 if ($page == 'home' || empty($page)) {
 	$txt['home_news_text'] = '[16/07/2019] - Wydano <b>%s</b>! Sprawdź <b>notatki o aktualizacji</b> w <a href="./official-messages">oficjalnych wiadomościach</a>!';
-	$txt['pagetitle']			= 'Dom';
+	$txt['pagetitle']			= 'Strona główna';
 	$txt['news_empty']			= 'Brak wiadomości w tej chwili!';
 	$txt['poke_stats']			= 'statystyki pokemonów';
-	$txt['loading']				= 'Załadunek...';
+	$txt['loading']				= 'Wczytywanie...';
 	$txt['pokes_ammunt']		= 'Istnieje %s odmian Pokémonów.';
 	$txt['top_gebruikers']		= 'Najlepsi trenerzy';
 } else if ($page == 'disclaimer') {
@@ -463,8 +463,8 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['titlenpc']	= 'Zmiana awatara';
 	$txt['textnpc']		= "Tutaj możesz zmienić swój awatar.";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Nem todos os personagens possuem a mesma quantidade de avatares.</span>";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Novos avatares são adicioadas em algumas das atualizações do jogo.</span>";
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Nie każda postać ma do wyboru taką samą liczbę awatarów.</span>';
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Niektóre aktualizacje gry dodają nowe awatary.</span>';
 
 	$txt['pagetitle']	= 'Zmień mój awatar';
 	$txt['pagetext']	= 'Kliknij jeden z dostępnych awatarów, aby go wyświetlić i zmienić swój awatar.';
@@ -522,7 +522,7 @@ if ($page == 'home' || empty($page)) {
 		}
 		else if (($_GET['category'] ?? '') == 'email') {
 
-			$txt['pagetitle'] .= ' - Alterar E-mail';
+			$txt['pagetitle'] .= ' - Zmień e-mail';
 		}
 		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
@@ -534,7 +534,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_password'] = 'Hasło zostało pomyślnie zmienione!';
 			
 			#Screen password
-			$txt['pagetitle'] .= ' - Alterar Senha';
+			$txt['pagetitle'] .= ' - Zmień hasło';
 			$txt['new_password'] = 'Nowe hasło:';
 			$txt['new_password_again'] = 'Powtórz swoje nowe hasło:';
 			$txt['password_now'] = 'Aktualne hasło:';
@@ -545,7 +545,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_profile'] = 'Twój profil został pomyślnie zaktualizowany.';
 			
 			#Screen profile
-			$txt['pagetitle'] .= ' - Atualizar Perfil';
+			$txt['pagetitle'] .= ' - Zaktualizuj profil';
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Efekty profilu"><b>Tutaj</b></a></u> znajdziesz kilka wskazówek dotyczących dostosowywania swojego profilu!';
 			$txt['button_profile'] = 'Zaktualizuj profil!';
 		}
@@ -563,7 +563,7 @@ if ($page == 'home' || empty($page)) {
 										  <strong><span id=sekunda3></span>&nbsp;sekunda</strong>.';
 			
 			#Screen restart
-			$txt['pagetitle'] .= ' - Recomeçar';
+			$txt['pagetitle'] .= ' - Rozpocznij od nowa';
 			$txt['restart_title_text'] = '<center>Wpisz swoje hasło i wybierz region, do którego chcesz przenieść.<br /><br />
 										
 										Wszystkie Twoje pokemony, przedmioty, srebro i punkty rankingowe zostaną usunięte po transferze.<br />
@@ -640,9 +640,9 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']        = 'Moje przedmioty';
 	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
 	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Przedmioty specjalne';
 	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Kamienie ewolucyjne';
 	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
 	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
@@ -925,7 +925,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Kup przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Przedmioty specjalne';
 		$txt['button_spc_items'] = 'Kupuj specjalne przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -952,8 +952,8 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']		= 'Ataki';
 
 	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Przedmioty specjalne';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Kamienie ewolucyjne';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['travel_region_0'] = 'Region Kanto jest domem wielu Pokémonów i ma bogatą historię tworzenia Pokémonów dzięki technologii. Badacze z Kanto byli doskonali w swojej pracy. Jeden z badaczy pracujący dla złej organizacji Team Rocket sklonował Mewa za pomocą jego genów i stworzył genetycznego Pokémona Mewtwo. Porygon, wirtualny Pokémon, również został stworzony przez ludzi w Kanto.';
@@ -1222,7 +1222,7 @@ $txt['transfer_bought_your'] = 'kupił twojego %1$s za %2$s i %3$s';
 		$txt['you_won'] = 'Wygrałeś.';
 		$txt['you_lost'] = 'Przegrałeś.';
 		$txt['you_lost_1'] = 'Przegapiłeś <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Srebro\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
 		$txt['you_first_attack'] = 'Zaczynasz atakować.';
 		$txt['opponent_first_attack'] = 'zaczyna atakować.';
 		$txt['opponents_turn'] = 'Tura przeciwnika.';
@@ -1351,7 +1351,7 @@ $txt['transfer_bought_your'] = 'kupił twojego %1$s za %2$s i %3$s';
 		$txt['you_won'] = 'Wygrałeś.';
 		$txt['you_lost'] = 'Przegrałeś.';
 		$txt['you_lost_1'] = 'Przegapiłeś <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Srebro\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
 		$txt['you_first_attack'] = 'Zaczynasz atakować.';
 		$txt['opponent_first_attack'] = 'zaczyna atakować.';
 		$txt['opponents_turn'] = 'Tura przeciwnika.';
@@ -1467,7 +1467,7 @@ $txt['transfer_bought_your'] = 'kupił twojego %1$s za %2$s i %3$s';
 		$txt['you_won'] = 'Wygrałeś.';
 		$txt['you_lost'] = 'Przegrałeś.';
 		$txt['you_lost_1'] = 'Przegapiłeś <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Srebro\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Kliknij tutaj, aby przejść do centrum pokemonów.</a>';
 		$txt['you_first_attack'] = 'Zaczynasz atakować.';
 		$txt['opponent_first_attack'] = 'zaczyna atakować.';
 		$txt['opponents_turn'] = 'Tura przeciwnika.';
@@ -1612,9 +1612,9 @@ $txt['pagetitle'] = 'Zaproś do Klanu';
 }else if ($page == 'clan-make') {
 $txt['pagetitle'] = 'Utwórz klan';
 }else if ($page == 'movetutor') {
-$txt['pagetitle'] = 'Przenieś nauczyciela';
+$txt['pagetitle'] = 'Nauczyciel ataków';
 }else if ($page == 'moverecorder') {
-$txt['pagetitle'] = 'Przenieś rejestrator';
+$txt['pagetitle'] = 'Przypominanie ataków';
 }else if ($page == 'itemmarket') {
 $txt['pagetitle'] = 'Rynek przedmiotów';
 }else if ($page == 'clan-profile') {
@@ -1829,7 +1829,7 @@ $txt['box_medal_top3']     = 'Top 3 Pokémony';
 		//$txt['premiumtext'] = '<br>Premium members can do this 3 times per day. <a href="./area-market"><strong>Become a Premium Member!</strong></a>';
 		$txt['button'] = 'Zakręć kołem!';
 		$txt['wof_npc_title'] = 'Koło fortuny';
-		$txt['wof_npc_text'] = 'Zakręć kołem fortuny i wygraj wspaniałe nagrody!<br>Każdego dnia masz kilka darmowych kręciń.<br>Kliknij <a href="./casino">TUTAJ</a>, aby wrócić do Kasyna.';
+		$txt['wof_npc_text'] = 'Zakręć kołem fortuny i wygraj nagrody!<br />Każdego dnia otrzymujesz kilka darmowych obrotów.<br />Kliknij <a href="./casino">TUTAJ</a>, aby wrócić do kasyna.';
 		$txt['wof_title'] = 'Koło fortuny';
 		$txt['wof_won_tickets'] = 'WYGRAŁEŚ %s BILETÓW!';
 		$txt['wof_wheel_100'] = '100 BILETÓW';
@@ -2369,7 +2369,7 @@ $txt['alert_no_amount']               = 'Podaj ilość!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Kup przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Przedmioty specjalne';
 		$txt['button_spc_items'] = 'Kupuj specjalne przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2419,7 +2419,7 @@ $txt['alert_no_amount']               = 'Podaj ilość!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Kup przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Przedmioty specjalne';
 		$txt['button_spc_items'] = 'Kupuj specjalne przedmioty';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -3093,7 +3093,7 @@ $txt['cap_not_premium'] = 'Nie masz konta premium. Zostań Premium, klikając %s
 
 # wheel
 $txt['wof_npc_title'] = 'Koło Fortuny';
-$txt['wof_npc_text'] = 'Każdego dnia otrzymujesz kilka darmowych zakręceń KOŁEM FORTUNY i możesz zdobyć nagrody!<br> Kliknij %s, aby <b>wrócić</b> do kasyna.';
+$txt['wof_npc_text'] = 'Zakręć kołem fortuny i wygraj nagrody!<br />Każdego dnia otrzymujesz kilka darmowych obrotów.<br />Kliknij %s, aby wrócić do kasyna.';
 $txt['wof_here'] = 'TUTAJ';
 $txt['wof_win_tickets'] = 'WYGRAŁEŚ %1$s %2$s BILETÓW!';
 $txt['wof_slice_tickets'] = '%s BILETÓW';
@@ -3187,4 +3187,13 @@ $txt['league_champions'] = 'Mistrzowie';
 $txt['fountain_use_count'] = 'Liczba użyć podstawowej fontanny';
 $txt['evolve_text'] = 'Twój Pokémon osiągnął nowy etap i ewoluuje teraz w %s. Jeśli tego nie chcesz, kliknij <b>"ZATRZYMAJ EWOLUCJĘ"</b>, w przeciwnym razie kliknij <b>"EWOLUUJ!"</b>.';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s trafia %d razy.';
+$txt['battle_parental_hit'] = '%s trafia %d razy dzięki Parental Bond.';
+$txt['battle_recoil'] = '%s otrzymuje obrażenia od odrzutu.';
+$txt['battle_copy_move'] = '%s kopiuje ruch %s!';
+$txt['battle_copy_pokemon'] = '%s kopiuje %s.';
+$txt['battle_rocket_exit'] = 'Zespół R znowu odlatuje!';
+$txt['battle_opponent_must_attack'] = 'Przeciwnik musi zaatakować!';
+$txt['league_battle_created'] = 'Walka utworzona!<br />Przekierowanie do walki …';
 ?>

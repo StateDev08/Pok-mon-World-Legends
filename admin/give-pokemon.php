@@ -13,7 +13,7 @@ if (isset($_POST['geef'])) {
 	//Gegevens laden van speler
 	//$aantal = DB::exQuery("SELECT `user_id` FROM `pokemon_speler` WHERE `user_id`='".$_POST['user_id']."' AND `opzak`='ja'")->num_rows;
 
-	if (($_POST['user_id'] ?? '') == '') echo '<div class="red"> Digite o ID de algum treinador.</div>';
+	if (($_POST['user_id'] ?? '') == '') echo '<div class="red"> '.$txt['adm_enter_trainer_id'].'</div>';
 	else if (($_POST['wild_id'] ?? '') == 'none') echo '<div class="red"> '.$txt['adm_select_pokemon'].'</div>';
 	//else if ($aantal == 6) echo '<div class="red"> O treinador já tem 6 pokémons com ele.</div>';
 	else if (DB::exQuery("SELECT user_id FROM gebruikers WHERE user_id='".($_POST['user_id'] ?? '')."'")->num_rows == 0) echo '<div class="red"> '.$txt['adm_trainer_not_exist'].'</div>';
@@ -160,7 +160,7 @@ if (isset($_POST['geef'])) {
 <p><?=$txt['adm_give_pokemon_intro']?><br><?=$txt['adm_give_pokemon_house']?></p>
 <table width="600">
 	<tr>
-    	<td width="150">ID do treinador:</td>
+	<td width="150"><?=$txt['adm_trainer_id']?></td>
         <td width="200"><input type="text" name="user_id" class="text_long" value="<?php if (($_GET['player'] ?? '') != '') echo ($_GET['player'] ?? ''); ?>"></td>
     </tr>
     <tr>

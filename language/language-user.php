@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/resolve.php';
 /*
  * Helpers to render text in the language of a *specific* character instead of
  * the language of the current request. Needed wherever a message is written
@@ -19,7 +20,7 @@ if (!function_exists('user_language')) {
 		$user_id = (int) $user_id;
 		if (isset($cache[$user_id])) return $cache[$user_id];
 
-		$lang = 'pt';
+		$lang = game_default_language();
 		if (class_exists('DB')) {
 			$row = DB::exQuery("SELECT `language` FROM `gebruikers` WHERE `user_id`='" . $user_id . "' LIMIT 1")->fetch_assoc();
 			if (!empty($row['language']) && in_array($row['language'], language_available(), true)) {
@@ -43,7 +44,7 @@ if (!function_exists('language_txt')) {
 	function language_txt($type, $lang, array $vars = array()) {
 		static $cache = array();
 
-		if (!in_array($lang, language_available(), true)) $lang = 'pt';
+		if (!in_array($lang, language_available(), true)) $lang = game_default_language();
 
 		$cacheable = empty($vars);
 		if ($cacheable && isset($cache[$type][$lang])) return $cache[$type][$lang];
@@ -80,7 +81,7 @@ if (!function_exists('description_column')) {
 	 * query against a column that does not exist.
 	 */
 	function description_column($lang = null) {
-		if ($lang === null) $lang = $_COOKIE['pa_language'] ?? 'pt';
+		if ($lang === null) $lang = $_COOKIE['pa_language'] ?? 'de';
 
 		$columns = array('pt', 'de', 'en', 'pl', 'ru', 'zh', 'nl', 'es');
 

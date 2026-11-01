@@ -129,7 +129,7 @@ if ( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))) {
     }
 
     if ($trainer['naam'] == 'Jessie e James') {
-      $hm = '<br> Equipe Rocket decolando denovo!';
+      $hm = '<br />'.$txt['battle_rocket_exit'];
     }
       
     echo $trainer['badge']." | ".$money ." | ".$rarecandy." | ".$hm." | ".$win;

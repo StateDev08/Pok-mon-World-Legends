@@ -52,7 +52,7 @@ require_once('language/language-box.php');
 		</tr>
 		<tr>
 			<td width="150"><b>&raquo; <?=$txt['player'];?></b>:</td>
-			<td width="450">[player]Treinador[/player]</td>
+			<td width="450">[player]<?=$txt['ranking_trainer']?>[/player]</td>
 			<td width="200"><?=$txt['no_example'];?></td>
 		</tr>
 <?php

@@ -1,7 +1,7 @@
 <?php
 if ($page == 'home' || empty($page)) {
 	$txt['home_news_text'] = '[16/07/2019] - Вышла <b>%s</b>! Ознакомьтесь с <b>примечаниями к обновлению</b> в <a href="./official-messages">официальных сообщениях</a>!';
-	$txt['pagetitle']			= 'Дом';
+	$txt['pagetitle']			= 'Главная';
 	$txt['news_empty']			= 'На данный момент новостей нет!';
 	$txt['poke_stats']			= 'статистика покемонов';
 	$txt['loading']				= 'Загрузка...';
@@ -463,8 +463,8 @@ if ($page == 'home' || empty($page)) {
 
 	$txt['titlenpc']	= 'Смена аватара';
 	$txt['textnpc']		= "Здесь вы можете изменить свой аватар.";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Nem todos os personagens possuem a mesma quantidade de avatares.</span>";
-	$txt['textnpc']		.= "<br />&mdash; <span style='font-size:11px;'>Novos avatares são adicioadas em algumas das atualizações do jogo.</span>";
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>Не для всех персонажей доступно одинаковое количество аватаров.</span>';
+	$txt['textnpc']		.= '<br />&mdash; <span style=\'font-size:11px;\'>В некоторых обновлениях игры появляются новые аватары.</span>';
 
 	$txt['pagetitle']	= 'Изменить мой аватар';
 	$txt['pagetext']	= 'Нажмите на один из доступных аватаров, чтобы просмотреть его и изменить свой аватар.';
@@ -522,7 +522,7 @@ if ($page == 'home' || empty($page)) {
 		}
 		else if (($_GET['category'] ?? '') == 'email') {
 
-			$txt['pagetitle'] .= ' - Alterar E-mail';
+			$txt['pagetitle'] .= ' - Изменить почту';
 		}
 		else if (($_GET['category'] ?? '') == 'password') {
 			#Alerts password
@@ -534,7 +534,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_password'] = 'Пароль успешно изменен!';
 			
 			#Screen password
-			$txt['pagetitle'] .= ' - Alterar Senha';
+			$txt['pagetitle'] .= ' - Изменить пароль';
 			$txt['new_password'] = 'Новый пароль:';
 			$txt['new_password_again'] = 'Повторите новый пароль:';
 			$txt['password_now'] = 'Текущий пароль:';
@@ -545,7 +545,7 @@ if ($page == 'home' || empty($page)) {
 			$txt['success_profile'] = 'Ваш профиль успешно обновлен.';
 			
 			#Screen profile
-			$txt['pagetitle'] .= ' - Atualizar Perfil';
+			$txt['pagetitle'] .= ' - Обновить профиль';
 			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Эффекты профиля"><b>Здесь</b></a></u> вы можете увидеть несколько советов по настройке вашего профиля!';
 			$txt['button_profile'] = 'Обновите профиль!';
 		}
@@ -563,7 +563,7 @@ if ($page == 'home' || empty($page)) {
 										  <strong><span id=секунда3></span>&nbsp;секунда</strong>.';
 			
 			#Screen restart
-			$txt['pagetitle'] .= ' - Recomeçar';
+			$txt['pagetitle'] .= ' - Начать заново';
 			$txt['restart_title_text'] = '<center>Введите пароль и выберите регион, в который хотите перенести.<br /><br />
 										
 										Все ваши покемоны, предметы, серебро и очки рейтинга удаляются при переносе.<br />
@@ -640,9 +640,9 @@ if ($page == 'home' || empty($page)) {
 	$txt['pagetitle']        = 'Мои предметы';
 	if (($_GET['category'] ?? '') == 'balls') $txt['pagetitle'] .= ' - Pokebolas';
 	else if (($_GET['category'] ?? '') == 'items') $txt['pagetitle'] .= ' - Itens';
-	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Itens Especias';
+	else if (($_GET['category'] ?? '') == 'spc_items') $txt['pagetitle'] .= ' - Особые предметы';
 	else if (($_GET['category'] ?? '') == 'potions') $txt['pagetitle'] .= ' - Poções';
-	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Pedras evolutivas';
+	else if (($_GET['category'] ?? '') == 'stones') $txt['pagetitle'] .= ' - Камни эволюции';
 	else if (($_GET['category'] ?? '') == 'hm') $txt['pagetitle'] .= ' - HM\'s';
 	else if (($_GET['category'] ?? '') == 'tm') $txt['pagetitle'] .= ' - TM\'s';
 
@@ -925,7 +925,7 @@ if ($page == 'home' || empty($page)) {
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Купить предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Особые предметы';
 		$txt['button_spc_items'] = 'Покупайте специальные предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -952,8 +952,8 @@ if ($page == 'home' || empty($page)) {
 	$txt['attacks']		= 'Атаки';
 
 	if (($_GET['category'] ?? '') == 'balls')			$txt['pagetitle']	.= ' - Pokébolas';
-	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Itens Especais';
-	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Pedras de Evolução';
+	else if (($_GET['category'] ?? '') == 'specialitems')	$txt['pagetitle']	.= ' - Особые предметы';
+	else if (($_GET['category'] ?? '') == 'stones')		$txt['pagetitle']	.= ' - Камни эволюции';
 	else if (($_GET['category'] ?? '') == 'attacks')		$txt['pagetitle']	.= ' - Ataques';
 } else if ($page == 'travel') {
 	$txt['travel_region_0'] = 'Регион Канто является домом для многих покемонов и имеет богатую историю создания покемонов с помощью технологий. Исследователи Канто превосходно выполняли свою работу. Один исследователь, работавший на злодейскую организацию «Команда Р», клонировал Мью с помощью его генов и создал генетического покемона Мьюту. Поригон, виртуальный покемон, также был создан людьми в Канто.';
@@ -1222,7 +1222,7 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		$txt['you_won'] = 'Вы выиграли.';
 		$txt['you_lost'] = 'Вы проиграли.';
 		$txt['you_lost_1'] = 'Вы пропустили <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Серебро\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
 		$txt['you_first_attack'] = 'Вы начинаете атаковать.';
 		$txt['opponent_first_attack'] = 'начинает атаковать.';
 		$txt['opponents_turn'] = 'Ход противника.';
@@ -1351,7 +1351,7 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		$txt['you_won'] = 'Вы выиграли.';
 		$txt['you_lost'] = 'Вы проиграли.';
 		$txt['you_lost_1'] = 'Вы пропустили <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Серебро\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
 		$txt['you_first_attack'] = 'Вы начинаете атаковать.';
 		$txt['opponent_first_attack'] = 'начинает атаковать.';
 		$txt['opponents_turn'] = 'Ход противника.';
@@ -1467,7 +1467,7 @@ $txt['transfer_bought_your'] = 'купил твоего %1$s за %2$s и %3$s';
 		$txt['you_won'] = 'Вы выиграли.';
 		$txt['you_lost'] = 'Вы проиграли.';
 		$txt['you_lost_1'] = 'Вы пропустили <img src=\''.$static_url.'/images/icons/silver.png\' title=\'Серебро\'>';
-		$txt['you_lost_2'] = '<br><a href=\'/pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
+		$txt['you_lost_2'] = '<br><a href=\'./pokemoncenter\'>Нажмите здесь, чтобы перейти в центр покемонов.</a>';
 		$txt['you_first_attack'] = 'Вы начинаете атаковать.';
 		$txt['opponent_first_attack'] = 'начинает атаковать.';
 		$txt['opponents_turn'] = 'Ход противника.';
@@ -1612,9 +1612,9 @@ $txt['pagetitle'] = 'Пригласить в клан';
 }else if ($page == 'clan-make') {
 $txt['pagetitle'] = 'Создать клан';
 }else if ($page == 'movetutor') {
-$txt['pagetitle'] = 'Переместить репетитора';
+$txt['pagetitle'] = 'Наставник приёмов';
 }else if ($page == 'moverecorder') {
-$txt['pagetitle'] = 'Переместить рекордер';
+$txt['pagetitle'] = 'Восстановление приёмов';
 }else if ($page == 'itemmarket') {
 $txt['pagetitle'] = 'Рынок предметов';
 }else if ($page == 'clan-profile') {
@@ -2369,7 +2369,7 @@ $txt['alert_no_amount']               = 'Введите количество!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Купить предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Особые предметы';
 		$txt['button_spc_items'] = 'Покупайте специальные предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -2419,7 +2419,7 @@ $txt['alert_no_amount']               = 'Введите количество!';
 		$txt['pagetitle']    .= ' - Itens';
 		$txt['button_items'] = 'Купить предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'specialitems') {
-		$txt['pagetitle']        .= ' - Itens especais';
+		$txt['pagetitle']        .= ' - Особые предметы';
 		$txt['button_spc_items'] = 'Покупайте специальные предметы';
 	} else if (($_GET['shopitem'] ?? '') == 'stones') {
 		$txt['pagetitle']     .= ' - Pedras';
@@ -3187,4 +3187,13 @@ $txt['league_champions'] = 'Чемпионы';
 $txt['fountain_use_count'] = 'Количество использований базового фонтана';
 $txt['evolve_text'] = 'Ваш покемон достиг новой стадии и сейчас эволюционирует в %s. Если вы этого не хотите, нажмите <b>"ОСТАНОВИТЬ ЭВОЛЮЦИЮ"</b>, иначе нажмите <b>"ЭВОЛЮЦИЯ!"</b>.';
 /* === end externalized strings === */
+
+$txt['battle_multi_hit'] = '%s попадает %d раз.';
+$txt['battle_parental_hit'] = '%s попадает %d раз благодаря Parental Bond.';
+$txt['battle_recoil'] = '%s получает урон от отдачи.';
+$txt['battle_copy_move'] = '%s копирует атаку %s!';
+$txt['battle_copy_pokemon'] = '%s копирует %s.';
+$txt['battle_rocket_exit'] = 'Команда R снова улетает!';
+$txt['battle_opponent_must_attack'] = 'Соперник должен атаковать!';
+$txt['league_battle_created'] = 'Бой создан!<br />Переход к бою …';
 ?>
